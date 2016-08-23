@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,26 +44,26 @@ public class YearEndObjectCodePersistenceUtils {
      */
     protected static void persistPreviousYearObjectCode(AccountingLine accountingLine, Set<String> storedObjectCodes) {
         ObjectCode objectCode = new ObjectCode();
-        
+
         final Integer postingYear = new Integer(SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear().intValue() - 1);
         final ObjectCodeService objectCodeService = SpringContext.getBean(ObjectCodeService.class);
-        
+
         final ObjectCode existingObjectCode = objectCodeService.getByPrimaryId(postingYear, accountingLine.getChartOfAccountsCode(), accountingLine.getFinancialObjectCode());
-        
+
         if (existingObjectCode == null) {
             objectCode.setUniversityFiscalYear(postingYear);
             objectCode.setChartOfAccountsCode(accountingLine.getChartOfAccountsCode());
             objectCode.setFinancialObjectCode(accountingLine.getFinancialObjectCode());
-            
+
             if (!storedObjectCodes.contains(buildObjectCodeString(objectCode))) {
                 final ObjectCode alObjectCode = accountingLine.getObjectCode();
                 copyObjectCodeNonPKProperties(objectCode, alObjectCode);
-                
+
                 SpringContext.getBean(BusinessObjectService.class).save(objectCode);
                 storedObjectCodes.add(buildObjectCodeString(objectCode));
             }
         }
-        
+
         // now, find the offset object code and add that if needed
         final OffsetDefinitionService offsetDefinitionService = SpringContext.getBean(OffsetDefinitionService.class);
         final OffsetDefinition offsetDefinition = offsetDefinitionService.getByPrimaryId(accountingLine.getPostingYear(), accountingLine.getChartOfAccountsCode(), "YEGE", KFSConstants.BALANCE_TYPE_ACTUAL);
@@ -85,7 +85,7 @@ public class YearEndObjectCodePersistenceUtils {
             }
         }
     }
-    
+
     /**
      * Copies the non primary key properties on an object code from the source to the target
      * @param target the object code to copy to
@@ -104,7 +104,7 @@ public class YearEndObjectCodePersistenceUtils {
         target.setFinObjMandatoryTrnfrelimCd(source.getFinObjMandatoryTrnfrelimCd());
         target.setFinancialFederalFundedCode(source.getFinancialFederalFundedCode());
     }
-    
+
     /**
      * Persists all object codes used on a document in the previous year
      * @param document the document with object codes to persist to the previous year
@@ -121,7 +121,7 @@ public class YearEndObjectCodePersistenceUtils {
         }
         return storedObjectCodes;
     }
-    
+
     /**
      * Deletes all of the object codes saved to make this test work
      * @param objectCodesToDelete the object codes to remove
@@ -133,7 +133,7 @@ public class YearEndObjectCodePersistenceUtils {
             boService.delete(objectCode);
         }
     }
-    
+
     /**
      * Builds a unique and complete String representation of the PK of an object code
      * @param objectCode the object code to build a represenation of
@@ -142,7 +142,7 @@ public class YearEndObjectCodePersistenceUtils {
     protected static String buildObjectCodeString(ObjectCode objectCode) {
         return objectCode.getUniversityFiscalYear()+"::"+objectCode.getChartOfAccountsCode()+"::"+objectCode.getFinancialObjectCode();
     }
-    
+
     /**
      * From the given representation, builds an object code with all the primary key fields filled in, so it can be deleted
      * @return an object code with PK fields filled in

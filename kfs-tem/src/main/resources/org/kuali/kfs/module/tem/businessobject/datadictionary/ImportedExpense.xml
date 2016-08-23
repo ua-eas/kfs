@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -35,13 +35,13 @@
 				<ref bean="ImportedExpense-currencyRate" />
 				<ref bean="ImportedExpense-expenseTypeObjectCodeId" />
 				<ref bean="ImportedExpense-travelCompanyCodeName" />
-				<ref bean="ImportedExpense-versionNumber" />			
+				<ref bean="ImportedExpense-versionNumber" />
 				<ref bean="ImportedExpense-documentLineNumber" />
 				<ref bean="ImportedExpense-expenseParentId" />
 				<ref bean="ImportedExpense-nonReimbursable" />
 				<ref bean="ImportedExpense-taxable" />
 				<ref bean="ImportedExpense-missingReceipt" />
-				<ref bean="ImportedExpense-convertedAmount" />	
+				<ref bean="ImportedExpense-convertedAmount" />
 				<ref bean="ImportedExpense-cardType" />
 				<ref bean="ImportedExpense-receiptRequired" />
 			</list>
@@ -154,12 +154,12 @@
       <property name="label" value="Company Name" />
       <property name="required" value="true" />
       <property name="summary" value="Company Name " />
-      <property name="description" value="Company name related to a TravelExpense Type Code" />      
+      <property name="description" value="Company name related to a TravelExpense Type Code" />
       <property name="shortLabel" value="Company Name"/>
-      <property name="maxLength" value="40"/>      
-      <property name="control"><bean parent="TextControlDefinition" p:size="30"/></property>   
+      <property name="maxLength" value="40"/>
+      <property name="control"><bean parent="TextControlDefinition" p:size="30"/></property>
     </bean>
-    
+
     <bean id="ImportedExpense-documentLineNumber" parent="ImportedExpense-documentLineNumber-parentBean" />
 	<bean id="ImportedExpense-documentLineNumber-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="documentLineNumber" />
@@ -171,7 +171,7 @@
 		<property name="description" value="Document Line Number" />
 		<property name="control"><bean parent="TextControlDefinition" p:size="19"/></property>
 	</bean>
-	
+
 	<bean id="ImportedExpense-expenseParentId" parent="ImportedExpense-expenseParentId-parentBean" />
 	<bean id="ImportedExpense-expenseParentId-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="expenseParentId" />
@@ -182,19 +182,19 @@
 		<property name="summary" value="Parent Id" />
 		<property name="description" value="Parent Id" />
 		<property name="control"><bean parent="TextControlDefinition" p:size="19"/></property>
-	</bean>     
-    
-    <bean id="ImportedExpense-nonReimbursable" parent="ImportedExpense-nonReimbursable-parentBean" />	
-	<bean id="ImportedExpense-nonReimbursable-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">		
+	</bean>
+
+    <bean id="ImportedExpense-nonReimbursable" parent="ImportedExpense-nonReimbursable-parentBean" />
+	<bean id="ImportedExpense-nonReimbursable-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
 		<property name="name" value="nonReimbursable" />
 		<property name="label" value="Non- Reimbursable" />
 		<property name="shortLabel" value="Non- Reimbursable" />
 		<property name="maxLength" value="1" />
 		<property name="required" value="false" />
 		<property name="summary" value="Non Reimbursable" />
-		<property name="description" value="Non- Reimbursable" />		
+		<property name="description" value="Non- Reimbursable" />
 	</bean>
-	
+
     <bean id="ImportedExpense-taxable" parent="ImportedExpense-taxable-parentBean" />
 	<bean id="ImportedExpense-taxable-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
 		<property name="name" value="taxable" />
@@ -203,9 +203,9 @@
 		<property name="maxLength" value="1" />
 		<property name="required" value="false" />
 		<property name="summary" value="Taxable" />
-		<property name="description" value="Taxable" />		
+		<property name="description" value="Taxable" />
 	</bean>
-	
+
 	<bean id="ImportedExpense-missingReceipt" parent="ImportedExpense-missingReceipt-parentBean" />
 	<bean id="ImportedExpense-missingReceipt-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
 		<property name="name" value="missingReceipt" />
@@ -214,7 +214,7 @@
 		<property name="maxLength" value="1" />
 		<property name="required" value="false" />
 		<property name="summary" value="Missing Receipt" />
-		<property name="description" value="Missing Receipt" />		
+		<property name="description" value="Missing Receipt" />
 	</bean>
     <bean id="ImportedExpense-receiptRequired" parent="ImportedExpense-receiptRequired-parentBean" />
 	<bean id="ImportedExpense-receiptRequired-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
@@ -224,10 +224,10 @@
 		<property name="maxLength" value="1" />
 		<property name="required" value="false" />
 		<property name="summary" value="Receipt Required" />
-		<property name="description" value="Receipt Required" />		
+		<property name="description" value="Receipt Required" />
 	</bean>
-	
-    
+
+
 	<bean id="ImportedExpense-versionNumber" parent="ImportedExpense-versionNumber-parentBean" />
 	<bean id="ImportedExpense-versionNumber-parentBean" abstract="true" parent="GenericAttributes-versionNumber">
 		<property name="name" value="versionNumber" />

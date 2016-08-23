@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-      
+
 
   <bean id="AccountDelegateGlobalMaintenanceDocument" parent="AccountDelegateGlobalMaintenanceDocument-parentBean"/>
 
@@ -42,7 +42,7 @@
       <list>
         <value>../dwr/interface/AccountService.js</value>
         <value>../scripts/coa/accountGlobal.js</value>
-        <value>../scripts/coa/accountDelegateGlobalDetail.js</value>        
+        <value>../scripts/coa/accountDelegateGlobalDetail.js</value>
         <value>../scripts/sys/objectInfo.js</value>
       </list>
     </property>
@@ -80,7 +80,7 @@
               <bean parent="MaintainableFieldDefinition" p:name="accountDelegateStartDate" p:required="true" p:defaultValueFinderClass="org.kuali.kfs.sys.businessobject.defaultvalue.CurrentDateMMDDYYYYFinder"/>
               <bean parent="MaintainableFieldDefinition" p:name="accountDelegateUniversalId" p:unconditionallyReadOnly="true" p:required="true"/>
               <bean parent="MaintainableFieldDefinition" p:name="accountDelegate.principalName" p:required="true" p:webUILeaveFieldFunction="principalNameLookup"/>
-              <bean parent="MaintainableFieldDefinition" p:name="accountDelegate.name" p:unconditionallyReadOnly="true" p:required="false"/>              
+              <bean parent="MaintainableFieldDefinition" p:name="accountDelegate.name" p:unconditionallyReadOnly="true" p:required="false"/>
               <bean parent="MaintainableFieldDefinition" p:name="approvalFromThisAmount"/>
               <bean parent="MaintainableFieldDefinition" p:name="approvalToThisAmount"/>
               <bean parent="MaintainableFieldDefinition" p:name="newCollectionRecord"/>
@@ -137,7 +137,7 @@
 
 	<!-- workflow attributes -->
   	<bean id="AccountDelegateGlobalMaintenanceDocument-workflowAttributes" parent="AccountDelegateGlobalMaintenanceDocument-workflowAttributes-parentBean"/>
-  
+
 	<bean id="AccountDelegateGlobalMaintenanceDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
 		<property name="routingTypeDefinitions">
     		<map>
@@ -146,9 +146,9 @@
     			<entry key="Account" value-ref="AccountDelegateGlobalMaintenanceDocument-RoutingType-Account" />
     		</map>
 		</property>
-		
+
 	</bean>
-	
+
 	<bean id="AccountDelegateGlobalMaintenanceDocument-DocumentValuePathGroup-ChartOrganization" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
     	<property name="documentCollectionPath">
     		<bean parent="AccountDelegateGlobalMaintenanceDocument-DocumentCollectionPath-chartAndOrganization">
@@ -156,7 +156,7 @@
     		</bean>
     	</property>
    	</bean>
-   	
+
    	 <bean id="AccountDelegateGlobalMaintenanceDocument-DocumentCollectionPath-chartAndOrganization" class="org.kuali.kfs.krad.datadictionary.DocumentCollectionPath" abstract="true">
 		<property name="documentValues">
 	   		<list>
@@ -165,7 +165,7 @@
 	   		</list>
    		</property>
    	</bean>
-   	
+
    	<bean id="AccountDelegateGlobalMaintenanceDocument-DocumentValuePathGroup-ChartAccountNumber" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
     	<property name="documentCollectionPath">
     		<bean parent="AccountDelegateGlobalMaintenanceDocument-DocumentCollectionPath-chartAndAccountNumber">
@@ -173,7 +173,7 @@
     		</bean>
     	</property>
    	</bean>
-   	
+
    	<bean id="AccountDelegateGlobalMaintenanceDocument-DocumentCollectionPath-chartAndAccountNumber" class="org.kuali.kfs.krad.datadictionary.DocumentCollectionPath" abstract="true">
 		<property name="documentValues">
 	   		<list>
@@ -182,7 +182,7 @@
 	   		</list>
    		</property>
    	</bean>
-   	
+
    	<bean id="AccountDelegateGlobalMaintenanceDocument-DocumentValuePathGroup-Chart" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
     	<property name="documentCollectionPath">
     		<bean parent="AccountDelegateGlobalMaintenanceDocument-DocumentCollectionPath-chart">
@@ -190,7 +190,7 @@
     		</bean>
     	</property>
    	</bean>
-   	
+
    	 <bean id="AccountDelegateGlobalMaintenanceDocument-DocumentCollectionPath-chart" class="org.kuali.kfs.krad.datadictionary.DocumentCollectionPath" abstract="true">
 		<property name="documentValues">
 	   		<list>
@@ -198,7 +198,7 @@
 	   		</list>
    		</property>
    	</bean>
-   	
+
    	<bean id="AccountDelegateGlobalMaintenanceDocument-RoutingType-OrganizationHierarchy" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
@@ -212,7 +212,7 @@
     		</list>
     	</property>
     </bean>
-   	
+
 	<bean id="AccountDelegateGlobalMaintenanceDocument-RoutingType-Chart" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
@@ -225,7 +225,7 @@
     		</list>
     	</property>
     </bean>
-    
+
     <bean id="AccountDelegateGlobalMaintenanceDocument-RoutingType-Account" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
@@ -239,5 +239,5 @@
     		</list>
     	</property>
     </bean>
-		
+
 </beans>

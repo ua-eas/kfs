@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,7 +49,7 @@ import org.kuali.kfs.krad.util.UrlFactory;
  * assets.
  */
 public class AssetPaymentLookupableHelperServiceImpl extends AssetLookupableHelperServiceImpl {
-    
+
     protected BusinessObjectService businessObjectService;
 
     /**
@@ -69,7 +69,7 @@ public class AssetPaymentLookupableHelperServiceImpl extends AssetLookupableHelp
         assetPrimaryKey.add(CamsPropertyConstants.Asset.CAPITAL_ASSET_NUMBER);
 
         List<HtmlData> anchorHtmlDataList = new ArrayList<HtmlData>();
-        
+
         // For retired asset, all action link will be hidden.
         if (assetService.isAssetRetired(asset)) {
             anchorHtmlDataList.add(super.getViewAssetUrl(asset));
@@ -93,7 +93,7 @@ public class AssetPaymentLookupableHelperServiceImpl extends AssetLookupableHelp
     public HtmlData getInquiryUrl(BusinessObject businessObject, String propertyName) {
         if (KFSPropertyConstants.DOCUMENT_NUMBER.equals(propertyName)) {
             AssetPayment assetPayment = (AssetPayment) businessObject;
-            
+
             if (ObjectUtils.isNull(assetPayment.getDocumentHeader())) {
                 // If the document isn't found, don't show the inquirable
                 return new AnchorHtmlData(KFSConstants.EMPTY_STRING, KFSConstants.EMPTY_STRING);
@@ -105,7 +105,7 @@ public class AssetPaymentLookupableHelperServiceImpl extends AssetLookupableHelp
     protected HtmlData getPaymentUrl(Asset asset) {
         AssetPaymentDocumentAuthorizer assetPaymentAuhorizer =new AssetPaymentDocumentAuthorizer();
         boolean isAuhtorize = assetPaymentAuhorizer.canInitiate(CamsConstants.DocumentTypeName.ASSET_PAYMENT, GlobalVariables.getUserSession().getPerson());
-        
+
         if (assetService.isCapitalAsset(asset) && isAuhtorize) {
             Properties parameters = new Properties();
             parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KRADConstants.DOC_HANDLER_METHOD);
@@ -121,10 +121,10 @@ public class AssetPaymentLookupableHelperServiceImpl extends AssetLookupableHelp
         }
     }
 
-    
+
     protected HtmlData getSeparateUrl(AssetPayment assetPayment) {
         Asset asset = assetPayment.getAsset();
-        
+
         FinancialSystemMaintenanceDocumentAuthorizerBase documentAuthorizer = (FinancialSystemMaintenanceDocumentAuthorizerBase) SpringContext.getBean(DocumentDictionaryService.class).getDocumentAuthorizer(CamsConstants.DocumentTypeName.ASSET_ADD_GLOBAL);
         boolean isAuthorized = documentAuthorizer.isAuthorized(asset, CamsConstants.CAM_MODULE_CODE, CamsConstants.PermissionNames.SEPARATE, GlobalVariables.getUserSession().getPerson().getPrincipalId());
 
@@ -137,17 +137,17 @@ public class AssetPaymentLookupableHelperServiceImpl extends AssetLookupableHelp
                 return new AnchorHtmlData("", "", "");
             }
         }
-        
+
     protected HtmlData getAssetUrl(Asset asset) {
         AssetAuthorizer assetAuthorizer = new AssetAuthorizer();
         boolean isAuthorized = assetAuthorizer.canMaintain(asset, GlobalVariables.getUserSession().getPerson());
-        
+
         if (isAuthorized) {
-            Properties parameters = new Properties();            
+            Properties parameters = new Properties();
             parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KFSConstants.MAINTENANCE_EDIT_METHOD_TO_CALL);
             parameters.put(CamsPropertyConstants.AssetPaymentDocument.CAPITAL_ASSET_NUMBER, asset.getCapitalAssetNumber().toString());
             parameters.put(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE, Asset.class.getName());
-    
+
             String href = UrlFactory.parameterizeUrl(KFSConstants.MAINTENANCE_ACTION, parameters);
             return new AnchorHtmlData(href, KFSConstants.MAINTENANCE_EDIT_METHOD_TO_CALL, KFSConstants.MAINTENANCE_EDIT_METHOD_TO_CALL);
         } else {
@@ -157,7 +157,7 @@ public class AssetPaymentLookupableHelperServiceImpl extends AssetLookupableHelp
 
     /**
      * Gets the businessObjectService attribute.
-     * 
+     *
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -166,7 +166,7 @@ public class AssetPaymentLookupableHelperServiceImpl extends AssetLookupableHelp
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {

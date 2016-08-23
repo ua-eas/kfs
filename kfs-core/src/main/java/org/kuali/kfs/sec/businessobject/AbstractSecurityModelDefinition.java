@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,7 +36,7 @@ public abstract class AbstractSecurityModelDefinition extends PersistableBusines
 
     /**
      * Gets the definitionId attribute.
-     * 
+     *
      * @return Returns the definitionId.
      */
     public KualiInteger getDefinitionId() {
@@ -46,7 +46,7 @@ public abstract class AbstractSecurityModelDefinition extends PersistableBusines
 
     /**
      * Sets the definitionId attribute value.
-     * 
+     *
      * @param definitionId The definitionId to set.
      */
     public void setDefinitionId(KualiInteger definitionId) {
@@ -56,7 +56,7 @@ public abstract class AbstractSecurityModelDefinition extends PersistableBusines
 
     /**
      * Gets the attributeValue attribute.
-     * 
+     *
      * @return Returns the attributeValue.
      */
     public String getAttributeValue() {
@@ -66,7 +66,7 @@ public abstract class AbstractSecurityModelDefinition extends PersistableBusines
 
     /**
      * Sets the attributeValue attribute value.
-     * 
+     *
      * @param attributeValue The attributeValue to set.
      */
     public void setAttributeValue(String attributeValue) {
@@ -76,7 +76,7 @@ public abstract class AbstractSecurityModelDefinition extends PersistableBusines
 
     /**
      * Gets the operatorCode attribute.
-     * 
+     *
      * @return Returns the operatorCode.
      */
     public String getOperatorCode() {
@@ -86,7 +86,7 @@ public abstract class AbstractSecurityModelDefinition extends PersistableBusines
 
     /**
      * Sets the operatorCode attribute value.
-     * 
+     *
      * @param operatorCode The operatorCode to set.
      */
     public void setOperatorCode(String operatorCode) {
@@ -96,7 +96,7 @@ public abstract class AbstractSecurityModelDefinition extends PersistableBusines
 
     /**
      * Gets the constraintCode attribute.
-     * 
+     *
      * @return Returns the constraintCode.
      */
     public String getConstraintCode() {
@@ -106,7 +106,7 @@ public abstract class AbstractSecurityModelDefinition extends PersistableBusines
 
     /**
      * Sets the constraintCode attribute value.
-     * 
+     *
      * @param constraintCode The constraintCode to set.
      */
     public void setConstraintCode(String constraintCode) {
@@ -116,7 +116,7 @@ public abstract class AbstractSecurityModelDefinition extends PersistableBusines
 
     /**
      * Gets the overrideDeny attribute.
-     * 
+     *
      * @return Returns the overrideDeny.
      */
     public boolean isOverrideDeny() {
@@ -126,7 +126,7 @@ public abstract class AbstractSecurityModelDefinition extends PersistableBusines
 
     /**
      * Sets the overrideDeny attribute value.
-     * 
+     *
      * @param overrideDeny The overrideDeny to set.
      */
     public void setOverrideDeny(boolean overrideDeny) {
@@ -136,7 +136,7 @@ public abstract class AbstractSecurityModelDefinition extends PersistableBusines
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -146,7 +146,7 @@ public abstract class AbstractSecurityModelDefinition extends PersistableBusines
 
     /**
      * Sets the active attribute value.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {
@@ -156,7 +156,7 @@ public abstract class AbstractSecurityModelDefinition extends PersistableBusines
 
     /**
      * Gets the securityDefinition attribute.
-     * 
+     *
      * @return Returns the securityDefinition.
      */
     public SecurityDefinition getSecurityDefinition() {
@@ -166,13 +166,13 @@ public abstract class AbstractSecurityModelDefinition extends PersistableBusines
 
     /**
      * Sets the securityDefinition attribute value.
-     * 
+     *
      * @param securityDefinition The securityDefinition to set.
      */
     public void setSecurityDefinition(SecurityDefinition securityDefinition) {
         this.securityDefinition = securityDefinition;
     }
-    
+
     public String getPrettyPrint() {
         if ( ObjectUtils.isNotNull(securityDefinition) && ObjectUtils.isNotNull(securityDefinition.getSecurityAttribute()) ) {
             return securityDefinition.getSecurityAttribute().getName() + " " + operatorCode + " " + attributeValue + "(" + constraintCode + ")";

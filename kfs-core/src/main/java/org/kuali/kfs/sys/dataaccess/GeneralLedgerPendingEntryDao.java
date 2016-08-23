@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,7 +36,7 @@ public interface GeneralLedgerPendingEntryDao {
 
     /**
      * Get summary of amounts in the pending entry table
-     * 
+     *
      * @param universityFiscalYear
      * @param chartOfAccountsCode
      * @param accountNumber
@@ -49,7 +49,7 @@ public interface GeneralLedgerPendingEntryDao {
 
     /**
      * Get summary of amounts in the pending entry table
-     * 
+     *
      * @param universityFiscalYear
      * @param chartOfAccountsCode
      * @param accountNumber
@@ -65,7 +65,7 @@ public interface GeneralLedgerPendingEntryDao {
 
     /**
      * Get summary of amounts in the pending entry table
-     * 
+     *
      * @param universityFiscalYear
      * @param chartOfAccountsCode
      * @param accountNumber
@@ -79,7 +79,7 @@ public interface GeneralLedgerPendingEntryDao {
 
     /**
      * Find Pending Entries
-     * 
+     *
      * @param fieldValues
      * @param isApproved
      * @param currentFiscalPeriodCode
@@ -92,28 +92,28 @@ public interface GeneralLedgerPendingEntryDao {
 
     /**
      * Delete all pending entries for a given document
-     * 
+     *
      * @param documentHeaderId
      */
     public void delete(String documentHeaderId);
 
     /**
      * Delete all pending entries based on the document approved code
-     * 
+     *
      * @param financialDocumentApprovedCode
      */
     public void deleteByFinancialDocumentApprovedCode(String financialDocumentApprovedCode);
 
     /**
      * This method retrieves all approved pending ledger entries
-     * 
+     *
      * @return all approved pending ledger entries
      */
     public Iterator findApprovedPendingLedgerEntries();
 
     /**
      * This method counts all approved pending ledger entries by account
-     * 
+     *
      * @param account the given account
      * @return count of entries
      */
@@ -121,7 +121,7 @@ public interface GeneralLedgerPendingEntryDao {
 
     /**
      * This method retrieves all pending ledger entries for the given encumbrance
-     * 
+     *
      * @param encumbrance the encumbrance entry in the GL_Encumbrance_T table
      * @param isApproved the flag that indicates whether the pending entries are approved or don't care
      * @return all pending ledger entries of the given encumbrance
@@ -130,7 +130,7 @@ public interface GeneralLedgerPendingEntryDao {
 
     /**
      * This method retrieves all pending ledger entries for the given encumbrance
-     * 
+     *
      * @param balance the balance entry
      * @param isApproved the flag that indicates whether the pending entries are approved or don't care
      * @param isConsolidated consolidation option is applied or not
@@ -140,7 +140,7 @@ public interface GeneralLedgerPendingEntryDao {
 
     /**
      * This method retrieves all pending ledger entries matching the given entry criteria
-     * 
+     *
      * @param isApproved the flag that indicates whether the pending entries are approved or don't care
      * @param fieldValues the input fields and values
      * @param currentFiscalPeriodCode current fiscal year period code
@@ -152,7 +152,7 @@ public interface GeneralLedgerPendingEntryDao {
 
     /**
      * This method retrieves all pending ledger entries matching the given balance criteria
-     * 
+     *
      * @param isApproved the flag that indicates whether the pending entries are approved or don't care
      * @param fieldValues the input fields and values
      * @param currentFiscalPeriodCode current fiscal year period code
@@ -164,7 +164,7 @@ public interface GeneralLedgerPendingEntryDao {
 
     /**
      * This method retrieves all pending ledger entries matching the given cash balance criteria
-     * 
+     *
      * @param isApproved the flag that indicates whether the pending entries are approved or don't care
      * @param fieldValues the input fields and values
      * @param currentFiscalPeriodCode current fiscal year period code
@@ -177,7 +177,7 @@ public interface GeneralLedgerPendingEntryDao {
 
     /**
      * This method retrieves all pending ledger entries that may belong to encumbrance table in the future
-     * 
+     *
      * @param isApproved the flag that indicates whether the pending entries are approved or don't care
      * @param fieldValues the input fields and values
      * @param currentFiscalPeriodCode current fiscal year period code
@@ -191,7 +191,7 @@ public interface GeneralLedgerPendingEntryDao {
 
     /**
      * This method retrieves all pending ledger entries that may belong to the given account balance record in the future
-     * 
+     *
      * @param fieldValues the input fields and values
      * @param isApproved the flag that indicates whether the pending entries are approved or don't care
      * @param currentFiscalPeriodCode current fiscal year period code
@@ -204,7 +204,7 @@ public interface GeneralLedgerPendingEntryDao {
 
     /**
      * This method retrieves all pending ledger entries that may belong to the given account balance record in the future
-     * 
+     *
      * @param fieldValues the input fields and values
      * @param isApproved the flag that indicates whether the pending entries are approved or don't care
      * @param currentFiscalPeriodCode current fiscal year period code

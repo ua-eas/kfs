@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -75,7 +75,7 @@ public class KRADServiceLocatorInternal {
     }
 
     public static final String INACTIVATION_BLOCKING_DISPLAY_SERVICE = "inactivationBlockingDisplayService";
-    
+
     public static InactivationBlockingDisplayService getInactivationBlockingDisplayService() {
     	return (InactivationBlockingDisplayService) getService(INACTIVATION_BLOCKING_DISPLAY_SERVICE);
     }
@@ -86,42 +86,42 @@ public class KRADServiceLocatorInternal {
         return getService(DATA_DICTIONARY_COMPONENT_PUBLISHER_SERVICE);
     }
 
-    
+
     public static final String DOCUMENT_DAO = "cf.documentDao";
-    
+
     public static DocumentDao getDocumentDao() {
         return (DocumentDao) getService(DOCUMENT_DAO);
     }
-    
+
     public static final String BUSINESS_OBJECT_DAO = "cf.businessObjectDao";
-    
+
     public static BusinessObjectDao getBusinessObjectDao() {
         return (BusinessObjectDao) getService(BUSINESS_OBJECT_DAO);
     }
-    
+
 
    public static final String DB_PLATFORM = "dbPlatform";
-    
+
     public static DatabasePlatform getDatabasePlatform() {
         return (DatabasePlatform) getService(DB_PLATFORM);
     }
-    
+
     public static final String MAINTENANCE_DOCUMENT_AUTHORIZATION_SERVICE = "maintenanceDocumentAuthorizationService";
-    
+
     public static BusinessObjectAuthorizationService getMaintenanceDocumentAuthorizationService() {
     	return (BusinessObjectAuthorizationService) getService(MAINTENANCE_DOCUMENT_AUTHORIZATION_SERVICE);
     }
 
     public static final String WORKFLOW_ATTRIBUTE_PROPERTY_RESOLUTION_SERVICE = "cf.workflowAttributePropertyResolutionService";
-    
+
     public static WorkflowAttributePropertyResolutionService getWorkflowAttributePropertyResolutionService() {
     	return (WorkflowAttributePropertyResolutionService) getService(WORKFLOW_ATTRIBUTE_PROPERTY_RESOLUTION_SERVICE);
     }
-    
+
     public static final String INACTIVATEABLE_FROM_TO_SERVICE = "inactivateableFromToService";
-    
+
     public static InactivateableFromToService getInactivateableFromToService() {
     	return (InactivateableFromToService) getService(INACTIVATEABLE_FROM_TO_SERVICE);
     }
-    
+
 }

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,12 +44,12 @@ public class AccountingLineViewMultipleReadOnlyFields extends FieldTableJoiningW
     private AccountingLineViewMultipleReadOnlyFieldsDefinition definition;
     private List<Field> fields;
     private static DataDictionaryService dataDictionaryService;
-    
+
     /**
      * Constructs a AccountingLineViewMultipleReadOnlyFields
      * @param definition data dictionary definition which created this
-     * @param fields the fields to render as read only 
-     * 
+     * @param fields the fields to render as read only
+     *
      * KRAD Conversion: Customization of the fields - No use of data dictionary
      */
     public AccountingLineViewMultipleReadOnlyFields(AccountingLineViewMultipleReadOnlyFieldsDefinition definition, List<Field> fields) {
@@ -58,7 +58,7 @@ public class AccountingLineViewMultipleReadOnlyFields extends FieldTableJoiningW
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoiningWithHeader#createHeaderLabel()
      */
     public HeaderLabel createHeaderLabel() {
@@ -87,7 +87,7 @@ public class AccountingLineViewMultipleReadOnlyFields extends FieldTableJoiningW
 
     /**
      * @return the fields associated with this Multiple read only fields
-     * 
+     *
      * KRAD Conversion: Gets the fields - No use of data dictionary
      */
     public List<Field> getFields() {
@@ -95,9 +95,9 @@ public class AccountingLineViewMultipleReadOnlyFields extends FieldTableJoiningW
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#renderElement(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag, org.kuali.kfs.sys.document.web.AccountingLineRenderingContext)
-     * 
+     *
      * KRAD Conversion: Customization of the fields - No use of data dictionary
      */
     public void renderElement(PageContext pageContext, Tag parentTag, AccountingLineRenderingContext renderingContext) throws JspException {
@@ -109,42 +109,42 @@ public class AccountingLineViewMultipleReadOnlyFields extends FieldTableJoiningW
                 setInquiryUrlForField(field, renderingContext.getAccountingLine());
             }
         }
-        
+
         MultipleReadOnlyFieldsRenderer renderer = new MultipleReadOnlyFieldsRenderer();
         renderer.setFields(getFields());
         renderer.render(pageContext, parentTag);
         renderer.clear();
     }
-    
+
     /**
      * For each field, set the short label, or, failing that, set the label
      * @param boEntry the business object entry for the accounting line
-     * 
+     *
      * KRAD Conversion: Customization of the fields - Uses data dictionary
-     * 
+     *
      */
     protected void setShortLabelsForFields(Field field, BusinessObjectEntry boEntry) {
         final AttributeDefinition propertyDefinition = boEntry.getAttributeDefinition(field.getPropertyName());
         final String label = (propertyDefinition == null) ? "" : (!StringUtils.isBlank(propertyDefinition.getShortLabel()) ? propertyDefinition.getShortLabel() : propertyDefinition.getLabel());
         field.setFieldLabel(label);
     }
-    
+
     /**
      * Sets the value for the field before rendering
      * @param field the field to set the value of
      * @param accountingLine the accounting line the field is associated with, which holds the value
-     * 
+     *
      * KRAD Conversion: Setting the property value of the field - No use of data dictionary
      */
     protected void setValueForField(Field field, AccountingLine accountingLine) {
         field.setPropertyValue(ObjectUtils.getPropertyValue(accountingLine, field.getPropertyName()));
     }
-    
+
     /**
      * Populates the inquiry url on the field if possible
      * @param field the field to set the inquiry url on
      * @param accountingLine the accounting line holding values for the field
-     * 
+     *
      * KRAD Conversion: Setting inquiry url for the fields - No use of data dictionary
      */
     protected void setInquiryUrlForField(Field field, AccountingLine accountingLine) {
@@ -152,7 +152,7 @@ public class AccountingLineViewMultipleReadOnlyFields extends FieldTableJoiningW
             FieldUtils.setInquiryURL(field, accountingLine, field.getPropertyName());
         }
     }
-    
+
     /**
      * @return the implementation of the DataDictionaryService
      */

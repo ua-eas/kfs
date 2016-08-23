@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -97,16 +97,16 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
                     Collection<String> copyErrors = fiscalYearMakersDao.createNewYearRows(baseYear, fiscalYearMaker, replaceMode, parentKeysWritten, isParent);
                     writeCopyFailureMessages(copyErrors);
                 }
-    
+
                 fiscalYearMaker.performCustomProcessing(baseYear, true);
-    
+
                 // if copy two years call copy procedure again to copy records from base year + 1 to base year + 2
                 if (fiscalYearMaker.isTwoYearCopy()) {
                     if (!fiscalYearMaker.doCustomProcessingOnly()) {
                         Collection<String> copyErrors = fiscalYearMakersDao.createNewYearRows(baseYear + 1, fiscalYearMaker, replaceMode, parentKeysWritten, isParent);
                         writeCopyFailureMessages(copyErrors);
                     }
-    
+
                     fiscalYearMaker.performCustomProcessing(baseYear + 1, false);
                 }
             } catch ( Exception ex ) {
@@ -118,7 +118,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
     /**
      * Returns List of <code>FiscalYearMaker</code> objects in the order they should be copied. Ordered by Parent classes first then
      * children. This is necessary to ensure referential integrity is satisfied when the new record is inserted.
-     * 
+     *
      * @return List<FiscalYearMaker> in copy order
      */
     protected List<FiscalYearMaker> getFiscalYearMakerHelpersInCopyOrder() {
@@ -166,7 +166,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
     /**
      * Returns List of <code>FiscalYearMaker</code> objects in the order they should be deleted. Ordered by Child classes first then
      * Parents. This is necessary to ensure referential integrity is satisfied when the new record is deleted.
-     * 
+     *
      * @param fiscalYearMakerHelpersCopyOrder list of fiscal year makers in copy order
      * @return List<FiscalYearMaker> in delete order
      */
@@ -182,7 +182,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
     /**
      * Finds circular references (class which is a child to itself) and throws exception indicating the invalid parent-child
      * configuration
-     * 
+     *
      * @param parents Set of parent classes to check
      * @param parentChildren Map with parent class as the key and its children classes as value
      */
@@ -206,7 +206,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
 
     /**
      * Recursively checks all children of children who are parents for reference to the given parent class
-     * 
+     *
      * @param parent Class of parent to check for
      * @param children Set of children classes to check
      * @param parentChildren Map with parent class as the key and its children classes as value
@@ -238,7 +238,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
 
     /**
      * Helper method to build a Map with Parent classes as the key and their Set of child classes as the value
-     * 
+     *
      * @return Map<Class, Set<Class>> of parent to children classes
      */
     protected Map<Class<? extends FiscalYearBasedBusinessObject>, Set<Class<? extends FiscalYearBasedBusinessObject>>> getParentChildrenMap() {
@@ -261,7 +261,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
 
     /**
      * Checks if the given class is a parent (to at least one other class)
-     * 
+     *
      * @param businessObjectClass class to check
      * @return true if class is a parent, false otherwise
      */
@@ -280,7 +280,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
 
     /**
      * Gets all classes that are child of another class in the given Map
-     * 
+     *
      * @param parentChildren Map with parent class as the key and its children classes as value
      * @return Set of classes that are a child of another class
      */
@@ -297,7 +297,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
     /**
      * Helper method to build a Map with the copy class as the key and its corresponding <code>FiscalYearMaker</code> as the Map
      * value
-     * 
+     *
      * @return Map<Class, FiscalYearMaker> of copy classes to FiscalYearMaker objects
      */
     protected Map<Class<? extends FiscalYearBasedBusinessObject>, FiscalYearMaker> getFiscalYearMakerMap() {
@@ -354,7 +354,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
 
     /**
      * Write outs errors encountered while creating new records for an object to LOG.
-     * 
+     *
      * @param copyErrors Collection of error messages to write
      */
     protected void writeCopyFailureMessages(Collection<String> copyErrors) {
@@ -381,7 +381,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
 
     /**
      * Sets the fiscalYearMakers attribute value.
-     * 
+     *
      * @param fiscalYearMakers The fiscalYearMakers to set.
      */
     protected void setFiscalYearMakers(List<FiscalYearMaker> fiscalYearMakers) {
@@ -390,7 +390,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
 
     /**
      * Sets the parameterService attribute value.
-     * 
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -399,7 +399,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
 
     /**
      * Sets the fiscalYearMakersDao attribute value.
-     * 
+     *
      * @param fiscalYearMakersDao The fiscalYearMakersDao to set.
      */
     public void setFiscalYearMakersDao(FiscalYearMakersDao fiscalYearMakersDao) {
@@ -408,7 +408,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
 
     /**
      * Sets the kualiModuleService attribute value.
-     * 
+     *
      * @param kualiModuleService The kualiModuleService to set.
      */
     public void setKualiModuleService(KualiModuleService kualiModuleService) {
@@ -417,7 +417,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
 
     /**
      * Gets the fiscalYearMakersDao attribute.
-     * 
+     *
      * @return Returns the fiscalYearMakersDao.
      */
     protected FiscalYearMakersDao getFiscalYearMakersDao() {
@@ -426,7 +426,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
 
     /**
      * Gets the parameterService attribute.
-     * 
+     *
      * @return Returns the parameterService.
      */
     protected ParameterService getParameterService() {
@@ -435,7 +435,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
 
     /**
      * Gets the kualiModuleService attribute.
-     * 
+     *
      * @return Returns the kualiModuleService.
      */
     protected KualiModuleService getKualiModuleService() {
@@ -444,7 +444,7 @@ public class FiscalYearMakerServiceImpl implements FiscalYearMakerService {
 
     /**
      * Gets the fiscalYearMakers attribute.
-     * 
+     *
      * @return Returns the fiscalYearMakers.
      */
     protected List<FiscalYearMaker> getFiscalYearMakers() {

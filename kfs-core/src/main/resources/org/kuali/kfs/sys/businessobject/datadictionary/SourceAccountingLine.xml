@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -74,10 +74,10 @@
            <bean parent="OrganizationRestriction"><property name="attribute" ref="SourceAccountingLine-account.organizationCode"/></bean>
            <bean parent="OrganizationHierarchyRestriction"><property name="attribute" ref="SourceAccountingLine-account.organizationCode"/></bean>
            <bean parent="ObjectLevelRestriction"><property name="attribute" ref="SourceAccountingLine-objectCode.financialObjectLevelCode"/></bean>
-           <bean parent="ObjectConsolidationRestriction"><property name="attribute" ref="SourceAccountingLine-objectCode.financialObjectLevel.financialConsolidationObjectCode"/></bean> 
-           <bean parent="ProjectCodeRestriction"><property name="attribute" ref="SourceAccountingLine-projectCode"/></bean>               
+           <bean parent="ObjectConsolidationRestriction"><property name="attribute" ref="SourceAccountingLine-objectCode.financialObjectLevel.financialConsolidationObjectCode"/></bean>
+           <bean parent="ProjectCodeRestriction"><property name="attribute" ref="SourceAccountingLine-projectCode"/></bean>
        </list>
-    </property>    
+    </property>
     <property name="relationships">
     	<list>
     		<bean parent="RelationshipDefinition">
@@ -157,8 +157,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="16"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="SourceAccountingLine-sequenceNumber" parent="SourceAccountingLine-sequenceNumber-parentBean"/>
 
@@ -192,8 +192,8 @@
     <property name="control">
       <ref bean="TenCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SourceAccountingLine-chartOfAccountsCode" parent="SourceAccountingLine-chartOfAccountsCode-parentBean"/>
 
@@ -201,7 +201,7 @@
     <property name="control">
       <ref bean="ChartSimpleSelectControl" />
     </property>
-    
+
   </bean>
   <bean id="SourceAccountingLine-postingYear" parent="SourceAccountingLine-postingYear-parentBean"/>
 
@@ -223,8 +223,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="14"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="SourceAccountingLine-overrideCode" parent="SourceAccountingLine-overrideCode-parentBean"/>
 
@@ -237,15 +237,15 @@
     <property name="control">
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.sys.businessobject.options.AccountingLineOverrideOptionFinder" p:includeKeyInLabel="false"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="SourceAccountingLine-amount" parent="SourceAccountingLine-amount-parentBean"/>
 
   <bean id="SourceAccountingLine-amount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="amount"/>
     <property name="required" value="true"/>
-    
+
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
   <bean id="SourceAccountingLine-subAccountNumber" parent="SourceAccountingLine-subAccountNumber-parentBean"/>
@@ -298,8 +298,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SourceAccountingLine-encumbranceUpdateCode" parent="SourceAccountingLine-encumbranceUpdateCode-parentBean"/>
 
@@ -315,8 +315,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SourceAccountingLine-objectTypeCode" parent="SourceAccountingLine-objectTypeCode-parentBean"/>
 
@@ -335,8 +335,8 @@
     <property name="control">
       <bean parent="CheckboxControlDefinition"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="SourceAccountingLine-nonFringeAccountOverride" parent="SourceAccountingLine-nonFringeAccountOverride-parentBean"/>
 
@@ -349,8 +349,8 @@
     <property name="control">
       <bean parent="CheckboxControlDefinition"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="SourceAccountingLine-objectBudgetOverride" parent="SourceAccountingLine-objectBudgetOverride-parentBean"/>
 
@@ -363,8 +363,8 @@
     <property name="control">
       <bean parent="CheckboxControlDefinition"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="SourceAccountingLine-financialDocumentLineDescription" parent="SourceAccountingLine-financialDocumentLineDescription-parentBean"/>
 
@@ -377,8 +377,8 @@
     <property name="control">
       <ref bean="StandardNameTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SourceAccountingLine-salesTaxRequired" parent="SourceAccountingLine-salesTaxRequired-parentBean"/>
 
@@ -391,8 +391,8 @@
     <property name="control">
       <ref bean="HiddenControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SourceAccountingLine-salesTax.chartOfAccountsCode" parent="SourceAccountingLine-salesTax.chartOfAccountsCode-parentBean"/>
 
@@ -400,8 +400,8 @@
     <property name="name" value="salesTax.chartOfAccountsCode"/>
     <property name="label" value="Sales Tax Chart of Accounts Code"/>
     <property name="shortLabel" value="Sales Tax Chart"/>
-    
-    
+
+
   </bean>
   <bean id="SourceAccountingLine-salesTax.accountNumber" parent="SourceAccountingLine-salesTax.accountNumber-parentBean"/>
 
@@ -409,8 +409,8 @@
     <property name="name" value="salesTax.accountNumber"/>
     <property name="label" value="Sales Tax Account Number"/>
     <property name="shortLabel" value="Sales Tax Account"/>
-    
-    
+
+
   </bean>
   <bean id="SourceAccountingLine-salesTax.financialDocumentGrossSalesAmount" parent="SourceAccountingLine-salesTax.financialDocumentGrossSalesAmount-parentBean"/>
 
@@ -418,7 +418,7 @@
     <property name="name" value="salesTax.financialDocumentGrossSalesAmount"/>
     <property name="label" value="Gross Sales Amount"/>
     <property name="shortLabel" value="Gross Sales Amt."/>
-    
+
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
   <bean id="SourceAccountingLine-salesTax.financialDocumentTaxableSalesAmount" parent="SourceAccountingLine-salesTax.financialDocumentTaxableSalesAmount-parentBean"/>
@@ -427,14 +427,14 @@
     <property name="name" value="salesTax.financialDocumentTaxableSalesAmount"/>
     <property name="label" value="Taxable Sales Amount"/>
     <property name="shortLabel" value="Taxable Sales Amt."/>
-    
+
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
   <bean id="SourceAccountingLine-salesTax.financialDocumentSaleDate" parent="SourceAccountingLine-salesTax.financialDocumentSaleDate-parentBean"/>
 
   <bean id="SourceAccountingLine-salesTax.financialDocumentSaleDate-parentBean" abstract="true" parent="SalesTax-financialDocumentSaleDate">
     <property name="name" value="salesTax.financialDocumentSaleDate"/>
-    <property name="label" value="Sale Date"/>    
+    <property name="label" value="Sale Date"/>
   </bean>
 
     <bean id="SourceAccountingLine-objectCode.financialObjectLevel.financialConsolidationObjectCode" parent="SourceAccountingLine-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean"/>
@@ -443,13 +443,13 @@
 	    <property name="required" value="false" />
 	    <property name="validationPattern"><null /></property>
     </bean>
-   
+
     <bean id="SourceAccountingLine-account.organizationCode" parent="SourceAccountingLine-account.organizationCode-parentBean"/>
     <bean id="SourceAccountingLine-account.organizationCode-parentBean" abstract="true" parent="Organization-organizationCode">
          <property name="name" value="account.organizationCode"/>
 	    <property name="required" value="false" />
 	    <property name="validationPattern"><null /></property>
     </bean>
-  
+
 
 </beans>

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 
   <bean id="AssetGlobal" parent="AssetGlobal-parentBean"/>
-  
+
   <bean id="AssetGlobal-parentBean" abstract="true" parent="BusinessObjectEntry">
     <property name="businessObjectClass" value="org.kuali.kfs.module.cam.businessobject.AssetGlobal"/>
     <property name="objectLabel" value="Asset Global"/>
@@ -58,12 +58,12 @@
         <ref bean="AssetGlobal-calculateSeparateSourceRemainingAmountButton"/>
         <ref bean="AssetGlobal-separateSourceRemainingAmount"/>
         <ref bean="AssetGlobal-separateSourceTotalAmount"/>
-        <ref bean="AssetGlobal-totalAssetPaymentAmount"/>        
-        <ref bean="AssetGlobal-documentNumber"/> 
+        <ref bean="AssetGlobal-totalAssetPaymentAmount"/>
+        <ref bean="AssetGlobal-documentNumber"/>
         <ref bean="AssetGlobal-financialDocumentPostingPeriodCode"/>
         <ref bean="AssetGlobal-financialDocumentPostingYear"/>
         <ref bean="AssetGlobal-universityFiscalPeriodName" />
-        <!-- CSU 6702 BEGIN -->      
+        <!-- CSU 6702 BEGIN -->
         <ref bean="AssetGlobal-accountingPeriodCompositeString" />
         <!-- CSU 6702 END -->
 
@@ -95,18 +95,18 @@
 <!-- Attribute Definitions -->
   <bean id="AssetGlobal-documentNumber" parent="AssetGlobal-documentNumber-parentBean"/>
   <bean id="AssetGlobal-documentNumber-parentBean" abstract="true" parent="FinancialSystemDocumentHeader-documentNumber">
-  </bean>  
-  
+  </bean>
+
   <bean id="AssetGlobal-separateSourceCapitalAssetNumber" parent="AssetGlobal-separateSourceCapitalAssetNumber-parentBean"/>
   <bean id="AssetGlobal-separateSourceCapitalAssetNumber-parentBean" abstract="true" parent="Asset-capitalAssetNumber">
     <property name="name" value="separateSourceCapitalAssetNumber"/>
-  </bean>  
-  
+  </bean>
+
   <bean id="AssetGlobal-totalCostAmount" parent="AssetGlobal-totalCostAmount-parentBean"/>
   <bean id="AssetGlobal-totalCostAmount-parentBean" abstract="true" parent="Asset-totalCostAmount">
     <property name="name" value="totalCostAmount"/>
   </bean>
-  
+
   <bean id="AssetGlobal-calculateEqualSourceAmountsButton" parent="AssetGlobal-calculateEqualSourceAmountsButton-parentBean"/>
   <bean id="AssetGlobal-calculateEqualSourceAmountsButton-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="calculateEqualSourceAmountsButton"/>
@@ -119,7 +119,7 @@
 
   <bean id="AssetGlobal-organizationOwnerChartOfAccountsCode" parent="AssetGlobal-organizationOwnerChartOfAccountsCode-parentBean"/>
   <bean id="AssetGlobal-organizationOwnerChartOfAccountsCode-parentBean" abstract="true" parent="Asset-organizationOwnerChartOfAccountsCode">
-  
+
     <property name="control" >
       <bean parent="SelectControlDefinition"
             p:valuesFinderClass="org.kuali.kfs.coa.businessobject.options.ChartValuesFinder"
@@ -131,7 +131,7 @@
         </bean>
     </property>
   </bean>
-  
+
   <bean id="AssetGlobal-organizationOwnerAccountNumber" parent="AssetGlobal-organizationOwnerAccountNumber-parentBean"/>
   <bean id="AssetGlobal-organizationOwnerAccountNumber-parentBean" abstract="true" parent="Asset-organizationOwnerAccountNumber">
     <property name="attributeSecurity">
@@ -145,7 +145,7 @@
   <bean id="AssetGlobal-organizationOwnerAccount.organizationCode-parentBean" abstract="true" parent="Account-organizationCode">
     <property name="name" value="organizationOwnerAccount.organizationCode"/>
     <property name="label" value="Organization Owner Organization Code"/>
-	<property name="shortLabel" value="Org Code"/>    
+	<property name="shortLabel" value="Org Code"/>
   </bean>
 
   <bean id="AssetGlobal-agencyNumber" parent="AssetGlobal-agencyNumber-parentBean"/>
@@ -176,7 +176,7 @@
     	<bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.module.cam.businessobject.defaultvalue.AssetConditionValuesFinder"/>
     </property>
   </bean>
-  
+
   <bean id="AssetGlobal-capitalAssetDescription" parent="AssetGlobal-capitalAssetDescription-parentBean"/>
   <bean id="AssetGlobal-capitalAssetDescription-parentBean" abstract="true" parent="Asset-capitalAssetDescription">
   	<property name="attributeSecurity">
@@ -190,7 +190,7 @@
   <bean id="AssetGlobal-capitalAssetTypeCode-parentBean" abstract="true" parent="AssetType-capitalAssetTypeCode">
     <property name="label" value="Asset Type Code"/>
   </bean>
-  
+
   <bean id="AssetGlobal-vendorName" parent="AssetGlobal-vendorName-parentBean"/>
   <bean id="AssetGlobal-vendorName-parentBean" abstract="true" parent="Asset-vendorName">
   	<property name="attributeSecurity">
@@ -219,7 +219,7 @@
     </property>
     <property name="displayLabelAttribute" value="assetRepresentative.principalName"/>
   </bean>
-  
+
   <bean id="AssetGlobal-assetRepresentative.principalName" parent="AssetGlobal-assetRepresentative.principalName-parentBean"/>
   <bean id="AssetGlobal-assetRepresentative.principalName-parentBean" abstract="true" parent="PersonImpl-principalName">
     <property name="name" value="assetRepresentative.principalName"/>
@@ -229,22 +229,22 @@
       <bean parent="KualiUserControlDefinition" p:personNameAttributeName="assetRepresentative.name" p:universalIdAttributeName="representativeUniversalIdentifier" p:userIdAttributeName="assetRepresentative.principalName"/>
     </property>
   </bean>
-  
+
   <bean id="AssetGlobal-assetRepresentative.name" parent="AssetGlobal-assetRepresentative.name-parentBean"/>
   <bean id="AssetGlobal-assetRepresentative.name-parentBean" abstract="true" parent="PersonImpl-name">
     <property name="name" value="assetRepresentative.name"/>
     <property name="label" value="Asset Representative Name"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="AssetGlobal-lastInventoryDate" parent="AssetGlobal-lastInventoryDate-parentBean"/>
   <bean id="AssetGlobal-lastInventoryDate-parentBean" abstract="true" parent="Asset-lastInventoryDate">
   </bean>
-  
+
   <bean id="AssetGlobal-createDate" parent="AssetGlobal-createDate-parentBean"/>
   <bean id="AssetGlobal-createDate-parentBean" abstract="true" parent="Asset-createDate">
   </bean>
-  
+
   <bean id="AssetGlobal-capitalAssetInServiceDate" parent="AssetGlobal-capitalAssetInServiceDate-parentBean"/>
   <bean id="AssetGlobal-capitalAssetInServiceDate-parentBean" abstract="true" parent="Asset-capitalAssetInServiceDate">
   	<property name="attributeSecurity">
@@ -253,27 +253,27 @@
        </bean>
     </property>
   </bean>
-  
+
   <bean id="AssetGlobal-capitalAssetDepreciationDate" parent="AssetGlobal-capitalAssetDepreciationDate-parentBean"/>
   <bean id="AssetGlobal-capitalAssetDepreciationDate-parentBean" abstract="true" parent="Asset-depreciationDate">
     <property name="name" value="capitalAssetDepreciationDate"/>
   </bean>
-  
+
   <bean id="AssetGlobal-landCountyName" parent="AssetGlobal-landCountyName-parentBean"/>
   <bean id="AssetGlobal-landCountyName-parentBean" abstract="true" parent="Asset-landCountyName">
     <property name="shortLabel" value="Country"/>
   </bean>
-  
+
   <bean id="AssetGlobal-landAcreageSize" parent="AssetGlobal-landAcreageSize-parentBean"/>
   <bean id="AssetGlobal-landAcreageSize-parentBean" abstract="true" parent="Asset-landAcreageSize">
     <property name="shortLabel" value="Acreage"/>
   </bean>
-  
+
   <bean id="AssetGlobal-landParcelNumber" parent="AssetGlobal-landParcelNumber-parentBean"/>
   <bean id="AssetGlobal-landParcelNumber-parentBean" abstract="true" parent="Asset-landParcelNumber">
     <property name="shortLabel" value="Parcel"/>
   </bean>
-  
+
   <bean id="AssetGlobal-financialDocumentNextLineNumber" parent="AssetGlobal-financialDocumentNextLineNumber-parentBean"/>
   <bean id="AssetGlobal-financialDocumentNextLineNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="financialDocumentNextLineNumber"/>
@@ -288,7 +288,7 @@
       <ref bean="HiddenControl" />
     </property>
   </bean>
-  
+
   <bean id="AssetGlobal-financialDocumentTypeCode" parent="AssetGlobal-financialDocumentTypeCode-parentBean"/>
   <bean id="AssetGlobal-financialDocumentTypeCode-parentBean" abstract="true" parent="GenericAttributes-financialSystemDocumentTypeCode">
     <property name="name" value="financialDocumentTypeCode"/>
@@ -298,19 +298,19 @@
       <ref bean="HiddenControl" />
     </property>
   </bean>
-  
+
   <bean id="AssetGlobal-separateSourcePaymentSequenceNumber" parent="AssetGlobal-separateSourcePaymentSequenceNumber-parentBean"/>
   <bean id="AssetGlobal-separateSourcePaymentSequenceNumber-parentBean" abstract="true" parent="AssetPayment-paymentSequenceNumber">
    <property name="name" value="separateSourcePaymentSequenceNumber"/>
   </bean>
-  
+
   <bean id="AssetGlobal-capitalAssetBuilderOriginIndicator" parent="AssetGlobal-capitalAssetBuilderOriginIndicator-parentBean"/>
   <bean id="AssetGlobal-capitalAssetBuilderOriginIndicator-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
 	<property name="name" value="capitalAssetBuilderOriginIndicator"/>
 	<property name="label" value="Capital Asset Builder Origin Indicator"/>
 	<property name="shortLabel" value="Origin Indicator"/>
   </bean>
-  
+
   <bean id="AssetGlobal-calculateSeparateSourceRemainingAmountButton" parent="AssetGlobal-calculateSeparateSourceRemainingAmountButton-parentBean"/>
   <bean id="AssetGlobal-calculateSeparateSourceRemainingAmountButton-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="calculateSeparateSourceRemainingAmountButton"/>
@@ -320,7 +320,7 @@
       <bean parent="ButtonControlDefinition" p:styleClass="btn btn-default"/>
     </property>
   </bean>
-  
+
   <bean id="AssetGlobal-separateSourceRemainingAmount" parent="AssetGlobal-separateSourceRemainingAmount-parentBean"/>
   <bean id="AssetGlobal-separateSourceRemainingAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="separateSourceRemainingAmount"/>
@@ -328,7 +328,7 @@
     <property name="shortLabel" value="Remaining Amount"/>
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
-  
+
   <bean id="AssetGlobal-separateSourceTotalAmount" parent="AssetGlobal-separateSourceTotalAmount-parentBean"/>
   <bean id="AssetGlobal-separateSourceTotalAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="separateSourceTotalAmount"/>
@@ -336,7 +336,7 @@
     <property name="shortLabel" value="Less Additions"/>
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
-  
+
   <bean id="AssetGlobal-totalAssetPaymentAmount" parent="AssetGlobal-totalAssetPaymentAmount-parentBean"/>
   <bean id="AssetGlobal-totalAssetPaymentAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="totalAssetPaymentAmount"/>
@@ -352,14 +352,14 @@
     <property name="required" value="false"/>
   </bean>
   <bean id="AssetGlobal-financialDocumentPostingYear" parent="Asset-financialDocumentPostingYear-parentBean"/>
-  
+
   <bean id="AssetGlobal-financialDocumentPostingYear-parentBean" abstract="true" parent="AccountingPeriod-universityFiscalYear">
     <property name="name" value="financialDocumentPostingYear"/>
     <property name="label" value="Fiscal Year"/>
     <property name="required" value="false"/>
   </bean>
   <bean id="AssetGlobal-universityFiscalPeriodName" parent="AssetGlobal-universityFiscalPeriodName-parentBean"/>
-  
+
   <bean id="AssetGlobal-universityFiscalPeriodName-parentBean" abstract="true" parent="AccountingPeriod-universityFiscalPeriodName">
     <property name="name" value="universityFiscalPeriodName"/>
     <property name="label" value="Accounting Period"/>
@@ -370,7 +370,7 @@
     </property>
     <property name="control">
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.module.cam.businessobject.options.CamsYearEndAccountingPeriodValuesFinder" p:includeKeyInLabel="false"/>
-    </property>    
+    </property>
   </bean>
   <!-- CSU 6702 BEGIN -->
   <bean id="AssetGlobal-accountingPeriodCompositeString" parent="AssetGlobal-accountingPeriodCompositeString-parentBean"/>
@@ -386,8 +386,8 @@
     <property name="required" value="true"/>
     <property name="control">
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.sys.businessobject.options.YearEndAccountingPeriodValuesFinder" p:includeKeyInLabel="false"/>
-    </property>    
-  </bean>    
-	<!-- CSU 6702 END -->  
-  
+    </property>
+  </bean>
+	<!-- CSU 6702 END -->
+
 </beans>

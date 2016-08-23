@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -56,10 +56,10 @@ public class GroupErrorsRenderer implements Renderer {
         infoRendered = null;
         errorKeyMatch = null;
         colSpan = -1;
-        
+
         cleanUpErrorTag();
     }
-    
+
     /**
      * Cleans up the ErrorTag
      */
@@ -78,7 +78,7 @@ public class GroupErrorsRenderer implements Renderer {
         renderMessages(pageContext, parentTag, KFSKeyConstants.MESSAGE_ACCOUNTING_LINES_WARNING_SECTION_TITLE, getWarningPropertyList(pageContext), "warning.png", "warning", getWarningsRendered(), "WarningActionMessages");
         renderMessages(pageContext, parentTag, KFSKeyConstants.MESSAGE_ACCOUNTING_LINES_INFORMATION_SECTION_TITLE, getInfoPropertyList(pageContext), "info.png", "info", getInfoRendered(), "InfoActionMessages");
     }
-    
+
     /**
      * Renders a group of messages
      * @param pageContext the page context to render to
@@ -91,14 +91,14 @@ public class GroupErrorsRenderer implements Renderer {
      */
     protected void renderMessages(PageContext pageContext, Tag parentTag, String titleConstant, List propertyList, String sectionMarkGraphicName, String sectionGraphicAlt, List<String> keysRendered, String requestScopeBeanNameContainingMessages ) throws JspException {
         JspWriter out = pageContext.getOut();
-        
+
         try {
             final List<String> matchingKeys = getMatchingKeys(propertyList, getKeysToMatch());
             if (matchingKeys.size() > 0) {
                 out.write(buildTableRowAndCellOpening());
                 out.write(buildSectionTitle(titleConstant, sectionMarkGraphicName, sectionGraphicAlt));
             }
-            
+
             for (String matchingKey : matchingKeys) {
                 out.write(buildKeyComment(matchingKey, sectionGraphicAlt));
                 if (!keysRendered.contains(matchingKey)) {
@@ -106,14 +106,14 @@ public class GroupErrorsRenderer implements Renderer {
                     errorTag.setParent(parentTag);
                     errorTag.setProperty(matchingKey);
                     errorTag.setName(requestScopeBeanNameContainingMessages);
-                   
+
                     errorTag.doStartTag();
                     errorTag.doEndTag();
-                    
+
                     keysRendered.add(matchingKey);
                 }
             }
-            
+
             if (matchingKeys.size() > 0) {
                 out.write(buildTableRowAndCellClosing());
             }
@@ -122,7 +122,7 @@ public class GroupErrorsRenderer implements Renderer {
             throw new JspException("Difficulty while rendering errors for group", ioe);
         }
     }
-    
+
     /**
      * Builds the HTML String for a section title
      * @param titleConstant the Key Constant to find the text for the title
@@ -134,9 +134,9 @@ public class GroupErrorsRenderer implements Renderer {
         final ConfigurationService configurationService = SpringContext.getBean(ConfigurationService.class);
         final String titleMessage = configurationService.getPropertyValueAsString(titleConstant);
         final String riceImageUrl = configurationService.getPropertyValueAsString(KRADConstants.EXTERNALIZABLE_IMAGES_URL_KEY);
-        
+
         StringBuilder sectionTitle = new StringBuilder();
-        
+
         sectionTitle.append("<img src=\"")
                     .append(riceImageUrl)
                     .append(sectionMarkGraphicName)
@@ -145,10 +145,10 @@ public class GroupErrorsRenderer implements Renderer {
                     .append("\" /><strong>")
                     .append(titleMessage)
                     .append("</strong>");
-        
+
         return sectionTitle.toString();
     }
-    
+
     /**
      * Builds an HTML comment, useful for debugging, which dumps out the message key being displayed
      * @param matchingKey the key to display
@@ -157,16 +157,16 @@ public class GroupErrorsRenderer implements Renderer {
      */
     protected String buildKeyComment(String matchingKey, String sectionGraphicAlt) {
         StringBuilder keyComment = new StringBuilder();
-        
+
         keyComment.append("\n<!-- ")
                   .append(sectionGraphicAlt)
                   .append(" key = '")
                   .append(matchingKey)
                   .append("' -->\n");
-        
+
         return keyComment.toString();
     }
-    
+
     /**
      * @return the HTML for the table row and cell and div to open the error display
      */
@@ -179,9 +179,9 @@ public class GroupErrorsRenderer implements Renderer {
         html.append("<div class=\"left-errmsg-tab\">");
         return html.toString();
     }
-    
+
     /**
-     * @return the HTML for the table row and cell and div which closes the error display 
+     * @return the HTML for the table row and cell and div which closes the error display
      */
     protected String buildTableRowAndCellClosing() {
         StringBuilder html = new StringBuilder();
@@ -190,7 +190,7 @@ public class GroupErrorsRenderer implements Renderer {
         html.append("</tr>");
         return html.toString();
     }
-    
+
     /**
      * Returns a list of all error keys that should be rendered
      * @param keysToMatch the keys that this group will match
@@ -198,7 +198,7 @@ public class GroupErrorsRenderer implements Renderer {
      */
     protected List<String> getMatchingKeys(List messagePropertyList, String[] keysToMatch) {
         List<String> matchingKeys = new ArrayList<String>();
-        
+
         if (messagePropertyList != null && messagePropertyList.size() > 0) {
             for (Object keyAsObject : messagePropertyList) {
                 String key = (String)keyAsObject;
@@ -207,17 +207,17 @@ public class GroupErrorsRenderer implements Renderer {
                 }
             }
         }
-        
+
         return matchingKeys;
     }
-    
+
     /**
-     * @return the list of individual keys or wildcard keys that this group will match 
+     * @return the list of individual keys or wildcard keys that this group will match
      */
     protected String[] getKeysToMatch() {
         return errorKeyMatch.split(",");
     }
-    
+
     /**
      * Determines if the given error key matches the keyToMatch - either because the two keys are
      * equal, or if the keyToMatch is a wildcard key and would wildcard match the key
@@ -228,7 +228,7 @@ public class GroupErrorsRenderer implements Renderer {
     protected boolean foundKeyMatch(String key, String keyToMatch) {
         return key.equals(keyToMatch) || (keyToMatch.endsWith("*") && key.startsWith(keyToMatch.replaceAll("\\*", "")));
     }
-    
+
     /**
      * Determines if the given key matches any error key associated with this group
      * @param key the error key that may or may not be displayed here
@@ -250,7 +250,7 @@ public class GroupErrorsRenderer implements Renderer {
     public List getErrorPropertyList(PageContext pageContext) {
         return (List)pageContext.getRequest().getAttribute("ErrorPropertyList");
     }
-    
+
     /**
      * Looks up the InfoPropertyList from the generating request
      * @param pageContext the pageContext which this tag is rendering to
@@ -259,7 +259,7 @@ public class GroupErrorsRenderer implements Renderer {
     protected List getWarningPropertyList(PageContext pageContext) {
         return (List)pageContext.getRequest().getAttribute("WarningPropertyList");
     }
-    
+
     /**
      * Looks up the InfoPropertyList from the generating request
      * @param pageContext the pageContext which this tag is rendering to
@@ -270,7 +270,7 @@ public class GroupErrorsRenderer implements Renderer {
     }
 
     /**
-     * Gets the errorsRendered attribute. 
+     * Gets the errorsRendered attribute.
      * @return Returns the errorsRendered.
      */
     public List<String> getErrorsRendered() {
@@ -279,9 +279,9 @@ public class GroupErrorsRenderer implements Renderer {
         }
         return errorsRendered;
     }
-    
+
     /**
-     * Gets the warningsRendered attribute. 
+     * Gets the warningsRendered attribute.
      * @return Returns the warningsRendered.
      */
     public List<String> getWarningsRendered() {
@@ -290,9 +290,9 @@ public class GroupErrorsRenderer implements Renderer {
         }
         return warningsRendered;
     }
-    
+
     /**
-     * Gets the infoRendered attribute. 
+     * Gets the infoRendered attribute.
      * @return Returns the infoRendered.
      */
     public List<String> getInfoRendered() {
@@ -303,7 +303,7 @@ public class GroupErrorsRenderer implements Renderer {
     }
 
     /**
-     * Gets the errorKeyMatch attribute. 
+     * Gets the errorKeyMatch attribute.
      * @return Returns the errorKeyMatch.
      */
     public String getErrorKeyMatch() {
@@ -319,7 +319,7 @@ public class GroupErrorsRenderer implements Renderer {
     }
 
     /**
-     * Gets the colSpan attribute. 
+     * Gets the colSpan attribute.
      * @return Returns the colSpan.
      */
     public int getColSpan() {

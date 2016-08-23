@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-<beans xmlns="http://www.springframework.org/schema/beans" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xmlns:p="http://www.springframework.org/schema/p" 
-    xmlns:dd="http://rice.kuali.org/dd" 
-    xsi:schemaLocation="http://www.springframework.org/schema/beans         
-        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         
-        http://rice.kuali.org/dd         
-        http://rice.kuali.org/dd/dd.xsd">	
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:dd="http://rice.kuali.org/dd"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+        http://rice.kuali.org/dd
+        http://rice.kuali.org/dd/dd.xsd">
 
     <bean id="TravelReimbursementDocument" parent="TravelReimbursementDocument-parentBean" />
 	<bean id="TravelReimbursementDocument-parentBean" abstract="true" parent="AccountingDocumentEntry" >
@@ -41,7 +41,7 @@
 		<property name="allowsErrorCorrection" value="false"/>
 		<property name="validationMap" ref="TravelReimbursementDocument-validations"/>
 		<property name="attachmentTypesValuesFinderClass" value="org.kuali.kfs.module.tem.businessobject.options.TravelAttachmentTypeValuesFinder"/>
-		
+
         <property name="workflowAttributes">
     	  <ref bean="TravelReimbursementDocument-workflowAttributes"/>
         </property>
@@ -234,7 +234,7 @@
 		<property name="description" value="Contact Campus Code" />
 		<property name="control"><bean parent="TextControlDefinition" p:size="2"/></property>
 	</bean>
-	
+
   <bean id="TravelReimbursementDocument-tripTypeCode" parent="TravelReimbursementDocument-tripTypeCode-parentBean" />
 	<bean id="TravelReimbursementDocument-tripTypeCode-parentBean" abstract="true" parent="TemRegion-tripTypeCode">
 		<property name="control">
@@ -243,7 +243,7 @@
 				p:includeKeyInLabel="false" />
 		</property>
 	</bean>
-  
+
 	<bean id="TravelReimbursementDocument-tripBegin" parent="TravelReimbursementDocument-tripBegin-parentBean" />
 	<bean id="TravelReimbursementDocument-tripBegin-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="tripBegin" />
@@ -255,7 +255,7 @@
 		<property name="description" value="Trip Begin" />
 	    <property name="control">
 	      <bean parent="TextControlDefinition" p:size="20"/>
-	    </property>		
+	    </property>
 	</bean>
 	<bean id="TravelReimbursementDocument-tripEnd" parent="TravelReimbursementDocument-tripEnd-parentBean" />
 	<bean id="TravelReimbursementDocument-tripEnd-parentBean" abstract="true" parent="AttributeDefinition">
@@ -268,21 +268,21 @@
 		<property name="description" value="Trip End" />
 	    <property name="control">
 	      <bean parent="TextControlDefinition" p:size="20"/>
-	    </property>		
+	    </property>
 	</bean>
-    
+
     <bean id="TravelReimbursementDocument-paymentMethod" parent="TravelReimbursementDocument-paymentMethod-parentBean" />
     <bean id="TravelReimbursementDocument-paymentMethod-parentBean" abstract="true" parent="TravelDocument-paymentMethod" />
-    
+
     <bean id="TravelReimbursementDocument-primaryDestinationId" parent="TravelReimbursementDocument-primaryDestinationId-parentBean" />
     <bean id="TravelReimbursementDocument-primaryDestinationId-parentBean" abstract="true" parent="PrimaryDestination-id">
         <property name="name" value="primaryDestinationId" />
         <property name="required" value="false" />
     </bean>
-    
+
     <bean id="TravelReimbursementDocument-primaryDestinationName" parent="TravelReimbursementDocument-primaryDestinationName-parentBean" />
     <bean id="TravelReimbursementDocument-primaryDestinationName-parentBean" abstract="true" parent="PrimaryDestination-primaryDestinationName" />
-    
+
     <bean id="TravelReimbursementDocument-primaryDestinationCountryState" parent="TravelReimbursementDocument-primaryDestinationCountryState-parentBean" />
     <bean id="TravelReimbursementDocument-primaryDestinationCountryState-parentBean" abstract="true" parent="TemRegion-regionName">
         <property name="name" value="primaryDestinationCountryState" />
@@ -291,7 +291,7 @@
         <property name="required" value="false" />
         <property name="control"><bean parent="TextControlDefinition" p:size="50"/></property>
     </bean>
-    
+
     <bean id="TravelReimbursementDocument-primaryDestinationCounty" parent="TravelReimbursementDocument-primaryDestinationCounty-parentBean" />
     <bean id="TravelReimbursementDocument-primaryDestinationCounty-parentBean" abstract="true" parent="PrimaryDestination-county">
         <property name="name" value="primaryDestinationCounty" />
@@ -300,7 +300,7 @@
         <property name="required" value="false" />
         <property name="control"><bean parent="TextControlDefinition" p:size="50"/></property>
     </bean>
-    
+
 	<bean id="TravelReimbursementDocument-tripDescription" parent="TravelReimbursementDocument-tripDescription-parentBean" />
 	<bean id="TravelReimbursementDocument-tripDescription-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="tripDescription" />
@@ -347,8 +347,8 @@
 		<property name="maxLength" value="255" />
 		<property name="control">
             <bean parent="TextareaControlDefinition" p:rows="5" p:cols="60" />
-        </property>		
-	</bean>		
+        </property>
+	</bean>
 	<bean id="TravelReimbursementDocument-delinquentTRException" parent="TravelReimbursementDocument-delinquentTRException-parentBean" />
 	<bean id="TravelReimbursementDocument-delinquentTRException-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="delinquentTRException" />
@@ -396,9 +396,9 @@
 		<property name="name" value="corporateCardPaymentCancelDate" />
 		<property name="label" value="Corporate Card Canceled Date"/>
 		<property name="shortLabel" value="Corp. Card Cncld. Dt." />
-	</bean>		
+	</bean>
 
-	<!-- Validations -->  
+	<!-- Validations -->
   <bean id="TravelReimbursementDocument-validations" parent="TravelReimbursementDocument-validations-parentBean"/>
   <bean id="TravelReimbursementDocument-validations-parentBean" abstract="true" class="org.springframework.beans.factory.config.MapFactoryBean">
     <property name="sourceMap">
@@ -422,11 +422,11 @@
             <entry>
                 <key><value>org.kuali.kfs.module.tem.document.validation.event.UpdateTripDetailsEvent</value></key>
                 <value>TravelReimbursement-updateTripDetailsValidation</value>
-            </entry>          
+            </entry>
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.AttributedApproveDocumentEvent</value></key>
 				<value>TravelReimbursement-approveDocumentValidation</value>
-			</entry>        
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.AttributedBlanketApproveDocumentEvent</value></key>
 				<value>TravelReimbursement-blanketApproveDocumentValidation</value>
@@ -438,7 +438,7 @@
             <entry>
                 <key><value>org.kuali.kfs.module.tem.document.validation.event.AddImportedExpenseLineEvent</value></key>
                 <value>TravelModule-addImportedExpenseLineValidation</value>
-            </entry> 
+            </entry>
             <entry>
                 <key><value>org.kuali.kfs.module.tem.document.validation.event.AddImportedExpenseDetailLineEvent</value></key>
                 <value>TravelModule-addImportedExpenseDetailLineValidation</value>
@@ -446,7 +446,7 @@
             <entry>
                 <key><value>org.kuali.kfs.module.tem.document.validation.event.AddActualExpenseLineEvent</value></key>
                 <value>TravelModule-addActualExpenseLineValidation</value>
-            </entry> 
+            </entry>
             <entry>
                 <key><value>org.kuali.kfs.module.tem.document.validation.event.AddActualExpenseDetailLineEvent</value></key>
                 <value>TravelModule-addActualExpenseDetailLineValidation</value>
@@ -455,11 +455,11 @@
             <entry>
                 <key><value>org.kuali.kfs.module.tem.document.validation.event.AssignDistributionAccountingLinesEvent</value></key>
                 <value>TravelModule-distributionAccountingLineValidation</value>
-            </entry> 	
+            </entry>
             <entry>
                 <key><value>org.kuali.kfs.module.tem.document.validation.event.AddDistributionAccountingLineValidationEvent</value></key>
                 <value>TravelModule-distributionAccountingLineValidation</value>
-            </entry>	        
+            </entry>
         </map>
     </property>
   </bean>
@@ -475,11 +475,11 @@
 			<entry key="ReimbursementOverage" value-ref="RoutingType-TravelReimbursement-ReimbursementOverage"/>
 			<entry key="SubFund" value-ref="RoutingType-AccountingDocument-SubFund" />
 			<entry key="Award" value-ref="RoutingType-AccountingDocument-Award" />
-    		<entry key="PaymentMethod" value-ref="TravelReimbursable-RoutingType-PaymentMethod"/> 
+    		<entry key="PaymentMethod" value-ref="TravelReimbursable-RoutingType-PaymentMethod"/>
     		<entry key="Traveler" value-ref="TravelDocument-RoutingType-Traveler"/>
-    		<entry key="Budget" value-ref="TravelDocument-RoutingType-Budget"/>       
+    		<entry key="Budget" value-ref="TravelDocument-RoutingType-Budget"/>
 		</map>
 	</property>
-  </bean>  
+  </bean>
 
 </beans>

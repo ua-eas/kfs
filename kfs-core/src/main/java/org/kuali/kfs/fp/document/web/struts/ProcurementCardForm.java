@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -56,12 +56,12 @@ public class ProcurementCardForm extends CapitalAccountingLinesFormBase implemen
     protected List<ProcurementCardTargetAccountingLine> newTargetLines;
     protected List<Boolean> transactionCreditCardNumbersViewStatus;
     protected final static String TARGET_ACCOUNTING_LINE_GROUP_NAME = "target";
-    
+
     protected List<CapitalAssetInformation> capitalAssetInformation;
 
     /**
      * Override to accomodate multiple target lines.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.pojo.PojoForm#populate(javax.servlet.http.HttpServletRequest)
      */
     @Override
@@ -87,7 +87,7 @@ public class ProcurementCardForm extends CapitalAccountingLinesFormBase implemen
                 }
             }
         }
-        
+
         // don't call populateAccountingLines if you are copying or errorCorrecting a document,
         // since you want the accountingLines in the copy to be "identical" to those in the original
         if (!StringUtils.equals(methodToCall, KFSConstants.COPY_METHOD) && !StringUtils.equals(methodToCall, KFSConstants.ERRORCORRECT_METHOD)) {
@@ -103,7 +103,7 @@ public class ProcurementCardForm extends CapitalAccountingLinesFormBase implemen
      */
     public ProcurementCardForm() {
         super();
-        
+
         this.newTargetLines = new ArrayList<ProcurementCardTargetAccountingLine>();
        // buildNewTargetAccountingLines();
         capitalAssetInformation = new ArrayList<CapitalAssetInformation>();
@@ -116,12 +116,12 @@ public class ProcurementCardForm extends CapitalAccountingLinesFormBase implemen
             this.newTargetLines.add(i, newLine);
         }
     }
-    
+
     @Override
     protected String getDefaultDocumentTypeName() {
         return "PCDO";
     }
-    
+
     /**
      * @return The retreived APC string used for the dispute url.
      */
@@ -143,7 +143,7 @@ public class ProcurementCardForm extends CapitalAccountingLinesFormBase implemen
     public void setNewTargetLines(List newTargetLines) {
         this.newTargetLines = newTargetLines;
     }
-    
+
     /**
      * @see org.kuali.kfs.fp.document.CapitalAssetEditable#getCapitalAssetInformation()
      */
@@ -155,9 +155,9 @@ public class ProcurementCardForm extends CapitalAccountingLinesFormBase implemen
      * @see org.kuali.kfs.fp.document.CapitalAssetEditable#setCapitalAssetInformation(org.kuali.kfs.fp.businessobject.CapitalAssetInformation)
      */
     public void setCapitalAssetInformation(List<CapitalAssetInformation> capitalAssetInformation) {
-        this.capitalAssetInformation = capitalAssetInformation;        
+        this.capitalAssetInformation = capitalAssetInformation;
     }
-    
+
     /**
      * @return an array, parallel to the ProcurementCardDocument#getTransactionEntries, which holds whether the
      * current user can see the credit card number or not
@@ -168,7 +168,7 @@ public class ProcurementCardForm extends CapitalAccountingLinesFormBase implemen
         }
         return transactionCreditCardNumbersViewStatus;
     }
-    
+
     /**
      * populates an array, parallel to the ProcurementCardDocument#getTransactionEntries, which holds whether the
      * current user can see the credit card number or not - based on if any of the accounting lines are editable to
@@ -178,11 +178,11 @@ public class ProcurementCardForm extends CapitalAccountingLinesFormBase implemen
         final AccountingLineAuthorizer accountingLineAuthorizer = getAccountingLineAuthorizerForDocument();
         final Person currentUser = GlobalVariables.getUserSession().getPerson();
         transactionCreditCardNumbersViewStatus = new ArrayList<Boolean>();
-        
+
         for (Object transactionEntryAsObject : ((ProcurementCardDocument)getDocument()).getTransactionEntries()) {
             final ProcurementCardTransactionDetail transactionDetail = (ProcurementCardTransactionDetail)transactionEntryAsObject;
             Boolean canEditAnyAccountingLine = Boolean.FALSE;
-                
+
             int count = 0;
             while (!canEditAnyAccountingLine.booleanValue() && count < transactionDetail.getTargetAccountingLines().size()) {
                 final TargetAccountingLine accountingLine = (TargetAccountingLine)transactionDetail.getTargetAccountingLines().get(count);
@@ -194,7 +194,7 @@ public class ProcurementCardForm extends CapitalAccountingLinesFormBase implemen
             transactionCreditCardNumbersViewStatus.add(canEditAnyAccountingLine);
         }
     }
-    
+
     /**
      * @return the accounting line authorizer for the target lines of this document
      */
@@ -206,7 +206,7 @@ public class ProcurementCardForm extends CapitalAccountingLinesFormBase implemen
         final AccountingLineGroupDefinition targetAccountingLineGroupDefinition = documentEntry.getAccountingLineGroups().get(ProcurementCardForm.TARGET_ACCOUNTING_LINE_GROUP_NAME);
         return targetAccountingLineGroupDefinition.getAccountingLineAuthorizer();
     }
-    
+
     /**
      * @return the name of the accounting line collection for the permission check
      */

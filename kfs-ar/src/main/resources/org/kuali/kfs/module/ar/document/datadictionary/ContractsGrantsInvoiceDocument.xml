@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -36,7 +36,7 @@
 			value="org.kuali.kfs.module.ar.document.authorization.ContractsGrantsInvoiceDocumentAuthorizer" />
 		<property name="documentPresentationControllerClass"
 			value="org.kuali.kfs.module.ar.document.authorization.ContractsGrantsInvoiceDocumentPresentationController" />
-		
+
 		<property name="accountingLineGroups">
 			<map>
 				<entry>
@@ -164,7 +164,7 @@
 	<bean id="ContractsGrantsInvoiceDocument-paymentAmount"
 		parent="ContractsGrantsInvoiceDocument-paymentAmount-parentBean" />
 
-	<bean id="ContractsGrantsInvoiceDocument-paymentAmount-parentBean" 
+	<bean id="ContractsGrantsInvoiceDocument-paymentAmount-parentBean"
 		abstract="true" parent="GenericAttributes-genericAmount">
 		<property name="name" value="paymentAmount" />
 		<property name="label" value="Payment Amount" />
@@ -724,40 +724,40 @@
 			<bean parent="CheckboxControlDefinition" />
 		</property>
 	</bean>
-	
+
 	<bean id="ContractsGrantsInvoiceDocument-totalBudgetAmount" parent="ContractsGrantsInvoiceDocument-totalBudgetAmount-parentBean"/>
 	<bean id="ContractsGrantsInvoiceDocument-totalBudgetAmount-parentBean" abstract="true" parent="InvoiceAccountDetail-totalBudget">
 		<property name="name" value="totalBudgetAmount"/>
-		<property name="label" value="Total Budget Amount"/> 
+		<property name="label" value="Total Budget Amount"/>
 	</bean>
-	
+
 	<bean id="ContractsGrantsInvoiceDocument-totalInvoiceAmount" parent="ContractsGrantsInvoiceDocument-totalInvoiceAmount-parentBean"/>
 	<bean id="ContractsGrantsInvoiceDocument-totalInvoiceAmount-parentBean" abstract="true" parent="InvoiceAccountDetail-invoiceAmount">
 		<property name="name" value="totalInvoiceAmount"/>
-		<property name="label" value="Total Invoice Amount"/> 
-	</bean> 
-	
+		<property name="label" value="Total Invoice Amount"/>
+	</bean>
+
 	<bean id="ContractsGrantsInvoiceDocument-totalCumulativeExpenditures" parent="ContractsGrantsInvoiceDocument-totalCumulativeExpenditures-parentBean"/>
 	<bean id="ContractsGrantsInvoiceDocument-totalCumulativeExpenditures-parentBean" abstract="true" parent="InvoiceAccountDetail-cumulativeExpenditures">
 		<property name="name" value="totalCumulativeExpenditures"/>
-		<property name="label" value="Total Cumulative Expenditures"/> 
-	</bean> 
-	
+		<property name="label" value="Total Cumulative Expenditures"/>
+	</bean>
+
 	<bean id="ContractsGrantsInvoiceDocument-totalBudgetRemaining" parent="ContractsGrantsInvoiceDocument-totalBudgetRemaining-parentBean"/>
 	<bean id="ContractsGrantsInvoiceDocument-totalBudgetRemaining-parentBean" abstract="true" parent="InvoiceAccountDetail-budgetRemaining">
 		<property name="name" value="totalBudgetRemaining"/>
-		<property name="label" value="Total Budget Remaining"/> 
-	</bean> 
-	
+		<property name="label" value="Total Budget Remaining"/>
+	</bean>
+
 	<bean id="ContractsGrantsInvoiceDocument-totalAmountBilledToDate" parent="ContractsGrantsInvoiceDocument-totalAmountBilledToDate-parentBean"/>
 	<bean id="ContractsGrantsInvoiceDocument-totalAmountBilledToDate-parentBean" abstract="true" parent="InvoiceAccountDetail-totalAmountBilledToDate">
 		<property name="name" value="totalAmountBilledToDate"/>
-		<property name="label" value="Total Amount Billed To Date"/> 
-	</bean> 
+		<property name="label" value="Total Amount Billed To Date"/>
+	</bean>
 
 	<bean id="ContractsGrantsInvoiceDocument-validations" parent="ContractsGrantsInvoiceDocument-validations-parentBean" />
 
-	<bean id="ContractsGrantsInvoiceDocument-validations-parentBean" abstract="true" 
+	<bean id="ContractsGrantsInvoiceDocument-validations-parentBean" abstract="true"
 		class="org.springframework.beans.factory.config.MapFactoryBean">
 		<property name="sourceMap">
 			<map key-type="java.lang.Class">
@@ -814,7 +814,7 @@
 		<property name="showAttributeInSearchCriteria" value="true" />
 		<property name="showAttributeInResultSet" value="true" />
 	</bean>
-	
+
 	<bean id="RoutingType-ContractsGrantsInvoiceDocument-FundsManager" parent="RoutingType-ContractsGrantsInvoiceDocument-FundsManager-parentBean"/>
 	<bean id="RoutingType-ContractsGrantsInvoiceDocument-FundsManager-parentBean" abstract="true" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
@@ -828,7 +828,7 @@
     		</list>
     	</property>
     </bean>
-    
+
     <bean id="DocumentValuePathGroup-ContractsGrantsInvoiceDocument-FundsManager-proposalNumber" parent="DocumentValuePathGroup-ContractsGrantsInvoiceDocument-FundsManager-proposalNumber-parentBean"/>
     <bean id="DocumentValuePathGroup-ContractsGrantsInvoiceDocument-FundsManager-proposalNumber-parentBean" abstract="true" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
     	<property name="documentValues">

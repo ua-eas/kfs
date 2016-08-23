@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -35,15 +35,15 @@
         <ref bean="AssetRetirementGlobal-mergedTargetCapitalAssetNumber"/>
         <ref bean="AssetRetirementGlobal-retirementDate"/>
         <ref bean="AssetRetirementGlobal-retirementReasonCode"/>
-        
-		<ref bean="AssetRetirementGlobal-mergedTargetCapitalAssetDescription"/>        
+
+		<ref bean="AssetRetirementGlobal-mergedTargetCapitalAssetDescription"/>
         <ref bean="AssetRetirementGlobal-mergedTargetCapitalAsset.organizationOwnerAccount.organizationCode"/>
         <ref bean="AssetRetirementGlobal-mergedTargetCapitalAsset.capitalAssetDescription"/>
         <ref bean="AssetRetirementGlobal-mergedTargetCapitalAsset.capitalAssetTypeCode"/>
         <ref bean="AssetRetirementGlobal-mergedTargetCapitalAsset.createDate"/>
         <ref bean="AssetRetirementGlobal-mergedTargetCapitalAsset.capitalAssetInServiceDate"/>
-        <ref bean="AssetRetirementGlobal-mergedTargetCapitalAsset.capitalAssetType.depreciableLifeLimit"/>        
-		        
+        <ref bean="AssetRetirementGlobal-mergedTargetCapitalAsset.capitalAssetType.depreciableLifeLimit"/>
+
         <ref bean="AssetRetirementGlobal-retirementChartOfAccountsCode"/>
         <ref bean="AssetRetirementGlobal-retirementAccountNumber"/>
         <ref bean="AssetRetirementGlobal-retirementContactName"/>
@@ -74,7 +74,7 @@
         </dd:relationship>
         <dd:relationship objectAttribute="retirementState">
             <dd:primitiveAttribute source="retirementCountryCode" target="countryCode"/>
-            <dd:primitiveAttribute source="retirementStateCode" target="code"/>            
+            <dd:primitiveAttribute source="retirementStateCode" target="code"/>
         </dd:relationship>
         <dd:relationship objectAttribute="retirementCountry">
             <dd:primitiveAttribute source="retirementCountryCode" target="code"/>
@@ -83,7 +83,7 @@
     </property>
   </bean>
 
-<!-- Attribute Definitions -->   
+<!-- Attribute Definitions -->
   <bean id="AssetRetirementGlobal-mergedTargetCapitalAssetDescription" parent="AssetRetirementGlobal-mergedTargetCapitalAssetDescription-parentBean"/>
   <bean id="AssetRetirementGlobal-mergedTargetCapitalAssetDescription-parentBean" abstract="true" parent="Asset-capitalAssetDescription">
     <property name="name" value="mergedTargetCapitalAssetDescription"/>
@@ -100,21 +100,21 @@
     <property name="label" value="Document Number"/>
     <property name="shortLabel" value="Number"/>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-mergedTargetCapitalAssetNumber" parent="AssetRetirementGlobal-mergedTargetCapitalAssetNumber-parentBean"/>
   <bean id="AssetRetirementGlobal-mergedTargetCapitalAssetNumber-parentBean" abstract="true" parent="Asset-capitalAssetNumber">
     <property name="name" value="mergedTargetCapitalAssetNumber"/>
     <property name="label" value="Merged Target Asset Number"/>
     <property name="shortLabel" value="Number"/>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-retirementDate" parent="AssetRetirementGlobal-retirementDate-parentBean"/>
   <bean id="AssetRetirementGlobal-retirementDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
     <property name="name" value="retirementDate"/>
     <property name="label" value="Retirement Date"/>
     <property name="shortLabel" value="Date"/>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-retirementReasonCode" parent="AssetRetirementGlobal-retirementReasonCode-parentBean"/>
   <bean id="AssetRetirementGlobal-retirementReasonCode-parentBean" abstract="true" parent="AssetRetirementReason-retirementReasonCode">
     <property name="control">
@@ -172,13 +172,13 @@
     <property name="label" value="Cash Receipt Chart of Accounts Code "/>
     <property name="shortLabel" value="Code"/>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-retirementAccountNumber" parent="AssetRetirementGlobal-retirementAccountNumber-parentBean"/>
   <bean id="AssetRetirementGlobal-retirementAccountNumber-parentBean" abstract="true" parent="Asset-retirementAccountNumber">
     <property name="label" value="Cash Receipt Account Number "/>
     <property name="shortLabel" value="Number"/>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-retirementContactName" parent="AssetRetirementGlobal-retirementContactName-parentBean"/>
   <bean id="AssetRetirementGlobal-retirementContactName-parentBean" abstract="true" parent="AssetLocation-assetLocationContactName">
     <property name="name" value="retirementContactName"/>
@@ -186,28 +186,28 @@
     <property name="shortLabel" value="Name"/>
     <property name="maxLength" value="123" />
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-retirementInstitutionName" parent="AssetRetirementGlobal-retirementInstitutionName-parentBean"/>
   <bean id="AssetRetirementGlobal-retirementInstitutionName-parentBean" abstract="true" parent="AssetLocation-assetLocationInstitutionName">
     <property name="name" value="retirementInstitutionName"/>
     <property name="label" value="Institution Name"/>
     <property name="shortLabel" value="Name"/>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-retirementStreetAddress" parent="AssetRetirementGlobal-retirementStreetAddress-parentBean"/>
   <bean id="AssetRetirementGlobal-retirementStreetAddress-parentBean" abstract="true" parent="AssetLocation-assetLocationStreetAddress">
     <property name="name" value="retirementStreetAddress"/>
     <property name="label" value="Street Address"/>
     <property name="shortLabel" value="Address"/>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-retirementCityName" parent="AssetRetirementGlobal-retirementCityName-parentBean"/>
   <bean id="AssetRetirementGlobal-retirementCityName-parentBean" abstract="true" parent="AssetLocation-assetLocationCityName">
     <property name="name" value="retirementCityName"/>
     <property name="label" value="City Name"/>
     <property name="shortLabel" value="Name"/>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-retirementStateCode" parent="AssetRetirementGlobal-retirementStateCode-parentBean"/>
   <bean id="AssetRetirementGlobal-retirementStateCode-parentBean" abstract="true" parent="AssetLocation-assetLocationStateCode">
     <property name="name" value="retirementStateCode"/>
@@ -217,14 +217,14 @@
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.StateValuesFinder"/>
     </property>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-retirementZipCode" parent="AssetRetirementGlobal-retirementZipCode-parentBean"/>
   <bean id="AssetRetirementGlobal-retirementZipCode-parentBean" abstract="true" parent="AssetLocation-assetLocationZipCode">
     <property name="name" value="retirementZipCode"/>
     <property name="label" value="Postal Code"/>
     <property name="shortLabel" value="Postal Code"/>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-retirementCountryCode" parent="AssetRetirementGlobal-retirementCountryCode-parentBean"/>
   <bean id="AssetRetirementGlobal-retirementCountryCode-parentBean" abstract="true" parent="AssetLocation-assetLocationCountryCode">
     <property name="name" value="retirementCountryCode"/>
@@ -233,13 +233,13 @@
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.CountryValuesFinder"/>
     </property>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-retirementPhoneNumber" parent="AssetRetirementGlobal-retirementPhoneNumber-parentBean"/>
   <bean id="AssetRetirementGlobal-retirementPhoneNumber-parentBean" abstract="true" parent="AssetLocation-assetLocationPhoneNumber">
     <property name="name" value="retirementPhoneNumber"/>
     <property name="label" value="Phone Number"/>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-estimatedSellingPrice" parent="AssetRetirementGlobal-estimatedSellingPrice-parentBean"/>
   <bean id="AssetRetirementGlobal-estimatedSellingPrice-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="estimatedSellingPrice"/>
@@ -247,7 +247,7 @@
     <property name="shortLabel" value="Price"/>
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-salePrice" parent="AssetRetirementGlobal-salePrice-parentBean"/>
   <bean id="AssetRetirementGlobal-salePrice-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="salePrice"/>
@@ -255,14 +255,14 @@
     <property name="shortLabel" value="Price"/>
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-cashReceiptFinancialDocumentNumber" parent="AssetRetirementGlobal-cashReceiptFinancialDocumentNumber-parentBean"/>
   <bean id="AssetRetirementGlobal-cashReceiptFinancialDocumentNumber-parentBean" abstract="true" parent="FinancialSystemDocumentHeader-documentNumber">
     <property name="name" value="cashReceiptFinancialDocumentNumber"/>
     <property name="label" value="Cash Receipt Financial Document Number"/>
     <property name="shortLabel" value="Number"/>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-handlingFeeAmount" parent="AssetRetirementGlobal-handlingFeeAmount-parentBean"/>
   <bean id="AssetRetirementGlobal-handlingFeeAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="handlingFeeAmount"/>
@@ -270,7 +270,7 @@
     <property name="shortLabel" value="Amount"/>
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-preventiveMaintenanceAmount" parent="AssetRetirementGlobal-preventiveMaintenanceAmount-parentBean"/>
   <bean id="AssetRetirementGlobal-preventiveMaintenanceAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="preventiveMaintenanceAmount"/>
@@ -278,7 +278,7 @@
     <property name="shortLabel" value="Amount"/>
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-calculatedTotal" parent="AssetRetirementGlobal-calculatedTotal-parentBean"/>
   <bean id="AssetRetirementGlobal-calculatedTotal-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="calculatedTotal"/>
@@ -286,7 +286,7 @@
     <property name="shortLabel" value="Amount"/>
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-buyerDescription" parent="AssetRetirementGlobal-buyerDescription-parentBean"/>
   <bean id="AssetRetirementGlobal-buyerDescription-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="buyerDescription"/>
@@ -301,7 +301,7 @@
       <bean parent="TextControlDefinition" p:size="27"/>
     </property>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-paidCaseNumber" parent="AssetRetirementGlobal-paidCaseNumber-parentBean"/>
   <bean id="AssetRetirementGlobal-paidCaseNumber-parentBean" abstract="true" parent="Asset-campusPoliceDepartmentCaseNumber">
     <property name="name" value="paidCaseNumber"/>
@@ -329,7 +329,7 @@
 			  <bean parent="FieldDefinition" p:attributeName="retirementStateCode"/>
               <bean parent="FieldDefinition" p:attributeName="retirementZipCode"/>
 			  <bean parent="FieldDefinition" p:attributeName="retirementCountryCode"/>
-			  <bean parent="FieldDefinition" p:attributeName="retirementPhoneNumber"/>      
+			  <bean parent="FieldDefinition" p:attributeName="retirementPhoneNumber"/>
 			  <bean parent="FieldDefinition" p:attributeName="handlingFeeAmount"/>
               <bean parent="FieldDefinition" p:attributeName="preventiveMaintenanceAmount"/>
 			  <bean parent="FieldDefinition" p:attributeName="buyerDescription"/>
@@ -338,7 +338,7 @@
               <bean parent="FieldDefinition" p:attributeName="cashReceiptFinancialDocumentNumber"/>
 			  <bean parent="FieldDefinition" p:attributeName="retirementChartOfAccountsCode"/>
 			  <bean parent="FieldDefinition" p:attributeName="retirementAccountNumber"/>
-			  <bean parent="FieldDefinition" p:attributeName="paidCaseNumber"/> 
+			  <bean parent="FieldDefinition" p:attributeName="paidCaseNumber"/>
             </list>
           </property>
         </bean>
@@ -351,7 +351,7 @@
   <bean id="AssetRetirementGlobal-lookupDefinition" parent="AssetRetirementGlobal-lookupDefinition-parentBean"/>
   <bean id="AssetRetirementGlobal-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Asset Retirement Global Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
       </bean>
@@ -373,7 +373,7 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="AssetRetirementGlobal-accountingPeriodCompositeString" parent="AssetRetirementGlobal-accountingPeriodCompositeString-parentBean"/>
   <bean id="AssetRetirementGlobal-accountingPeriodCompositeString-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="accountingPeriodCompositeString"/>
@@ -387,7 +387,7 @@
     <property name="required" value="false"/>
     <property name="control">
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.module.cam.businessobject.options.CamsYearEndAccountingPeriodValuesFinder" p:includeKeyInLabel="false"/>
-    </property>    
-  </bean>    
-  
+    </property>
+  </bean>
+
 </beans>

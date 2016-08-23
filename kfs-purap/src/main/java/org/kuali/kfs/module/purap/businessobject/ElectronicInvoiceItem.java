@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,7 +40,7 @@ import org.kuali.kfs.module.purap.util.cxml.CxmlExtrinsic;
 
 public class ElectronicInvoiceItem {
   private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicInvoiceItem.class);
-  
+
   // this class is equiped to hold InvoiceDetailItem values as well as a few rudimentary
   // InvoiceDetailServiceItem values
 
@@ -60,22 +60,22 @@ public class ElectronicInvoiceItem {
   private String taxAmount; // has money xml node  (not all tax fields are stored as tax should never occur)
   private String taxAmountCurrency;
   private String taxDescription;
-  // invoiceLineGrossAmount should = subtotalAmount + taxAmount + invoiceLineSpecialHandlingAmount + invoiceLineShippingAmount 
+  // invoiceLineGrossAmount should = subtotalAmount + taxAmount + invoiceLineSpecialHandlingAmount + invoiceLineShippingAmount
   private String invoiceLineGrossAmount; // subtotal + taxes + shipping + special handling
   private String invoiceLineGrossAmountCurrency;
   private String invoiceLineDiscountAmount; // has money xml node
   private String invoiceLineDiscountAmountCurrency;
   private String invoiceLineDiscountPercentageRate;
-  // invoiceLineNetAmount should = invoiceLineGrossAmount - invoiceLineDiscountAmount 
+  // invoiceLineNetAmount should = invoiceLineGrossAmount - invoiceLineDiscountAmount
   private String invoiceLineNetAmount;  // has money xml node
   private String invoiceLineNetAmountCurrency;
   private String shippingDateString;
   private Date shippingDate;
-  
+
   private List invoiceShippingContacts = new ArrayList();
   private List comments = new ArrayList();
   private List extrinsic = new ArrayList();
-  
+
   // following fields describe PO information
   private String referenceLineNumber; // only match available for InvoiceDetailServiceItem values
   private String referenceSerialNumber; // attribute of <InvoiceDetailItemReference> deprecated to be <SerialNumber> inside it
@@ -87,23 +87,23 @@ public class ElectronicInvoiceItem {
   private String referenceManufacturerName;
   private String referenceCountryCode;
   private String referenceCountryName;
-  
+
   private ElectronicInvoiceRejectDocument electronicInvoiceRejectDocument;
-  
+
   public ElectronicInvoiceItem() {
   }
-  
+
   public Integer getReferenceLineNumberInteger() {
     if (this.referenceLineNumber != null) {
       return new Integer(Integer.parseInt(referenceLineNumber));
     }
     return null;
   }
-  
+
   public String getInvoiceLineShippingDescription() {
     return "";
   }
-  
+
   public BigDecimal getInvoiceLineQuantityBigDecimal() {
     if (StringUtils.isNotEmpty(quantity)) {
       return new BigDecimal(this.quantity);
@@ -111,7 +111,7 @@ public class ElectronicInvoiceItem {
       return null;
     }
   }
-  
+
   public BigDecimal getInvoiceLineUnitCostBigDecimal() {
     BigDecimal unitprice = BigDecimal.ZERO;
     if (StringUtils.isNotEmpty(unitPrice)) {
@@ -123,7 +123,7 @@ public class ElectronicInvoiceItem {
     }
     return unitprice;
   }
-  
+
   public BigDecimal getInvoiceLineSubTotalAmountBigDecimal() {
     BigDecimal subTotalAmount = BigDecimal.ZERO;
     if (StringUtils.isNotEmpty(this.subTotalAmount)) {
@@ -209,14 +209,14 @@ public class ElectronicInvoiceItem {
       this.shippingDate = null;
     }
   }
-  
+
   /**
    * @return Returns the catalogNumber.
    */
   public String getCatalogNumber() {
     return catalogNumber;
   }
-  
+
   /**
    * @param catalogNumber The catalogNumber to set.
    */
@@ -392,11 +392,11 @@ public class ElectronicInvoiceItem {
   public void setInvoiceShippingContacts(List invoiceShippingContacts) {
     this.invoiceShippingContacts = invoiceShippingContacts;
   }
-  
+
   public void addInvoiceShippingContacts(ElectronicInvoiceContact contact) {
       invoiceShippingContacts.add(contact);
   }
-  
+
   /**
    * @return Returns the quantity.
    */
@@ -641,16 +641,16 @@ public class ElectronicInvoiceItem {
     public ElectronicInvoiceRejectDocument getElectronicInvoiceRejectDocument() {
         return electronicInvoiceRejectDocument;
     }
-    
+
     public void setElectronicInvoiceRejectDocument(ElectronicInvoiceRejectDocument electronicInvoiceRejectDocument) {
         this.electronicInvoiceRejectDocument = electronicInvoiceRejectDocument;
     }
-    
-    
+
+
     public void addReferenceSerialNumber(String referenceSerialNumber) {
         this.referenceSerialNumbers.add(referenceSerialNumber);
     }
-    
+
     public String[] getReferenceSerialNumbersAsArray() {
         if (referenceSerialNumbers.size() > 0){
             String[] serialNumbers = new String[referenceSerialNumbers.size()];
@@ -659,11 +659,11 @@ public class ElectronicInvoiceItem {
         }
         return null;
     }
-    
+
     public void addExtrinsic(CxmlExtrinsic extrinsic) {
         this.extrinsic.add(extrinsic);
     }
-    
+
     public CxmlExtrinsic[] getExtrinsicAsArray() {
         if (extrinsic.size() > 0){
             CxmlExtrinsic[] extrinsics = new CxmlExtrinsic[extrinsic.size()];
@@ -676,7 +676,7 @@ public class ElectronicInvoiceItem {
     public void addComments(String comment){
         this.comments.add(comment);
     }
-    
+
     public String getInvoiceLineDiscountPercentageRate() {
         return invoiceLineDiscountPercentageRate;
     }
@@ -684,11 +684,11 @@ public class ElectronicInvoiceItem {
     public void setInvoiceLineDiscountPercentageRate(String invoiceLineDiscountPercentageRate) {
         this.invoiceLineDiscountPercentageRate = invoiceLineDiscountPercentageRate;
     }
-    
+
     public String toString(){
-        
+
         ToStringBuilder toString = new ToStringBuilder(this);
-        
+
         toString.append("invoiceLineNumber",getInvoiceLineNumber());
         toString.append("quantity",getQuantity());
         toString.append("catalogNumber",getCatalogNumber());
@@ -711,7 +711,7 @@ public class ElectronicInvoiceItem {
         toString.append("invoiceLineNetAmount",getInvoiceLineNetAmount());
         toString.append("invoiceLineNetAmountCurrency",getInvoiceLineNetAmountCurrency());
         toString.append("shippingDateString",getShippingDateString());
-        
+
         toString.append("referenceLineNumber",getReferenceLineNumber());
         toString.append("referenceSerialNumber",getReferenceSerialNumber());
         toString.append("referenceSerialNumbersList",getReferenceSerialNumbers());
@@ -722,15 +722,15 @@ public class ElectronicInvoiceItem {
         toString.append("referenceManufacturerName",getReferenceManufacturerName());
         toString.append("referenceCountryCode",getReferenceCountryCode());
         toString.append("referenceCountryName",getReferenceCountryName());
-        
+
         toString.append("invoiceShippingContacts",getInvoiceShippingContacts());
         toString.append("comments",getComments());
         toString.append("extrinsic",getExtrinsic());
-        
+
         return toString.toString();
-        
+
     }
 
-   
-  
+
+
 }

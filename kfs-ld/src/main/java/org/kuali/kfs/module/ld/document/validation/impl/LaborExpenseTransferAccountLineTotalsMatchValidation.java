@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,25 +34,25 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * determine whether the given accounting line has already been in the given document
- * 
+ *
  * @param accountingDocument the given document
  * @param accountingLine the given accounting line
  * @return true if the given accounting line has already been in the given document; otherwise, false
  */
 public class LaborExpenseTransferAccountLineTotalsMatchValidation extends GenericValidation {
     private Document documentForValidation;
-    
+
     /**
-     * Validates before the document routes 
+     * Validates before the document routes
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
         boolean result = true;
-           
+
         Document documentForValidation = getDocumentForValidation();
-        
+
         LaborExpenseTransferDocumentBase expenseTransferDocument = (LaborExpenseTransferDocumentBase) documentForValidation;
-        
+
         List sourceLines = expenseTransferDocument.getSourceAccountingLines();
         List targetLines = expenseTransferDocument.getTargetAccountingLines();
 
@@ -62,13 +62,13 @@ public class LaborExpenseTransferAccountLineTotalsMatchValidation extends Generi
             return false;
         }
 
-        return result;       
+        return result;
     }
 
     /**
      * This method checks if the total sum amount of the source accounting line matches the total sum amount of the target
      * accounting line, return true if the totals match, false otherwise.
-     * 
+     *
      * @param sourceLines
      * @param targetLines
      * @return
@@ -101,9 +101,9 @@ public class LaborExpenseTransferAccountLineTotalsMatchValidation extends Generi
 
         return isValid;
     }
-       
+
     /**
-     * Gets the documentForValidation attribute. 
+     * Gets the documentForValidation attribute.
      * @return Returns the documentForValidation.
      */
     public Document getDocumentForValidation() {
@@ -116,5 +116,5 @@ public class LaborExpenseTransferAccountLineTotalsMatchValidation extends Generi
      */
     public void setDocumentForValidation(Document documentForValidation) {
         this.documentForValidation = documentForValidation;
-    }    
+    }
 }

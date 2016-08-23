@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -55,7 +55,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     protected PendingBudgetConstructionGeneralLedger newRevenueLine;
     protected PendingBudgetConstructionGeneralLedger newExpenditureLine;
-    
+
     protected static String revenueObjectTypeCodesLookup;
     protected static String expenditureObjectTypeCodesLookup;
 
@@ -121,10 +121,10 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
     protected String getDefaultDocumentTypeName() {
         return BCConstants.BUDGET_CONSTRUCTION_DOCUMENT_NAME;
     }
-    
+
     /**
      * calls super.populate, then populates revenue and expenditure lines
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase#populate(javax.servlet.http.HttpServletRequest)
      */
     @Override
@@ -179,7 +179,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
      * Sets the persisted request amount to the actual request amount. This is normally used right after a save to the DB If
      * initSalarySetting is true, this also scrapes the current set of Salary Setting lines, including any 2PLG line into
      * preSalarySettingRows. preSalarySettingRows is used after return from Salary Setting to allow detection of any changes
-     * 
+     *
      * @param initSalarySetting
      */
     public void initializePersistedRequestAmounts(boolean initSalarySetting) {
@@ -220,7 +220,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
      * Populates the push or pull selection lists displayed in the drop down controls used by the pullup or pushdown actions. The
      * population considers the current level of the document and the user's BudgetConstructionDocument type approvals setup in
      * WorkFlow.
-     * 
+     *
      * @param bcDoc
      * @param levels
      * @param isPull
@@ -304,7 +304,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
     /**
      * Populates a PBGL revenue line bo using values from the struts form. This is in place to make sure that all of the composite
      * key objects have the correct values in them. This also adds line amounts to the revenue totals.
-     * 
+     *
      * @param revenueLine
      */
     public void populateRevenueLine(BudgetConstructionDocument bcDoc, PendingBudgetConstructionGeneralLedger revenueLine) {
@@ -320,7 +320,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
     /**
      * Populates a PBGL expenditure line bo using values from the struts form. This is in place to make sure that all of the
      * composite key objects have the correct values in them. This also adds line amounts to the expenditure totals.
-     * 
+     *
      * @param expenditureLine
      */
     public void populateExpenditureLine(BudgetConstructionDocument bcDoc, PendingBudgetConstructionGeneralLedger expenditureLine) {
@@ -339,7 +339,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Populates the dependent fields of objects contained within the PBGL line
-     * 
+     *
      * @param line
      */
     protected void populatePBGLLine(PendingBudgetConstructionGeneralLedger line) {
@@ -364,7 +364,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the budgetConstructionDocument
-     * 
+     *
      * @return
      */
     public BudgetConstructionDocument getBudgetConstructionDocument() {
@@ -373,7 +373,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the budgetConstructionDocument
-     * 
+     *
      * @param budgetConstructionDocument
      */
     public void setBudgetConstructionDocument(BudgetConstructionDocument budgetConstructionDocument) {
@@ -382,7 +382,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the newExpenditureLine attribute.
-     * 
+     *
      * @return Returns the newExpenditureLine.
      */
     public PendingBudgetConstructionGeneralLedger getNewExpenditureLine() {
@@ -391,7 +391,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the newExpenditureLine attribute value.
-     * 
+     *
      * @param newExpenditureLine The newExpenditureLine to set.
      */
     public void setNewExpenditureLine(PendingBudgetConstructionGeneralLedger newExpenditureLine) {
@@ -400,7 +400,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the newRevenueLine attribute.
-     * 
+     *
      * @return Returns the newRevenueLine.
      */
     public PendingBudgetConstructionGeneralLedger getNewRevenueLine() {
@@ -409,7 +409,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the newRevenueLine attribute value.
-     * 
+     *
      * @param newRevenueLine The newRevenueLine to set.
      */
     public void setNewRevenueLine(PendingBudgetConstructionGeneralLedger newRevenueLine) {
@@ -420,7 +420,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
      * Sets the defaults for fields not setable by the user for added lines. This assumes the document has been explictly loaded and
      * contains primary and candidate key values as in BudgetConstructionAction.loadDocument() or that populate reloads the values
      * from the JSP.
-     * 
+     *
      * @param line
      * @param isRevenue
      */
@@ -450,7 +450,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets getBudgetConstructionDocument().isBudgetableDocument attribute.
-     * 
+     *
      * @return Returns getBudgetConstructionDocument().isBudgetableDocument.
      */
     public boolean isBudgetableDocument() {
@@ -459,7 +459,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the hideDetails attribute.
-     * 
+     *
      * @return Returns the hideDetails.
      */
     public boolean isHideDetails() {
@@ -476,7 +476,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the hideDetails attribute value.
-     * 
+     *
      * @param hideDetails The hideDetails to set.
      */
     public void setHideDetails(boolean hideDetails) {
@@ -485,7 +485,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber.
      */
     public String getAccountNumber() {
@@ -494,7 +494,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the accountNumber attribute value.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -503,7 +503,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -512,7 +512,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the chartOfAccountsCode attribute value.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -521,7 +521,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber.
      */
     public String getSubAccountNumber() {
@@ -530,7 +530,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the subAccountNumber attribute value.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -539,7 +539,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear.
      */
     public Integer getUniversityFiscalYear() {
@@ -548,7 +548,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the universityFiscalYear attribute value.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -557,7 +557,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the hideAdjustmentMeasurement attribute.
-     * 
+     *
      * @return Returns the hideAdjustmentMeasurement.
      */
     public boolean isHideAdjustmentMeasurement() {
@@ -566,7 +566,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the hideAdjustmentMeasurement attribute value.
-     * 
+     *
      * @param hideAdjustmentMeasurement The hideAdjustmentMeasurement to set.
      */
     public void setHideAdjustmentMeasurement(boolean hideAdjustmentMeasurement) {
@@ -575,7 +575,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the revenueAdjustmentAmount attribute.
-     * 
+     *
      * @return Returns the revenueAdjustmentAmount.
      */
     public KualiDecimal getRevenueAdjustmentAmount() {
@@ -584,7 +584,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the revenueAdjustmentAmount attribute value.
-     * 
+     *
      * @param revenueAdjustmentAmount The revenueAdjustmentAmount to set.
      */
     public void setRevenueAdjustmentAmount(KualiDecimal adjustmentAmount) {
@@ -593,7 +593,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the expenditureAdjustmentAmount attribute.
-     * 
+     *
      * @return Returns the expenditureAdjustmentAmount.
      */
     public KualiDecimal getExpenditureAdjustmentAmount() {
@@ -602,7 +602,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the expenditureAdjustmentAmount attribute value.
-     * 
+     *
      * @param expenditureAdjustmentAmount The expenditureAdjustmentAmount to set.
      */
     public void setExpenditureAdjustmentAmount(KualiDecimal expenditureAdjustmentAmount) {
@@ -611,7 +611,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the benefitsCalculationDisabled attribute.
-     * 
+     *
      * @return Returns the benefitsCalculationDisabled.
      */
     public boolean isBenefitsCalculationDisabled() {
@@ -620,7 +620,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the salarySettingDisabled attribute.
-     * 
+     *
      * @return Returns the salarySettingDisabled.
      */
     public boolean isSalarySettingDisabled() {
@@ -629,7 +629,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the pickListMode attribute.
-     * 
+     *
      * @return Returns the pickListMode.
      */
     public boolean isPickListMode() {
@@ -638,7 +638,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the pickListMode attribute value.
-     * 
+     *
      * @param pickListMode The pickListMode to set.
      */
     public void setPickListMode(boolean pickListMode) {
@@ -647,7 +647,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the accountReportsExist attribute.
-     * 
+     *
      * @return Returns the accountReportsExist.
      */
     public boolean isAccountReportsExist() {
@@ -663,7 +663,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the accountReportsExist attribute value.
-     * 
+     *
      * @param accountReportsExist The accountReportsExist to set.
      */
     public void setAccountReportsExist(boolean accountReportsExist) {
@@ -672,7 +672,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the pickListClose attribute.
-     * 
+     *
      * @return Returns the pickListClose.
      */
     public boolean isPickListClose() {
@@ -681,7 +681,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the pickListClose attribute value.
-     * 
+     *
      * @param pickListClose The pickListClose to set.
      */
     public void setPickListClose(boolean pickListClose) {
@@ -690,7 +690,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the securityNoAccess attribute.
-     * 
+     *
      * @return Returns the securityNoAccess.
      */
     public boolean isSecurityNoAccess() {
@@ -699,7 +699,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the securityNoAccess attribute value.
-     * 
+     *
      * @param securityNoAccess The securityNoAccess to set.
      */
     public void setSecurityNoAccess(boolean securityNoAccess) {
@@ -708,7 +708,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the backLocation attribute.
-     * 
+     *
      * @return Returns the backLocation.
      */
     public String getBackLocation() {
@@ -717,7 +717,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the backLocation attribute value.
-     * 
+     *
      * @param backLocation The backLocation to set.
      */
     public void setBackLocation(String backLocation) {
@@ -726,7 +726,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the returnAnchor attribute.
-     * 
+     *
      * @return Returns the returnAnchor.
      */
     public String getReturnAnchor() {
@@ -735,7 +735,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the returnAnchor attribute value.
-     * 
+     *
      * @param returnAnchor The returnAnchor to set.
      */
     public void setReturnAnchor(String returnAnchor) {
@@ -744,7 +744,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the returnFormKey attribute.
-     * 
+     *
      * @return Returns the returnFormKey.
      */
     public String getReturnFormKey() {
@@ -753,7 +753,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the returnFormKey attribute value.
-     * 
+     *
      * @param returnFormKey The returnFormKey to set.
      */
     public void setReturnFormKey(String returnFormKey) {
@@ -762,7 +762,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the balanceInquiryReturnAnchor attribute.
-     * 
+     *
      * @return Returns the balanceInquiryReturnAnchor.
      */
     public String getBalanceInquiryReturnAnchor() {
@@ -771,7 +771,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the balanceInquiryReturnAnchor attribute value.
-     * 
+     *
      * @param balanceInquiryReturnAnchor The balanceInquiryReturnAnchor to set.
      */
     public void setBalanceInquiryReturnAnchor(String balanceInquiryReturnAnchor) {
@@ -780,7 +780,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the pullupKeyCode attribute.
-     * 
+     *
      * @return Returns the pullupKeyCode.
      */
     public String getPullupKeyCode() {
@@ -789,7 +789,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the pullupKeyCode attribute value.
-     * 
+     *
      * @param pullupKeyCode The pullupKeyCode to set.
      */
     public void setPullupKeyCode(String pullupKeyCode) {
@@ -798,7 +798,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the pullupLevelKeyLabels attribute.
-     * 
+     *
      * @return Returns the pullupLevelKeyLabels.
      */
     public List<BCKeyLabelPair> getPullupLevelKeyLabels() {
@@ -807,7 +807,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the pullupLevelKeyLabels attribute value.
-     * 
+     *
      * @param pullupLevelKeyLabels The pullupLevelKeyLabels to set.
      */
     public void setPullupLevelKeyLabels(List<BCKeyLabelPair> pullupLevelKeyLabels) {
@@ -816,7 +816,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the accountOrgHierLevels attribute.
-     * 
+     *
      * @return Returns the accountOrgHierLevels.
      */
     public List<BudgetConstructionAccountOrganizationHierarchy> getAccountOrgHierLevels() {
@@ -825,7 +825,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the accountOrgHierLevels attribute value.
-     * 
+     *
      * @param accountOrgHierLevels The accountOrgHierLevels to set.
      */
     public void setAccountOrgHierLevels(List<BudgetConstructionAccountOrganizationHierarchy> accountOrgHierLevels) {
@@ -834,7 +834,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the pushdownKeyCode attribute.
-     * 
+     *
      * @return Returns the pushdownKeyCode.
      */
     public String getPushdownKeyCode() {
@@ -843,7 +843,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the pushdownKeyCode attribute value.
-     * 
+     *
      * @param pushdownKeyCode The pushdownKeyCode to set.
      */
     public void setPushdownKeyCode(String pushdownKeyCode) {
@@ -852,7 +852,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the pushdownLevelKeyLabels attribute.
-     * 
+     *
      * @return Returns the pushdownLevelKeyLabels.
      */
     public List<BCKeyLabelPair> getPushdownLevelKeyLabels() {
@@ -861,7 +861,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the pushdownLevelKeyLabels attribute value.
-     * 
+     *
      * @param pushdownLevelKeyLabels The pushdownLevelKeyLabels to set.
      */
     public void setPushdownLevelKeyLabels(List<BCKeyLabelPair> pushdownLevelKeyLabels) {
@@ -870,7 +870,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the checkTwoPlugAdjustment attribute.
-     * 
+     *
      * @return Returns the checkTwoPlugAdjustment.
      */
     public boolean isCheckTwoPlugAdjustment() {
@@ -879,7 +879,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the checkTwoPlugAdjustment attribute value.
-     * 
+     *
      * @param checkTwoPlugAdjustment The checkTwoPlugAdjustment to set.
      */
     public void setCheckTwoPlugAdjustment(boolean checkTwoPlugAdjustment) {
@@ -888,7 +888,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the preSalarySettingRows attribute.
-     * 
+     *
      * @return Returns the preSalarySettingRows.
      */
     public HashMap<String, PendingBudgetConstructionGeneralLedger> getPreSalarySettingRows() {
@@ -897,7 +897,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the preSalarySettingRows attribute value.
-     * 
+     *
      * @param preSalarySettingRows The preSalarySettingRows to set.
      */
     public void setPreSalarySettingRows(HashMap<String, PendingBudgetConstructionGeneralLedger> preSalarySettingRows) {
@@ -906,7 +906,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the closingDocument attribute.
-     * 
+     *
      * @return Returns the closingDocument.
      */
     public boolean isClosingDocument() {
@@ -915,7 +915,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the closingDocument attribute value.
-     * 
+     *
      * @param closingDocument The closingDocument to set.
      */
     public void setClosingDocument(boolean closingDocument) {
@@ -938,7 +938,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the mainWindow attribute.
-     * 
+     *
      * @return Returns the mainWindow.
      */
     public boolean isMainWindow() {
@@ -947,7 +947,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Sets the mainWindow attribute value.
-     * 
+     *
      * @param mainWindow The mainWindow to set.
      */
     public void setMainWindow(boolean mainWindow) {
@@ -955,7 +955,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
     }
 
     /**
-     * Gets the revenueObjectTypeCodesLookup attribute. 
+     * Gets the revenueObjectTypeCodesLookup attribute.
      * @return Returns the revenueObjectTypeCodesLookup.
      */
     public static String getRevenueObjectTypeCodesLookup() {
@@ -966,7 +966,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
     }
 
     /**
-     * Gets the expenditureObjectTypeCodesLookup attribute. 
+     * Gets the expenditureObjectTypeCodesLookup attribute.
      * @return Returns the expenditureObjectTypeCodesLookup.
      */
     public static String getExpenditureObjectTypeCodesLookup() {
@@ -978,17 +978,17 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the dashSubAccountNumber attribute.
-     * 
+     *
      * @return Returns the dashSubAccountNumber
      */
-    
+
     public String getDashSubAccountNumber() {
         return dashSubAccountNumber;
     }
 
-    /**	
+    /**
      * Sets the dashSubAccountNumber attribute.
-     * 
+     *
      * @param dashSubAccountNumber The dashSubAccountNumber to set.
      */
     public void setDashSubAccountNumber(String dashSubAccountNumber) {
@@ -997,17 +997,17 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
 
     /**
      * Gets the dashFinancialSubObjectCode attribute.
-     * 
+     *
      * @return Returns the dashFinancialSubObjectCode
      */
-    
+
     public String getDashFinancialSubObjectCode() {
         return dashFinancialSubObjectCode;
     }
 
-    /**	
+    /**
      * Sets the dashFinancialSubObjectCode attribute.
-     * 
+     *
      * @param dashFinancialSubObjectCode The dashFinancialSubObjectCode to set.
      */
     public void setDashFinancialSubObjectCode(String dashFinancialSubObjectCode) {

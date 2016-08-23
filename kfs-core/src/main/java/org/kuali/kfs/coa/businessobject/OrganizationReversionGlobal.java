@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -71,7 +71,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap stringMapper = new LinkedHashMap();
         stringMapper.put(KFSPropertyConstants.DOCUMENT_NUMBER, this.documentNumber);
@@ -81,7 +81,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Gets the budgetReversionAccount attribute.
-     * 
+     *
      * @return Returns the budgetReversionAccount.
      */
     public Account getBudgetReversionAccount() {
@@ -90,7 +90,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber.
      */
     public String getDocumentNumber() {
@@ -99,7 +99,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Sets the documentNumber attribute value.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -108,7 +108,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Sets the budgetReversionAccount attribute value.
-     * 
+     *
      * @param budgetReversionAccount The budgetReversionAccount to set.
      * @deprecated
      */
@@ -118,7 +118,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Gets the budgetReversionAccountNumber attribute.
-     * 
+     *
      * @return Returns the budgetReversionAccountNumber.
      */
     public String getBudgetReversionAccountNumber() {
@@ -127,7 +127,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Sets the budgetReversionAccountNumber attribute value.
-     * 
+     *
      * @param budgetReversionAccountNumber The budgetReversionAccountNumber to set.
      */
     public void setBudgetReversionAccountNumber(String budgetReversionAccountNumber) {
@@ -136,7 +136,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Gets the budgetReversionChartOfAccounts attribute.
-     * 
+     *
      * @return Returns the budgetReversionChartOfAccounts.
      */
     public Chart getBudgetReversionChartOfAccounts() {
@@ -145,7 +145,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Sets the budgetReversionChartOfAccounts attribute value.
-     * 
+     *
      * @param budgetReversionChartOfAccounts The budgetReversionChartOfAccounts to set.
      * @deprecated
      */
@@ -155,7 +155,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Gets the budgetReversionChartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the budgetReversionChartOfAccountsCode.
      */
     public String getBudgetReversionChartOfAccountsCode() {
@@ -164,7 +164,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Sets the budgetReversionChartOfAccountsCode attribute value.
-     * 
+     *
      * @param budgetReversionChartOfAccountsCode The budgetReversionChartOfAccountsCode to set.
      */
     public void setBudgetReversionChartOfAccountsCode(String budgetReversionChartOfAccountsCode) {
@@ -173,7 +173,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Gets the carryForwardByObjectCodeIndicator attribute.
-     * 
+     *
      * @return Returns the carryForwardByObjectCodeIndicator.
      */
     public Boolean isCarryForwardByObjectCodeIndicator() {
@@ -183,7 +183,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
     /**
      * Gets the carryForwardByObjectCodeIndicator attribute: but for other methods that don't like to call "is" and would rather
      * call "get"
-     * 
+     *
      * @return Returns the carryForwardByObjectCodeIndicator.
      */
     public Boolean getCarryForwardByObjectCodeIndicator() {
@@ -192,7 +192,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Sets the carryForwardByObjectCodeIndicator attribute value.
-     * 
+     *
      * @param carryForwardByObjectCodeIndicator The carryForwardByObjectCodeIndicator to set.
      */
     public void setCarryForwardByObjectCodeIndicator(Boolean carryForwardByObjectCodeIndicator) {
@@ -201,7 +201,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Gets the cashReversionAccount attribute.
-     * 
+     *
      * @return Returns the cashReversionAccount.
      */
     public Account getCashReversionAccount() {
@@ -210,7 +210,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Sets the cashReversionAccount attribute value.
-     * 
+     *
      * @param cashReversionAccount The cashReversionAccount to set.
      * @deprecated
      */
@@ -220,7 +220,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Gets the cashReversionAccountNumber attribute.
-     * 
+     *
      * @return Returns the cashReversionAccountNumber.
      */
     public String getCashReversionAccountNumber() {
@@ -229,7 +229,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Sets the cashReversionAccountNumber attribute value.
-     * 
+     *
      * @param cashReversionAccountNumber The cashReversionAccountNumber to set.
      */
     public void setCashReversionAccountNumber(String cashReversionAccountNumber) {
@@ -238,7 +238,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Gets the cashReversionFinancialChartOfAccounts attribute.
-     * 
+     *
      * @return Returns the cashReversionFinancialChartOfAccounts.
      */
     public Chart getCashReversionFinancialChartOfAccounts() {
@@ -247,7 +247,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Sets the cashReversionFinancialChartOfAccounts attribute value.
-     * 
+     *
      * @param cashReversionFinancialChartOfAccounts The cashReversionFinancialChartOfAccounts to set.
      * @deprecated
      */
@@ -257,7 +257,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Gets the cashReversionFinancialChartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the cashReversionFinancialChartOfAccountsCode.
      */
     public String getCashReversionFinancialChartOfAccountsCode() {
@@ -266,7 +266,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Sets the cashReversionFinancialChartOfAccountsCode attribute value.
-     * 
+     *
      * @param cashReversionFinancialChartOfAccountsCode The cashReversionFinancialChartOfAccountsCode to set.
      */
     public void setCashReversionFinancialChartOfAccountsCode(String cashReversionFinancialChartOfAccountsCode) {
@@ -275,7 +275,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Gets the organizationReversionGlobalOrganizations attribute.
-     * 
+     *
      * @return Returns the organizationReversionGlobalOrganizations.
      */
     public List<OrganizationReversionGlobalOrganization> getOrganizationReversionGlobalOrganizations() {
@@ -284,7 +284,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Sets the organizationReversionGlobalOrganizations attribute value.
-     * 
+     *
      * @param organizationReversionGlobalOrganizations The organizationReversionGlobalOrganizations to set.
      * @deprecated
      */
@@ -294,7 +294,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Gets the organizationReversionGlobalDocumentDetails attribute.
-     * 
+     *
      * @return Returns the organizationReversionGlobalDocumentDetails.
      */
     public List<OrganizationReversionGlobalDetail> getOrganizationReversionGlobalDetails() {
@@ -303,7 +303,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Sets the organizationReversionGlobalDocumentDetails attribute value.
-     * 
+     *
      * @param organizationReversionGlobalDocumentDetails The organizationReversionGlobalDocumentDetails to set.
      */
     public void setOrganizationReversionGlobalDetails(List<OrganizationReversionGlobalDetail> organizationReversionGlobalDetails) {
@@ -312,7 +312,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear.
      */
     public Integer getUniversityFiscalYear() {
@@ -321,7 +321,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Sets the universityFiscalYear attribute value.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -330,7 +330,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Gets the universityFiscal attribute.
-     * 
+     *
      * @return Returns the universityFiscal.
      */
     public SystemOptions getUniversityFiscal() {
@@ -339,7 +339,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
 
     /**
      * Sets the universityFiscal attribute value.
-     * 
+     *
      * @param universityFiscal The universityFiscal to set.
      */
     public void setUniversityFiscal(SystemOptions universityFiscal) {
@@ -411,7 +411,7 @@ public class OrganizationReversionGlobal extends PersistableBusinessObjectBase i
     /**
      * This sticks all of the Organization Reversion Change Details into a map, for quicker access in
      * generateGlobalChangesToPersist.
-     * 
+     *
      * @return a map of all organization reversion change details, keyed by OrganizationReversionCategory
      */
     protected Map<String, OrganizationReversionGlobalDetail> rearrangeOrganizationReversionDetailsAsMap() {

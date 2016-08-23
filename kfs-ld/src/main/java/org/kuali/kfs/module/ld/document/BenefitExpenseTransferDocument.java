@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -47,7 +47,7 @@ public class BenefitExpenseTransferDocument extends LaborExpenseTransferDocument
     public BenefitExpenseTransferDocument() {
         super();
     }
-    
+
     /**
      * @see org.kuali.kfs.module.ld.document.LaborExpenseTransferDocumentBase#generateLaborLedgerPendingEntries(org.kuali.kfs.sys.businessobject.AccountingLine, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
@@ -55,12 +55,12 @@ public class BenefitExpenseTransferDocument extends LaborExpenseTransferDocument
         LOG.debug("started processGenerateLaborLedgerPendingEntries()");
         boolean isSuccessful = true;
         ExpenseTransferAccountingLine expenseTransferAccountingLine = (ExpenseTransferAccountingLine) accountingLine;
-        
+
         List<LaborLedgerPendingEntry> expensePendingEntries = LaborPendingEntryGenerator.generateExpensePendingEntries(this, expenseTransferAccountingLine, sequenceHelper);
         if (expensePendingEntries != null && !expensePendingEntries.isEmpty()) {
             isSuccessful &= this.getLaborLedgerPendingEntries().addAll(expensePendingEntries);
         }
-        
+
         return isSuccessful;
     }
 
@@ -70,17 +70,17 @@ public class BenefitExpenseTransferDocument extends LaborExpenseTransferDocument
     public boolean generateLaborLedgerBenefitClearingPendingEntries(GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
         return true;
     }
-    
+
     public List getLaborLedgerPendingEntriesForSearching() {
         return super.getLaborLedgerPendingEntries();
     }
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
-    
+
     public String getChartOfAccountsCode() {
         AccountService accountService = SpringContext.getBean(AccountService.class);
         if (!accountService.accountsCanCrossCharts()) {
@@ -89,9 +89,9 @@ public class BenefitExpenseTransferDocument extends LaborExpenseTransferDocument
         return chartOfAccountsCode;
     }
 
-    /** 
+    /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -100,17 +100,17 @@ public class BenefitExpenseTransferDocument extends LaborExpenseTransferDocument
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber
      */
-    
+
     public String getAccountNumber() {
         return accountNumber;
     }
 
-    /**	
+    /**
      * Sets the accountNumber attribute.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -127,21 +127,21 @@ public class BenefitExpenseTransferDocument extends LaborExpenseTransferDocument
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account
      */
-    
+
     public Account getAccount() {
         return account;
     }
 
-    /**	
+    /**
      * Sets the account attribute.
-     * 
+     *
      * @param account The account to set.
      */
     public void setAccount(Account account) {
         this.account = account;
     }
-    
+
 }

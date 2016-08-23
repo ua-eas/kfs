@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -23,18 +23,18 @@
 	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
 	<bean id="OrgReviewRole" parent="OrgReviewRole-parentBean" />
 
-  <bean id="OrgReviewRole-parentBean" abstract="true" parent="BusinessObjectEntry" 
-  			p:businessObjectClass="org.kuali.kfs.coa.identity.OrgReviewRole" 
-  			p:titleAttribute="orgReviewRoleInquiryTitle" 
-  			p:objectLabel="Organization Review" 
-  			p:lookupDefinition-ref="OrgReviewRole-lookupDefinition" 
+  <bean id="OrgReviewRole-parentBean" abstract="true" parent="BusinessObjectEntry"
+  			p:businessObjectClass="org.kuali.kfs.coa.identity.OrgReviewRole"
+  			p:titleAttribute="orgReviewRoleInquiryTitle"
+  			p:objectLabel="Organization Review"
+  			p:lookupDefinition-ref="OrgReviewRole-lookupDefinition"
   			p:inquiryDefinition-ref="OrgReviewRole-inquiryDefinition">
 	<property name="primaryKeys">
 	  <list>
 	    <value>orgReviewRoleMemberId</value>
 	    <value>delegate</value>
 	  </list>
-	</property> 
+	</property>
     <property name="attributes">
       <list>
         <ref bean="OrgReviewRole-financialSystemDocumentTypeCode"/>
@@ -45,7 +45,7 @@
         <ref bean="OrgReviewRole-orgReviewRoleMemberId"/>
         <ref bean="OrgReviewRole-roleMemberId"/>
         <ref bean="OrgReviewRole-delegationMemberId"/>
-        <ref bean="OrgReviewRole-principalMemberPrincipalId"/>        
+        <ref bean="OrgReviewRole-principalMemberPrincipalId"/>
         <ref bean="OrgReviewRole-principalMemberPrincipalName"/>
         <ref bean="OrgReviewRole-principalMemberName"/>
         <ref bean="OrgReviewRole-roleMemberRoleId"/>
@@ -156,7 +156,7 @@
 	        </property>
    		</bean>
    	  </list>
-    </property>    
+    </property>
   </bean>
 
 	<bean id="OrgReviewRole-financialSystemDocumentTypeCode" parent="OrgReviewRole-financialSystemDocumentTypeCode-parentBean" />
@@ -413,7 +413,7 @@
 
   <bean id="OrgReviewRole-lookupDefinition" parent="OrgReviewRole-lookupDefinition-parentBean"/>
   <bean id="OrgReviewRole-lookupDefinition-parentBean" abstract="true" parent="OrgReviewRole-lookupDefinition-base-parentBean" />
-  <bean id="OrgReviewRole-lookupDefinition-base-parentBean" abstract="true" parent="LookupDefinition" 
+  <bean id="OrgReviewRole-lookupDefinition-base-parentBean" abstract="true" parent="LookupDefinition"
   		p:title="Organization Review Lookup">
     <property name="lookupableID" value="orgReviewRoleLookupable"/>
     <property name="defaultSort">

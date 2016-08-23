@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -26,8 +26,8 @@
     <property name="businessRulesClass" value="org.kuali.kfs.sys.document.validation.impl.AccountingRuleEngineRuleBase"/>
     <property name="documentAuthorizerClass" value="org.kuali.kfs.fp.document.authorization.ProcurementCardDocumentAuthorizer"/>
     <property name="documentPresentationControllerClass" value="org.kuali.kfs.fp.document.authorization.ProcurementCardDocumentPresentationController"/>
-   
-    
+
+
     <property name="sessionDocument" value="true"/>
     <property name="allowsErrorCorrection" value="false"/>
 
@@ -39,13 +39,13 @@
 	    		<ref bean="ProcurementCardDocument-targetAccountingLineGroup" parent="AccountingLineGroup"/>
 	    	</entry>
     	</map>
-    </property>  
+    </property>
     <property name="importedLineParserClass" value="org.kuali.kfs.fp.businessobject.ProcurementCardAccountingLineParser"/>
     <property name="workflowAttributes">
     	<ref bean="ProcurementCardDocument-workflowAttributes"/>
-    </property>   
+    </property>
   </bean>
-  
+
   <!-- Validations -->
   <bean id="ProcurementCardDocument-validations" parent="ProcurementCardDocument-validations-parentBean"/>
   <bean id="ProcurementCardDocument-validations-parentBean" abstract="true"  class="org.springframework.beans.factory.config.MapFactoryBean">
@@ -66,7 +66,7 @@
             <entry>
                 <key><value>org.kuali.kfs.sys.document.validation.event.AddAccountingLineEvent</value></key>
                 <value>ProcurementCard-addAccountingLineValidation</value>
-            </entry>            
+            </entry>
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.DeleteAccountingLineEvent</value></key>
 				<value>ProcurementCard-deleteAccountingLineValidation</value>
@@ -79,7 +79,7 @@
 				<key><value>org.kuali.kfs.sys.document.validation.event.ReviewAccountingLineEvent</value></key>
 				<value>ProcurementCard-reviewAccountingLineValidation</value>
 			</entry>
-			<!-- capital accounting lines object sub type check. -->		
+			<!-- capital accounting lines object sub type check. -->
 			<entry>
 				<key><value>org.kuali.kfs.fp.document.validation.event.CapitalAccountingLinesSameObjectCodeSubTypeEvent</value></key>
 				<value>ProcurementCard-capitalAccountingLinesObjectSubtypeValidations</value>
@@ -88,8 +88,8 @@
     </property>
   </bean>
 
-  <!-- accounting line groups -->	
-  <bean id="ProcurementCardDocument-targetAccountingLineGroup" parent="ProcurementCardDocument-targetAccountingLineGroup-parentBean"/>	
+  <!-- accounting line groups -->
+  <bean id="ProcurementCardDocument-targetAccountingLineGroup" parent="ProcurementCardDocument-targetAccountingLineGroup-parentBean"/>
   <bean id="ProcurementCardDocument-targetAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
 	  <property name="accountingLineView" ref="ProcurementCard-accountingLineView"/>
 	  <property name="accountingLineClass" value="org.kuali.kfs.fp.businessobject.ProcurementCardTargetAccountingLine"/>
@@ -100,8 +100,8 @@
 	  <property name="errorKey" value="document.transactionEntries*,*targetAccountingLines*,*newTargetLine*"/>
 	  <property name="accountingLineGroupClass" value="org.kuali.kfs.sys.document.web.CollectionAccountingLineGroupImpl"/>
   </bean>
-  
-  <bean id="ProcurementCard-accountingLineView" parent="ProcurementCard-accountingLineView-parent"/> 
+
+  <bean id="ProcurementCard-accountingLineView" parent="ProcurementCard-accountingLineView-parent"/>
   <bean id="ProcurementCard-accountingLineView-parent" parent="AccountingLineView" abstract="true">
 		<property name="elements">
 			<list>
@@ -127,7 +127,7 @@
 			</list>
 		</property>
   </bean>
-  
+
   <bean id="ProcurementCard-targetGroupTotals" class="org.springframework.beans.factory.config.ListFactoryBean">
     	<property name="sourceList">
     		<list>
@@ -135,13 +135,13 @@
     		</list>
     	</property>
   </bean>
-    
+
   <!-- workflow attributes for routing -->
-  <bean id="ProcurementCardDocument-workflowAttributes" parent="ProcurementCardDocument-workflowAttributes-parentBean"/>    
-  <bean id="ProcurementCardDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">    	
+  <bean id="ProcurementCardDocument-workflowAttributes" parent="ProcurementCardDocument-workflowAttributes-parentBean"/>
+  <bean id="ProcurementCardDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
     	<property name="routingTypeDefinitions">
     		<map>
-     			<entry key="AccountFullEdit" value-ref="RoutingType-AccountingDocument-Account-targetOnly"/>   		
+     			<entry key="AccountFullEdit" value-ref="RoutingType-AccountingDocument-Account-targetOnly"/>
     			<entry key="Account" value-ref="RoutingType-AccountingDocument-Account-targetOnly"/>
     			<entry key="AccountingOrganizationHierarchy" value-ref="RoutingType-AccountingDocument-OrganizationHierarchy-targetOnly"/>
     			<entry key="SubFund" value-ref="RoutingType-AccountingDocument-SubFund-targetOnly"/>

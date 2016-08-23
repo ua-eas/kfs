@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,11 +44,11 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 public abstract class RolePermissionXmlDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @XmlElement(name="permissionId")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     private String permissionId;
-    
+
     @XmlElement(name="permissionName")
     @XmlJavaTypeAdapter(NameAndNamespacePairValidatingAdapter.class)
     private NameAndNamespacePair permissionNameAndNamespace;
@@ -57,10 +57,10 @@ public abstract class RolePermissionXmlDTO implements Serializable {
      * Constructs an empty RolePermissionXmlDTO instance.
      */
     public RolePermissionXmlDTO() {}
-    
+
     /**
      * Constructs a RolePermissionXmlDTO that gets populated from the given KIM permission.
-     * 
+     *
      * @param permission The permission that this DTO should obtain its data from.
      * @param populateIds If true, the permission ID will get populated; otherwise, it will remain null.
      */
@@ -104,7 +104,7 @@ public abstract class RolePermissionXmlDTO implements Serializable {
 
     /**
      * Retrieves the permission name from the permission-name-and-namespace combo.
-     * 
+     *
      * @return The name of the permission assigned to the role, or null if the permission-name-and-namespace combo is null.
      */
     public String getPermissionName() {
@@ -113,23 +113,23 @@ public abstract class RolePermissionXmlDTO implements Serializable {
 
     /**
      * Retrieves the permission namespace code from the permission-name-and-namespace combo.
-     * 
+     *
      * @return The namespace code of the permission assigned to the role, or null if the permission-name-and-namespace combo is null.
      */
     public String getPermissionNamespaceCode() {
         return (permissionNameAndNamespace != null) ? permissionNameAndNamespace.getNamespaceCode() : null;
     }
-    
+
     /**
      * Retrieves the ID of the role that the permission is assigned to.
      * Subclasses are responsible for implementing this method so that it does so.
-     * 
+     *
      * @return The role ID of the role that the permission is assigned to.
      */
     public abstract String getRoleId();
-    
+
     // =======================================================================================================
-    
+
     /**
      * This class represents a &lt;rolePermission&gt; element that is not a descendant of a &lt;role&gt; element.
      */
@@ -138,21 +138,21 @@ public abstract class RolePermissionXmlDTO implements Serializable {
             "roleId", "roleNameAndNamespace", "permissionId", "permissionNameAndNamespace"
     })
     public static class OutsideOfRole extends RolePermissionXmlDTO {
-        
+
         private static final long serialVersionUID = 1L;
 
         @XmlElement(name="roleId")
         @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
         private String roleId;
-        
+
         @XmlElement(name="roleName")
         @XmlJavaTypeAdapter(NameAndNamespacePairValidatingAdapter.class)
         private NameAndNamespacePair roleNameAndNamespace;
-        
+
         public OutsideOfRole() {
             super();
         }
-        
+
         public OutsideOfRole(PermissionContract permission, String roleId, boolean populateIds) {
             super(permission, populateIds);
             if (populateIds) {
@@ -193,10 +193,10 @@ public abstract class RolePermissionXmlDTO implements Serializable {
         public void setRoleNameAndNamespace(NameAndNamespacePair roleNameAndNamespace) {
             this.roleNameAndNamespace = roleNameAndNamespace;
         }
-        
+
         /**
          * Retrieves the role name from the role-name-and-namespace combo.
-         * 
+         *
          * @return The name of the role that is assigned to the permission, or null if the role-name-and-namespace combo is null.
          */
         public String getRoleName() {
@@ -205,16 +205,16 @@ public abstract class RolePermissionXmlDTO implements Serializable {
 
         /**
          * Retrieves the role namespace code from the role-name-and-namespace combo.
-         * 
+         *
          * @return The namespace code of the role that is assigned to the permission, or null if the role-name-and-namespace combo is null.
          */
         public String getRoleNamespaceCode() {
             return (roleNameAndNamespace != null) ? roleNameAndNamespace.getNamespaceCode() : null;
         }
     }
-    
+
     // =======================================================================================================
-    
+
     /**
      * This class represents a &lt;rolePermission&gt; element that is a descendant of a &lt;role&gt; element.
      */
@@ -223,20 +223,20 @@ public abstract class RolePermissionXmlDTO implements Serializable {
             "permissionId", "permissionNameAndNamespace"
     })
     public static class WithinRole extends RolePermissionXmlDTO {
-        
+
         private static final long serialVersionUID = 1L;
-        
+
         @XmlTransient
         private String roleId;
-        
+
         public WithinRole() {
             super();
         }
-        
+
         public WithinRole(PermissionContract permission, boolean populateIds) {
             super(permission, populateIds);
         }
-        
+
         void beforeUnmarshal(Unmarshaller unmarshaller, Object parent) {
             if (parent instanceof RolePermissionsXmlDTO) {
                 this.roleId = ((RolePermissionXmlDTO)parent).getRoleId();

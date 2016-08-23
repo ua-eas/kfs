@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -45,45 +45,45 @@ public class PurchasingNewIndividualItemValidation extends PurchasingAccountsPay
     private PurchasingItemDescriptionValidation itemDescriptionValidation;
     private PurchasingItemQuantityValidation itemQuantityValidation;
     private PurchasingBelowTheLineItemNoUnitCostValidation belowTheLineItemNoUnitCostValidation;
-    
+
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
         valid &= super.validate(event);
-        String recurringPaymentTypeCode = ((PurchasingDocument)event.getDocument()).getRecurringPaymentTypeCode(); 
+        String recurringPaymentTypeCode = ((PurchasingDocument)event.getDocument()).getRecurringPaymentTypeCode();
         //Capital asset validations are only done on line items (not additional charge items).
         if (!getItemForValidation().getItemType().isAdditionalChargeIndicator()) {
             valid &= capitalAssetBuilderModuleService.validateItemCapitalAssetWithErrors(recurringPaymentTypeCode, getItemForValidation(), false);
         }
         unitOfMeasureValidation.setItemForValidation(getItemForValidation());
         valid &= unitOfMeasureValidation.validate(event);
-        
+
         if (getItemForValidation().getItemType().isLineItemIndicator()) {
             itemUnitPriceValidation.setItemForValidation(getItemForValidation());
-            valid &= itemUnitPriceValidation.validate(event);  
-            
+            valid &= itemUnitPriceValidation.validate(event);
+
             itemDescriptionValidation.setItemForValidation(getItemForValidation());
             valid &= itemDescriptionValidation.validate(event);
-                        
+
             itemQuantityValidation.setItemForValidation(getItemForValidation());
             valid &= itemQuantityValidation.validate(event);
 
-            valid &= validateCommodityCodes(getItemForValidation(), commodityCodeIsRequired());      
+            valid &= validateCommodityCodes(getItemForValidation(), commodityCodeIsRequired());
         }
         else {
             // No accounts can be entered on below-the-line items that have no unit cost.
             belowTheLineItemNoUnitCostValidation.setItemForValidation(getItemForValidation());
-            valid &= belowTheLineItemNoUnitCostValidation.validate(event);                        
+            valid &= belowTheLineItemNoUnitCostValidation.validate(event);
         }
         return valid;
     }
-    
+
     protected boolean commodityCodeIsRequired() {
         return false;
     }
-    
+
     /**
      * Validates that the document contains at least one item.
-     * 
+     *
      * @param purDocument the purchasing document to be validated
      * @return boolean false if the document does not contain at least one item.
      */
@@ -103,12 +103,12 @@ public class PurchasingNewIndividualItemValidation extends PurchasingAccountsPay
 
         return valid;
     }
-        
+
     /**
      * Validates whether the commodity code existed on the item, and if existed, whether the
-     * commodity code on the item existed in the database, and if so, whether the commodity 
+     * commodity code on the item existed in the database, and if so, whether the commodity
      * code is active. Display error if any of these 3 conditions are not met.
-     * 
+     *
      * @param item  The PurApItem containing the commodity code to be validated.
      * @return boolean false if the validation fails and true otherwise.
      */
@@ -116,7 +116,7 @@ public class PurchasingNewIndividualItemValidation extends PurchasingAccountsPay
         boolean valid = true;
         String identifierString = item.getItemIdentifierString();
         PurchasingItemBase purItem = (PurchasingItemBase) item;
-        
+
         String errorPrefix = KFSPropertyConstants.DOCUMENT + "." + PurapPropertyConstants.ITEM + "[" + (item.getItemLineNumber() - 1) + "]." + PurapPropertyConstants.ITEM_COMMODITY_CODE;
         //This validation is only needed if the commodityCodeRequired system parameter is true
         if (commodityCodeRequired && StringUtils.isBlank(purItem.getPurchasingCommodityCode()) ) {
@@ -124,7 +124,7 @@ public class PurchasingNewIndividualItemValidation extends PurchasingAccountsPay
             valid = false;
             String attributeLabel = getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(CommodityCode.class.getName()).
                                     getAttributeDefinition(PurapPropertyConstants.ITEM_COMMODITY_CODE).getLabel();
-            
+
             GlobalVariables.getMessageMap().putError(errorPrefix, KFSKeyConstants.ERROR_REQUIRED, attributeLabel + " in " + identifierString);
         }
         else if (StringUtils.isNotBlank(purItem.getPurchasingCommodityCode())) {
@@ -140,10 +140,10 @@ public class PurchasingNewIndividualItemValidation extends PurchasingAccountsPay
                 valid &= validateThatCommodityCodeIsActive(item);
             }
         }
-        
+
         return valid;
     }
-    
+
     protected boolean validateThatCommodityCodeIsActive(PurApItem item) {
         item.refreshReferenceObject(PurapPropertyConstants.COMMODITY_CODE);
         if (!((PurchasingItemBase)item).getCommodityCode().isActive()) {
@@ -210,6 +210,6 @@ public class PurchasingNewIndividualItemValidation extends PurchasingAccountsPay
     public void setBelowTheLineItemNoUnitCostValidation(PurchasingBelowTheLineItemNoUnitCostValidation belowTheLineItemNoUnitCostValidation) {
         this.belowTheLineItemNoUnitCostValidation = belowTheLineItemNoUnitCostValidation;
     }
-    
+
 
 }

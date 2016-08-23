@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -32,7 +32,7 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
     <property name="attributes">
       <list merge="true">
 		<ref bean="ArKimAttributes-billingChartOfAccountsCode" />
-		<ref bean="ArKimAttributes-billingOrganizationCode" />        
+		<ref bean="ArKimAttributes-billingOrganizationCode" />
 		<ref bean="ArKimAttributes-processingChartOfAccountsCode" />
 		<ref bean="ArKimAttributes-processingOrganizationCode" />
 		<ref bean="ArKimAttributes-customerNameStartingLetter" />
@@ -43,26 +43,26 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
       <list merge="true">
         <dd:relationship objectAttribute="billingChart">
             <dd:primitiveAttribute source="billingChartOfAccountsCode" target="chartOfAccountsCode" />
-        </dd:relationship>          
+        </dd:relationship>
         <dd:relationship objectAttribute="billingOrganization">
             <dd:primitiveAttribute source="billingChartOfAccountsCode" target="chartOfAccountsCode" />
             <dd:primitiveAttribute source="billingOrganizationCode" target="organizationCode" />
-        </dd:relationship>          
+        </dd:relationship>
         <dd:relationship objectAttribute="processingChart">
             <dd:primitiveAttribute source="processingChartOfAccountsCode" target="chartOfAccountsCode" />
-        </dd:relationship>          
+        </dd:relationship>
         <dd:relationship objectAttribute="processingOrganization">
             <dd:primitiveAttribute source="processingChartOfAccountsCode" target="chartOfAccountsCode" />
             <dd:primitiveAttribute source="processingOrganizationCode" target="organizationCode" />
-        </dd:relationship>          
+        </dd:relationship>
       </list>
     </property>
   </bean>
-  
+
   <bean id="ArKimAttributes-billingChartOfAccountsCode" parent="ArKimAttributes-billingChartOfAccountsCode-parentBean" />
 
-  <bean id="ArKimAttributes-billingChartOfAccountsCode-parentBean" abstract="true" parent="KfsKimAttributes-chartOfAccountsCode" 
-  	p:name="billingChartOfAccountsCode" 
+  <bean id="ArKimAttributes-billingChartOfAccountsCode-parentBean" abstract="true" parent="KfsKimAttributes-chartOfAccountsCode"
+  	p:name="billingChartOfAccountsCode"
 	p:label="Billing Chart Code"
     p:shortLabel="Billing Chart Code">
     <property name="required" value="false"/>
@@ -70,11 +70,11 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
       	<bean parent="TextControlDefinition" p:size="4"/>
     </property>
   </bean>
-  
+
   <bean id="ArKimAttributes-billingOrganizationCode" parent="ArKimAttributes-billingOrganizationCode-parentBean" />
 
-  <bean id="ArKimAttributes-billingOrganizationCode-parentBean" abstract="true" parent="Organization-organizationCode" 
-  	p:name="billingOrganizationCode" 
+  <bean id="ArKimAttributes-billingOrganizationCode-parentBean" abstract="true" parent="Organization-organizationCode"
+  	p:name="billingOrganizationCode"
 	p:label="Billing Organization"
     p:shortLabel="Billing Org">
     <property name="required" value="false"/>
@@ -85,8 +85,8 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
 
   <bean id="ArKimAttributes-processingChartOfAccountsCode" parent="ArKimAttributes-processingChartOfAccountsCode-parentBean" />
 
-  <bean id="ArKimAttributes-processingChartOfAccountsCode-parentBean" abstract="true" parent="KfsKimAttributes-chartOfAccountsCode" 
-  	p:name="processingChartOfAccountsCode" 
+  <bean id="ArKimAttributes-processingChartOfAccountsCode-parentBean" abstract="true" parent="KfsKimAttributes-chartOfAccountsCode"
+  	p:name="processingChartOfAccountsCode"
 	p:label="Processing Chart Code"
     p:shortLabel="Processing Chart Code">
     <property name="required" value="false"/>
@@ -94,11 +94,11 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
       	<bean parent="TextControlDefinition" p:size="4"/>
     </property>
   </bean>
-  
+
   <bean id="ArKimAttributes-processingOrganizationCode" parent="ArKimAttributes-processingOrganizationCode-parentBean" />
 
-  <bean id="ArKimAttributes-processingOrganizationCode-parentBean" abstract="true" parent="Organization-organizationCode" 
-  	p:name="processingOrganizationCode" 
+  <bean id="ArKimAttributes-processingOrganizationCode-parentBean" abstract="true" parent="Organization-organizationCode"
+  	p:name="processingOrganizationCode"
 	p:label="Processing Organization"
     p:shortLabel="Processing Org">
     <property name="required" value="false"/>
@@ -109,8 +109,8 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
 
   <bean id="ArKimAttributes-customerNameStartingLetter" parent="ArKimAttributes-customerNameStartingLetter-parentBean" />
 
-  <bean id="ArKimAttributes-customerNameStartingLetter-parentBean" abstract="true" parent="AttributeDefinition" 
-  	p:name="customerNameStartingLetter" 
+  <bean id="ArKimAttributes-customerNameStartingLetter-parentBean" abstract="true" parent="AttributeDefinition"
+  	p:name="customerNameStartingLetter"
 	p:label="Customer Name Starting Letter"
     p:shortLabel="Cust Name Start Letter">
     <property name="required" value="false"/>
@@ -122,8 +122,8 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
 
   <bean id="ArKimAttributes-customerNameEndingLetter" parent="ArKimAttributes-customerNameEndingLetter-parentBean" />
 
-  <bean id="ArKimAttributes-customerNameEndingLetter-parentBean" abstract="true" parent="AttributeDefinition" 
-  	p:name="customerNameEndingLetter" 
+  <bean id="ArKimAttributes-customerNameEndingLetter-parentBean" abstract="true" parent="AttributeDefinition"
+  	p:name="customerNameEndingLetter"
 	p:label="Customer Name Ending Letter"
     p:shortLabel="Cust Name End Letter">
     <property name="required" value="false"/>

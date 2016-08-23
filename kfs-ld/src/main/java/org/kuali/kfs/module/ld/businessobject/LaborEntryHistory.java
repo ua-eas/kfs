@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,10 +41,10 @@ public class LaborEntryHistory extends LedgerEntry implements LedgerEntryHistory
         this.setTransactionLedgerEntryAmount(KualiDecimal.ZERO);
         this.setRowCount(0);
     }
-    
+
     /**
      * Constructs a LedgerBalance.java.
-     * 
+     *
      * @param transaction
      */
     public LaborEntryHistory(LaborOriginEntry laborOriginEntry) {
@@ -56,20 +56,20 @@ public class LaborEntryHistory extends LedgerEntry implements LedgerEntryHistory
         this.setUniversityFiscalPeriodCode(laborOriginEntry.getUniversityFiscalPeriodCode());
         this.setTransactionDebitCreditCode(laborOriginEntry.getTransactionDebitCreditCode());
     }
-    
+
     /**
      * Adds a transactionLedgerEntryAmount and increments the rowCount.
-     * 
+     *
      * @param transactionLedgerEntryAmount
      */
     public void addAmount(KualiDecimal transactionLedgerEntryAmount) {
         this.setTransactionLedgerEntryAmount(this.getTransactionLedgerEntryAmount().add(transactionLedgerEntryAmount));
         rowCount++;
     }
-    
+
     /**
      * Gets the rowCount
-     * 
+     *
      * @return Returns the rowCount
      */
     public Integer getRowCount() {
@@ -78,13 +78,13 @@ public class LaborEntryHistory extends LedgerEntry implements LedgerEntryHistory
 
     /**
      * Sets the rowCount
-     * 
+     *
      * @param rowCount The rowCount to set.
      */
     public void setRowCount(Integer rowCount) {
         this.rowCount = rowCount;
     }
-    
+
     /**
      * History does not track this field.
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry#getAccountNumber()

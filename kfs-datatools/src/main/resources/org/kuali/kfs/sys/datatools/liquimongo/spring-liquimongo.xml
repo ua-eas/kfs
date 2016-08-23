@@ -46,21 +46,21 @@
 			<ref bean="mongoTemplate"/>
 		</property>
 	</bean>
-	
+
 	<bean id="documentStoreAddNodeHandler" parent="documentStoreAddNodeHandler-parentBean"/>
 	<bean id="documentStoreAddNodeHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.AddNodeHandler">
 		<property name="mongoTemplate">
 			<ref bean="mongoTemplate"/>
 		</property>
 	</bean>
-	
+
 	<bean id="documentStoreUpdateNodeHandler" parent="documentStoreUpdateNodeHandler-parentBean"/>
 	<bean id="documentStoreUpdateNodeHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.UpdateNodeHandler">
 		<property name="mongoTemplate">
 			<ref bean="mongoTemplate"/>
 		</property>
 	</bean>
-	
+
 	<bean id="documentStoreDeleteNodeHandler" parent="documentStoreDeleteNodeHandler-parentBean"/>
 	<bean id="documentStoreDeleteNodeHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.DeleteNodeHandler">
 		<property name="mongoTemplate">

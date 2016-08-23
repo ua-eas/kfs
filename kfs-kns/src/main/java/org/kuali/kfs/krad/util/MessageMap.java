@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,9 +42,9 @@ import java.util.Set;
  * Note, prior to rice 0.9.4, this class implemented {@link java.util.Map}.  The implements has been removed as of rice 0.9.4
  */
 public class MessageMap implements Serializable {
-	
+
     private static final long serialVersionUID = -2328635367656516150L;
-    
+
     private List<String> errorPath = new ArrayList<String>();
     private Map<String, AutoPopulatingList<ErrorMessage>> errorMessages = new LinkedHashMap<String, AutoPopulatingList<ErrorMessage>>();
     private Map<String, AutoPopulatingList<ErrorMessage>> warningMessages = new LinkedHashMap<String, AutoPopulatingList<ErrorMessage>>();
@@ -543,14 +543,14 @@ public class MessageMap implements Serializable {
     public AutoPopulatingList<ErrorMessage> getInfoMessagesForProperty(String propertyName) {
     	return infoMessages.get(propertyName);
     }
-    
+
 	/**
 	 * Gets a list of lists that represent errors that matched by the
 	 * propertyName passed in (multiple lists because the wildcard can match
 	 * multiple keys). If wildcard is true, the propertyName ends with a
 	 * wildcard character. Otherwise, it will only match on the single key and
 	 * return a list with one list
-	 * 
+	 *
 	 * @param propertyName
 	 * @param allowWildcard
 	 * @return
@@ -588,7 +588,7 @@ public class MessageMap implements Serializable {
 	 * multiple keys). If wildcard is true, the propertyName ends with a
 	 * wildcard character. Otherwise, it will only match on the single key and
 	 * return a list with one list.
-	 * 
+	 *
 	 * @param propertyName
 	 * @param allowWildcard
 	 * @return
@@ -626,7 +626,7 @@ public class MessageMap implements Serializable {
 	 * multiple keys). If wildcard is true, the propertyName ends with a
 	 * wildcard character. If it is false, it will only match on the single key
 	 * and return a list with one list.
-	 * 
+	 *
 	 * @param propertyName
 	 * @param allowWildcard
 	 * @return

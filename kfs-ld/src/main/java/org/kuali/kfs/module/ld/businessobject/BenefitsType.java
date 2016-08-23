@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,7 +44,7 @@ public class BenefitsType extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the positionBenefitTypeCode attribute.
-     * 
+     *
      * @return Returns the positionBenefitTypeCode
      */
     public String getPositionBenefitTypeCode() {
@@ -53,7 +53,7 @@ public class BenefitsType extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the positionBenefitTypeCode attribute.
-     * 
+     *
      * @param positionBenefitTypeCode The positionBenefitTypeCode to set.
      */
     public void setPositionBenefitTypeCode(String positionBenefitTypeCode) {
@@ -62,7 +62,7 @@ public class BenefitsType extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the positionBenefitTypeDescription attribute.
-     * 
+     *
      * @return Returns the positionBenefitTypeDescription
      */
     public String getPositionBenefitTypeDescription() {
@@ -71,7 +71,7 @@ public class BenefitsType extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the positionBenefitTypeDescription attribute.
-     * 
+     *
      * @param positionBenefitTypeDescription The positionBenefitTypeDescription to set.
      */
     public void setPositionBenefitTypeDescription(String positionBenefitTypeDescription) {
@@ -80,7 +80,7 @@ public class BenefitsType extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the positionBenefitRetirementIndicator attribute.
-     * 
+     *
      * @return Returns the positionBenefitRetirementIndicator
      */
     public boolean isPositionBenefitRetirementIndicator() {
@@ -89,7 +89,7 @@ public class BenefitsType extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the positionBenefitRetirementIndicator attribute.
-     * 
+     *
      * @param positionBenefitRetirementIndicator The positionBenefitRetirementIndicator to set.
      */
     public void setPositionBenefitRetirementIndicator(boolean positionBenefitRetirementIndicator) {
@@ -98,7 +98,7 @@ public class BenefitsType extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -107,7 +107,7 @@ public class BenefitsType extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the active attribute value.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

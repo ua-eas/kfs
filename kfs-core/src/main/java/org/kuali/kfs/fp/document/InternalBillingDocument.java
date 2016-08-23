@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -62,7 +62,7 @@ public class InternalBillingDocument extends CapitalAccountingLinesDocumentBase 
 
     /**
      * This method determines if an accounting line is a debit accounting line by calling IsDebitUtils.isDebitConsideringSection().
-     * 
+     *
      * @param transactionalDocument The document containing the accounting line being analyzed.
      * @param accountingLine The accounting line being reviewed to determine if it is a debit line or not.
      * @return True if the accounting line is a debit accounting line, false otherwise.
@@ -75,10 +75,10 @@ public class InternalBillingDocument extends CapitalAccountingLinesDocumentBase 
         DebitDeterminerService isDebitUtils = SpringContext.getBean(DebitDeterminerService.class);
         return isDebitUtils.isDebitConsideringSection(this, (AccountingLine) postable);
     }
-    
+
     /**
      * Adds a new item to the item list.
-     * 
+     *
      * @param item
      */
     public void addItem(InternalBillingItem item) {
@@ -90,7 +90,7 @@ public class InternalBillingDocument extends CapitalAccountingLinesDocumentBase 
     /**
      * Retrieve a particular item at a given index in the list of items. For Struts, the requested item and any intervening ones are
      * initialized if necessary.
-     * 
+     *
      * @param index
      * @return the item
      */
@@ -110,7 +110,7 @@ public class InternalBillingDocument extends CapitalAccountingLinesDocumentBase 
 
     /**
      * Iterates through the list of items and sums up their totals.
-     * 
+     *
      * @return the total
      */
     public KualiDecimal getItemTotal() {
@@ -123,7 +123,7 @@ public class InternalBillingDocument extends CapitalAccountingLinesDocumentBase 
 
     /**
      * Retrieves the next item line number.
-     * 
+     *
      * @return The next available item line number
      */
     public Integer getNextItemLineNumber() {
@@ -140,7 +140,7 @@ public class InternalBillingDocument extends CapitalAccountingLinesDocumentBase 
     /**
      * Setter for OJB to get from database and JSP to maintain state in hidden fields. This property is also incremented by the
      * <code>addItem</code> method.
-     * 
+     *
      * @param nextItemLineNumber
      */
     public void setNextItemLineNumber(Integer nextItemLineNumber) {

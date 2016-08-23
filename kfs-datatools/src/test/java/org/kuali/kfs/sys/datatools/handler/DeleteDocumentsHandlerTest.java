@@ -63,16 +63,16 @@ public class DeleteDocumentsHandlerTest {
     @Test
     public void testMakeChangeDeletesDocuments() throws Exception {
         Query q = new Query(Criteria.where("myId").is("10"));
-        
+
         mongoTemplate.remove(q, "collection");
         EasyMock.expectLastCall();
         EasyMock.replay(mongoTemplate);
-        
-        String testJson = "{ \"changeType\": \"deleteDocument\",\"collectionName\": \"collection\",\"query\": { \"myId\": \"10\"} }";    
-        
+
+        String testJson = "{ \"changeType\": \"deleteDocument\",\"collectionName\": \"collection\",\"query\": { \"myId\": \"10\"} }";
+
         deleteDocumentsHandler.setMongoTemplate(mongoTemplate);
 
-        
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
 

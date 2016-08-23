@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -38,7 +38,7 @@ public class PaymentRequestPayDateNotPastValidation extends GenericValidation {
     private PurapService purapService;
     private PersistenceService persistenceService;
     private BusinessObjectService businessObjectService;
-    
+
     /**
      * Validates that the payment request date does not occur in the past.
      *
@@ -52,7 +52,7 @@ public class PaymentRequestPayDateNotPastValidation extends GenericValidation {
         java.sql.Date paymentRequestPayDate = document.getPaymentRequestPayDate();
         if (ObjectUtils.isNotNull(paymentRequestPayDate) && purapService.isDateInPast(paymentRequestPayDate)) {
             // the pay date is in the past, now we need to check whether given the state of the document to determine whether a past pay date is allowed
-            WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument(); 
+            WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
             if (workflowDocument.isInitiated() || workflowDocument.isSaved()) {
                 // past pay dates are not allowed if the document has never been routed (i.e. in saved or initiated state)
                 // (note that this block will be run when a document is being routed, or re-saved after being routed
@@ -63,12 +63,12 @@ public class PaymentRequestPayDateNotPastValidation extends GenericValidation {
                 // it's an error if the pay date has been changed from the pay date in the database and the new pay date is in the past
                 // retrieve doc from DB, and compare the dates
                 PaymentRequestDocument paymentRequestDocumentFromDatabase = retrievePaymentRequestDocumentFromDatabase(document);
-                
+
                 if (ObjectUtils.isNull(paymentRequestDocumentFromDatabase)) {
                     // this definitely should not happen
                     throw new NullPointerException("Unable to find payment request document " + document.getDocumentNumber() + " from database");
                 }
-                
+
                 java.sql.Date paymentRequestPayDateFromDatabase = paymentRequestDocumentFromDatabase.getPaymentRequestPayDate();
                 if (ObjectUtils.isNull(paymentRequestPayDateFromDatabase) || !paymentRequestPayDateFromDatabase.equals(paymentRequestPayDate)) {
                     valid &= false;
@@ -76,14 +76,14 @@ public class PaymentRequestPayDateNotPastValidation extends GenericValidation {
                 }
             }
         }
-        
+
         GlobalVariables.getMessageMap().clearErrorPath();
-        
+
         return valid;
     }
 
     /**
-     * Retrieves the payment request document from the database.  Note that the instance returned 
+     * Retrieves the payment request document from the database.  Note that the instance returned
      * @param document the document to look in the database for
      * @return an instance representing what's stored in the database for this instance
      */

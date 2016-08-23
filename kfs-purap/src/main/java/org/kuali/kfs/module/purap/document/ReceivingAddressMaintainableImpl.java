@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,16 +37,16 @@ import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
- * ReceivingAddressMaintainableImpl is a special implementation of FinancialSystemMaintainable for ReceivingAddresss. 
+ * ReceivingAddressMaintainableImpl is a special implementation of FinancialSystemMaintainable for ReceivingAddresss.
  * It generates extra locks for other receiving addresses related to the one being updated in the maintenance document,
- * and updates the ones affected during post-processing to enforce certain contraints among these objects. 
+ * and updates the ones affected during post-processing to enforce certain contraints among these objects.
  */
 public class ReceivingAddressMaintainableImpl extends FinancialSystemMaintainable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ReceivingAddressMaintainableImpl.class);
-    
+
     /**
      * Generates the appropriate maintenance locks for {@link ReceivingAddress}
-     * 
+     *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#generateMaintenanceLocks()
      */
     @Override
@@ -61,7 +61,7 @@ public class ReceivingAddressMaintainableImpl extends FinancialSystemMaintainabl
 
     /**
      * Creates a maintenance lock for the field names supplied.
-     * 
+     *
      * @param fieldNames
      * @return the maintenance lock for supplied field names
      */
@@ -74,7 +74,7 @@ public class ReceivingAddressMaintainableImpl extends FinancialSystemMaintainabl
 
     /**
      * Creates a locking representation for the field names supplied.
-     * 
+     *
      * @param fieldNames
      * @return locking representation string
      */
@@ -103,7 +103,7 @@ public class ReceivingAddressMaintainableImpl extends FinancialSystemMaintainabl
 
     /**
      * Returns the field value of a given field, converting the value to a String and encrypting it if necessary.
-     * 
+     *
      * @param fieldName
      * @param ddService
      * @return string field value for a lock
@@ -128,9 +128,9 @@ public class ReceivingAddressMaintainableImpl extends FinancialSystemMaintainabl
     }
 
     /**
-     * Checks if there's any active receiving address set to default other than this one; 
-     * if so, set them to non-default. 
-     * 
+     * Checks if there's any active receiving address set to default other than this one;
+     * if so, set them to non-default.
+     *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#doRouteStatusChange(org.kuali.rice.krad.bo.DocumentHeader)
      */
     @Override
@@ -141,7 +141,7 @@ public class ReceivingAddressMaintainableImpl extends FinancialSystemMaintainabl
         // proceed only if this bo is active and default.
         if ( !ra.isActive() || !ra.isDefaultIndicator() )
             return;
-        
+
         WorkflowDocument workflowDoc = header.getWorkflowDocument();
         // this code is only executed when the final approval occurs
         if (workflowDoc.isProcessed()) {
@@ -149,11 +149,11 @@ public class ReceivingAddressMaintainableImpl extends FinancialSystemMaintainabl
             Map criteria = new HashMap();
             criteria.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, ra.getChartOfAccountsCode());
             criteria.put(KFSPropertyConstants.ORGANIZATION_CODE, ra.getOrganizationCode());
-            criteria.put(PurapPropertyConstants.RCVNG_ADDR_DFLT_IND, true);        
-            criteria.put(PurapPropertyConstants.RCVNG_ADDR_ACTIVE, true);        
+            criteria.put(PurapPropertyConstants.RCVNG_ADDR_DFLT_IND, true);
+            criteria.put(PurapPropertyConstants.RCVNG_ADDR_ACTIVE, true);
             List<ReceivingAddress> addresses = (List)SpringContext.getBean(BusinessObjectService.class).findMatching(ReceivingAddress.class, criteria);
-            */            
-            Collection<ReceivingAddress> addresses  = SpringContext.getBean(ReceivingAddressService.class).findDefaultByChartOrg(ra.getChartOfAccountsCode(),ra.getOrganizationCode());                  
+            */
+            Collection<ReceivingAddress> addresses  = SpringContext.getBean(ReceivingAddressService.class).findDefaultByChartOrg(ra.getChartOfAccountsCode(),ra.getOrganizationCode());
             for ( ReceivingAddress rai : addresses ) {
                 if ( !rai.getReceivingAddressIdentifier().equals(ra.getReceivingAddressIdentifier()) ) {
                     rai.setDefaultIndicator(false);

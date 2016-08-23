@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -68,7 +68,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
         return new CustomBatchExecutor() {
             /**
              * Runs the process that generates poster summary reports.
-             * 
+             *
              * @return true if the step completed successfully, false if otherwise
              * @see org.kuali.kfs.sys.batch.Step#execute(java.lang.String)
              */
@@ -77,11 +77,11 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
                     final String CURRENT_YEAR_LOWER = getCurrentYearLowerParameter();
                     final String CURRENT_YEAR_UPPER = getCurrentYearUpperParameter();
                     final String CURRENT_AND_LAST_YEAR = getCurrentAndLastYearParameter();
-    
+
                     SystemOptions currentYear = optionsService.getCurrentYearOptions();
                     SystemOptions nextYear = optionsService.getOptions(currentYear.getUniversityFiscalYear() + 1);
                     SystemOptions previousYear = optionsService.getOptions(currentYear.getUniversityFiscalYear() - 1);
-    
+
                     Date runDate = getDateTimeService().getCurrentDate();
                     SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
                     String md = sdf.format(runDate);
@@ -115,15 +115,15 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
             }
         };
     }
-    
+
     /**
      * Generates reports about the output of a poster run.
-     * 
+     *
      * @param runDate the date the poster was run.
      */
     private void generatePosterOutputReport(Date runDate) {
         PosterOutputSummaryReport posterOutputSummaryReport = new PosterOutputSummaryReport();
-        
+
         // summarize all the entries for the main poster
         File mainPosterFile = FileUtil.getNewestFile(new File(batchFileDirectoryName), new RegexFileFilter((GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE + "\\.[0-9_\\-]+\\" + GeneralLedgerConstants.BatchFileSystem.EXTENSION)));
         if (mainPosterFile != null && mainPosterFile.exists()) {
@@ -147,7 +147,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
         } else {
             LOG.warn("Could not Reversal Output file with prefix "+GeneralLedgerConstants.BatchFileSystem.REVERSAL_POSTER_VALID_OUTPUT_FILE+" for tabulation in the Poster Output Summary Report");
         }
-        
+
         // summarize the icr poster
         File icrPosterFile = FileUtil.getNewestFile(new File(batchFileDirectoryName), new RegexFileFilter(GeneralLedgerConstants.BatchFileSystem.ICR_POSTER_INPUT_FILE + "\\.[0-9_\\-]+\\" + GeneralLedgerConstants.BatchFileSystem.EXTENSION));
         if (icrPosterFile != null && icrPosterFile.exists()) {
@@ -159,13 +159,13 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
         } else {
             LOG.warn("Could not Indirect Cost Recovery Poster Input file with prefix "+GeneralLedgerConstants.BatchFileSystem.ICR_POSTER_INPUT_FILE+" for tabulation in the Poster Output Summary Report");
         }
-        
+
         posterOutputSummaryReport.writeReport(posterOutputSummaryReportWriterService);
     }
 
     /**
      * Generates the GL Summary report
-     * 
+     *
      * @param runDate the run date of the poster service that should be reported
      * @param options the options of the fiscal year the poster was run
      * @param reportType the type of the report that should be generated
@@ -174,7 +174,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
         LOG.debug("generateGlSummary() started");
 
         FiscalYearAwareReportWriterService fiscalYearAwareReportWriterService;
-        
+
         List<String> balanceTypeCodes = new ArrayList<String>();
         if (ACT.equals(reportType)) {
             fiscalYearAwareReportWriterService = posterActualBalanceSummaryReportWriterService;
@@ -194,44 +194,44 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
         }
 
         List<GlSummary> balances = balanceService.getGlSummary(year.getUniversityFiscalYear(), balanceTypeCodes);
-        
+
         GlSummary totals = new GlSummary();
         for(GlSummary balance : balances) {
             totals.add(balance);
-        }        
+        }
         totals.setFundGroup("Total");
-        
+
         try {
             fiscalYearAwareReportWriterService.setFiscalYear(year.getUniversityFiscalYear());
             ((WrappingBatchService) fiscalYearAwareReportWriterService).initialize();
-            
+
             fiscalYearAwareReportWriterService.writeSubTitle("Balance Type of " + balanceTypeCodes + " for Fiscal Year " + year.getUniversityFiscalYearName());
             fiscalYearAwareReportWriterService.writeNewLines(1);
-            
+
             fiscalYearAwareReportWriterService.writeTableRowSeparationLine(totals);
             fiscalYearAwareReportWriterService.writeTable(balances, true, false);
-            
+
             fiscalYearAwareReportWriterService.writeTableRowSeparationLine(totals);
             fiscalYearAwareReportWriterService.writeTableRow(totals);
         } finally {
             ((WrappingBatchService) fiscalYearAwareReportWriterService).destroy();
         }
     }
-    
+
     /**
      * @return current year lower parameter for inner class
      */
     public String getCurrentYearLowerParameter() {
         return getParameterService().getParameterValueAsString(getClass(), GeneralLedgerConstants.GlSummaryReport.CURRENT_YEAR_LOWER);
     }
-    
+
     /**
      * @return current year upper parameter for inner class
      */
     public String getCurrentYearUpperParameter() {
         return getParameterService().getParameterValueAsString(PosterSummaryReportStep.this.getClass(), GeneralLedgerConstants.GlSummaryReport.CURRENT_YEAR_UPPER);
     }
-    
+
     /**
      * @return current and last year parameter for inner class
      */
@@ -241,7 +241,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
 
     /**
      * Sets the optionsService attribute, allowing the injection of an implementation of that service
-     * 
+     *
      * @param os the optionsService implementation to set
      * @see org.kuali.kfs.sys.service.OptionsService
      */
@@ -250,7 +250,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
     }
 
     /**
-     * Gets the posterOutputSummaryReportWriterService attribute. 
+     * Gets the posterOutputSummaryReportWriterService attribute.
      * @return Returns the posterOutputSummaryReportWriterService.
      */
     public ReportWriterService getPosterOutputSummaryReportWriterService() {
@@ -290,7 +290,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
     }
 
     /**
-     * Gets the reversalService attribute. 
+     * Gets the reversalService attribute.
      * @return Returns the reversalService.
      */
     public ReversalService getReversalService() {
@@ -314,7 +314,7 @@ public class PosterSummaryReportStep extends AbstractWrappedBatchStep {
     }
 
     /**
-     * Gets the batchFileDirectoryName attribute. 
+     * Gets the batchFileDirectoryName attribute.
      * @return Returns the batchFileDirectoryName.
      */
     public String getBatchFileDirectoryName() {

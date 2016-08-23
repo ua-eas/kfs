@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,7 +53,7 @@ public class AssetLocationGlobalMaintainableImpl extends KualiGlobalMaintainable
 
     /**
      * Populates any empty fields from Asset primary key
-     * 
+     *
      * @see org.kuali.rice.kns.maintenance.Maintainable#addNewLineToCollection(java.lang.String)
      */
 
@@ -107,7 +107,7 @@ public class AssetLocationGlobalMaintainableImpl extends KualiGlobalMaintainable
     /**
      * We are using a substitute mechanism for asset locking which can lock on assets when rule check passed. Return empty list from
      * this method.
-     * 
+     *
      * @see org.kuali.rice.kns.maintenance.KualiGlobalMaintainableImpl#generateMaintenanceLocks()
      */
     @Override
@@ -156,7 +156,7 @@ public class AssetLocationGlobalMaintainableImpl extends KualiGlobalMaintainable
                     GlobalVariables.getMessageMap().putErrorForSectionId(CamsConstants.AssetLocationGlobal.SECTION_ID_EDIT_LIST_OF_ASSETS, CamsKeyConstants.AssetLocationGlobal.ERROR_ASSET_AUTHORIZATION, new String[] { GlobalVariables.getUserSession().getPerson().getPrincipalName(), asset.getCapitalAssetNumber().toString() });
                 }
             }
-        }     
+        }
         super.addMultipleValueLookupResults(document, collectionName, allowedAssetsCollection, needsBlank, bo);
     }
 }

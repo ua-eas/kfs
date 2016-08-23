@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -115,8 +115,8 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
         PurchaseOrderDocument poDocument = (PurchaseOrderDocument)document;
         String statusCode = poDocument.getApplicationDocumentStatus();
 
-        if (StringUtils.equals(statusCode, PurchaseOrderStatuses.APPDOC_WAITING_FOR_DEPARTMENT) || 
-                StringUtils.equals(statusCode, PurchaseOrderStatuses.APPDOC_WAITING_FOR_VENDOR) || 
+        if (StringUtils.equals(statusCode, PurchaseOrderStatuses.APPDOC_WAITING_FOR_DEPARTMENT) ||
+                StringUtils.equals(statusCode, PurchaseOrderStatuses.APPDOC_WAITING_FOR_VENDOR) ||
                 StringUtils.equals(statusCode, PurchaseOrderStatuses.APPDOC_QUOTE)) {
             return false;
         }
@@ -132,9 +132,9 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
     public Set<String> getEditModes(Document document) {
         Set<String> editModes = super.getEditModes(document);
         PurchaseOrderDocument poDocument = (PurchaseOrderDocument)document;
-        
+
         WorkflowDocument workflowDocument = poDocument.getFinancialSystemDocumentHeader().getWorkflowDocument();
-        
+
         String statusCode = poDocument.getApplicationDocumentStatus();
 
         editModes.add(PurchaseOrderEditMode.ASSIGN_SENSITIVE_DATA);
@@ -168,9 +168,9 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
         }
 
         // if not B2B requisition, users can edit the posting year if within a given amount of time set in a parameter
-        if (!RequisitionSources.B2B.equals(poDocument.getRequisitionSourceCode()) && 
-                SpringContext.getBean(PurapService.class).allowEncumberNextFiscalYear() && 
-                (PurchaseOrderStatuses.APPDOC_IN_PROCESS.equals(statusCode) || 
+        if (!RequisitionSources.B2B.equals(poDocument.getRequisitionSourceCode()) &&
+                SpringContext.getBean(PurapService.class).allowEncumberNextFiscalYear() &&
+                (PurchaseOrderStatuses.APPDOC_IN_PROCESS.equals(statusCode) ||
                         PurchaseOrderStatuses.APPDOC_WAITING_FOR_VENDOR.equals(statusCode) ||
                         PurchaseOrderStatuses.APPDOC_WAITING_FOR_DEPARTMENT.equals(statusCode) ||
                         PurchaseOrderStatuses.APPDOC_QUOTE.equals(statusCode) ||
@@ -179,7 +179,7 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
         }
 
         // check if purap tax is enabled
-        boolean salesTaxInd = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND);                
+        boolean salesTaxInd = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_SALES_TAX_IND);
         if (salesTaxInd) {
             editModes.add(PurapAuthorizationConstants.PURAP_TAX_ENABLED);
 
@@ -194,7 +194,7 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
         }
 
         // set display mode for Receiving Address section according to parameter value
-        boolean displayReceivingAddress = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_RECEIVING_ADDRESS_IND);                
+        boolean displayReceivingAddress = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_RECEIVING_ADDRESS_IND);
         if (displayReceivingAddress) {
             editModes.add(PurchaseOrderEditMode.DISPLAY_RECEIVING_ADDRESS);
         }
@@ -202,7 +202,7 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
         // PRE_ROUTE_CHANGEABLE mode is used for fields that are editable only before PO is routed
         // for ex, contract manager, manual status change, and APPDOC_QUOTE etc
         //if (workflowDocument.isInitiated() || workflowDocument.isSaved()) {
-        if (PurchaseOrderStatuses.APPDOC_IN_PROCESS.equals(statusCode) || 
+        if (PurchaseOrderStatuses.APPDOC_IN_PROCESS.equals(statusCode) ||
                 PurchaseOrderStatuses.APPDOC_WAITING_FOR_VENDOR.equals(statusCode) ||
                 PurchaseOrderStatuses.APPDOC_WAITING_FOR_DEPARTMENT.equals(statusCode) ||
                 PurchaseOrderStatuses.APPDOC_QUOTE.equals(statusCode)) {
@@ -233,13 +233,13 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
     }
 
     /**
-     * Determines whether to display the button to print the pdf for the first time transmit. 
-     * Conditions: PO status is Pending Print or the transmission method is changed to PRINT during the amendment. 
-     * 
+     * Determines whether to display the button to print the pdf for the first time transmit.
+     * Conditions: PO status is Pending Print or the transmission method is changed to PRINT during the amendment.
+     *
      * @return boolean true if the print first transmit button can be displayed.
      */
     protected boolean canFirstTransmitPrintPo(PurchaseOrderDocument poDocument) {
-        // status shall be Pending Print, or the transmission method is changed to PRINT during amendment, 
+        // status shall be Pending Print, or the transmission method is changed to PRINT during amendment,
         boolean can = PurchaseOrderStatuses.APPDOC_PENDING_PRINT.equals(poDocument.getApplicationDocumentStatus());
         if (!can) {
             can = PurchaseOrderStatuses.APPDOC_OPEN.equals(poDocument.getApplicationDocumentStatus());
@@ -255,7 +255,7 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
      * Determines whether to display the print preview button for the first time transmit. Conditions are:
      * available while the document is saved or enroute;
      * available for only a certain number of PO transmission types which are stored in a parameter (default to PRIN and FAX)
-     * 
+     *
      * @return boolean true if the preview print button can be displayed.
      */
     protected boolean canPreviewPrintPo(PurchaseOrderDocument poDocument) {
@@ -275,7 +275,7 @@ public class PurchaseOrderDocumentPresentationController extends PurchasingAccou
     /**
      * Determines whether to display the resend po button for the purchase order document.
      * Conditions: PO status must be error sending cxml and must be current and not pending.
-     * 
+     *
      * @return boolean true if the resend po button shall be displayed.
      */
     protected boolean canResendCxml(PurchaseOrderDocument poDocument) {

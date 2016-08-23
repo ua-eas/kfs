@@ -41,7 +41,7 @@ public class DeleteNodeHandlerTest {
         deleteNodeHandler = new DeleteNodeHandler();
         mongoTemplate = EasyMock.createMock(MongoOperations.class);
     }
-    
+
     @Test
     public void testHandlesDeleteNodes() throws Exception {
         String testJson = "{ \"changeType\": \"deleteNode\",\"collectionName\": \"collection\",\"query\": { } }";
@@ -61,30 +61,30 @@ public class DeleteNodeHandlerTest {
 
         Assert.assertEquals("Should not handle deleteDocument element", false, deleteNodeHandler.handlesChange(testNode));
     }
-    
+
     @Test
     public void testMakeChangeDeleteNode() throws Exception {
         Query q = new Query(Criteria.where("myId").is("10"));
-        
+
         EasyMock.expect(mongoTemplate.findOne(q, DBObject.class, "collection")).andReturn(createSampleDocumentBeforeRemoval());
         mongoTemplate.remove(q, "collection");
         EasyMock.expectLastCall();
         mongoTemplate.save(createSampleDocumentAfterRemoval(), "collection");
         EasyMock.replay(mongoTemplate);
-        
+
         String testJson = "{ \"changeType\": \"deleteNode\",\"collectionName\": \"collection\","
                 + "\"query\": { \"myId\": \"10\"},\"revertPath\": \"$..link\","
-                + "\"path\": \"$..link[?(@.label=='Label5')]\" }";  
-        
+                + "\"path\": \"$..link[?(@.label=='Label5')]\" }";
+
         deleteNodeHandler.setMongoTemplate(mongoTemplate);
-        
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
 
         deleteNodeHandler.makeChange(testNode);
         EasyMock.verify(mongoTemplate);
     }
-    
+
     private DBObject createSampleDocumentBeforeRemoval() {
         return (DBObject) JSON.parse("{ \"link\": [{\"label\": \"Label1\"}, {\"label\": \"Label5\"}, {\"label\": \"Label2\"}] }");
     }

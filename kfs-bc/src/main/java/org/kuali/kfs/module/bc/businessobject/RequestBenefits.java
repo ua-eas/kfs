@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -50,7 +50,7 @@ public class RequestBenefits extends TransientBusinessObjectBase {
     }
 
     /**
-     * Gets the universityFiscalYear attribute. 
+     * Gets the universityFiscalYear attribute.
      * @return Returns the universityFiscalYear.
      */
     public Integer getUniversityFiscalYear() {
@@ -66,7 +66,7 @@ public class RequestBenefits extends TransientBusinessObjectBase {
     }
 
     /**
-     * Gets the chartOfAccountsCode attribute. 
+     * Gets the chartOfAccountsCode attribute.
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -82,7 +82,7 @@ public class RequestBenefits extends TransientBusinessObjectBase {
     }
 
     /**
-     * Gets the financialObjectCode attribute. 
+     * Gets the financialObjectCode attribute.
      * @return Returns the financialObjectCode.
      */
     public String getFinancialObjectCode() {
@@ -98,7 +98,7 @@ public class RequestBenefits extends TransientBusinessObjectBase {
     }
 
     /**
-     * Gets the financialObjectBenefitsTypeCode attribute. 
+     * Gets the financialObjectBenefitsTypeCode attribute.
      * @return Returns the financialObjectBenefitsTypeCode.
      */
     public String getFinancialObjectBenefitsTypeCode() {
@@ -114,7 +114,7 @@ public class RequestBenefits extends TransientBusinessObjectBase {
     }
 
     /**
-     * Gets the financialObjectBenefitsTypeDescription attribute. 
+     * Gets the financialObjectBenefitsTypeDescription attribute.
      * @return Returns the financialObjectBenefitsTypeDescription.
      */
     public String getFinancialObjectBenefitsTypeDescription() {
@@ -130,7 +130,7 @@ public class RequestBenefits extends TransientBusinessObjectBase {
     }
 
     /**
-     * Gets the positionFringeBenefitPercent attribute. 
+     * Gets the positionFringeBenefitPercent attribute.
      * @return Returns the positionFringeBenefitPercent.
      */
     public KualiPercent getPositionFringeBenefitPercent() {
@@ -146,7 +146,7 @@ public class RequestBenefits extends TransientBusinessObjectBase {
     }
 
     /**
-     * Gets the positionFringeBenefitObjectCode attribute. 
+     * Gets the positionFringeBenefitObjectCode attribute.
      * @return Returns the positionFringeBenefitObjectCode.
      */
     public String getPositionFringeBenefitObjectCode() {
@@ -162,7 +162,7 @@ public class RequestBenefits extends TransientBusinessObjectBase {
     }
 
     /**
-     * Gets the positionFringeBenefitObjectCodeName attribute. 
+     * Gets the positionFringeBenefitObjectCodeName attribute.
      * @return Returns the positionFringeBenefitObjectCodeName.
      */
     public String getPositionFringeBenefitObjectCodeName() {
@@ -178,7 +178,7 @@ public class RequestBenefits extends TransientBusinessObjectBase {
     }
 
     /**
-     * Gets the fringeDetailAmount attribute. 
+     * Gets the fringeDetailAmount attribute.
      * @return Returns the fringeDetailAmount.
      */
     public KualiInteger getFringeDetailAmount() {
@@ -194,7 +194,7 @@ public class RequestBenefits extends TransientBusinessObjectBase {
     }
 
     /**
-     * Gets the accountLineAnnualBalanceAmount attribute. 
+     * Gets the accountLineAnnualBalanceAmount attribute.
      * @return Returns the accountLineAnnualBalanceAmount.
      */
     public KualiInteger getAccountLineAnnualBalanceAmount() {
@@ -210,7 +210,7 @@ public class RequestBenefits extends TransientBusinessObjectBase {
     }
 
     /**
-     * Gets the laborBenefitRateCategoryCode attribute. 
+     * Gets the laborBenefitRateCategoryCode attribute.
      * @return Returns the laborBenefitRateCategoryCode.
      */
     public String getLaborBenefitRateCategoryCode() {
@@ -226,7 +226,7 @@ public class RequestBenefits extends TransientBusinessObjectBase {
     }
 
     /**
-     * Gets the laborBenefitRateCategoryCodeDesc attribute. 
+     * Gets the laborBenefitRateCategoryCodeDesc attribute.
      * @return Returns the laborBenefitRateCategoryCodeDesc.
      */
     public String getLaborBenefitRateCategoryCodeDesc() {
@@ -242,7 +242,7 @@ public class RequestBenefits extends TransientBusinessObjectBase {
     }
 
     /**
-     * Gets the accountNumber attribute. 
+     * Gets the accountNumber attribute.
      * @return Returns the accountNumber.
      */
     public String getAccountNumber() {

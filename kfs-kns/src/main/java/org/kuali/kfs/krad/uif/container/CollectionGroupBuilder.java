@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -61,15 +61,15 @@ import java.util.Map;
  * series of steps that interact with the configured
  * <code>CollectionLayoutManager</code> to assemble the fields as necessary for
  * the layout
- * 
- * 
+ *
+ *
  */
 public class CollectionGroupBuilder implements Serializable {
 	private static final long serialVersionUID = -4762031957079895244L;
 
 	/**
 	 * Creates the <code>Field</code> instances that make up the table
-	 * 
+	 *
 	 * <p>
 	 * The corresponding collection is retrieved from the model and iterated
 	 * over to create the necessary fields. The binding path for fields that
@@ -79,7 +79,7 @@ public class CollectionGroupBuilder implements Serializable {
 	 * 'accounts[1].number'. Finally parameters are set on the line's action
 	 * fields to indicate what collection and line they apply to.
 	 * </p>
-	 * 
+	 *
 	 * @param view
 	 *            - View instance the collection belongs to
 	 * @param model
@@ -163,7 +163,7 @@ public class CollectionGroupBuilder implements Serializable {
 	/**
 	 * Builds the fields for holding the collection add line and if necessary
 	 * makes call to setup the new line instance
-	 * 
+	 *
 	 * @param view
 	 *            - view instance the collection belongs to
 	 * @param collectionGroup
@@ -197,7 +197,7 @@ public class CollectionGroupBuilder implements Serializable {
 	 * for the line (id and binding). Then a call is made to the
 	 * <code>CollectionLayoutManager</code> to assemble the line as necessary
 	 * for the layout
-	 * 
+	 *
 	 * @param view
 	 *            - view instance the collection belongs to
 	 * @param model
@@ -294,8 +294,8 @@ public class CollectionGroupBuilder implements Serializable {
 
 		if (bindToForm) {
 			ComponentUtils.setComponentsPropertyDeep(lineFields, UifPropertyPaths.BIND_TO_FORM, new Boolean(true));
-		}		
-		
+		}
+
         // remove fields from the line that have render false
         lineFields = removeNonRenderLineFields(view, model, collectionGroup, lineFields, currentLine, lineIndex);
 
@@ -380,7 +380,7 @@ public class CollectionGroupBuilder implements Serializable {
      * account. This needs to be done here as opposed to during the normal
      * condition evaluation so the the fields are not used while building the
      * collection lines
-     * 
+     *
      * @param view
      *            - view instance the collection group belongs to
      * @param model
@@ -583,11 +583,11 @@ public class CollectionGroupBuilder implements Serializable {
             }
         }
     }
-    
+
     /**
      * Checks whether the given sub-collection should be rendered, any
      * conditional render string is evaluated
-     * 
+     *
      * @param view
      *            - view instance the sub collection belongs to
      * @param model
@@ -622,12 +622,12 @@ public class CollectionGroupBuilder implements Serializable {
 
 	/**
 	 * Creates new <code>ActionField</code> instances for the line
-	 * 
+	 *
 	 * <p>
 	 * Adds context to the action fields for the given line so that the line the
 	 * action was performed on can be determined when that action is selected
 	 * </p>
-	 * 
+	 *
 	 * @param view
 	 *            - view instance the collection belongs to
 	 * @param model
@@ -663,12 +663,12 @@ public class CollectionGroupBuilder implements Serializable {
 
 	/**
 	 * Creates new <code>ActionField</code> instances for the add line
-	 * 
+	 *
 	 * <p>
 	 * Adds context to the action fields for the add line so that the collection
 	 * the action was performed on can be determined
 	 * </p>
-	 * 
+	 *
 	 * @param view
 	 *            - view instance the collection belongs to
 	 * @param model
@@ -729,20 +729,20 @@ public class CollectionGroupBuilder implements Serializable {
 
     /**
      * Initializes a new instance of the collection class
-     * 
+     *
      * <p>
      * If the add line property was not specified for the collection group the
      * new lines will be added to the generic map on the
      * <code>UifFormBase</code>, else it will be added to the property given by
      * the addLineBindingInfo
      * </p>
-     * 
+     *
      * <p>
      * New line will only be created if the current line property is null or
      * clearExistingLine is true. In the case of a new line default values are
      * also applied
      * </p>
-     * 
+     *
      * @see CollectionGroup#
      *      initializeNewCollectionLine(View, Object, CollectionGroup, boolean)
      */
@@ -765,7 +765,7 @@ public class CollectionGroupBuilder implements Serializable {
                 newCollectionLines = new HashMap<String, Object>();
                 ObjectPropertyUtils.setPropertyValue(model, UifPropertyPaths.NEW_COLLECTION_LINES, newCollectionLines);
             }
-            
+
             // set binding path for add line
             String newCollectionLineKey = KRADUtils
                     .translateToMapSafeKey(collectionGroup.getBindingInfo().getBindingPath());
@@ -795,7 +795,7 @@ public class CollectionGroupBuilder implements Serializable {
             view.getViewHelperService().applyDefaultValuesForCollectionLine(view, model, collectionGroup, newLine);
         }
     }
-    
+
     protected ExpressionEvaluatorService getExpressionEvaluatorService() {
         return KRADServiceLocatorWeb.getExpressionEvaluatorService();
     }

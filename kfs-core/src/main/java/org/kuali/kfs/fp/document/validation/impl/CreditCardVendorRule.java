@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,7 +40,7 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
 
     /**
      *  Sets up a CreditCardVendor convenience objects to make sure all possible sub-objects are populated
-     * 
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#setupConvenienceObjects()
      */
     public void setupConvenienceObjects() {
@@ -50,10 +50,10 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Return true if rules for processing a save for the credit card maintenance document are are valid.
-     * 
+     *
      * @param document maintenance document
      * @return true credit card vendor number is valid
-     * 
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     protected boolean processCustomSaveDocumentBusinessRules(MaintenanceDocument document) {
@@ -69,10 +69,10 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Returns value from processCustomRouteDocumentBusinessRules(document)
-     * 
+     *
      * @param document maintenance document
      * @return value from processCustomRouteDocumentBusinessRules(document)
-     * 
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomApproveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     protected boolean processCustomApproveDocumentBusinessRules(MaintenanceDocument document) {
@@ -82,10 +82,10 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Returns true credit card vendor maintenance document is routed successfully
-     * 
+     *
      * @param document submitted credit card maintenance document
      * @return true if credit card vendor number, income/expense account numbers, income/expense sub-account numbers, and income/expense sub-object codes are valid
-     * 
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
@@ -188,7 +188,7 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Returns true if credit card vendor number is valid (i.e. numeric and at least 5 digits)
-     * 
+     *
      * @return true if credit card vendor number is valid (i.e. numeric and at least 5 digits)
      */
     protected boolean checkCreditCardVendorNumber() {
@@ -214,7 +214,7 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Returns true if account is active (i.e. exists and is not expired or closed)
-     * 
+     *
      * @param accountNumber account number
      * @param fieldName field name to place error for
      * @param errorMessage error message to display
@@ -253,7 +253,7 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
     /**
      * Returns true if income/expense financial chart of accounts code and account number exist. Income or expense is determined by
      * the "Income" value or the "Expense" value passed in to the method as a string
-     * 
+     *
      * @param string determines whether or not to check income or expense sub account information (valid values include "Income" or "Expense")
      * @return true if corresponding sub account values exist
      */
@@ -291,7 +291,7 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Returns a SubAccount object if SubAccount object exists for "Income" or "Expense"
-     * 
+     *
      * @param string determines whether or not to retrieve a income or expense sub account (valid values include "Income" or "Expense")
      * @return SubAccount Income/Expense SubAccount object
      */
@@ -321,7 +321,7 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Returns a true sub-object code exists for "Income" or "Expense"
-     * 
+     *
      * @param string determines whether or not to check for an income or expense sub-object code (valid values include "Income" or "Expense")
      * @return true if income/expense chart of account code, account number, and financial object code exist
      */
@@ -372,7 +372,7 @@ public class CreditCardVendorRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Returns a SubObjCd object if SubObjCd object exists for "Income" or "Expense"
-     * 
+     *
      * @param string determines whether or not to retrieve a income or expense sub object (valid values include "Income" or "Expense")
      * @return SubAccount Income/Expense SubObjCd object
      */

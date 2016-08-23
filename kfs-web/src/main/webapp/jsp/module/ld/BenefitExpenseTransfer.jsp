@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -23,15 +23,15 @@
 	value="${DataDictionary.LedgerBalanceForBenefitExpenseTransfer.attributes}" />
 
 <c:set var="readOnly"
-	value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT] || !KualiForm.editingMode['ledgerBalanceImporting']}"/>	
+	value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT] || !KualiForm.editingMode['ledgerBalanceImporting']}"/>
 
-<!-- accountsChartReadOnly is set to false even when account can cross indicator = Y because if it 
+<!-- accountsChartReadOnly is set to false even when account can cross indicator = Y because if it
 read only then the javascript can not write value to the field. -->
 <c:set var="accountsChartsReadOnly" value="${readOnly}"/>
 <c:if test="${not readOnly}">
 	<c:set var="accountsChartsReadOnly" value="false"/>
-</c:if>	
-							    
+</c:if>
+
 <c:set var="documentTypeName" value="BenefitExpenseTransferDocument"/>
 <c:set var="htmlFormAction" value="laborBenefitExpenseTransfer"/>
 
@@ -47,7 +47,7 @@ read only then the javascript can not write value to the field. -->
     showTabButtons="true">
 
 	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
-	
+
 	<kul:tab tabTitle="Ledger Balance Importing" defaultOpen="true" tabErrorKey="${KFSConstants.EMPLOYEE_LOOKUP_ERRORS}">
 		<div class="tab-container">
 	    	<table cellpadding="0" cellspacing="0" class="datatable" summary="Ledger Balance Importing">
@@ -174,10 +174,10 @@ read only then the javascript can not write value to the field. -->
              helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
 		<sys-java:accountingLines>
 			<sys-java:accountingLineGroup collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source" />
-			<sys-java:accountingLineGroup collectionPropertyName="document.targetAccountingLines" collectionItemPropertyName="document.targetAccountingLine" attributeGroupName="target"/> 
+			<sys-java:accountingLineGroup collectionPropertyName="document.targetAccountingLines" collectionItemPropertyName="document.targetAccountingLine" attributeGroupName="target"/>
 		</sys-java:accountingLines>
 	</kul:tab>
-	
+
 	<ld:laborLedgerPendingEntries />
 	<kul:notes />
 	<kul:adHocRecipients />

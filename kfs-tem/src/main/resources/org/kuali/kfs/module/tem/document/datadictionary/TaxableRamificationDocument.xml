@@ -1,83 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 
-  <bean id="TaxableRamificationDocument" parent="TaxableRamificationDocument-parentBean"/>  
+  <bean id="TaxableRamificationDocument" parent="TaxableRamificationDocument-parentBean"/>
   <bean id="TaxableRamificationDocument-parentBean" abstract="true" parent="TransactionalDocumentEntry">
     <property name="documentTypeName" value="TXRF"/>
     <property name="documentClass" value="org.kuali.kfs.module.tem.document.TaxableRamificationDocument"/>
-    
+
     <property name="sessionDocument" value="true"/>
     <property name="workflowAttributes" ref="TaxableRamificationDocument-workflowAttributes"/>
-    
+
     <property name="attributes">
       <list>
         <ref bean="TaxableRamificationDocument-arInvoiceDocNumber"/>
         <ref bean="TaxableRamificationDocument-dueDate"/>
-        
+
         <ref bean="TaxableRamificationDocument-invoiceAmount"/>
         <ref bean="TaxableRamificationDocument-openAmount"/>
 
-        <ref bean="TaxableRamificationDocument-travelDocumentIdentifier"/>        
+        <ref bean="TaxableRamificationDocument-travelDocumentIdentifier"/>
         <ref bean="TaxableRamificationDocument-travelAdvanceDocumentNumber"/>
         <ref bean="TaxableRamificationDocument-travelerDetailId"/>
         <ref bean="TaxableRamificationDocument-taxableRamificationNotice"/>
       </list>
     </property>
   </bean>
-  
+
   <bean id="TaxableRamificationDocument-travelDocumentIdentifier" parent="TaxableRamificationDocument-travelDocumentIdentifier-parentBean" />
   <bean id="TaxableRamificationDocument-travelDocumentIdentifier-parentBean" abstract="true" parent="TravelAuthorizationDocument-travelDocumentNumber-parentBean">
 	<property name="name" value="travelDocumentIdentifier" />
 	<property name="label" value="Travel Document Identifier" />
-  </bean>  
-  
-  <bean id="TaxableRamificationDocument-travelAdvanceDocumentNumber" parent="TaxableRamificationDocument-travelAdvanceDocumentNumber-parentBean"/>  
+  </bean>
+
+  <bean id="TaxableRamificationDocument-travelAdvanceDocumentNumber" parent="TaxableRamificationDocument-travelAdvanceDocumentNumber-parentBean"/>
   <bean id="TaxableRamificationDocument-travelAdvanceDocumentNumber-parentBean" abstract="true" parent="TravelAdvance-documentNumber">
   	<property name="name" value="travelAdvanceDocumentNumber" />
 	<property name="label" value="Travel Advance Document Number" />
-	<property name="shortLabel" value="Advance Doc. #" />		
-    <property name="required" value="true"/>	
-	<property name="control"><bean parent="TextControlDefinition" p:size="32"/></property>    
+	<property name="shortLabel" value="Advance Doc. #" />
+    <property name="required" value="true"/>
+	<property name="control"><bean parent="TextControlDefinition" p:size="32"/></property>
   </bean>
 
-  <bean id="TaxableRamificationDocument-travelerDetailId" parent="TaxableRamificationDocument-travelerDetailId-parentBean"/>  
+  <bean id="TaxableRamificationDocument-travelerDetailId" parent="TaxableRamificationDocument-travelerDetailId-parentBean"/>
   <bean id="TaxableRamificationDocument-travelerDetailId-parentBean" abstract="true" parent="TravelerDetail-id">
   	<property name="name" value="travelerDetailId" />
 	<property name="label" value="Traveler Detail Id" />
-	<property name="shortLabel" value="Traveler Detail Id" />	
+	<property name="shortLabel" value="Traveler Detail Id" />
     <property name="required" value="true"/>
-	<property name="control"><bean parent="TextControlDefinition" p:size="32"/></property>        	
+	<property name="control"><bean parent="TextControlDefinition" p:size="32"/></property>
   </bean>
 
-  <bean id="TaxableRamificationDocument-arInvoiceDocNumber" parent="TaxableRamificationDocument-arInvoiceDocNumber-parentBean"/>  
+  <bean id="TaxableRamificationDocument-arInvoiceDocNumber" parent="TaxableRamificationDocument-arInvoiceDocNumber-parentBean"/>
   <bean id="TaxableRamificationDocument-arInvoiceDocNumber-parentBean" abstract="true" parent="AttributeDefinition">
   	<property name="name" value="arInvoiceDocNumber" />
 	<property name="label" value="Advance Number" />
-    <property name="required" value="true"/>	
+    <property name="required" value="true"/>
     <property name="shortLabel" value="AR Invoice Document Number" />
     <property name="maxLength" value="255" />
     <property name="summary" value="AR Invoice Document Number" />
     <property name="description" value="AR Invoice Document Number" />
     <property name="control"><bean parent="TextControlDefinition" p:size="35"/></property>
   </bean>
-  
+
   <bean id="TaxableRamificationDocument-dueDate" parent="TaxableRamificationDocument-dueDate-parentBean"/>
   <bean id="TaxableRamificationDocument-dueDate-parentBean" abstract="true" parent="TravelAdvance-dueDate">
     <property name="name" value="dueDate"/>
@@ -85,30 +85,30 @@
     <property name="shortLabel" value="Due Date"/>
     <property name="required" value="true"/>
   </bean>
-	  
+
   <bean id="TaxableRamificationDocument-invoiceAmount" parent="TaxableRamificationDocument-invoiceAmount-parentBean"/>
   <bean id="TaxableRamificationDocument-invoiceAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="invoiceAmount"/>
     <property name="label" value="Invoice Amount"/>
     <property name="shortLabel" value="Invoice Amount"/>
-  </bean> 
-  
+  </bean>
+
   <bean id="TaxableRamificationDocument-openAmount" parent="TaxableRamificationDocument-openAmount-parentBean"/>
   <bean id="TaxableRamificationDocument-openAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="openAmount"/>
     <property name="label" value="Open Amount"/>
     <property name="shortLabel" value="Open Amount"/>
-  </bean>      
+  </bean>
 
   <bean id="TaxableRamificationDocument-taxableRamificationNotice" parent="TaxableRamificationDocument-taxableRamificationNotice-parentBean"/>
   <bean id="TaxableRamificationDocument-taxableRamificationNotice-parentBean" abstract="true" parent="GenericAttributes-genericBigText">
     <property name="name" value="taxableRamificationNotice"/>
     <property name="label" value="Taxable Ramification Notice"/>
     <property name="shortLabel" value="Notice"/>
-	<property name="maxLength" value="2000"/>    
+	<property name="maxLength" value="2000"/>
   </bean>
- 
-  <bean id="TaxableRamificationDocument-workflowAttributes" parent="TaxableRamificationDocument-workflowAttributes-parentBean"/>	  
+
+  <bean id="TaxableRamificationDocument-workflowAttributes" parent="TaxableRamificationDocument-workflowAttributes-parentBean"/>
   <bean id="TaxableRamificationDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
 	<property name="routingTypeDefinitions">
 		<map>
@@ -117,7 +117,7 @@
     	</map>
     </property>
   </bean>
-  
+
   <bean id="TaxableRamificationDocument-DocumentValuePathGroup-ChartAccountNumber" parent="TaxableRamificationDocument-DocumentValuePathGroup-ChartAccountNumber-parentBean"/>
   <bean id="TaxableRamificationDocument-DocumentValuePathGroup-ChartAccountNumber-parentBean" abstract="true" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
   	<property name="documentValues">
@@ -146,6 +146,6 @@
     		</list>
     	</property>
     </bean>
-    
-  
+
+
 </beans>

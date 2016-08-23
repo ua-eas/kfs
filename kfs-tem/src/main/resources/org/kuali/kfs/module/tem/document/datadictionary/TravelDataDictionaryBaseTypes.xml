@@ -1,25 +1,25 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:p="http://www.springframework.org/schema/p"
-    xmlns:dd="http://rice.kuali.org/dd" 
+    xmlns:dd="http://rice.kuali.org/dd"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
         http://rice.kuali.org/dd
@@ -38,7 +38,7 @@
             <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.sys.businessobject.options.PaymentMethodValuesFinder" p:includeKeyInLabel="false"/>
         </property>
     </bean>
-    
+
     <bean id="TravelDocumentAccountingLine-cardType" parent="TravelDocumentAccountingLine-cardType-parentBean" />
     <bean id="TravelDocumentAccountingLine-cardType-parentBean" abstract="true" parent="TravelCardType-code-parentBean">
       <property name="name" value="cardType" />
@@ -49,7 +49,7 @@
         <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.module.tem.businessobject.options.CardTypeValuesFinder" p:includeKeyInLabel="false"/>
       </property>
     </bean>
-                
+
   	<bean id="TravelDocument-sourceAccountingLineGroup" parent="TravelDocument-sourceAccountingLineGroup-parentBean" />
 	<bean id="TravelDocument-sourceAccountingLineGroup-parentBean" abstract="true" parent="AccountingLineGroup" >
 		<property name="accountingLineView" ref="TravelDocument-accountingLineView" />
@@ -58,9 +58,9 @@
 		<property name="accountingLineAuthorizerClass" value="org.kuali.kfs.module.tem.document.authorization.TemAccountingLineAuthorizer" />
 		<property name="totals" ref="AccountingDocument-sourceGroupTotals" />
 		<property name="errorKey" value="document.sourceAccounting*,sourceAccountingLines,newSourceLine*" />
-		<property name="importingAllowed" value="false"/> <!--  we can't import account lines on TR/ENT/RELO --> 
+		<property name="importingAllowed" value="false"/> <!--  we can't import account lines on TR/ENT/RELO -->
 	</bean>
-	
+
 	<bean id="TravelAuthorizationDocument-sourceAccountingLineGroup" parent="TravelAuthorizationDocument-sourceAccountingLineGroup-parentBean" />
 	<bean id="TravelAuthorizationDocument-sourceAccountingLineGroup-parentBean" abstract="true" parent="AccountingLineGroup" >
 		<property name="accountingLineView" ref="TravelAuthorizationDocument-accountingLineView" />
@@ -69,20 +69,20 @@
 		<property name="accountingLineAuthorizerClass" value="org.kuali.kfs.module.tem.document.authorization.TemAccountingLineAuthorizer" />
 		<property name="totals" ref="AccountingDocument-sourceGroupTotals" />
 		<property name="errorKey" value="document.sourceAccounting*,sourceAccountingLines,newSourceLine*" />
-		<property name="importingAllowed" value="false"/> <!--  we can't import account lines on TA's and kids --> 
+		<property name="importingAllowed" value="false"/> <!--  we can't import account lines on TA's and kids -->
 	</bean>
-	
-	<bean id="TravelDocument-accountDistributionSourceAccountingLineGroup" parent="TravelDocument-accountDistributionSourceAccountingLineGroup-parentBean"/>  
+
+	<bean id="TravelDocument-accountDistributionSourceAccountingLineGroup" parent="TravelDocument-accountDistributionSourceAccountingLineGroup-parentBean"/>
     <bean id="TravelDocument-accountDistributionSourceAccountingLineGroup-parentBean" abstract="true" parent="AccountingLineGroup" >
 	    <property name="accountingLineView" ref="TravelDocument-accountDistributionAccountingLineView"/>
 	    <property name="accountingLineClass" value="org.kuali.kfs.module.tem.businessobject.TemDistributionAccountingLine"/>
     	<property name="groupLabel" value="Assign Accounts"/>
         <property name="accountingLineAuthorizerClass" value="org.kuali.kfs.module.tem.document.authorization.TemAccountingLineAuthorizer"/>
-	    <property name="errorKey" value="accountDistributionsourceAccountingLines*,accountDistributionnewSourceLine,accountDistribution*"/> 
-	    <property name="importingAllowed" value="false"/> <!--  we can't import assign account lines --> 
+	    <property name="errorKey" value="accountDistributionsourceAccountingLines*,accountDistributionnewSourceLine,accountDistribution*"/>
+	    <property name="importingAllowed" value="false"/> <!--  we can't import assign account lines -->
 	    <property name="accountingLineGroupClass" value="org.kuali.kfs.sys.document.web.CollectionAccountingLineGroupImpl"/>
     </bean>
-    
+
     <bean id="TravelAuthorization-travelAdvanceAccountingLineGroup" parent="TravelAuthorization-travelAdvanceAccountingLineGroup-parentBean" />
 	<bean id="TravelAuthorization-travelAdvanceAccountingLineGroup-parentBean" abstract="true" parent="AccountingLineGroup" >
 		<property name="accountingLineGroupClass" value="org.kuali.kfs.module.tem.document.datadictionary.AdvanceAccountingLineGroupImpl" />
@@ -92,9 +92,9 @@
 		<property name="accountingLineAuthorizerClass" value="org.kuali.kfs.module.tem.document.authorization.TravelAdvanceAccountingLineAuthorizer" />
 		<property name="totals" ref="TravelDocument-advanceGroupTotals" />
 		<property name="errorKey" value="document.travelAdvance.accounting*,travelAdvance.accountingLines,newTravelAdvanceAccountingLine*" />
-		<property name="importingAllowed" value="false"/> <!--  we can't import advance accounting lines --> 
+		<property name="importingAllowed" value="false"/> <!--  we can't import advance accounting lines -->
 	</bean>
-    
+
 	<bean id="TravelDocument-accountingLineView" parent="TravelDocument-accountingLineView-parent" />
 	<bean id="TravelDocument-accountingLineView-parent" abstract="true" parent="AccountingLineView">
 		<property name="elements">
@@ -151,7 +151,7 @@
 											p:name="organizationReferenceId"
 											p:useShortLabel="true" />
 										<bean parent="AccountingLineView-field" p:name="cardType" p:required="true" p:useShortLabel="true"/>
-										<bean parent="AccountingLineView-field" 
+										<bean parent="AccountingLineView-field"
 											p:name="amount"
 											p:required="true" />
 									</list>
@@ -173,7 +173,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="TravelAuthorizationDocument-accountingLineView" parent="TravelAuthorizationDocument-accountingLineView-parent" />
 	<bean id="TravelAuthorizationDocument-accountingLineView-parent" abstract="true" parent="AccountingLineView">
 		<property name="elements">
@@ -231,7 +231,7 @@
 										<bean parent="AccountingLineView-field"
 											p:name="organizationReferenceId"
 											p:useShortLabel="true" />
-										<bean parent="AccountingLineView-field" 
+										<bean parent="AccountingLineView-field"
 											p:name="amount"
 											p:required="true" />
 									</list>
@@ -253,7 +253,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="TravelDocument-accountDistributionAccountingLineView" parent="TravelDocument-accountDistributionAccountingLineView-parent" />
 	<bean id="TravelDocument-accountDistributionAccountingLineView-parent" abstract="true" parent="AccountingLineView">
 		<property name="elements">
@@ -288,19 +288,19 @@
 				<bean parent="AccountingLineView-field"
 					p:name="organizationReferenceId"
 					p:useShortLabel="true" />
-				<bean parent="AccountingLineView-field" 
+				<bean parent="AccountingLineView-field"
 					p:name="accountLinePercent"
 					p:webUILeaveFieldFunction="updateAmount"
 					p:required="true" p:useShortLabel="true"/>
-				<bean parent="AccountingLineView-field" 
+				<bean parent="AccountingLineView-field"
 					p:webUILeaveFieldFunction="updatePercent"
-					p:name="amount" 
+					p:name="amount"
 					p:required="true"/>
 				<bean parent="AccountingLineView-actions" />
 			</list>
 		</property>
 	</bean>
-	
+
   	<bean id="TravelAuthorizationDocument-advanceAccountingLineView" parent="ravelAuthorizationDocument-advanceAccountingLineView-parent" />
 	<bean id="ravelAuthorizationDocument-advanceAccountingLineView-parent" abstract="true" parent="AccountingLineView">
 		<property name="elements">
@@ -368,7 +368,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="TravelDocument-advanceGroupTotals"
 		class="org.springframework.beans.factory.config.ListFactoryBean">
 		<property name="sourceList">

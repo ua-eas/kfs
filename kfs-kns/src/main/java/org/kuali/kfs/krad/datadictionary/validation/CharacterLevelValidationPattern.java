@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,8 +25,8 @@ import java.util.regex.Pattern;
 
 /**
  * Abstraction of the regular expressions used to validate attribute values.
- * 
- * 
+ *
+ *
  */
 @Deprecated
 abstract public class CharacterLevelValidationPattern extends ValidationPattern {
@@ -37,7 +37,7 @@ abstract public class CharacterLevelValidationPattern extends ValidationPattern 
 
     /**
      * Sets maxLength parameter for the associated regex.
-     * 
+     *
      * @param maxLength
      */
     public void setMaxLength(int maxLength) {
@@ -58,7 +58,7 @@ abstract public class CharacterLevelValidationPattern extends ValidationPattern 
 
     /**
      * Sets exactLength parameter for the associated regex.
-     * 
+     *
      * @param exactLength
      */
     public void setExactLength(int exactLength) {
@@ -83,10 +83,10 @@ abstract public class CharacterLevelValidationPattern extends ValidationPattern 
     final public Pattern getRegexPattern() {
         if ( regexPattern == null ) {
             String regexString = getRegexString();
-    
+
             StringBuffer completeRegex = new StringBuffer("^");
             completeRegex.append(getRegexString());
-    
+
             if (maxLength != -1) {
                 completeRegex.append("{0," + maxLength + "}");
             }
@@ -96,9 +96,9 @@ abstract public class CharacterLevelValidationPattern extends ValidationPattern 
             else {
                 completeRegex.append("*");
             }
-    
+
             completeRegex.append("$");
-    
+
             regexPattern = Pattern.compile(completeRegex.toString());
         }
         return regexPattern;
@@ -125,7 +125,7 @@ abstract public class CharacterLevelValidationPattern extends ValidationPattern 
 
     /**
      * Extends the given (parent class) exportMap as needed to represent subclass instances
-     * 
+     *
      * @param exportMap
      */
     abstract public void extendExportMap(ExportMap exportMap);
@@ -143,7 +143,7 @@ abstract public class CharacterLevelValidationPattern extends ValidationPattern 
 
 	/**
 	 * This overridden method ...
-	 * 
+	 *
 	 * @see ValidationPattern#getValidationErrorMessageKey()
 	 */
 	@Override
@@ -155,10 +155,10 @@ abstract public class CharacterLevelValidationPattern extends ValidationPattern 
 		}
 		if (getExactLength() != -1) {
 			buf.append(".exactLength");
-		}	
+		}
 		return buf.toString();
 	}
-	
+
 	protected String getValidationErrorMessageKeyOptions() {
 		return KRADConstants.EMPTY_STRING;
 	}

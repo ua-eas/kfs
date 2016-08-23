@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -50,7 +50,7 @@ public class AccountBalanceByConsolidationLookupableHelperServiceImpl extends Ab
 
     /**
      * Returns the inquiry url for a result field.
-     * 
+     *
      * @param bo the business object instance to build the urls for
      * @param propertyName the property which links to an inquirable
      * @return String url to inquiry
@@ -63,7 +63,7 @@ public class AccountBalanceByConsolidationLookupableHelperServiceImpl extends Ab
 
     /**
      * Get the search results that meet the input search criteria.
-     * 
+     *
      * @param fieldValues - Map containing prop name keys and search values
      * @return a List of found business objects
      */
@@ -84,7 +84,7 @@ public class AccountBalanceByConsolidationLookupableHelperServiceImpl extends Ab
         String accountNumber = (String) fieldValues.get(KFSPropertyConstants.ACCOUNT_NUMBER);
         String subAccountNumber = (String) fieldValues.get(KFSPropertyConstants.SUB_ACCOUNT_NUMBER);
         String ufy = (String) fieldValues.get(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR);
-        
+
         boolean isCostShareExcluded = Constant.COST_SHARE_EXCLUDE.equals(costShareOption);
 
         int pendingEntryCode = AccountBalanceService.PENDING_NONE;
@@ -95,12 +95,12 @@ public class AccountBalanceByConsolidationLookupableHelperServiceImpl extends Ab
             pendingEntryCode = AccountBalanceService.PENDING_ALL;
         }
         boolean isConsolidated = Constant.CONSOLIDATION.equals(consolidationOption);
-        
+
         // KFSMI-410: added one more node for consolidationOption
         if (consolidationOption.equals(Constant.EXCLUDE_SUBACCOUNTS)){
             subAccountNumber = KFSConstants.getDashSubAccountNumber();
             isConsolidated = false;
-        } 
+        }
 
         // TODO Deal with invalid numbers
         Integer universityFiscalYear = new Integer(Integer.parseInt(ufy));

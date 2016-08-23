@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -47,34 +47,34 @@ public abstract class PurapDocumentPreRulesBase extends PromptBeforeValidationBa
     @Override
     public boolean doPrompts(Document document) {
         PurchasingAccountsPayableDocument purapDocument = (PurchasingAccountsPayableDocument)document;
-        
+
         boolean preRulesValid=true;
-        
+
         //refresh accounts in each item....
         List<PurApItem> items = purapDocument.getItems();
-        
+
         for (PurApItem item : items) {
             //refresh the accounts if they do exist...
             for (PurApAccountingLine account : item.getSourceAccountingLines()) {
                 account.refreshNonUpdateableReferences();
             }
         }
-        
+
         if (StringUtils.isBlank(event.getQuestionContext()) || StringUtils.equals(question, PurapConstants.FIX_CAPITAL_ASSET_WARNINGS)) {
             preRulesValid &= confirmFixCapitalAssetWarningConditions(purapDocument);
         }
-        
+
         return preRulesValid;
     }
 
     public boolean confirmFixCapitalAssetWarningConditions(PurchasingAccountsPayableDocument purapDocument) {
         boolean proceed = true;
-        
+
         //check appropriate status first if not in an appropriate status return true
         if(!checkCAMSWarningStatus(purapDocument)) {
             return true;
         }
-        
+
         StringBuffer questionText = new StringBuffer();
         if (StringUtils.isBlank(event.getQuestionContext())) {
             if (!SpringContext.getBean(CapitalAssetBuilderModuleService.class).warningObjectLevelCapital(purapDocument)) {
@@ -88,8 +88,8 @@ public abstract class PurapDocumentPreRulesBase extends PromptBeforeValidationBa
                     for ( ErrorMessage warning :  warnings ) {
                         // the following two lines should be used but org.kuali.rice.krad.util.ErrorMessage (line 83) has a bug
                         //questionText.append(warning);
-                        //questionText.append("[br]");                        
-                        // so, to remove parenthesis in case no params exist   
+                        //questionText.append("[br]");
+                        // so, to remove parenthesis in case no params exist
                         questionText.append(warning.getErrorKey());
                         String[] params = warning.getMessageParameters();
                         if (params != null && params.length > 0) {
@@ -104,10 +104,10 @@ public abstract class PurapDocumentPreRulesBase extends PromptBeforeValidationBa
                         }
                     }
                     questionText.append("[/p]");
-                }                                                        
+                }
             }
         }
-        
+
         if (!proceed || ((ObjectUtils.isNotNull(question)) && (question.equals(PurapConstants.FIX_CAPITAL_ASSET_WARNINGS)))) {
             proceed = askOrAnalyzeYesNoQuestion(PurapConstants.FIX_CAPITAL_ASSET_WARNINGS, questionText.toString());
         }
@@ -117,7 +117,7 @@ public abstract class PurapDocumentPreRulesBase extends PromptBeforeValidationBa
         if (proceed) {
             KNSGlobalVariables.getMessageList().clear();
         }
-    
+
         return proceed;
     }
 

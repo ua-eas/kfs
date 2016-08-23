@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,17 +42,17 @@ public class PurchasingUnitOfMeasureValidation extends GenericValidation {
     private PurApItem itemForValidation;
     private DataDictionaryService dataDictionaryService;
     private BusinessObjectService businessObjectService;
-    
+
     /**
      * Validates that if the item type is quantity based, the unit of measure is required.
      */
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
         PurchasingItemBase purItem = (PurchasingItemBase) itemForValidation;
-        
+
         // Validations for quantity based item type
         if (purItem.getItemType().isQuantityBasedGeneralLedgerIndicator()) {
-            
+
             String errorPrefix = KFSPropertyConstants.DOCUMENT + "." + PurapPropertyConstants.ITEM + "[" + (itemForValidation.getItemLineNumber() - 1) + "]." + PurapPropertyConstants.ITEM_UNIT_OF_MEASURE_CODE;
             String uomCode = purItem.getItemUnitOfMeasureCode();
             if (StringUtils.isEmpty(uomCode)) {
@@ -78,9 +78,9 @@ public class PurchasingUnitOfMeasureValidation extends GenericValidation {
                         GlobalVariables.getMessageMap().putError(errorPrefix, PurapKeyConstants.ERROR_ITEM_UOM_INACTIVE,  " in " + purItem.getItemIdentifierString());
                     }
                 }
-            }            
+            }
         }
-               
+
        if (purItem.getItemType().isAmountBasedGeneralLedgerIndicator() && StringUtils.isNotBlank(purItem.getItemUnitOfMeasureCode())) {
             valid = false;
             String errorPrefix = KFSPropertyConstants.DOCUMENT + "." + PurapPropertyConstants.ITEM + "[" + (itemForValidation.getItemLineNumber() - 1) + "]." + PurapPropertyConstants.ITEM_UNIT_OF_MEASURE_CODE;
@@ -88,7 +88,7 @@ public class PurchasingUnitOfMeasureValidation extends GenericValidation {
                                     getAttributeDefinition(PurapPropertyConstants.ITEM_UNIT_OF_MEASURE_CODE).getLabel();
             GlobalVariables.getMessageMap().putError(errorPrefix, PurapKeyConstants.ERROR_ITEM_UOM_NOT_ALLOWED, attributeLabel + " in " + purItem.getItemIdentifierString());
         }
-             
+
 
         return valid;
     }

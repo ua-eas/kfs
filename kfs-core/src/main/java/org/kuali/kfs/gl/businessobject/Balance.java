@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,9 +36,9 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
- * This class contains the monthly balance amounts for a specific fiscal year, chart of accounts code, account number, 
+ * This class contains the monthly balance amounts for a specific fiscal year, chart of accounts code, account number,
  * sub account number, object code, sub object code, balance type code, object type code
- * 
+ *
  */
 public class Balance extends PersistableBusinessObjectBase {
     static final long serialVersionUID = 6581797610149985575L;
@@ -52,7 +52,7 @@ public class Balance extends PersistableBusinessObjectBase {
     private String balanceTypeCode;
     private String objectTypeCode;
     private KualiDecimal accountLineAnnualBalanceAmount;
-   
+
     private KualiDecimal beginningBalanceLineAmount;
     private KualiDecimal contractsGrantsBeginningBalanceAmount;
     private KualiDecimal month1Amount;
@@ -131,7 +131,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Constructs a Balance.java.
-     * 
+     *
      * @param transaction
      */
     public Balance(BalanceHistory balanceHistory) {
@@ -145,7 +145,7 @@ public class Balance extends PersistableBusinessObjectBase {
         this.setUniversityFiscalYear(balanceHistory.getUniversityFiscalYear());
         this.setSubAccountNumber(balanceHistory.getSubAccountNumber());
     }
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap map = new LinkedHashMap();
         map.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, getUniversityFiscalYear());
@@ -161,7 +161,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Returns an amount for a specific period
-     * 
+     *
      * @param period period to grab amount for
      * @return KualiDecimal amount for that specific period
      */
@@ -221,7 +221,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Add an amount to a specific period
-     * 
+     *
      * @param period period to add amount to
      * @param amount amount to add to period
      */
@@ -642,7 +642,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the chart attribute.
-     * 
+     *
      * @return Returns the chart.
      */
     public Chart getChart() {
@@ -651,7 +651,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the chart attribute value.
-     * 
+     *
      * @param chart The chart to set.
      */
     public void setChart(Chart chart) {
@@ -660,7 +660,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account.
      */
     public Account getAccount() {
@@ -669,7 +669,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the account attribute value.
-     * 
+     *
      * @param account The account to set.
      */
     public void setAccount(Account account) {
@@ -678,7 +678,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the dummyBusinessObject attribute.
-     * 
+     *
      * @return Returns the dummyBusinessObject.
      */
     public TransientBalanceInquiryAttributes getDummyBusinessObject() {
@@ -687,7 +687,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the dummyBusinessObject attribute value.
-     * 
+     *
      * @param dummyBusinessObject The dummyBusinessObject to set.
      */
     public void setDummyBusinessObject(TransientBalanceInquiryAttributes dummyBusinessObject) {
@@ -696,7 +696,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialObject attribute.
-     * 
+     *
      * @return Returns the financialObject.
      */
     public ObjectCode getFinancialObject() {
@@ -705,7 +705,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialObject attribute value.
-     * 
+     *
      * @param financialObject The financialObject to set.
      */
     public void setFinancialObject(ObjectCode financialObject) {
@@ -714,7 +714,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the balanceType attribute.
-     * 
+     *
      * @return Returns the balanceType.
      */
     public BalanceType getBalanceType() {
@@ -723,7 +723,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the balanceType attribute value.
-     * 
+     *
      * @param balanceType The balanceType to set.
      */
     public void setBalanceType(BalanceType balanceType) {
@@ -732,7 +732,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialSubObject attribute.
-     * 
+     *
      * @return Returns the financialSubObject.
      */
     public SubObjectCode getFinancialSubObject() {
@@ -741,7 +741,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialSubObject attribute value.
-     * 
+     *
      * @param financialSubObject The financialSubObject to set.
      */
     public void setFinancialSubObject(SubObjectCode financialSubObject) {
@@ -750,7 +750,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the subAccount attribute.
-     * 
+     *
      * @return Returns the subAccount.
      */
     public SubAccount getSubAccount() {
@@ -759,7 +759,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the subAccount attribute value.
-     * 
+     *
      * @param subAccount The subAccount to set.
      */
     public void setSubAccount(SubAccount subAccount) {
@@ -768,7 +768,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the objectType attribute.
-     * 
+     *
      * @return Returns the objectType.
      */
     public ObjectType getObjectType() {
@@ -777,7 +777,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the objectType attribute value.
-     * 
+     *
      * @param objectType The objectType to set.
      */
     public void setObjectType(ObjectType objectType) {
@@ -786,7 +786,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the priorYearAccount attribute.
-     * 
+     *
      * @return Returns the priorYearAccount.
      */
     public PriorYearAccount getPriorYearAccount() {
@@ -795,19 +795,19 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the priorYearAccount attribute value.
-     * 
+     *
      * @param priorYearAccount The priorYearAccount to set.
      */
     public void setPriorYearAccount(PriorYearAccount priorYearAccount) {
         this.priorYearAccount = priorYearAccount;
     }
-    
+
     private String fundGroup; // a transient attribute
     private KualiDecimal yearBalance = KualiDecimal.ZERO; // a transient attribute
     private KualiDecimal yearToDayBalance = KualiDecimal.ZERO; // a transient attribute
 
     /**
-     * Gets the fundGroup attribute. 
+     * Gets the fundGroup attribute.
      * @return Returns the fundGroup.
      */
     public String getFundGroup() {
@@ -823,7 +823,7 @@ public class Balance extends PersistableBusinessObjectBase {
     }
 
     /**
-     * Gets the yearBalance attribute. 
+     * Gets the yearBalance attribute.
      * @return Returns the yearBalance.
      */
     public KualiDecimal getYearBalance() {
@@ -839,7 +839,7 @@ public class Balance extends PersistableBusinessObjectBase {
     }
 
     /**
-     * Gets the yearToDayBalance attribute. 
+     * Gets the yearToDayBalance attribute.
      * @return Returns the yearToDayBalance.
      */
     public KualiDecimal getYearToDayBalance() {
@@ -852,8 +852,8 @@ public class Balance extends PersistableBusinessObjectBase {
      */
     public void setYearToDayBalance(KualiDecimal yearToDayBalance) {
         this.yearToDayBalance = yearToDayBalance;
-    }    
- 
+    }
+
 
     public KualiDecimal getCombinedBeginningBalanceAmount() {
         KualiDecimal combinedBeginningBalanceAmount;

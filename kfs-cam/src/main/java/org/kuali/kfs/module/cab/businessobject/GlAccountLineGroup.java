@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,7 +37,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
 
     /**
      * Constructs a GlAccountLineGroup from a GL Line Entry
-     * 
+     *
      * @param entry GL Line
      */
     public GlAccountLineGroup(Entry entry) {
@@ -67,7 +67,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
 
     /**
      * Returns true if input GL entry belongs to this account group
-     * 
+     *
      * @param entry Entry
      * @return true if Entry belongs to same account line group
      */
@@ -80,7 +80,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
      * This method will combine multiple GL entries for the same account line group, so that m:n association is prevented in the
      * database. This could be a rare case that we need to address. First GL is used as the final target and rest of the GL entries
      * are adjusted.
-     * 
+     *
      * @param entry
      */
     public void combineEntry(Entry newEntry) {
@@ -119,7 +119,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
 
     /**
      * Gets the targetEntry attribute.
-     * 
+     *
      * @return Returns the targetEntry
      */
     public Entry getTargetEntry() {
@@ -128,7 +128,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
 
     /**
      * Sets the targetEntry attribute.
-     * 
+     *
      * @param targetEntry The targetEntry to set.
      */
     public void setTargetEntry(Entry targetGlEntry) {
@@ -137,7 +137,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
 
     /**
      * Gets the sourceEntries attribute.
-     * 
+     *
      * @return Returns the sourceEntries
      */
     public List<Entry> getSourceEntries() {
@@ -146,7 +146,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
 
     /**
      * Sets the sourceEntries attribute.
-     * 
+     *
      * @param sourceEntries The sourceEntries to set.
      */
     public void setSourceEntries(List<Entry> sourceGlEntries) {
@@ -155,7 +155,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
 
     /**
      * Gets the matchedPurApAcctLines attribute.
-     * 
+     *
      * @return Returns the matchedPurApAcctLines.
      */
     public List<PurApAccountingLineBase> getMatchedPurApAcctLines() {
@@ -164,7 +164,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
 
     /**
      * Sets the matchedPurApAcctLines attribute value.
-     * 
+     *
      * @param matchedPurApAcctLines The matchedPurApAcctLines to set.
      */
     public void setMatchedPurApAcctLines(List<PurApAccountingLineBase> matchedPurApAcctLines) {

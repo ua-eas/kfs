@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -51,7 +51,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
     protected ConfigurationService kualiConfigurationService;
     protected BusinessObjectService businessObjectService;
     protected DocumentHeaderService documentHeaderService;
-    
+
     /**
      * @see org.kuali.kfs.coa.service.OrganizationReversionDetailTrickleDownInactivationService#trickleDownInactiveOrganizationReversionDetails(org.kuali.kfs.coa.businessobject.OrganizationReversion, java.lang.String)
      */
@@ -67,14 +67,14 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
         Map<String, Object> fieldValues = new HashMap<String, Object>();
         fieldValues.put("organizationReversionCategoryCode", organizationReversionCategory.getOrganizationReversionCategoryCode());
         Collection orgReversionDetails = businessObjectService.findMatching(OrganizationReversionDetail.class, fieldValues);
-        
+
         List<OrganizationReversionDetail> organizationReversionDetailList = new ArrayList<OrganizationReversionDetail>();
         for (Object orgRevDetailAsObject : orgReversionDetails) {
             organizationReversionDetailList.add((OrganizationReversionDetail)orgRevDetailAsObject);
         }
         trickleDownInactivations(organizationReversionDetailList, documentNumber);
     }
-    
+
     /**
      * @see org.kuali.kfs.coa.service.OrganizationReversionDetailTrickleDownInactivationService#trickleDownActiveOrganizationReversionDetails(org.kuali.kfs.coa.businessobject.OrganizationReversion, java.lang.String)
      */
@@ -90,7 +90,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
         Map<String, Object> fieldValues = new HashMap<String, Object>();
         fieldValues.put("organizationReversionCategoryCode", organizationReversionCategory.getOrganizationReversionCategoryCode());
         Collection orgReversionDetails = businessObjectService.findMatching(OrganizationReversionDetail.class, fieldValues);
-        
+
         List<OrganizationReversionDetail> organizationReversionDetailList = new ArrayList<OrganizationReversionDetail>();
         for (Object orgRevDetailAsObject : orgReversionDetails) {
             organizationReversionDetailList.add((OrganizationReversionDetail)orgRevDetailAsObject);
@@ -122,11 +122,11 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
                 }
             }
         }
-        
+
         status.saveSuccesfullyChangedNotes(documentNumber);
         status.saveErrorNotes(documentNumber);
     }
-    
+
     /**
      * The method which actually does the work of activating the details
      * @param organizationReversionDetails the details to inactivate
@@ -135,7 +135,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
      */
     protected void trickleDownActivations(List<OrganizationReversionDetail> organizationReversionDetails, String documentNumber) {
         TrickleDownStatus status = new TrickleDownStatus(KFSKeyConstants.ORGANIZATION_REVERSION_DETAIL_TRICKLE_DOWN_ACTIVATION, KFSKeyConstants.ORGANIZATION_REVERSION_DETAIL_TRICKLE_DOWN_ACTIVATION_ERROR_DURING_PERSISTENCE);
-                
+
         if (!ObjectUtils.isNull(organizationReversionDetails) && !organizationReversionDetails.isEmpty()) {
             for (OrganizationReversionDetail detail : organizationReversionDetails) {
                 if (!detail.isActive() && allowActivation(detail)) {
@@ -151,11 +151,11 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
                 }
             }
         }
-        
+
         status.saveSuccesfullyChangedNotes(documentNumber);
         status.saveErrorNotes(documentNumber);
     }
-    
+
     /**
      * Determines whether the given organization reversion detail can be activated: ie, that both its owning OrganizationReversion and its related
      * OrganizationReversionCategory are both active
@@ -182,7 +182,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
         private List<OrganizationReversionDetail> errorPersistingOrganizationReversionDetails;
         private String successfullyChangedOrganizationReversionDetailsMessageKey;
         private String erroredOutOrganizationReversionDetailsMessageKey;
-        
+
         /**
          * Constructs a OrganizationReversionDetailTrickleDownInactivationServiceImpl
          */
@@ -192,7 +192,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
             this.successfullyChangedOrganizationReversionDetailsMessageKey = successfullyChangedOrganizationReversionDetailsMessageKey;
             this.erroredOutOrganizationReversionDetailsMessageKey = erroredOutOrganizationReversionDetailsMessageKey;
         }
-        
+
         /**
          * Adds an organization reversion detail which had a successfully persisted activation to the message list
          * @param organizationReversionDetail the detail to add to the list
@@ -200,7 +200,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
         public void addOrganizationReversionDetail(OrganizationReversionDetail organizationReversionDetail) {
             organizationReversionDetails.add(organizationReversionDetail);
         }
-        
+
         /**
          * Adds an organization reversion detail which could not successful persist its activation to the error message list
          * @param organizationReversionDetail the detail to add to the list
@@ -208,14 +208,14 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
         public void addErrorPersistingOrganizationReversionDetail(OrganizationReversionDetail organizationReversionDetail) {
             errorPersistingOrganizationReversionDetails.add(organizationReversionDetail);
         }
-        
+
         /**
          * @return the number of details we want per note
          */
         protected int getDetailsPerNote() {
             return 20;
         }
-        
+
         /**
          * Builds a List of Notes out of a list of OrganizationReversionDescriptions
          * @param messageKey the key of the note text in ApplicationResources.properties
@@ -234,7 +234,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
             }
             return notes;
         }
-        
+
         /**
          * Builds a note
          * @param description a description to put into the message of the note
@@ -258,7 +258,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
             }
             return note;
         }
-        
+
         /**
          * Builds organization reverion detail descriptions to populate notes
          * @param organizationReversionDetails the list of details to convert to notes
@@ -266,11 +266,11 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
          */
         protected List<String> generateOrganizationReversionDetailsForNotes(List<OrganizationReversionDetail> organizationReversionDetails) {
             List<String> orgRevDetailDescriptions = new ArrayList<String>();
-            
+
             if (organizationReversionDetails.size() > 0) {
                 StringBuilder description = new StringBuilder();
                 description.append(getOrganizationReversionDetailDescription(organizationReversionDetails.get(0)));
-                
+
                 int count = 1;
                 while (count < organizationReversionDetails.size()) {
                     if (count % getDetailsPerNote() == 0) { // time for a new note
@@ -282,14 +282,14 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
                     description.append(getOrganizationReversionDetailDescription(organizationReversionDetails.get(count)));
                     count += 1;
                 }
-                
+
                 // add the last description
                 orgRevDetailDescriptions.add(description.toString());
             }
-            
+
             return orgRevDetailDescriptions;
         }
-        
+
         /**
          * Beautifully and eloquently describes an organization reversion detail
          * @param organizationReversionDetail the organization reversion detail to describe
@@ -298,7 +298,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
         protected String getOrganizationReversionDetailDescription(OrganizationReversionDetail organizationReversionDetail) {
             return organizationReversionDetail.getChartOfAccountsCode() + " - " + organizationReversionDetail.getOrganizationCode() + " Category: " + organizationReversionDetail.getOrganizationReversionCategoryCode();
         }
-        
+
         /**
          * Saves notes to a document
          * @param organizationReversionDetails the details to make notes about
@@ -310,7 +310,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
             List<Note> notes = generateNotes(messageKey, noteParent, organizationReversionDetails);
             noteService.saveNoteList(notes);
         }
-        
+
         /**
          * Adds all the notes about successful inactivations
          * @param documentNumber document number to save them to
@@ -318,7 +318,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
         public void saveSuccesfullyChangedNotes(String documentNumber) {
             saveAllNotes(organizationReversionDetails, successfullyChangedOrganizationReversionDetailsMessageKey, documentNumber);
         }
-        
+
         /**
          * Adds all the notes about inactivations which couldn't be saved
          * @param documentNumber the document number to save them to
@@ -345,7 +345,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
     }
 
     /**
-     * Gets the kualiConfigurationService attribute. 
+     * Gets the kualiConfigurationService attribute.
      * @return Returns the kualiConfigurationService.
      */
     public ConfigurationService getConfigurationService() {
@@ -361,7 +361,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
     }
 
     /**
-     * Gets the noteService attribute. 
+     * Gets the noteService attribute.
      * @return Returns the noteService.
      */
     public NoteService getNoteService() {
@@ -377,7 +377,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
     }
 
     /**
-     * Gets the businessObjectService attribute. 
+     * Gets the businessObjectService attribute.
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -393,7 +393,7 @@ public class OrganizationReversionDetailTrickleDownInactivationServiceImpl imple
     }
 
     /**
-     * Gets the documentHeaderService attribute. 
+     * Gets the documentHeaderService attribute.
      * @return Returns the documentHeaderService.
      */
     public DocumentHeaderService getDocumentHeaderService() {

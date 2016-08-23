@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -69,7 +69,7 @@ import java.util.Properties;
 /**
  * Kuali inquirable implementation. Implements methods necessary to retrieve the
  * business object and render the ui.
- * 
+ *
  * NOTE: this class is not thread safe. When using this class or any subclasses
  * in Spring, make sure that this is not a singleton service, or serious errors
  * may occur.
@@ -99,7 +99,7 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 	/**
 	 * TODO: generics do not match between call to module service and call to
 	 * lookup service
-	 * 
+	 *
 	 * @see Inquirable#retrieveDataObject(java.util.Map)
 	 */
 	@SuppressWarnings("rawtypes")
@@ -131,12 +131,12 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 					.findCollectionBySearch(getBusinessObjectClass(),
 							fieldValues);
 		}
-		
+
 		BusinessObject foundObject = null;
 		if (searchResults != null && searchResults.size() > 0) {
 			foundObject = (BusinessObject) searchResults.get(0);
 		}
-		
+
 		return foundObject;
 	}
 
@@ -181,7 +181,7 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 
 	/**
 	 * Helper method to build an inquiry url for a result field.
-	 * 
+	 *
 	 * @param bo
 	 *            the business object instance to build the urls for
 	 * @param propertyName
@@ -445,7 +445,7 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 
 	/**
 	 * Gets text to prepend to the inquiry link title
-	 * 
+	 *
 	 * @param dataObjectClass
 	 *            - data object class being inquired into
 	 * @return String title prepend text
@@ -505,7 +505,7 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
     public Class getBusinessObjectClass() {
         return dataObjectClass;
     }
-    
+
 	/**
 	 * @see Inquirable#getInactiveRecordDisplay()
 	 */

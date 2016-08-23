@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -61,11 +61,11 @@ public class ItemParserTest extends KualiTestBase {
         itemClass = purDoc.getItemClass();
         documentNumber = purDoc.getDocumentNumber();
     }
-    
+
     /**
-     * Asserts true if the specified ItemParserException reports the appropriate error message 
+     * Asserts true if the specified ItemParserException reports the appropriate error message
      * with the expected parameters upon wrong number of input item properties.
-     * 
+     *
      * @param e the specified ItemParserException
      * @param propertyNumber the wrong number of input item properties
      */
@@ -73,11 +73,11 @@ public class ItemParserTest extends KualiTestBase {
         assertEquals(e.getErrorKey(), ERROR_ITEMPARSER_WRONG_PROPERTY_NUMBER);
         assertEquals(e.getErrorParameters()[1], ""+propertyNumber);
     }
-    
+
     /**
-     * Asserts true if the specified ItemParserException reports the appropriate error message 
+     * Asserts true if the specified ItemParserException reports the appropriate error message
      * with the expected parameters upon empty input item property value.
-     * 
+     *
      * @param e the specified ItemParserException
      * @param propertyName the property name for the empty property value
      *
@@ -90,16 +90,16 @@ public class ItemParserTest extends KualiTestBase {
         for (int i=0; i<params.size(); i++) {
             ErrorMessage errmsg = (ErrorMessage)params.get(i);
             if (errmsg.getErrorKey().equals(errorKey)) {
-                assertEquals(errmsg.getMessageParameters()[0], propertyName);                
+                assertEquals(errmsg.getMessageParameters()[0], propertyName);
             }
         }
     }
     */
-    
+
     /**
-     * Asserts true if the specified ItemParserException reports the appropriate error message 
+     * Asserts true if the specified ItemParserException reports the appropriate error message
      * with the expected parameters upon invalid numeric value for input item property.
-     * 
+     *
      * @param e the specified ItemParserException
      * @param propertyName the property name for the invalid property value
      * @param propertyValue the invalid property value
@@ -113,12 +113,12 @@ public class ItemParserTest extends KualiTestBase {
         for (int i=0; i<params.size(); i++) {
             ErrorMessage errmsg = (ErrorMessage)params.get(i);
             if (errmsg.getErrorKey().equals(errorKey)) {
-                assertEquals(errmsg.getMessageParameters()[0], propertyValue);                
-                assertEquals(errmsg.getMessageParameters()[1], propertyName);                
+                assertEquals(errmsg.getMessageParameters()[0], propertyValue);
+                assertEquals(errmsg.getMessageParameters()[1], propertyName);
             }
         }
     }
-    
+
     /**
      * Tests whether parseItem returns successfully with valid quantity-driven Requisition item line as input.
      */
@@ -128,7 +128,7 @@ public class ItemParserTest extends KualiTestBase {
             PurApItem item = parser.parseItem(itemLine, itemClass, documentNumber);
             assertEquals(item.getItemQuantity().compareTo(new KualiDecimal(3)), 0);
             assertEquals(item.getItemUnitOfMeasureCode(), "BX");
-            assertEquals(item.getItemCatalogNumber(), "123");            
+            assertEquals(item.getItemCatalogNumber(), "123");
             assertEquals(item.getItemDescription(), "paper");
             assertEquals(item.getItemUnitPrice().compareTo(new BigDecimal(6)), 0);
             assertEquals(item.getItemTypeCode(), PurapConstants.ItemTypeCodes.ITEM_TYPE_ITEM_CODE);
@@ -139,7 +139,7 @@ public class ItemParserTest extends KualiTestBase {
             fail("Caught ItemParserException with valid quantity-driven requisition item.");
         }
     }
-    
+
     /**
      * Tests whether parseItem returns successfully with valid nonquantity-driven PurchaseOrder item line as input.
      */
@@ -153,7 +153,7 @@ public class ItemParserTest extends KualiTestBase {
             PurApItem item = parser.parseItem(itemLine, itemClass, documentNumber);
             assertEquals(item.getItemQuantity(), null);
             assertEquals(item.getItemUnitOfMeasureCode(), null);
-            assertEquals(item.getItemCatalogNumber(), "100");            
+            assertEquals(item.getItemCatalogNumber(), "100");
             assertEquals(item.getItemDescription(), "cleaning service");
             assertEquals(item.getItemUnitPrice().compareTo(new BigDecimal(50)), 0);
             assertEquals(item.getItemTypeCode(), PurapConstants.ItemTypeCodes.ITEM_TYPE_SERVICE_CODE);
@@ -186,7 +186,7 @@ public class ItemParserTest extends KualiTestBase {
             assertWrongPropertyNumber(e, 5);
         }
     }
-    
+
     /**
      * Tests whether parseItem catches exceptions upon empty properties in the input item line.
      *
@@ -201,7 +201,7 @@ public class ItemParserTest extends KualiTestBase {
         }
     }
     */
-    
+
     /**
      * Tests whether parseItem catches exceptions upon invalid numeric properties values in the input item line.
      */
@@ -214,6 +214,6 @@ public class ItemParserTest extends KualiTestBase {
         catch(ItemParserException e) {
             assertInvalidNumericValue(e, parser.getItemFormat()[5], "blahblah");
         }
-    }    
+    }
 }
 

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,7 +40,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
     //primary key fields..
     private String documentNumber;
     private Integer capitalAssetLineNumber;
-    
+
     private Integer vendorHeaderGeneratedIdentifier;
     private Integer vendorDetailAssignedIdentifier;
     private String vendorName;
@@ -54,12 +54,12 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
     private String capitalAssetActionIndicator;
     private boolean capitalAssetProcessedIndicator;
     private String distributionAmountCode;
-    
+
     private CapitalAssetManagementAsset capitalAssetManagementAsset;
     private CapitalAssetManagementAssetType capitalAssetManagementAssetType;
     private List<CapitalAssetInformationDetail> capitalAssetInformationDetails;
     private List<CapitalAssetAccountsGroupDetails> capitalAssetAccountsGroupDetails;
-    
+
     private VendorDetail vendorDetail;
 
     /**
@@ -76,7 +76,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
         LinkedHashMap m = new LinkedHashMap();
         m.put(KFSPropertyConstants.DOCUMENT_NUMBER, this.documentNumber);
         m.put(KFSPropertyConstants.CAPITAL_ASSET_LINE_NUMBER, this.getCapitalAssetLineNumber());
-        
+
         return m;
     }
 
@@ -122,7 +122,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
         if (ObjectUtils.isNotNull(capitalAssetInformationDetails) && !capitalAssetInformationDetails.isEmpty()) {
             return capitalAssetInformationDetails.size();
         }
-        
+
         return null;
     }
 
@@ -165,7 +165,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the capitalAssetManagementAsset attribute.
-     * 
+     *
      * @return Returns the capitalAssetManagementAsset.
      */
     public CapitalAssetManagementAsset getCapitalAssetManagementAsset() {
@@ -175,7 +175,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
     /**
      * Sets the capitalAssetManagementAsset attribute value.
-     * 
+     *
      * @param capitalAssetManagementAsset The capitalAssetManagementAsset to set.
      */
     public void setCapitalAssetManagementAsset(CapitalAssetManagementAsset capitalAssetManagementAsset) {
@@ -184,7 +184,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the capitalAssetManagementAssetType attribute.
-     * 
+     *
      * @return Returns the capitalAssetManagementAssetType.
      */
     public CapitalAssetManagementAssetType getCapitalAssetManagementAssetType() {
@@ -194,7 +194,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
     /**
      * Sets the capitalAssetManagementAssetType attribute value.
-     * 
+     *
      * @param capitalAssetManagementAssetType The capitalAssetManagementAssetType to set.
      */
     @Deprecated
@@ -204,7 +204,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the vendorDetail attribute.
-     * 
+     *
      * @return Returns the vendorDetail.
      */
     public VendorDetail getVendorDetail() {
@@ -213,7 +213,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
     /**
      * Sets the vendorDetail attribute value.
-     * 
+     *
      * @param vendorDetail The vendorDetail to set.
      */
     @Deprecated
@@ -223,7 +223,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
     /**
      * Returns a map with the primitive field names as the key and the primitive values as the map value.
-     * 
+     *
      * @return Map a map with the primitive field names as the key and the primitive values as the map value.
      */
     public Map<String, Object> getValuesMap() {
@@ -246,7 +246,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the vendorName attribute.
-     * 
+     *
      * @return Returns the vendorName.
      */
     public String getVendorName() {
@@ -262,7 +262,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
     /**
      * Sets the vendorName attribute value.
-     * 
+     *
      * @param vendorName The vendorName to set.
      */
     public void setVendorName(String vendorName) {
@@ -271,16 +271,16 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the capitalAssetAccountsGroupDetails attribute.
-     * 
+     *
      * @return Returns the capitalAssetAccountsGroupDetails
      */
     public List<CapitalAssetAccountsGroupDetails> getCapitalAssetAccountsGroupDetails() {
         return capitalAssetAccountsGroupDetails;
     }
 
-    /**	
+    /**
      * Sets the capitalAssetAccountsGroupDetails attribute.
-     * 
+     *
      * @param capitalAssetAccountsGroupDetails The capitalAssetAccountsGroupDetails to set.
      */
     public void setCapitalAssetAccountsGroupDetails(List<CapitalAssetAccountsGroupDetails> capitalAssetAccountsGroupDetails) {
@@ -289,7 +289,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the capitalAssetInformationDetails attribute.
-     * 
+     *
      * @return Returns the capitalAssetInformationDetails.
      */
     public List<CapitalAssetInformationDetail> getCapitalAssetInformationDetails() {
@@ -298,7 +298,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
     /**
      * Sets the capitalAssetInformationDetails attribute value.
-     * 
+     *
      * @param capitalAssetInformationDetails The capitalAssetInformationDetails to set.
      */
     public void setCapitalAssetInformationDetails(List<CapitalAssetInformationDetail> capitalAssetInformationDetails) {
@@ -306,7 +306,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
     }
 
     /**
-     * Gets the capitalAssetLineNumber attribute. 
+     * Gets the capitalAssetLineNumber attribute.
      * @return Returns the capitalAssetLineNumber.
      */
     public Integer getCapitalAssetLineNumber() {
@@ -320,7 +320,7 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
     public void setCapitalAssetLineNumber(Integer capitalAssetLineNumber) {
         this.capitalAssetLineNumber = capitalAssetLineNumber;
     }
-    
+
     /**
      * @return Returns the capitalAssetLineAmount.
      */
@@ -346,21 +346,21 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
         this.capitalAssetLineAmount = capitalAssetLineAmount;
     }
-    
-    
+
+
     /**
      * Gets the capitalAssetActionIndicator attribute.
-     * 
+     *
      * @return Returns the capitalAssetActionIndicator
      */
-    
+
     public String getCapitalAssetActionIndicator() {
         return capitalAssetActionIndicator;
     }
 
-    /** 
+    /**
      * Sets the capitalAssetActionIndicator attribute.
-     * 
+     *
      * @param capitalAssetActionIndicator The capitalAssetActionIndicator to set.
      */
     public void setCapitalAssetActionIndicator(String capitalAssetActionIndicator) {
@@ -369,36 +369,36 @@ public class CapitalAssetInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the capitalAssetProcessedIndicator attribute.
-     * 
+     *
      * @return Returns the capitalAssetProcessedIndicator
      */
-    
+
     public boolean isCapitalAssetProcessedIndicator() {
         return capitalAssetProcessedIndicator;
     }
 
-    /** 
+    /**
      * Sets the capitalAssetProcessedIndicator attribute.
-     * 
+     *
      * @param capitalAssetProcessedIndicator The capitalAssetProcessedIndicator to set.
      */
     public void setCapitalAssetProcessedIndicator(boolean capitalAssetProcessedIndicator) {
         this.capitalAssetProcessedIndicator = capitalAssetProcessedIndicator;
     }
-    
+
     /**
      * Gets the distributionAmountCode attribute.
-     * 
+     *
      * @return Returns the distributionAmountCode
      */
-    
+
     public String getDistributionAmountCode() {
         return distributionAmountCode;
     }
 
-    /** 
+    /**
      * Sets the distributionAmountCode attribute.
-     * 
+     *
      * @param distributionAmountCode The distributionAmountCode to set.
      */
     public void setDistributionAmountCode(String distributionAmountCode) {

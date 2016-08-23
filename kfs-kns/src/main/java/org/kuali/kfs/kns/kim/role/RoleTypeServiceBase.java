@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,7 +41,7 @@ import java.util.Map;
  */
 @Deprecated
 public class RoleTypeServiceBase extends DataDictionaryTypeServiceBase implements RoleTypeService, DelegationTypeService {
-	
+
 	/**
 	 * Performs a simple check that the qualifier on the role matches the qualification.
 	 * Extra qualification attributes are ignored.
@@ -60,7 +60,7 @@ public class RoleTypeServiceBase extends DataDictionaryTypeServiceBase implement
 		validateRequiredAttributesAgainstReceived(translatedQualification);
 		return performMatch(translatedQualification, roleQualifier);
 	}
-	
+
     @Override
 	public List<RoleMembership> getMatchingRoleMemberships(Map<String, String> qualification,
             List<RoleMembership> roleMemberList) {
@@ -112,7 +112,7 @@ public class RoleTypeServiceBase extends DataDictionaryTypeServiceBase implement
 	}
 
 	/**
-	 * This simple initial implementation just calls  
+	 * This simple initial implementation just calls
 	 * {@link #getRoleMembersFromApplicationRole(String, String, Map<String, String>)} and checks the results.
 	 *
 	 */
@@ -153,7 +153,7 @@ public class RoleTypeServiceBase extends DataDictionaryTypeServiceBase implement
 		                return true;
 		            }
 		        } else { // groups
-		            if ( groupIds != null 
+		            if ( groupIds != null
 		                    && groupIds.contains(rm.getMemberId())) {
 		                return true;
 		            }
@@ -162,20 +162,20 @@ public class RoleTypeServiceBase extends DataDictionaryTypeServiceBase implement
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Default to not being a derived role type.  Always returns false.
-	 * 
+	 *
 	 * @see org.kuali.rice.kim.framework.role.RoleTypeService#isDerivedRoleType()
 	 */
     @Override
 	public boolean isDerivedRoleType() {
 		return false;
 	}
-		
+
 	/**
 	 * This base implementation simply returns the passed in Attributes.
-	 * 
+	 *
 	 * @see org.kuali.rice.kim.framework.role.RoleTypeService#convertQualificationForMemberRoles(String, String, String, String, Map<String, String>)
 	 */
     @Override
@@ -203,7 +203,7 @@ public class RoleTypeServiceBase extends DataDictionaryTypeServiceBase implement
 
         return Collections.unmodifiableMap(new HashMap<String, String>(qualification));
 	}
-		
+
 	/**
 	 * Performs a simple check that the qualifier on the delegation matches the qualification.
 	 * Extra qualification attributes are ignored.
@@ -226,7 +226,7 @@ public class RoleTypeServiceBase extends DataDictionaryTypeServiceBase implement
 
 	/**
 	 * Returns false as a default
-	 * 
+	 *
 	 * @see org.kuali.rice.kim.framework.role.RoleTypeService#dynamicRoleMembership(java.lang.String, java.lang.String)
 	 */
     @Override
@@ -243,7 +243,7 @@ public class RoleTypeServiceBase extends DataDictionaryTypeServiceBase implement
 	}
 
     @Override
-	public List<String> getQualifiersForExactMatch() {    
+	public List<String> getQualifiersForExactMatch() {
 		return Collections.emptyList();
 	}
 

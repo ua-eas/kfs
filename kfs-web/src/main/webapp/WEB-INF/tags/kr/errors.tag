@@ -1,17 +1,20 @@
 <%--
- Copyright 2005-2008 The Kuali Foundation
- 
- Licensed under the Educational Community License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
- 
- http://www.opensource.org/licenses/ecl2.php
- 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 <%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp"%>
 
@@ -43,27 +46,27 @@
 
 <c:if test="${!empty ErrorPropertyList}">
     <div>
-      <c:set var="errorTitleRendered" value="false"/>  
-      
+      <c:set var="errorTitleRendered" value="false"/>
+
         <c:choose>
           <%-- if match string given displayed only matched keys --%>
           <c:when test="${keyMatch!=null}">
             <%-- iterate through all keys in the error map --%>
             <c:forEach items="${ErrorPropertyList}" var="key">
               <c:set var="errorDisplayed" value="false"/>
-              
-              <%-- for each error, try to match with one of the match strings given, either by exact 
+
+              <%-- for each error, try to match with one of the match strings given, either by exact
                    match or like match if wildcard is given --%>
               <c:forEach items="${fn:split(keyMatch,',')}" var="prefix">
                 <c:if test="${(fn:endsWith(fn:trim(prefix),'*') && fn:startsWith(key,fn:replace(fn:trim(prefix),'*',''))) || (key == fn:trim(prefix))}">
-                
-                 
+
+
                   <%-- render title if this is the first error --%>
                   <c:if test="${!errorTitleRendered}">
 					<strong>${errorTitle}</strong>
                     <c:set var="errorTitleRendered" value="true"/>
                   </c:if>
-                  
+
                   <%-- check so same message is not displayed again --%>
                   <c:if test="${errorDisplayed==false}">
                     <!-- error key = '${key}' -->
@@ -77,7 +80,7 @@
                   </c:if>
                 </c:if>
               </c:forEach>
-            </c:forEach>  
+            </c:forEach>
           </c:when>
 
             <%-- else, if displayRemaining attribute is true, display any errors that have not already been displayed --%>
@@ -94,7 +97,7 @@
                         <html:errors property="${key}"/>
                         <c:if test="${KualiForm != null}">
                       		<c:set target="${KualiForm.displayedErrors}" property="${key}" value="true"/>
-                    	</c:if> 
+                    	</c:if>
                     </c:if>
                 </c:forEach>
             </c:when>
@@ -104,7 +107,7 @@
             <logic:messagesPresent>
               <strong>${errorTitle}</strong>
             </logic:messagesPresent>
-            
+
             <html:errors/>
           </c:otherwise>
       </c:choose>
@@ -113,27 +116,27 @@
 
 <c:if test="${!empty WarningPropertyList}">
     <div>
-      <c:set var="warningTitleRendered" value="false"/>  
-      
+      <c:set var="warningTitleRendered" value="false"/>
+
         <c:choose>
           <%-- if match string given displayed only matched keys --%>
           <c:when test="${keyMatch!=null}">
             <%-- iterate through all keys in the error map --%>
             <c:forEach items="${WarningPropertyList}" var="key">
               <c:set var="warningDisplayed" value="false"/>
-              
-              <%-- for each warning, try to match with one of the match strings given, either by exact 
+
+              <%-- for each warning, try to match with one of the match strings given, either by exact
                    match or like match if wildcard is given --%>
               <c:forEach items="${fn:split(keyMatch,',')}" var="prefix">
                 <c:if test="${(fn:endsWith(prefix,'*') && fn:startsWith(key,fn:replace(prefix,'*',''))) || (key == prefix)}">
-                 
+
                   <%-- render title if this is the first warning --%>
                   <c:if test="${!warningTitleRendered}">
 					 <img src="${ConfigProperties.kr.externalizable.images.url}warning.png" alt="warning" />
                     <strong>${warningTitle}</strong>
                     <c:set var="warningTitleRendered" value="true"/>
                   </c:if>
-                  
+
                   <%-- check so same message is not displayed again --%>
                   <c:if test="${warningDisplayed==false}">
                     <!-- warning key = '${key}' -->
@@ -147,7 +150,7 @@
                   </c:if>
                 </c:if>
               </c:forEach>
-            </c:forEach>  
+            </c:forEach>
           </c:when>
 
             <%-- else, if displayRemaining attribute is true, display any warnings that have not already been displayed --%>
@@ -172,7 +175,7 @@
             <logic:messagesPresent name="WarningActionMessages">
               <strong>${warningTitle}</strong>
             </logic:messagesPresent>
-            
+
             <html:errors name="WarningActionMessages"/>
           </c:otherwise>
       </c:choose>
@@ -181,26 +184,26 @@
 
 <c:if test="${!empty InfoPropertyList}">
     <div>
-      <c:set var="infoTitleRendered" value="false"/>  
-      
+      <c:set var="infoTitleRendered" value="false"/>
+
         <c:choose>
           <%-- if match string given displayed only matched keys --%>
           <c:when test="${keyMatch!=null}">
             <%-- iterate through all keys in the error map --%>
             <c:forEach items="${InfoPropertyList}" var="key">
               <c:set var="infoDisplayed" value="false"/>
-              
-              <%-- for each info message, try to match with one of the match strings given, either by exact 
+
+              <%-- for each info message, try to match with one of the match strings given, either by exact
                    match or like match if wildcard is given --%>
               <c:forEach items="${fn:split(keyMatch,',')}" var="prefix">
                 <c:if test="${(fn:endsWith(prefix,'*') && fn:startsWith(key,fn:replace(prefix,'*',''))) || (key == prefix)}">
-                 
+
                   <%-- render title if this is the first info --%>
                   <c:if test="${!infoTitleRendered}">
                      <img src="${ConfigProperties.kr.externalizable.images.url}info.png" alt="info" /><strong>${infoTitle}</strong>
                     <c:set var="infoTitleRendered" value="true"/>
                   </c:if>
-                  
+
                   <%-- check so same message is not displayed again --%>
                   <c:if test="${infoDisplayed==false}">
                     <!-- info key = '${key}' -->
@@ -214,7 +217,7 @@
                   </c:if>
                 </c:if>
               </c:forEach>
-            </c:forEach>  
+            </c:forEach>
           </c:when>
 
             <%-- else, if displayRemaining attribute is true, display any infos that have not already been displayed --%>
@@ -239,7 +242,7 @@
             <logic:messagesPresent name="InfoActionMessages">
               <strong>${infoTitle}</strong>
             </logic:messagesPresent>
-            
+
             <html:errors name="InfoActionMessages"/>
           </c:otherwise>
       </c:choose>

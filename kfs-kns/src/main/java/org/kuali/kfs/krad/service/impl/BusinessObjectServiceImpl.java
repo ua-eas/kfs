@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -65,7 +65,7 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
 
     private boolean illegalBusinessObjectsForSaveInitialized;
     private final Set<String> illegalBusinessObjectsForSave = new HashSet<String>();
-    
+
     @Override
     @Transactional
     public <T extends PersistableBusinessObject> T save(T bo) {
@@ -103,7 +103,7 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
         	throw new IllegalArgumentException("Object passed in is a BusinessObject but has been restricted from save operations according to configuration parameter '" + KRADConstants.Config.ILLEGAL_BUSINESS_OBJECTS_FOR_SAVE);
         }
     }
-    
+
     protected void validateBusinessObjectForSave(List<? extends PersistableBusinessObject> businessObjects) {
     	for (PersistableBusinessObject bo : businessObjects) {
     		 if (bo == null) {
@@ -115,8 +115,8 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
     		 }
     	}
     }
-    
-    
+
+
     /**
      * Returns true if the BusinessObjectService should be permitted to save instances of the given PersistableBusinessObject.
      * Implementation checks a configuration parameter for class names of PersistableBusinessObjects that shouldn't be allowed
@@ -144,7 +144,7 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
     	}
     	return !illegalBusinessObjectsForSave.contains(bo.getClass().getName());
     }
-    
+
 
     @Override
 	public <T extends BusinessObject> T findBySinglePrimaryKey(Class<T> clazz, Object primaryKey) {
@@ -169,7 +169,7 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
     	final Map<String, ?> emptyParameters = Collections.emptyMap();
     	return businessObjectDao.findMatchingOrderBy(clazz, emptyParameters, sortField, sortAscending );
     }
-    
+
     @Override
     public <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues) {
         return businessObjectDao.findMatching(clazz, fieldValues);
@@ -328,7 +328,7 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
         }
 
         bo.linkEditableUserFields();
-       
+
         linkUserFields( Collections.singletonList( bo ) );
     }
 
@@ -360,7 +360,7 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
                                 break;
                             }
                         }
-                    }                    
+                    }
                 }
             }
             if ( persistenceStructureService.isPersistable(bo.getClass())) {
@@ -381,9 +381,9 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
     }
 
     /**
-     * 
+     *
      * This method links a single UniveralUser back to the parent BO based on the authoritative principalName.
-     * 
+     *
      * @param bo
      * @param refFieldName
      */
@@ -420,7 +420,7 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
 
 	/**
      * Gets the businessObjectDao attribute.
-     * 
+     *
      * @return Returns the businessObjectDao.
      */
     protected BusinessObjectDao getBusinessObjectDao() {
@@ -429,7 +429,7 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
 
     /**
      * Sets the businessObjectDao attribute value.
-     * 
+     *
      * @param businessObjectDao The businessObjectDao to set.
      */
     public void setBusinessObjectDao(BusinessObjectDao businessObjectDao) {
@@ -438,7 +438,7 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
 
     /**
      * Sets the persistenceStructureService attribute value.
-     * 
+     *
      * @param persistenceStructureService The persistenceStructureService to set.
      */
     public void setPersistenceStructureService(PersistenceStructureService persistenceStructureService) {
@@ -458,7 +458,7 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
 
     /**
      * Sets the persistenceService attribute value.
-     * 
+     *
      * @param persistenceService The persistenceService to set.
      */
     public final void setPersistenceService(PersistenceService persistenceService) {

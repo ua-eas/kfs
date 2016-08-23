@@ -1,22 +1,22 @@
-<%@ tag import="org.kuali.kfs.sys.util.Guid" %>
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
+<%@ tag import="org.kuali.kfs.sys.util.Guid" %>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
 <%@ attribute name="itemAttributes" required="true" type="java.util.Map" description="The DataDictionary entry containing attributes for this row's fields."%>
@@ -37,7 +37,7 @@
 		<tr>
 			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemLineNumber}" />
 			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemCatalogNumber}" />
-			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDescription}" />				
+			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDescription}" />
 			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemUnitOfMeasureCode}" />
 			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemOriginalReceivedTotalQuantity}" />
 			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemOriginalReturnedTotalQuantity}" />
@@ -49,7 +49,7 @@
 		<logic:iterate indexId="ctr" name="KualiForm" property="document.items" id="itemLine">
 			<c:set var="currentTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
 			<c:set var="topLevelTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
-			
+
 			<c:choose>
 				<c:when test="${itemLine.objectId == null}">
 					<c:set var="newObjectId" value="<%= (new Guid()).toString()%>" />
@@ -59,7 +59,7 @@
 			        <c:set var="tabKey" value="Item-${itemLine.objectId}" />
 			    </c:when>
 			</c:choose>
-			
+
             <!--  hit form method to increment tab index -->
             <c:set var="dummyIncrementer" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}" />
 
@@ -75,7 +75,7 @@
 				</c:when>
 			</c:choose>
 		<tr>
-			<td colspan="12" class="tab-subhead" style="border-right: none;">				 
+			<td colspan="12" class="tab-subhead" style="border-right: none;">
 		    <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
 				<html:submit
 						property="methodToCall.toggleTab.tab${tabKey}"
@@ -84,7 +84,7 @@
 						styleId="tab-${tabKey}-imageToggle"
 						onclick="return toggleTab(document, 'kualiFormModal', '${tabKey}');"
 						value="Hide"/>
-		    </c:if> 
+		    </c:if>
 		    <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
 				<html:submit
 						property="methodToCall.toggleTab.tab${tabKey}"
@@ -100,15 +100,15 @@
 		<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
 			<tbody style="display: none;" id="tab-${tabKey}-div">
 		</c:if>
-	
-		<tr>				
+
+		<tr>
 			<td class="infoline" nowrap="nowrap">
 			    <kul:htmlControlAttribute
 				    attributeEntry="${itemAttributes.itemLineNumber}"
 				    property="document.item[${ctr}].itemLineNumber"
 				    extraReadOnlyProperty="document.item[${ctr}].itemLineNumber"
-				    readOnly="${true}" />			    
-			</td>					
+				    readOnly="${true}" />
+			</td>
 			<td class="infoline">
 			    <kul:htmlControlAttribute
 				    attributeEntry="${itemAttributes.itemCatalogNumber}"
@@ -171,7 +171,7 @@
 		</c:if>
 
 		</logic:iterate>
-		
+
 	</table>
 	</div>
 </kul:tab>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -58,7 +58,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Gets the lockType attribute.
-     * 
+     *
      * @return Returns the lockType.
      */
     public String getLockType() {
@@ -67,7 +67,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Sets the lockType attribute value.
-     * 
+     *
      * @param lockType The lockType to set.
      */
     public void setLockType(String lockType) {
@@ -76,7 +76,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Gets the lockUserId attribute.
-     * 
+     *
      * @return Returns the lockUserId.
      */
     public String getLockUserId() {
@@ -85,7 +85,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Sets the lockUserId attribute value.
-     * 
+     *
      * @param lockUserId The lockUserId to set.
      */
     public void setLockUserId(String lockUserId) {
@@ -94,7 +94,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber.
      */
     public String getAccountNumber() {
@@ -103,7 +103,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Sets the accountNumber attribute value.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -112,7 +112,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -121,7 +121,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Sets the chartOfAccountsCode attribute value.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -130,7 +130,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber.
      */
     public String getDocumentNumber() {
@@ -139,7 +139,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Sets the documentNumber attribute value.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -148,7 +148,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Gets the positionDescription attribute.
-     * 
+     *
      * @return Returns the positionDescription.
      */
     public String getPositionDescription() {
@@ -157,7 +157,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Sets the positionDescription attribute value.
-     * 
+     *
      * @param positionDescription The positionDescription to set.
      */
     public void setPositionDescription(String positionDescription) {
@@ -166,7 +166,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Gets the positionNumber attribute.
-     * 
+     *
      * @return Returns the positionNumber.
      */
     public String getPositionNumber() {
@@ -175,7 +175,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Sets the positionNumber attribute value.
-     * 
+     *
      * @param positionNumber The positionNumber to set.
      */
     public void setPositionNumber(String positionNumber) {
@@ -184,7 +184,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber.
      */
     public String getSubAccountNumber() {
@@ -193,7 +193,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Sets the subAccountNumber attribute value.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -202,7 +202,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear.
      */
     public Integer getUniversityFiscalYear() {
@@ -211,7 +211,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Sets the universityFiscalYear attribute value.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -220,7 +220,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Gets the lockUser attribute.
-     * 
+     *
      * @return Returns the lockUser.
      */
     public Person getLockUser() {
@@ -236,7 +236,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Sets the lockUser attribute value.
-     * 
+     *
      * @param lockUser The lockUser to set.
      */
     public void setLockUser(Person lockUser) {
@@ -245,7 +245,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Gets the chart attribute.
-     * 
+     *
      * @return Returns the chart.
      */
     public Chart getChart() {
@@ -254,7 +254,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Sets the chart attribute value.
-     * 
+     *
      * @param chart The chart to set.
      */
     public void setChart(Chart chart) {
@@ -263,7 +263,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account.
      */
     public Account getAccount() {
@@ -272,7 +272,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Sets the account attribute value.
-     * 
+     *
      * @param account The account to set.
      */
     public void setAccount(Account account) {
@@ -281,7 +281,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Gets the subAccount attribute.
-     * 
+     *
      * @return Returns the subAccount.
      */
     public SubAccount getSubAccount() {
@@ -290,7 +290,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Sets the subAccount attribute value.
-     * 
+     *
      * @param subAccount The subAccount to set.
      */
     public void setSubAccount(SubAccount subAccount) {
@@ -299,7 +299,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Gets the budgetConstructionPosition attribute.
-     * 
+     *
      * @return Returns the budgetConstructionPosition.
      */
     public BudgetConstructionPosition getBudgetConstructionPosition() {
@@ -308,7 +308,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Sets the budgetConstructionPosition attribute value.
-     * 
+     *
      * @param budgetConstructionPosition The budgetConstructionPosition to set.
      */
     public void setBudgetConstructionPosition(BudgetConstructionPosition budgetConstructionPosition) {
@@ -317,7 +317,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Gets the options attribute.
-     * 
+     *
      * @return Returns the options.
      */
     public SystemOptions getOptions() {
@@ -326,7 +326,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
 
     /**
      * Sets the options attribute value.
-     * 
+     *
      * @param options The options to set.
      */
     public void setOptions(SystemOptions options) {
@@ -336,7 +336,7 @@ public class BudgetConstructionLockSummary extends PersistableBusinessObjectBase
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
         m.put("lockType", this.lockType);

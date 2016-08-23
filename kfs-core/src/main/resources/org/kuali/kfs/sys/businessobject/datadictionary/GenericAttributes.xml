@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-        
+
 
 <!-- Attribute Definitions -->
 
@@ -25,10 +25,10 @@
   <bean id="FourCharacterTextControl" parent="TextControlDefinition" p:size="4" />
   <bean id="TwoCharacterTextControl" parent="TextControlDefinition" p:size="2" />
   <bean id="OneCharacterTextControl" parent="TextControlDefinition" p:size="2" />
-  
+
   <bean id="StandardNameTextControl" parent="TextControlDefinition" p:size="40"/>
   <bean id="StandardShortNameTextControl" parent="TextControlDefinition" p:size="12"/>
-  
+
   <bean id="DateControl" parent="TextControlDefinition" p:size="10" p:datePicker="true"/>
   <bean id="HiddenControl" parent="HiddenControlDefinition" />
   <bean id="KfsCheckboxControl" parent="CheckboxControlDefinition"/>
@@ -56,7 +56,7 @@
   <bean id="FloatingPointValidation" parent="FloatingPointValidationPattern"/>
   <bean id="FloatingPointAllowNegativeValidation" parent="FloatingPointValidation" p:allowNegative="true" />
   <bean id="PhoneNumberValidation" parent="PhoneNumberValidationPattern"/>
-  
+
   <bean id="GenericAttributes-oneDigitTextCode" parent="GenericAttributes-oneDigitTextCode-parentBean"/>
   <bean id="GenericAttributes-oneDigitTextCode-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="oneDigitTextCode"/>
@@ -67,7 +67,7 @@
     <property name="validationPattern" ref="ExactlyOneCharacterValidationPattern" />
     <property name="control" ref="OneCharacterTextControl" />
   </bean>
-  
+
   <bean id="GenericAttributes-twoDigitTextCode" parent="GenericAttributes-twoDigitTextCode-parentBean"/>
   <bean id="GenericAttributes-twoDigitTextCode-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="twoDigitTextCode"/>
@@ -99,7 +99,7 @@
     <property name="control" ref="DateControl" />
     <property name="formatterClass" value="org.kuali.rice.core.web.format.DateFormatter"/>
   </bean>
-  
+
   <bean id="GenericAttributes-genericTimestamp" parent="GenericAttributes-genericTimestamp-parentBean"/>
   <bean id="GenericAttributes-genericTimestamp-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="genericTimestamp"/>
@@ -110,7 +110,7 @@
     <property name="control" ref="DateControl" />
     <property name="formatterClass" value="org.kuali.rice.core.web.format.DateFormatter"/>
   </bean>
-  
+
   <bean id="GenericAttributes-genericBoolean" parent="GenericAttributes-genericBoolean-parentBean"/>
   <bean id="GenericAttributes-genericBoolean-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="genericBoolean"/>
@@ -121,7 +121,7 @@
     <property name="control" ref="KfsCheckboxControl" />
     <property name="formatterClass" value="org.kuali.rice.core.web.format.BooleanFormatter"/>
   </bean>
-  
+
   <bean id="GenericAttributes-activeIndicator" parent="GenericAttributes-activeIndicator-parentBean"/>
   <bean id="GenericAttributes-activeIndicator-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="activeIndicator"/>
@@ -132,7 +132,7 @@
     <property name="control" ref="KfsCheckboxControl" />
     <property name="formatterClass" value="org.kuali.rice.core.web.format.BooleanFormatter"/>
   </bean>
-  
+
   <bean id="GenericAttributes-genericAmount" parent="GenericAttributes-genericAmount-parentBean"/>
   <bean id="GenericAttributes-genericAmount-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="genericAmount"/>
@@ -196,7 +196,7 @@
     </property>
     <property name="control" ref="FourCharacterTextControl" />
   </bean>
-  
+
   <bean id="GenericAttributes-sequenceNumber" parent="GenericAttributes-sequenceNumber-parentBean"/>
   <bean id="GenericAttributes-sequenceNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="sequenceNumber"/>
@@ -241,7 +241,7 @@
       <bean parent="TextControlDefinition" p:size="5"/>
     </property>
   </bean>
-  
+
   <bean id="GenericAttributes-genericFiscalYear" parent="GenericAttributes-genericFiscalYear-parentBean"/>
   <bean id="GenericAttributes-genericFiscalYear-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="genericFiscalYear"/>
@@ -279,7 +279,7 @@
       <ref bean="TenCharacterTextControl" />
     </property>
   </bean>
-  
+
   <bean id="GenericAttributes-percent" parent="GenericAttributes-percent-parentBean"/>
   <bean id="GenericAttributes-percent-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="percent"/>
@@ -289,7 +289,7 @@
     <property name="maxLength" value="20"/>
     <property name="control">
       <ref bean="TenCharacterTextControl" />
-    </property>    
+    </property>
   </bean>
 
   <bean id="GenericAttributes-maxDollarAmount" parent="GenericAttributes-maxDollarAmount-parentBean"/>
@@ -307,7 +307,7 @@
     <property name="shortLabel" value="Min Amt"/>
     <property name="control" ref="PositiveOnlyAmountValiationPattern" />
   </bean>
-  
+
   <bean id="GenericAttributes-newCollectionRecord" parent="GenericAttributes-newCollectionRecord-parentBean"/>
   <bean id="GenericAttributes-newCollectionRecord-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="newCollectionRecord"/>
@@ -318,7 +318,7 @@
     <property name="control" ref="HiddenControl" />
     <property name="formatterClass" value="org.kuali.rice.core.web.format.BooleanFormatter"/>
   </bean>
-  
+
   <bean id="GenericAttributes-documentTotalAmount" parent="GenericAttributes-documentTotalAmount-parentBean"/>
   <bean id="GenericAttributes-documentTotalAmount-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="documentTotalAmount"/>
@@ -341,7 +341,7 @@
       <ref bean="StandardShortNameTextControl" />
     </property>
   </bean>
-  
+
   <bean id="GenericAttributes-financialSystemDocumentTypeCode" parent="GenericAttributes-financialSystemDocumentTypeCode-parentBean"/>
   <bean id="GenericAttributes-financialSystemDocumentTypeCode-parentBean" abstract="true" parent="DocumentType-name">
     <property name="name" value="financialSystemDocumentTypeCode"/>
@@ -351,15 +351,15 @@
       <ref bean="TenCharacterTextControl" />
     </property>
   </bean>
-  
+
   <bean id="GenericAttributes-referenceTypeCode" parent="GenericAttributes-referenceTypeCode-parentBean"/>
   <bean id="GenericAttributes-referenceTypeCode-parentBean" abstract="true" parent="GenericAttributes-financialSystemDocumentTypeCode">
     <property name="shortLabel" value="Ref Doc Type Code"/>
     <property name="label" value="Reference Document Type Code"/>
     <property name="name" value="referenceTypeCode"/>
   </bean>
-  
-  <bean id="GenericAttributes-generalLedgerFinancialSystemDocumentTypeCode" parent="GenericAttributes-generalLedgerFinancialSystemDocumentTypeCode-parentBean"/> 
+
+  <bean id="GenericAttributes-generalLedgerFinancialSystemDocumentTypeCode" parent="GenericAttributes-generalLedgerFinancialSystemDocumentTypeCode-parentBean"/>
   <bean id="GenericAttributes-generalLedgerFinancialSystemDocumentTypeCode-parentBean" parent="GenericAttributes-financialSystemDocumentTypeCode" abstract="true">
   	<property name="maxLength" value="4"/>
   </bean>
@@ -381,5 +381,5 @@
     <property name="validationPattern" ref="PhoneNumberValidation" />
     <property name="formatterClass" value="org.kuali.rice.core.web.format.PhoneNumberFormatter"/>
   </bean>
-  
+
 </beans>

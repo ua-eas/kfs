@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -94,7 +94,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
     private AccountService accountService;
     private PreScrubberService preScrubberService;
     private String batchFileDirectoryName;
-    
+
     /**
      * Parses the given file, validates the batch, stores the entries, and sends email.
      * @param fileName - name of file to load (including path)
@@ -110,22 +110,22 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
         boolean isValid = true;
 
         MessageMap fileMessageMap = collectorReportData.getMessageMapForFileName(fileName);
-        
+
         List<CollectorBatch> batches = doCollectorFileParse(fileName, fileMessageMap, collectorInputFileType, collectorReportData);
         for (int i = 0; i < batches.size(); i++) {
             CollectorBatch collectorBatch = batches.get(i);
 
             collectorBatch.setBatchName(fileName + " Batch " + String.valueOf(i + 1));
             collectorReportData.addBatch(collectorBatch);
-            
+
             isValid &= loadCollectorBatch(collectorBatch, fileName, i + 1, collectorReportData, collectorScrubberStatuses, collectorInputFileType, originEntryOutputPs);
         }
         return isValid;
     }
-        
+
     protected boolean loadCollectorBatch(CollectorBatch batch, String fileName, int batchIndex, CollectorReportData collectorReportData, List<CollectorScrubberStatus> collectorScrubberStatuses, BatchInputFileType collectorInputFileType, PrintStream originEntryOutputPs) {
         boolean isValid = true;
-        
+
         MessageMap messageMap = batch.getMessageMap();
         // terminate if there were parse errors
         if (messageMap.hasErrors()) {
@@ -146,31 +146,31 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
         if (isValid) {
             // mark batch as valid
             collectorReportData.markValidationStatus(batch, true);
-            
+
             prescrubParsedCollectorBatch(batch, collectorReportData);
-            
+
             String collectorFileDirectoryName = collectorInputFileType.getDirectoryPath();
             // create a input file for scrubber
             String collectorInputFileNameForScrubber = batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.COLLECTOR_BACKUP_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION;
             PrintStream inputFilePs = null;
             try {
                 inputFilePs = new PrintStream(collectorInputFileNameForScrubber);
-            
+
                 for (OriginEntryFull entry : batch.getOriginEntries()){
-                    inputFilePs.printf("%s\n", entry.getLine());    
+                    inputFilePs.printf("%s\n", entry.getLine());
                 }
             } catch (IOException e) {
                 throw new RuntimeException("loadCollectorFile Stopped: " + e.getMessage(), e);
             } finally {
                 IOUtils.closeQuietly(inputFilePs);
             }
-            
+
             CollectorScrubberStatus collectorScrubberStatus = collectorScrubberService.scrub(batch, collectorReportData, collectorFileDirectoryName);
             collectorScrubberStatuses.add(collectorScrubberStatus);
             processInterDepartmentalBillingAmounts(batch);
 
             // store origin group, entries, and collector detairs
-            String collectorDemergerOutputFileName = batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.COLLECTOR_DEMERGER_VAILD_OUTPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION;  
+            String collectorDemergerOutputFileName = batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.COLLECTOR_DEMERGER_VAILD_OUTPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION;
             batch.setDefaultsAndStore(collectorReportData, collectorDemergerOutputFileName, originEntryOutputPs);
             collectorReportData.incrementNumPersistedBatches();
         }
@@ -188,9 +188,9 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
     /**
      * After a parse error, tries to go through the file to see if the email address can be determined. This method will not throw
      * an exception.
-     * 
+     *
      * It's not doing much right now, just returning null
-     * 
+     *
      * @param fileName the name of the file that a parsing error occurred on
      * @return the email from the file
      */
@@ -200,7 +200,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
     /**
      * Calls batch input service to parse the xml contents into an object. Any errors will be contained in GlobalVariables.MessageMap
-     * 
+     *
      * @param fileName the name of the file to parse
      * @param MessageMap a map of errors resultant from the parsing
      * @return the CollectorBatch of details parsed from the file
@@ -247,22 +247,22 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
     protected void prescrubParsedCollectorBatch(CollectorBatch collectorBatch, CollectorReportData collectorReportData) {
         if (preScrubberService.deriveChartOfAccountsCodeIfSpaces()) {
             PreScrubberReportData preScrubberReportData = collectorReportData.getPreScrubberReportData();
-            
+
             int inputRecords = collectorBatch.getOriginEntries().size();
             Set<String> noChartCodesCache = new HashSet<String>();
             Set<String> multipleChartCodesCache = new HashSet<String>();
             Map<String, String> accountNumberToChartCodeCache = new HashMap<String, String>();
-            
+
             Iterator<?> originEntryAndDetailIterator = IteratorUtils.chainedIterator(collectorBatch.getOriginEntries().iterator(), collectorBatch.getCollectorDetails().iterator());
             while (originEntryAndDetailIterator.hasNext()) {
                 Object originEntryOrDetail = originEntryAndDetailIterator.next();
                 if (StringUtils.isBlank(extractChartOfAccountsCode(originEntryOrDetail))) {
                     String accountNumber = extractAccountNumber(originEntryOrDetail);
-                    
+
                     boolean nonExistent = false;
                     boolean multipleFound = false;
                     String chartOfAccountsCode = null;
-                    
+
                     if (noChartCodesCache.contains(accountNumber)) {
                         nonExistent = true;
                     }
@@ -287,13 +287,13 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
                             multipleFound = true;
                         }
                     }
-                    
+
                     if (!nonExistent && !multipleFound) {
                         setChartOfAccountsCode(originEntryOrDetail, chartOfAccountsCode);
                     }
                 }
             }
-            
+
             preScrubberReportData.getAccountsWithMultipleCharts().addAll(multipleChartCodesCache);
             preScrubberReportData.getAccountsWithNoCharts().addAll(noChartCodesCache);
             preScrubberReportData.setInputRecords(preScrubberReportData.getInputRecords() + inputRecords);
@@ -303,26 +303,26 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
     protected String extractChartOfAccountsCode(Object originEntryOrDetail) {
         if (originEntryOrDetail instanceof OriginEntryInformation)
-            return ((OriginEntryInformation) originEntryOrDetail).getChartOfAccountsCode(); 
+            return ((OriginEntryInformation) originEntryOrDetail).getChartOfAccountsCode();
         return ((CollectorDetail) originEntryOrDetail).getChartOfAccountsCode();
     }
-    
+
     protected String extractAccountNumber(Object originEntryOrDetail) {
         if (originEntryOrDetail instanceof OriginEntryInformation)
-            return ((OriginEntryInformation) originEntryOrDetail).getAccountNumber(); 
+            return ((OriginEntryInformation) originEntryOrDetail).getAccountNumber();
         return ((CollectorDetail) originEntryOrDetail).getAccountNumber();
     }
-    
+
     protected void setChartOfAccountsCode(Object originEntryOrDetail, String chartOfAccountsCode) {
         if (originEntryOrDetail instanceof OriginEntryInformation)
             ((OriginEntryInformation) originEntryOrDetail).setChartOfAccountsCode(chartOfAccountsCode);
         else
             ((CollectorDetail) originEntryOrDetail).setChartOfAccountsCode(chartOfAccountsCode);
     }
-    
+
     /**
      * Validates the contents of a parsed file.
-     * 
+     *
      * @param batch - batch to validate
      * @return boolean - true if validation was OK, false if there were errors
      * @see org.kuali.kfs.gl.batch.service.CollectorHelperService#performValidation(org.kuali.kfs.gl.batch.CollectorBatch)
@@ -333,14 +333,14 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
     /**
      * Performs the following checks on the collector batch: Any errors will be contained in GlobalVariables.MessageMap
-     * 
+     *
      * @param batch - batch to validate
      * @param MessageMap the map into which to put errors encountered during validation
      * @return boolean - true if validation was successful, false it not
      */
     protected boolean performValidation(CollectorBatch batch, MessageMap messageMap) {
         boolean valid = performCollectorHeaderValidation(batch, messageMap);
-        
+
         performUppercasing(batch);
 
         boolean performDuplicateHeaderCheck = parameterService.getParameterValueAsBoolean(CollectorStep.class, SystemGroupParameterNames.COLLECTOR_PERFORM_DUPLICATE_HEADER_CHECK);
@@ -361,10 +361,10 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
         return valid;
     }
-    
+
     /**
      * Uppercases sub-account, sub-object, and project fields
-     * 
+     *
      * @param batch CollectorBatch with data to uppercase
      */
     protected void performUppercasing(CollectorBatch batch) {
@@ -430,7 +430,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
      * Modifies the amounts in the ID Billing Detail rows, depending on specific business rules. For this default implementation,
      * see the {@link #negateAmountIfNecessary(InterDepartmentalBilling, BalanceTyp, ObjectType, CollectorBatch)} method to see how
      * the billing detail amounts are modified.
-     * 
+     *
      * @param batch a CollectorBatch to process
      */
     protected void processInterDepartmentalBillingAmounts(CollectorBatch batch) {
@@ -462,7 +462,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
     /**
      * Negates the amount of the internal departmental billing detail record if necessary. For this default implementation, if the
      * balance type's offset indicator is yes and the object type has a debit indicator, then the amount is negated.
-     * 
+     *
      * @param collectorDetail the collector detail
      * @param balanceTyp the balance type
      * @param objectType the object type
@@ -483,7 +483,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
     /**
      * Returns the balance type code for the interDepartmentalBilling record. This default implementation will look into the system
      * parameters to determine the balance type
-     * 
+     *
      * @param interDepartmentalBilling a inter departmental billing detail record
      * @param batch the batch to which the interDepartmentalBilling billing belongs
      * @return the balance type code for the billing detail
@@ -494,7 +494,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
     /**
      * Checks header against previously loaded batch headers for a duplicate submission.
-     * 
+     *
      * @param batch - batch to check
      * @return true if header if OK, false if header was used previously
      */
@@ -516,7 +516,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
     /**
      * Iterates through the origin entries and builds a map on the document types. Then checks there was only one document type
      * found.
-     * 
+     *
      * @param batch - batch to check document types
      * @return true if there is only one document type, false if multiple document types were found.
      */
@@ -540,7 +540,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
     /**
      * Iterates through the origin entries and builds a map on the balance types. Then checks there was only one balance type found.
-     * 
+     *
      * @param batch - batch to check balance types
      * @return true if there is only one balance type, false if multiple balance types were found
      */
@@ -565,7 +565,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
     /**
      * Verifies each detail (id billing) record key has an corresponding gl entry in the same batch. The key is built by joining the
      * values of chart of accounts code, account number, sub account number, object code, and sub object code.
-     * 
+     *
      * @param batch - batch to validate
      * @return true if all detail records had matching keys, false otherwise
      */
@@ -593,7 +593,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
     /**
      * Generates a String representation of the OriginEntryFull's primary key
-     * 
+     *
      * @param entry origin entry to get key from
      * @param delimiter the String delimiter to separate parts of the key
      * @return the key as a String
@@ -604,7 +604,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
     /**
      * Generates a String representation of the CollectorDetail's primary key
-     * 
+     *
      * @param collectorDetail collector detail to get key from
      * @param delimiter the String delimiter to separate parts of the key
      * @return the key as a String
@@ -615,7 +615,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
     /**
      * Checks the batch total line count and amounts against the trailer. Any errors will be contained in GlobalVariables.MessageMap
-     * 
+     *
      * @param batch batch to check totals for
      * @param collectorReportData collector report data (optional)
      * @see org.kuali.kfs.gl.batch.service.CollectorHelperService#checkTrailerTotals(org.kuali.kfs.gl.batch.CollectorBatch,
@@ -627,7 +627,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
     /**
      * Checks the batch total line count and amounts against the trailer. Any errors will be contained in GlobalVariables.MessageMap
-     * 
+     *
      * @param batch - batch to check totals for
      * @return boolean - true if validation was successful, false it not
      */
@@ -642,7 +642,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
         }
 
         OriginEntryTotals totals = batch.getOriginEntryTotals();
-        
+
         if (batch.getOriginEntries().size() == 0) {
             if (!KualiDecimal.ZERO.equals(batch.getTotalAmount())) {
                 LOG.error("trailer total should be zero when there are no origin entries");
@@ -657,7 +657,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
         boolean equalDebitCreditTotal = false;
         for ( String documentType : documentTypes ) {
             documentType = StringUtils.remove(documentType, "*").toUpperCase();
-            if (batch.getOriginEntries().get(0).getFinancialDocumentTypeCode().startsWith(documentType) 
+            if (batch.getOriginEntries().get(0).getFinancialDocumentTypeCode().startsWith(documentType)
                     && KFSConstants.BALANCE_TYPE_ACTUAL.equals(batch.getOriginEntries().get(0).getFinancialBalanceTypeCode())) {
                 equalDebitCreditTotal = true;
             }
@@ -698,7 +698,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
     /**
      * Returns the name of the directory where Collector files are saved
-     * 
+     *
      * @return the name of the staging directory
      */
     public String getStagingDirectory() {
@@ -715,7 +715,7 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
     /**
      * Sets the collectorScrubberService attribute value.
-     * 
+     *
      * @param collectorScrubberService The collectorScrubberService to set.
      */
     public void setCollectorScrubberService(CollectorScrubberService collectorScrubberService) {

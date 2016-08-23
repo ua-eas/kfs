@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,24 +36,24 @@ import org.kuali.rice.core.util.jaxb.RiceXmlListGetterListener;
 import org.kuali.rice.kim.api.permission.PermissionContract;
 
 /**
- * This class represents a &lt;permissions&gt; element. 
+ * This class represents a &lt;permissions&gt; element.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="PermissionsType", propOrder={"permissions"})
 public class PermissionsXmlDTO implements RiceXmlListAdditionListener<PermissionXmlDTO>,
         RiceXmlListGetterListener<PermissionXmlDTO,Object>, Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     @XmlElement(name="permission")
     private List<PermissionXmlDTO> permissions;
-    
+
     public PermissionsXmlDTO() {}
-    
+
     public PermissionsXmlDTO(List<? extends Object> permissionsToExport) {
         this.permissions = new RiceXmlExportList<PermissionXmlDTO,Object>(permissionsToExport, this);
     }
-    
+
     /**
      * @return the permissions
      */
@@ -71,11 +71,11 @@ public class PermissionsXmlDTO implements RiceXmlListAdditionListener<Permission
     void beforeUnmarshal(Unmarshaller unmarshaller, Object parent) {
         permissions = new RiceXmlImportList<PermissionXmlDTO>(this);
     }
-    
+
     void afterUnmarshal(Unmarshaller unmarshaller, Object parent) {
         permissions = null;
     }
-    
+
     public void newItemAdded(PermissionXmlDTO item) {
         try {
             PermissionXmlUtil.validateAndPersistNewPermission(item);
@@ -87,7 +87,7 @@ public class PermissionsXmlDTO implements RiceXmlListAdditionListener<Permission
     void afterMarshal(Marshaller marshaller) {
         permissions = null;
     }
-    
+
     public PermissionXmlDTO gettingNextItem(Object nextItem, int index) {
         if (!(nextItem instanceof PermissionContract)) {
             throw new IllegalStateException("Object for exportation should have been a permission");

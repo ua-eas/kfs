@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -59,7 +59,7 @@
     <field-descriptor name="vendorW8BenReceivedIndicator" column="VNDR_W8_RCVD_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
     <field-descriptor name="vendorDebarredIndicator" column="VNDR_DEBRD_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
     <field-descriptor name="vendorForeignIndicator" column="VNDR_FRGN_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-     
+
     <field-descriptor name="vendorW8TypeCode" column="VNDR_W8_TYP_CD" jdbc-type="VARCHAR"/>
     <field-descriptor name="vendorW8SignedDate" column="VNDR_W8_SIGNED_DT" jdbc-type="DATE"/>
     <field-descriptor name="vendorW9SignedDate" column="VNDR_W9_SIGNED_DT" jdbc-type="DATE"/>
@@ -69,7 +69,7 @@
     <field-descriptor name="vendorDOB" column="VNDR_DOB_DT" jdbc-type="DATE"/>
     <field-descriptor name="vendorChapter3StatusCode" column="VNDR_CHAP_3_STAT_CD" jdbc-type="VARCHAR"/>
     <field-descriptor name="vendorChapter4StatusCode" column="VNDR_CHAP_4_STAT_CD" jdbc-type="VARCHAR"/>
-    
+
     <reference-descriptor name="vendorType" class-ref="org.kuali.kfs.vnd.businessobject.VendorType" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="vendorTypeCode" />
     </reference-descriptor>
@@ -88,7 +88,7 @@
     <reference-descriptor name="chapter4Status" class-ref="org.kuali.kfs.vnd.businessobject.Chapter4Status" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="vendorChapter4StatusCode" />
     </reference-descriptor>
-    
+
     <collection-descriptor name="vendorSupplierDiversities" proxy="true" element-class-ref="org.kuali.kfs.vnd.businessobject.VendorSupplierDiversity" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="none">
         <inverse-foreignkey field-ref="vendorHeaderGeneratedIdentifier" />
     </collection-descriptor>
@@ -379,7 +379,7 @@
     </reference-descriptor>
     <reference-descriptor name="vendorCampus" class-ref="org.kuali.kfs.vnd.businessobject.CampusParameter" auto-retrieve="true" auto-update="none" auto-delete="none"  proxy="true" >
     	<foreignkey field-ref="vendorCampusCode" />
-    </reference-descriptor>    
+    </reference-descriptor>
     <collection-descriptor name="vendorContractOrganizations"  element-class-ref="org.kuali.kfs.vnd.businessobject.VendorContractOrganization" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="true">
         <orderby name="chartOfAccountsCode" sort="ASC" />
         <orderby name="organizationCode" sort="ASC" />
@@ -476,7 +476,7 @@
     </reference-descriptor>
     <reference-descriptor name="vendorCampus" class-ref="org.kuali.kfs.vnd.businessobject.CampusParameter" auto-retrieve="true" auto-update="none" auto-delete="none"  proxy="true" >
     	<foreignkey field-ref="vendorCampusCode" />
-    </reference-descriptor>    
+    </reference-descriptor>
 </class-descriptor>
 
 <class-descriptor class="org.kuali.kfs.vnd.businessobject.VendorSupplierDiversity" table="PUR_VNDR_SUPP_DVRST_T">
@@ -706,7 +706,7 @@
     </reference-descriptor>
     <reference-descriptor name="campus" class-ref="org.kuali.kfs.vnd.businessobject.CampusParameter" auto-retrieve="true" auto-update="none" auto-delete="none"  proxy="true" >
     	<foreignkey field-ref="campusCode" />
-    </reference-descriptor>    
+    </reference-descriptor>
 </class-descriptor>
 
 <class-descriptor class="org.kuali.kfs.vnd.businessobject.DebarredVendorDetail" table="PUR_VNDR_EXCL_MT">
@@ -791,6 +791,6 @@
     <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
     <reference-descriptor name="ownershipType" class-ref="org.kuali.kfs.vnd.businessobject.OwnershipType" auto-retrieve="true" auto-update="none" auto-delete="none"  proxy="true" >
     	<foreignkey field-ref="vendorOwnershipCode" />
-    </reference-descriptor>  
+    </reference-descriptor>
 </class-descriptor>
 </descriptor-repository>

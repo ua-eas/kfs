@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -50,10 +50,10 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 public class TransactionFieldValidator {
     private static LaborAccountingCycleCachingService accountingCycleCachingService;
     private static ConfigurationService kualiConfigurationService;
-    
+
     /**
      * Checks if the given transaction contains valid university fiscal year
-     * 
+     *
      * @param transaction the given transaction
      * @return null if the university fiscal year is valid; otherwise, return error message
      */
@@ -75,7 +75,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains valid char of accounts code
-     * 
+     *
      * @param transaction the given transaction
      * @return null if the char of accounts code is valid; otherwise, return error message
      */
@@ -94,7 +94,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains valid account number
-     * 
+     *
      * @param transaction the given transaction
      * @return null if the account number is valid; otherwise, return error message
      */
@@ -111,7 +111,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains valid sub account number
-     * 
+     *
      * @param transaction the given transaction
      * @return null if the sub account number is valid; otherwise, return error message
      */
@@ -121,7 +121,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains valid sub account number
-     * 
+     *
      * @param transaction the given transaction
      * @param exclusiveDocumentTypeCode inactive sub account can be OK if the document type of the given transaction is
      *        exclusiveDocumentTypeCode
@@ -155,7 +155,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains valid account number
-     * 
+     *
      * @param transaction the given transaction
      * @return null if the account number is valid; otherwise, return error message
      */
@@ -169,10 +169,10 @@ public class TransactionFieldValidator {
         String chartOfAccountsCode = transaction.getChartOfAccountsCode();
         String objectCodeKey = fiscalYear + "-" + chartOfAccountsCode + "-" + objectCode;
         ObjectCode financialObject = getAccountingCycleCachingService().getObjectCode(((LaborOriginEntry) transaction).getUniversityFiscalYear(), ((LaborOriginEntry) transaction).getChartOfAccountsCode(), ((LaborOriginEntry) transaction).getFinancialObjectCode());
-        
+
         //do we need it?
         transaction.refreshNonUpdateableReferences();
-        
+
         if (ObjectUtils.isNull(financialObject)) {
             return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_OBJECT_CODE_NOT_FOUND, objectCodeKey, Message.TYPE_FATAL);
         }
@@ -181,7 +181,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains valid sub object code
-     * 
+     *
      * @param transaction the given transaction
      * @return null if the sub object code is valid; otherwise, return error message
      */
@@ -206,7 +206,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains valid balance type code
-     * 
+     *
      * @param transaction the given transaction
      * @return null if the balance type code is valid; otherwise, return error message
      */
@@ -221,7 +221,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains valid object type code
-     * 
+     *
      * @param transaction the given transaction
      * @return null if the object type code is valid; otherwise, return error message
      */
@@ -236,7 +236,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains university fiscal period code
-     * 
+     *
      * @param transaction the given transaction
      * @return null if the university fiscal period code is valid; otherwise, return error message
      */
@@ -250,7 +250,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains document type code
-     * 
+     *
      * @param transaction the given transaction
      * @return null if the document type code is valid; otherwise, return error message
      */
@@ -263,7 +263,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains document number
-     * 
+     *
      * @param transaction the given transaction
      * @return null if the document number is valid; otherwise, return error message
      */
@@ -277,7 +277,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains transaction sequence number
-     * 
+     *
      * @param transaction the given transaction
      * @return null if the transaction sequence number is valid; otherwise, return error message
      */
@@ -292,7 +292,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains debit credit code
-     * 
+     *
      * @param transaction the given transaction
      * @return null if the debit credit code is valid; otherwise, return error message
      */
@@ -309,7 +309,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains system origination code
-     * 
+     *
      * @param transaction the given transaction
      * @return null if the system origination code is valid; otherwise, return error message
      */
@@ -323,7 +323,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains the posteable period code
-     * 
+     *
      * @param transaction the given transaction
      * @param unpostableperidCodes the list of unpostable period code
      * @return null if the perid code of the transaction is not in unpostableperidCodes; otherwise, return error message
@@ -338,7 +338,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains the posteable balance type code
-     * 
+     *
      * @param transaction the given transaction
      * @param unpostableBalanceTypeCodes the list of unpostable balance type codes
      * @return null if the balance type code of the transaction is not in unpostableBalanceTypeCodes; otherwise, return error
@@ -354,7 +354,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the transaction amount of the given transaction is ZERO
-     * 
+     *
      * @param transaction the given transaction
      * @return null if the transaction amount is not ZERO or null; otherwise, return error message
      */
@@ -368,7 +368,7 @@ public class TransactionFieldValidator {
 
     /**
      * Checks if the given transaction contains the valid employee id
-     * 
+     *
      * @param transaction the given transaction
      * @param unpostableObjectCodes the list of unpostable object codes
      * @return null if the object code of the transaction is not in unpostableObjectCodes; otherwise, return error message
@@ -380,7 +380,7 @@ public class TransactionFieldValidator {
         }
         return null;
     }
-    
+
     /**
      * When in Rome... This method checks if the encumbrance update code is valid
      * @param transaction the transaction to check
@@ -393,18 +393,18 @@ public class TransactionFieldValidator {
         }
         return null;
     }
-    
+
     static LaborAccountingCycleCachingService getAccountingCycleCachingService() {
         if (accountingCycleCachingService == null) {
             accountingCycleCachingService = SpringContext.getBean(LaborAccountingCycleCachingService.class);
         }
-        return accountingCycleCachingService;        
+        return accountingCycleCachingService;
     }
-    
+
     static ConfigurationService getConfigurationService() {
         if (kualiConfigurationService == null) {
             kualiConfigurationService = SpringContext.getBean(ConfigurationService.class);
         }
-        return kualiConfigurationService;        
+        return kualiConfigurationService;
     }
 }

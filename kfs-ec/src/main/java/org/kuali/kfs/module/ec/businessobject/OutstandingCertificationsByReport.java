@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,7 +46,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Return the chartOfAccountsCode
-     * 
+     *
      * @return
      */
     public String getChartOfAccountsCode() {
@@ -55,7 +55,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Sets chartOfAccountsCode
-     * 
+     *
      * @param chartOfAccountsCode
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -64,7 +64,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Gets effortCertificationReportNumber
-     * 
+     *
      * @return
      */
     public String getEffortCertificationReportNumber() {
@@ -73,7 +73,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Sets effortCertificationReportNumber
-     * 
+     *
      * @param effortCertificationReportNumber
      */
     public void setEffortCertificationReportNumber(String effortCertificationReportNumber) {
@@ -82,7 +82,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Gets organizationCode
-     * 
+     *
      * @return
      */
     public String getOrganizationCode() {
@@ -91,7 +91,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Sets organizationCode
-     * 
+     *
      * @param organizationCode
      */
     public void setOrganizationCode(String organizationCode) {
@@ -100,7 +100,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Gets outstandingCertificationCount
-     * 
+     *
      * @return
      */
     public Integer getOutstandingCertificationCount() {
@@ -109,7 +109,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Sets outstandingCertificationCount
-     * 
+     *
      * @param outstandingCertificationCount
      */
     public void setOutstandingCertificationCount(Integer outstandingCertificationCount) {
@@ -118,7 +118,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Gets universityFiscalYear
-     * 
+     *
      * @return
      */
     public Integer getUniversityFiscalYear() {
@@ -127,7 +127,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Sets universityFiscalYear
-     * 
+     *
      * @param universityFiscalYear
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -136,7 +136,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Gets the options attribute.
-     * 
+     *
      * @return Returns the options.
      */
     public SystemOptions getOptions() {
@@ -145,14 +145,14 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Sets the options attribute value.
-     * 
+     *
      * @param options The options to set.
      */
     public void setOptions(SystemOptions options) {
         this.options = options;
     }
 
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
         m.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, this.universityFiscalYear);
@@ -165,7 +165,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Gets the effort certification report definition
-     * 
+     *
      * @return
      */
     public EffortCertificationReportDefinition getEffortCertificationReportDefinition() {
@@ -174,7 +174,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Sets effort certification report definition
-     * 
+     *
      * @param effortCertificationReportDefinition
      */
     public void setEffortCertificationReportDefinition(EffortCertificationReportDefinition effortCertificationReportDefinition) {
@@ -183,7 +183,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Gets the organization
-     * 
+     *
      * @return
      */
     public Organization getOrganization() {
@@ -192,7 +192,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Sets organization
-     * 
+     *
      * @param organization
      */
     public void setOrganization(Organization organization) {
@@ -201,7 +201,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Gets the chart
-     * 
+     *
      * @return
      */
     public Chart getChart() {
@@ -213,7 +213,7 @@ public class OutstandingCertificationsByReport extends PersistableBusinessObject
 
     /**
      * Sets the chart
-     * 
+     *
      * @param chart
      */
     public void setChart(Chart chart) {

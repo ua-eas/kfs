@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -52,7 +52,7 @@ public class KualiTransactionalDocumentActionBase extends KualiDocumentActionBas
         KualiTransactionalDocumentFormBase tmpForm = (KualiTransactionalDocumentFormBase) form;
 
         Document document = tmpForm.getDocument();
-        
+
         if (!tmpForm.getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_COPY)) {
             throw buildAuthorizationException("copy", document);
         }
@@ -67,15 +67,15 @@ public class KualiTransactionalDocumentActionBase extends KualiDocumentActionBas
     	super.populateAuthorizationFields(formBase);
     	Document document = formBase.getDocument();
     	Map editMode = new HashMap();
-    	
+
     	if (formBase.isFormDocumentInitialized()) {
         	Person user = GlobalVariables.getUserSession().getPerson();
-        	
+
         	TransactionalDocumentPresentationController documentPresentationController = (TransactionalDocumentPresentationController) getDocumentHelperService().getDocumentPresentationController(document);
             TransactionalDocumentAuthorizer documentAuthorizer = (TransactionalDocumentAuthorizer) KNSServiceLocator
                     .getDocumentHelperService().getDocumentAuthorizer(document);
             Set<String> editModes = documentAuthorizer.getEditModes(document, user, documentPresentationController.getEditModes(document));
-            editMode = this.convertSetToMap(editModes);         
+            editMode = this.convertSetToMap(editModes);
     	}
     	formBase.setEditingMode(editMode);
     }

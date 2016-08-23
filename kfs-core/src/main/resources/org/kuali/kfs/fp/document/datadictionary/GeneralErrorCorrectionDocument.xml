@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -24,7 +24,7 @@
     <property name="allowsErrorCorrection" value="true"/>
     <property name="documentTypeName" value="GEC"/>
     <property name="documentClass" value="org.kuali.kfs.fp.document.GeneralErrorCorrectionDocument"/>
-    <property name="baseDocumentClass" value="org.kuali.kfs.fp.document.GeneralErrorCorrectionDocument"/> 
+    <property name="baseDocumentClass" value="org.kuali.kfs.fp.document.GeneralErrorCorrectionDocument"/>
     <property name="businessRulesClass" value="org.kuali.kfs.sys.document.validation.impl.AccountingRuleEngineRuleBase"/>
     <property name="promptBeforeValidationClass" value="org.kuali.kfs.fp.document.validation.impl.ExpiredAccountOverridePreRules"/>
     <property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.AccountingDocumentAuthorizerBase"/>
@@ -45,17 +45,17 @@
 	    		<ref bean="GeneralErrorCorrectionDocument-targetAccountingLineGroup" parent="AccountingLineGroup"/>
 	    	</entry>
     	</map>
-    </property> 
+    </property>
     <property name="workflowAttributes">
     	<ref bean="GeneralErrorCorrectionDocument-workflowAttributes"/>
     </property>
-   
+
   </bean>
-  
+
    <!-- Validations -->
-  
+
   <bean id="GeneralErrorCorrectionDocument-validations" parent="GeneralErrorCorrectionDocument-validations-parentBean"/>
-  
+
   <bean id="GeneralErrorCorrectionDocument-validations-parentBean"  abstract="true" class="org.springframework.beans.factory.config.MapFactoryBean">
   	<property name="sourceMap">
 		<map key-type="java.lang.Class">
@@ -91,7 +91,7 @@
 				<key><value>org.kuali.kfs.sys.document.validation.event.ReviewAccountingLineEvent</value></key>
 				<value>GeneralErrorCorrection-reviewAccountingLineValidation</value>
 			</entry>
-            <!-- capital accounting lines object sub type check -->		
+            <!-- capital accounting lines object sub type check -->
 			<entry>
 				<key><value>org.kuali.kfs.fp.document.validation.event.CapitalAccountingLinesSameObjectCodeSubTypeEvent</value></key>
 				<value>GeneralErrorCorrection-capitalAccountingLinesObjectSubtypeValidations</value>
@@ -101,7 +101,7 @@
   </bean>
 
   <!-- accounting line groups -->
-  <bean id="GeneralErrorCorrectionDocument-sourceAccountingLineGroup" parent="GeneralErrorCorrectionDocument-sourceAccountingLineGroup-parentBean"/> 
+  <bean id="GeneralErrorCorrectionDocument-sourceAccountingLineGroup" parent="GeneralErrorCorrectionDocument-sourceAccountingLineGroup-parentBean"/>
   <bean id="GeneralErrorCorrectionDocument-sourceAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
 	  <property name="accountingLineView" ref="GeneralErrorCorrectionDocument-accountingLineView"/>
 	  <property name="accountingLineClass" value="org.kuali.kfs.fp.businessobject.GECSourceAccountingLine"/>
@@ -111,8 +111,8 @@
 	  <property name="totals" ref="AccountingDocument-sourceGroupTotals"/>
 	  <property name="errorKey" value="document.sourceAccounting*,sourceAccountingLines,newSourceLine*"/> <!-- note people copying this: AV and JV have extra things that belong here -->
   </bean>
-	
-  <bean id="GeneralErrorCorrectionDocument-targetAccountingLineGroup" parent="GeneralErrorCorrectionDocument-targetAccountingLineGroup-parentBean"/>	
+
+  <bean id="GeneralErrorCorrectionDocument-targetAccountingLineGroup" parent="GeneralErrorCorrectionDocument-targetAccountingLineGroup-parentBean"/>
   <bean id="GeneralErrorCorrectionDocument-targetAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
 	  <property name="accountingLineView" ref="GeneralErrorCorrectionDocument-accountingLineView"/>
 	  <property name="accountingLineClass" value="org.kuali.kfs.fp.businessobject.GECTargetAccountingLine"/>
@@ -122,7 +122,7 @@
 	  <property name="totals" ref="AccountingDocument-targetGroupTotals"/>
 	  <property name="errorKey" value="document.targetAccounting*,targetAccountingLines,newTargetLine*"/>
   </bean>
-	
+
   <bean id="GeneralErrorCorrectionDocument-accountingLineView" parent="GeneralErrorCorrectionDocument-accountingLineView-parent"/>
   <bean id="GeneralErrorCorrectionDocument-accountingLineView-parent" parent="AccountingLineView" abstract="true">
 	  <property name="elements">
@@ -144,12 +144,12 @@
 		</list>
 	</property>
   </bean>
-  
+
   <!-- workflow attributes for routing -->
 	<bean id="GeneralErrorCorrectionDocument-workflowAttributes" parent="GeneralErrorCorrectionDocument-workflowAttributes-parentBean"/>
-	
+
 	<bean id="GeneralErrorCorrectionDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
-		
+
     	<property name="routingTypeDefinitions">
     		<map>
     			<entry key="Account" value-ref="RoutingType-AccountingDocument-Account"/>
@@ -158,5 +158,5 @@
     			<entry key="Award" value-ref="RoutingType-AccountingDocument-Award"/>
     		</map>
     	</property>
-	</bean> 
+	</bean>
 </beans>

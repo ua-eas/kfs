@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -215,7 +215,7 @@
 		        			<bean parent="PrimitiveAttributeDefinition" p:sourceName="accountPhysicalCampusCode" p:targetName="code" />
 		        		</list>
 		        	</property>
-		        </bean>        
+		        </bean>
 				<bean parent="RelationshipDefinition" p:objectAttributeName="laborBenefitRateCategory">
 					<property name="primitiveAttributes">
 						<list>
@@ -300,34 +300,34 @@
 	<bean id="Account-organizationCode" parent="Account-organizationCode-parentBean" />
 	<bean id="Account-organizationCode-parentBean" abstract="true"
 		parent="Organization-organizationCode" />
-		
+
 	<bean id="Account-responsibilityCenterCode" parent="Account-responsibilityCenterCode-parentBean"/>
     <bean id="Account-responsibilityCenterCode-parentBean" abstract="true" parent="Organization-responsibilityCenterCode">
 		<property name="name" value="organization.responsibilityCenterCode" />
 		<property name="label" value="Responsibility Center Code"/>
 	</bean>
-	
-	
+
+
     <bean id="Account-reportsToOrganizationCode" parent="Account-reportsToOrganizationCode-parentBean"/>
     <bean id="Account-reportsToOrganizationCode-parentBean" abstract="true" parent="Organization-reportsToOrganizationCode">
 		<property name="name" value="organization.reportsToOrganizationCode" />
 		<property name="label" value="Reports To Organization Code"/>
 		<property name="shortLabel" value="Rpts to Org"/>
 	</bean>
-	
+
 	<bean id="Account-reportsToCOACode" parent="Account-reportsToCOACode-parentBean"/>
     <bean id="Account-reportsToCOACode-parentBean" abstract="true" parent="Organization-reportsToChartOfAccountsCode">
 		<property name="name" value="organization.reportsToChartOfAccountsCode" />
 		<property name="label" value="Reports To Chart Of Accounts Code"/>
 		<property name="shortLabel" value="Rpts to COA Code"/>
 	</bean>
-	
+
 	<bean id="Account-responsibilityCenterName" parent="Account-responsibilityCenterName-parentBean"/>
     <bean id="Account-responsibilityCenterName-parentBean" abstract="true" parent="ResponsibilityCenter-responsibilityCenterName">
 		<property name="name" value="organization.responsibilityCenter.responsibilityCenterName" />
 		<property name="label" value="Responsibility Center Name"/>
 		<property name="shortLabel" value="Responsibility Center Name"/>
-	</bean>	
+	</bean>
 
 	<bean id="Account-organization.codeAndDescription" parent="Account-organization.codeAndDescription-parentBean" />
 	<bean id="Account-organization.codeAndDescription-parentBean"
@@ -430,7 +430,7 @@
 		<property name="required" value="true" />
 	</bean>
 
-<!-- RICE20: codeAndDescription has been removed from the State object 
+<!-- RICE20: codeAndDescription has been removed from the State object
 	<bean id="Account-accountState.codeAndDescription" parent="Account-accountState.codeAndDescription-parentBean" />
 
 	<bean id="Account-accountState.codeAndDescription-parentBean"
@@ -985,17 +985,17 @@
 	<bean id="Account-laborBenefitRateCategoryCode-parentBean"
 		abstract="true" parent="ExternalizableAttributeDefinitionProxy"
 		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.ld.LaborBenefitRateCategory"
-	 	p:sourceAttributeName="laborBenefitRateCategoryCode">	
+	 	p:sourceAttributeName="laborBenefitRateCategoryCode">
 	 	<property name="name" value="laborBenefitRateCategoryCode" />
-	 	<!-- 
+	 	<!--
 	 	 The following shouldn't be necessary.  There is a bit of a bug in the ExternalizableAttributeDefinitionProxy
 	 	 which does not fetch the info from the parent bean but instead uses the default set in AttributeDefinition.
 	 	 -->
 	 	<property name="forceUppercase" value="true" />
 	</bean>
-	
+
 	<bean id="Account-subFundGroup.fundGroupCode" parent="Account-subFundGroup.fundGroupCode-parentBean" />
-	
+
 	<bean id="Account-subFundGroup.fundGroupCode-parentBean" abstract="true" parent="SubFundGroup-fundGroupCode">
 		<property name="name" value="subFundGroup.fundGroupCode" />
 	</bean>
@@ -1004,7 +1004,7 @@
 	<bean id="Account-sourceOfFundsTypeCode-parentBean" abstract="true" parent="SourceOfFunds-typeCode">
 		<property name="name" value="sourceOfFundsTypeCode" />
 	</bean>
-	
+
 	<!-- Business Object Inquiry Definition -->
 
 
@@ -1152,7 +1152,7 @@
 				<bean parent="FieldDefinition" p:attributeName="organization.reportsToOrganizationCode" />
 				<bean parent="FieldDefinition" p:attributeName="organization.reportsToChartOfAccountsCode" p:noLookup="true" />
 				<bean parent="FieldDefinition" p:attributeName="accountTypeCode" />
-				<bean parent="FieldDefinition" p:attributeName="subFundGroup.fundGroupCode" />	
+				<bean parent="FieldDefinition" p:attributeName="subFundGroup.fundGroupCode" />
 				<bean parent="FieldDefinition" p:attributeName="subFundGroupCode" />
 				<bean parent="FieldDefinition" p:attributeName="accountFiscalOfficerUser.principalName" />
 				<bean parent="FieldDefinition" p:attributeName="accountManagerUser.principalName" />
@@ -1168,7 +1168,7 @@
 				<bean parent="FieldDefinition" p:attributeName="accountName" />
 				<bean parent="FieldDefinition" p:attributeName="organizationCode" />
 				<bean parent="FieldDefinition" p:attributeName="organization.responsibilityCenterCode" />
-				<bean parent="FieldDefinition" p:attributeName="organization.reportsToOrganizationCode" />	
+				<bean parent="FieldDefinition" p:attributeName="organization.reportsToOrganizationCode" />
 				<bean parent="FieldDefinition" p:attributeName="accountTypeCode" />
 				<bean parent="FieldDefinition" p:attributeName="subFundGroup.fundGroupCode" />
 				<bean parent="FieldDefinition" p:attributeName="subFundGroupCode" />

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -38,7 +38,7 @@ import org.kuali.kfs.krad.valuefinder.ValueFinder;
 @Deprecated
 public class FieldDefinition extends DataDictionaryDefinitionBase implements FieldDefinitionI {
     private static final long serialVersionUID = -3426603523049661524L;
-    
+
 	protected String attributeName;
     protected boolean required = false;
     protected boolean forceInquiry = false;
@@ -61,13 +61,13 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
 	protected boolean readOnly 	= false;
 
 	protected boolean treatWildcardsAndOperatorsAsLiteral = false;
-	
+
     protected String alternateDisplayAttributeName;
     protected String additionalDisplayAttributeName;
-	
+
 	protected boolean triggerOnChange;
 	protected boolean total = false;
-	
+
     public FieldDefinition() {
     }
 
@@ -278,7 +278,7 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
                 throw new AttributeValidationException("unable to find attribute named '" + getName() + "' in rootBusinessObjectClass '" + rootBusinessObjectClass.getName() + "' (" + "" + ")");
             }
         }
-        
+
         if (StringUtils.isNotBlank(getAdditionalDisplayAttributeName())) {
             if (!DataDictionary.isPropertyOf(rootBusinessObjectClass, getAdditionalDisplayAttributeName())) {
                 throw new AttributeValidationException("unable to find attribute named '" + getName() + "' in rootBusinessObjectClass '" + rootBusinessObjectClass.getName() + "' (" + "" + ")");
@@ -439,7 +439,7 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
         }
         this.defaultValueFinderClass = defaultValueFinderClass;
     }
-    
+
 	/**
 	 * @return the hidden
 	 */
@@ -461,21 +461,21 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
 	public void setHidden(boolean hidden) {
 		this.hidden = hidden;
 	}
-	
+
 	/**
 	 * @return the readOnly
 	 */
 	public boolean isReadOnly() {
 		return this.readOnly;
 	}
-	
+
 	/**
 	 * @param readOnly the readOnly to set
 	 */
 	public void setReadOnly(boolean readOnly) {
 		this.readOnly = readOnly;
 	}
-	
+
 	public boolean isTriggerOnChange() {
 		return this.triggerOnChange;
 	}
@@ -529,5 +529,5 @@ public class FieldDefinition extends DataDictionaryDefinitionBase implements Fie
 	public void setTotal(boolean total) {
 		this.total = total;
 	}
-	
+
 }

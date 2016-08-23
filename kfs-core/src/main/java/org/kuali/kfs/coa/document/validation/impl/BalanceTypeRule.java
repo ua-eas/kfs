@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -54,7 +54,7 @@ public class BalanceTypeRule extends MaintenanceDocumentRuleBase {
         result &= checkForBlockingOffsetDefinitions((BalanceType)(((MaintenanceDocument)document).getNewMaintainableObject().getBusinessObject()));
         return result;
     }
-    
+
     /**
      * Determines if the given document is inactivating the balance type being maintained
      * @param document the maintenance document maintaining a balance type
@@ -73,11 +73,11 @@ public class BalanceTypeRule extends MaintenanceDocumentRuleBase {
     protected boolean checkForBlockingOffsetDefinitions(BalanceType balanceType) {
         final BusinessObjectService businessObjectService = SpringContext.getBean(BusinessObjectService.class);
         boolean result = true;
-        
+
         Map<String, Object> keys = new HashMap<String, Object>();
         keys.put("financialBalanceTypeCode", balanceType.getFinancialBalanceTypeCode());
         keys.put("universityFiscalYear", SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear());
-        
+
         final int matchingCount = businessObjectService.countMatching(OffsetDefinition.class, keys);
         if (matchingCount > 0) {
             GlobalVariables.getMessageMap().putErrorForSectionId("Edit Balance Type",KFSKeyConstants.ERROR_DOCUMENT_BALANCETYPMAINT_INACTIVATION_BLOCKING,new String[] {balanceType.getFinancialBalanceTypeCode(), Integer.toString(matchingCount), OffsetDefinition.class.getName()});

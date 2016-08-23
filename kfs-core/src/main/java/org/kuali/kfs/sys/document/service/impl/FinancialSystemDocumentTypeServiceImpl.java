@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -55,7 +55,7 @@ public class FinancialSystemDocumentTypeServiceImpl implements FinancialSystemDo
         }
         return isActiveCurrentChildDocumentType(documentType.getId(), rootDocumentType.getId());
     }
-    
+
     /**
      * Checks if the given document type code is either the active, current version of the parent document type code, or an active, current child of the
      * given parent document type code
@@ -79,10 +79,10 @@ public class FinancialSystemDocumentTypeServiceImpl implements FinancialSystemDo
      */
     public boolean isCurrentActiveAccountingDocumentType(String documentTypeCode) {
         if (StringUtils.isBlank(documentTypeCode)) return false; // no document type code...so it's not a current, active accounting document
-        
+
         return isLedgerPostingDocumentType(documentTypeCode) || isFinancialSystemLedgerOnlyDocumentType(documentTypeCode);
     }
-    
+
     /**
      * Determines if the given document type code represents a document whose class is a LedgerPostingDocument or a maintainable
      * whose class is a LedgerPostingMaintainable
@@ -105,7 +105,7 @@ public class FinancialSystemDocumentTypeServiceImpl implements FinancialSystemDo
 
         return false;
     }
-    
+
     /**
      * Determines if the given document type code is a child of the Financial System Ledger Only document type
      * @param documentTypeCode the document type code to check
@@ -114,7 +114,7 @@ public class FinancialSystemDocumentTypeServiceImpl implements FinancialSystemDo
     protected boolean isFinancialSystemLedgerOnlyDocumentType(String documentTypeCode) {
         final DocumentType documentType = documentTypeService.getDocumentTypeByName(documentTypeCode);
         final DocumentType rootDocumentType = documentTypeService.getDocumentTypeByName(KFSConstants.FINANCIAL_SYSTEM_LEDGER_ONLY_ROOT_DOCUMENT_TYPE);
-        
+
         if (ObjectUtils.isNull(documentType)) {
             return false;
         }
@@ -122,7 +122,7 @@ public class FinancialSystemDocumentTypeServiceImpl implements FinancialSystemDo
     }
 
     /**
-     * Gets the dataDictionaryService attribute. 
+     * Gets the dataDictionaryService attribute.
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {
@@ -136,9 +136,9 @@ public class FinancialSystemDocumentTypeServiceImpl implements FinancialSystemDo
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
         this.dataDictionaryService = dataDictionaryService;
     }
-    
+
     /**
-     * Gets the maintenanceDocumentDictionaryService attribute. 
+     * Gets the maintenanceDocumentDictionaryService attribute.
      * @return Returns the maintenanceDocumentDictionaryService.
      */
     protected MaintenanceDocumentDictionaryService getMaintenanceDocumentDictionaryService() {
@@ -156,6 +156,6 @@ public class FinancialSystemDocumentTypeServiceImpl implements FinancialSystemDo
     public void setDocumentTypeService(DocumentTypeService documentTypeService) {
         this.documentTypeService = documentTypeService;
     }
-    
-    
+
+
 }

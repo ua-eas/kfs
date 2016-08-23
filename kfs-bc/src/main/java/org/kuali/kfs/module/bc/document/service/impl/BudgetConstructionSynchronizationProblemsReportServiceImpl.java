@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -113,10 +113,10 @@ public class BudgetConstructionSynchronizationProblemsReportServiceImpl implemen
         }
         orgSynchronizationProblemsReportEntry.setFiscalYear(prevFiscalyear.toString() + "-" + universityFiscalYear.toString().substring(2, 4));
     }
-    
-    
+
+
     public void buildReportsBody(BudgetConstructionOrgSynchronizationProblemsReport orgSynchronizationProblemsReportEntry, BudgetConstructionPositionFunding positionFunding, Map positionMap) {
-        
+
         orgSynchronizationProblemsReportEntry.setBodyChartOfAccountsCode(positionFunding.getChartOfAccountsCode());
         orgSynchronizationProblemsReportEntry.setAccountNumber(positionFunding.getAccountNumber());
         orgSynchronizationProblemsReportEntry.setSubAccountNumber(positionFunding.getSubAccountNumber());
@@ -125,31 +125,31 @@ public class BudgetConstructionSynchronizationProblemsReportServiceImpl implemen
         orgSynchronizationProblemsReportEntry.setPositionNumber(positionFunding.getPositionNumber());
         orgSynchronizationProblemsReportEntry.setEmplid(positionFunding.getEmplid());
         orgSynchronizationProblemsReportEntry.setName(positionFunding.getName());
-        
+
         orgSynchronizationProblemsReportEntry.setPositionObjectChangeIndicator(booleanToString(positionFunding.getPendingAppointmentFunding().isPositionObjectChangeIndicator()));
         orgSynchronizationProblemsReportEntry.setPositionSalaryChangeIndicator(booleanToString(positionFunding.getPendingAppointmentFunding().isPositionSalaryChangeIndicator()));
-        
+
         BudgetConstructionPosition budgetConstructionPosition = (BudgetConstructionPosition) positionMap.get(positionFunding);
         orgSynchronizationProblemsReportEntry.setPositionEffectiveStatus(budgetConstructionPosition.getPositionEffectiveStatus());
         orgSynchronizationProblemsReportEntry.setBudgetedPosition(booleanToString(budgetConstructionPosition.isBudgetedPosition()));
     }
-    
+
     protected String booleanToString(boolean boo){
         if (boo){
             return BCConstants.Report.YES;
         } else { return BCConstants.Report.NO; }
-        
+
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
 
 
     protected BudgetConstructionPosition getBudgetConstructionPosition(Integer universityFiscalYear, PendingBudgetConstructionAppointmentFunding appointmentFundingEntry) {
@@ -162,7 +162,7 @@ public class BudgetConstructionSynchronizationProblemsReportServiceImpl implemen
 
     /**
      * builds orderByList for sort order.
-     * 
+     *
      * @return returnList
      */
     public List<String> buildOrderByList() {
@@ -200,17 +200,17 @@ public class BudgetConstructionSynchronizationProblemsReportServiceImpl implemen
 
     /**
      * Gets the persistenceServiceOjb attribute.
-     * 
+     *
      * @return Returns the persistenceServiceOjb
      */
-    
+
     public PersistenceService getPersistenceServiceOjb() {
         return persistenceServiceOjb;
     }
 
-    /**	
+    /**
      * Sets the persistenceServiceOjb attribute.
-     * 
+     *
      * @param persistenceServiceOjb The persistenceServiceOjb to set.
      */
     public void setPersistenceServiceOjb(PersistenceService persistenceServiceOjb) {

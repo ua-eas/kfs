@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -63,7 +63,7 @@
 		<property name="description" value="Document Number" />
 		<property name="validationPattern">
 			<bean parent="NumericValidationPattern" />
-		</property>		
+		</property>
 		<property name="control"><bean parent="TextControlDefinition" p:size="40"/></property>
 	</bean>
 	<bean id="AccountingDocumentRelationship-relDocumentNumber" parent="AccountingDocumentRelationship-relDocumentNumber-parentBean" />
@@ -77,7 +77,7 @@
 		<property name="description" value="Related Document Number" />
 		<property name="validationPattern">
 			<bean parent="NumericValidationPattern" />
-		</property>		
+		</property>
 		<property name="control"><bean parent="TextControlDefinition" p:size="40"/></property>
 	</bean>
 	<bean id="AccountingDocumentRelationship-description" parent="AccountingDocumentRelationship-description-parentBean" />
@@ -89,7 +89,7 @@
 		<property name="summary" value="Description" />
 		<property name="description" value="Description" />
 		<property name="control"><bean parent="TextControlDefinition" p:size="50"/></property>
-	</bean>	
+	</bean>
 	<bean id="AccountingDocumentRelationship-active" parent="AccountingDocumentRelationship-active-parentBean" />
 	<bean id="AccountingDocumentRelationship-active-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
 		<property name="name" value="active" />
@@ -98,7 +98,7 @@
 		<property name="required" value="true" />
 		<property name="summary" value="Active" />
 		<property name="description" value="Active" />
-	</bean>	
+	</bean>
 	<bean id="AccountingDocumentRelationship-versionNumber" parent="AccountingDocumentRelationship-versionNumber-parentBean" />
 	<bean id="AccountingDocumentRelationship-versionNumber-parentBean" abstract="true" parent="GenericAttributes-versionNumber">
 		<property name="name" value="versionNumber" />
@@ -106,7 +106,7 @@
 		<property name="shortLabel" value="Version Number" />
 		<property name="summary" value="Version Number" />
 		<property name="description" value="Version Number" />
-	</bean>	
+	</bean>
 	<bean id="AccountingDocumentRelationship-inquiryDefinition" parent="AccountingDocumentRelationship-inquiryDefinition-parentBean" />
 	<bean id="AccountingDocumentRelationship-inquiryDefinition-parentBean" abstract="true" parent="InquiryDefinition">
 		<property name="title" value="Accounting Document Relationship Inquiry"/>
@@ -140,7 +140,7 @@
 			<bean parent="FieldDefinition" p:attributeName="id" />
 			<bean parent="FieldDefinition" p:attributeName="documentNumber" />
 			<bean parent="FieldDefinition" p:attributeName="relDocumentNumber" />
-			<bean parent="FieldDefinition" p:attributeName="active" />			
+			<bean parent="FieldDefinition" p:attributeName="active" />
 		</list>
 		</property>
 		<property name="resultFields">

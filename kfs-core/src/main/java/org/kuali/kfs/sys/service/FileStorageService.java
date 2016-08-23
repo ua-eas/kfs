@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -67,10 +67,10 @@ public interface FileStorageService {
      * @return a String array containing each line in the file
      */
     List<String> getFileContents(String filename);
-    
+
     /**
      * Gets the length of the file.
-     * 
+     *
      * @param filename the file whose length we want to check
      * @return The length, in bytes, of the file, or 0L if the file does not exist.
      */

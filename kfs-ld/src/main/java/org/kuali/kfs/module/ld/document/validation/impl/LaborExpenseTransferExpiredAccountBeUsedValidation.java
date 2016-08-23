@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,16 +32,16 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * determine whether the given accounting line has already been in the given document
- * 
+ *
  * @param accountingDocument the given document
  * @param accountingLine the given accounting line
  * @return true if the given accounting line has already been in the given document; otherwise, false
  */
 public class LaborExpenseTransferExpiredAccountBeUsedValidation extends GenericValidation {
     private AccountingLine accountingLineForValidation;
-    
+
     /**
-     * Validates that an accounting line whether the expired account in the target accounting line 
+     * Validates that an accounting line whether the expired account in the target accounting line
      * can be used.
      * <strong>Expects an accounting line as the first a parameter</strong>
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
@@ -49,22 +49,22 @@ public class LaborExpenseTransferExpiredAccountBeUsedValidation extends GenericV
     public boolean validate(AttributedDocumentEvent event) {
         boolean result = true;
         AccountingLine accountingLine = getAccountingLineForValidation();
-               
+
         // determine if an expired account can be used to accept amount transfer
         boolean canExpiredAccountBeUsed = canExpiredAccountBeUsed(accountingLine);
-        
+
         // not allow the duplicate source accounting line in the document
         if (!canExpiredAccountBeUsed) {
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ACCOUNT, KFSKeyConstants.ERROR_ACCOUNT_EXPIRED );
             return false;
         }
-        
+
         return result;
     }
 
     /**
      * determine whether the expired account in the target accounting line can be used.
-     * 
+     *
      * @param accountingDocument the given accounting line
      * @return true if the expired account in the target accounting line can be used; otherwise, false
      */
@@ -82,9 +82,9 @@ public class LaborExpenseTransferExpiredAccountBeUsedValidation extends GenericV
         }
         return true;
     }
-        
+
     /**
-     * Gets the accountingLineForValidation attribute. 
+     * Gets the accountingLineForValidation attribute.
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {

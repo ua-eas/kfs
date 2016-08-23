@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,7 +39,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Contains assertion related convenience methods for testing (not for production use).
- * 
+ *
  * @see org.kuali.rice.kns.util.AssertionUtils
  */
 public class KualiTestAssertionUtils {
@@ -77,7 +77,7 @@ public class KualiTestAssertionUtils {
      * (e.g., via the <code>refresh</code> method), we do not want to have to put all the related BOs into the test fixture
      * (redundant with the foreign keys), and many (all?) of our BOs implement the <code>equals</code> method in terms of identity
      * so would fail this assertion anyway. This is a data-oriented assertion, for our data-oriented tests and persistence layer.
-     * 
+     *
      * @param message a description of this test assertion
      * @param expectedBean a java bean containing expected properties
      * @param actualBean a java bean containing actual properties
@@ -191,7 +191,7 @@ public class KualiTestAssertionUtils {
      * Asserts that the given reference is either null or an OJB proxy that references to a nonexistant object. This is different
      * from assertNull() because ObjectUtils.isNull() checks for OJB proxies and goes to the database to see if real data is
      * available.
-     * 
+     *
      * @param expectedNull the reference to check
      */
     public static void assertNullHandlingOjbProxies(Object expectedNull) {
@@ -202,7 +202,7 @@ public class KualiTestAssertionUtils {
      * Asserts that the given reference is either null or an OJB proxy that references a nonexistant object. This is different from
      * assertNotNull() because ObjectUtils.isNull() checks for OJB proxies and goes to the database to see if real data is
      * available.
-     * 
+     *
      * @param message the context of this assertion, if it fails
      * @param expectedNull the reference to check
      */
@@ -214,7 +214,7 @@ public class KualiTestAssertionUtils {
      * Asserts that the given reference is neither null nor an OJB proxy that references a nonexistant object. This is different
      * from assertNotNull() because ObjectUtils.isNull() checks for OJB proxies and goes to the database to see if real data is
      * available.
-     * 
+     *
      * @param expectedNotNull the reference to check
      */
     public static void assertNotNullHandlingOjbProxies(Object expectedNotNull) {
@@ -225,7 +225,7 @@ public class KualiTestAssertionUtils {
      * Asserts that the given reference is neither null nor an OJB proxy that references a nonexistant object. This is different
      * from assertNotNull() because ObjectUtils.isNull() checks for OJB proxies and goes to the database to see if real data is
      * available.
-     * 
+     *
      * @param message the context of this assertion, if it fails
      * @param expectedNotNull the reference to check
      */

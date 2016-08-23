@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,7 +41,7 @@ public class CreditCardReceiptDocumentRuleUtil {
      * This method method will invoke the data dictionary validation for a CreditCardDetail bo instance, in addition to checking
      * existence of the CreditCardType and CreditCardVendor attributes that hang off of it. This method assumes that the document
      * hierarchy for the error map path is managed outside of this call.
-     * 
+     *
      * @param creditCardReceipt credit card detail
      * @return true if credit card detail amount is non zero and credit card vendor and type references exist
      */
@@ -83,7 +83,7 @@ public class CreditCardReceiptDocumentRuleUtil {
 
     /**
      * Checks whether the CashReceiptDocument's cash totals are invalid, generating global errors if so.
-     * 
+     *
      * @param cashReceiptDocument submitted cash receipt document
      * @return true if any of the cash totals on cash credit card receipt document are invalid
      */
@@ -97,7 +97,7 @@ public class CreditCardReceiptDocumentRuleUtil {
 
     /**
      * Returns true if total is invalid and puts an error message in the error map for that property if the amount is negative
-     * 
+     *
      * @param cashReceiptDocument
      * @param totalAmount
      * @param documentEntryName

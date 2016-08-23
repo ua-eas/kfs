@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -47,17 +47,17 @@ public abstract class ReceivingItemBase extends PersistableBusinessObjectBase im
     protected KualiDecimal itemOriginalReceivedTotalQuantity;
     protected KualiDecimal itemOriginalReturnedTotalQuantity;
     protected KualiDecimal itemOriginalDamagedTotalQuantity;
-    
+
     private ItemReasonAdded itemReasonAdded;
     private ItemType itemType;
     private UnitOfMeasure itemUnitOfMeasure;
-    
-    
+
+
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-        LinkedHashMap m = new LinkedHashMap();      
+        LinkedHashMap m = new LinkedHashMap();
         if (this.receivingItemIdentifier != null) {
             m.put("receivingItemIdentifier", this.receivingItemIdentifier.toString());
         }
@@ -71,7 +71,7 @@ public abstract class ReceivingItemBase extends PersistableBusinessObjectBase im
                 (ObjectUtils.isNull(this.getItemReturnedTotalQuantity()) || this.getItemReturnedTotalQuantity().isZero()));
     }
 
-    public Integer getReceivingItemIdentifier() { 
+    public Integer getReceivingItemIdentifier() {
     	return receivingItemIdentifier;
     }
 
@@ -117,8 +117,8 @@ public abstract class ReceivingItemBase extends PersistableBusinessObjectBase im
 
     public void setItemUnitOfMeasureCode(String itemUnitOfMeasureCode) {
         this.itemUnitOfMeasureCode = (StringUtils.isNotBlank(itemUnitOfMeasureCode) ? itemUnitOfMeasureCode.toUpperCase() : itemUnitOfMeasureCode);
-    }    
-    
+    }
+
     public String getItemCatalogNumber() {
         return itemCatalogNumber;
     }
@@ -167,7 +167,7 @@ public abstract class ReceivingItemBase extends PersistableBusinessObjectBase im
         this.itemReasonAddedCode = itemReasonAddedCode;
     }
     /**
-     * Gets the itemType attribute. 
+     * Gets the itemType attribute.
      * @return Returns the itemType.
      */
     public ItemType getItemType() {
@@ -186,7 +186,7 @@ public abstract class ReceivingItemBase extends PersistableBusinessObjectBase im
         this.itemType = itemType;
     }
 
-    public KualiDecimal getItemOriginalReceivedTotalQuantity() { 
+    public KualiDecimal getItemOriginalReceivedTotalQuantity() {
     	return itemOriginalReceivedTotalQuantity;
     }
 
@@ -194,7 +194,7 @@ public abstract class ReceivingItemBase extends PersistableBusinessObjectBase im
     	this.itemOriginalReceivedTotalQuantity = itemOriginalReceivedTotalQuantity;
     }
 
-    public KualiDecimal getItemOriginalReturnedTotalQuantity() { 
+    public KualiDecimal getItemOriginalReturnedTotalQuantity() {
     	return itemOriginalReturnedTotalQuantity;
     }
 
@@ -202,7 +202,7 @@ public abstract class ReceivingItemBase extends PersistableBusinessObjectBase im
     	this.itemOriginalReturnedTotalQuantity = itemOriginalReturnedTotalQuantity;
     }
 
-    public KualiDecimal getItemOriginalDamagedTotalQuantity() { 
+    public KualiDecimal getItemOriginalDamagedTotalQuantity() {
     	return itemOriginalDamagedTotalQuantity;
     }
 
@@ -218,11 +218,11 @@ public abstract class ReceivingItemBase extends PersistableBusinessObjectBase im
             refreshReferenceObject(PurapPropertyConstants.ITEM_REASON_ADDED);
         }
         return itemReasonAdded;
-    } 
+    }
 
     public void setItemReasonAdded(ItemReasonAdded itemReasonAdded) {
         this.itemReasonAdded = itemReasonAdded;
-    }    
+    }
 
     public UnitOfMeasure getItemUnitOfMeasure() {
         if (ObjectUtils.isNull(itemUnitOfMeasure) || (!itemUnitOfMeasure.getItemUnitOfMeasureCode().equalsIgnoreCase(getItemUnitOfMeasureCode()))) {

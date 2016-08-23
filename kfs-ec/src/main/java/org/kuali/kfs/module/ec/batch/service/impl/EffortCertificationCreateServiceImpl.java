@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,7 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * This Process creates effort certification documents from the temporary build table created by the batch process and routes effort
  * certification documents to project directors, fiscal officers, and central workgroups. The process includes the following steps:
- * 
+ *
  * <li>construct an effort certification document from a temporary effort certification document; </li>
  * <li>route each effort certification document; </li>
  * <li>delete the temporary effort certification document after routing successfully. </li>
@@ -55,7 +55,7 @@ public class EffortCertificationCreateServiceImpl implements EffortCertification
     /**
      * @see org.kuali.kfs.module.ec.batch.service.EffortCertificationCreateService#create()
      */
-    
+
     public void create() {
         Integer fiscalYear = EffortCertificationParameterFinder.getCreateReportFiscalYear();
         String reportNumber = EffortCertificationParameterFinder.getCreateReportNumber();
@@ -66,7 +66,7 @@ public class EffortCertificationCreateServiceImpl implements EffortCertification
     /**
      * @see org.kuali.kfs.module.ec.batch.service.EffortCertificationCreateService#create(java.lang.Integer, java.lang.String)
      */
-    
+
     public void create(Integer fiscalYear, String reportNumber) {
         Map<String, String> fieldValues = EffortCertificationReportDefinition.buildKeyMap(fiscalYear, reportNumber);
 
@@ -77,9 +77,9 @@ public class EffortCertificationCreateServiceImpl implements EffortCertification
         }
 
         Collection<EffortCertificationDocumentBuild> documentsBuild = businessObjectService.findMatching(EffortCertificationDocumentBuild.class, fieldValues);
-        for (EffortCertificationDocumentBuild documentBuild : documentsBuild) {          
+        for (EffortCertificationDocumentBuild documentBuild : documentsBuild) {
             boolean isCreated = effortCertificationDocumentService.createAndRouteEffortCertificationDocument(documentBuild);
-            
+
             if(isCreated) {
                 businessObjectService.delete(documentBuild);
             }
@@ -89,7 +89,7 @@ public class EffortCertificationCreateServiceImpl implements EffortCertification
     /**
      * check if a report has been defined and its docuemnts have not been generated. The combination of fiscal year and report
      * number can determine a report definition.
-     * 
+     *
      * @param fieldValues the map containing fiscalYear and report number
      * @return a message if a report has not been defined or its documents have been gerenated; otherwise, return null
      */
@@ -118,7 +118,7 @@ public class EffortCertificationCreateServiceImpl implements EffortCertification
         if (!reportDefinition.isActive()) {
             return MessageBuilder.buildMessage(EffortKeyConstants.ERROR_REPORT_DEFINITION_INACTIVE, combinedFieldValues).getMessage();
         }
-           
+
         // check if the report period of the selected report definition is open. If not, throws an error message
         if (!KFSConstants.PeriodStatusCodes.OPEN.equals(reportDefinition.getEffortCertificationReportPeriodStatusCode())) {
             return MessageBuilder.buildMessage(EffortKeyConstants.ERROR_REPORT_DEFINITION_PERIOD_NOT_OPENED, combinedFieldValues).getMessage();
@@ -141,7 +141,7 @@ public class EffortCertificationCreateServiceImpl implements EffortCertification
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {

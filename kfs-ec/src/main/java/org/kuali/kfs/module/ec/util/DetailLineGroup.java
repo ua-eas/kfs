@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -50,7 +50,7 @@ public class DetailLineGroup {
 
     /**
      * Constructs a DetailLineGroup.java.
-     * 
+     *
      * @param detailLine the given detail line
      */
     public DetailLineGroup(EffortCertificationDetail newDetailLine) {
@@ -61,7 +61,7 @@ public class DetailLineGroup {
             String groupId = getKeysAsString(newDetailLine);
             ObjectUtil.buildObject(summaryDetailLine, newDetailLine);
             summaryDetailLine.setGroupId(groupId);
-            
+
             this.addNewLineIntoGroup(newDetailLine, groupId);
         }
 
@@ -145,7 +145,7 @@ public class DetailLineGroup {
 
     /**
      * group the given detail lines by the key fields
-     * 
+     *
      * @param detailLines the given detail lines
      * @param keyFields the given key fields
      * @return the groups of detail lines
@@ -171,7 +171,7 @@ public class DetailLineGroup {
 
     /**
      * concat the keys of the given detail line as a single string
-     * 
+     *
      * @param line the given detail line
      * @return a single string built from the keys of the given detail line
      */
@@ -181,7 +181,7 @@ public class DetailLineGroup {
 
     /**
      * get the difference between the updated effort amount and the current effort amount
-     * 
+     *
      * @return the difference between the updated effort amount and the current effort amount
      */
     private Integer getEffortPercentChanged() {
@@ -193,7 +193,7 @@ public class DetailLineGroup {
 
     /**
      * get the difference between the updated payroll amount and the current payroll amount
-     * 
+     *
      * @return the difference between the updated payroll amount and the current payroll amount
      */
     private KualiDecimal getPayrollAmountChanged() {
@@ -205,16 +205,16 @@ public class DetailLineGroup {
 
     /**
      * update the group when a new detail line is added
-     * 
+     *
      * @param line the new detail line
      */
     private void addNewLineIntoGroup(EffortCertificationDetail newDetailLine, String groupId) {
         if (detailLines.contains(newDetailLine)) {
             return;
         }
-        
+
         newDetailLine.setGroupId(groupId);
-        
+
         detailLines.add(newDetailLine);
         delegateDetailLine = this.getDetailLineWithMaxPayrollAmount(detailLines);
 
@@ -246,7 +246,7 @@ public class DetailLineGroup {
 
     /**
      * find the detail lines that have max payroll amount
-     * 
+     *
      * @return the detail lines that have max payroll amount
      */
     private EffortCertificationDetail getDetailLineWithMaxPayrollAmount(List<EffortCertificationDetail> detailLines) {
@@ -273,7 +273,7 @@ public class DetailLineGroup {
 
     /**
      * Gets the summaryDetailLine attribute.
-     * 
+     *
      * @return Returns the summaryDetailLine.
      */
     public EffortCertificationDetail getSummaryDetailLine() {
@@ -282,7 +282,7 @@ public class DetailLineGroup {
 
     /**
      * Sets the summaryDetailLine attribute value.
-     * 
+     *
      * @param summaryDetailLine The summaryDetailLine to set.
      */
     public void setSummaryDetailLine(EffortCertificationDetail summaryDetailLine) {
@@ -291,7 +291,7 @@ public class DetailLineGroup {
 
     /**
      * Gets the detailLines attribute.
-     * 
+     *
      * @return Returns the detailLines.
      */
     public List<EffortCertificationDetail> getDetailLines() {
@@ -300,7 +300,7 @@ public class DetailLineGroup {
 
     /**
      * Sets the detailLines attribute value.
-     * 
+     *
      * @param detailLines The detailLines to set.
      */
     public void setDetailLines(List<EffortCertificationDetail> detailLines) {
@@ -309,7 +309,7 @@ public class DetailLineGroup {
 
     /**
      * Gets the delegateDetailLine attribute.
-     * 
+     *
      * @return Returns the delegateDetailLine.
      */
     public EffortCertificationDetail getDelegateDetailLine() {
@@ -318,7 +318,7 @@ public class DetailLineGroup {
 
     /**
      * Sets the delegateDetailLine attribute value.
-     * 
+     *
      * @param delegateDetailLine The delegateDetailLine to set.
      */
     public void setDelegateDetailLine(EffortCertificationDetail delegateDetailLine) {

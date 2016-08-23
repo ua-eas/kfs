@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -47,15 +47,15 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
     private boolean importingAllowed = true;
     private Class<? extends DefaultAccountingLineGroupImpl> accountingLineGroupClass = org.kuali.kfs.sys.document.web.DefaultAccountingLineGroupImpl.class;
     private Class<? extends Comparator<AccountingLine>> accountingLineComparatorClass = org.kuali.kfs.sys.businessobject.AccountingLineComparator.class;
-    
+
     private List<? extends AccountingLineViewActionDefinition> accountingLineGroupActions;
-    
+
     private AccountingLineAuthorizer accountingLineAuthorizer;
 
     /**
      * Validates that:
      * 1) this accounting line group has an accounting line class
-     * 2) this accounting line group has an accounting line view 
+     * 2) this accounting line group has an accounting line view
      * @see org.kuali.rice.krad.datadictionary.DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -68,7 +68,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
     }
 
     /**
-     * Gets the accountingLineClass attribute. 
+     * Gets the accountingLineClass attribute.
      * @return Returns the accountingLineClass.
      */
     public Class<? extends AccountingLine> getAccountingLineClass() {
@@ -84,7 +84,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
     }
 
     /**
-     * Gets the accountingLineView attribute. 
+     * Gets the accountingLineView attribute.
      * @return Returns the accountingLineView.
      */
     public AccountingLineViewDefinition getAccountingLineView() {
@@ -100,7 +100,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
     }
 
     /**
-     * Gets the groupLabel attribute. 
+     * Gets the groupLabel attribute.
      * @return Returns the groupLabel.
      */
     public String getGroupLabel() {
@@ -116,7 +116,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
     }
 
     /**
-     * Gets the totals attribute. 
+     * Gets the totals attribute.
      * @return Returns the totals.
      */
     public List<? extends TotalDefinition> getTotals() {
@@ -132,7 +132,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
     }
 
     /**
-     * Gets the accountingLineAuthorizerClass attribute. 
+     * Gets the accountingLineAuthorizerClass attribute.
      * @return Returns the accountingLineAuthorizerClass.
      */
     public Class<? extends AccountingLineAuthorizer> getAccountingLineAuthorizerClass() {
@@ -146,9 +146,9 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
     public void setAccountingLineAuthorizerClass(Class<? extends AccountingLineAuthorizer> accountingLineAuthorizerClass) {
         this.accountingLineAuthorizerClass = accountingLineAuthorizerClass;
     }
-    
+
     /**
-     * Gets the importedLinePropertyPrefix attribute. 
+     * Gets the importedLinePropertyPrefix attribute.
      * @return Returns the importedLinePropertyPrefix.
      */
     public String getImportedLinePropertyPrefix() {
@@ -164,7 +164,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
     }
 
     /**
-     * Gets the forceColumnCount attribute. 
+     * Gets the forceColumnCount attribute.
      * @return Returns the forceColumnCount.
      */
     public int getForceColumnCount() {
@@ -180,7 +180,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
     }
 
     /**
-     * Gets the errorKey attribute. 
+     * Gets the errorKey attribute.
      * @return Returns the errorKey.
      */
     public String getErrorKey() {
@@ -205,7 +205,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
         }
         return accountingLineAuthorizer;
     }
-    
+
     /**
      * Creates an instance of the accounting line authorizer
      * @return the accounting line authorizer for this group
@@ -226,7 +226,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
     }
 
     /**
-     * Gets the topHeadersAfterFirstLineHiding attribute. 
+     * Gets the topHeadersAfterFirstLineHiding attribute.
      * @return Returns the topHeadersAfterFirstLineHiding.
      */
     public boolean isTopHeadersAfterFirstLineHiding() {
@@ -242,7 +242,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
     }
 
     /**
-     * Gets the headerRendering attribute. 
+     * Gets the headerRendering attribute.
      * @return Returns the headerRendering.
      */
     public boolean isHeaderRendering() {
@@ -258,7 +258,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
     }
 
     /**
-     * Gets the accountingLineGroupActions attribute. 
+     * Gets the accountingLineGroupActions attribute.
      * @return Returns the accountingLineGroupActions.
      */
     public List<? extends AccountingLineViewActionDefinition> getAccountingLineGroupActions() {
@@ -274,7 +274,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
     }
 
     /**
-     * Gets the importingAllowed attribute. 
+     * Gets the importingAllowed attribute.
      * @return Returns the importingAllowed.
      */
     public boolean isImportingAllowed() {
@@ -290,7 +290,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
     }
 
     /**
-     * Gets the accountingLineGroupClass attribute. 
+     * Gets the accountingLineGroupClass attribute.
      * @return Returns the accountingLineGroupClass.
      */
     public Class<? extends DefaultAccountingLineGroupImpl> getAccountingLineGroupClass() {
@@ -304,7 +304,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
     public void setAccountingLineGroupClass(Class<? extends DefaultAccountingLineGroupImpl> accountingLineGroupClass) {
         this.accountingLineGroupClass = accountingLineGroupClass;
     }
-    
+
     /**
      * Sets the accountingLineComparatorClass attribute value.
      * @param accountingLineComparatorClass The accountingLineComparatorClass to set.
@@ -312,7 +312,7 @@ public class AccountingLineGroupDefinition extends DataDictionaryDefinitionBase 
     public void setAccountingLineComparatorClass(Class<? extends Comparator<AccountingLine>> accountingLineComparatorClass) {
         this.accountingLineComparatorClass = accountingLineComparatorClass;
     }
-    
+
     /**
      * @return an instance of the Comparator this group should use to sort accounting lines
      */

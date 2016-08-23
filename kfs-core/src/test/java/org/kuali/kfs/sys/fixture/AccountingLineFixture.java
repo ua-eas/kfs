@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,24 +30,24 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 public enum AccountingLineFixture {
-    LINE(1, "BL", "1031400", "AC", "ADV", "5000", "SSS", "KUL", "Y", "ONE", "01", "1", "blah", GL_DEBIT_CODE, "2.50"), 
-    LINE1(null, "BA", "6044900", null, null, "1697", null, null, null, null, null, null, null, null, "1000.00"), 
-    LINE2(null, "BL", "1031400", null, "ADV", "5000", "SSS", "KUL", null, "ONE", null, null, null, null, "1.10"), 
-    LINE3(null, "BA", "6044900", null, null, "4008", "POL", null, null, "TWO", null, null, null, null, "1.10"), 
-    LINE4(null, "UA", "1912201", null, null, "5033", null, null, null, null, null, "123", null, null, "1.10"), 
-    LINE5(null, "BL", "1031400", "AC", "ADV", "5000", "SSS", "KUL", null, "ONE", null, null, null, GL_DEBIT_CODE, "1.10"), 
-    LINE6(null, "BL", "1031400", "PE", "ADV", "5000", "SSS", "KUL", null, "ONE", null, "123", null, GL_DEBIT_CODE, "1.10"), 
+    LINE(1, "BL", "1031400", "AC", "ADV", "5000", "SSS", "KUL", "Y", "ONE", "01", "1", "blah", GL_DEBIT_CODE, "2.50"),
+    LINE1(null, "BA", "6044900", null, null, "1697", null, null, null, null, null, null, null, null, "1000.00"),
+    LINE2(null, "BL", "1031400", null, "ADV", "5000", "SSS", "KUL", null, "ONE", null, null, null, null, "1.10"),
+    LINE3(null, "BA", "6044900", null, null, "4008", "POL", null, null, "TWO", null, null, null, null, "1.10"),
+    LINE4(null, "UA", "1912201", null, null, "5033", null, null, null, null, null, "123", null, null, "1.10"),
+    LINE5(null, "BL", "1031400", "AC", "ADV", "5000", "SSS", "KUL", null, "ONE", null, null, null, GL_DEBIT_CODE, "1.10"),
+    LINE6(null, "BL", "1031400", "PE", "ADV", "5000", "SSS", "KUL", null, "ONE", null, "123", null, GL_DEBIT_CODE, "1.10"),
     LINE7(null, "BA", "6044900", null, null, "4061", null, null, null, null, null, null, null, null, "1.10"),
-    LINE8(null, "UA", "1912201", "AC", null, "9980", null, "KUL", "F", null, "01", "2004", "blah", GL_DEBIT_CODE, "1.10"), 
-    LINE9(null, "UA", "1912201", "AC", null, "9980", null, "KUL", "F", null, "01", "2004", null, GL_DEBIT_CODE, "1.10"), 
-    LINE10(null, "UA", "1912201", "AC", null, "8160", null, "KUL", "F", null, "01", "2004", "blah", GL_DEBIT_CODE, "1.10"), 
-    LINE11(null, "UA", "1912201", "AC", null, "9980", null, "KUL", "F", null, null, null, null, GL_DEBIT_CODE, "1.10"), 
-    LINE12(null, "UA", "1912201", "AC", null, "9897", null, "KUL", "F", null, null, null, null, GL_DEBIT_CODE, "1.10"), 
-    LINE13(null, "UA", "1912201", "AC", null, "9899", null, "KUL", "F", null, null, null, null, GL_DEBIT_CODE, "1.10"), 
-    LINE14(null, "UA", "1912201", null, null, "5033", null, null, null, null, null, "123", null, GL_DEBIT_CODE, "1.10"), 
-    LINE15(null, "UA", "1912201", null, null, "5033", null, null, null, null, null, "123", null, GL_CREDIT_CODE, "1.10"), 
-    LINE16(null, "UA", "1912201", "AC", null, "1175", null, "KUL", "F", null, "01", "2004", null, GL_DEBIT_CODE, "1.10"), 
-    LINE17(null, "UA", "1912201", "AC", null, "7600", null, "KUL", "F", null, "01", "2004", null, GL_DEBIT_CODE, "1.10"), 
+    LINE8(null, "UA", "1912201", "AC", null, "9980", null, "KUL", "F", null, "01", "2004", "blah", GL_DEBIT_CODE, "1.10"),
+    LINE9(null, "UA", "1912201", "AC", null, "9980", null, "KUL", "F", null, "01", "2004", null, GL_DEBIT_CODE, "1.10"),
+    LINE10(null, "UA", "1912201", "AC", null, "8160", null, "KUL", "F", null, "01", "2004", "blah", GL_DEBIT_CODE, "1.10"),
+    LINE11(null, "UA", "1912201", "AC", null, "9980", null, "KUL", "F", null, null, null, null, GL_DEBIT_CODE, "1.10"),
+    LINE12(null, "UA", "1912201", "AC", null, "9897", null, "KUL", "F", null, null, null, null, GL_DEBIT_CODE, "1.10"),
+    LINE13(null, "UA", "1912201", "AC", null, "9899", null, "KUL", "F", null, null, null, null, GL_DEBIT_CODE, "1.10"),
+    LINE14(null, "UA", "1912201", null, null, "5033", null, null, null, null, null, "123", null, GL_DEBIT_CODE, "1.10"),
+    LINE15(null, "UA", "1912201", null, null, "5033", null, null, null, null, null, "123", null, GL_CREDIT_CODE, "1.10"),
+    LINE16(null, "UA", "1912201", "AC", null, "1175", null, "KUL", "F", null, "01", "2004", null, GL_DEBIT_CODE, "1.10"),
+    LINE17(null, "UA", "1912201", "AC", null, "7600", null, "KUL", "F", null, "01", "2004", null, GL_DEBIT_CODE, "1.10"),
     LINE18(null, "BL", "1031400", null, null, "5000", null, null, null, null, null, null, null, null, "1.10"),
 
     APO_LINE1(null, "BL", "0212007", null, null, "4000", null, null, null, null, null, null, null, GL_DEBIT_CODE, "995.00"), APO_LINE2(null, "BL", "0212007", null, null, "4000", null, null, null, null, null, null, null, GL_DEBIT_CODE, "120.00"), APO_LINE3(null, "BL", "0212008", null, null, "4000", null, null,  null, null, null, null, null, GL_DEBIT_CODE, "119.99"), APO_LINE4(null, "BL", "0212009", null, null, "4000", null, null, null, null, null, null, null, GL_DEBIT_CODE, "12.49"),
@@ -56,7 +56,7 @@ public enum AccountingLineFixture {
     PURAP_LINE3(null, "BL", "2231401", null, null, "5000", null, null, null, null, null, null, null, null, "1.00"),
     PURAP_PERFORMANCE_LINE(null, "BL", "1031497", null, null, "5000", null, null, null, null, null, null, null, null, "10.00"),
     PURAP_LINE_NEGATIVE_AMT(null, "BL", "2231401", null, null, "5000", null, null, null, null, null, null, null, null, "-56.00"),
-    
+
     GEC_LINE1(null, "BL", "1031400", null, "ADV", "5000", "SSS", "KUL", null, null, "01", "123", null, null, "1.10"), ICA_LINE(null, "BL", "5431400", null, null, "5500", null, null, null, null, null, null, null, null, "1.10"), EXPENSE_GEC_LINE(null, "BA", "6044900", "AC", null, "1940", null, "KUL", "F", null, "01", "123", null, null, "1.10"),
 
     DOCUMENT_SERVICE_TEST_LINE(null, "BL", "1031400", null, "ADV", "5000", "SSS", "KUL", "Y", null, null, null, null, GL_DEBIT_CODE, "2.50"), PFIP_SUB_FUND_LINE( null, "BA", "9544900", "AC", null, "9900", null, null, null, null, null, "2004", null, null, "1000.00"), SOURCE_LINE(null, "UA", "1912201", "AC", null, "9980", null, "KUL", "F", null, "01", "2004", "blah", GL_DEBIT_CODE, "1000.00"), EXPENSE_LINE(null, "UA", "1912201", "AC", "BEER", "9900", null, "KUL", "F", null, "01", "2004", "blah", GL_DEBIT_CODE, "1000.00"), EXPENSE_LINE2(null, "BL", "1031400", "AC", "BLDG", "9900", null, "KUL", "F", null, null, null, null, GL_DEBIT_CODE, "1000.00"), EXTERNAL_ENCUMBRANCE_LINE(null, "BL", "1031400", "EX", "BLDG", "9900", null, "KUL", "F", null, "01", "2004", "PE", GL_DEBIT_CODE, "1000.00"),
@@ -176,7 +176,7 @@ public enum AccountingLineFixture {
     public SourceAccountingLine createSourceAccountingLine() throws InstantiationException, IllegalAccessException {
         return createAccountingLine(SourceAccountingLine.class);
     }
-    
+
     public VoucherSourceAccountingLine createVoucherSourceAccountingLine() throws InstantiationException, IllegalAccessException {
         VoucherSourceAccountingLine line = createAccountingLine(VoucherSourceAccountingLine.class);
         line.refreshReferenceObject("objectCode");
@@ -191,7 +191,7 @@ public enum AccountingLineFixture {
     public void addAsSourceTo(AccountingDocument document) throws IllegalAccessException, InstantiationException {
         document.addSourceAccountingLine(createAccountingLine(SourceAccountingLine.class, document.getDocumentNumber(), document.getPostingYear(), document.getNextSourceLineNumber()));
     }
-    
+
     public void addAsVoucherSourceTo(AccountingDocument document) throws IllegalAccessException, InstantiationException {
         VoucherSourceAccountingLine line = createAccountingLine(VoucherSourceAccountingLine.class, document.getDocumentNumber(), document.getPostingYear(), document.getNextSourceLineNumber());
         line.refreshReferenceObject("objectCode");

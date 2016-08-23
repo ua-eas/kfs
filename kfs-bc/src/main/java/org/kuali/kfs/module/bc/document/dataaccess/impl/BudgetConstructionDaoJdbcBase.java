@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,7 +49,7 @@ public class BudgetConstructionDaoJdbcBase extends PlatformAwareDaoBaseJdbc {
 
     /**
      * given a fiscal year, get the first day of that fiscal year
-     * 
+     *
      * @param universityFiscalYear = fiscal year (must be in the table)
      * @return the date on which the fiscal year passed as a parameter starts
      */
@@ -61,7 +61,7 @@ public class BudgetConstructionDaoJdbcBase extends PlatformAwareDaoBaseJdbc {
     /**
      * return a substring function that is Oracle-specific if the DB Platform is Oracle, and an ANSI-92 compliant function otherwise
      * Oracle's syntax is not ANSI-92 compliant
-     * 
+     *
      * @param fieldName = string representing the name of the DB field (possibly qualified)
      * @param startLocation = starting location of the substring
      * @param substringLength = length of the substring

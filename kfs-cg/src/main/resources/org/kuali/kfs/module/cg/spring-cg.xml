@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -28,9 +28,9 @@
                            http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
                            http://www.springframework.org/schema/aop
                            http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
-                           
+
     <bean id="cgModuleConfiguration" parent="cgModuleConfiguration-parentBean" />
-    
+
     <bean id="cgModuleConfiguration-parentBean" class="org.kuali.kfs.sys.FinancialSystemModuleConfiguration" abstract="true">
     	<property name="namespaceCode" value="KFS-CG" />
 		<property name="initializeDataDictionary" value="true" />
@@ -119,13 +119,13 @@
 		<property name="cfdaService" ref="cfdaService" />
 		<property name="businessObjectService">
 			<ref bean="businessObjectService" />
-		</property>	
+		</property>
 	</bean>
-	
+
 	<bean id="CGConstants" class="org.kuali.rice.core.api.util.collect.ConstantsMap">
 		<property name="constantClass" value="org.kuali.kfs.module.cg.CGConstants" />
 	</bean>
-  
+
 	<bean class="org.springframework.web.context.support.ServletContextAttributeExporter">
 		<property name="attributes">
 			<map>
@@ -133,7 +133,7 @@
 			</map>
 		</property>
 	</bean>
-	
+
 	<bean id="contractsAndGrantsModuleBillingService" parent="contractsAndGrantsModuleBillingService-parentBean" scope="prototype"/>
 	<bean id="contractsAndGrantsModuleBillingService-parentBean" class="org.kuali.kfs.module.cg.service.impl.ContractsAndGrantsModuleBillingServiceImpl" abstract="true" >
 		<property name="awardService" ref="awardService" />
@@ -159,12 +159,12 @@
 		</property>
 		<property name="businessObjectService">
 			<ref bean="businessObjectService" />
-		</property>		
+		</property>
 		<property name="documentService">
 			<ref bean ="documentService" />
-		</property>			
+		</property>
 	</bean>
-	
+
 	<bean id="proposalLookupableHelperService" parent="proposalLookupableHelperService-parentBean" scope="prototype" />
 	<bean id="proposalLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cg.businessobject.lookup.ProposalLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService" >
         <property name="contractsAndGrantsLookupService">
@@ -238,7 +238,7 @@
 			<ref bean="parameterService" />
 		</property>
     </bean>
-	
+
     <bean id="cfdaBatchStep" class="org.kuali.kfs.module.cg.batch.CfdaBatchStep" parent="step">
         <property name="cfdaService">
             <ref bean="cfdaService" />
@@ -336,21 +336,21 @@
 			<ref bean="contractsGrantsAwardBalancesReportLookupableHelperService" />
 		</property>
 	</bean>
-	
+
 	<bean id="routingFormResearchRiskService"  parent="routingFormResearchRiskService-parentBean"/>
 	<bean id="routingFormResearchRiskService-parentBean" class="org.kuali.kfs.module.cg.document.service.impl.RoutingFormResearchRiskServiceImpl" abstract="true">
 		<property name="businessObjectService">
 			<ref bean="businessObjectService" />
 		</property>
 	</bean>
-   
+
     <bean id="researchRiskReviewRoleTypeService" parent="researchRiskReviewRoleTypeService-parentBean"/>
     <bean id="researchRiskReviewRoleTypeService-parentBean" class="org.kuali.kfs.module.cg.identity.ResearchRiskReviewRoleTypeServiceImpl" abstract="true">
 		<property name="documentTypeService">
 			<ref bean="documentTypeService" />
 		</property>
 	</bean>
-	
+
 	<bean id="moveAgencyAndAwardMaintDocNotesToBusinessObjectsJob" parent="moveAgencyAndAwardMaintDocNotesToBusinessObjectsJob-parentBean"/>
 	<bean id="moveAgencyAndAwardMaintDocNotesToBusinessObjectsJob-parentBean" abstract="true" parent="unscheduledJobDescriptor">
 		<property name="steps">
@@ -359,12 +359,12 @@
 			</list>
 		</property>
 	</bean>
-       
+
     <bean id="moveAgencyAndAwardMaintDocNotesToBusinessObjectsStep" parent="moveAgencyAndAwardMaintDocNotesToBusinessObjectsStep-parentBean"/>
     <bean id="moveAgencyAndAwardMaintDocNotesToBusinessObjectsStep-parentBean" abstract="true" parent="step" class="org.kuali.kfs.module.cg.batch.MoveAgencyAndAwardMaintDocNotesToBusinessObjectsStep">
     	<property name="maintenanceDocumentNotesMigrationService" ref="maintenanceDocumentNotesMigrationService"/>
     </bean>
-    
+
     <bean id="maintenanceDocumentNotesMigrationService" parent="maintenanceDocumentNotesMigrationService-parentBean"/>
     <bean id="maintenanceDocumentNotesMigrationService-parentBean" abstract="true" class="org.kuali.kfs.module.cg.batch.service.impl.MaintenanceDocumentNotesMigrationServiceImpl">
     	<property name="businessObjectService" ref="businessObjectService"/>

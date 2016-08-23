@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -38,7 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ThresholdDaoOjb extends PlatformAwareDaoBaseOjb implements ThresholdDao {
 
     private static Logger LOG = Logger.getLogger(ThresholdDaoOjb.class);
-    
+
     public Collection<ReceivingThreshold> findByChart(String chartCode) {
         Map criteriaFields = new HashMap(1);
         criteriaFields.put(ThresholdField.CHART_OF_ACCOUNTS_CODE,chartCode);
@@ -46,7 +46,7 @@ public class ThresholdDaoOjb extends PlatformAwareDaoBaseOjb implements Threshol
         return getThresholdEnum(criteriaFields);
     }
 
-    public Collection<ReceivingThreshold> findByChartAndFund(String chartCode, 
+    public Collection<ReceivingThreshold> findByChartAndFund(String chartCode,
                                                     String fund) {
         Map criteriaFields = new HashMap(2);
         criteriaFields.put(ThresholdField.CHART_OF_ACCOUNTS_CODE,chartCode);
@@ -55,7 +55,7 @@ public class ThresholdDaoOjb extends PlatformAwareDaoBaseOjb implements Threshol
         return getThresholdEnum(criteriaFields);
     }
 
-    public Collection<ReceivingThreshold> findByChartAndSubFund(String chartCode, 
+    public Collection<ReceivingThreshold> findByChartAndSubFund(String chartCode,
                                                        String subFund) {
         Map criteriaFields = new HashMap(2);
         criteriaFields.put(ThresholdField.CHART_OF_ACCOUNTS_CODE,chartCode);
@@ -64,7 +64,7 @@ public class ThresholdDaoOjb extends PlatformAwareDaoBaseOjb implements Threshol
         return getThresholdEnum(criteriaFields);
     }
 
-    public Collection<ReceivingThreshold> findByChartAndCommodity(String chartCode, 
+    public Collection<ReceivingThreshold> findByChartAndCommodity(String chartCode,
                                                          String commodityCode) {
         Map criteriaFields = new HashMap(2);
         criteriaFields.put(ThresholdField.CHART_OF_ACCOUNTS_CODE,chartCode);
@@ -73,7 +73,7 @@ public class ThresholdDaoOjb extends PlatformAwareDaoBaseOjb implements Threshol
         return getThresholdEnum(criteriaFields);
     }
 
-    public Collection<ReceivingThreshold> findByChartAndObjectCode(String chartCode, 
+    public Collection<ReceivingThreshold> findByChartAndObjectCode(String chartCode,
                                                           String objectCode) {
         Map criteriaFields = new HashMap(2);
         criteriaFields.put(ThresholdField.CHART_OF_ACCOUNTS_CODE,chartCode);
@@ -82,7 +82,7 @@ public class ThresholdDaoOjb extends PlatformAwareDaoBaseOjb implements Threshol
         return getThresholdEnum(criteriaFields);
     }
 
-    public Collection<ReceivingThreshold> findByChartAndOrg(String chartCode, 
+    public Collection<ReceivingThreshold> findByChartAndOrg(String chartCode,
                                                    String org) {
         Map criteriaFields = new HashMap(2);
         criteriaFields.put(ThresholdField.CHART_OF_ACCOUNTS_CODE,chartCode);
@@ -91,7 +91,7 @@ public class ThresholdDaoOjb extends PlatformAwareDaoBaseOjb implements Threshol
         return getThresholdEnum(criteriaFields);
     }
 
-    public Collection<ReceivingThreshold> findByChartAndVendor(String chartCode, 
+    public Collection<ReceivingThreshold> findByChartAndVendor(String chartCode,
                                                       String vendorHeaderGeneratedIdentifier,
                                                       String vendorDetailAssignedIdentifier) {
         Map criteriaFields = new HashMap(3);
@@ -101,9 +101,9 @@ public class ThresholdDaoOjb extends PlatformAwareDaoBaseOjb implements Threshol
         criteriaFields.put(ThresholdField.ACTIVE,Boolean.TRUE);
         return getThresholdEnum(criteriaFields);
     }
-    
+
     protected Collection<ReceivingThreshold> getThresholdEnum(Map criteriaFields){
-        
+
         if (criteriaFields == null || criteriaFields.size() == 0){
             return null;
         }
@@ -124,7 +124,7 @@ public class ThresholdDaoOjb extends PlatformAwareDaoBaseOjb implements Threshol
         Collection c = getPersistenceBrokerTemplate().getCollectionByQuery(query);
         return c;
     }
-    
+
     /**
      * Will return a mock object
      */

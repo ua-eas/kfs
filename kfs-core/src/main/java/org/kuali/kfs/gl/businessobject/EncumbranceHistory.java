@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,7 +44,7 @@ public class EncumbranceHistory extends Encumbrance {
 
     /**
      * Constructs a BalanceHistory.java.
-     * 
+     *
      * @param transaction
      */
     public EncumbranceHistory(OriginEntryInformation originEntry) {
@@ -60,7 +60,7 @@ public class EncumbranceHistory extends Encumbrance {
         this.setOriginCode(originEntry.getFinancialSystemOriginationCode());
         this.setDocumentNumber(originEntry.getDocumentNumber());
     }
-    
+
     /**
      * Updates amount if the object already existed
      * @param originEntry representing the update details
@@ -69,8 +69,8 @@ public class EncumbranceHistory extends Encumbrance {
         //KFSMI-1571 - check parameter encumbranceOpenAmountOeverridingDocTypes
         ParameterService parameterService = SpringContext.getBean(ParameterService.class);
         Collection<String> encumbranceOpenAmountOeverridingDocTypes = new ArrayList<String>( parameterService.getParameterValuesAsString(PosterEntriesStep.class, GeneralLedgerConstants.PosterService.ENCUMBRANCE_OPEN_AMOUNT_OVERRIDING_DOCUMENT_TYPES) );
-        
-        if (KFSConstants.ENCUMB_UPDT_REFERENCE_DOCUMENT_CD.equals(originEntry.getTransactionEncumbranceUpdateCode()) 
+
+        if (KFSConstants.ENCUMB_UPDT_REFERENCE_DOCUMENT_CD.equals(originEntry.getTransactionEncumbranceUpdateCode())
                 && !encumbranceOpenAmountOeverridingDocTypes.contains( originEntry.getFinancialDocumentTypeCode())) {
             // If using referring doc number, add or subtract transaction amount from
             // encumbrance closed amount
@@ -92,7 +92,7 @@ public class EncumbranceHistory extends Encumbrance {
             }
         }
     }
-    
+
     /**
      * Compare amounts
      * @param accountBalance
@@ -103,10 +103,10 @@ public class EncumbranceHistory extends Encumbrance {
                 && encumbrance.getAccountLineEncumbranceClosedAmount().equals(this.getAccountLineEncumbranceClosedAmount())) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * History does not track this field.
      * @see org.kuali.kfs.gl.businessobject.Balance#getTimestamp()

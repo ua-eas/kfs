@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -112,20 +112,20 @@
     </property>
     <property name="attributeSecurity">
 		<bean parent="AttributeSecurity">
-  			<property name="mask" value="true"/> 
+  			<property name="mask" value="true"/>
 			<property name="maskFormatter">
-  			<bean parent="MaskFormatterLiteral" p:literal="*********"/> 
+  			<bean parent="MaskFormatterLiteral" p:literal="*********"/>
   			</property>
   		</bean>
   	</property>
   </bean>
-  
+
   <bean id="Bank-bankAccountNumber" parent="Bank-bankAccountNumber-parentBean"/>
 
   <bean id="Bank-bankAccountNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="bankAccountNumber"/>
     <property name="label" value="Bank Account Number"/>
-    <property name="forceUppercase" value="true"/>    
+    <property name="forceUppercase" value="true"/>
     <property name="shortLabel" value="Bank Acct"/>
     <property name="maxLength" value="15"/>
     <property name="required" value="true"/>
@@ -135,15 +135,15 @@
 
 	<property name="attributeSecurity">
 		<bean parent="AttributeSecurity">
-  			<property name="mask" value="true"/> 
+  			<property name="mask" value="true"/>
 			<property name="maskFormatter">
-  			<bean parent="MaskFormatterLiteral" p:literal="*********"/> 
+  			<bean parent="MaskFormatterLiteral" p:literal="*********"/>
   			</property>
   		</bean>
   	</property>
 
   </bean>
-  
+
   <bean id="Bank-bankAccountDescription" parent="Bank-bankAccountDescription-parentBean"/>
 
   <bean id="Bank-bankAccountDescription-parentBean" abstract="true" parent="AttributeDefinition">
@@ -196,8 +196,8 @@
     <property name="shortLabel" value="Cash Off Sub-Obj Cd"/>
     <property name="required" value="false"/>
   </bean>
-  
-  <bean id="Bank-continuationBankCode" parent="Bank-continuationBankCode-parentBean"/>      
+
+  <bean id="Bank-continuationBankCode" parent="Bank-continuationBankCode-parentBean"/>
   <bean id="Bank-continuationBankCode-parentBean" abstract="true" parent="Bank-bankCode">
     <property name="name" value="continuationBankCode"/>
     <property name="label" value="Continuation Bank Code"/>
@@ -205,7 +205,7 @@
     <property name="required" value="false"/>
   </bean>
 
-  <bean id="Bank-bankDepositIndicator" parent="Bank-bankDepositIndicator-parentBean"/>  
+  <bean id="Bank-bankDepositIndicator" parent="Bank-bankDepositIndicator-parentBean"/>
   <bean id="Bank-bankDepositIndicator-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="bankDepositIndicator"/>
     <property name="label" value="Bank Deposit Indicator"/>
@@ -213,36 +213,36 @@
     <property name="required" value="false"/>
   </bean>
 
-  <bean id="Bank-bankDisbursementIndicator" parent="Bank-bankDisbursementIndicator-parentBean"/>    
+  <bean id="Bank-bankDisbursementIndicator" parent="Bank-bankDisbursementIndicator-parentBean"/>
   <bean id="Bank-bankDisbursementIndicator-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="bankDisbursementIndicator"/>
     <property name="label" value="Bank Disbursement Indicator"/>
     <property name="shortLabel" value="Disbursement Ind."/>
     <property name="required" value="false"/>
   </bean>
- 
-  <bean id="Bank-bankAchIndicator" parent="Bank-bankAchIndicator-parentBean"/>     
+
+  <bean id="Bank-bankAchIndicator" parent="Bank-bankAchIndicator-parentBean"/>
   <bean id="Bank-bankAchIndicator-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="bankAchIndicator"/>
     <property name="label" value="Bank ACH Indicator"/>
     <property name="shortLabel" value="ACH Ind."/>
     <property name="required" value="false"/>
   </bean>
- 
-  <bean id="Bank-bankCheckIndicator" parent="Bank-bankCheckIndicator-parentBean"/>      
+
+  <bean id="Bank-bankCheckIndicator" parent="Bank-bankCheckIndicator-parentBean"/>
   <bean id="Bank-bankCheckIndicator-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="bankCheckIndicator"/>
     <property name="label" value="Bank Check Indicator"/>
     <property name="shortLabel" value="Check Ind."/>
     <property name="required" value="false"/>
   </bean>
-  
-  <bean id="Bank-active" parent="Bank-active-parentBean"/>      
+
+  <bean id="Bank-active" parent="Bank-active-parentBean"/>
   <bean id="Bank-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="active"/>
     <property name="required" value="false"/>
   </bean>
-  
+
 <!-- Business Object Inquiry Definition -->
 
 
@@ -256,7 +256,7 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="Bank-inquirySectionDefinition" parent="Bank-inquirySectionDefinition-parentBean"/>
   <bean id="Bank-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true">
 	<property name="title" value=""/>
@@ -282,8 +282,8 @@
      </list>
    </property>
  </bean>
-  
-  
+
+
 <!-- Business Object Lookup Definition -->
 
 
@@ -291,7 +291,7 @@
 
   <bean id="Bank-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Bank Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
         <property name="attributeNames">

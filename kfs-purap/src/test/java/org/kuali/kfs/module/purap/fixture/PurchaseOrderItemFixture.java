@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -197,7 +197,7 @@ public enum PurchaseOrderItemFixture {
             true, // itemActiveIndicator,
             PurApItemFixture.ITEM_FOR_THRESHOLD_CHECK, // purApItemFixture
             new PurchaseOrderAccountingLineFixture[] { PurchaseOrderAccountingLineFixture.BASIC_PO_ACCOUNT_1 }, // purchaseOrderAccountMultiFixtures
-            CommodityCodeFixture.COMMODITY_CODE_BASIC_ACTIVE //commodityCodeFixture 
+            CommodityCodeFixture.COMMODITY_CODE_BASIC_ACTIVE //commodityCodeFixture
     ),
     EINVOICE_PO_ITEM(null, // documentNumber,
             null, // itemInvoicedTotalQuantity,
@@ -212,7 +212,7 @@ public enum PurchaseOrderItemFixture {
     ),
     ;
 
-    
+
     private String documentNumber;
     private KualiDecimal itemInvoicedTotalQuantity;
     private KualiDecimal itemInvoicedTotalAmount;
@@ -225,7 +225,7 @@ public enum PurchaseOrderItemFixture {
     private PurApItemFixture purApItemFixture;
     private PurchaseOrderAccountingLineFixture[] purchaseOrderAccountingLineFixtures;
     private CommodityCodeFixture commodityCodeFixture;
-    
+
     /**
      * Private Constructor.
      */
@@ -255,10 +255,10 @@ public enum PurchaseOrderItemFixture {
         this.purchaseOrderAccountingLineFixtures = purchaseOrderAccountingLineFixtures;
         this.commodityCodeFixture = commodityCodeFixture;
     }
-    
+
     /**
      * Creates a Purchase Order Item from this fixture and adds the item to the specified Purchase Order Document.
-     * 
+     *
      * @param purchaseOrderDocument the specified Purchase Order Document.
      */
     public void addTo(PurchaseOrderDocument purchaseOrderDocument) {
@@ -275,7 +275,7 @@ public enum PurchaseOrderItemFixture {
 
     /**
      * Creates a Purchase Order Item using the specified PurAp Item Fixture.
-     * 
+     *
      * @param purApItemFixture the specified PurAp Item Fixture.
      * @return the created Purchase Order Item.
      */
@@ -295,7 +295,7 @@ public enum PurchaseOrderItemFixture {
             item.setCommodityCode(commodityCode);
             item.setPurchasingCommodityCode(commodityCode.getPurchasingCommodityCode());
         }
-        
+
         return item;
     }
 

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,9 +33,9 @@ public class AccountingLineGroupTotalDefinition extends TotalDefinition{
     private boolean nestedProperty;
     private String containingPropertyName;
     private String totalLabelProperty = "accounting.line.group.total.label";
-    
+
     /**
-     * Gets the totalProperty attribute. 
+     * Gets the totalProperty attribute.
      * @return Returns the totalProperty.
      */
     public String getTotalProperty() {
@@ -51,7 +51,7 @@ public class AccountingLineGroupTotalDefinition extends TotalDefinition{
     }
 
     /**
-     * Gets the totalLabelProperty attribute. 
+     * Gets the totalLabelProperty attribute.
      * @return Returns the totalLabelProperty.
      */
     public String getTotalLabelProperty() {
@@ -65,7 +65,7 @@ public class AccountingLineGroupTotalDefinition extends TotalDefinition{
     public void setTotalLabelProperty(String totalLabelProperty) {
         this.totalLabelProperty = totalLabelProperty;
     }
-    
+
     /**
      * Uses GroupTotalRenderer to render the total
      * @see org.kuali.kfs.sys.document.datadictionary.TotalDefinition#getTotalRenderer()
@@ -73,13 +73,13 @@ public class AccountingLineGroupTotalDefinition extends TotalDefinition{
     @Override
     public Renderer getTotalRenderer() {
         GroupTotalRenderer renderer = new GroupTotalRenderer();
-        
+
         renderer.setTotalLabelProperty(totalLabelProperty);
         renderer.setRepresentedCellPropertyName(representedProperty);
-        
+
         final String actualTotalProperty = this.getActualPropertyName(containingPropertyName, totalProperty);
         renderer.setTotalProperty(actualTotalProperty);
-        
+
         return renderer;
     }
 
@@ -94,7 +94,7 @@ public class AccountingLineGroupTotalDefinition extends TotalDefinition{
     }
 
     /**
-     * Gets the representedProperty attribute. 
+     * Gets the representedProperty attribute.
      * @return Returns the representedProperty.
      */
     public String getRepresentedProperty() {
@@ -108,7 +108,7 @@ public class AccountingLineGroupTotalDefinition extends TotalDefinition{
     public void setRepresentedProperty(String representedProperty) {
         this.representedProperty = representedProperty;
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.datadictionary.TotalDefinition#isNestedProperty()
      */

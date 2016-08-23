@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,7 +37,7 @@ public class EffortCertificationReportEarnPaygroup extends PersistableBusinessOb
 
     private EffortCertificationReportType effortCertificationReportType;
     private SystemOptions options;
-    
+
     /**
      * Constructs a EffortCertificationReportEarnPaygroup.java.
      */
@@ -47,7 +47,7 @@ public class EffortCertificationReportEarnPaygroup extends PersistableBusinessOb
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear.
      */
     public Integer getUniversityFiscalYear() {
@@ -56,7 +56,7 @@ public class EffortCertificationReportEarnPaygroup extends PersistableBusinessOb
 
     /**
      * Sets the universityFiscalYear attribute value.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -65,7 +65,7 @@ public class EffortCertificationReportEarnPaygroup extends PersistableBusinessOb
 
     /**
      * Gets the effortCertificationReportTypeCode attribute.
-     * 
+     *
      * @return Returns the effortCertificationReportTypeCode.
      */
     public String getEffortCertificationReportTypeCode() {
@@ -74,7 +74,7 @@ public class EffortCertificationReportEarnPaygroup extends PersistableBusinessOb
 
     /**
      * Sets the effortCertificationReportTypeCode attribute value.
-     * 
+     *
      * @param effortCertificationReportTypeCode The effortCertificationReportTypeCode to set.
      */
     public void setEffortCertificationReportTypeCode(String effortCertificationReportTypeCode) {
@@ -83,7 +83,7 @@ public class EffortCertificationReportEarnPaygroup extends PersistableBusinessOb
 
     /**
      * Gets the earnCode attribute.
-     * 
+     *
      * @return Returns the earnCode.
      */
     public String getEarnCode() {
@@ -92,7 +92,7 @@ public class EffortCertificationReportEarnPaygroup extends PersistableBusinessOb
 
     /**
      * Sets the earnCode attribute value.
-     * 
+     *
      * @param earnCode The earnCode to set.
      */
     public void setEarnCode(String earnCode) {
@@ -101,7 +101,7 @@ public class EffortCertificationReportEarnPaygroup extends PersistableBusinessOb
 
     /**
      * Gets the payGroup attribute.
-     * 
+     *
      * @return Returns the payGroup.
      */
     public String getPayGroup() {
@@ -110,7 +110,7 @@ public class EffortCertificationReportEarnPaygroup extends PersistableBusinessOb
 
     /**
      * Sets the payGroup attribute value.
-     * 
+     *
      * @param payGroup The payGroup to set.
      */
     public void setPayGroup(String payGroup) {
@@ -119,7 +119,7 @@ public class EffortCertificationReportEarnPaygroup extends PersistableBusinessOb
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -128,7 +128,7 @@ public class EffortCertificationReportEarnPaygroup extends PersistableBusinessOb
 
     /**
      * Sets the active attribute value.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {
@@ -137,7 +137,7 @@ public class EffortCertificationReportEarnPaygroup extends PersistableBusinessOb
 
     /**
      * Gets the effortCertificationReportType attribute.
-     * 
+     *
      * @return Returns the effortCertificationReportType.
      */
     public EffortCertificationReportType getEffortCertificationReportType() {
@@ -146,7 +146,7 @@ public class EffortCertificationReportEarnPaygroup extends PersistableBusinessOb
 
     /**
      * Sets the effortCertificationReportType attribute value.
-     * 
+     *
      * @param effortCertificationReportType The effortCertificationReportType to set.
      */
     @Deprecated
@@ -156,7 +156,7 @@ public class EffortCertificationReportEarnPaygroup extends PersistableBusinessOb
 
     /**
      * Gets the options attribute.
-     * 
+     *
      * @return Returns the options.
      */
     public SystemOptions getOptions() {
@@ -165,14 +165,14 @@ public class EffortCertificationReportEarnPaygroup extends PersistableBusinessOb
 
     /**
      * Sets the options attribute value.
-     * 
+     *
      * @param options The options to set.
      */
     @Deprecated
     public void setOptions(SystemOptions options) {
         this.options = options;
     }
-    
+
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */

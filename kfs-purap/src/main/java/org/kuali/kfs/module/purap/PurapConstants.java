@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -94,7 +94,7 @@ public class PurapConstants {
     public static final String REMOVE_ACCOUNTS_QUESTION = "RemoveAccounts";
     public static final String CLEAR_COMMODITY_CODES_QUESTION = "ClearCommodityCodes";
     public static final String QUESTION_ROUTE_DOCUMENT_TO_COMPLETE = "Completing this document will remove it from your Action List.<br/><br/>  Are you sure you want to continue?";
-    public static final String QUESTION_REQUISITON_ROUTE_WITHOUT_ACCOUNTING_LINES = "This document is missing accounting lines on one or more items. Are you sure you want to continue?";    
+    public static final String QUESTION_REQUISITON_ROUTE_WITHOUT_ACCOUNTING_LINES = "This document is missing accounting lines on one or more items. Are you sure you want to continue?";
     public static final String REQUISITION_ACCOUNTING_LINES_QUESTION = "RequisitionAccountingLinesQuestion";
     public static final String QUESTION_REMOVE_ACCOUNTS = "question.document.purap.removeAccounts";
     public static final String QUESTION_CLEAR_ALL_COMMODITY_CODES = "question.document.pur.clearCommodityCodes";
@@ -105,7 +105,7 @@ public class PurapConstants {
     public static final String REQ_REASON_NOT_APO = "ORDER ROUTED TO PURCHASING FOR PROCESSING: ";
     public static final String REQ_UNABLE_TO_CREATE_NOTE = "Unable to create a note on this document.";
     public static final String REQ_NO_ACCOUNTING_LINES="message.requisition.no.accounting.lines";
-    
+
     public static final String TRADE_IN_OBJECT_CODE_FOR_CAPITAL_ASSET_OBJECT_SUB_TYPE = "7070";
     public static final String TRADE_IN_OBJECT_CODE_FOR_CAPITAL_LEASE_OBJECT_SUB_TYPE = "7099";
 

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -48,7 +48,7 @@ public class AccountDocumentPresentationController extends FinancialSystemMainte
     @Override
     public Set<String> getConditionallyHiddenPropertyNames(BusinessObject businessObject) {
         Set<String> hiddenPropertyNames = super.getConditionallyHiddenPropertyNames(businessObject);
-        
+
         String sourceOfFundsParmValue = getParameterService().getParameterValueAsString(Account.class, KFSParameterKeyConstants.CoaParameterConstants.DISPLAY_SOURCE_OF_FUNDS_IND);
 
         if (StringUtils.equalsIgnoreCase(sourceOfFundsParmValue, KFSConstants.ParameterValues.YES)) {
@@ -60,43 +60,43 @@ public class AccountDocumentPresentationController extends FinancialSystemMainte
     }
 
     /**
-     * 
+     *
      * @return
      */
     protected Boolean getFridgeBenefitCalculationEnableIndicator(){
         AccountService service = SpringContext.getBean(AccountService.class);
         return service.isFridgeBenefitCalculationEnable();
     }
-    
+
     /**
-     * 
+     *
      * Sets the Labor Benefit Rate Category Code, otherwise leave
      * it read/wrtie.
-     * 
+     *
      * @param readOnlyPropetyNames
      */
     protected void setLaborBenefitRateCategoryCodeEditable(Set<String> readOnlyPropertyNames){
         Boolean isFridgeBenefitCalcEnable = getFridgeBenefitCalculationEnableIndicator();
-        
-        //default null to false, if FridgeBenefitCalculation is NOT enable - makes code not editable 
+
+        //default null to false, if FridgeBenefitCalculation is NOT enable - makes code not editable
         if ( ! isFridgeBenefitCalcEnable ){
             readOnlyPropertyNames.add(KFSPropertyConstants.LABOR_BENEFIT_RATE_CATEGORY_CODE);
         }
     }
-    
+
     /**
-     * 
+     *
      * Hides the Labor Benefit Rate Category Code depending on the system parameter ENABLE_FRINGE_BENEFIT_CALC_BY_BENEFIT_RATE_CATEGORY_IND
-     * 
+     *
      * @param hiddenPropetyNames
      */
     protected void setLaborBenefitRateCategoryCodeHidden(Set<String> hiddenPropertyNames){
         Boolean isFridgeBenefitCalcEnable = getFridgeBenefitCalculationEnableIndicator();
-        
-        //default null to false, if FridgeBenefitCalculation is NOT enable - makes code not editable 
+
+        //default null to false, if FridgeBenefitCalculation is NOT enable - makes code not editable
         if ( ! isFridgeBenefitCalcEnable ){
             hiddenPropertyNames.add(KFSPropertyConstants.LABOR_BENEFIT_RATE_CATEGORY_CODE);
         }
     }
-    
+
 }

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -64,11 +64,11 @@ public class PersistenceServiceOjbImpl extends PersistenceServiceImplBase implem
     private static Logger LOG = Logger.getLogger(PersistenceServiceOjbImpl.class);
     private static final String CLASSPATH_RESOURCE_PREFIX = "classpath:";
     private PersistenceDao persistenceDao;
-    
+
     public void clearCache() {
         persistenceDao.clearCache();
     }
-    
+
     public Object resolveProxy(Object o) {
         return persistenceDao.resolveProxy(o);
     }
@@ -317,7 +317,7 @@ public class PersistenceServiceOjbImpl extends PersistenceServiceImplBase implem
 	 * non-anonymous keys, the value is taken from the parent object. For
 	 * anonymous keys, all other persistableObjects are checked until a value
 	 * for the key is found.
-     * 
+     *
      * @see PersistenceService#getReferencedObject(java.lang.Object,
      *      org.apache.ojb.broker.metadata.ObjectReferenceDescriptor)
      */
@@ -326,7 +326,7 @@ public class PersistenceServiceOjbImpl extends PersistenceServiceImplBase implem
     }
 
     /**
-     * 
+     *
      * @see PersistenceService#allForeignKeyValuesPopulatedForReference(org.kuali.rice.krad.bo.BusinessObject,
      *      java.lang.String)
      */
@@ -412,12 +412,12 @@ public class PersistenceServiceOjbImpl extends PersistenceServiceImplBase implem
                 }
             }
         }
-        
+
         return allFkeysHaveValues;
     }
 
     /**
-     * 
+     *
      * @see PersistenceService#refreshAllNonUpdatingReferences(org.kuali.rice.krad.bo.BusinessObject)
      */
     public void refreshAllNonUpdatingReferences(PersistableBusinessObject bo) {
@@ -466,10 +466,10 @@ public class PersistenceServiceOjbImpl extends PersistenceServiceImplBase implem
 
         return fkValue;
     }
-    
+
     /**
 	 * Asks persistenceDao if this represents a proxy
-	 * 
+	 *
 	 * @see PersistenceService#isProxied(java.lang.Object)
 	 */
 	public boolean isProxied(Object object) {
@@ -483,7 +483,7 @@ public class PersistenceServiceOjbImpl extends PersistenceServiceImplBase implem
 
     /**
      * Sets the persistenceDao attribute value.
-	 * 
+	 *
 	 * @param persistenceDao
 	 *            The persistenceDao to set.
      */

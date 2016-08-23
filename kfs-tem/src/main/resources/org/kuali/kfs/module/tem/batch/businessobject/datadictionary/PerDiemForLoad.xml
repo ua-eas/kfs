@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -45,31 +45,31 @@
 		</list>
 		</property>
 	</bean>
-	
+
 	<bean id="PerDiemForLoad-id" parent="PerDiemForLoad-id-parentBean" />
 	<bean id="PerDiemForLoad-id-parentBean" abstract="true" parent="PerDiem-id"/>
-	
+
 	<bean id="PerDiemForLoad-lineNumber" parent="PerDiemForLoad-lineNumber-parentBean" />
 	<bean id="PerDiemForLoad-lineNumber-parentBean" abstract="true" parent="PerDiem-lineNumber" />
-	
+
 	<bean id="PerDiemForLoad-primaryDestinationId" parent="PerDiemForLoad-primaryDestinationId-parentBean" />
 	<bean id="PerDiemForLoad-primaryDestinationId-parentBean" abstract="true" parent="PerDiem-primaryDestinationId" >
 		<property name="required" value="false" />
 	</bean>
-	
+
 	<bean id="PerDiemForLoad-seasonBeginMonthAndDay" parent="PerDiemForLoad-seasonBeginMonthAndDay-parentBean" />
 	<bean id="PerDiemForLoad-seasonBeginMonthAndDay-parentBean" abstract="true" parent="PerDiem-seasonBeginMonthAndDay">
-		<property name="name" value="seasonBeginMonthAndDay" /> 
+		<property name="name" value="seasonBeginMonthAndDay" />
 	</bean>
-	
+
 	<bean id="PerDiemForLoad-effectiveFromDate" parent="PerDiemForLoad-effectiveFromDate-parentBean" />
 	<bean id="PerDiemForLoad-effectiveFromDate-parentBean" abstract="true" parent="PerDiem-effectiveFromDate" >
-		<property name="required" value="true" />		
+		<property name="required" value="true" />
 	</bean>
-	
+
 	<bean id="PerDiemForLoad-effectiveToDate" parent="PerDiemForLoad-effectiveToDate-parentBean" />
 	<bean id="PerDiemForLoad-effectiveToDate-parentBean" abstract="true" parent="PerDiem-effectiveToDate" />
-	
+
 	<bean id="PerDiemForLoad-breakfast" parent="PerDiemForLoad-breakfast-parentBean" />
 	<bean id="PerDiemForLoad-breakfast-parentBean" abstract="true" parent="PerDiem-breakfast" />
 
@@ -84,22 +84,22 @@
 
 	<bean id="PerDiemForLoad-mealsAndIncidentals" parent="PerDiemForLoad-mealsAndIncidentals-parentBean" />
 	<bean id="PerDiemForLoad-mealsAndIncidentals-parentBean" abstract="true" parent="PerDiem-mealsAndIncidentals" />
-	
+
 	<bean id="PerDiemForLoad-versionNumber" parent="PerDiemForLoad-versionNumber-parentBean" />
 	<bean id="PerDiemForLoad-versionNumber-parentBean" abstract="true" parent="PerDiem-versionNumber" />
-	
+
 	<bean id="PerDiemForLoad-regionNameForReport" parent="PerDiemForLoad-regionNameForReport-parentBean" />
 	<bean id="PerDiemForLoad-regionNameForReport-parentBean" abstract="true" parent="TemRegion-regionName">
 		<property name="name" value="regionNameForReport"/>
 		<property name="required" value="false" />
 	</bean>
-	
+
 	<bean id="PerDiemForLoad-countyForReport" parent="PerDiemForLoad-countyForReport-parentBean" />
 	<bean id="PerDiemForLoad-countyForReport-parentBean" abstract="true" parent="PrimaryDestination-county">
 		<property name="name" value="countyForReport"/>
 		<property name="required" value="false" />
 	</bean>
-	
+
 	<bean id="PerDiemForLoad-primaryDestinationForReport" parent="PerDiemForLoad-primaryDestinationForReport-parentBean" />
 	<bean id="PerDiemForLoad-primaryDestinationForReport-parentBean" abstract="true" parent="PrimaryDestination-primaryDestinationName">
 		<property name="name" value="primaryDestinationForReport"/>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -82,7 +82,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
 
     /**
      * Adds check for accountingLine updates, generates and dispatches any events caused by such updates
-     * 
+     *
      * @see org.apache.struts.action.Action#execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm,
      *      javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
@@ -108,7 +108,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
 
     /**
      * All document-load operations get routed through here
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#loadDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
      */
     @Override
@@ -127,7 +127,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
 
     /**
      * Needed to override this to keep from losing Sales Tax information
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#refresh(org.apache.struts.action.ActionMapping,
      *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
@@ -141,7 +141,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
 
     /**
      * Needed to override this to keep from losing Sales Tax information
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#toggleTab(org.apache.struts.action.ActionMapping,
      *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
@@ -184,7 +184,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     protected void processAccountingLineOverrides(AccountingLine line) {
         processAccountingLineOverrides(Arrays.asList(new AccountingLine[] { line }));
     }
-    
+
     protected void processAccountingLineOverrides(List accountingLines) {
         processAccountingLineOverrides(null,accountingLines);
     }
@@ -193,7 +193,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
      */
     protected void processAccountingLineOverrides(AccountingDocument financialDocument ,List accountingLines) {
         if (!accountingLines.isEmpty()) {
-            
+
 
             for (Iterator i = accountingLines.iterator(); i.hasNext();) {
                 AccountingLine line = (AccountingLine) i.next();
@@ -236,12 +236,12 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
         }
     }
 
-   
+
 
     /**
      * This method will remove a TargetAccountingLine from a FinancialDocument. This assumes that the user presses the delete button
      * for a specific accounting line on the document and that the document is represented by a FinancialDocumentFormBase.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -271,7 +271,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     /**
      * This method will remove a SourceAccountingLine from a FinancialDocument. This assumes that the user presses the delete button
      * for a specific accounting line on the document and that the document is represented by a FinancialDocumentFormBase.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -302,7 +302,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     /**
      * Deletes the source or target accountingLine with the given index from the given form. Assumes that the rule- and form-
      * validation have already occurred.
-     * 
+     *
      * @param isSource
      * @param financialDocumentForm
      * @param deleteIndex
@@ -329,7 +329,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     /**
      * This action executes a call to upload CSV accounting line values as TargetAccountingLines for a given transactional document.
      * The "uploadAccountingLines()" method handles the multi-part request.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -349,7 +349,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     /**
      * This action executes a call to upload CSV accounting line values as SourceAccountingLines for a given transactional document.
      * The "uploadAccountingLines()" method handles the multi-part request.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -369,7 +369,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     /**
      * This method determines whether we are uploading source or target lines, and then calls uploadAccountingLines directly on the
      * document object. This method handles retrieving the actual upload file as an input stream into the document.
-     * 
+     *
      * @param isSource
      * @param form
      * @throws FileNotFoundException
@@ -422,7 +422,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
      * This method will add a TargetAccountingLine to a FinancialDocument. This assumes that the user presses the add button for a
      * specific accounting line on the document and that the document is represented by a FinancialDocumentFormBase. It first
      * validates the line for data integrity and then checks appropriate business rules.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -433,10 +433,10 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     public ActionForward insertTargetLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         KualiAccountingDocumentFormBase financialDocumentForm = (KualiAccountingDocumentFormBase) form;
         TargetAccountingLine line = financialDocumentForm.getNewTargetLine();
-        
+
         // populate chartOfAccountsCode from account number if accounts cant cross chart and Javascript is turned off
         //SpringContext.getBean(AccountService.class).populateAccountingLineChartIfNeeded(line);
-        
+
         boolean rulePassed = true;
         // before we check the regular rules we need to check the sales tax rules
         // TODO: Refactor rules so we no longer have to call this before a copy of the
@@ -463,7 +463,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     /**
      * This action executes an insert of a SourceAccountingLine into a document only after validating the accounting line and
      * checking any appropriate business rules.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -472,12 +472,12 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
      * @throws Exception
      */
     public ActionForward insertSourceLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        KualiAccountingDocumentFormBase financialDocumentForm = (KualiAccountingDocumentFormBase) form;       
+        KualiAccountingDocumentFormBase financialDocumentForm = (KualiAccountingDocumentFormBase) form;
         SourceAccountingLine line = financialDocumentForm.getNewSourceLine();
-        
+
         // populate chartOfAccountsCode from account number if accounts cant cross chart and Javascript is turned off
         //SpringContext.getBean(AccountService.class).populateAccountingLineChartIfNeeded(line);
-        
+
         boolean rulePassed = true;
         // before we check the regular rules we need to check the sales tax rules
         // TODO: Refactor rules so we no longer have to call this before a copy of the
@@ -500,7 +500,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
 
     /**
      * Adds the given accountingLine to the appropriate form-related data structures.
-     * 
+     *
      * @param isSource
      * @param financialDocumentForm
      * @param line
@@ -548,7 +548,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     /**
      * This action changes the value of the hide field in the user interface so that when the page is rendered, the UI knows to show
      * all of the labels for each of the accounting line values.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -565,7 +565,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     /**
      * This method is triggered when the user toggles the show/hide button to "hide" thus making the UI render without any of the
      * accounting line labels/descriptions showing up underneath the values in the UI.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -582,7 +582,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     /**
      * Takes care of storing the action form in the User session and forwarding to the balance inquiry report menu action for a
      * source accounting line.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -598,7 +598,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     /**
      * Takes care of storing the action form in the User session and forwarding to the balance inquiry report menu action for a
      * target accounting line.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -619,7 +619,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
      * that we can override this method in some of the modules. PurchasingActionBase is one of the subclasses that will be
      * overriding this, because in PurchasingActionBase, we'll need to get the source accounting line using both an item index and
      * an account index.
-     * 
+     *
      * @param form
      * @param request
      * @param isSource
@@ -641,7 +641,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     /**
      * This method handles preparing all of the accounting line data so that it can be pushed up to the balance inquiries for
      * populating the search criteria of each.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -718,7 +718,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     /**
      * A hook so that most accounting lines - which don't have object types - can have their object type codes used in balance
      * inquiries
-     * 
+     *
      * @param line the line to get the object type code from
      * @return the object type code the line would use
      */
@@ -771,7 +771,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
 
         checkSalesTaxRequiredAllLines(tmpForm, tmpForm.getFinancialDocument().getSourceAccountingLines());
         checkSalesTaxRequiredAllLines(tmpForm, tmpForm.getFinancialDocument().getTargetAccountingLines());
-        
+
         ActionForward forward = super.blanketApprove(mapping, form, request, response);
 
         return forward;
@@ -779,7 +779,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
 
     /**
      * Encapsulate the rule check so we can call it from multiple places
-     * 
+     *
      * @param document
      * @param line
      * @return true if sales is either not required or it contains sales tax
@@ -804,7 +804,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
      * require sales tax If it does then it returns true. Note - this is hackish as we shouldn't have to call rules directly from
      * the action class But we need to in this instance because we are copying the lines before calling rules and need a way to
      * modify them before they go on
-     * 
+     *
      * @param accountingLine
      * @return true if sales tax check is needed, false otherwise
      */
@@ -841,7 +841,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
 
     /**
      * This method checks to see if the sales tax information was put into the accounting line
-     * 
+     *
      * @param accountingLine
      * @return true if entered correctly, false otherwise
      */
@@ -910,7 +910,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
 
     /**
      * This method removes the sales tax information from a line that no longer requires it
-     * 
+     *
      * @param accountingLine
      */
     protected void removeSalesTax(AccountingLine accountingLine) {
@@ -926,7 +926,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
      * line If it doesn't and it has it then it removes the sales tax information from the line This method is called from the
      * execute() on all accounting lines that have been edited or lines that have already been added to the document, not on new
      * lines
-     * 
+     *
      * @param transDoc
      * @param formLine
      * @param baseLine
@@ -942,7 +942,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
             removeSalesTax(formLine);
             formLine.setSalesTax(null);
         }
-        
+
         if (!salesTaxRequired) {
             formLine.setSalesTax(null);
         }
@@ -977,7 +977,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     /**
      * This method is called from the createDocument and processes through all the accouting lines and checks to see if they need
      * sales tax fields
-     * 
+     *
      * @param kualiDocumentFormBase
      * @param baselineSourceLines
      */
@@ -1013,7 +1013,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     /**
      * This method refreshes the sales tax fields on a refresh or tab toggle so that all the information that was there before is
      * still there after a state change
-     * 
+     *
      * @param form
      */
     protected void refreshSalesTaxInfo(ActionForm form) {
@@ -1037,7 +1037,7 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
     /**
      * This method populates the sales tax for a given accounting line with the appropriate primary key fields from the accounting
      * line since OJB won't do it automatically for us
-     * 
+     *
      * @param line
      */
     protected void populateSalesTax(AccountingLine line) {
@@ -1065,5 +1065,5 @@ public class KualiAccountingDocumentActionBase extends FinancialSystemTransactio
 
         return new ActionForward(path, true);
     }
-    
+
 }

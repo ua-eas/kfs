@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -226,10 +226,10 @@ public class DataDictionaryTypeServiceBase implements KimTypeService {
 	protected List<RemotableAttributeError> validateReferencesExistAndActive( KimType kimType, Map<String, String> attributes, List<RemotableAttributeError> previousValidationErrors) {
 		Map<String, BusinessObject> componentClassInstances = new HashMap<String, BusinessObject>();
 		List<RemotableAttributeError> errors = new ArrayList<RemotableAttributeError>();
-		
+
 		for ( String attributeName : attributes.keySet() ) {
 			KimTypeAttribute attr = kimType.getAttributeDefinitionByName(attributeName);
-			
+
 			if (StringUtils.isNotBlank(attr.getKimAttribute().getComponentName())) {
 				if (!componentClassInstances.containsKey(attr.getKimAttribute().getComponentName())) {
 					try {
@@ -246,7 +246,7 @@ public class DataDictionaryTypeServiceBase implements KimTypeService {
 				}
 			}
 		}
-		
+
 		// now that we have instances for each component class, try to populate them with any attribute we can, assuming there were no other validation errors associated with it
 		for ( Map.Entry<String, String> entry : attributes.entrySet() ) {
 			if (!RemotableAttributeError.containsAttribute(entry.getKey(), previousValidationErrors)) {
@@ -261,26 +261,26 @@ public class DataDictionaryTypeServiceBase implements KimTypeService {
 				}
 			}
 		}
-		
+
 		for (Map.Entry<String, BusinessObject> entry : componentClassInstances.entrySet()) {
 			List<RelationshipDefinition> relationships = getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(entry.getKey()).getRelationships();
 			if (relationships == null) {
 				continue;
 			}
-			
+
 			for (RelationshipDefinition relationshipDefinition : relationships) {
 				List<PrimitiveAttributeDefinition> primitiveAttributes = relationshipDefinition.getPrimitiveAttributes();
-				
+
 				// this code assumes that the last defined primitiveAttribute is the attributeToHighlightOnFail
 				String attributeToHighlightOnFail = primitiveAttributes.get(primitiveAttributes.size() - 1).getSourceName();
-				
+
 				// TODO: will this work for user ID attributes?
-				
+
 				if (!attributes.containsKey(attributeToHighlightOnFail)) {
 					// if the attribute to highlight wasn't passed in, don't bother validating
 					continue;
 				}
-				
+
 
 				KimTypeAttribute attr = kimType.getAttributeDefinitionByName(attributeToHighlightOnFail);
 				if (attr != null) {
@@ -302,14 +302,14 @@ public class DataDictionaryTypeServiceBase implements KimTypeService {
 		}
 		return errors;
 	}
-	
+
     protected List<RemotableAttributeError> validateAttributeRequired(String kimTypeId, String objectClassName, String attributeName, Object attributeValue, String errorKey) {
         List<RemotableAttributeError> errors = new ArrayList<RemotableAttributeError>();
         // check if field is a required field for the business object
         if (attributeValue == null || (attributeValue instanceof String && StringUtils.isBlank((String) attributeValue))) {
         	List<KimAttributeField> map = getAttributeDefinitions(kimTypeId);
         	KimAttributeField definition = DataDictionaryTypeServiceHelper.findAttributeField(attributeName, map);
-        	
+
             boolean required = definition.getAttributeField().isRequired();
             if (required) {
                 // get label of attribute for message
@@ -320,7 +320,7 @@ public class DataDictionaryTypeServiceBase implements KimTypeService {
         }
         return errors;
     }
-    
+
 	protected List<RemotableAttributeError> validateDataDictionaryAttribute(String kimTypeId, String entryName, Object object, PropertyDescriptor propertyDescriptor) {
 		return validatePrimitiveFromDescriptor(kimTypeId, entryName, object, propertyDescriptor);
 	}
@@ -348,7 +348,7 @@ public class DataDictionaryTypeServiceBase implements KimTypeService {
         }
         return errors;
     }
-    
+
     protected Pattern getAttributeValidatingExpression(KimAttributeField definition) {
         if (definition == null || StringUtils.isBlank(definition.getAttributeField().getRegexConstraint())) {
             return ANY_CHAR_PATTERN;
@@ -356,7 +356,7 @@ public class DataDictionaryTypeServiceBase implements KimTypeService {
 
         return Pattern.compile(definition.getAttributeField().getRegexConstraint());
      }
-    
+
 	protected Formatter getAttributeFormatter(KimAttributeField definition) {
         if (definition.getAttributeField().getDataType() == null) {
             return null;
@@ -364,9 +364,9 @@ public class DataDictionaryTypeServiceBase implements KimTypeService {
 
         return Formatter.getFormatter(definition.getAttributeField().getDataType().getType());
     }
-    
 
-    
+
+
 	protected Double getAttributeMinValue(KimAttributeField definition) {
         return definition == null ? null : definition.getAttributeField().getMinValue();
     }
@@ -374,14 +374,14 @@ public class DataDictionaryTypeServiceBase implements KimTypeService {
 	protected Double getAttributeMaxValue(KimAttributeField definition) {
         return definition == null ? null : definition.getAttributeField().getMaxValue();
     }
-	
+
     protected List<RemotableAttributeError> validateAttributeFormat(String kimTypeId, String objectClassName, String attributeName, String attributeValue, String errorKey) {
     	List<RemotableAttributeError> errors = new ArrayList<RemotableAttributeError>();
 
         List<KimAttributeField> attributeDefinitions = getAttributeDefinitions(kimTypeId);
     	KimAttributeField definition = DataDictionaryTypeServiceHelper.findAttributeField(attributeName,
                 attributeDefinitions);
-    	
+
         String errorLabel = DataDictionaryTypeServiceHelper.getAttributeErrorLabel(definition);
 
         if ( LOG.isDebugEnabled() ) {
@@ -510,7 +510,7 @@ public class DataDictionaryTypeServiceBase implements KimTypeService {
 	/**
 	 * @param namespaceCode
 	 * @param typeAttribute
-	 * @return an AttributeDefinition for the given KimTypeAttribute, or null no base AttributeDefinition 
+	 * @return an AttributeDefinition for the given KimTypeAttribute, or null no base AttributeDefinition
 	 * matches the typeAttribute parameter's attributeName.
 	 */
 	protected KimAttributeField getDataDictionaryAttributeDefinition( String namespaceCode, String kimTypeId, KimTypeAttribute typeAttribute, List<String> uniqueAttributes) {
@@ -642,7 +642,7 @@ public class DataDictionaryTypeServiceBase implements KimTypeService {
 		List<String> missingAttributes = new ArrayList<String>();
 		// if attributes are null or empty, they're all missing
 		if ( receivedAttributes == null || receivedAttributes.isEmpty() ) {
-			return;		
+			return;
 		} else {
 			for( String requiredAttribute : getRequiredAttributes() ) {
 				if( !receivedAttributes.containsKey(requiredAttribute) ) {
@@ -694,7 +694,7 @@ public class DataDictionaryTypeServiceBase implements KimTypeService {
 		}
 		return Collections.emptyList();
 	}
-	
+
 	protected boolean areAttributesEqual(List<String> uniqueAttributeNames, Map<String, String> aSet1, Map<String, String> aSet2){
 		StringValueComparator comparator = StringValueComparator.getInstance();
 		for(String uniqueAttributeName: uniqueAttributeNames){
@@ -779,12 +779,12 @@ public class DataDictionaryTypeServiceBase implements KimTypeService {
 		}
 		if (potentialParentDocumentTypeNames.contains(documentType.getName())) {
 			return documentType.getName();
-		} 
+		}
 		if ((documentType.getParentId() == null)
 				|| documentType.getParentId().equals(
 						documentType.getId())) {
 			return null;
-		} 
+		}
 		return getClosestParentDocumentTypeName(getDocumentTypeService().getDocumentTypeById(documentType
 				.getParentId()), potentialParentDocumentTypeNames);
 	}

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -55,7 +55,7 @@ public class CashDrawerLookupableHelperServiceImpl extends KualiLookupableHelper
     }
 
     /**
-     * 
+     *
      * @param cashDrawer
      * @return
      */
@@ -66,7 +66,7 @@ public class CashDrawerLookupableHelperServiceImpl extends KualiLookupableHelper
     }
 
     /**
-     * Overridden to see if the current user already has a cash drawer created associated with their campus - if 
+     * Overridden to see if the current user already has a cash drawer created associated with their campus - if
      * there is a cash drawer already, then no new or copy is allowed
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#allowsMaintenanceNewOrCopyAction()
      */
@@ -74,7 +74,7 @@ public class CashDrawerLookupableHelperServiceImpl extends KualiLookupableHelper
     public boolean allowsMaintenanceNewOrCopyAction() {
         final String currentUserCampus = cashReceiptService.getCashReceiptVerificationUnitForUser(GlobalVariables.getUserSession().getPerson());
         final CashDrawer cashDrawer = cashDrawerService.getByCampusCode(currentUserCampus);
-        
+
         if (cashDrawer != null) return false;
         return super.allowsMaintenanceNewOrCopyAction();
     }

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -66,7 +66,7 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
      * @param fieldValues the field values of the query to carry out
      * @return List the search results returned by the lookup
      * @see org.kuali.rice.kns.lookup.Lookupable#getSearchResults(java.util.Map)
-     * 
+     *
      * KRAD Conversion: Lookupable modifies the search results based on the fields consolidated.
      * But all field definitions are in data dictionary.
      */
@@ -77,19 +77,19 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
 
         // get the pending entry option. This method must be prior to the get search results
         String pendingEntryOption = this.getSelectedPendingEntryOption(fieldValues);
-        
+
         // KFSMI-410: need to get this before getting isConsolidated because this value will be removed.
         String consolidationOption = (String) fieldValues.get(GeneralLedgerConstants.DummyBusinessObject.CONSOLIDATION_OPTION);
-        
+
         // test if the consolidation option is selected or not
         boolean isConsolidated = isConsolidationSelected(fieldValues);
-     
+
         // KFSMI-410: added one more node for consolidationOption
         if (consolidationOption.equals(Constant.EXCLUDE_SUBACCOUNTS)){
             fieldValues.put(Constant.SUB_ACCOUNT_OPTION, KFSConstants.getDashSubAccountNumber());
             isConsolidated = false;
-        } 
-       
+        }
+
         // get Amount View Option and determine if the results has to be accumulated
         String amountViewOption = getSelectedAmountViewOption(fieldValues);
         boolean isAccumulated = amountViewOption.equals(Constant.ACCUMULATE);
@@ -113,7 +113,7 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
 
     /**
      * This method builds the balance collection based on the input iterator
-     * 
+     *
      * @param iterator the iterator of search results of balance
      * @param isConsolidated determine if the consolidated result is desired
      * @param pendingEntryOption the given pending entry option that can be no, approved or all
@@ -133,7 +133,7 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
 
     /**
      * This method builds the balance collection with consolidation option from an iterator
-     * 
+     *
      * @param iterator th iterator of balance results
      * @param pendingEntryOption the selected pending entry option
      * @return the consolidated balance collection
@@ -192,7 +192,7 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
 
     /**
      * This method builds the balance collection with detail option from an iterator
-     * 
+     *
      * @param iterator the balance iterator
      * @param pendingEntryOption the selected pending entry option
      * @return the detailed balance collection
@@ -213,7 +213,7 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
 
     /**
      * This method updates the balance collection with accumulated amounts if required (isAccumulated is true)
-     * 
+     *
      * @param balanceCollection the balance collection to be updated
      * @param isAccumulated determine if the accumulated result is desired
      */
@@ -229,7 +229,7 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
 
     /**
      * This method computes the accumulate amount of the given balance and updates its fields
-     * 
+     *
      * @param balance the given balance object
      * @param isAccumulated determine if the accumulated result is desired
      */
@@ -295,7 +295,7 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
 
     /**
      * This method converts the amount from String and adds it with the input addend
-     * 
+     *
      * @param stringAugend a String-type augend
      * @param addend an addend
      * @param isAccumulated determine if the accumulated result is desired
@@ -312,7 +312,7 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
 
     /**
      * Updates pending entries before their results are included in the lookup results
-     * 
+     *
      * @param entryCollection a collection of balance entries
      * @param fieldValues the map containing the search fields and values
      * @param isApproved flag whether the approved entries or all entries will be processed
@@ -350,7 +350,7 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
 
     /**
      * Sets the postBalance attribute value.
-     * 
+     *
      * @param postBalance The postBalance to set.
      */
     public void setPostBalance(BalanceCalculator postBalance) {
@@ -359,7 +359,7 @@ public class BalanceLookupableHelperServiceImpl extends AbstractGeneralLedgerLoo
 
     /**
      * Sets the balanceService attribute value.
-     * 
+     *
      * @param balanceService The balanceService to set.
      */
     public void setBalanceService(BalanceService balanceService) {

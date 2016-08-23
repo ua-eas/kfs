@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -78,7 +78,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
     protected String getDefaultDocumentTypeName() {
         return EffortConstants.EffortDocumentTypes.EFFORT_CERTIFICATION_DOCUMENT;
     }
-    
+
     /**
      * initialize a new detail line
      * @return the initialized detail line
@@ -101,7 +101,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * Sets the new detail line
-     * 
+     *
      * @param newDetailLine
      */
     public void setNewDetailLine(EffortCertificationDetail newDetailLine) {
@@ -110,7 +110,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * Gets the effortCertificationDocument attribute.
-     * 
+     *
      * @return Returns the effortCertificationDocument.
      */
     public EffortCertificationDocument getEffortCertificationDocument() {
@@ -131,7 +131,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * Gets the detailLines attribute.
-     * 
+     *
      * @return Returns the detailLines.
      */
     public List<EffortCertificationDetail> getDetailLines() {
@@ -141,7 +141,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * get the relationship metadata for the detail line fields
-     * 
+     *
      * @return the relationship metadata for the detail line fields
      */
     public Map<String, DataObjectRelationship> getRelationshipMetadata() {
@@ -164,7 +164,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * Gets the inquiryUrl attribute.
-     * 
+     *
      * @return Returns the inquiryUrl for the detail lines in the document.
      */
     public List<Map<String, HtmlData>> getDetailLineFieldInquiryUrl() {
@@ -175,7 +175,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * Gets the fieldInfo attribute.
-     * 
+     *
      * @return Returns the fieldInfo.
      */
     public List<Map<String, String>> getFieldInfo() {
@@ -187,7 +187,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
     /**
      * pick up the primitive relationship for an attribute from a set of relationships. Generally, the primitive relationship is
      * that has the minimum number of primary keys.
-     * 
+     *
      * @param relationshipMetadata the relationship metadata that contains the primitive relationship
      * @return the primitive relationship for an attribute from a set of relationships.
      */
@@ -209,7 +209,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * Gets the inquiryUrl attribute.
-     * 
+     *
      * @return Returns the inquiryUrl for the detail lines in the document.
      */
     protected List<Map<String, HtmlData>> getDetailLineFieldInquiryUrl(List<EffortCertificationDetail> detailLines) {
@@ -221,9 +221,9 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
         List<Map<String, HtmlData>> inquiryURL = new ArrayList<Map<String, HtmlData>>();
         for (EffortCertificationDetail detailLine : detailLines) {
             detailLine.refreshNonUpdateableReferences();
-            
-            Map<String, HtmlData> inquiryURLForAttribute = new HashMap<String, HtmlData>();            
-            for (String attributeName : this.getInquirableFieldNames()) {                
+
+            Map<String, HtmlData> inquiryURLForAttribute = new HashMap<String, HtmlData>();
+            for (String attributeName : this.getInquirableFieldNames()) {
                 // exclude the non inquirable field values
                 Object attributeValue = ObjectUtils.getPropertyValue(detailLine, attributeName);
                 String noninquirableFieldValue = noninquirableFieldValues.get(attributeName);
@@ -250,7 +250,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * get the inquiry URL for the specified attribute
-     * 
+     *
      * @param detailLine the detail line containing the given attribute
      * @param attributeName the specified attribute name
      * @return the inquiry URL for the specified attribute
@@ -261,16 +261,16 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
             inquiryHref.setHref(this.getCompleteURL(inquiryHref.getHref()));
             return inquiryHref;
         }
-        
+
         AnchorHtmlData inquiryHref = (AnchorHtmlData) getInquirable().getInquiryUrl(detailLine, attributeName, false);
         inquiryHref.setHref(this.getCompleteURL(inquiryHref.getHref()));
 
         return inquiryHref;
     }
-    
+
     /**
      * Gets the inquirableFieldNames attribute.
-     * 
+     *
      * @return Returns the inquirableFieldNames.
      */
     public Map<String, String> getNoninquirableFieldValues() {
@@ -288,7 +288,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * Gets the inquirableFieldNames attribute.
-     * 
+     *
      * @return Returns the inquirableFieldNames.
      */
     public List<String> getInquirableFieldNames() {
@@ -311,12 +311,12 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * get the inquirable field names that need to be handled specially
-     * 
+     *
      * @return the inquirable field names that need to be handled specially
      */
     public List<String> getCustomizedInquirableFieldNames() {
         List<String> inquirableFieldNames = new ArrayList<String>();
-        
+
         inquirableFieldNames.add(KFSPropertyConstants.POSITION_NUMBER);
         inquirableFieldNames.add(EffortPropertyConstants.EFFORT_CERTIFICATION_ORIGINAL_PAYROLL_AMOUNT);
         inquirableFieldNames.add(EffortPropertyConstants.EFFORT_CERTIFICATION_PAYROLL_AMOUNT);
@@ -326,7 +326,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * append the extract query string into the given base URL
-     * 
+     *
      * @param baseURL the given base URL. If the parameter is blank, the base URL won't be changed
      * @return the complete URL built from the given base URL and extra query strings
      */
@@ -350,11 +350,11 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
         return completeURL.concat(queryString.toString());
     }
-    
-   
+
+
     /**
      * Gets the fieldInfo attribute.
-     * 
+     *
      * @return Returns the fieldInfo.
      */
     protected Map<String, String> getFieldInfo(EffortCertificationDetail detailLine) {
@@ -364,11 +364,11 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
         EffortCertificationDocument document = (EffortCertificationDocument) this.getDocument();
         KualiDecimal totalOriginalPayrollAmount = document.getTotalOriginalPayrollAmount();
 
-        
+
             detailLine.refreshNonUpdateableReferences();
 
             Map<String, String> fieldInfoForAttribute = new HashMap<String, String>();
-            
+
             fieldInfoForAttribute.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, ObjectUtils.isNotNull(detailLine.getChartOfAccounts())? detailLine.getChartOfAccounts().getFinChartOfAccountDescription(): "");
 
             String accountInfo = buildAccountInfo(detailLine.getAccount());
@@ -399,14 +399,14 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
             fieldInfoForAttribute.put(EffortPropertyConstants.EFFORT_CERTIFICATION_CALCULATED_OVERALL_PERCENT, actualOriginalPercent);
 
             //fieldInfo.add(fieldInfoForAttribute);
-        
+
 
         return fieldInfoForAttribute;
     }
-    
+
     /**
      * Gets the fieldInfo attribute.
-     * 
+     *
      * @return Returns the fieldInfo.
      */
     public Map<String, String> getDetailLineFieldInfo() {
@@ -414,10 +414,10 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
         return this.getFieldInfo(this.getNewDetailLine());
     }
-    
+
     /**
      * Gets the fieldInfo attribute.
-     * 
+     *
      * @return Returns the fieldInfo.
      */
     protected List<Map<String, String>> getFieldInfo(List<EffortCertificationDetail> detailLines) {
@@ -466,11 +466,11 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
         return fieldInfo;
     }
-    
-  
+
+
     /**
      * get the inquirable implmentation
-     * 
+     *
      * @return the inquirable implmentation
      */
     protected Inquirable getInquirable() {
@@ -479,17 +479,17 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * get the EffortPositionDataDetailsInquirableImpl implmentation
-     * 
+     *
      * @return the EffortPositionDataDetailsInquirableImpl implmentation
      */
     protected EffortPositionDataDetailsInquirableImpl getEffortPositionDataDetailsInquirableImpl() {
         return new EffortPositionDataDetailsInquirableImpl();
     }
-    
+
     /**
      * build the descriptive information of the given account. The information includes account name and project director's name if
      * any
-     * 
+     *
      * @param chartOfAccountsCode the given chart of accounts code
      * @param accountNumber the given account number
      * @return the descriptive information of the given account
@@ -516,7 +516,7 @@ public class EffortCertificationForm extends FinancialSystemTransactionalDocumen
 
     /**
      * load the descriptive information of the given account. This method is used by DWR.
-     * 
+     *
      * @param chartOfAccountsCode the given chart of accounts code
      * @param accountNumber the given account number
      * @return the descriptive information of the given account

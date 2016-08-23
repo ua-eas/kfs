@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -122,7 +122,7 @@ public class CamsPropertyConstants {
         public static final String SUB_ACCOUNT_NUMBER = "subAccountNumber";
         public static final String OBJECT_CODE = "financialObjectCode";
         public static final String FINANCIAL_OBJECT = "financialObject";
-        public static final String OBJECT_CODE_CURRENT ="objectCodeCurrent"; 
+        public static final String OBJECT_CODE_CURRENT ="objectCodeCurrent";
         public static final String SUB_OBJECT_CODE = "financialSubObjectCode";
         public static final String OBJECT_TYPE_CODE = "financialObject.financialObjectTypeCode";
         public static final String PROJECT_CODE = "projectCode";
@@ -405,7 +405,7 @@ public class CamsPropertyConstants {
         public static final String DOCUMENT_NUMBER = "documentNumber";
     }
 
-    public static class AssetPaymentAllocation {    	
+    public static class AssetPaymentAllocation {
     	public static final String ASSET_DISTRIBUTION_BY_AMOUNT_CODE = "1";
     	public static final String ASSET_DISTRIBUTION_EVENLY_CODE = "2";
     	public static final String ASSET_DISTRIBUTION_BY_TOTAL_COST_CODE = "3";

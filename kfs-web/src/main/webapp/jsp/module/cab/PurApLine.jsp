@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -25,7 +25,7 @@
 </script>
 
 <kul:page showDocumentInfo="false" htmlFormAction="cabPurApLine" renderMultipart="true"
-	showTabButtons="true" docTitle="Purchasing / Accounts Payable Transactions" 
+	showTabButtons="true" docTitle="Purchasing / Accounts Payable Transactions"
 	transactionalDocument="false" headerDispatch="true" headerTabActive="true"
 	sessionDocument="false" headerMenuBar="" feedbackKey="true" defaultMethodToCall="refresh" >
 	<kul:tabTop tabTitle="Purchase Order Processing" defaultOpen="true">
@@ -39,7 +39,7 @@
         			<td class="grid" width="75%">
         				<c:choose>
         				<c:when test="${!empty KualiForm.purchaseOrderInquiryUrl }">
-							<a href="${ConfigProperties.application.url}/${KualiForm.purchaseOrderInquiryUrl }" target="_blank"> 
+							<a href="${ConfigProperties.application.url}/${KualiForm.purchaseOrderInquiryUrl }" target="_blank">
 								${KualiForm.purchaseOrderIdentifier}
 							</a>
 						</c:when>
@@ -47,13 +47,13 @@
 							${KualiForm.purchaseOrderIdentifier}&nbsp;
 						</c:otherwise>
 						</c:choose>
-        			</td>								
+        			</td>
     			</tr>
     			<tr>
    					<th class="grid right" width="25%">
 						<kul:htmlAttributeLabel attributeEntry="${cabPurApDocumentAttributes.purApContactEmailAddress}" readOnly="true" />
 					</th>
-        			<td class="grid" width="75%">${KualiForm.purApContactEmailAddress}</td>								
+        			<td class="grid" width="75%">${KualiForm.purApContactEmailAddress}</td>
     			</tr>
     			<tr>
    					<th class="grid right" width="25%">
@@ -64,7 +64,7 @@
     		</table>
 		</div>
 	</kul:tabTop>
-	
+
 	<c:set var="readOnly" value="true" />
 	<c:forEach items="${KualiForm.purApDocs}" var="purApDoc" >
 		<c:forEach items="${purApDoc.purchasingAccountsPayableItemAssets}" var="assetLine" >
@@ -73,7 +73,7 @@
 			</c:if>
 		</c:forEach>
 	</c:forEach>
-	
+
 	<cab:purApItemLines activeIndicator="true" title="Active Line Items" defaultOpen="true" tabErrorKey="purApDocs*,merge*" readOnly="${readOnly}"/>
 	<cab:purApItemLines activeIndicator="false" title="Submitted Line Items" defaultOpen="false"/>
 

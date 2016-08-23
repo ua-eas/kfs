@@ -1,17 +1,20 @@
 /*
- * Copyright 2005-2015 The Kuali Foundation
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Licensed under the Educational Community License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Copyright 2005-2016 The Kuali Foundation
  *
- * http://www.opensource.org/licenses/ecl2.php
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 // keep form fields in view as you tab down through form when form buttons are sticky
@@ -56,9 +59,9 @@ function doToAllTabs(func, formId) {
 	if (!formId) {
 		formId = 'kualiForm';
 	}
-	
+
 	for (var x in elements) {
-		if (elements[x].id && elements[x].id.substring(0, 4) === 'tab-' 
+		if (elements[x].id && elements[x].id.substring(0, 4) === 'tab-'
 			&& elements[x].id.substring(elements[x].id.length - 4, elements[x].id.length) === '-div') {
 			func(document, formId, elements[x].id.substring(4, elements[x].id.length - 4));
 		}
@@ -70,7 +73,7 @@ function showTab(doc, formId, tabKey) {
     if (!doc.getElementById('tab-' + tabKey + '-div') || !doc.getElementById('tab-' + tabKey + '-imageToggle')) {
 		return false;
 	}
-	
+
     // replaced 'block' with '' to make budgetExpensesRow.tag happy.
     doc.getElementById('tab-' + tabKey + '-div').style.display = '';
     doc.getElementById(formId).elements['tabStates(' + tabKey + ')'].value = 'OPEN';
@@ -125,7 +128,7 @@ function hasFormAlreadyBeenSubmitted() {
 		// do nothing - don't want to stop submit
 	}
 
-	if ( document.getElementById( "formComplete" ) ) { 
+	if ( document.getElementById( "formComplete" ) ) {
 	    if (formHasAlreadyBeenSubmitted && !excludeSubmitRestriction) {
 	       alert("Page already being processed by the server.");
 	       return false;
@@ -137,10 +140,10 @@ function hasFormAlreadyBeenSubmitted() {
     } else {
 	       alert("Page has not finished loading.");
 	       return false;
-	} 
+	}
 }
 
-// Called when we want to submit the form from a field event and 
+// Called when we want to submit the form from a field event and
 // want focus to be placed on the next field according to the current tab order
 // when the page refreshes
 function setFieldToFocusAndSubmit(triggerElement) {
@@ -158,15 +161,15 @@ function setFieldToFocusAndSubmit(triggerElement) {
 		       	    else {
 				       nextTabField = field.elements[i];
 			        }
-				}	
+				}
 			}
-	
+
 	        if (nextTabField) {
 	        	document.forms[0].fieldNameToFocusOnAfterSubmit.value = nextTabField.name;
 	        }
-		}	
+		}
 	}
-	
+
     document.forms[0].submit();
 }
 
@@ -181,18 +184,18 @@ function resetScrollPosition() {
 
 function saveScrollPosition() {
 	if ( document.forms[0].formKey ) {
-		// KULRICE-8292: Timeout issues across servers (3535) 
+		// KULRICE-8292: Timeout issues across servers (3535)
 		scrollPositionKey = document.forms[0].formKey.value % 20;
-		
-		if( document.documentElement ) { 
-			x = Math.max(parent.document.documentElement.scrollLeft, parent.document.body.scrollLeft); 
-		  	y = Math.max(parent.document.documentElement.scrollTop, parent.document.body.scrollTop); 
-		} else if( document.body && typeof document.body.scrollTop != "undefined" ) { 
-			x = parent.document.body.scrollLeft; 
-		  	y = parent.document.body.scrollTop; 
-		} else if ( typeof window.pageXOffset != "undefined" ) { 
-			x = parent.window.pageXOffset; 
-		  	y = parent.window.pageYOffset; 
+
+		if( document.documentElement ) {
+			x = Math.max(parent.document.documentElement.scrollLeft, parent.document.body.scrollLeft);
+		  	y = Math.max(parent.document.documentElement.scrollTop, parent.document.body.scrollTop);
+		} else if( document.body && typeof document.body.scrollTop != "undefined" ) {
+			x = parent.document.body.scrollLeft;
+		  	y = parent.document.body.scrollTop;
+		} else if ( typeof window.pageXOffset != "undefined" ) {
+			x = parent.window.pageXOffset;
+		  	y = parent.window.pageYOffset;
 		}
 
 		// IE does not send cookies to document.cookie if the path is set to a filename.
@@ -210,9 +213,9 @@ function saveScrollPosition() {
 
 function restoreScrollPosition() {
     if ( document.forms.length > 0 && document.forms[0].formKey ) {
-    	// KULRICE-8292: Timeout issues across servers (3535) 
+    	// KULRICE-8292: Timeout issues across servers (3535)
     	scrollPositionKey = document.forms[0].formKey.value % 20;
-    	
+
         var cookieName = "KulScrollPos"+scrollPositionKey;
         var matchResult = document.cookie.match(new RegExp(cookieName+"=([^;]+);?"));
         if ( matchResult ) {
@@ -234,7 +237,7 @@ function restoreScrollPosition() {
 	        	//no match for cookie... new screen???
 	        	//resetScrollPosition();
 	        //}
-	        
+
         }
     }
     return false;
@@ -246,7 +249,7 @@ function expireCookie( cookieName ) {
 	document.cookie = cookieName+"=0,0; expires="+date.toGMTString()+"; path="+document.location.pathname;
 }
 
-/* script to prevent the return key from submitting a form unless the user is on a button or on a link. fix for KULFDBCK-555 */ 
+/* script to prevent the return key from submitting a form unless the user is on a button or on a link. fix for KULFDBCK-555 */
 function isReturnKeyAllowed(buttonPrefix , event) {
 	/* use IE naming first then firefox. */
     var elemType = event.srcElement ? event.srcElement.type : event.target.type;
@@ -291,21 +294,21 @@ function setRouteLogIframeDimensions() {
 
   if ( frameDocHeight > 0 ) {
 	  if (routeLogFrame && routeLogFrameWin) {
-	  	
+
 	    if ((Math.abs(frameDocHeight - currentHeight)) > 30 ) {
 	      if (safari > -1) {
 	        if ((Math.abs(frameDocHeight - currentHeight)) > 59 ) {
 	          routeLogFrame.style.height = (frameDocHeight + 30) + "px";
 	          currentHeight = frameDocHeight;
 	        }
-	      } else {    
+	      } else {
 	        routeLogFrame.style.height = (frameDocHeight + 30) + "px";
 	        currentHeight = frameDocHeight;
 	      }
 	    }
 	  }
   }
-	  
+
 	    if (routeLogResizeTimer == "" ) {
 	      routeLogResizeTimer = setInterval("resizeTheRouteLogFrame()",300);
 	    }
@@ -315,14 +318,14 @@ function resizeTheRouteLogFrame() {
   setRouteLogIframeDimensions();
 }
 
-// should be in rice for direct inquiry 
+// should be in rice for direct inquiry
  function inquiryPop(boClassName, inquiryParameters){
   parameterPairs = inquiryParameters.split(",");
   queryString="businessObjectClassName="+boClassName+"&methodToCall=start"
   for (i in parameterPairs) {
-  
+
     parameters = parameterPairs[i].split(":");
-  	if (document.forms[0].elements[parameters[0]].value=="") 
+  	if (document.forms[0].elements[parameters[0]].value=="")
   	{
   		alert("Please enter a value in the appropriate field.");
   		//queryString=queryString+"&"+parameters[1]+"=directInquiryParameterNotSpecified";
@@ -344,36 +347,36 @@ function resizeTheRouteLogFrame() {
     window.open(baseUrl+"/kr/directInquiry.do?"+queryString, "_blank", "width=640, height=600, scrollbars=yes");
   }
 }
- 
+
 function textAreaPop(textAreaName, htmlFormAction, textAreaLabel, docFormKey, textAreaReadOnly, textAreaMaxLength) {
-	
+
 	if (textAreaReadOnly === null || textAreaReadOnly === undefined) {
 		textAreaReadOnly = false;
 	}
-	
+
 	if (textAreaMaxLength === null || textAreaMaxLength === undefined) {
 		textAreaMaxLength = "";
 	}
-	
+
 	var documentWebScope="session"
 	window.open("updateTextArea.do?textAreaFieldName="+textAreaName+"&htmlFormAction="+htmlFormAction+"&textAreaFieldLabel="+textAreaLabel+"&docFormKey="+docFormKey+"&documentWebScope="+documentWebScope+"&textAreaReadOnly="+textAreaReadOnly+"&textAreaMaxLength="+textAreaMaxLength, "_blank", "width=580, height=560, scrollbars=yes");
 }
 
 function setTextArea(textAreaName) {
-  document.getElementById(textAreaName).value = window.opener.document.getElementById(textAreaName).value; 
+  document.getElementById(textAreaName).value = window.opener.document.getElementById(textAreaName).value;
 }
 
-function textLimit(taElement, maxlen) 
+function textLimit(taElement, maxlen)
 {
 	var fieldValue = taElement.value;
-    if (fieldValue.length > maxlen) 
-    { 
-	    taElement.value = taElement.value.substr(0, maxlen); 
-    } 
-} 
+    if (fieldValue.length > maxlen)
+    {
+	    taElement.value = taElement.value.substr(0, maxlen);
+    }
+}
 
 function postValueToParentWindow(textAreaName) {
-  window.opener.document.getElementById(textAreaName).value = document.getElementById(textAreaName).value; 
+  window.opener.document.getElementById(textAreaName).value = document.getElementById(textAreaName).value;
   self.close();
 }
 
@@ -384,7 +387,7 @@ function showHide(showId,hideId){
 	changeObjectVisibility(showId, "block");
 	changeObjectVisibility(hideId, "none");
   }
-  else 
+  else
   {
     alert("sorry, this only works in browsers that do Dynamic HTML");
   }
@@ -402,7 +405,7 @@ function changeObjectVisibility(objectId, newVisibility) {
 	return true;
     } else {
 	return false;
-    } 
+    }
 }
 
 function getStyleObject(objectId) {
@@ -411,10 +414,10 @@ function getStyleObject(objectId) {
   if(document.getElementById && document.getElementById(objectId)) {
 	return document.getElementById(objectId).style;
    }
-   else if (document.all && document.all(objectId)) {  
+   else if (document.all && document.all(objectId)) {
 	return document.all(objectId).style;
-   } 
-   else if (document.layers && document.layers[objectId]) { 
+   }
+   else if (document.layers && document.layers[objectId]) {
 	return document.layers[objectId];
    } else {
 	return false;
@@ -435,7 +438,7 @@ function placeFocus() {
 	  if (document.forms[0].fieldNameToFocusOnAfterSubmit) {
 	    fieldNameToFocus = document.forms[0].fieldNameToFocusOnAfterSubmit.value;
 	  }
-	  
+
 	  var focusSet = false;
 	  var field = document.forms[0];
 	  for (i = 0; i < field.length; i++) {
@@ -443,13 +446,13 @@ function placeFocus() {
 	  	  if (field.elements[i].name == fieldNameToFocus) {
 			  document.forms[0].elements[i].focus();
 			  focusSet = true;
-		  }	 
+		  }
 		}
 		else if ((field.elements[i].type == "text") || (field.elements[i].type == "textarea")) {
 		  document.forms[0].elements[i].focus();
 		  focusSet = true;
 		}
-		
+
 		if (focusSet) {
 			break;
 		}

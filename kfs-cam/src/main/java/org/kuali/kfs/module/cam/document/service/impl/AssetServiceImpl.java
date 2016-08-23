@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -183,7 +183,7 @@ public class AssetServiceImpl implements AssetService {
 
     /**
      * This method calls the service codes to calculate the summary fields for each asset
-     * 
+     *
      * @param asset
      */
     public void setAssetSummaryFields(Asset asset) {
@@ -226,7 +226,7 @@ public class AssetServiceImpl implements AssetService {
      */
     public boolean isAssetMovableCheckByPayment(Asset asset) {
         String financialObjectSubTypeCode = asset.getFinancialObjectSubTypeCode();
-        
+
         if (ObjectUtils.isNotNull(asset.getAssetPayments()) && !asset.getAssetPayments().isEmpty()) {
             // use the last payment, so it's more recent and less likely to hit an out-dated object code
             int size = asset.getAssetPayments().size();
@@ -236,7 +236,7 @@ public class AssetServiceImpl implements AssetService {
             String chartCode = lastAssetPayment.getChartOfAccountsCode();
             String finObjectCode = lastAssetPayment.getFinancialObjectCode();
             ObjectCode objectCode = objectCodeService.getByPrimaryIdForCurrentYear(chartCode, finObjectCode);
-            
+
             // if objectCode is null, we likely have hit an out-dated object code from some old payment
             if (ObjectUtils.isNotNull(objectCode)) {
                 financialObjectSubTypeCode = objectCode.getFinancialObjectSubTypeCode();
@@ -245,7 +245,7 @@ public class AssetServiceImpl implements AssetService {
                 LOG.warn("Possibly out-dated object code " + finObjectCode + " for chart " + chartCode + " for current fiscal year in payments for asset " + asset.getCapitalAssetNumber());
             }
         }
-        
+
         return this.isAssetMovableCheckByPayment(financialObjectSubTypeCode);
     }
 
@@ -362,7 +362,7 @@ public class AssetServiceImpl implements AssetService {
 
     /**
      * sets the posting year and posting month based on the asset creation date
-     * 
+     *
      * @param asset
      * @return none
      */

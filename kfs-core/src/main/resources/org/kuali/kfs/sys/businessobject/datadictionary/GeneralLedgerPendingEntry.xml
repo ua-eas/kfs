@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -75,8 +75,8 @@
            <bean parent="OrganizationRestriction"><property name="attribute" ref="GeneralLedgerPendingEntry-account.organizationCode"/></bean>
            <bean parent="OrganizationHierarchyRestriction"><property name="attribute" ref="GeneralLedgerPendingEntry-account.organizationCode"/></bean>
            <bean parent="ObjectLevelRestriction"><property name="attribute" ref="GeneralLedgerPendingEntry-objectCode.financialObjectLevelCode"/></bean>
-           <bean parent="ObjectConsolidationRestriction"><property name="attribute" ref="GeneralLedgerPendingEntry-objectCode.financialObjectLevel.financialConsolidationObjectCode"/></bean> 
-           <bean parent="ProjectCodeRestriction"><property name="attribute" ref="GeneralLedgerPendingEntry-projectCode"/></bean> 
+           <bean parent="ObjectConsolidationRestriction"><property name="attribute" ref="GeneralLedgerPendingEntry-objectCode.financialObjectLevel.financialConsolidationObjectCode"/></bean>
+           <bean parent="ProjectCodeRestriction"><property name="attribute" ref="GeneralLedgerPendingEntry-projectCode"/></bean>
        </list>
     </property>
     <property name="relationships">
@@ -110,38 +110,38 @@
     <property name="name" value="universityFiscalYear"/>
     <property name="label" value="Fiscal Year"/>
     <property name="shortLabel" value="Fiscal Year"/>
-    
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-chartOfAccountsCode" parent="GeneralLedgerPendingEntry-chartOfAccountsCode-parentBean"/>
 
   <bean id="GeneralLedgerPendingEntry-chartOfAccountsCode-parentBean" abstract="true" parent="Chart-chartOfAccountsCode">
-    
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-accountNumber" parent="GeneralLedgerPendingEntry-accountNumber-parentBean"/>
 
   <bean id="GeneralLedgerPendingEntry-accountNumber-parentBean" abstract="true" parent="Account-accountNumber">
-    
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-subAccountNumber" parent="GeneralLedgerPendingEntry-subAccountNumber-parentBean"/>
 
   <bean id="GeneralLedgerPendingEntry-subAccountNumber-parentBean" abstract="true" parent="SubAccount-subAccountNumber">
-    
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-financialObjectCode" parent="GeneralLedgerPendingEntry-financialObjectCode-parentBean"/>
 
   <bean id="GeneralLedgerPendingEntry-financialObjectCode-parentBean" abstract="true" parent="ObjectCode-financialObjectCode">
-    
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-financialSubObjectCode" parent="GeneralLedgerPendingEntry-financialSubObjectCode-parentBean"/>
 
   <bean id="GeneralLedgerPendingEntry-financialSubObjectCode-parentBean" abstract="true" parent="SubObjectCode-financialSubObjectCode">
-    
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-documentNumber" parent="GeneralLedgerPendingEntry-documentNumber-parentBean"/>
 
   <bean id="GeneralLedgerPendingEntry-documentNumber-parentBean" abstract="true" parent="DocumentHeader-documentNumber">
   	<property name="forceUppercase" value="true"/>
-    
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-transactionLedgerEntrySequenceNumber" parent="GeneralLedgerPendingEntry-transactionLedgerEntrySequenceNumber-parentBean"/>
 
@@ -153,8 +153,8 @@
 
   <bean id="GeneralLedgerPendingEntry-financialBalanceTypeCode-parentBean" abstract="true" parent="BalanceType-code">
     <property name="name" value="financialBalanceTypeCode"/>
-    
-    
+
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-transactionDate" parent="GeneralLedgerPendingEntry-transactionDate-parentBean"/>
 
@@ -162,8 +162,8 @@
     <property name="name" value="transactionDate"/>
     <property name="label" value="Transaction Date"/>
     <property name="shortLabel" value="Date"/>
-    
-    
+
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-transactionLedgerEntryDescription" parent="GeneralLedgerPendingEntry-transactionLedgerEntryDescription-parentBean"/>
 
@@ -175,8 +175,8 @@
     <property name="control">
       <ref bean="StandardNameTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-organizationReferenceId" parent="GeneralLedgerPendingEntry-organizationReferenceId-parentBean"/>
 
@@ -188,14 +188,14 @@
     <property name="control">
       <ref bean="TenCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-financialObjectTypeCode" parent="GeneralLedgerPendingEntry-financialObjectTypeCode-parentBean"/>
 
   <bean id="GeneralLedgerPendingEntry-financialObjectTypeCode-parentBean" abstract="true" parent="ObjectType-code">
     <property name="name" value="financialObjectTypeCode"/>
-    
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-transactionLedgerEntryAmount" parent="GeneralLedgerPendingEntry-transactionLedgerEntryAmount-parentBean"/>
 
@@ -203,8 +203,8 @@
     <property name="name" value="transactionLedgerEntryAmount"/>
     <property name="label" value="Transaction Ledger Entry Amount"/>
     <property name="shortLabel" value="Amount"/>
-    
-    
+
+
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
   <bean id="GeneralLedgerPendingEntry-referenceFinancialSystemOriginationCode" parent="GeneralLedgerPendingEntry-referenceFinancialSystemOriginationCode-parentBean"/>
@@ -217,8 +217,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="3"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-referenceFinancialDocumentTypeCode" parent="GeneralLedgerPendingEntry-referenceFinancialDocumentTypeCode-parentBean"/>
 
@@ -235,8 +235,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="16"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-transactionEntryOffsetIndicator" parent="GeneralLedgerPendingEntry-transactionEntryOffsetIndicator-parentBean"/>
 
@@ -244,8 +244,8 @@
     <property name="name" value="transactionEntryOffsetIndicator"/>
     <property name="label" value="Transaction Entry Offset Code"/>
     <property name="shortLabel" value="Entry Offset Ind."/>
-    
-    
+
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-transactionEncumbranceUpdateCode" parent="GeneralLedgerPendingEntry-transactionEncumbranceUpdateCode-parentBean"/>
 
@@ -257,8 +257,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="3"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-financialDocumentReversalDate" parent="GeneralLedgerPendingEntry-financialDocumentReversalDate-parentBean"/>
 
@@ -266,8 +266,8 @@
     <property name="name" value="financialDocumentReversalDate"/>
     <property name="label" value="Document Reversal Date"/>
     <property name="shortLabel" value="Doc. Reversal Date"/>
-    
-    
+
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-universityFiscalPeriodCode" parent="GeneralLedgerPendingEntry-universityFiscalPeriodCode-parentBean"/>
 
@@ -275,8 +275,8 @@
     <property name="name" value="universityFiscalPeriodCode"/>
     <property name="label" value="Fiscal Period"/>
     <property name="shortLabel" value="Fiscal Period"/>
-    
-    
+
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-organizationDocumentNumber" parent="GeneralLedgerPendingEntry-organizationDocumentNumber-parentBean"/>
 
@@ -288,8 +288,8 @@
     <property name="control">
       <ref bean="StandardShortNameTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-financialSystemOriginationCode" parent="GeneralLedgerPendingEntry-financialSystemOriginationCode-parentBean"/>
 
@@ -302,8 +302,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="3"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-financialDocumentTypeCode" parent="GeneralLedgerPendingEntry-financialDocumentTypeCode-parentBean"/>
 
@@ -321,8 +321,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="GeneralLedgerPendingEntry-acctSufficientFundsFinObjCd" parent="GeneralLedgerPendingEntry-acctSufficientFundsFinObjCd-parentBean"/>
 
@@ -348,10 +348,10 @@
     <property name="name" value="transactionEntryProcessedTs"/>
     <property name="label" value="Transaction Entry Processed"/>
     <property name="shortLabel" value="Entry Processed"/>
-    
-    
+
+
   </bean>
-  
+
   <bean id="GeneralLedgerPendingEntry-documentHeader.financialDocumentStatusCode" parent="GeneralLedgerPendingEntry-documentHeader.financialDocumentStatusCode-parentBean"/>
   <bean id="GeneralLedgerPendingEntry-documentHeader.financialDocumentStatusCode-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="documentHeader.financialDocumentStatusCode"/>
@@ -368,17 +368,17 @@
     <bean id="GeneralLedgerPendingEntry-objectCode.financialObjectLevelCode-parentBean" abstract="true" parent="ObjectLevel-financialObjectLevelCode">
          <property name="name" value="financialObject.financialObjectLevelCode"/>
     </bean>
-        
+
     <bean id="GeneralLedgerPendingEntry-objectCode.financialObjectLevel.financialConsolidationObjectCode" parent="GeneralLedgerPendingEntry-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean"/>
     <bean id="GeneralLedgerPendingEntry-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean" abstract="true" parent="ObjectConsolidation-finConsolidationObjectCode">
          <property name="name" value="financialObject.financialObjectLevel.financialConsolidationObjectCode"/>
     </bean>
-   
+
     <bean id="GeneralLedgerPendingEntry-account.organizationCode" parent="GeneralLedgerPendingEntry-account.organizationCode-parentBean"/>
     <bean id="GeneralLedgerPendingEntry-account.organizationCode-parentBean" abstract="true" parent="Organization-organizationCode">
          <property name="name" value="account.organizationCode"/>
-    </bean>      
-    
+    </bean>
+
 
 <!-- Business Object Inquiry Definition -->
 
@@ -432,7 +432,7 @@
       </list>
     </property>
   </bean>
-        
+
 <!-- Business Object Lookup Definition -->
 
 
@@ -442,7 +442,7 @@
     <property name="title" value="General Ledger Pending Entry Lookup"/>
     <property name="lookupableID" value="glPendingEntryLookupable"/>
     <property name="numOfColumns" value="2"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
         <property name="attributeNames">
@@ -457,7 +457,7 @@
         <bean parent="FieldDefinition" p:attributeName="universityFiscalYear"  p:treatWildcardsAndOperatorsAsLiteral="true" p:defaultValueFinderClass="org.kuali.kfs.sys.businessobject.defaultvalue.FiscalYearFinder"/>
         <bean parent="FieldDefinition" p:attributeName="financialDocumentTypeCode" p:treatWildcardsAndOperatorsAsLiteral="true" />
         <bean parent="FieldDefinition" p:attributeName="chartOfAccountsCode" p:treatWildcardsAndOperatorsAsLiteral="true" />
-        <bean parent="FieldDefinition" p:attributeName="financialSystemOriginationCode" p:treatWildcardsAndOperatorsAsLiteral="true" />        
+        <bean parent="FieldDefinition" p:attributeName="financialSystemOriginationCode" p:treatWildcardsAndOperatorsAsLiteral="true" />
         <bean parent="FieldDefinition" p:attributeName="accountNumber" p:treatWildcardsAndOperatorsAsLiteral="false" />
         <bean parent="FieldDefinition" p:attributeName="documentNumber" p:treatWildcardsAndOperatorsAsLiteral="true" />
         <bean parent="FieldDefinition" p:attributeName="subAccountNumber"/>

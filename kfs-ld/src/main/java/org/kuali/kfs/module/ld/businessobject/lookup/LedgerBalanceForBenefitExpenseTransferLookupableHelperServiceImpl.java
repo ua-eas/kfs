@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -64,7 +64,7 @@ public class LedgerBalanceForBenefitExpenseTransferLookupableHelperServiceImpl e
         if (ObjectUtils.isNull(options)) {
             return new CollectionIncomplete(new ArrayList(), new Long(0));
         }
-        
+
         fieldValues.put(KFSPropertyConstants.FINANCIAL_OBJECT_TYPE_CODE, options.getFinObjTypeExpenditureexpCd());
         fieldValues.put(KFSPropertyConstants.LABOR_OBJECT + "." + KFSPropertyConstants.FINANCIAL_OBJECT_FRINGE_OR_SALARY_CODE, BenefitExpenseTransfer.LABOR_LEDGER_BENEFIT_CODE);
 
@@ -110,7 +110,7 @@ public class LedgerBalanceForBenefitExpenseTransferLookupableHelperServiceImpl e
 
     /**
      * get the Options object for the given fiscal year
-     * 
+     *
      * @param fiscalYearString the given fiscal year
      * @return the Options object for the given fiscal year
      */
@@ -128,7 +128,7 @@ public class LedgerBalanceForBenefitExpenseTransferLookupableHelperServiceImpl e
 
     /**
      * Sets the optionsService attribute value.
-     * 
+     *
      * @param optionsService The optionsService to set.
      */
     public void setOptionsService(OptionsService optionsService) {
@@ -160,6 +160,6 @@ public class LedgerBalanceForBenefitExpenseTransferLookupableHelperServiceImpl e
         super.validateSearchParameters(fieldValues);
     }
 
- 
- 
+
+
 }

@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -44,7 +44,7 @@
 				</th>
 				<td class="datacell">
 					<kul:htmlControlAttribute attributeEntry="${entertainmentAttributes.numberOfAttendees}" property="document.numberOfAttendees" readOnly="${!fullEntryMode}" />
-				</td>			
+				</td>
 			</tr>
 			<tr>
 				<th class="bord-l-b" style="width:325px;">
@@ -54,16 +54,16 @@
 				</th>
 				<td class="datacell">
 					<kul:htmlControlAttribute attributeEntry="${entertainmentAttributes.attendeeListAttached}" property="document.attendeeListAttached" readOnly="${!fullEntryMode}" />
-				</td>			
+				</td>
 			</tr>
 		</table>
-		<br />			
+		<br />
 		<c:if test="${fullEntryMode}">
 			<table cellpadding="0" cellspacing="0" class="datatable" summary="Items Section">
 				<tr>
 					<td colspan="4" class="subhead">
 						<span class="subhead-left">
-							Add Attendee 
+							Add Attendee
 							<a href="${KualiForm.uploadParserInstructionsUrl}" target="helpWindow">
 								<img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.png" title="Attendee Import Help" src="Attendee Import Help" hspace="5" border="0" align="middle" class="help" />
 							</a>
@@ -131,7 +131,7 @@
 			<br />
 		</c:if>
 		<c:if test="${hasAttendeeLines}">
-			<table cellpadding="0" cellspacing="0" class="datatable" summary="Items Added Section">			
+			<table cellpadding="0" cellspacing="0" class="datatable" summary="Items Added Section">
 				<tr>
 					<td colspan="5" class="subhead"><span class="subhead-left">Attendees Added </td>
 				</tr>
@@ -158,7 +158,7 @@
 						</td>
 						<td class="infoline">
 							<c:choose>
-								<c:when test="${fullEntryMode}">							
+								<c:when test="${fullEntryMode}">
 									<div align="center">
 										<html:submit
 											property="methodToCall.deleteAttendeeLine.line${ctr}" value="Delete"
@@ -168,7 +168,7 @@
 								</c:when>
 								<c:otherwise>&nbsp;</c:otherwise>
 							</c:choose>
-						</td>						
+						</td>
 					</tr>
 				</logic:iterate>
 			</table>

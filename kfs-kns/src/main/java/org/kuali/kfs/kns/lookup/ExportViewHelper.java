@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,19 +42,19 @@ import org.kuali.kfs.krad.exception.ExportNotSupportedException;
  * A helper class to be used with the custom ExportView implementations for
  * Display Tag.  Most of the logic for interfacing with the KNS export
  * system is encapsulated in this helper class so it can be shared between
- * the various Display Tag export implementations. 
+ * the various Display Tag export implementations.
  *
  */
 public class ExportViewHelper {
 
 	private BusinessObjectEntry businessObjectEntry;
 	private List<BusinessObject> businessObjects;
-	
+
 	public ExportViewHelper(TableModel tableModel) {
 		this.businessObjectEntry = loadBusinessObjectEntry();
 		this.businessObjects = loadBusinessObjects(tableModel);
 	}
-	
+
 	protected BusinessObjectEntry loadBusinessObjectEntry() {
 		KualiForm kualiForm = KNSGlobalVariables.getKualiForm();
 		if (kualiForm instanceof LookupForm) {
@@ -65,7 +65,7 @@ public class ExportViewHelper {
 		}
 		return null;
 	}
-	
+
 	protected List<BusinessObject> loadBusinessObjects(TableModel tableModel) {
 		List<BusinessObject> businessObjects = new ArrayList<BusinessObject>();
 		List<Row> rowList = tableModel.getRowListFull();
@@ -77,15 +77,15 @@ public class ExportViewHelper {
 		}
 		return businessObjects;
 	}
-	
+
 	public BusinessObjectEntry getBusinessObjectEntry() {
 		return businessObjectEntry;
 	}
-	
+
 	public List<BusinessObject> getBusinessObjects() {
 		return businessObjects;
 	}
-	
+
 	public boolean attemptCustomExport(OutputStream outputStream, String exportFormat) throws IOException {
 		if (getBusinessObjectEntry() != null && getBusinessObjectEntry().getExporterClass() != null) {
 			final Exporter exporter;
@@ -102,9 +102,9 @@ public class ExportViewHelper {
 		}
 		return false;
 	}
-	
+
 	public boolean attemptCustomExport(Writer writer, String exportFormat) throws IOException {
 		return attemptCustomExport(new WriterOutputStream(writer), exportFormat);
 	}
-	
+
 }

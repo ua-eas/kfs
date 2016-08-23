@@ -33,7 +33,7 @@ import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 
 public class AddNodeHandlerTest {
-    
+
     private AddNodeHandler addNodeHandler;
     private MongoOperations mongoTemplate;
 
@@ -42,7 +42,7 @@ public class AddNodeHandlerTest {
         addNodeHandler = new AddNodeHandler();
         mongoTemplate = EasyMock.createMock(MongoOperations.class);
     }
-    
+
     @Test
     public void testHandlesAddNodes() throws Exception {
         String testJson = "{ \"changeType\": \"addNode\",\"collectionName\": \"collection\",\"query\": { } }";
@@ -62,31 +62,31 @@ public class AddNodeHandlerTest {
 
         Assert.assertEquals("Should not handle deleteDocument element", false, addNodeHandler.handlesChange(testNode));
     }
-    
+
     @Test
     public void testMakeChangeAddNode() throws Exception {
         Query q = new Query(Criteria.where("myId").is("10"));
-        
+
         EasyMock.expect(mongoTemplate.findOne(q, DBObject.class, "collection")).andReturn(createSampleDocumentBeforeAddition());
         mongoTemplate.remove(q, "collection");
         EasyMock.expectLastCall();
         mongoTemplate.save(createSampleDocumentAfterAddition(), "collection");
         EasyMock.replay(mongoTemplate);
-        
+
         String testJson = "{ \"changeType\": \"addNode\",\"collectionName\": \"collection\","
                 + "\"query\": { \"myId\": \"10\"},\"path\": \"$..link\","
                 + "\"addBeforeNode\": { \"label\" : \"Label2\"},"
-                + "\"value\": { \"label\" : \"Label5\"}  }";  
-        
+                + "\"value\": { \"label\" : \"Label5\"}  }";
+
         addNodeHandler.setMongoTemplate(mongoTemplate);
-        
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
 
         addNodeHandler.makeChange(testNode);
         EasyMock.verify(mongoTemplate);
     }
-    
+
     private DBObject createSampleDocumentAfterAddition() {
         return (DBObject) JSON.parse("{ \"link\": [{\"label\": \"Label1\"}, {\"label\": \"Label5\"}, {\"label\": \"Label2\"}] }");
     }

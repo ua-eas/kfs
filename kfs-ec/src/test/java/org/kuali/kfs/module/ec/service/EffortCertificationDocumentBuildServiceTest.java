@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -85,7 +85,7 @@ public class EffortCertificationDocumentBuildServiceTest extends KualiTestBase {
 
         KualiModuleService kualiModuleService = SpringContext.getBean(KualiModuleService.class);
         ledgerBalanceClass = LedgerBalance.class;
-        
+
         TestDataPreparator.doCleanUpWithoutReference(ledgerBalanceClass, properties, EffortTestDataPropertyConstants.DATA_CLEANUP, balanceFieldNames, deliminator);
     }
 
@@ -142,7 +142,7 @@ public class EffortCertificationDocumentBuildServiceTest extends KualiTestBase {
 
     /**
      * compare the resulting detail line with the expected
-     * 
+     *
      * @param testTarget the given test target that specifies the test data being used
      */
     private void assertDocumentEquals(String testTarget, boolean savedIntoDatabase) {
@@ -177,7 +177,7 @@ public class EffortCertificationDocumentBuildServiceTest extends KualiTestBase {
 
     /**
      * compare the resulting detail line with the expected
-     * 
+     *
      * @param testTarget the given test target that specifies the test data being used
      */
     private void assertDocumentListEquals(String testTarget) {
@@ -215,7 +215,7 @@ public class EffortCertificationDocumentBuildServiceTest extends KualiTestBase {
 
     /**
      * construct a list of ledger balances and persist them
-     * 
+     *
      * @param testTarget the given test target that specifies the test data being used
      * @return a list of ledger balances
      */
@@ -233,7 +233,7 @@ public class EffortCertificationDocumentBuildServiceTest extends KualiTestBase {
 
     /**
      * build a report defintion object from the given test target
-     * 
+     *
      * @param testTarget the given test target that specifies the test data being used
      * @return a report defintion object
      */

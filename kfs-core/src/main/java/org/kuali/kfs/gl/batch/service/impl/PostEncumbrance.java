@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -60,7 +60,7 @@ public class PostEncumbrance implements PostTransaction, EncumbranceCalculator {
 
     /**
      * Called by the poster to post a transaction. The transaction might or might not be an encumbrance transaction.
-     * 
+     *
      * @param t the transaction which is being posted
      * @param mode the mode the poster is currently running in
      * @param postDate the date this transaction should post to
@@ -86,7 +86,7 @@ public class PostEncumbrance implements PostTransaction, EncumbranceCalculator {
             e.setFinancialSystemOriginationCode(t.getReferenceFinancialSystemOriginationCode());
             e.setFinancialDocumentTypeCode(t.getReferenceFinancialDocumentTypeCode());
         }
-        
+
         Encumbrance enc = accountingCycleCachingService.getEncumbrance(e);
         if (enc == null) {
             // Build a new encumbrance record
@@ -116,7 +116,7 @@ public class PostEncumbrance implements PostTransaction, EncumbranceCalculator {
 
     /**
      * Given a Collection of encumbrances, returns the encumbrance that would affected by the given transaction
-     * 
+     *
      * @param encumbranceList a Collection of encumbrances
      * @param t the transaction to find the appropriate encumbrance for
      * @return the encumbrance found from the list, or, if not found, a newly created encumbrance

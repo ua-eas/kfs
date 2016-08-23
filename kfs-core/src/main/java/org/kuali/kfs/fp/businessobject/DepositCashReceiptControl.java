@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -48,7 +48,7 @@ public class DepositCashReceiptControl extends PersistableBusinessObjectBase {
     }
 
     /**
-     * Gets the cashReceiptDocument attribute. 
+     * Gets the cashReceiptDocument attribute.
      * @return Returns the cashReceiptDocument.
      */
     public CashReceiptDocument getCashReceiptDocument() {
@@ -74,7 +74,7 @@ public class DepositCashReceiptControl extends PersistableBusinessObjectBase {
 
     /**
      * Sets the deposit attribute value.
-     * 
+     *
      * @param deposit The deposit to set.
      */
     public void setDeposit(Deposit deposit) {
@@ -91,7 +91,7 @@ public class DepositCashReceiptControl extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentCashReceiptNumber attribute value.
-     * 
+     *
      * @param financialDocumentCashReceiptNumber The financialDocumentCashReceiptNumber to set.
      */
     public void setFinancialDocumentCashReceiptNumber(String financialDocumentCashReceiptNumber) {
@@ -108,7 +108,7 @@ public class DepositCashReceiptControl extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentDepositNumber attribute value.
-     * 
+     *
      * @param financialDocumentDepositNumber The financialDocumentDepositNumber to set.
      */
     public void setFinancialDocumentDepositNumber(String financialDocumentDepositNumber) {
@@ -125,7 +125,7 @@ public class DepositCashReceiptControl extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentDepositLineNumber attribute value.
-     * 
+     *
      * @param financialDocumentDepositLineNumber The financialDocumentDepositLineNumber to set.
      */
     public void setFinancialDocumentDepositLineNumber(Integer financialDocumentDepositLineNumber) {
@@ -142,7 +142,7 @@ public class DepositCashReceiptControl extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialSystemsCashReceiptProcessingTimestamp attribute value.
-     * 
+     *
      * @param financialSystemsCashReceiptProcessingTimestamp The financialSystemsCashReceiptProcessingTimestamp to set.
      */
     public void setFinancialSystemsCashReceiptProcessingTimestamp(Timestamp financialSystemsCashReceiptProcessingTimestamp) {
@@ -159,7 +159,7 @@ public class DepositCashReceiptControl extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialSystemsProcessingOperatorIdentifier attribute value.
-     * 
+     *
      * @param financialSystemsProcessingOperatorIdentifier The financialSystemsProcessingOperatorIdentifier to set.
      */
     public void setFinancialSystemsProcessingOperatorIdentifier(String financialSystemsProcessingOperatorIdentifier) {

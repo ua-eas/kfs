@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,25 +42,25 @@ import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
- * Validation that if the Journal Voucher is using an encumbrance balance type, reference fields are included on each accounting line 
+ * Validation that if the Journal Voucher is using an encumbrance balance type, reference fields are included on each accounting line
  */
 public class JournalVoucherAccountingLineEncumbranceReferenceValidation extends GenericValidation {
     private JournalVoucherDocument journalVoucherForValidation;
     private AccountingLine accountingLineForValidation;
-    
+
     private DataDictionaryService dataDictionaryService;
 
     /**
      * This method checks that values exist in the three reference fields (referenceOriginCode, referenceTypeCode, referenceNumber)
-     * that are required if 
-     * 1) the balance type is of type Encumbrance 
+     * that are required if
+     * 1) the balance type is of type Encumbrance
      * 2) encumbrance update code is R
-     * 
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
-    public boolean validate(AttributedDocumentEvent event) {        
+    public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        if (isEncumbranceBalanceType(getAccountingLineForValidation().getBalanceTypeCode())) {            
+        if (isEncumbranceBalanceType(getAccountingLineForValidation().getBalanceTypeCode())) {
             if (StringUtils.isBlank(getAccountingLineForValidation().getEncumbranceUpdateCode())) {
                 BusinessObjectEntry boe = (BusinessObjectEntry) getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(VoucherSourceAccountingLine.class.getName());
                 putRequiredPropertyError(boe, ENCUMBRANCE_UPDATE_CODE);
@@ -86,28 +86,28 @@ public class JournalVoucherAccountingLineEncumbranceReferenceValidation extends 
         }
         return valid;
     }
-    
+
     /**
      * Using the document accounting period to determine university fiscal year and look up all the encumbrance
      * balance type - check if the selected balance type is for encumbrance
-     * 
+     *
      * @return true/false  - true if it is an encumbrance balance type
      */
     private boolean isEncumbranceBalanceType(String balanceTypeCode){
         getJournalVoucherForValidation().refreshReferenceObject(KFSPropertyConstants.ACCOUNTING_PERIOD);
         AccountingPeriod accountingPeriod = getJournalVoucherForValidation().getAccountingPeriod();
-        
+
         //get encumbrance balance type list
         BalanceTypeService balanceTypeService = SpringContext.getBean(BalanceTypeService.class);
         List<String> encumbranceBalanceTypes = balanceTypeService.getEncumbranceBalanceTypes(accountingPeriod.getUniversityFiscalYear());
-        
+
         return encumbranceBalanceTypes.contains(balanceTypeCode);
     }
-    
+
     /**
      * Adds a global error for a missing required property. This is used for properties, such as reference origin code, which cannot
      * be required by the DataDictionary validation because not all documents require them.
-     * 
+     *
      * @param boe
      * @param propertyName
      */
@@ -117,7 +117,7 @@ public class JournalVoucherAccountingLineEncumbranceReferenceValidation extends 
     }
 
     /**
-     * Gets the journalVoucherForValidation attribute. 
+     * Gets the journalVoucherForValidation attribute.
      * @return Returns the journalVoucherForValidation.
      */
     public JournalVoucherDocument getJournalVoucherForValidation() {
@@ -131,9 +131,9 @@ public class JournalVoucherAccountingLineEncumbranceReferenceValidation extends 
     public void setJournalVoucherForValidation(JournalVoucherDocument journalVoucherForValidation) {
         this.journalVoucherForValidation = journalVoucherForValidation;
     }
-    
+
     /**
-     * Gets the accountingLineForValidation attribute. 
+     * Gets the accountingLineForValidation attribute.
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -149,7 +149,7 @@ public class JournalVoucherAccountingLineEncumbranceReferenceValidation extends 
     }
 
     /**
-     * Gets the dataDictionaryService attribute. 
+     * Gets the dataDictionaryService attribute.
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {

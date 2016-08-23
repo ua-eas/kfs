@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -48,7 +48,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Gets the principalId attribute.
-     * 
+     *
      * @return Returns the principalId
      */
     public String getPrincipalId() {
@@ -57,7 +57,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Sets the principalId attribute.
-     * 
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {
@@ -67,7 +67,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Gets the positionNumber attribute.
-     * 
+     *
      * @return Returns the positionNumber
      */
     public String getPositionNumber() {
@@ -76,7 +76,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Sets the positionNumber attribute.
-     * 
+     *
      * @param positionNumber The positionNumber to set.
      */
     public void setPositionNumber(String positionNumber) {
@@ -86,7 +86,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -95,7 +95,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -105,7 +105,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Gets the emplid attribute.
-     * 
+     *
      * @return Returns the emplid
      */
     public String getEmplid() {
@@ -114,7 +114,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Sets the emplid attribute.
-     * 
+     *
      * @param emplid The emplid to set.
      */
     public void setEmplid(String emplid) {
@@ -124,7 +124,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Gets the iuPositionType attribute.
-     * 
+     *
      * @return Returns the iuPositionType
      */
     public String getIuPositionType() {
@@ -133,7 +133,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Sets the iuPositionType attribute.
-     * 
+     *
      * @param iuPositionType The iuPositionType to set.
      */
     public void setIuPositionType(String iuPositionType) {
@@ -143,7 +143,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Gets the positionDepartmentIdentifier attribute.
-     * 
+     *
      * @return Returns the positionDepartmentIdentifier
      */
     public String getPositionDepartmentIdentifier() {
@@ -152,7 +152,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Sets the positionDepartmentIdentifier attribute.
-     * 
+     *
      * @param positionDepartmentIdentifier The positionDepartmentIdentifier to set.
      */
     public void setPositionDepartmentIdentifier(String positionDepartmentIdentifier) {
@@ -162,7 +162,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Gets the setidSalary attribute.
-     * 
+     *
      * @return Returns the setidSalary
      */
     public String getSetidSalary() {
@@ -171,7 +171,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Sets the setidSalary attribute.
-     * 
+     *
      * @param setidSalary The setidSalary to set.
      */
     public void setSetidSalary(String setidSalary) {
@@ -181,7 +181,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Gets the salaryAdministrationPlan attribute.
-     * 
+     *
      * @return Returns the salaryAdministrationPlan
      */
     public String getSalaryAdministrationPlan() {
@@ -190,7 +190,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Sets the salaryAdministrationPlan attribute.
-     * 
+     *
      * @param salaryAdministrationPlan The salaryAdministrationPlan to set.
      */
     public void setSalaryAdministrationPlan(String salaryAdministrationPlan) {
@@ -200,7 +200,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Gets the grade attribute.
-     * 
+     *
      * @return Returns the grade
      */
     public String getGrade() {
@@ -209,7 +209,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Sets the grade attribute.
-     * 
+     *
      * @param grade The grade to set.
      */
     public void setGrade(String grade) {
@@ -219,7 +219,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Gets the positionDescription attribute.
-     * 
+     *
      * @return Returns the positionDescription
      */
     public String getPositionDescription() {
@@ -228,7 +228,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Sets the positionDescription attribute.
-     * 
+     *
      * @param positionDescription The positionDescription to set.
      */
     public void setPositionDescription(String positionDescription) {
@@ -238,7 +238,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Gets the name attribute.
-     * 
+     *
      * @return Returns the name
      */
     public String getName() {
@@ -247,7 +247,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Sets the name attribute.
-     * 
+     *
      * @param name The name to set.
      */
     public void setName(String name) {
@@ -257,7 +257,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Gets the budgetConstructionPosition attribute.
-     * 
+     *
      * @return Returns the budgetConstructionPosition
      */
     public BudgetConstructionPosition getBudgetConstructionPosition() {
@@ -266,7 +266,7 @@ public class BudgetConstructionPositionSelect extends PersistableBusinessObjectB
 
     /**
      * Sets the budgetConstructionPosition attribute.
-     * 
+     *
      * @param budgetConstructionPosition The budgetConstructionPosition to set.
      * @deprecated
      */

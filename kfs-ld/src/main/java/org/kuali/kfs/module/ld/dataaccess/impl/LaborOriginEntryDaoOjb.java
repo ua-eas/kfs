@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -43,7 +43,7 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
  */
 public class LaborOriginEntryDaoOjb extends OriginEntryDaoOjb implements LaborOriginEntryDao {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LaborOriginEntryDaoOjb.class);
-    
+
     private static final String DATE = "date";
     private static final String SOURCE_CODE = "sourceCode";
     private static final String PROCESS = "process";
@@ -121,7 +121,7 @@ public class LaborOriginEntryDaoOjb extends OriginEntryDaoOjb implements LaborOr
 
     /**
      * build the returning attribute list for the calling query
-     * 
+     *
      * @return the returning attribute list
      */
     protected List<String> buildConsolidationAttributeList() {
@@ -132,7 +132,7 @@ public class LaborOriginEntryDaoOjb extends OriginEntryDaoOjb implements LaborOr
 
     /**
      * build the grouping attribute list for the calling query
-     * 
+     *
      * @return the grouping attribute list
      */
     protected List<String> buildGroupByList() {
@@ -308,10 +308,10 @@ public class LaborOriginEntryDaoOjb extends OriginEntryDaoOjb implements LaborOr
         QueryByCriteria query = QueryFactory.newQuery(this.getEntryClass(), criteria);
         return getPersistenceBrokerTemplate().getCollectionByQuery(query);
     }
-    
+
     /**
      * Get all the Labor backup groups to scrub (ie, origin entry groups with source OriginEntrySource.LABOR_BACKUP)
-     * 
+     *
      * @param groupDate this parameter isn't really used
      * @return a Collection of Labor backup groups
      * @see org.kuali.kfs.module.ld.dataaccess.LaborOriginEntryDao#getLaborBackupGroups(java.sql.Date)
@@ -328,15 +328,15 @@ public class LaborOriginEntryDaoOjb extends OriginEntryDaoOjb implements LaborOr
         QueryByCriteria qbc = QueryFactory.newQuery(OriginEntryGroup.class, criteria);
         return getPersistenceBrokerTemplate().getCollectionByQuery(qbc);
     }
-    
+
     /**
      * Get all the groups to be copied into the backup group...though, notably, this method
      * does nothing to differentiate labor groups from otherwise normal groups.  One must assume
      * that processing takes place somewhere else
-     * 
+     *
      * @param groupDate the date returned origin entry groups must have been created on or before
      * @return a Collection of Labor Origin Entry Groups to backup
-     * 
+     *
      * @see org.kuali.kfs.module.ld.dataaccess.LaborOriginEntryDao#getLaborScrubberGroups(java.sql.Date)
      */
     public Collection getLaborGroupsToBackup(Date groupDate) {

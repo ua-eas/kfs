@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -82,7 +82,7 @@ public abstract class CodeDescriptionFormatterBase implements CodeDescriptionFor
      * Returns a Map such that the values in the values set will map to the appropriate BO There may be mappings for values that are
      * not in the parameter set Use this method sparingly, as it will likely cause an access to the DB It may be desirable to use
      * the values to limit the breadth of the search, and it is up to the implementation to decide whether to use it to do so.
-     * 
+     *
      * @param values a set of values to limit the retrieval from (optional feature), may be null
      * @return a map from value string to BO
      */
@@ -90,7 +90,7 @@ public abstract class CodeDescriptionFormatterBase implements CodeDescriptionFor
 
     /**
      * Returns the description of a BO
-     * 
+     *
      * @param bo
      * @return
      */

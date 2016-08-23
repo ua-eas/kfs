@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -45,10 +45,10 @@ public class CollectorXmlInputFileType extends XmlBatchInputFileTypeBase {
 
     protected DateTimeService dateTimeService;
     private CollectorHelperService collectorHelperService;
-    
+
     /**
      * Returns the identifier of the Collector's file type
-     * 
+     *
      * @return the Collector's file type identifier
      * @see org.kuali.kfs.sys.batch.BatchInputFileType#getFileTypeIdentifer()
      */
@@ -60,19 +60,19 @@ public class CollectorXmlInputFileType extends XmlBatchInputFileTypeBase {
      * Builds the file name using the following construction: All collector files start with gl_idbilltrans_ append the chartorg
      * from the batch header append the username of the user who is uploading the file then the user supplied indentifier finally
      * the timestamp
-     * 
+     *
      * @param user who uploaded the file
      * @param parsedFileContents represents collector batch object
      * @param userIdentifier user identifier for user who uploaded file
      * @return String returns file name using the convention mentioned in the description
-     * 
+     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileType#getFileName(org.kuali.rice.kim.api.identity.Person, java.lang.Object,
      *      java.lang.String)
      */
     public String getFileName(String principalName, Object parsedFileContents, String userIdentifier) {
         // this implementation assumes that there is only one batch in the XML file
         CollectorBatch collectorBatch = ((List<CollectorBatch>) parsedFileContents).get(0);
-        
+
         String fileName = "gl_collector_" + collectorBatch.getChartOfAccountsCode() + collectorBatch.getOrganizationCode();
         fileName += "_" + principalName;
         if (StringUtils.isNotBlank(userIdentifier)) {
@@ -89,13 +89,13 @@ public class CollectorXmlInputFileType extends XmlBatchInputFileTypeBase {
     public boolean validate(Object parsedFileContents) {
         List<CollectorBatch> parsedBatches = (List<CollectorBatch>) parsedFileContents;
         boolean allBatchesValid = true;
-        
+
         // add validation for chartCode-accountNumber, as chartCode is not required in xsd due to accounts-cant-cross-charts option
-        AccountService acctserv = SpringContext.getBean(AccountService.class);    
-        
+        AccountService acctserv = SpringContext.getBean(AccountService.class);
+
         for (CollectorBatch batch : parsedBatches) {
             boolean isValid = true;
-            
+
             if (batch.getOriginEntries() != null) {
                 for (OriginEntryFull originEntry : batch.getOriginEntries()) {
                     // if chart code is empty while accounts cannot cross charts, then derive chart code from account number
@@ -109,7 +109,7 @@ public class CollectorXmlInputFileType extends XmlBatchInputFileTypeBase {
                             Account account = acctserv.getUniqueAccountForAccountNumber(originEntry.getAccountNumber());
                             if (account != null) {
                                 originEntry.setChartOfAccountsCode(account.getChartOfAccountsCode());
-                            }       
+                            }
                             else {
                                 GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_FILE_INVALID_ACCOUNT, originEntry.getAccountNumber());
                                 isValid = false;
@@ -133,7 +133,7 @@ public class CollectorXmlInputFileType extends XmlBatchInputFileTypeBase {
                             Account account = acctserv.getUniqueAccountForAccountNumber(collectorDetail.getAccountNumber());
                             if (account != null) {
                                 collectorDetail.setChartOfAccountsCode(account.getChartOfAccountsCode());
-                            }       
+                            }
                             else {
                                 GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_FILE_INVALID_ACCOUNT, collectorDetail.getAccountNumber());
                                 isValid = false;
@@ -149,13 +149,13 @@ public class CollectorXmlInputFileType extends XmlBatchInputFileTypeBase {
             }
             allBatchesValid &= isValid;
         }
-        
+
         return allBatchesValid;
     }
-    
+
     /**
      * Returns the Collector's title key
-     * 
+     *
      * @return the title key for the Collector
      * @see org.kuali.kfs.sys.batch.BatchInputFileType#getTitleKey()
      */
@@ -170,7 +170,7 @@ public class CollectorXmlInputFileType extends XmlBatchInputFileTypeBase {
         }
         return null;
     }
-    
+
     @Override
     public Object parse(byte[] fileByteContent) throws ParseException {
         CollectorBatch batch = (CollectorBatch) super.parse(fileByteContent);

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,9 +33,9 @@ import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransforma
 public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewLineFillingElement {
     private List<RenderableElement> elements;
     private AccountingLineViewLineDefinition definition;
- 
+
     /**
-     * Gets the definition attribute. 
+     * Gets the definition attribute.
      * @return Returns the definition.
      */
     public AccountingLineViewLineDefinition getDefinition() {
@@ -48,7 +48,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
     public void setDefinition(AccountingLineViewLineDefinition definition) {
         this.definition = definition;
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.AccountingLineViewRenderableElementContainer#getName()
      */
@@ -56,7 +56,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
         return definition.getElementName();
     }
     /**
-     * Gets the elements attribute. 
+     * Gets the elements attribute.
      * @return Returns the elements.
      */
     public List<RenderableElement> getElements() {
@@ -69,7 +69,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
     public void setElements(List<RenderableElement> fields) {
         this.elements = fields;
     }
-    
+
     /**
      * Gets the number of actual rows requested (1)
      * @see org.kuali.kfs.sys.document.web.AccountingLineViewRenderableElement#getRequestedRowCount()
@@ -77,9 +77,9 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
     public int getRequestedRowCount() {
         return getMaxRequestedRowCount();
     }
-    
+
     /**
-     * Determines the max requested row count in the line. 
+     * Determines the max requested row count in the line.
      * @return the number of rows to create for this line
      */
     protected int getMaxRequestedRowCount() {
@@ -90,7 +90,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
         }
         return 1;
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinRow(org.kuali.kfs.sys.document.web.AccountingLineTableRow)
      */
@@ -103,7 +103,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
            }
        }
     }
-    
+
     /**
      * Creates a table cell to wrap the given rendering element
      * @param element the element to wrap
@@ -115,7 +115,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
         cell.setRowSpan(getRequestedRowCount());
         return cell;
     }
-    
+
     /**
      * Always throws an exception - a line may only join a table through a parent lines element
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinTable(java.util.List)
@@ -123,7 +123,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
     public void joinTable(List<AccountingLineTableRow> rows) {
         throw new IllegalStateException("Line elements may not join a table directly; the specified rendering is incorrect");
     }
-    
+
     /**
      * This element should be padded out
      * @see org.kuali.kfs.sys.document.web.AccountingLineViewLineFillingElement#stretchToFillLine()
@@ -131,7 +131,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
     public boolean shouldStretchToFillLine() {
         return false;
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.TableJoining#readOnlyize()
      */
@@ -142,7 +142,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
             }
         }
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.ReadOnlyable#isReadOnly()
      */
@@ -154,7 +154,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
         }
         return true;
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.TableJoining#removeAllActionBlocks()
      */
@@ -167,7 +167,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
         }
         elements.removeAll(actionBlocksToRemove);
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.TableJoining#removeUnviewableBlocks()
      */
@@ -184,7 +184,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
         }
         elements.removeAll(elementsToRemove);
     }
-    
+
     /**
      * Shuffles responsibility on to any TableJoining children
      * @see org.kuali.kfs.sys.document.web.TableJoining#readOnlyizeReadOnlyBlocks(java.util.Set)
@@ -196,7 +196,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
             }
         }
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.TableJoining#performFieldTransformation(org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation, org.kuali.kfs.sys.businessobject.AccountingLine, java.util.Map, java.util.Map)
      */
@@ -207,7 +207,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
             }
         }
     }
-    
+
     /**
      * Finds the number of table cells this line expects to take up
      * @return the number of displayed table cells this line expects to render as
@@ -225,7 +225,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
         }
         return count;
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.ReadOnlyable#setEditable()
      */
@@ -236,7 +236,7 @@ public class AccountingLineViewLine implements ReadOnlyable, AccountingLineViewL
             }
         }
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.TableJoining#setEditableBlocks(java.util.Set)
      */

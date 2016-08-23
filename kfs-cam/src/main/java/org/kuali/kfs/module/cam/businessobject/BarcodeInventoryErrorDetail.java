@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -73,7 +73,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber
      */
     public String getDocumentNumber() {
@@ -82,7 +82,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the documentNumber attribute.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -92,7 +92,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the uploadRowNumber attribute.
-     * 
+     *
      * @return Returns the uploadRowNumber
      */
     public Long getUploadRowNumber() {
@@ -101,7 +101,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the uploadRowNumber attribute.
-     * 
+     *
      * @param uploadRowNumber The uploadRowNumber to set.
      */
     public void setUploadRowNumber(Long uploadRowNumber) {
@@ -111,7 +111,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the errorCorrectionStatusCode attribute.
-     * 
+     *
      * @return Returns the errorCorrectionStatusCode
      */
     public String getErrorCorrectionStatusCode() {
@@ -120,7 +120,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the errorCorrectionStatusCode attribute.
-     * 
+     *
      * @param errorCorrectionStatusCode The errorCorrectionStatusCode to set.
      */
     public void setErrorCorrectionStatusCode(String errorCorrectionStatusCode) {
@@ -130,7 +130,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the correctorUniversalIdentifier attribute.
-     * 
+     *
      * @return Returns the correctorUniversalIdentifier
      */
     public String getCorrectorUniversalIdentifier() {
@@ -139,7 +139,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the correctorUniversalIdentifier attribute.
-     * 
+     *
      * @param correctorUniversalIdentifier The correctorUniversalIdentifier to set.
      */
     public void setCorrectorUniversalIdentifier(String correctorUniversalIdentifier) {
@@ -149,7 +149,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the inventoryCorrectionTimestamp attribute.
-     * 
+     *
      * @return Returns the inventoryCorrectionTimestamp
      */
     public Timestamp getInventoryCorrectionTimestamp() {
@@ -158,7 +158,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the inventoryCorrectionTimestamp attribute.
-     * 
+     *
      * @param inventoryCorrectionTimestamp The inventoryCorrectionTimestamp to set.
      */
     public void setInventoryCorrectionTimestamp(Timestamp inventoryCorrectionTimestamp) {
@@ -168,7 +168,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the assetTagNumber attribute.
-     * 
+     *
      * @return Returns the assetTagNumber
      */
     public String getAssetTagNumber() {
@@ -177,7 +177,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the assetTagNumber attribute.
-     * 
+     *
      * @param assetTagNumber The assetTagNumber to set.
      */
     public void setAssetTagNumber(String assetTagNumber) {
@@ -187,7 +187,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the uploadScanIndicator attribute.
-     * 
+     *
      * @return Returns the uploadScanIndicator
      */
     public boolean isUploadScanIndicator() {
@@ -196,7 +196,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the uploadScanIndicator attribute.
-     * 
+     *
      * @param uploadScanIndicator The uploadScanIndicator to set.
      */
     public void setUploadScanIndicator(boolean uploadScanIndicator) {
@@ -206,7 +206,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the uploadScanTimestamp attribute.
-     * 
+     *
      * @return Returns the uploadScanTimestamp
      */
     public Timestamp getUploadScanTimestamp() {
@@ -215,7 +215,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the uploadScanTimestamp attribute.
-     * 
+     *
      * @param uploadScanTimestamp The uploadScanTimestamp to set.
      */
     public void setUploadScanTimestamp(Timestamp uploadScanTimestamp) {
@@ -225,7 +225,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the campusCode attribute.
-     * 
+     *
      * @return Returns the campusCode
      */
     public String getCampusCode() {
@@ -234,7 +234,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the campusCode attribute.
-     * 
+     *
      * @param campusCode The campusCode to set.
      */
     public void setCampusCode(String campusCode) {
@@ -244,7 +244,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the buildingCode attribute.
-     * 
+     *
      * @return Returns the buildingCode
      */
     public String getBuildingCode() {
@@ -253,7 +253,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the buildingCode attribute.
-     * 
+     *
      * @param buildingCode The buildingCode to set.
      */
     public void setBuildingCode(String buildingCode) {
@@ -263,7 +263,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the buildingRoomNumber attribute.
-     * 
+     *
      * @return Returns the buildingRoomNumber
      */
     public String getBuildingRoomNumber() {
@@ -272,7 +272,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the buildingRoomNumber attribute.
-     * 
+     *
      * @param buildingRoomNumber The buildingRoomNumber to set.
      */
     public void setBuildingRoomNumber(String buildingRoomNumber) {
@@ -282,7 +282,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the buildingSubRoomNumber attribute.
-     * 
+     *
      * @return Returns the buildingSubRoomNumber
      */
     public String getBuildingSubRoomNumber() {
@@ -291,7 +291,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the buildingSubRoomNumber attribute.
-     * 
+     *
      * @param buildingSubRoomNumber The buildingSubRoomNumber to set.
      */
     public void setBuildingSubRoomNumber(String buildingSubRoomNumber) {
@@ -301,7 +301,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the assetConditionCode attribute.
-     * 
+     *
      * @return Returns the assetConditionCode
      */
     public String getAssetConditionCode() {
@@ -310,7 +310,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the assetConditionCode attribute.
-     * 
+     *
      * @param assetConditionCode The assetConditionCode to set.
      */
     public void setAssetConditionCode(String assetConditionCode) {
@@ -335,7 +335,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the campus code reference object
-     * 
+     *
      * @return Campus
      */
     public CampusEbo getCampus() {
@@ -353,13 +353,13 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
                 }
             }
         }
-        
+
         return campus;
      }
 
     /**
      * sets the campus code reference object
-     * 
+     *
      * @param campus
      */
     public void setCampus(CampusEbo campus) {
@@ -368,7 +368,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the building room reference object
-     * 
+     *
      * @return Room
      */
     public Room getBuildingRoom() {
@@ -377,7 +377,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the bulding room reference object
-     * 
+     *
      * @param buildingRoom
      */
     public void setBuildingRoom(Room buildingRoom) {
@@ -386,7 +386,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the building reference object
-     * 
+     *
      * @return Building
      */
     public Building getBuilding() {
@@ -395,7 +395,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the building reference object
-     * 
+     *
      * @param building
      */
     public void setBuilding(Building building) {
@@ -404,7 +404,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the condition code reference object
-     * 
+     *
      * @return AssetCondition
      */
     public AssetCondition getCondition() {
@@ -413,7 +413,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * sets the condition code reference object
-     * 
+     *
      * @param condition
      */
     public void setCondition(AssetCondition condition) {
@@ -422,7 +422,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the error description of an asset
-     * 
+     *
      * @return String
      */
     public String getErrorDescription() {
@@ -431,7 +431,7 @@ public class BarcodeInventoryErrorDetail extends PersistableBusinessObjectBase {
 
     /**
      * sets the field that will hold the error description of an asset
-     * 
+     *
      * @param errorDescription
      */
     public void setErrorDescription(String errorDescription) {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,9 +35,9 @@ import java.util.Map;
 /**
  * QualifierResolver which uses Data Dictionary defined workflow attributes to gather a collection
  * of qualifiers to use to determine the responsibility for a document at a given workflow route node.
- * 
+ *
  * WorkflowAttributes can be defined in the data dictionary like so (this has been abbreviated):
- * 
+ *
  * <!-- Exported Workflow Attributes -->
  *   <bean id="DisbursementVoucherDocument-workflowAttributes" parent="DisbursementVoucherDocument-workflowAttributes-parentBean"/>
  *
@@ -55,7 +55,7 @@ import java.util.Map;
  *           </map>
  *       </property>
  *   </bean>
- * 
+ *
  *   <bean id="DisbursementVoucherDocument-RoutingType-PaymentMethod" class="RoutingTypeDefinition">
  *       <property name="routingAttributes">
  *           <list>
@@ -75,8 +75,8 @@ import java.util.Map;
  *               </bean>
  *           </list>
  *       </property>
- *   </bean> 
- * 
+ *   </bean>
+ *
  * At the PaymentMethod node of the document, the DisbursementVoucherDocument-RoutingType-PaymentMethod RoutingTypeDefinition will be
  * consulted; it will pull values from the document (in this case, document.disbVchrPaymentMethodCode) and populate those
  * into the role qualifier Map<String, String>, with the key being the qualificationAttributeName and the value being the value of the property
@@ -84,7 +84,7 @@ import java.util.Map;
  */
 public class DataDictionaryQualifierResolver extends QualifierResolverBase {
 //    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DataDictionaryQualifierResolver.class);
-    
+
 
     /**
      * Given the RouteContext, determines the document type of the document being routed and the current
@@ -97,7 +97,7 @@ public class DataDictionaryQualifierResolver extends QualifierResolverBase {
         final RoutingTypeDefinition routingTypeDefinition = getWorkflowAttributeDefintion(documentEntry, routeLevel);
         final Document document = getDocument(context);
         List<Map<String, String>> qualifiers = null;
-        
+
         if (document != null && routingTypeDefinition != null) {
             qualifiers = KRADServiceLocatorInternal.getWorkflowAttributePropertyResolutionService().resolveRoutingTypeQualifiers(document, routingTypeDefinition);
         } else {
@@ -134,7 +134,7 @@ public class DataDictionaryQualifierResolver extends QualifierResolverBase {
        if (routingTypeMap.containsKey(routeLevelName)) return routingTypeMap.get(routeLevelName);
        return null;
     }
-    
+
     /**
      * Add common qualifiers to every Map<String, String> in the given List of Map<String, String>
      * @param qualifiers a List of Map<String, String>s to add common qualifiers to
@@ -147,7 +147,7 @@ public class DataDictionaryQualifierResolver extends QualifierResolverBase {
             addCommonQualifiersToMap(qualifier, document, documentEntry, routeLevel);
         }
     }
-    
+
     /**
      * Adds common qualifiers to a given Map<String, String>
      * @param qualifier an Map<String, String> to add common qualifiers to

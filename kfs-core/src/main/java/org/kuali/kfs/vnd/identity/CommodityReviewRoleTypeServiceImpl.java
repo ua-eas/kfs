@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,7 +31,7 @@ import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 
 public class CommodityReviewRoleTypeServiceImpl extends RoleTypeServiceBase {
     private DocumentTypeService documentTypeService;
-    
+
     @Override
     protected boolean performMatch(Map<String,String> qualification, Map<String,String> roleQualifier) {
         if (qualification.containsKey(KfsKimAttributes.PURCHASING_COMMODITY_CODE) && qualification.get(KfsKimAttributes.PURCHASING_COMMODITY_CODE).matches(roleQualifier.get(KfsKimAttributes.PURCHASING_COMMODITY_CODE).replaceAll("\\*", ".*")) && KimCommonUtils.storedValueNotSpecifiedOrInputValueMatches(roleQualifier, qualification, KimConstants.AttributeConstants.CAMPUS_CODE)) {
@@ -43,7 +43,7 @@ public class CommodityReviewRoleTypeServiceImpl extends RoleTypeServiceBase {
         }
         return false;
     }
-    
+
     protected DocumentTypeService getDocumentTypeService() {
         if (documentTypeService == null) {
             documentTypeService = SpringContext.getBean(DocumentTypeService.class);

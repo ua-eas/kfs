@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,7 +42,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AssetDepreciationUtilDaoOjb extends PlatformAwareDaoBaseOjb implements AssetDepreciationUtilDao {
 
-    private BusinessObjectService businessObjectService;    
+    private BusinessObjectService businessObjectService;
 
     public String getMaxDocumentNumber() {
         Criteria criteria = new Criteria();
@@ -57,15 +57,15 @@ public class AssetDepreciationUtilDaoOjb extends PlatformAwareDaoBaseOjb impleme
                 maxDocumentNumber= (String) data[0];
             }
         }
-        return maxDocumentNumber;    
-    }        
+        return maxDocumentNumber;
+    }
 
 
     //    public List<GeneralLedgerPendingEntry> getGeneralLedgerPendingEntries(String documentNumber) {
     //        Map<String, String> fieldValues = new HashMap<String, String>();
     //        fieldValues.put(KRADPropertyConstants.DOCUMENT_NUMBER, documentNumber);
     //        return (List<GeneralLedgerPendingEntry>) businessObjectService.findMatching(GeneralLedgerPendingEntry.class, fieldValues);
-    //    }   
+    //    }
 
 
     public Collection<AssetPayment> getAssetPayments(List<Asset> assets) {
@@ -86,14 +86,14 @@ public class AssetDepreciationUtilDaoOjb extends PlatformAwareDaoBaseOjb impleme
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.module.cam.document.dataaccess.AssetDepreciationUtilDao#deleteAssetPayment()
      */
     public void deleteAssetPayment(List<Asset> assets) {
         List<Long> capitalAssetNumbers = new ArrayList<Long>();
         for(Asset asset : assets) {
             capitalAssetNumbers.add(asset.getCapitalAssetNumber());
-        }        
+        }
 
         Criteria criteria = new Criteria();
         QueryByCriteria q = QueryFactory.newQuery(AssetPayment.class, criteria);
@@ -101,14 +101,14 @@ public class AssetDepreciationUtilDaoOjb extends PlatformAwareDaoBaseOjb impleme
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.module.cam.document.dataaccess.AssetDepreciationUtilDao#deleteAssets(java.util.List)
      */
     public void deleteAssets(List<Asset> assets) {
         List<Long> capitalAssetNumbers = new ArrayList<Long>();
         for(Asset asset : assets) {
             capitalAssetNumbers.add(asset.getCapitalAssetNumber());
-        }        
+        }
         Criteria criteria = new Criteria();
         criteria.addIn(CamsPropertyConstants.AssetPayment.CAPITAL_ASSET_NUMBER, capitalAssetNumbers);
         QueryByCriteria q = QueryFactory.newQuery(Asset.class, criteria);
@@ -116,7 +116,7 @@ public class AssetDepreciationUtilDaoOjb extends PlatformAwareDaoBaseOjb impleme
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.module.cam.document.dataaccess.AssetDepreciationUtilDao#deleteGLPEs()
      */
     public void deleteGLPEs() {

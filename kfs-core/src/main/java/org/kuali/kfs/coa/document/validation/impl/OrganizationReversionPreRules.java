@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,9 +53,9 @@ public class OrganizationReversionPreRules extends MaintenancePreRulesBase {
     }
 
     /**
-     * 
-     * This copies the chart of accounts, and the fiscal year from the parent {@link OrganizationReversion} to the 
-     * {@link OrganizationReversionDetail} objects and refreshes the reference object on them if the values have 
+     *
+     * This copies the chart of accounts, and the fiscal year from the parent {@link OrganizationReversion} to the
+     * {@link OrganizationReversionDetail} objects and refreshes the reference object on them if the values have
      * been filled out
      * @param orgRev
      */
@@ -73,26 +73,26 @@ public class OrganizationReversionPreRules extends MaintenancePreRulesBase {
         }
 
     }
-    
+
     /**
-     * 
-     * This copies the object code from system parameter to the Organization Reversion object code field if the 
+     *
+     * This copies the object code from system parameter to the Organization Reversion object code field if the
      * "Carry Forward by Object Code" indicator is set to true
      * @param orgRev
      */
     protected void copyDefaultObjectcodeIfNoCarryForwardByObjectCode(OrganizationReversion orgRev) {
-        if (orgRev.isCarryForwardByObjectCodeIndicator() == true) return; 
-        
+        if (orgRev.isCarryForwardByObjectCodeIndicator() == true) return;
+
         if (organizationReversionService == null) {
             organizationReversionService = SpringContext.getBean(OrganizationReversionService.class);
         }
         String objectCode = organizationReversionService.getOrganizationReversionDetaiFromSystemParameters();
-        
+
         List<OrganizationReversionDetail> details = orgRev.getOrganizationReversionDetail();
         for (OrganizationReversionDetail dtl : details) {
             if (ObjectUtils.isNull(dtl.getOrganizationReversionObjectCode()))  {
                 dtl.setOrganizationReversionObjectCode(objectCode);
             }
         }
-    }       
+    }
 }

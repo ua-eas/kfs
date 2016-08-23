@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -44,7 +44,7 @@
       <list>
         <bean parent="InactivationBlockingDefinition" p:blockedReferencePropertyName="securityDefinition"/>
       </list>
-    </property>    
+    </property>
   </bean>
 
 <!-- Attribute Definitions -->
@@ -57,20 +57,20 @@
       <bean parent="HiddenControlDefinition"/>
     </property>
   </bean>
-  
+
   <bean id="AbstractSecurityModelDefinition-securityDefinition.name" parent="AbstractSecurityModelDefinition-securityDefinition.name-parentBean" abstract="true" />
 
   <bean id="AbstractSecurityModelDefinition-securityDefinition.name-parentBean" abstract="true" parent="SecurityDefinition-name">
     <property name="name" value="securityDefinition.name"/>
   </bean>
-  
+
   <bean id="AbstractSecurityModelDefinition-constraintCode" parent="AbstractSecurityModelDefinition-constraintCode-parentBean" abstract="true" />
 
   <bean id="AbstractSecurityModelDefinition-constraintCode-parentBean" abstract="true" parent="Parameter-evaluationOperatorCode">
     <property name="name" value="constraintCode"/>
     <property name="label" value="Constraint Code"/>
   </bean>
-  
+
   <bean id="AbstractSecurityModelDefinition-operatorCode" parent="AbstractSecurityModelDefinition-operatorCode-parentBean" abstract="true" />
 
   <bean id="AbstractSecurityModelDefinition-operatorCode-parentBean" abstract="true" parent="AttributeDefinition">
@@ -87,7 +87,7 @@
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.sec.businessobject.options.SecurityOperatorCodeFinder" abstract="true" />
     </property>
   </bean>
-  
+
   <bean id="AbstractSecurityModelDefinition-attributeValue" parent="AbstractSecurityModelDefinition-attributeValue-parentBean" abstract="true" />
 
   <bean id="AbstractSecurityModelDefinition-attributeValue-parentBean" abstract="true" parent="AttributeDefinition">
@@ -104,7 +104,7 @@
       <bean parent="TextControlDefinition" p:size="100"/>
     </property>
   </bean>
-  
+
   <bean id="AbstractSecurityModelDefinition-overrideDeny" parent="AbstractSecurityModelDefinition-overrideDeny-parentBean" abstract="true" />
 
   <bean id="AbstractSecurityModelDefinition-overrideDeny-parentBean" abstract="true" parent="AttributeDefinition">
@@ -118,16 +118,16 @@
       <bean parent="CheckboxControlDefinition"/>
     </property>
     <property name="formatterClass" value="org.kuali.rice.core.web.format.BooleanFormatter"/>
-  </bean>  
-     
+  </bean>
+
   <bean id="AbstractSecurityModelDefinition-active" parent="AbstractSecurityModelDefinition-active-parentBean" abstract="true" />
 
   <bean id="AbstractSecurityModelDefinition-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="active"/>
     <property name="shortLabel" value="Active"/>
   </bean>
-  
-  
+
+
   <bean id="AbstractSecurityModelDefinition-prettyPrint" parent="AbstractSecurityModelDefinition-prettyPrint-parentBean" abstract="true" />
 
   <bean id="AbstractSecurityModelDefinition-prettyPrint-parentBean" abstract="true" parent="AttributeDefinition">
@@ -141,7 +141,7 @@
       <bean parent="TextControlDefinition" p:size="100"/>
     </property>
   </bean>
-  
+
 <!-- Business Object Inquiry Definition -->
 
   <bean id="AbstractSecurityModelDefinition-inquiryDefinition" parent="AbstractSecurityModelDefinition-inquiryDefinition-parentBean" abstract="true" />

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,18 +41,18 @@ import javax.servlet.http.HttpServletResponse;
  *
  * <p>
  * Gets the data needed for the incident report from the request and builds the
- * model and view for the incident report. This resolver intercepts any unhandled 
+ * model and view for the incident report. This resolver intercepts any unhandled
  * exception.
  * </p>
- * 
- * 
+ *
+ *
  */
 public class UifHandlerExceptionResolver implements org.springframework.web.servlet.HandlerExceptionResolver {
     private static final Logger LOG = Logger.getLogger(UifHandlerExceptionResolver.class);
 
     /**
      * Builds the incident report model and view from the request that threw the exception
-     * 
+     *
      * @param request -
      *            the request
      * @param response -
@@ -68,7 +68,7 @@ public class UifHandlerExceptionResolver implements org.springframework.web.serv
      */
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
-            Exception ex) {    
+            Exception ex) {
         LOG.error("The following error was caught by the UifHandlerExceptionResolver : ", ex);
 
         // log exception
@@ -89,9 +89,9 @@ public class UifHandlerExceptionResolver implements org.springframework.web.serv
         UserSession userSession = (UserSession) request.getSession().getAttribute(KRADConstants.USER_SESSION_KEY);
         IncidentReportForm incidentReportForm = new IncidentReportForm();
 
-        // Set the post url map to the incident report controller and not 
+        // Set the post url map to the incident report controller and not
         // the one the exception occurred on
-        String postUrl = request.getRequestURL().toString();        
+        String postUrl = request.getRequestURL().toString();
         postUrl = postUrl.substring(0, postUrl.lastIndexOf("/")) + "/incidentReport";
         incidentReportForm.setFormPostUrl(postUrl);
 

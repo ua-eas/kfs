@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,7 +53,7 @@ public class VendorCreditMemoForm extends AccountsPayableFormBase {
 
     /**
      * KRAD Conversion: Performs customization of an header fields.
-     * 
+     *
      * Use of data dictionary for bo RequisitionDocument.
      */
     @Override
@@ -65,23 +65,23 @@ public class VendorCreditMemoForm extends AccountsPayableFormBase {
         else {
             getDocInfo().add(new HeaderField("DataDictionary.VendorCreditMemoDocument.attributes.purapDocumentIdentifier", PurapConstants.PURAP_APPLICATION_DOCUMENT_ID_NOT_AVAILABLE));
         }
-        
+
         String applicationDocumentStatus = PurapConstants.PURAP_APPLICATION_DOCUMENT_STATUS_NOT_AVAILABLE;
-        
+
         if (ObjectUtils.isNotNull(((VendorCreditMemoDocument) getDocument()).getApplicationDocumentStatus())) {
             applicationDocumentStatus = workflowDocument.getApplicationDocumentStatus();
         }
-        
+
         getDocInfo().add(new HeaderField("DataDictionary.VendorCreditMemoDocument.attributes.applicationDocumentStatus", applicationDocumentStatus));
-        
+
     }
 
     /**
      * Build additional credit memo specific buttons and set extraButtons list.
-     * 
+     *
      * @return - list of extra buttons to be displayed to the user
      * KRAD Conversion: Performs customization of extra buttons.
-     * 
+     *
      * No data dictionary is involved.
      */
     @Override

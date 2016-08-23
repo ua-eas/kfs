@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,13 +31,13 @@ import org.w3c.dom.NodeList;
 public abstract class KualiBeanDefinitionParserBase extends AbstractBeanDefinitionParser {
 
     private static Logger LOG = Logger.getLogger(KualiBeanDefinitionParserBase.class);
-    
+
     protected void parseEmbeddedPropertyElements(Element element, BeanDefinitionBuilder bean) {
         NodeList children = element.getChildNodes();
         for ( int i = 0; i < children.getLength(); i++ ) {
             Node child = children.item(i);
             if ( child.getLocalName() != null && child.getLocalName().equals("property") ) {
-                Element propertyElement = (Element)child;                
+                Element propertyElement = (Element)child;
                 String propName = propertyElement.getAttribute("name");
                 String propValue = propertyElement.getAttribute("value");
                 if ( propValue != null ) {
@@ -46,17 +46,17 @@ public abstract class KualiBeanDefinitionParserBase extends AbstractBeanDefiniti
                     bean.addPropertyReference(propName, propertyElement.getAttribute("ref") );
                 }
             }
-        }        
+        }
     }
-    
+
     protected void handleAbstractAttribute( Element element, BeanDefinitionBuilder bean) {
         String abstractStr = element.getAttribute("abstract");
-        
+
         if ( StringUtils.hasText(abstractStr) ) {
             bean.setAbstract( Boolean.valueOf(abstractStr) );
         }
     }
-    
+
     /* The below copied from AbstractSingleBeanDefinitionParser and modified to allow for parent beans to be handled. */
     /**
      * Creates a {@link BeanDefinitionBuilder} instance for the
@@ -72,7 +72,7 @@ public abstract class KualiBeanDefinitionParserBase extends AbstractBeanDefiniti
     @SuppressWarnings("unchecked")
     protected final AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
         BeanDefinitionBuilder builder = null;
-        
+
         String parent = element.getAttribute("parent");
         String beanClass = element.getAttribute("class");
         if ( StringUtils.hasText(beanClass) ) {
@@ -87,7 +87,7 @@ public abstract class KualiBeanDefinitionParserBase extends AbstractBeanDefiniti
         } else if ( getBeanClass(element) != null ) {
             builder = BeanDefinitionBuilder.rootBeanDefinition(getBeanClass(element));
         } else {
-            builder = BeanDefinitionBuilder.childBeanDefinition(getBaseBeanTypeParent(element)); 
+            builder = BeanDefinitionBuilder.childBeanDefinition(getBaseBeanTypeParent(element));
         }
         builder.setSource(parserContext.extractSource(element));
         if (parserContext.isNested()) {
@@ -115,7 +115,7 @@ public abstract class KualiBeanDefinitionParserBase extends AbstractBeanDefiniti
     protected abstract void doParse(Element element, ParserContext parserContext, BeanDefinitionBuilder builder);
 
     protected abstract String getBaseBeanTypeParent( Element element );
-    
+
     protected Class getBeanClass( Element element ) {
         return null;
     }

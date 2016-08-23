@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -100,7 +100,7 @@ public abstract class ExpenseTransferDocumentFormBase extends LaborDocumentFormB
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear.
      */
     public Integer getUniversityFiscalYear() {
@@ -109,7 +109,7 @@ public abstract class ExpenseTransferDocumentFormBase extends LaborDocumentFormB
 
     /**
      * Sets the universityFiscalYear attribute value.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -123,7 +123,7 @@ public abstract class ExpenseTransferDocumentFormBase extends LaborDocumentFormB
 
     /**
      * Gets forced read only source fields
-     * 
+     *
      * @return Returns a Map of read only source fields
      */
     public Map getForcedReadOnlySourceFields() {
@@ -142,9 +142,9 @@ public abstract class ExpenseTransferDocumentFormBase extends LaborDocumentFormB
     }
 
     /**
-     * Returns forced read only target fields (i.e read only fields plus payroll end date fiscal 
+     * Returns forced read only target fields (i.e read only fields plus payroll end date fiscal
      * period code and payroll end date fiscal year)
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.form.KualiTransactionalDocumentFormBase#getForcedReadOnlyFields()
      */
     public Map getForcedReadOnlyTargetFields() {
@@ -156,7 +156,7 @@ public abstract class ExpenseTransferDocumentFormBase extends LaborDocumentFormB
 
     /**
      * Deal with the labor-specific override code to the given source accounting line
-     * 
+     *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase#populateSourceAccountingLine(org.kuali.kfs.sys.businessobject.SourceAccountingLine)
      */
     @Override
@@ -167,7 +167,7 @@ public abstract class ExpenseTransferDocumentFormBase extends LaborDocumentFormB
 
     /**
      * Deal with the labor-specific override code to the given target accounting line
-     * 
+     *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase#populateTargetAccountingLine(org.kuali.kfs.sys.businessobject.TargetAccountingLine)
      */
     @Override
@@ -191,5 +191,5 @@ public abstract class ExpenseTransferDocumentFormBase extends LaborDocumentFormB
             line.setNonFringeAccountOverride(false);
         }
     }
-    
+
 }

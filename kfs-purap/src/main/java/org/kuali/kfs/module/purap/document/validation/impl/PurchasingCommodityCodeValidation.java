@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,25 +35,25 @@ import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class PurchasingCommodityCodeValidation extends GenericValidation {
-    
+
     private BusinessObjectService businessObjectService;
     private DataDictionaryService dataDictionaryService;
     private PurApItem itemForValidation;
-    
+
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        GlobalVariables.getMessageMap().clearErrorPath();                
+        GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath("document.item[" + (itemForValidation.getItemLineNumber() - 1) + "]");
 
         itemForValidation.refreshReferenceObject(PurapPropertyConstants.COMMODITY_CODE);
         valid &= validateCommodityCodes(itemForValidation, commodityCodeIsRequired());
-        
+
         GlobalVariables.getMessageMap().removeFromErrorPath("document.item[" + (itemForValidation.getItemLineNumber() - 1) + "]");
 
         return valid;
 
     }
-    
+
     public PurApItem getItemForValidation() {
         return itemForValidation;
     }
@@ -64,9 +64,9 @@ public class PurchasingCommodityCodeValidation extends GenericValidation {
 
     /**
      * Validates whether the commodity code existed on the item, and if existed, whether the
-     * commodity code on the item existed in the database, and if so, whether the commodity 
+     * commodity code on the item existed in the database, and if so, whether the commodity
      * code is active. Display error if any of these 3 conditions are not met.
-     * 
+     *
      * @param item  The PurApItem containing the commodity code to be validated.
      * @return boolean false if the validation fails and true otherwise.
      */
@@ -74,7 +74,7 @@ public class PurchasingCommodityCodeValidation extends GenericValidation {
         boolean valid = true;
         String identifierString = item.getItemIdentifierString();
         PurchasingItemBase purItem = (PurchasingItemBase) item;
-        
+
         //This validation is only needed if the commodityCodeRequired system parameter is true
         if (commodityCodeRequired && StringUtils.isBlank(purItem.getPurchasingCommodityCode()) ) {
             //This is the case where the commodity code is required but the item does not currently contain the commodity code.
@@ -97,7 +97,7 @@ public class PurchasingCommodityCodeValidation extends GenericValidation {
                 valid &= validateThatCommodityCodeIsActive(item);
             }
         }
-        
+
         return valid;
     }
 
@@ -112,8 +112,8 @@ public class PurchasingCommodityCodeValidation extends GenericValidation {
 
     /**
      * Predicate to do a parameter lookup and tell us whether a commodity code is required.
-     * Override in child classes. 
-     * 
+     * Override in child classes.
+     *
      * @return      True if a commodity code is required.
      */
     protected boolean commodityCodeIsRequired() {

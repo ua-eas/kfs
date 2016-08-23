@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -47,7 +47,7 @@
 				<ref
 					bean="ContractsAndGrantsAgingReport-lookupFundMgrPerson.principalName" />
 				<ref
-					bean="ContractsAndGrantsAgingReport-lookupFundMgrPerson.name" />					
+					bean="ContractsAndGrantsAgingReport-lookupFundMgrPerson.name" />
 				<ref bean="ContractsAndGrantsAgingReport-proposalNumber" />
 				<ref bean="ContractsAndGrantsAgingReport-awardDocumentNumber" />
 				<ref bean="ContractsAndGrantsAgingReport-markedAsFinal" />
@@ -104,9 +104,9 @@
 					<property name="supportAttributes">
 						<list>
 							<bean parent="SupportAttributeDefinition" p:sourceName="lookupFundMgrPerson.principalName"
-								p:targetName="principalName" />	
+								p:targetName="principalName" />
 						<bean parent="SupportAttributeDefinition" p:sourceName="lookupFundMgrPerson.name"
-								p:targetName="name" />								
+								p:targetName="name" />
 						</list>
 					</property>
 				</bean>
@@ -121,7 +121,7 @@
 					<property name="supportAttributes">
 						<list>
 							<bean parent="SupportAttributeDefinition" p:sourceName="customerNumber"
-								p:targetName="customerNumber" />						
+								p:targetName="customerNumber" />
 						</list>
 					</property>
 				</bean>
@@ -147,7 +147,7 @@
 		              <bean parent="PrimitiveAttributeDefinition" p:sourceName="processingOrBillingChartCode" p:targetName="chartOfAccountsCode"/>
 		             </list>
 		          </property>
-		        </bean>		        
+		        </bean>
 				<bean parent="RelationshipDefinition">
 		          <property name="objectAttributeName" value="organization"/>
 		          <property name="primitiveAttributes">
@@ -162,13 +162,13 @@
 						<list>
 							<bean parent="PrimitiveAttributeDefinition" p:sourceName="accountNumber"
 								p:targetName="accountNumber" />
-							<bean parent="PrimitiveAttributeDefinition" p:sourceName="accountChartOfAccountsCode" p:targetName="chartOfAccountsCode"/>	
+							<bean parent="PrimitiveAttributeDefinition" p:sourceName="accountChartOfAccountsCode" p:targetName="chartOfAccountsCode"/>
 						</list>
 					</property>
 					<property name="supportAttributes">
 						<list>
 							<bean parent="SupportAttributeDefinition" p:sourceName="accountNumber"
-								p:targetName="accountNumber" />						
+								p:targetName="accountNumber" />
 						</list>
 					</property>
 				</bean>
@@ -178,7 +178,7 @@
 	</bean>
 
 	<!-- Attribute Definitions -->
-	
+
 		<bean id="ContractsAndGrantsAgingReport-reportOption" parent="ContractsAndGrantsAgingReport-reportOption-parentBean" />
 	<bean id="ContractsAndGrantsAgingReport-reportOption-parentBean"
 		abstract="true" parent="AttributeDefinition">
@@ -399,7 +399,7 @@
 			<bean parent="TextControlDefinition" p:size="32" />
 		</property>
 	</bean>
-	
+
 	<bean id="ContractsAndGrantsAgingReport-totalOpenInvoices"
 		parent="ContractsAndGrantsAgingReport-totalOpenInvoices-parentBean" />
 	<bean id="ContractsAndGrantsAgingReport-totalOpenInvoices-parentBean"
@@ -428,7 +428,7 @@
 		<property name="name" value="awardEndDate" />
 		<property name="label" value="Award End Date" />
 	</bean>
-	
+
 	<bean id="ContractsAndGrantsAgingReport-processingOrBillingChartCode"
 		parent="ContractsAndGrantsAgingReport-processingOrBillingChartCode-parentBean" />
 	<bean id="ContractsAndGrantsAgingReport-processingOrBillingChartCode-parentBean"
@@ -480,7 +480,7 @@
 				p:userIdAttributeName="lookupFundMgrPerson.principalName" />
 		</property>
 	</bean>
-	
+
 		<bean id="ContractsAndGrantsAgingReport-lookupFundMgrPerson.name" parent="ContractsAndGrantsAgingReport-lookupFundMgrPerson.name-parentBean" />
 
 	<bean id="ContractsAndGrantsAgingReport-lookupFundMgrPerson.name-parentBean" abstract="true"
@@ -498,7 +498,7 @@
 		<property name="shortLabel" value="Inv Date" />
 		<property name="required" value="false" />
 	</bean>
-	
+
 	<bean id="ContractsAndGrantsAgingReport-contractsAndGrantsAccountResponsibilityId" parent="ContractsAndGrantsAgingReport-contractsAndGrantsAccountResponsibilityId-parentBean"/>
 	  <bean id="ContractsAndGrantsAgingReport-contractsAndGrantsAccountResponsibilityId-parentBean" abstract="true" parent="AttributeDefinition">
 	    <property name="name" value="contractsAndGrantsAccountResponsibilityId"/>
@@ -512,7 +512,7 @@
 	      <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.coa.businessobject.options.AccountResponsibilityIdFinder" p:includeKeyInLabel="false"/>
 	    </property>
     </bean>
-    
+
 	<!-- Business Object Lookup Definition -->
 
 	<bean id="ContractsAndGrantsAgingReport-lookupDefinition"
@@ -526,9 +526,9 @@
 		  		<bean parent="FieldDefinition" p:noLookup="true"
 				p:attributeName="reportOption"
 				p:defaultValueFinderClass="org.kuali.kfs.module.ar.businessobject.options.CustomerAgingReportValuesFinder" />
-		      	<bean parent="FieldDefinition" p:attributeName="processingOrBillingChartCode"/> 
-		      	<bean parent="FieldDefinition" p:attributeName="organizationCode"/>       	
-		        <bean parent="FieldDefinition" p:attributeName="customerNumber"/>  
+		      	<bean parent="FieldDefinition" p:attributeName="processingOrBillingChartCode"/>
+		      	<bean parent="FieldDefinition" p:attributeName="organizationCode"/>
+		        <bean parent="FieldDefinition" p:attributeName="customerNumber"/>
 		        <bean parent="FieldDefinition" p:attributeName="accountChartOfAccountsCode" />
 		        <bean parent="FieldDefinition" p:attributeName="accountNumber" />
 		        <bean parent="FieldDefinition" p:attributeName="fundManager"/>
@@ -540,10 +540,10 @@
 		        <bean parent="FieldDefinition" p:attributeName="markedAsFinal" />
 		        <bean parent="FieldDefinition" p:attributeName="awardEndDate" />
 		        <bean parent="FieldDefinition" p:attributeName="invoiceDate" />
-		        <bean parent="FieldDefinition" p:attributeName="invoiceAmountFrom"/> 
-		        <bean parent="FieldDefinition" p:attributeName="invoiceAmountTo"/> 
+		        <bean parent="FieldDefinition" p:attributeName="invoiceAmountFrom"/>
+		        <bean parent="FieldDefinition" p:attributeName="invoiceAmountTo"/>
 		        <bean parent="FieldDefinition" p:attributeName="invoiceNumber"/>
-		        <bean parent="FieldDefinition" p:attributeName="contractsAndGrantsAccountResponsibilityId" />     
+		        <bean parent="FieldDefinition" p:attributeName="contractsAndGrantsAccountResponsibilityId" />
 		        <bean parent="FieldDefinition" p:attributeName="reportRunDate" p:defaultValueFinderClass="org.kuali.kfs.sys.businessobject.defaultvalue.CurrentDateMMDDYYYYFinder"/>
       		</list>
 	    </property>

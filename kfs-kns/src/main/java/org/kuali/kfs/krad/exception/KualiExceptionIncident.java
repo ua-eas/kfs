@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,9 +23,9 @@ import java.util.Map;
 /**
  * This class contains the exception incident information, exception, form and
  * session user. It is constructed and saved into the HTTP Request for passing to the
- * jsp when an exception occurs. 
- * 
- * 
+ * jsp when an exception occurs.
+ *
+ *
  *
  */
 public interface KualiExceptionIncident {
@@ -34,7 +34,7 @@ public interface KualiExceptionIncident {
      * <p>Value is exceptionReportSubject
      */
      public static final String EXCEPTION_REPORT_SUBJECT="exceptionReportSubject";
-     
+
      /**
       * Boolean value for incident report display
       */
@@ -63,7 +63,7 @@ public interface KualiExceptionIncident {
       * Document id. it's blank if not a document process
       * <p>Value is documentId
       */
-     public static final String DOCUMENT_ID="documentId"; 
+     public static final String DOCUMENT_ID="documentId";
      /**
       * Session user email address
       * <p>Value is userEmail
@@ -93,7 +93,7 @@ public interface KualiExceptionIncident {
     /**
      * This method return list of {key,value} pairs that each key is the constants
      * defined in this interface.
-     * 
+     *
      * @return
      * <p>Example:
      * <code>
@@ -105,15 +105,15 @@ public interface KualiExceptionIncident {
      * displayMessage, Either exception error message or generic exception error message
      * stackTrace, Exception stack trace here
      * </code>
-     * 
+     *
      */
     public Map<String, String> toProperties();
-    
+
     /**
      * This method checks the exception (set during construction) and return errror
      * message if it's Kuali type of exception (defined by the list of exception names).
      * Otherwise, it returns a generic message.
-     * 
+     *
      * @param The caught exception
      * @return
      */
@@ -121,10 +121,10 @@ public interface KualiExceptionIncident {
 
     /**
      * This method get the specified key value from the implementing class.
-     * 
+     *
      * @param key
      * @return null is return if not found
      */
     public String getProperty(String key);
-    
+
 }

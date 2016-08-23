@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,7 +46,7 @@ public class FiscalYearFunctionControl extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -55,7 +55,7 @@ public class FiscalYearFunctionControl extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -65,7 +65,7 @@ public class FiscalYearFunctionControl extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the financialSystemFunctionControlCode attribute.
-     * 
+     *
      * @return Returns the financialSystemFunctionControlCode
      */
     public String getFinancialSystemFunctionControlCode() {
@@ -74,7 +74,7 @@ public class FiscalYearFunctionControl extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the financialSystemFunctionControlCode attribute.
-     * 
+     *
      * @param financialSystemFunctionControlCode The financialSystemFunctionControlCode to set.
      */
     public void setFinancialSystemFunctionControlCode(String financialSystemFunctionControlCode) {
@@ -84,7 +84,7 @@ public class FiscalYearFunctionControl extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the financialSystemFunctionActiveIndicator attribute.
-     * 
+     *
      * @return Returns the financialSystemFunctionActiveIndicator
      */
     public boolean isFinancialSystemFunctionActiveIndicator() {
@@ -94,7 +94,7 @@ public class FiscalYearFunctionControl extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the financialSystemFunctionActiveIndicator attribute.
-     * 
+     *
      * @param financialSystemFunctionActiveIndicator The financialSystemFunctionActiveIndicator to set.
      */
     public void setFinancialSystemFunctionActiveIndicator(boolean financialSystemFunctionActiveIndicator) {
@@ -119,7 +119,7 @@ public class FiscalYearFunctionControl extends PersistableBusinessObjectBase imp
 
     /**
      * Implementing equals since I need contains to behave reasonably.
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     public boolean equals(Object obj) {
@@ -152,7 +152,7 @@ public class FiscalYearFunctionControl extends PersistableBusinessObjectBase imp
 
     /**
      * Gets the universityFiscal attribute.
-     * 
+     *
      * @return Returns the universityFiscal.
      */
     public SystemOptions getUniversityFiscal() {
@@ -161,7 +161,7 @@ public class FiscalYearFunctionControl extends PersistableBusinessObjectBase imp
 
     /**
      * Sets the universityFiscal attribute value.
-     * 
+     *
      * @param universityFiscal The universityFiscal to set.
      */
     public void setUniversityFiscal(SystemOptions universityFiscal) {

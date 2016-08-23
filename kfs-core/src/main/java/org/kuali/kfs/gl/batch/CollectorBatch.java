@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -70,7 +70,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
     private String organizationCode;
     private Date transmissionDate;
     private String recordType;
-    
+
     // header record additional fields
     private String personUserID;
     private Integer batchSequenceNumber;
@@ -88,15 +88,15 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
     private String secondEmptyField;
     private Integer totalRecords;
     private KualiDecimal totalAmount;
-    
+
     private MessageMap messageMap;
     private OriginEntryTotals originEntryTotals;
-    
+
     private boolean headerlessBatch;
-    
+
     private static CollectorBatchHeaderFieldUtil collectorBatchHeaderFieldUtil;
     private static CollectorBatchTrailerRecordFieldUtil collectorBatchTrailerRecordFieldUtil;
-    
+
     /**
      * Constructs a CollectorBatch
      */
@@ -110,19 +110,19 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
     }
 
     /**
-     * Gets the universityFiscalYear attribute. 
+     * Gets the universityFiscalYear attribute.
      */
     public String getUniversityFiscalYear() {
         return universityFiscalYear;
     }
-    
+
     /**
      * Sets the universityFiscalYear attribute
      */
     public void setUniversityFiscalYear(String universityFiscalYear) {
         this.universityFiscalYear = universityFiscalYear;
     }
-    
+
     /**
      * Gets the batchSequenceNumber attribute.
      */
@@ -199,21 +199,21 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
     public String getSecondEmptyField() {
         return secondEmptyField;
     }
-    
+
     /**
      * Sets the secondEmptyField attribute
      */
     public void setSecondEmptyField(String secondEmptyField) {
         this.secondEmptyField = secondEmptyField;
     }
-    
+
     /**
      * Gets the firstEmptyField attribute
      */
     public String getFirstEmptyField() {
         return firstEmptyField;
     }
-    
+
     /**
      * Sets the firstEmptyField attribute
      */
@@ -255,14 +255,14 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
     public String getRecordType() {
         return recordType;
     }
-    
+
     /**
      * Sets the recordType attribute.
      */
     public void setRecordType(String recordType) {
         this.recordType = recordType;
     }
-        
+
     /**
      * Gets the emailAddress attribute.
      */
@@ -335,7 +335,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 
     /**
      * Attempts to retrieve a collector header already exists with the primary key values given for this object
-     * 
+     *
      * @return the CollectorHeader found in the database
      */
     public CollectorHeader retrieveDuplicateHeader() {
@@ -349,14 +349,14 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
     /**
      * Sets defaults for fields not populated from file. Store an origin entry group, all gl entries and id billing entries from the
      * processed file. Also write the header for the duplicate file check.
-     * 
+     *
      * @param originEntryGroup the group into which to store the origin entries
      * @param collectorReportData report data
      */
     public void setDefaultsAndStore(CollectorReportData collectorReportData, String demergerOutputFileName, PrintStream originEntryOutputPs) {
-        BusinessObjectService businessObjectService = SpringContext.getBean(BusinessObjectService.class);  
+        BusinessObjectService businessObjectService = SpringContext.getBean(BusinessObjectService.class);
         CollectorDetailService collectorDetailService = SpringContext.getBean(CollectorDetailService.class);
-        
+
         // persistHeader is used to persist a collector header record into the DB
         CollectorHeader persistHeader = createCollectorHeaderForStorage();
         CollectorHeader foundHeader = retrieveDuplicateHeader();
@@ -366,9 +366,9 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
             persistHeader.setVersionNumber(foundHeader.getVersionNumber());
         }
         businessObjectService.save(persistHeader);
-              
+
         // store origin entries by using the demerger output file
-        
+
         BufferedReader inputFileReader = null;
         try {
             inputFileReader = new BufferedReader(new FileReader(demergerOutputFileName));
@@ -383,11 +383,11 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
         finally {
             IOUtils.closeQuietly(inputFileReader);
             inputFileReader = null;
-        }  
+        }
         Date nowDate  = new Date(SpringContext.getBean(DateTimeService.class).getCurrentDate().getTime());
         RunDateService runDateService = SpringContext.getBean(RunDateService.class);
         Date createDate = new java.sql.Date((runDateService.calculateRunDate(nowDate).getTime()));
-        
+
         Integer sequenceNumber = new Integer(0);
         Integer nextSequence = collectorDetailService.getNextCreateSequence(createDate);
         if (nextSequence != null) {
@@ -395,9 +395,9 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
         }
         int countOfdetails = collectorDetails.size();
         for (int numSavedDetails = 0; numSavedDetails < countOfdetails; numSavedDetails++) {
-            CollectorDetail idDetail = this.collectorDetails.get(numSavedDetails);           
+            CollectorDetail idDetail = this.collectorDetails.get(numSavedDetails);
           //  setDefaultsCollectorDetail(idDetail);
-         
+
             idDetail.setTransactionLedgerEntrySequenceNumber( ++sequenceNumber);
             idDetail.setCreateDate(createDate);
             CollectorDetail foundIdDetail = (CollectorDetail) businessObjectService.retrieve(idDetail);
@@ -407,7 +407,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 
             businessObjectService.save(idDetail);
         }
-        
+
         collectorReportData.setNumSavedDetails(this, countOfdetails);
     }
 
@@ -439,7 +439,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 
     /**
      * Creates origin entry group from header fields.
-     * 
+     *
      * @return OriginEntryGroup
      */
     private OriginEntryGroup createOriginEntryGroup() {
@@ -456,7 +456,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 
     /**
      * Creates a CollectorHeader from the batch to be used for storage
-     * 
+     *
      * @return CollectorHeader
      */
     public CollectorHeader createCollectorHeaderForStorage() {
@@ -478,7 +478,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 
     /**
      * Creates an origin entry record with the PK values filled in only. This is useful to check for duplicate headers.
-     * 
+     *
      * @return CollectorHeader with chart of accounts code, organization code, process transmission date, batch sequence number
      * total record count, and process total amount from this CollectorBatch
      */
@@ -497,7 +497,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 
 //    /**
 //     * Sets defaults for missing id billing fields.
-//     * 
+//     *
 //     * @param idDetail CollectorDetail object which has its create date being set
 //     */
 //    private void setDefaultsCollectorDetail(CollectorDetail idDetail) {
@@ -506,12 +506,12 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 //        // idBilling.setCreateSequence(String.valueOf(RandomUtils.nextInt(2)));
 //        // idBilling.setInterDepartmentalBillingSequenceNumber(String.valueOf(RandomUtils.nextInt(2)));
 //        idDetail.setCreateDate(new Date(SpringContext.getBean(DateTimeService.class).getCurrentDate().getTime()));
-//        
+//
 //    }
 
     /**
      * Gets the campusCode attribute.
-     * 
+     *
      * @return Returns the campusCode.
      */
     public String getCampusCode() {
@@ -520,7 +520,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 
     /**
      * Sets the campusCode attribute value.
-     * 
+     *
      * @param campusCode The campusCode to set.
      */
     public void setCampusCode(String campusCode) {
@@ -529,7 +529,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 
     /**
      * Gets the departmentName attribute.
-     * 
+     *
      * @return Returns the departmentName.
      */
     public String getDepartmentName() {
@@ -538,7 +538,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 
     /**
      * Sets the departmentName attribute value.
-     * 
+     *
      * @param departmentName The departmentName to set.
      */
     public void setDepartmentName(String departmentName) {
@@ -547,7 +547,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 
     /**
      * Gets the mailingAddress attribute.
-     * 
+     *
      * @return Returns the mailingAddress.
      */
     public String getMailingAddress() {
@@ -556,7 +556,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 
     /**
      * Sets the mailingAddress attribute value.
-     * 
+     *
      * @param mailingAddress The mailingAddress to set.
      */
     public void setMailingAddress(String mailingAddress) {
@@ -565,7 +565,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 
     /**
      * Gets the phoneNumber attribute.
-     * 
+     *
      * @return Returns the phoneNumber.
      */
     public String getPhoneNumber() {
@@ -574,7 +574,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 
     /**
      * Sets the phoneNumber attribute value.
-     * 
+     *
      * @param phoneNumber The phoneNumber to set.
      */
     public void setPhoneNumber(String phoneNumber) {
@@ -583,7 +583,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 
     /**
      * Gets the batchName attribute.
-     * 
+     *
      * @return Returns the batchName.
      */
     public String getBatchName() {
@@ -592,7 +592,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
 
     /**
      * Sets the batchName attribute value.
-     * 
+     *
      * @param batchName The batchName to set.
      */
     public void setBatchName(String batchName) {
@@ -628,7 +628,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
     public void setHeaderlessBatch(boolean headerlessBatch) {
         this.headerlessBatch = headerlessBatch;
     }
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap map = new LinkedHashMap();
         map.put("chartOfAccountsCode", getChartOfAccountsCode());
@@ -642,13 +642,13 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
         map.put("mailingAddress", getMailingAddress());
         map.put("departmentName", getDepartmentName());
         map.put("firstEmptyField", getFirstEmptyField());
-        map.put("totalRecords", getTotalRecords());        
+        map.put("totalRecords", getTotalRecords());
         map.put("secondEmptyField", getSecondEmptyField());
         map.put("totalAmount", getTotalAmount());
-        
+
         return map;
     }
-    
+
     protected Date parseSqlDate(String date) throws ParseException {
         try {
             return new Date(new SimpleDateFormat("yy-MM-dd").parse(date).getTime());
@@ -657,11 +657,11 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
             throw new ParseException(e.getMessage(), e);
         }
     }
-    
+
     protected String getValue(String headerLine, int s, int e) {
           return org.springframework.util.StringUtils.trimTrailingWhitespace(StringUtils.substring(headerLine, s, e));
       }
-    
+
     /**
      * @return the static instance of the CollectorBatchHeaderFieldUtil
      */
@@ -671,13 +671,13 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
         }
         return collectorBatchHeaderFieldUtil;
     }
-    
+
     public void setFromTextFileForCollectorBatch(String headerLine) {
         try{
             final Map<String, Integer> pMap = getCollectorBatchHeaderFieldUtil().getFieldBeginningPositionMap();
-            
+
             headerLine = org.apache.commons.lang.StringUtils.rightPad(headerLine, GeneralLedgerConstants.getSpaceAllCollectorBatchHeaderFields().length(), ' ');
-            
+
             setChartOfAccountsCode(getValue(headerLine, pMap.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE), pMap.get(KFSPropertyConstants.ORGANIZATION_CODE)));
             setOrganizationCode(getValue(headerLine, pMap.get(KFSPropertyConstants.ORGANIZATION_CODE), pMap.get(KFSPropertyConstants.TRANSMISSION_DATE)));
 
@@ -690,8 +690,8 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
                 setTransmissionDate(null);
             }
             String batchNumber = org.apache.commons.lang.StringUtils.trim(getValue(headerLine, pMap.get(KFSPropertyConstants.BATCH_SEQUENCE_NUMBER), pMap.get(KFSPropertyConstants.EMAIL_ADDRESS)));
-            
-            if (ObjectUtil.isInteger(batchNumber)) { 
+
+            if (ObjectUtil.isInteger(batchNumber)) {
                 setBatchSequenceNumber(new Integer(batchNumber));
             } else {
                 setBatchSequenceNumber(0);
@@ -706,7 +706,7 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
             throw new RuntimeException(e + " occurred in CollectorBatch.setFromTextFileForCollectorBatch()");
         }
     }
-    
+
     /**
      * @return the static instance of the CollectorBatchTrailerRecordFieldUtil
      */
@@ -716,15 +716,15 @@ public class CollectorBatch extends PersistableBusinessObjectBase {
         }
         return collectorBatchTrailerRecordFieldUtil;
     }
-    
+
     public void setFromTextFileForCollectorBatchTrailerRecord(String trailerLine, int lineNumber) {
         final Map<String, Integer> pMap = getCollectorBatchTrailerRecordFieldUtil().getFieldBeginningPositionMap();
 
         trailerLine = org.apache.commons.lang.StringUtils.rightPad(trailerLine, GeneralLedgerConstants.getSpaceAllCollectorBatchTrailerFields().length(), ' ');
         setTotalRecords(new Integer(org.apache.commons.lang.StringUtils.trim(getValue(trailerLine, pMap.get(KFSPropertyConstants.TOTAL_RECORDS), pMap.get(KFSPropertyConstants.TRAILER_RECORD_SECOND_EMPTY_FIELD)))));
-        
+
         String trailerAmount = org.apache.commons.lang.StringUtils.trim(getValue(trailerLine, pMap.get(KFSPropertyConstants.TOTAL_AMOUNT), GeneralLedgerConstants.getSpaceAllCollectorBatchTrailerFields().length()));
-        
+
         try {
             setTotalAmount(trailerAmount);
         }

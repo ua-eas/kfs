@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,8 +29,8 @@ import java.util.List;
 
 /**
  * Represents a Column in a result table
- * 
- * 
+ *
+ *
  */
 @Deprecated
 public class Column implements java.io.Serializable, PropertyRenderingConfigElement {
@@ -45,31 +45,31 @@ public class Column implements java.io.Serializable, PropertyRenderingConfigElem
     private Formatter formatter;
     private Comparator comparator;
     private boolean escapeXMLValue=true;
-    
+
     private String alternateDisplayPropertyName;
     private String additionalDisplayPropertyName;
-    
+
     private boolean total;
-    
+
     /**
      * A comparator used to compare the propertyValue values
      */
     private Comparator valueComparator;
-    
+
     /**
-     * Represents the maximum column length.  If propertyValue's length exceeds this value, then 
+     * Represents the maximum column length.  If propertyValue's length exceeds this value, then
      * it will be truncated to this length when displayed
      */
     private int maxLength;
-    
+
     public Column() {
     }
-    
+
     public Column(String columnTitle, String propertyName) {
         this.columnTitle = columnTitle;
         this.propertyName = propertyName;
     }
-    
+
     public Column(String columnTitle, String sortable, String propertyName) {
         this.columnTitle = columnTitle;
         this.sortable = sortable;
@@ -194,7 +194,7 @@ public class Column implements java.io.Serializable, PropertyRenderingConfigElem
 	 */
 	public void setColumnAnchor(HtmlData columnAnchor) {
 		this.columnAnchor = columnAnchor;
-		if(columnAnchor!=null) 
+		if(columnAnchor!=null)
 			setPropertyURL(((AnchorHtmlData)columnAnchor).getHref());
 	}
 
@@ -212,7 +212,7 @@ public class Column implements java.io.Serializable, PropertyRenderingConfigElem
     public void setPropertyValue(String propertyValue) {
         this.propertyValue = propertyValue;
     }
-    
+
     /**
      * @return Returns the formatter.
      */
@@ -237,7 +237,7 @@ public class Column implements java.io.Serializable, PropertyRenderingConfigElem
     }
 
     /**
-     * Returns the maximum column length.  If propertyValue's length exceeds this value, then 
+     * Returns the maximum column length.  If propertyValue's length exceeds this value, then
      * it will be truncated to this length when displayed
      * @return
      */
@@ -246,7 +246,7 @@ public class Column implements java.io.Serializable, PropertyRenderingConfigElem
     }
 
     /**
-     * Sets the maximum column length.  If propertyValue's length exceeds this value, then 
+     * Sets the maximum column length.  If propertyValue's length exceeds this value, then
      * it will be truncated to this length when displayed
      * @param maxColumnLength
      */
@@ -299,5 +299,5 @@ public class Column implements java.io.Serializable, PropertyRenderingConfigElem
 	public void setUnformattedPropertyValue(Object unformattedPropertyValue) {
 		this.unformattedPropertyValue = unformattedPropertyValue;
 	}
-	
+
 }

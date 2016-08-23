@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -86,7 +86,7 @@ public class BatchFileUploadServlet extends HttpServlet {
             throw new RuntimeException( "You must be able to initiate the GLCP or LLCP documents to use this page.  (Backdoor users are not recognized.)" );
         }
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         checkAuthorization(request);
@@ -137,13 +137,13 @@ public class BatchFileUploadServlet extends HttpServlet {
                 }
             }
             LOG.info("Copying to Directory: " + destPath);
-            
+
             if ( !getBatchDirectories().contains(destPath) ) {
                 new File(tempDir, fileName).delete();
                 throw new RuntimeException( "Illegal Attempt to upload to an unauthorized path: '" + destPath + "'" );
             }
-            
-            BufferedInputStream bis = new BufferedInputStream( new FileInputStream( new File(tempDir, fileName) ) ); 
+
+            BufferedInputStream bis = new BufferedInputStream( new FileInputStream( new File(tempDir, fileName) ) );
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(destPath, fileName)), 1024 * 1024);
             byte buf[] = new byte[10240];
             int len;

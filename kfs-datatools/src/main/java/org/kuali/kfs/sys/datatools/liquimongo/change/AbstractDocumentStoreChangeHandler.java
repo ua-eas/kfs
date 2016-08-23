@@ -32,7 +32,7 @@ import com.mongodb.DBObject;
 
 public abstract class AbstractDocumentStoreChangeHandler implements DocumentStoreChangeHandler {
     protected MongoOperations mongoTemplate;
-    
+
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AbstractDocumentStoreChangeHandler.class);
 
     public static final String CHANGE_TYPE = "changeType";
@@ -47,7 +47,7 @@ public abstract class AbstractDocumentStoreChangeHandler implements DocumentStor
             throw new IllegalArgumentException(key + " is missing from change json");
         }
     }
-    
+
     public void setMongoTemplate(MongoOperations mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }

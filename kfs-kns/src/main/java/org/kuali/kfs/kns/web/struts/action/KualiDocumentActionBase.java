@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -261,7 +261,7 @@ public class KualiDocumentActionBase extends KualiAction {
             List<ActionRequest> actionRequests = KewApiServiceLocator.getWorkflowDocumentService().getPendingActionRequests(formBase.getDocId());
             formBase.setActionRequests(actionRequests);
         }
-       
+
         return returnForward;
     }
 
@@ -750,14 +750,14 @@ public class KualiDocumentActionBase extends KualiAction {
         KualiDocumentFormBase kualiDocumentFormBase = (KualiDocumentFormBase) form;
         doProcessingAfterPost(kualiDocumentFormBase, request);
 
-        // KULRICE-7864: blanket approve should not be allowed when adhoc route for completion request is newly added 
+        // KULRICE-7864: blanket approve should not be allowed when adhoc route for completion request is newly added
         boolean hasPendingAdhocForCompletion = this.hasPendingAdhocForCompletion(kualiDocumentFormBase);
         if(hasPendingAdhocForCompletion){
             GlobalVariables.getMessageMap().putError(KRADConstants.NEW_AD_HOC_ROUTE_WORKGROUP_PROPERTY_NAME, RiceKeyConstants.ERROR_ADHOC_COMPLETE_BLANKET_APPROVE_NOT_ALLOWED);
-            
+
             return mapping.findForward(RiceConstants.MAPPING_BASIC);
         }
-        
+
         kualiDocumentFormBase.setDerivedValuesOnForm(request);
         ActionForward preRulesForward = promptBeforeValidation(mapping, form, request, response);
         if (preRulesForward != null) {
@@ -888,14 +888,14 @@ public class KualiDocumentActionBase extends KualiAction {
      */
     public ActionForward recall(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        
+
         ReasonPrompt prompt = new ReasonPrompt(KRADConstants.DOCUMENT_RECALL_QUESTION, RiceKeyConstants.QUESTION_RECALL_DOCUMENT, KRADConstants.RECALL_QUESTION, RiceKeyConstants.ERROR_DOCUMENT_RECALL_REASON_REQUIRED, KRADConstants.MAPPING_RECALL, null, RiceKeyConstants.MESSAGE_RECALL_NOTE_TEXT_INTRO);
         ReasonPrompt.Response resp = prompt.ask(mapping, form, request, response);
 
         if (resp.forward != null) {
             return resp.forward;
         }
-        
+
         boolean cancel = !((KRADConstants.DOCUMENT_RECALL_QUESTION.equals(resp.question)) && RecallQuestion.RECALL_TO_ACTIONLIST.equals(resp.button));
 
         KualiDocumentFormBase kualiDocumentFormBase = (KualiDocumentFormBase) form;
@@ -1863,7 +1863,7 @@ public class KualiDocumentActionBase extends KualiAction {
         }
 
         /**
-         * @param questionId the question id/instance, 
+         * @param questionId the question id/instance,
          * @param questionTextKey application resources key for question text
          * @param questionType the {@link Question} question type
          * @param questionCallerMapping mapping of original action
@@ -2076,10 +2076,10 @@ public class KualiDocumentActionBase extends KualiAction {
         }
         return service;
     }
-    
+
     /**
      * Complete document action
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -2105,25 +2105,25 @@ public class KualiDocumentActionBase extends KualiAction {
 
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }
-    
+
     /**
-     * KULRICE-7864: blanket approve should not be allowed when adhoc route for completion request is newly added 
-     * 
+     * KULRICE-7864: blanket approve should not be allowed when adhoc route for completion request is newly added
+     *
      * determine whether any adhoc recipient in the given document has been just added for completion action
      */
     protected boolean hasPendingAdhocForCompletion(KualiDocumentFormBase kualiDocumentFormBase){
         List<AdHocRouteRecipient> adHocRecipients = this.combineAdHocRecipients(kualiDocumentFormBase);
-        
+
         for(AdHocRouteRecipient receipients : adHocRecipients){
             String actionRequestedCode = receipients.getActionRequested();
-            
+
             if(KewApiConstants.ACTION_REQUEST_COMPLETE_REQ.equals(actionRequestedCode)){
                 return true;
             }
         }
-        
+
         return false;
     }
-    
+
 }
 

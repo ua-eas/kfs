@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -43,8 +43,8 @@ import java.util.Set;
 /**
  * Utility class providing methods to help create and modify
  * <code>Component</code> instances
- * 
- * 
+ *
+ *
  */
 public class ComponentUtils {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ComponentUtils.class);
@@ -169,7 +169,7 @@ public class ComponentUtils {
 
         return typeComponents;
     }
-    
+
     public static <T extends Component> List<T> getComponentsOfTypeDeep(List<? extends Component> items,
             Class<T> componentType) {
         List<T> typeComponents = new ArrayList<T>();
@@ -180,7 +180,7 @@ public class ComponentUtils {
 
         return typeComponents;
     }
-    
+
     @SuppressWarnings("unchecked")
     public static <T extends Component> List<T> getComponentsOfTypeDeep(Component component, Class<T> componentType) {
         List<T> typeComponents = new ArrayList<T>();
@@ -271,12 +271,12 @@ public class ComponentUtils {
                 updateIdsWithSuffixNested(nested, idSuffix);
             }
         }
-        
+
         for (Component nested : component.getPropertyReplacerComponents()) {
             if (nested != null) {
                 updateIdsWithSuffixNested(nested, idSuffix);
             }
-        }        
+        }
     }
 
     public static void updateIdWithSuffix(Component component, String idSuffix) {
@@ -354,7 +354,7 @@ public class ComponentUtils {
     public static void updateContextForLine(Component component, Object collectionLine, int lineIndex) {
         pushObjectToContext(component, UifConstants.ContextVariableNames.LINE, collectionLine);
         pushObjectToContext(component, UifConstants.ContextVariableNames.INDEX, new Integer(lineIndex));
-        
+
         boolean isAddLine = (lineIndex == -1);
         pushObjectToContext(component, UifConstants.ContextVariableNames.IS_ADD_LINE, isAddLine);
     }
@@ -371,7 +371,7 @@ public class ComponentUtils {
      * items share the same order value, all but the last item found in the list
      * will be removed.
      * </p>
-     * 
+     *
      * @param items
      * @param defaultOrderSequence
      * @return List<Ordered> sorted items

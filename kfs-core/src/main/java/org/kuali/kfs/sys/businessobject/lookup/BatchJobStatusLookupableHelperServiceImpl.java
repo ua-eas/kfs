@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -97,7 +97,7 @@ public class BatchJobStatusLookupableHelperServiceImpl extends KualiLookupableHe
         }
         return false;
     }
-    
+
     /***
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getCustomActionUrls(org.kuali.rice.krad.bo.BusinessObject, java.util.List)
      */
@@ -111,11 +111,11 @@ public class BatchJobStatusLookupableHelperServiceImpl extends KualiLookupableHe
             String linkText = "Modify";
             Map<String,String> permissionDetails = new HashMap<String,String>(1);
             permissionDetails.put(KimConstants.AttributeConstants.NAMESPACE_CODE, job.getNamespaceCode() );
-            
+
             if ( !SpringContext.getBean(IdentityManagementService.class).hasPermissionByTemplateName(
-                    GlobalVariables.getUserSession().getPerson().getPrincipalId(), 
-                    KRADConstants.KNS_NAMESPACE, 
-                    KFSConstants.PermissionTemplate.MODIFY_BATCH_JOB.name, 
+                    GlobalVariables.getUserSession().getPerson().getPrincipalId(),
+                    KRADConstants.KNS_NAMESPACE,
+                    KFSConstants.PermissionTemplate.MODIFY_BATCH_JOB.name,
                     permissionDetails ) ) {
                 linkText = "View";
             }
@@ -141,7 +141,7 @@ public class BatchJobStatusLookupableHelperServiceImpl extends KualiLookupableHe
         titleText += "Name="+job.getName()+" Group="+job.getGroup();
         return titleText;
     }
-    
+
     public void setSchedulerService(SchedulerService schedulerService) {
         this.schedulerService = schedulerService;
     }

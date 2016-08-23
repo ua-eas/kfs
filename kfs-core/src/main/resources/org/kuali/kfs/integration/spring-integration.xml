@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -21,10 +21,10 @@
 <beans>
 	<bean id="contractsAndGrantsModuleService"  parent="contractsAndGrantsModuleService-parentBean"/>
 	<bean id="contractsAndGrantsModuleService-parentBean" class="org.kuali.kfs.integration.cg.ContractsAndGrantsModuleServiceNoOp"  abstract="true"/>
-		
+
 	<bean id="contractsAndGrantsModuleBillingService" parent="contractsAndGrantsModuleBillingService-parentBean"/>
 	<bean id="contractsAndGrantsModuleBillingService-parentBean" class="org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingServiceNoOp" abstract="true"/>
-				
+
 	<bean id="ldModuleConfiguration"  parent="ldModuleConfiguration-parentBean"/>
 	<bean id="ldModuleConfiguration-parentBean" class="org.kuali.kfs.sys.FinancialSystemModuleConfiguration" abstract="true">
 		  <property name="namespaceCode" value="KFS-LD" />
@@ -80,17 +80,17 @@
 	<bean id="arModuleService-parentBean" class="org.kuali.kfs.integration.UnimplementedKfsModuleServiceImpl" abstract="true">
 		<property name="moduleConfiguration" ref="arModuleConfiguration" />
 	</bean>
-	
+
 	<bean id="accountsReceivableModuleService"  parent="accountsReceivableModuleService-parentBean"/>
 	<bean id="accountsReceivableModuleService-parentBean" class="org.kuali.kfs.integration.ar.AccountsReceivableModuleServiceNoOp"  abstract="true"/>
-	
+
 	<bean id="accountsReceivableModuleBillingService"  parent="accountsReceivableModuleBillingService-parentBean"/>
 	<bean id="accountsReceivableModuleBillingService-parentBean" class="org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingServiceNoOp"  abstract="true"/>
 
     <bean id="ArIntegrationConstants" class="org.kuali.rice.core.api.util.collect.ConstantsMap">
 		<property name="constantClass" value="org.kuali.kfs.integration.ar.ArIntegrationConstants" />
 	</bean>
-	
+
 	<bean id="effortCertificationModuleService"  parent="effortCertificationModuleService-parentBean"/>
 	<bean id="effortCertificationModuleService-parentBean" class="org.kuali.kfs.integration.ec.EffortCertificationModuleServiceNoOp"  abstract="true"/>
 
@@ -141,7 +141,7 @@
 					value="org.kuali.kfs.integration.cg.businessobject.BudgetCategoryDTO" />
 				<entry
 					key="org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFundGroup"
-					value="org.kuali.kfs.integration.cg.businessobject.LetterOfCreditFundGroup" />					
+					value="org.kuali.kfs.integration.cg.businessobject.LetterOfCreditFundGroup" />
 			</map>
 		</property>
 	</bean>

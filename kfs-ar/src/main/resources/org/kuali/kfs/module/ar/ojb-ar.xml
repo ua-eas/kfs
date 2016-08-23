@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -342,7 +342,7 @@
 		<field-descriptor name="invoiceDueDate" column="AR_INV_DUE_DT" jdbc-type="DATE"/>
 		<field-descriptor name="billingDate" column="AR_BILLING_DT" jdbc-type="DATE"/>
 		<field-descriptor name="billByChartOfAccountCode" column="AR_BILL_BY_COA_CD" jdbc-type="VARCHAR"/>
-		<field-descriptor name="billedByOrganizationCode" column="AR_BILL_BY_ORG_CD" jdbc-type="VARCHAR"/>		
+		<field-descriptor name="billedByOrganizationCode" column="AR_BILL_BY_ORG_CD" jdbc-type="VARCHAR"/>
 	</class-descriptor>
 
 	<class-descriptor class="org.kuali.kfs.module.ar.document.CustomerInvoiceWriteoffDocument" table="AR_WRITEOFF_DOC_T">
@@ -801,7 +801,7 @@
 		<field-descriptor name="financialDocumentLineAmount" column="FDOC_LINE_AMT" jdbc-type="DECIMAL"
 			conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion" />
 	</class-descriptor>
-	
+
 	<class-descriptor class="org.kuali.kfs.module.ar.businessobject.OrganizationAccountingDefault" table="AR_ORG_ACCTGDFLT_T">
 		<field-descriptor name="universityFiscalYear" column="UNIV_FISCAL_YR" jdbc-type="INTEGER" primarykey="true" index="true" />
 		<field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
@@ -1118,8 +1118,8 @@
 		<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
 		<field-descriptor name="previouslyBilledAmount" column="PREV_BILLED_AMT" jdbc-type="DECIMAL" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion"/>
 		<field-descriptor name="reportedDate" column="REPORTED_DT" jdbc-type="DATE"/>
-	</class-descriptor>	
-	
+	</class-descriptor>
+
  	<class-descriptor class="org.kuali.kfs.module.ar.businessobject.DunningCampaign" table="AR_DUN_CMPGN_DOC_T">
 		<field-descriptor name="campaignID" column="CMPGN_ID" jdbc-type="VARCHAR" primarykey="true" index="true" />
 		<field-descriptor name="campaignDescription" column="CMPGN_DESC" jdbc-type="VARCHAR" />
@@ -1130,9 +1130,9 @@
 			collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object">
 			<orderby name="dunningLetterDistributionID" sort="ASC" />
 			<inverse-foreignkey field-ref="campaignID" />
-		</collection-descriptor> 
+		</collection-descriptor>
 	</class-descriptor>
-	
+
 	<class-descriptor class="org.kuali.kfs.module.ar.businessobject.CollectionActivityType" table="AR_CLCTN_ACTVY_TYP_T">
 		<field-descriptor name="activityCode" column="CLCTN_ACTVY_TYP_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
 		<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
@@ -1140,7 +1140,7 @@
 		<field-descriptor name="activityDescription" column="ACTVY_DESC" jdbc-type="VARCHAR" />
 		<field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
 	</class-descriptor>
-	
+
 	<class-descriptor class="org.kuali.kfs.module.ar.businessobject.CollectionEvent" table="AR_CLCTN_EVNT_T">
 		<field-descriptor name="id" column="ID" jdbc-type="BIGINT" primarykey="true" index="true"
 			autoincrement="true" sequence-name="AR_CLCTN_EVNT_ID_SEQ" />
@@ -1160,7 +1160,7 @@
 			<foreignkey field-ref="activityCode" />
 		</reference-descriptor>
 	</class-descriptor>
-	
+
  	<class-descriptor class="org.kuali.kfs.module.ar.document.ContractsGrantsCollectionActivityDocument" table="AR_CGB_CLCTN_ACTVY_DOC_T">
 		<field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true" index="true" />
 		<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
@@ -1198,7 +1198,7 @@
 			<foreignkey field-ref="invoiceNumber" />
 		</reference-descriptor>
     </class-descriptor>
-		    
+
  	<class-descriptor class="org.kuali.kfs.module.ar.businessobject.DunningCampaign" table="AR_DUN_CMPGN_DOC_T">
 		<field-descriptor name="campaignID" column="CMPGN_ID" jdbc-type="VARCHAR" primarykey="true" index="true" />
 		<field-descriptor name="campaignDescription" column="CMPGN_DESC" jdbc-type="VARCHAR" />
@@ -1209,9 +1209,9 @@
 			collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object">
 			<orderby name="dunningLetterDistributionID" sort="ASC" />
 			<inverse-foreignkey field-ref="campaignID" />
-		</collection-descriptor> 
+		</collection-descriptor>
 	</class-descriptor>
-	
+
 	<class-descriptor class="org.kuali.kfs.module.ar.businessobject.DunningLetterDistribution" table="AR_DUN_LTR_DIST_T">
 		<field-descriptor name="campaignID" column="CMPGN_ID" jdbc-type="VARCHAR" primarykey="true" index="true" />
 		<field-descriptor name="dunningLetterDistributionID" column="DUN_LTR_DIST_ID" jdbc-type="BIGINT" primarykey="true" index="true"
@@ -1225,7 +1225,7 @@
 		 <reference-descriptor name="dunningCampaign" class-ref="org.kuali.kfs.module.ar.businessobject.DunningCampaign" auto-retrieve="true"
 			auto-update="none" auto-delete="none" proxy="true">
 			<foreignkey field-ref="campaignID" />
-		</reference-descriptor> 
+		</reference-descriptor>
 	</class-descriptor>
 
 	<class-descriptor class="org.kuali.kfs.module.ar.businessobject.DunningLetterTemplate" table="AR_DUN_LTR_TMPLT_T">
@@ -1247,9 +1247,9 @@
 			auto-update="none" auto-delete="none" proxy="true">
 			<foreignkey field-ref="billByChartOfAccountCode" />
 			<foreignkey field-ref="billedByOrganizationCode" />
-		</reference-descriptor> 
+		</reference-descriptor>
 	</class-descriptor>
-	
+
 	<class-descriptor class="org.kuali.kfs.module.ar.document.PaymentApplicationDocument" table="AR_APPLICATION_DOC_T">
 		<field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true" index="true" />
 		<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
@@ -1307,7 +1307,7 @@
 			<inverse-foreignkey field-ref="documentId" />
 		</collection-descriptor>
 	</class-descriptor>
-	
+
 	<class-descriptor class="org.kuali.kfs.module.ar.businessobject.FinalBilledIndicatorEntry" table="AR_FNL_BILLED_IND_ENTRY_T">
 		<field-descriptor name="id" column="ENTRY_ID" jdbc-type="BIGINT" primarykey="true" autoincrement="true" sequence-name="AR_ENTRY_ID_SEQ" />
 		<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
@@ -1483,7 +1483,7 @@
 		<field-descriptor name="categoryName" column="CTGRY_NM" jdbc-type="VARCHAR" />
 		<field-descriptor name="indirectCostIndicator" column="IND_CST_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
 		<field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
-		
+
 		<collection-descriptor name="objectCodes" element-class-ref="org.kuali.kfs.module.ar.businessobject.CostCategoryObjectCode" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="false">
 			<orderby name="financialObjectCode" sort="ASC" />
 			<inverse-foreignkey field-ref="categoryCode" />
@@ -1497,7 +1497,7 @@
 			<inverse-foreignkey field-ref="categoryCode" />
 		</collection-descriptor>
 	</class-descriptor>
-	
+
 	<class-descriptor class="org.kuali.kfs.module.ar.businessobject.CostCategoryObjectCode" table="AR_CST_CTGRY_FIN_OBJ_CD_T">
 		<field-descriptor name="categoryCode" column="CTGRY_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
 		<field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true"/>
@@ -1505,7 +1505,7 @@
 		<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
 		<field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
-		
+
 		<reference-descriptor name="chart" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
 			<foreignkey field-ref="chartOfAccountsCode" />
 		</reference-descriptor>
@@ -1514,7 +1514,7 @@
 			<foreignkey field-ref="financialObjectCode" />
 		</reference-descriptor>
 	</class-descriptor>
-	
+
 	<class-descriptor class="org.kuali.kfs.module.ar.businessobject.CostCategoryObjectLevel" table="AR_CST_CTGRY_FIN_OBJ_LEVEL_T">
 		<field-descriptor name="categoryCode" column="CTGRY_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
 		<field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true"/>
@@ -1522,7 +1522,7 @@
 		<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
 		<field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
-		
+
 		<reference-descriptor name="chart" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
 			<foreignkey field-ref="chartOfAccountsCode" />
 		</reference-descriptor>
@@ -1531,7 +1531,7 @@
 			<foreignkey field-ref="financialObjectLevelCode" />
 		</reference-descriptor>
 	</class-descriptor>
-	
+
 	<class-descriptor class="org.kuali.kfs.module.ar.businessobject.CostCategoryObjectConsolidation" table="AR_CST_CTGRY_FIN_CONSOLDTN_T">
 		<field-descriptor name="categoryCode" column="CTGRY_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
 		<field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD" jdbc-type="VARCHAR" primarykey="true" index="true"/>
@@ -1539,7 +1539,7 @@
 		<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
 		<field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
-		
+
 		<reference-descriptor name="chart" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
 			<foreignkey field-ref="chartOfAccountsCode" />
 		</reference-descriptor>
@@ -1602,7 +1602,7 @@
 	    <field-descriptor name="agingReportSentTime" column="AGING_RPT_SENT_TM" jdbc-type="TIMESTAMP" />
 		<field-descriptor name="reportedDate" column="REPORTED_DT" jdbc-type="DATE"/>
 		<reference-descriptor name="documentHeader" class-ref="org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader"
-			auto-retrieve="true" auto-update="object" auto-delete="object" proxy="false"> 
+			auto-retrieve="true" auto-update="object" auto-delete="object" proxy="false">
 			<foreignkey field-ref="documentNumber" />
 		</reference-descriptor>
 		<reference-descriptor name="accountsReceivableDocumentHeader" class-ref="org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader"
@@ -1726,7 +1726,7 @@
 		<field-descriptor name="letterOfCreditFundCode" column="LTRCR_FND_CD" jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="letterOfCreditFundGroupCode" column="LTRCR_FNDGRP_CD" jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
-		<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />		
+		<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
 		<reference-descriptor name="documentHeader" class-ref="org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader"
 			auto-retrieve="true" auto-update="object" auto-delete="object" proxy="false">
 			<foreignkey field-ref="documentNumber" />
@@ -1740,7 +1740,7 @@
 			<inverse-foreignkey field-ref="documentNumber" />
 		</collection-descriptor>
 	</class-descriptor>
-	
+
 	<class-descriptor class="org.kuali.kfs.module.ar.businessobject.Milestone" table="AR_MLSTN_T">
 		<field-descriptor name="milestoneIdentifier" column="MLSTN_ID" jdbc-type="BIGINT" primarykey="true" index="true" autoincrement="true"
 			sequence-name="AR_MLSTN_ID_SEQ" />
@@ -1777,7 +1777,7 @@
 			<inverse-foreignkey field-ref="proposalNumber" />
 		</collection-descriptor>
 	</class-descriptor>
-	
+
 	<class-descriptor class="org.kuali.kfs.module.ar.businessobject.Bill" table="AR_BILL_T">
 		<field-descriptor name="billIdentifier" column="BILL_ID" jdbc-type="BIGINT" primarykey="true" index="true" autoincrement="true"
 			sequence-name="AR_BILL_ID_SEQ" />
@@ -1799,7 +1799,7 @@
 		<field-descriptor name="invoiceTransmissionMethodDescription" column="INV_TRNS_MTHD_DESC" jdbc-type="VARCHAR" />
 		<field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
 	</class-descriptor>
-		
+
 	<class-descriptor class="org.kuali.kfs.module.ar.businessobject.InvoiceTemplate" table="AR_INV_TMPLT_T">
 		<field-descriptor name="invoiceTemplateCode" column="INV_TMPLT_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
 		<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
@@ -1860,5 +1860,5 @@
 		<field-descriptor name="gracePeriodDays" column="GRACE_PERIOD" jdbc-type="INTEGER" nullable="false" />
 		<field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
 	</class-descriptor>
-	
+
 </descriptor-repository>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,14 +31,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This class is the service implementation for the Note structure.
- * 
- * 
+ *
+ *
  */
 @Transactional
 public class NoteServiceImpl implements NoteService {
 
     private NoteDao noteDao;
-    
+
     private AttachmentService attachmentService;
 
     public NoteServiceImpl() {
@@ -84,7 +84,7 @@ public class NoteServiceImpl implements NoteService {
     	}
         return noteDao.findByremoteObjectId(remoteObjectId);
     }
-    
+
     /**
      * @see NoteService#getNoteByNoteId(java.lang.Long)
      */
@@ -102,10 +102,10 @@ public class NoteServiceImpl implements NoteService {
     	validateNoteNotNull(note);
         noteDao.deleteNote(note);
     }
-    
+
     /**
      * TODO this method seems awfully out of place in this service
-     * 
+     *
      * @see NoteService#createNote(Note, PersistableBusinessObject)
      */
     public Note createNote(Note noteToCopy, PersistableBusinessObject bo, String authorPrincipalId) {
@@ -126,7 +126,7 @@ public class NoteServiceImpl implements NoteService {
 
     /**
      * Sets the data access object
-     * 
+     *
      * @param d
      */
     public void setNoteDao(NoteDao d) {
@@ -139,19 +139,19 @@ public class NoteServiceImpl implements NoteService {
     protected NoteDao getNoteDao() {
         return noteDao;
     }
-    
+
     public void setAttachmentService(AttachmentService attachmentService) {
     	this.attachmentService = attachmentService;
     }
-    
+
     protected AttachmentService getAttachmentService() {
     	return this.attachmentService;
     }
-    
+
     private void validateNoteNotNull(Note note) {
     	if (note == null) {
     		throw new IllegalArgumentException("Note must not be null.");
     	}
     }
-    
+
 }

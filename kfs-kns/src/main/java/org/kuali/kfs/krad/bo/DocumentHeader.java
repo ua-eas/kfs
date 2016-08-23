@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,8 +32,8 @@ import org.kuali.rice.kew.api.WorkflowDocument;
  * Business Object representing a document header. The document header contains metadata about a document.
  * This contains a reference to the template associated with the document.
  * This also provides the access to the underlying {@link WorkflowDocument} associated with this document header.
- * 
- * 
+ *
+ *
  */
 @Entity
 @Table(name="KRNS_DOC_HDR_T")
@@ -50,13 +50,13 @@ public class DocumentHeader extends org.kuali.kfs.krad.bo.PersistableBusinessObj
 	private String documentTemplateNumber;
     @Column(name="EXPLANATION")
 	private String explanation;
-    
+
     @Transient
     private WorkflowDocument workflowDocument;
 
     /**
      * Constructor - creates empty instances of dependent objects
-     * 
+     *
      */
     public DocumentHeader() {
         super();

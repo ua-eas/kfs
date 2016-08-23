@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -107,7 +107,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
 
     /**
      * Finds an account object using its primary key
-     * 
+     *
      * @param acctLineGroup AcctLineGroup
      * @return Account
      */
@@ -121,7 +121,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
 
     /**
      * Identify and separate the matching and mismatching account line groups
-     * 
+     *
      * @param glKeySet GL Account Line groups
      */
     protected void reconcileGroups(Collection<GlAccountLineGroup> glKeySet) {
@@ -149,7 +149,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
     /**
      * Groups GL entries by fields by univ_fiscal_yr, fin_coa_cd, account_nbr, sub_acct_nbr, fin_object_cd, fin_sub_obj_cd,
      * univ_fiscal_prd_cd, fdoc_nbr, fdoc_ref_nbr
-     * 
+     *
      * @param glEntries GL Entries
      */
     protected void groupGLEntries(Collection<Entry> glEntries) {
@@ -181,7 +181,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
     /**
      * Groups Purap Account Line entries by fields by univ_fiscal_yr, fin_coa_cd, account_nbr, sub_acct_nbr, fin_object_cd,
      * fin_sub_obj_cd, univ_fiscal_prd_cd, fdoc_nbr, fdoc_ref_nbr
-     * 
+     *
      * @param purapAcctEntries Purap account entries
      */
     protected void groupPurapAccountEntries(Collection<PurApAccountingLineBase> purapAcctEntries) {
@@ -206,14 +206,14 @@ public class ReconciliationServiceImpl implements ReconciliationService {
      * @see org.kuali.kfs.module.cab.batch.service.ReconciliationService#isDuplicateEntry(org.kuali.kfs.gl.businessobject.Entry)
      */
     public boolean isDuplicateEntry(Entry glEntry) {
-        
+
         // find matching entry from CB_GL_ENTRY_T
-        return reconciliationDao.isDuplicateEntry(glEntry);        
+        return reconciliationDao.isDuplicateEntry(glEntry);
     }
 
     /**
      * Gets the businessObjectService attribute.
-     * 
+     *
      * @return Returns the businessObjectService
      */
 
@@ -223,7 +223,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
 
     /**
      * Sets the businessObjectService attribute.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
 
@@ -236,7 +236,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
     }
     /**
      * Gets the ignoredEntries attribute.
-     * 
+     *
      * @return Returns the ignoredEntries
      */
 
@@ -246,7 +246,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
 
     /**
      * Sets the ignoredEntries attribute.
-     * 
+     *
      * @param ignoredEntries The ignoredEntries to set.
      */
 
@@ -256,7 +256,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
 
     /**
      * Gets the duplicateEntries attribute.
-     * 
+     *
      * @return Returns the duplicateEntries
      */
 
@@ -266,7 +266,7 @@ public class ReconciliationServiceImpl implements ReconciliationService {
 
     /**
      * Sets the duplicateEntries attribute.
-     * 
+     *
      * @param duplicateEntries The duplicateEntries to set.
      */
 

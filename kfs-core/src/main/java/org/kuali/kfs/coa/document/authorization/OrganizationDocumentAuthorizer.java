@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,7 +42,7 @@ import org.kuali.kfs.krad.util.KRADConstants;
  */
 public class OrganizationDocumentAuthorizer extends FinancialSystemMaintenanceDocumentAuthorizerBase {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(OrganizationDocumentAuthorizer.class);
-    
+
     @Override
     public Set<String> getDocumentActions(Document document, Person user, Set<String> documentActions) {
         Set<String> myDocumentActions = super.getDocumentActions(document, user, documentActions);
@@ -58,7 +58,7 @@ public class OrganizationDocumentAuthorizer extends FinancialSystemMaintenanceDo
      * This checks to see if a user is authorized for plant fields modification. If not then it returns true (without activating
      * fields). If the org does not have to report to itself then it checks to see if the plant fields have been filled out
      * correctly and fails if they haven't
-     * 
+     *
      * @return false if user can edit plant fields but they have not been filled out correctly
      */
     protected boolean checkPlantAttributes(Document document) {
@@ -75,7 +75,7 @@ public class OrganizationDocumentAuthorizer extends FinancialSystemMaintenanceDo
 
     /**
      * This method tests whether the specified user is part of the group that grants authorization to the Plant fields.
-     * 
+     *
      * @param user - the user to test, document to get plant fund account
      * @return true if user is part of the group, false otherwise
      */
@@ -83,7 +83,7 @@ public class OrganizationDocumentAuthorizer extends FinancialSystemMaintenanceDo
         String principalId = user.getPrincipalId();
         String namespaceCode = KFSConstants.ParameterNamespaces.KNS;
         String permissionTemplateName = KimConstants.PermissionTemplateNames.MODIFY_FIELD;
-        
+
         Map<String,String> roleQualifiers = new HashMap<String,String>();
 
         Map<String,String> permissionDetails = new HashMap<String,String>();
@@ -105,7 +105,7 @@ public class OrganizationDocumentAuthorizer extends FinancialSystemMaintenanceDo
 
         return isAuthorized;
     }
-    
+
     @SuppressWarnings("unchecked")
     @Override
     protected void addRoleQualification(Object dataObject, Map<String, String> attributes) {
@@ -125,6 +125,6 @@ public class OrganizationDocumentAuthorizer extends FinancialSystemMaintenanceDo
             if (!StringUtils.isBlank(newOrg.getChartOfAccountsCode())) {
                 attributes.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, newOrg.getChartOfAccountsCode());
             }
-        }  
-    } 
+        }
+    }
 }

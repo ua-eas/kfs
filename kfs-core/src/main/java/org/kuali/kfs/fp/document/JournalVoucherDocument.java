@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -93,7 +93,7 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
 
     /**
      * This method retrieves the balance typ associated with this document.
-     * 
+     *
      * @return BalanceTyp
      */
     public BalanceType getBalanceType() {
@@ -102,7 +102,7 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
 
     /**
      * This method sets the balance type associated with this document.
-     * 
+     *
      * @param balanceType
      * @deprecated
      */
@@ -113,7 +113,7 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
 
     /**
      * Gets the balanceTypeCode attribute.
-     * 
+     *
      * @return Returns the balanceTypeCode.
      */
     public String getBalanceTypeCode() {
@@ -122,7 +122,7 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
 
     /**
      * Sets the balanceTypeCode attribute value.
-     * 
+     *
      * @param balanceTypeCode The balanceTypeCode to set.
      */
     public void setBalanceTypeCode(String balanceTypeCode) {
@@ -131,7 +131,7 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
 
     /**
      * This method retrieves the reversal date associated with this document.
-     * 
+     *
      * @return java.sql.Date
      */
     public java.sql.Date getReversalDate() {
@@ -140,7 +140,7 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
 
     /**
      * This method sets the reversal date associated with this document.
-     * 
+     *
      * @param reversalDate
      */
     public void setReversalDate(java.sql.Date reversalDate) {
@@ -149,7 +149,7 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
 
     /**
      * Overrides the base implementation to return an empty string.
-     * 
+     *
      * @return String
      */
     @Override
@@ -159,7 +159,7 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
 
     /**
      * Overrides the base implementation to return an empty string.
-     * 
+     *
      * @return String
      */
     @Override
@@ -170,7 +170,7 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
     /**
      * This method calculates the debit total for a JV document keying off of the debit/debit code, only summing the accounting
      * lines with a debitDebitCode that matched the debit constant, and returns the results.
-     * 
+     *
      * @return KualiDecimal
      */
     public KualiDecimal getDebitTotal() {
@@ -190,7 +190,7 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
     /**
      * This method calculates the credit total for a JV document keying off of the debit/credit code, only summing the accounting
      * lines with a debitCreditCode that matched the debit constant, and returns the results.
-     * 
+     *
      * @return KualiDecimal
      */
     public KualiDecimal getCreditTotal() {
@@ -210,7 +210,7 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
      * This method determines the "total" for the JV document. If the selected balance type is an offset generation, then the method
      * returns the total debits amount when it is greater than the total credit amount. otherwise, it returns total credit amount.
      * When selected balance type is not an offset generation, the method returns the sum of all accounting line debit amounts.
-     * 
+     *
      * @return KualiDecimal the total of the JV document.
      */
     public KualiDecimal getTotalDollarAmount() {
@@ -235,7 +235,7 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
 
     /**
      * Used to get the appropriate <code>{@link AccountingLineParser}</code> for the <code>Document</code>
-     * 
+     *
      * @return AccountingLineParser
      */
     @Override
@@ -289,24 +289,24 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
             }
         }
     }
-    
+
     /**
      * The following are credits (return false)
      * <ol>
      * <li> (debitCreditCode isNotBlank) && debitCreditCode != 'D'
      * </ol>
-     * 
+     *
      * The following are debits (return true)
      * <ol>
      * <li> debitCreditCode == 'D'
      * <li> debitCreditCode isBlank
      * </ol>
-     * 
+     *
      * @param financialDocument The document which contains the accounting line being analyzed.
      * @param accountingLine The accounting line which will be analyzed to determine if it is a debit line.
      * @return True if the accounting line provided is a debit accounting line, false otherwise.
      * @throws IllegalStateException Thrown by method IsDebitUtiles.isDebitCode()
-     * 
+     *
      * @see org.kuali.rice.krad.rule.AccountingLineRule#isDebit(org.kuali.rice.krad.document.FinancialDocument,
      *      org.kuali.rice.krad.bo.AccountingLine)
      * @see org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBase.IsDebitUtils#isDebitCode(String)
@@ -320,16 +320,16 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
 
         return isDebit;
     }
-    
+
     /**
      * This method sets attributes on the explicitly general ledger pending entry specific to JournalVoucher documents.
      * This includes setting the accounting period code and year (as selected by the user, the object type code,
      * the balance type code, the debit/credit code, the encumbrance update code and the reversal date.
-     * 
+     *
      * @param financialDocument The document which contains the general ledger pending entry being modified.
      * @param accountingLine The accounting line the explicit entry was generated from.
      * @param explicitEntry The explicit entry being updated.
-     * 
+     *
      * @see org.kuali.module.financial.rules.FinancialDocumentRuleBase#customizeExplicitGeneralLedgerPendingEntry(org.kuali.rice.krad.document.FinancialDocument,
      *      org.kuali.rice.krad.bo.AccountingLine, org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
      */
@@ -368,14 +368,14 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
     /**
      * A Journal Voucher document doesn't generate an offset entry at all, so this method overrides to do nothing more than return
      * true. This will be called by the parent's processGeneralLedgerPendingEntries method.
-     * 
+     *
      * @param financialDocument The document the offset will be stored within.
      * @param sequenceHelper The sequence object to be modified.
      * @param accountingLineToCopy The accounting line the offset is generated for.
      * @param explicitEntry The explicit entry the offset will be generated for.
      * @param offsetEntry The offset entry to be processed.
      * @return This method always returns true.
-     * 
+     *
      * @see org.kuali.module.financial.rules.FinancialDocumentRuleBase#processOffsetGeneralLedgerPendingEntry(org.kuali.rice.krad.document.FinancialDocument,
      *      org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper, org.kuali.rice.krad.bo.AccountingLine,
      *      org.kuali.module.gl.bo.GeneralLedgerPendingEntry, org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
@@ -385,9 +385,9 @@ public class JournalVoucherDocument extends AccountingDocumentBase implements Vo
         sequenceHelper.decrement(); // the parent already increments; assuming that all documents have offset entries
         return true;
     }
-    
+
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBase#getGeneralLedgerPendingEntryAmountForAccountingLine(org.kuali.kfs.sys.businessobject.AccountingLine)
      */
     @Override

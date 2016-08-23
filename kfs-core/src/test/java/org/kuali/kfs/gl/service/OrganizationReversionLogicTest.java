@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -129,7 +129,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         /**
          * Converts the fixture into a balance to test
-         * 
+         *
          * @return a balance represented by this fixture
          */
         public Balance convertToBalance() {
@@ -221,7 +221,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         orgReversionUnitOfWorkService = SpringContext.getBean(OrganizationReversionUnitOfWorkService.class);
         organizationReversionProcessService = SpringContext.getBean(OrganizationReversionProcessService.class);
         batchDirectory = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("staging.directory")+"/gl/test_directory/originEntry";
-        
+
         File batchDirectoryFile = new File(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("staging.directory")+"/gl/test_directory");
         batchDirectoryFile.mkdir();
         batchDirectoryFile = new File(batchDirectory);
@@ -236,7 +236,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
      */
     protected void tearDown() throws Exception {
         orgRevProcess = null;
-        
+
         File batchDirectoryFile = new File(batchDirectory);
         for (File f : batchDirectoryFile.listFiles()) {
             f.delete();
@@ -248,26 +248,26 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
     /**
      * Given a list of balances, saves those balances and runs the organization reversion process on them
-     * 
+     *
      * @param balancesToTestAgainst the balances for the specific test
      * @return an OriginEntryGroup where the resultant origin entries were saved
      */
     protected List<? extends OriginEntryInformation> runOrganizationReversionProcess(List<Balance> balancesToTestAgainst) {
-   
+
         clearGlBalanceTable();
         clearBatchFiles();
-        
+
         //we do not need to call clearCache() since no dao and jdbc calls mixted in this method.
         //refer to KFSMI-7637
         // persistenceService.clearCache();
-        
+
         Map<String, ?> jobParameters = organizationReversionProcessService.getJobParameters();
         currentFiscalYear = new Integer(((Number)jobParameters.get(KFSConstants.UNIV_FISCAL_YR)).intValue() + 1);
         previousFiscalYear = new Integer(((Number)jobParameters.get(KFSConstants.UNIV_FISCAL_YR)).intValue());
         Map<String, Integer> organizationReversionCounts = new HashMap<String, Integer>();
-        
+
         for (Balance bal : balancesToTestAgainst) {
-            bal.setUniversityFiscalYear(previousFiscalYear);            
+            bal.setUniversityFiscalYear(previousFiscalYear);
             SpringContext.getBean(BusinessObjectService.class).save(bal);
         }
 
@@ -276,7 +276,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         // ye olde sanity check
         assertEquals("Balances Read", new Integer(balancesToTestAgainst.size()), new Integer(orgRevProcess.getBalancesRead()));
-        
+
         return orgRevProcess.getGeneratedOriginEntries();
     }
 
@@ -306,7 +306,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
     /**
      * Takes all of the origin entries in an Iterator of entries and puts them into a List, for easier
      * manipulation.
-     * 
+     *
      * @param originEntriesIterator an Iterator of origin entries
      * @return all of the entries in a list
      */
@@ -320,7 +320,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
     /**
      * Logs all the entries in a list of origin entries
-     * 
+     *
      * @param originEntries the origin entries to log
      */
     private void logAllEntries(List<? extends OriginEntryInformation> originEntries) {
@@ -406,7 +406,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
 
@@ -434,7 +434,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
 
@@ -463,7 +463,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
 
@@ -491,7 +491,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
 
@@ -519,7 +519,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
 
@@ -550,7 +550,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
 
@@ -578,7 +578,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
 
@@ -606,7 +606,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
 
@@ -634,7 +634,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
 
@@ -662,7 +662,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
 
@@ -690,7 +690,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
 
@@ -718,7 +718,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
 
@@ -749,7 +749,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(0));
     }
@@ -773,7 +773,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(0));
     }
@@ -797,7 +797,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(0));
     }
@@ -821,7 +821,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(0));
     }
@@ -845,7 +845,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(0));
     }
@@ -869,7 +869,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(0));
     }
@@ -893,7 +893,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
 
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(0));
     }
@@ -924,7 +924,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -957,7 +957,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -990,7 +990,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1023,7 +1023,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(4));
@@ -1058,7 +1058,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1091,7 +1091,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(4));
@@ -1126,7 +1126,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1162,7 +1162,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1195,7 +1195,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1228,7 +1228,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1261,7 +1261,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1294,7 +1294,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1327,7 +1327,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1360,7 +1360,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1396,7 +1396,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1429,7 +1429,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1462,7 +1462,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1495,7 +1495,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1528,7 +1528,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1561,7 +1561,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1594,7 +1594,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1630,7 +1630,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1663,7 +1663,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1696,7 +1696,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1729,7 +1729,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1762,7 +1762,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1795,7 +1795,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));
@@ -1828,7 +1828,7 @@ public class OrganizationReversionLogicTest extends OriginEntryTestBase {
         // sanity check - all the balances were selected?
         assertEquals("balances to check were all selected? ", new Integer(balancesToCheck.size()), new Integer(orgRevProcess.getBalancesSelected()));
 
-        
+
         logAllEntries(generatedEntries);
 
         assertEquals("correct number of origin entries returned? ", new Integer(generatedEntries.size()), new Integer(2));

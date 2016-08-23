@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,7 +37,7 @@ public interface PurapGeneralLedgerService {
 
     /**
      * Customize the given general ledger entry based on the document type.
-     * 
+     *
      * @param purapDocument Document creating entries
      * @param accountingLine AccountingLine from document used to create the pending entry
      * @param explicitEntry GeneralLedgerPendingEntry that has been created with account info
@@ -50,7 +50,7 @@ public interface PurapGeneralLedgerService {
 
     /**
      * Generates general ledger pending entries for the creation of a Payment Request
-     * 
+     *
      * @param preq PaymentRequestDocument which holds the accounts to create the entries
      */
     public void generateEntriesCreatePaymentRequest(PaymentRequestDocument preq);
@@ -58,28 +58,28 @@ public interface PurapGeneralLedgerService {
     /**
      * Generates general ledger pending entries for the modification of a Payment Request. No entries will be created if the
      * calculated change is zero (meaning no change was made). Also, no encumbrance entries will be created.
-     * 
+     *
      * @param preq PaymentRequestDocument which holds the accounts to create the entries
      */
     public void generateEntriesModifyPaymentRequest(PaymentRequestDocument preq);
 
     /**
      * Generates general ledger pending entries for the creation of a Credit Memo
-     * 
+     *
      * @param cm CreditMemoDocument which holds the accounts to create the entries
      */
     public void generateEntriesCreateCreditMemo(VendorCreditMemoDocument cm);
 
     /**
      * Generates general ledger pending entries for the cancellation of an Accounts Payable document.
-     * 
+     *
      * @param apDocument AccountsPayableDocument which holds the accounts to create the entries for the cancellation
      */
     public void generateEntriesCancelAccountsPayableDocument(AccountsPayableDocument apDocument);
 
     /**
      * Generates general ledger pending entries for the amendment of a Purchase Order
-     * 
+     *
      * @param po PurchaseOrderDocument which holds the accounts to create the entries
      */
     public void generateEntriesApproveAmendPurchaseOrder(PurchaseOrderDocument po);
@@ -87,7 +87,7 @@ public interface PurapGeneralLedgerService {
     /**
      * Generates general ledger pending entries for when a Purchase Order is closed which will disencumber all the remaining
      * encumbrances
-     * 
+     *
      * @param po PurchaseOrderDocument which holds the accounts to create the entries
      */
     public void generateEntriesClosePurchaseOrder(PurchaseOrderDocument po);
@@ -95,14 +95,14 @@ public interface PurapGeneralLedgerService {
     /**
      * Generates general ledger pending entries for when a Purchase Order is reopened which will calculate the funds to be
      * re-encumbered
-     * 
+     *
      * @param po PurchaseOrderDocument which holds the accounts to create the entries
      */
     public void generateEntriesReopenPurchaseOrder(PurchaseOrderDocument po);
 
     /**
      * Generates general ledger pending entries for when a Purchase Order is voided
-     * 
+     *
      * @param po PurchaseOrderDocument which holds the accounts to create the entries
      */
     public void generateEntriesVoidPurchaseOrder(PurchaseOrderDocument po);

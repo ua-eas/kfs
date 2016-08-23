@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -23,19 +23,19 @@
   <bean id="DisbursementVoucherDocument-parentBean" abstract="true" parent="AccountingDocumentEntry">
     <property name="documentTypeName" value="DV"/>
     <property name="documentClass" value="org.kuali.kfs.fp.document.DisbursementVoucherDocument"/>
-	<property name="baseDocumentClass" value="org.kuali.kfs.fp.document.DisbursementVoucherDocument"/>   
-	<property name="promptBeforeValidationClass" value="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherDocumentPreRules"/>   
+	<property name="baseDocumentClass" value="org.kuali.kfs.fp.document.DisbursementVoucherDocument"/>
+	<property name="promptBeforeValidationClass" value="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherDocumentPreRules"/>
     <property name="businessRulesClass" value="org.kuali.kfs.sys.document.validation.impl.AccountingRuleEngineRuleBase"/>
-    
+
     <property name="documentAuthorizerClass" value="org.kuali.kfs.fp.document.authorization.DisbursementVoucherDocumentAuthorizer"/>
     <property name="documentPresentationControllerClass" value="org.kuali.kfs.fp.document.authorization.DisbursementVoucherDocumentPresentationController"/>
     <property name="importedLineParserClass" value="org.kuali.kfs.fp.businessobject.BasicFormatWithLineDescriptionAccountingLineParser" />
     <property name="sessionDocument" value="true"/>
-    
+
     <property name="workflowAttributes">
       <ref bean="DisbursementVoucherDocument-workflowAttributes"/>
     </property>
-    
+
     <property name="allowsCopy" value="true"/>
     <property name="allowsErrorCorrection" value="false"/>
 
@@ -70,7 +70,7 @@
 		<ref bean="DisbursementVoucherDocument-achSignUpStatusFlag" />
       </list>
     </property>
-    
+
     <property name="validationMap" ref="DisbursementVoucherDocument-validations"/>
     <property name="maxDictionaryValidationDepth" value="0"/>
     <property name="accountingLineGroups">
@@ -103,13 +103,13 @@
       <ref bean="StandardNameTextControl" />
     </property>
   </bean>
-  
+
   <bean id="DisbursementVoucherDocument-disbVchrContactPhoneNumber" parent="DisbursementVoucherDocument-disbVchrContactPhoneNumber-parentBean"/>
   <bean id="DisbursementVoucherDocument-disbVchrContactPhoneNumber-parentBean" abstract="true" parent="GenericAttributes-phoneNumberWithValidation">
     <property name="name" value="disbVchrContactPhoneNumber"/>
     <property name="required" value="true"/>
   </bean>
-  
+
   <bean id="DisbursementVoucherDocument-disbVchrContactEmailId" parent="DisbursementVoucherDocument-disbVchrContactEmailId-parentBean"/>
   <bean id="DisbursementVoucherDocument-disbVchrContactEmailId-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="disbVchrContactEmailId"/>
@@ -124,8 +124,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="DisbursementVoucherDocument-disbursementVoucherDueDate" parent="DisbursementVoucherDocument-disbursementVoucherDueDate-parentBean"/>
 
@@ -139,8 +139,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="11"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="DisbursementVoucherDocument-disbVchrAttachmentCode" parent="DisbursementVoucherDocument-disbVchrAttachmentCode-parentBean"/>
 
@@ -154,8 +154,8 @@
     <property name="control">
       <bean parent="CheckboxControlDefinition"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="DisbursementVoucherDocument-disbVchrSpecialHandlingCode" parent="DisbursementVoucherDocument-disbVchrSpecialHandlingCode-parentBean"/>
 
@@ -169,8 +169,8 @@
     <property name="control">
       <bean parent="CheckboxControlDefinition"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="DisbursementVoucherDocument-disbVchrCheckTotalAmount" parent="DisbursementVoucherDocument-disbVchrCheckTotalAmount-parentBean"/>
 
@@ -184,8 +184,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="12"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="DisbursementVoucherDocument-disbursementVoucherDocumentationLocationCode" parent="DisbursementVoucherDocument-disbursementVoucherDocumentationLocationCode-parentBean"/>
 
@@ -195,7 +195,7 @@
     <property name="control">
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.sys.businessobject.options.PaymentDocumentationLocationValuesFinder" p:includeKeyInLabel="false"/>
     </property>
-    
+
   </bean>
   <bean id="DisbursementVoucherDocument-dvCheckStubOverflowCode" parent="DisbursementVoucherDocument-dvCheckStubOverflowCode-parentBean"/>
 
@@ -209,8 +209,8 @@
     <property name="control">
       <ref bean="HiddenControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="DisbursementVoucherDocument-disbVchrPayeeTaxControlCode" parent="DisbursementVoucherDocument-disbVchrPayeeTaxControlCode-parentBean"/>
 
@@ -224,8 +224,8 @@
     <property name="control">
       <ref bean="HiddenControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="DisbursementVoucherDocument-disbVchrPayeeChangedInd" parent="DisbursementVoucherDocument-disbVchrPayeeChangedInd-parentBean"/>
 
@@ -239,8 +239,8 @@
     <property name="control">
       <ref bean="HiddenControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="DisbursementVoucherDocument-disbursementVoucherCheckNbr" parent="DisbursementVoucherDocument-disbursementVoucherCheckNbr-parentBean"/>
 
@@ -253,8 +253,8 @@
     <property name="control">
       <ref bean="HiddenControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="DisbursementVoucherDocument-disbursementVoucherCheckDate" parent="DisbursementVoucherDocument-disbursementVoucherCheckDate-parentBean"/>
 
@@ -267,8 +267,8 @@
     <property name="control">
       <ref bean="HiddenControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="DisbursementVoucherDocument-disbVchrPayeeW9CompleteCode" parent="DisbursementVoucherDocument-disbVchrPayeeW9CompleteCode-parentBean"/>
 
@@ -282,8 +282,8 @@
     <property name="control">
       <bean parent="CheckboxControlDefinition"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="DisbursementVoucherDocument-disbVchrPaymentMethodCode" parent="DisbursementVoucherDocument-disbVchrPaymentMethodCode-parentBean"/>
 
@@ -297,8 +297,8 @@
     <property name="control">
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.sys.businessobject.options.PaymentMethodValuesFinder" p:includeKeyInLabel="false"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="DisbursementVoucherDocument-campusCode" parent="DisbursementVoucherDocument-campusCode-parentBean"/>
 
@@ -308,7 +308,7 @@
     <property name="control">
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.CampusValuesFinder" p:includeKeyInLabel="false"/>
     </property>
-    
+
   </bean>
   <bean id="DisbursementVoucherDocument-disbVchrCheckStubText" parent="DisbursementVoucherDocument-disbVchrCheckStubText-parentBean"/>
 
@@ -322,8 +322,8 @@
     <property name="control">
       <bean parent="TextareaControlDefinition" p:rows="3" p:cols="60" p:expandedTextArea="true"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="DisbursementVoucherDocument-extractDate" parent="DisbursementVoucherDocument-extractDate-parentBean"/>
 
@@ -337,8 +337,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="11"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="DisbursementVoucherDocument-paidDate" parent="DisbursementVoucherDocument-paidDate-parentBean"/>
 
@@ -352,8 +352,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="11"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="DisbursementVoucherDocument-cancelDate" parent="DisbursementVoucherDocument-cancelDate-parentBean"/>
 
@@ -367,8 +367,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="11"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="DisbursementVoucherDocument-disbursementVoucherPdpStatus" parent="DisbursementVoucherDocument-disbursementVoucherPdpStatus-parentBean"/>
 
@@ -382,15 +382,15 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="15"/>
     </property>
-    
-    
+
+
   </bean>
-  
+
   <bean id="DisbursementVoucherDocument-disbVchrBankCode" parent="DisbursementVoucherDocument-disbVchrBankCode-parentBean"/>
   <bean id="DisbursementVoucherDocument-disbVchrBankCode-parentBean" abstract="true" parent="Bank-bankCode">
     <property name="name" value="disbVchrBankCode"/>
   </bean>
-  
+
   <bean id="DisbursementVoucherDocument-disbVchrPdpBankCode" parent="DisbursementVoucherDocument-disbVchrPdpBankCode-parentBean"/>
   <bean id="DisbursementVoucherDocument-disbVchrPdpBankCode-parentBean" abstract="true" parent="Bank-bankCode">
     <property name="name" value="disbVchrPdpBankCode"/>
@@ -410,7 +410,7 @@
       <bean parent="CheckboxControlDefinition"/>
     </property>
   </bean>
-  
+
   <bean id="DisbursementVoucherDocument-immediatePaymentIndicator" parent="DisbursementVoucherDocument-immediatePaymentIndicator-parentBean"/>
 
   <bean id="DisbursementVoucherDocument-immediatePaymentIndicator-parentBean" abstract="true" parent="AttributeDefinition">
@@ -423,7 +423,7 @@
       <bean parent="CheckboxControlDefinition"/>
     </property>
   </bean>
-  
+
 	<bean id="DisbursementVoucherDocument-achSignUpStatusFlag" parent="DisbursementVoucherDocument-achSignUpStatusFlag-parentBean" />
 
 	<bean id="DisbursementVoucherDocument-achSignUpStatusFlag-parentBean" abstract="true" parent="AttributeDefinition">
@@ -435,8 +435,8 @@
 		<property name="control">
 			<bean parent="CheckboxControlDefinition" />
 		</property>
-	</bean>	
-  
+	</bean>
+
 	<!-- Exported Workflow Attributes -->
   	<bean id="DisbursementVoucherDocument-workflowAttributes" parent="DisbursementVoucherDocument-workflowAttributes-parentBean"/>
 
@@ -536,7 +536,7 @@
     		</map>
     	</property>
 	</bean>
-  
+
 	<bean id="DisbursementVoucherDocument-RoutingType-PaymentMethod" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
@@ -557,7 +557,7 @@
     		</list>
     	</property>
 	</bean>
-	
+
 	<bean id="DisbursementVoucherDocument-RoutingType-Campus" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
@@ -576,9 +576,9 @@
     		</list>
     	</property>
 	</bean>
-  
-  <!-- validations -->  
-  <bean id="DisbursementVoucherDocument-validations" parent="DisbursementVoucherDocument-validations-parentBean"/> 
+
+  <!-- validations -->
+  <bean id="DisbursementVoucherDocument-validations" parent="DisbursementVoucherDocument-validations-parentBean"/>
   <bean id="DisbursementVoucherDocument-validations-parentBean"  abstract="true"  class="org.springframework.beans.factory.config.MapFactoryBean">
   	<property name="sourceMap">
 		<map key-type="java.lang.Class">
@@ -616,10 +616,10 @@
 			</entry>
     	</map>
     </property>
-  </bean>  
-  
+  </bean>
+
   <!-- accounting line groups -->
-  <bean id="DisbursementVoucherDocument-sourceAccountingLineGroup" parent="DisbursementVoucherDocument-sourceAccountingLineGroup-parentBean"/>  
+  <bean id="DisbursementVoucherDocument-sourceAccountingLineGroup" parent="DisbursementVoucherDocument-sourceAccountingLineGroup-parentBean"/>
   <bean id="DisbursementVoucherDocument-sourceAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
 	  <property name="accountingLineView" ref="DisbursementVoucherDocument-accountingLineView"/>
 	  <property name="accountingLineClass" value="org.kuali.kfs.sys.businessobject.SourceAccountingLine"/>
@@ -629,7 +629,7 @@
 	  <property name="totals" ref="AccountingDocument-sourceGroupTotals"/>
 	  <property name="errorKey" value="document.sourceAccounting*,sourceAccountingLines,newSourceLine*"/>
   </bean>
-	
+
   <bean id="DisbursementVoucherDocument-accountingLineView" parent="DisbursementVoucherDocument-accountingLineView-parent"/>
   <bean id="DisbursementVoucherDocument-accountingLineView-parent" parent="AccountingLineView" abstract="true">
 	  <property name="elements">
@@ -648,5 +648,5 @@
 			<bean parent="AccountingLineView-actions"/>
 		</list>
 	</property>
-  </bean>  
+  </bean>
 </beans>

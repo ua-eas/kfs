@@ -1,22 +1,22 @@
-<%@ tag import="org.kuali.kfs.sys.util.Guid" %>
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
+<%@ tag import="org.kuali.kfs.sys.util.Guid" %>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
 <%@ attribute name="itemAttributes" required="true" type="java.util.Map" description="The DataDictionary entry containing attributes for this row's fields."%>
@@ -46,7 +46,7 @@
 		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemQuantity}" addClass="right"/>
 		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemUnitPrice}" addClass="right"/>
 		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.extendedPrice}" addClass="right"/>
-		
+
 		<c:if test="${purapTaxEnabled}">
 			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemTaxAmount}" addClass="right"/>
 			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.totalAmount}" addClass="right"/>
@@ -69,7 +69,7 @@
 	<c:if test="${itemLine.itemType.lineItemIndicator == true}">
 		<c:set var="currentTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
 		<c:set var="topLevelTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
-        
+
         <c:choose>
             <c:when test="${itemLine.objectId == null}">
                 <c:set var="newObjectId" value="<%= (new Guid()).toString()%>" />
@@ -79,7 +79,7 @@
                 <c:set var="tabKey" value="Item-${itemLine.objectId}" />
             </c:when>
         </c:choose>
-    
+
         <c:set var="dummyIncrementer" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}" />
         <c:set var="currentTab" value="${kfunc:getTabState(KualiForm, tabKey)}"/>
 
@@ -120,13 +120,13 @@
 				    attributeEntry="${itemAttributes.purchaseOrderItemUnitPrice}"
 				    property="document.item[${ctr}].purchaseOrderItemUnitPrice"
 				    readOnly="true" />
-		    </td>				    
+		    </td>
 			<td class="infoline right">
 				<kul:htmlControlAttribute
 				        attributeEntry="${itemAttributes.itemQuantity}"
 				        property="document.item[${ctr}].itemQuantity"
-				        readOnly="${ (not (fullEntryMode) or (fullDocEntryCompleted)) or (KualiForm.document.items[ctr].itemType.amountBasedGeneralLedgerIndicator) }" 
-				        tabindexOverride="${tabindexOverrideBase + 0}" />				        
+				        readOnly="${ (not (fullEntryMode) or (fullDocEntryCompleted)) or (KualiForm.document.items[ctr].itemType.amountBasedGeneralLedgerIndicator) }"
+				        tabindexOverride="${tabindexOverrideBase + 0}" />
 			</td>
 			<td class="infoline right">
 				<c:if test="${KualiForm.document.items[ctr].itemType.quantityBasedGeneralLedgerIndicator}">
@@ -178,14 +178,14 @@
 				    attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}"
 				    property="document.item[${ctr}].itemAssignedToTradeInIndicator"
 				    readOnly="true"/>
-			</td>			    
+			</td>
 			<td  class="infoline" colspan="${colSpanDescription}">
 			    <kul:htmlControlAttribute
 				    attributeEntry="${itemAttributes.itemDescription}"
 				    property="document.item[${ctr}].itemDescription"
 				    readOnly="true" />
-			</td>	
-			
+			</td>
+
 			<td class="infoline">
 				<div class="actions">
 					<c:if test="${fullEntryMode}">
@@ -209,7 +209,7 @@
 				</div>
 			</td>
 		</tr>
-		
+
 		<c:set var="hideFields" value="amount" />
 		<c:if test="${showAmount}">
 			<c:set var="hideFields" value="" />

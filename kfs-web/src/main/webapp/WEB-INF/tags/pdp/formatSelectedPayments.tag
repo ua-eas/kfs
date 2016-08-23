@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -20,7 +20,7 @@
 <%@ attribute name="disbursementNumberRangeAttributes" required="true"
 	type="java.util.Map"
 	description="The DataDictionary entry containing attributes for disbursement number range."%>
-	
+
 <%@ attribute name="customerProfileAttributes" required="true"
 	type="java.util.Map"
 	description="The DataDictionary entry containing attributes for customer profile."%>
@@ -42,7 +42,7 @@
 				<kul:htmlAttributeHeaderCell attributeEntry="${formatResultAttributes.payments}" />
 				<kul:htmlAttributeHeaderCell attributeEntry="${formatResultAttributes.amount}" />
 			</tr>
-			
+
 			<logic:iterate id="result" name="KualiForm" property="formatProcessSummary.processSummaryList" indexId="ctr">
                <tr class="${ctr % 2 == 0 ? 'highlight' : ''}">
                   <td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${formatResultAttributes.sortGroupName}" property="formatProcessSummary.processSummary[${ctr}].sortGroupName" readOnly="true" /></td>
@@ -51,7 +51,7 @@
                   <td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${formatResultAttributes.amount}" property="formatProcessSummary.processSummary[${ctr}].processTotalAmount" readOnly="true" /></td>
                </tr>
             </logic:iterate>
-            
+
          <tr>
             <td class="total-line">&nbsp;</td>
             <td class="total-line">Total</td>

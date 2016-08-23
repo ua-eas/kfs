@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -70,7 +70,7 @@ public class LaborPosterServiceTest extends KualiTestBase {
         String propertiesFileName = LaborTestDataPropertyConstants.TEST_DATA_PACKAGE_NAME + "/laborPosterService.properties";
 
         properties = TestDataPreparator.loadPropertiesFromClassPath(propertiesFileName);
-        
+
         fieldNames = properties.getProperty("fieldNames");
         deliminator = properties.getProperty("deliminator");
 
@@ -82,7 +82,7 @@ public class LaborPosterServiceTest extends KualiTestBase {
 
         groupFieldValues = new HashMap();
         groupFieldValues.put(KFSPropertyConstants.SOURCE_CODE, LABOR_SCRUBBER_VALID);
-        
+
         //businessObjectService.deleteMatching(OriginEntryGroup.class, groupFieldValues);
 
         Date today = (SpringContext.getBean(DateTimeService.class)).getCurrentSqlDate();
@@ -95,8 +95,8 @@ public class LaborPosterServiceTest extends KualiTestBase {
         //businessObjectService.deleteMatching(LaborOriginEntry.class, fieldValues);
         businessObjectService.deleteMatching(LedgerEntry.class, fieldValues);
         businessObjectService.deleteMatching(LaborGeneralLedgerEntry.class, fieldValues);
-        
-        //TODO:- commented out - problem with "PROJECTCODE" - invalid identifier???? 
+
+        //TODO:- commented out - problem with "PROJECTCODE" - invalid identifier????
         //businessObjectService.deleteMatching(LedgerBalance.class, fieldValues);
     }
 

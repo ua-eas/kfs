@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -51,7 +51,7 @@ public enum PaymentRequestDocumentFixture {
             null,           //alternateVendorHeaderGeneratedIdentifier,
             null,           //alternateVendorDetailAssignedIdentifier,
             null,           //purchaseOrderNotes,
-            null,           //recurringPaymentTypeCode,            
+            null,           //recurringPaymentTypeCode,
             PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
             AccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,             // apDocumentFixture
             new PaymentRequestItemFixture[] {PaymentRequestItemFixture.PREQ_QTY_UNRESTRICTED_ITEM_1} // requisitionItemMultiFixtures
@@ -79,7 +79,7 @@ public enum PaymentRequestDocumentFixture {
             null,           //alternateVendorHeaderGeneratedIdentifier,
             null,           //alternateVendorDetailAssignedIdentifier,
             null,           //purchaseOrderNotes,
-            null,           //recurringPaymentTypeCode,            
+            null,           //recurringPaymentTypeCode,
             PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
             AccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,             // apDocumentFixture
             new PaymentRequestItemFixture[] {
@@ -109,11 +109,11 @@ public enum PaymentRequestDocumentFixture {
             null,           //alternateVendorHeaderGeneratedIdentifier,
             null,           //alternateVendorDetailAssignedIdentifier,
             null,           //purchaseOrderNotes,
-            null,           //recurringPaymentTypeCode,            
+            null,           //recurringPaymentTypeCode,
             PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
             AccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,             // apDocumentFixture
             new PaymentRequestItemFixture[] {} // requisitionItemMultiFixtures
-    ),  
+    ),
     PREQ_FOR_PO_CLOSE_DOC(
             SpringContext.getBean(DateTimeService.class).getCurrentSqlDate(),   //invoiceDate
             "123457",   //invoiceNumber,
@@ -137,7 +137,7 @@ public enum PaymentRequestDocumentFixture {
             null,           //alternateVendorHeaderGeneratedIdentifier,
             null,           //alternateVendorDetailAssignedIdentifier,
             null,           //purchaseOrderNotes,
-            null,           //recurringPaymentTypeCode,            
+            null,           //recurringPaymentTypeCode,
             PurchasingAccountsPayableDocumentFixture.PREQ_VENDOR_FOR_PO_CLOSE_DOC,  // purapDocumentFixture
             AccountsPayableDocumentFixture.PREQ_FOR_PO_CLOSE_DOC,                   // apDocumentFixture
             new PaymentRequestItemFixture[] {PaymentRequestItemFixture.PREQ_ITEM_FOR_PO_CLOSE_DOC} // requisitionItemMultiFixtures
@@ -165,7 +165,7 @@ public enum PaymentRequestDocumentFixture {
             null,           //alternateVendorHeaderGeneratedIdentifier,
             null,           //alternateVendorDetailAssignedIdentifier,
             null,           //purchaseOrderNotes,
-            null,           //recurringPaymentTypeCode,            
+            null,           //recurringPaymentTypeCode,
             PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
             AccountsPayableDocumentFixture.CLOSE_PO_WITH_PREQ,             // apDocumentFixture
             new PaymentRequestItemFixture[] {} // requisitionItemMultiFixtures
@@ -193,7 +193,7 @@ public enum PaymentRequestDocumentFixture {
             null,           //alternateVendorHeaderGeneratedIdentifier,
             null,           //alternateVendorDetailAssignedIdentifier,
             null,           //purchaseOrderNotes,
-            null,           //recurringPaymentTypeCode,            
+            null,           //recurringPaymentTypeCode,
             PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
             AccountsPayableDocumentFixture.REOPEN_PO_WITH_PREQ,             // apDocumentFixture
             new PaymentRequestItemFixture[] {} // requisitionItemMultiFixtures
@@ -221,7 +221,7 @@ public enum PaymentRequestDocumentFixture {
             null,           //alternateVendorHeaderGeneratedIdentifier,
             null,           //alternateVendorDetailAssignedIdentifier,
             null,           //purchaseOrderNotes,
-            null,           //recurringPaymentTypeCode,            
+            null,           //recurringPaymentTypeCode,
             PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
             AccountsPayableDocumentFixture.REQUEST_CANCEL_PREQ,             // apDocumentFixture
             new PaymentRequestItemFixture[] {} // requisitionItemMultiFixtures
@@ -249,12 +249,12 @@ public enum PaymentRequestDocumentFixture {
             null,           //alternateVendorHeaderGeneratedIdentifier,
             null,           //alternateVendorDetailAssignedIdentifier,
             null,           //purchaseOrderNotes,
-            null,           //recurringPaymentTypeCode,            
+            null,           //recurringPaymentTypeCode,
             PurchasingAccountsPayableDocumentFixture.PREQ_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
             AccountsPayableDocumentFixture.REQUEST_HOLD_PREQ,             // apDocumentFixture
             new PaymentRequestItemFixture[] {} // requisitionItemMultiFixtures
     );
-            
+
     public final Date invoiceDate;
     public final String invoiceNumber;
     public final KualiDecimal vendorInvoiceAmount;
@@ -277,12 +277,12 @@ public enum PaymentRequestDocumentFixture {
     public final Integer alternateVendorHeaderGeneratedIdentifier;
     public final Integer alternateVendorDetailAssignedIdentifier;
     public final String purchaseOrderNotes;
-    public final String recurringPaymentTypeCode;   
-    
+    public final String recurringPaymentTypeCode;
+
     private PurchasingAccountsPayableDocumentFixture purapDocumentFixture;
     private AccountsPayableDocumentFixture apDocumentFixture;
     private PaymentRequestItemFixture[] paymentRequestItemFixtures;
-    
+
     private PaymentRequestDocumentFixture(
             Date invoiceDate,
             String invoiceNumber,
@@ -306,11 +306,11 @@ public enum PaymentRequestDocumentFixture {
             Integer alternateVendorHeaderGeneratedIdentifier,
             Integer alternateVendorDetailAssignedIdentifier,
             String purchaseOrderNotes,
-            String recurringPaymentTypeCode,            
+            String recurringPaymentTypeCode,
             PurchasingAccountsPayableDocumentFixture purapDocumentFixture,
             AccountsPayableDocumentFixture apDocumentFixture,
             PaymentRequestItemFixture[] paymentRequestItemFixtures) {
-        
+
         this.invoiceDate = invoiceDate;
         this.invoiceNumber = invoiceNumber;
         this.vendorInvoiceAmount = vendorInvoiceAmount;
@@ -336,14 +336,14 @@ public enum PaymentRequestDocumentFixture {
         this.recurringPaymentTypeCode = recurringPaymentTypeCode;
 
         this.purapDocumentFixture = purapDocumentFixture;
-        this.apDocumentFixture = apDocumentFixture;     
+        this.apDocumentFixture = apDocumentFixture;
         this.paymentRequestItemFixtures = paymentRequestItemFixtures;
     }
 
     public PaymentRequestDocument createPaymentRequestDocument() {
-        
+
         PaymentRequestDocument doc = apDocumentFixture.createPaymentRequestDocument(purapDocumentFixture);
-        
+
         doc.setInvoiceDate(this.invoiceDate);
         doc.setInvoiceNumber(this.invoiceNumber);
         doc.setVendorInvoiceAmount(this.vendorInvoiceAmount);
@@ -371,12 +371,12 @@ public enum PaymentRequestDocumentFixture {
         //manually set bankCode for now
         doc.setBankCode("TEST");
         doc.setAccountDistributionMethod("S");
-        
+
         for (PaymentRequestItemFixture paymentRequestItemFixture : paymentRequestItemFixtures) {
             paymentRequestItemFixture.addTo(doc);
         }
 
         return doc;
     }
-    
+
 }

@@ -37,11 +37,11 @@ import java.util.Map;
  *
  */
 public class JsonUtils {
-    
+
     /**
      * Convert a json string in the form of  { "field1": "value", "field2": "value2" }
      * into a Query object
-     * 
+     *
      * @param query
      * @return
      */
@@ -55,10 +55,10 @@ public class JsonUtils {
         }
         return q;
     }
-    
+
     /**
      * Calculates a hash value for a JSON node.
-     *  
+     *
      * @param node
      * @return
      */
@@ -72,11 +72,11 @@ public class JsonUtils {
             throw new UnsupportedOperationException("Unable to hash change", e);
         }
     }
-    
+
     /**
      * Convert a json string in the form of  { "field1": "value", "field2": "value2" }
      * into a Map
-     * 
+     *
      * @param query
      * @return
      */

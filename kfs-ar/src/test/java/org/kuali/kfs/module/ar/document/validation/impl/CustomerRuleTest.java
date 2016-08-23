@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -135,7 +135,7 @@ public class CustomerRuleTest extends MaintenanceRuleTestBase {
         boolean result = rule.checkAddressIsValid(customerAddress);
         assertEquals("When customer address has country code " + CUSTOMER_ADDRESS_COUNTRY_CODE_RO + " and province and International Mail Code are empty checkAddressIsValid should return false. ", false, result);
     }
-    
+
     /**
      * This method checks if checkAddresses returns true when customer has only one primary address.
      */
@@ -149,7 +149,7 @@ public class CustomerRuleTest extends MaintenanceRuleTestBase {
         boolean result = rule.checkAddresses(customer);
         assertEquals("When customer has one primary address checkAddresses should return true. ", true, result);
     }
-    
+
     /**
      * This method checks if checkAddresses returns false when customer has more than one primary address.
      */
@@ -163,7 +163,7 @@ public class CustomerRuleTest extends MaintenanceRuleTestBase {
         boolean result = rule.checkAddresses(customer);
         assertEquals("When customer has more than one primary address checkAddresses should return false. ", false, result);
     }
-    
+
     /**
      * This method checks if checkAddresses returns false when customer has no primary address.
      */

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -62,7 +62,7 @@ public class BalanceServiceTest extends KualiTestBase {
 
     /**
      * This method performs all the setup steps necessary to run the tests within this test case.
-     * 
+     *
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -81,7 +81,7 @@ public class BalanceServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
+     *
      * This method creates and makes and SQL command call to perform and insert passing in the provided parameters.
      * @param objectTypeCode The object type code to be inserted.
      * @param balanceTypeCode The balance type code to be inserted.
@@ -94,7 +94,7 @@ public class BalanceServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
+     *
      * This method generates and calls and SQL command to remove all test data from the database.
      */
     public void purgeTestData() {
@@ -107,7 +107,7 @@ public class BalanceServiceTest extends KualiTestBase {
     }
 
     /**
-     * 
+     *
      * This method tests that the net result of of balance inserts is zero for appropriate balance type codes.
      */
     public void testNetToZero() {

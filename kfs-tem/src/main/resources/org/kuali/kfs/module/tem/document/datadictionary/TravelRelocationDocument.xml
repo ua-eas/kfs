@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -220,7 +220,7 @@
             <bean parent="NumericValidationPattern" />
         </property>
     </bean>
-    
+
     <bean id="TravelRelocationDocument-temProfileName" parent="TravelRelocationDocument-temProfileName-parentBean" />
 	<bean id="TravelRelocationDocument-temProfileName-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="temProfileName" />
@@ -232,7 +232,7 @@
 		<property name="required" value="false"/>
 		<property name="forceUppercase" value="true"/>
 		<property name="control"><bean parent="TextControlDefinition" p:size="32"/></property>
-	</bean> 
+	</bean>
     <bean id="TravelRelocationDocument-fromAddress1" parent="TravelRelocationDocument-fromAddress1-parentBean" />
     <bean id="TravelRelocationDocument-fromAddress1-parentBean" abstract="true" parent="AttributeDefinition">
         <property name="name" value="fromAddress1" />
@@ -359,11 +359,11 @@
                 p:includeKeyInLabel="false" />
         </property>
     </bean>
-    
+
     <bean id="TravelRelocationDocument-paymentMethod" parent="TravelRelocationDocument-paymentMethod-parentBean" />
     <bean id="TravelRelocationDocument-paymentMethod-parentBean" abstract="true" parent="TravelDocument-paymentMethod" />
-    
-    
+
+
     <bean id="TravelRelocationDocument-reasonCode" parent="TravelRelocationDocument-reasonCode-parentBean" />
     <bean id="TravelRelocationDocument-reasonCode-parentBean" abstract="true" parent="AttributeDefinition">
         <property name="name" value="reasonCode" />
@@ -455,7 +455,7 @@
 		<property name="name" value="corporateCardPaymentCancelDate" />
 		<property name="label" value="Corporate Card Canceled Date"/>
 		<property name="shortLabel" value="Corp. Card Cncld. Dt." />
-	</bean>		
+	</bean>
 
     <!-- Validations -->
     <bean id="TravelRelocationDocument-validations" parent="TravelRelocationDocument-validations-parentBean" />
@@ -566,7 +566,7 @@
             </bean>
         </property>
     </bean>
-    
+
     <bean id="TravelRelocationDocument-RoutingType-JobClassification" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
         <property name="routingAttributes">
             <list>

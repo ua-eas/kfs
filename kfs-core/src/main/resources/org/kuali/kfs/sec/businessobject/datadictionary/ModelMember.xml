@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -59,7 +59,7 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
   <bean id="ModelMember-memberId-parentBean" abstract="true" parent="RoleMemberBo-memberId">
     <property name="name" value="memberId"/>
   </bean>
-  
+
   <bean id="ModelMember-memberName" parent="ModelMember-memberName-parentBean"/>
 
   <bean id="ModelMember-memberName-parentBean" abstract="true" parent="AttributeDefinition">
@@ -76,7 +76,7 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
       <bean parent="TextControlDefinition" p:size="40"/>
     </property>
   </bean>
-  
+
   <bean id="ModelMember-memberTypeCode" parent="ModelMember-memberTypeCode-parentBean"/>
 
   <bean id="ModelMember-memberTypeCode-parentBean" parent="AttributeDefinition" abstract="true" p:name="memberTypeCode"
@@ -88,91 +88,91 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
     <property name="optionsFinderClass" value="org.kuali.kfs.kns.bo.lookup.MemberTypeValuesFinder"/>
   </bean>
 
-  
+
   <bean id="ModelMember-active" parent="ModelMember-active-parentBean"/>
 
   <bean id="ModelMember-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="active"/>
-  </bean>  
-  
+  </bean>
+
   <bean id="ModelMember-principalId" parent="ModelMember-principalId-parentBean"/>
 
   <bean id="ModelMember-principalId-parentBean" abstract="true" parent="PersonImpl-principalId">
     <property name="name" value="principalId"/>
-  </bean> 
+  </bean>
 
   <bean id="ModelMember-principalName" parent="ModelMember-principalName-parentBean"/>
 
   <bean id="ModelMember-principalName-parentBean" abstract="true" parent="PersonImpl-principalName">
     <property name="name" value="principalName"/>
-  </bean> 
-  
+  </bean>
+
   <bean id="ModelMember-entityId" parent="ModelMember-entityId-parentBean"/>
 
   <bean id="ModelMember-entityId-parentBean" abstract="true" parent="PersonImpl-entityId">
     <property name="name" value="entityId"/>
-  </bean> 
-  
+  </bean>
+
   <bean id="ModelMember-firstName" parent="ModelMember-firstName-parentBean"/>
 
   <bean id="ModelMember-firstName-parentBean" abstract="true" parent="PersonImpl-firstName">
     <property name="name" value="firstName"/>
-  </bean>  
-  
+  </bean>
+
   <bean id="ModelMember-middleName" parent="ModelMember-middleName-parentBean"/>
 
   <bean id="ModelMember-middleName-parentBean" abstract="true" parent="PersonImpl-middleName">
     <property name="name" value="middleName"/>
-  </bean> 
-  
+  </bean>
+
   <bean id="ModelMember-lastName" parent="ModelMember-lastName-parentBean"/>
 
   <bean id="ModelMember-lastName-parentBean" abstract="true" parent="PersonImpl-lastName">
     <property name="name" value="lastName"/>
-  </bean> 
-  
+  </bean>
+
   <bean id="ModelMember-emailAddress" parent="ModelMember-emailAddress-parentBean"/>
 
   <bean id="ModelMember-emailAddress-parentBean" abstract="true" parent="PersonImpl-emailAddress">
     <property name="name" value="emailAddress"/>
-  </bean> 
-  
+  </bean>
+
   <bean id="ModelMember-employeeId" parent="ModelMember-employeeId-parentBean"/>
 
   <bean id="ModelMember-employeeId-parentBean" abstract="true" parent="PersonImpl-employeeId">
     <property name="name" value="employeeId"/>
-  </bean> 
-  
+  </bean>
+
   <bean id="ModelMember-roleId" parent="ModelMember-roleId-parentBean"/>
 
   <bean id="ModelMember-roleId-parentBean" abstract="true" parent="RoleBo-id">
     <property name="name" value="roleId"/>
-  </bean> 
-  
+  </bean>
+
   <bean id="ModelMember-roleName" parent="ModelMember-roleName-parentBean"/>
 
   <bean id="ModelMember-roleName-parentBean" abstract="true" parent="RoleBo-name">
     <property name="name" value="roleName"/>
-  </bean> 
-  
+  </bean>
+
   <bean id="ModelMember-namespaceCode" parent="ModelMember-namespaceCode-parentBean"/>
 
   <bean id="ModelMember-namespaceCode-parentBean" abstract="true" parent="RoleBo-namespaceCode">
     <property name="name" value="namespaceCode"/>
-  </bean> 
-  
+  </bean>
+
   <bean id="ModelMember-groupId" parent="ModelMember-groupId-parentBean"/>
 
   <bean id="ModelMember-groupId-parentBean" abstract="true" parent="Group-id">
     <property name="name" value="groupId"/>
-  </bean> 
-  
+  </bean>
+
   <bean id="ModelMember-groupName" parent="ModelMember-groupName-parentBean"/>
 
   <bean id="ModelMember-groupName-parentBean" abstract="true" parent="Group-name">
     <property name="name" value="groupName"/>
-  </bean> 
-  
+  </bean>
+
   <bean id="ModelMember-lookupDefinition" parent="ModelMember-lookupDefinition-parentBean"/>
 
   <bean id="ModelMember-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
@@ -195,12 +195,12 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
         <bean parent="FieldDefinition" p:attributeName="entityId"/>
         <bean parent="FieldDefinition" p:attributeName="firstName"/>
         <bean parent="FieldDefinition" p:attributeName="middleName"/>
-        <bean parent="FieldDefinition" p:attributeName="lastName"/>        
+        <bean parent="FieldDefinition" p:attributeName="lastName"/>
         <bean parent="FieldDefinition" p:attributeName="emailAddress"/>
         <bean parent="FieldDefinition" p:attributeName="employeeId"/>
         <bean parent="FieldDefinition" p:attributeName="active"/>
         <bean parent="FieldDefinition" p:attributeName="memberTypeCode" p:hidden="true"/>
-        <bean parent="FieldDefinition" p:attributeName="roleId"/>        
+        <bean parent="FieldDefinition" p:attributeName="roleId"/>
         <bean parent="FieldDefinition" p:attributeName="roleName"/>
         <bean parent="FieldDefinition" p:attributeName="namespaceCode"/>
         <bean parent="FieldDefinition" p:attributeName="groupId"/>
@@ -216,5 +216,5 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
       </list>
     </property>
   </bean>
-  
+
 </beans>

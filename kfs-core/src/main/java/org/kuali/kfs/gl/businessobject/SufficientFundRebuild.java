@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -51,7 +51,7 @@ public class SufficientFundRebuild extends PersistableBusinessObjectBase {
 
     /**
      * This method sets this object's attributes from a line
-     * 
+     *
      * @param line with object's attributes
      */
     public void setFromTextFile(String line) {
@@ -80,7 +80,7 @@ public class SufficientFundRebuild extends PersistableBusinessObjectBase {
 
     /**
      * This method returns the value passed in with additional spaces if need be.
-     * 
+     *
      * @param size
      * @param value
      * @return
@@ -101,7 +101,7 @@ public class SufficientFundRebuild extends PersistableBusinessObjectBase {
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -110,7 +110,7 @@ public class SufficientFundRebuild extends PersistableBusinessObjectBase {
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -120,7 +120,7 @@ public class SufficientFundRebuild extends PersistableBusinessObjectBase {
 
     /**
      * Gets the accountFinancialObjectTypeCode attribute.
-     * 
+     *
      * @return Returns the accountFinancialObjectTypeCode
      */
     public String getAccountFinancialObjectTypeCode() {
@@ -129,7 +129,7 @@ public class SufficientFundRebuild extends PersistableBusinessObjectBase {
 
     /**
      * Sets the accountFinancialObjectTypeCode attribute.
-     * 
+     *
      * @param accountFinancialObjectTypeCode The accountFinancialObjectTypeCode to set.
      */
     public void setAccountFinancialObjectTypeCode(String accountFinancialObjectTypeCode) {
@@ -139,7 +139,7 @@ public class SufficientFundRebuild extends PersistableBusinessObjectBase {
 
     /**
      * Gets the accountNumberFinancialObjectCode attribute.
-     * 
+     *
      * @return Returns the accountNumberFinancialObjectCode
      */
     public String getAccountNumberFinancialObjectCode() {
@@ -148,7 +148,7 @@ public class SufficientFundRebuild extends PersistableBusinessObjectBase {
 
     /**
      * Sets the accountNumberFinancialObjectCode attribute.
-     * 
+     *
      * @param accountNumberFinancialObjectCode The accountNumberFinancialObjectCode to set.
      */
     public void setAccountNumberFinancialObjectCode(String accountNumberFinancialObjectCode) {
@@ -158,7 +158,7 @@ public class SufficientFundRebuild extends PersistableBusinessObjectBase {
 
     /**
      * Gets the chart attribute.
-     * 
+     *
      * @return Returns the chart
      */
     public Chart getChart() {
@@ -167,7 +167,7 @@ public class SufficientFundRebuild extends PersistableBusinessObjectBase {
 
     /**
      * Sets the chart attribute.
-     * 
+     *
      * @param chart The chart to set.
      * @deprecated
      */

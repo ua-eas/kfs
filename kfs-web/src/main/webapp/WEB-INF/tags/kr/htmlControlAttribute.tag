@@ -1,3 +1,21 @@
+<%--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+--%>
 <%@ tag import="java.util.Map" %>
 <%@ tag import="org.kuali.kfs.kns.util.ActionFormUtilMap" %>
 <%@ tag import="java.util.ArrayList" %>
@@ -148,7 +166,7 @@ if (attributeEntry == null) {
 			  <c:if test="${attributeEntry.control.select == true || attributeEntry.control.multiselect == true}">
 			     <c:set var="finderClass" value="${fn:replace(attributeEntry.control.valuesFinder,'.','|')}"/>
 				 <c:set var="businessObjectClass" value="${fn:replace(attributeEntry.control.businessObject,'.','|')}"/>
-				   	     
+
 				 <c:choose>
 
              <c:when test="${not empty finderClass}">
@@ -171,14 +189,14 @@ if (attributeEntry == null) {
                </c:choose>
              </c:otherwise>
          </c:choose>
-         <jsp:useBean id="keyLabelMapEntries" type="java.util.Set"/> 
+         <jsp:useBean id="keyLabelMapEntries" type="java.util.Set"/>
 	       <jsp:useBean id="methodAndParms" type="java.lang.String"/>
-           	  
+
 			     <%
 			        java.lang.String selectedOptionDescription = "";
-			   	  
+
 			   	    javax.servlet.jsp.PageContext pageCtx = (javax.servlet.jsp.PageContext) jspContext;
-			   	
+
 			   	    org.apache.struts.taglib.TagUtils TagUtils = org.apache.struts.taglib.TagUtils.getInstance();
 			   	    java.util.List propertyValue = new java.util.ArrayList();
 			   	    Object value = TagUtils.lookup(pageCtx, "org.apache.struts.taglib.html.BEAN", property, null);
@@ -211,7 +229,7 @@ if (attributeEntry == null) {
 				   	    }
 				   	  }
 				   	  pageCtx.setAttribute("readOnlyAlternateDisplay", selectedOptionDescription);
-			   	    } 
+			   	    }
 			   	 %>
  			 </c:if>
 			 <c:if test="${empty readOnlyAlternateDisplay}">
@@ -317,8 +335,8 @@ if (attributeEntry == null) {
 
             </html:select>
             <c:if test="${disableField == false}">
-              <input type="hidden" name="multiSelectToReset" value="${property}"/> 
-            </c:if> 
+              <input type="hidden" name="multiSelectToReset" value="${property}"/>
+            </c:if>
 	</c:when>
     <%-- radio --%>
     <c:when test="${attributeEntry.control.radio == true}">

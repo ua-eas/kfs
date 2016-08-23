@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,7 +26,7 @@ import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 
 /**
- * Business rules for BudgetConstructionAppointmentFundingReasonCode maintenance document. 
+ * Business rules for BudgetConstructionAppointmentFundingReasonCode maintenance document.
  */
 public class BudgetConstructionAppointmentFundingReasonCodeRule extends MaintenanceDocumentRuleBase {
     protected static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BudgetConstructionAppointmentFundingReasonCodeRule.class);
@@ -37,7 +37,7 @@ public class BudgetConstructionAppointmentFundingReasonCodeRule extends Maintena
     protected SalarySettingService salarySettingService;
 
     public BudgetConstructionAppointmentFundingReasonCodeRule() {
-        
+
         this.setSalarySettingService(SpringContext.getBean(SalarySettingService.class));
     }
 
@@ -49,7 +49,7 @@ public class BudgetConstructionAppointmentFundingReasonCodeRule extends Maintena
         LOG.info("processCustomRouteDocumentBusinessRules called");
 
         boolean success = true;
-        
+
         // checks when editing existing code
         if (document.isEdit()) {
             success &= checkInactivateReason(document);
@@ -62,8 +62,8 @@ public class BudgetConstructionAppointmentFundingReasonCodeRule extends Maintena
         LOG.info("checkInactivateReason called");
 
         boolean success = true;
-        
-        // just return when not being inactivated 
+
+        // just return when not being inactivated
         if (!(oldBudgetConstructionAppointmentFundingReasonCode.isActive() && !newBudgetConstructionAppointmentFundingReasonCode.isActive())) {
             return true;
         }
@@ -82,7 +82,7 @@ public class BudgetConstructionAppointmentFundingReasonCodeRule extends Maintena
      */
     @Override
     public void setupConvenienceObjects() {
-        
+
         oldBudgetConstructionAppointmentFundingReasonCode = (BudgetConstructionAppointmentFundingReasonCode) super.getOldBo();
         newBudgetConstructionAppointmentFundingReasonCode = (BudgetConstructionAppointmentFundingReasonCode) super.getNewBo();
     }
@@ -93,5 +93,5 @@ public class BudgetConstructionAppointmentFundingReasonCodeRule extends Maintena
      */
     public void setSalarySettingService(SalarySettingService salarySettingService) {
         this.salarySettingService = salarySettingService;
-    } 
+    }
 }

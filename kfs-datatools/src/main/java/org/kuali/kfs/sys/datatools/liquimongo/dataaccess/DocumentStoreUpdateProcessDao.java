@@ -61,10 +61,10 @@ public interface DocumentStoreUpdateProcessDao {
      * @param change change requested
      */
     void saveSchemaChange(DocumentStoreChange change);
-    
+
     /**
      * Record that the requested change has been reverted.
-     * 
+     *
      * @param change change requested
      */
     void removeSchemaChange(DocumentStoreChange change);

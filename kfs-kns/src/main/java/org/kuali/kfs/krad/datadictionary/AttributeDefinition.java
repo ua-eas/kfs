@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -52,16 +52,16 @@ import java.util.List;
  * A single attribute definition in the DataDictionary, which contains
  * information relating to the display, validation, and general maintenance of a
  * specific attribute of an entry.
- * 
- * 
+ *
+ *
  */
 public class AttributeDefinition extends AttributeDefinitionBase implements CaseConstrainable, PrerequisiteConstrainable, Formatable, HierarchicallyConstrainable, MustOccurConstrainable, LengthConstrainable, RangeConstrainable, ValidCharactersConstrainable {
     private static final long serialVersionUID = -2490613377818442742L;
 
 	protected Boolean forceUppercase = Boolean.FALSE;
-	
+
 	protected DataType dataType;
-	
+
 	protected Integer minLength;
 	protected Integer maxLength;
 	protected Boolean unique;
@@ -69,7 +69,7 @@ public class AttributeDefinition extends AttributeDefinitionBase implements Case
 	protected String exclusiveMin;
 	protected String inclusiveMax;
 
-	@Deprecated 
+	@Deprecated
 	protected ValidationPattern validationPattern;
 
 	protected ControlDefinition control;
@@ -81,27 +81,27 @@ public class AttributeDefinition extends AttributeDefinitionBase implements Case
     protected PropertyEditor propertyEditor;
 
 	protected AttributeSecurity attributeSecurity;
-	
+
 	protected Boolean dynamic;
-	
-	// KS-style constraints 
+
+	// KS-style constraints
 	protected String customValidatorClass;
-	protected ValidCharactersConstraint validCharactersConstraint;	
+	protected ValidCharactersConstraint validCharactersConstraint;
     protected CaseConstraint caseConstraint;
     protected List<PrerequisiteConstraint> dependencyConstraints;
 	protected List<MustOccurConstraint> mustOccurConstraints;
 	protected LookupConstraint lookupDefinition;// If the user wants to match
 		// against two searches, that search must be defined as  well
 	protected String lookupContextPath;
-	
+
 	//TODO: This may not be required since we now use ComplexAttributeDefinition
 	protected String childEntryName;
-	
+
 	private KeyValuesFinder optionsFinder;
 
 	protected String alternateDisplayAttributeName;
     protected String additionalDisplayAttributeName;
-    
+
 
 	public AttributeDefinition() {
 		// Empty
@@ -150,7 +150,7 @@ public class AttributeDefinition extends AttributeDefinitionBase implements Case
 	 * The inclusiveMax element determines the maximum allowable value for data
 	 * entry editing purposes. Value can be an integer or decimal value such as
 	 * -.001 or 99.
-	 * 
+	 *
 	 * JSTL: This field is mapped into the field named "exclusiveMax".
 	 */
 	@Override
@@ -162,7 +162,7 @@ public class AttributeDefinition extends AttributeDefinitionBase implements Case
 	 * The inclusiveMax element determines the maximum allowable value for data
 	 * entry editing purposes. Value can be an integer or decimal value such as
 	 * -.001 or 99.
-	 * 
+	 *
 	 * JSTL: This field is mapped into the field named "exclusiveMax".
 	 */
 	public void setInclusiveMax(String inclusiveMax) {
@@ -183,37 +183,37 @@ public class AttributeDefinition extends AttributeDefinitionBase implements Case
 	/**
 	 * The validationPattern element defines the allowable character-level or
 	 * field-level values for an attribute.
-	 * 
+	 *
 	 * JSTL: validationPattern is a Map which is accessed using a key of
 	 * "validationPattern". Each entry may contain some of the keys listed
 	 * below. The keys that may be present for a given attribute are dependent
 	 * upon the type of validationPattern.
-	 * 
+	 *
 	 * maxLength (String) exactLength type allowWhitespace allowUnderscore
 	 * allowPeriod validChars precision scale allowNegative
-	 * 
+	 *
 	 * The allowable keys (in addition to type) for each type are: Type****
 	 * ***Keys*** alphanumeric exactLength maxLength allowWhitespace
 	 * allowUnderscore allowPeriod
-	 * 
+	 *
 	 * alpha exactLength maxLength allowWhitespace
-	 * 
+	 *
 	 * anyCharacter exactLength maxLength allowWhitespace
-	 * 
+	 *
 	 * charset validChars
-	 * 
+	 *
 	 * numeric exactLength maxLength
-	 * 
+	 *
 	 * fixedPoint allowNegative precision scale
-	 * 
+	 *
 	 * floatingPoint allowNegative
-	 * 
+	 *
 	 * date n/a emailAddress n/a javaClass n/a month n/a phoneNumber n/a
 	 * timestamp n/a year n/a zipcode n/a
-	 * 
+	 *
 	 * Note: maxLength and exactLength are mutually exclusive. If one is
 	 * entered, the other may not be entered.
-	 * 
+	 *
 	 * Note: See ApplicationResources.properties for exact regex patterns. e.g.
 	 * validationPatternRegex.date for regex used in date validation.
 	 */
@@ -232,39 +232,39 @@ public class AttributeDefinition extends AttributeDefinitionBase implements Case
 	/**
 	 * The control element defines the manner in which an attribute is displayed
 	 * and the manner in which the attribute value is entered.
-	 * 
+	 *
 	 * JSTL: control is a Map representing an HTML control. It is accessed using
 	 * a key of "control". The table below shows the types of entries associated
 	 * with each type of control.
-	 * 
+	 *
 	 ** Control Type** **Key** **Value** checkbox checkbox boolean String
-	 * 
+	 *
 	 * hidden hidden boolean String
-	 * 
+	 *
 	 * radio radio boolean String valuesFinder valuesFinder class name
 	 * dataObjectClass String keyAttribute String labelAttribute String
 	 * includeKeyInLabel boolean String
-	 * 
+	 *
 	 * select select boolean String valuesFinder valuesFinder class name
 	 * dataObjectClass String keyAttribute String labelAttribute String
 	 * includeBlankRow boolean String includeKeyInLabel boolean String
-	 * 
+	 *
 	 * apcSelect apcSelect boolean String paramNamespace String
 	 * parameterDetailType String parameterName String
-	 * 
+	 *
 	 * text text boolean String size String
-	 * 
+	 *
 	 * textarea textarea boolean String rows cols
-	 * 
+	 *
 	 * currency currency boolean String size String formattedMaxLength String
-	 * 
+	 *
 	 * kualiUser kualiUser boolean String universalIdAttributeName String
 	 * userIdAttributeName String personNameAttributeName String
-	 * 
+	 *
 	 * lookupHidden lookupHidden boolean String
-	 * 
+	 *
 	 * lookupReadonly lookupReadonly boolean String
-	 * 
+	 *
 	 * @param control
 	 * @throws IllegalArgumentException
 	 *             if the given control is null
@@ -336,7 +336,7 @@ public class AttributeDefinition extends AttributeDefinitionBase implements Case
 	/**
 	 * Directly validate simple fields, call completeValidation on Definition
 	 * fields.
-	 * 
+	 *
 	 * @see DataDictionaryEntry#completeValidation()
 	 */
 	@Override
@@ -352,7 +352,7 @@ public class AttributeDefinition extends AttributeDefinitionBase implements Case
 				throw new AttributeValidationException("property '" + getName() + "' in class '"
 						+ rootObjectClass.getName() + " does not have a control defined");
 			}
-			
+
 			if(getControl() != null) {
 			    getControl().completeValidation(rootObjectClass, otherObjectClass);
 			}
@@ -444,7 +444,7 @@ public class AttributeDefinition extends AttributeDefinitionBase implements Case
 	 * Default <code>Control</code> to use when the attribute is to be rendered
 	 * for the UI. Used by the UIF when a control is not defined for an
 	 * <code>InputField</code>
-	 * 
+	 *
 	 * @return Control instance
 	 */
 	public Control getControlField() {
@@ -453,7 +453,7 @@ public class AttributeDefinition extends AttributeDefinitionBase implements Case
 
 	/**
 	 * Setter for the default control
-	 * 
+	 *
 	 * @param controlField
 	 */
 	public void setControlField(Control controlField) {
@@ -488,7 +488,7 @@ public class AttributeDefinition extends AttributeDefinitionBase implements Case
 	public void setDataType(DataType dataType) {
 		this.dataType = dataType;
 	}
-	
+
 	public void setDataType(String dataType) {
 		this.dataType = DataType.valueOf(dataType);
 	}
@@ -610,13 +610,13 @@ public class AttributeDefinition extends AttributeDefinitionBase implements Case
 	}
 
 
-	
+
     /**
      * Instance of <code>KeyValluesFinder</code> that should be invoked to
      * provide a List of values the field can have. Generally used to provide
      * the options for a multi-value control or to validate the submitted field
      * value
-     * 
+     *
      * @return KeyValuesFinder instance
      */
     public KeyValuesFinder getOptionsFinder() {
@@ -625,27 +625,27 @@ public class AttributeDefinition extends AttributeDefinitionBase implements Case
 
     /**
      * Setter for the field's KeyValuesFinder instance
-     * 
+     *
      * @param optionsFinder
      */
     public void setOptionsFinder(KeyValuesFinder optionsFinder) {
         this.optionsFinder = optionsFinder;
     }
-    
+
     /**
      * Setter that takes in the class name for the options finder and creates a
      * new instance to use as the finder for the attribute field
-     * 
+     *
      * @param optionsFinderClass
      */
     public void setOptionsFinderClass(Class<? extends KeyValuesFinder> optionsFinderClass) {
         this.optionsFinder = ObjectUtils.newInstance(optionsFinderClass);
     }
-	
+
 	public void setAdditionalDisplayAttributeName(String additionalDisplayAttributeName) {
 		this.additionalDisplayAttributeName = additionalDisplayAttributeName;
 	}
-	
+
 	public String getAdditionalDisplayAttributeName() {
 		return this.additionalDisplayAttributeName;
 	}
@@ -653,7 +653,7 @@ public class AttributeDefinition extends AttributeDefinitionBase implements Case
 	public void setAlternateDisplayAttributeName(String alternateDisplayAttributeName) {
 		this.alternateDisplayAttributeName = alternateDisplayAttributeName;
 	}
-	
+
 	public String getAlternateDisplayAttributeName() {
 		return this.alternateDisplayAttributeName;
 	}

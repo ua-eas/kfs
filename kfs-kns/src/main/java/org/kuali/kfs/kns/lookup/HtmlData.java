@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,7 +37,7 @@ import java.util.Map;
 
 /**
  * This class holds details of html data for an action url.
- * 
+ *
  */
 @Deprecated
 public abstract class HtmlData implements Serializable {
@@ -46,7 +46,7 @@ public abstract class HtmlData implements Serializable {
 
 	public static final String ANCHOR_HTML_DATA_TYPE = AnchorHtmlData.class.getName();
 	public static final String INPUT_HTML_DATA_TYPE = InputHtmlData.class.getName();
-	
+
 	protected String name = "";
 	protected String title = "";
 	protected String methodToCall = "";
@@ -55,12 +55,12 @@ public abstract class HtmlData implements Serializable {
 	protected String appendDisplayText = "";
 	protected List<HtmlData> childUrlDataList;
 	protected String maxLength;
-	
+
 	/**
-	 * 
+	 *
 	 * This method constructs the complete html tag based on the class attribute
 	 * values.
-	 * 
+	 *
 	 * @return
 	 */
 	public abstract String constructCompleteHtmlTag();
@@ -169,7 +169,7 @@ public abstract class HtmlData implements Serializable {
 
 	/**
 	 * KFSMI-658 This method gets the title text for a link/control
-	 * 
+	 *
 	 * @param prependText
 	 * @param dataObject
 	 * @param fieldConversions
@@ -206,7 +206,7 @@ public abstract class HtmlData implements Serializable {
 		}
 		return getTitleText(prependText, dataObject.getClass(), keyValueMap);
 	}
-	
+
 	private static BusinessObjectAuthorizationService businessObjectAuthorizationService;
 	private static BusinessObjectAuthorizationService getBusinessObjectAuthorizationService() {
 		if (businessObjectAuthorizationService == null) {
@@ -230,9 +230,9 @@ public abstract class HtmlData implements Serializable {
 	}
 
 	/**
-	 * 
+	 *
 	 * This class is an extension of HtmlData. It represents an anchor tag.
-	 * 
+	 *
 	 */
 	public static class AnchorHtmlData extends HtmlData {
 		public static final String TARGET_BLANK = "_blank";
@@ -269,9 +269,9 @@ public abstract class HtmlData implements Serializable {
 		}
 
 		/**
-		 * 
+		 *
 		 * This method generates anchor tag.
-		 * 
+		 *
 		 * @see HtmlData#constructCompleteHtmlTag()
 		 */
 		public String constructCompleteHtmlTag() {
@@ -340,7 +340,7 @@ public abstract class HtmlData implements Serializable {
         public void setStyleClass(String styleClass) {
         	this.styleClass = styleClass;
         }
-        
+
 		/**
 		 * @return the onclick
 		 */
@@ -353,7 +353,7 @@ public abstract class HtmlData implements Serializable {
 		 */
 		public void setOnclick(String onclick) {
 			this.onclick = onclick;
-		}        
+		}
 
 		/**
 		 * @return the href
@@ -376,7 +376,7 @@ public abstract class HtmlData implements Serializable {
         public void setObjectLabel(String objectLabel) {
             this.objectLabel = objectLabel;
         }
-        
+
         public boolean isModalAllowed() {
         	String boClassName = StringUtils.substringBetween(this.href, "businessObjectClassName=", "&");
         	return !KRADServiceLocatorWeb.getKualiModuleService().isBusinessObjectExternal(boClassName);
@@ -384,9 +384,9 @@ public abstract class HtmlData implements Serializable {
 	}
 
 	/**
-	 * 
+	 *
 	 * This class is an extension of HtmlData. It represents an input tag.
-	 * 
+	 *
 	 */
 	public static class InputHtmlData extends HtmlData {
 		public static final String CHECKBOX_INPUT_TYPE = "checkbox";
@@ -411,9 +411,9 @@ public abstract class HtmlData implements Serializable {
 		}
 
 		/***********************************************************************
-		 * 
+		 *
 		 * This method contructs an input tag.
-		 * 
+		 *
 		 * @see HtmlData#constructCompleteHtmlTag()
 		 */
 		public String constructCompleteHtmlTag() {
@@ -502,18 +502,18 @@ public abstract class HtmlData implements Serializable {
 	public static class MultipleAnchorHtmlData extends AnchorHtmlData {
 		protected List<AnchorHtmlData> anchorHtmlData;
 		protected static final String ANCHORS_SEPARATOR = ", ";
-		
+
 		/**
 		 * Needed by inquiry framework
 		 */
 		public MultipleAnchorHtmlData(List<AnchorHtmlData> anchorHtmlData) {
 			this.anchorHtmlData = anchorHtmlData;
 		}
-		
+
 		/**
-		 * 
+		 *
 		 * This method generates anchor tag.
-		 * 
+		 *
 		 * @see HtmlData#constructCompleteHtmlTag()
 		 */
 		public String constructCompleteHtmlTag() {

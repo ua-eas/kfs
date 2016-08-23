@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -74,7 +74,7 @@ public class ReportGenerationServiceTest extends KualiTestBase {
             String template = reportTemplateClassPath + reportTemplateName;
             String fullReportFileName = reportDirectoty + reportFileName;
             Collection<Account> accountDataSource = this.getAccounts();
-            
+
             reportGenerationService.generateReportToPdfFile(reportData, accountDataSource, template, fullReportFileName);
         }
         catch (Exception e) {
@@ -104,7 +104,7 @@ public class ReportGenerationServiceTest extends KualiTestBase {
         try {
             String template = reportTemplateClassPath + reportTemplateName;
             String fullReportFileName = reportDirectoty + reportFileName;
-            
+
             reportGenerationService.generateReportToPdfFile(reportData, template, fullReportFileName);
         }
         catch (Exception e) {
@@ -112,11 +112,11 @@ public class ReportGenerationServiceTest extends KualiTestBase {
             fail("fail to generate PDF file." + e);
         }
     }
-    
+
     public void testGenerateReportToPdfFile_100DataSet() throws Exception {
         this.generateReportWithLargeDataSet(100);
     }
-    
+
     public void testGenerateReportToPdfFile_1000DataSet() throws Exception {
         this.generateReportWithLargeDataSet(1000);
     }
@@ -124,7 +124,7 @@ public class ReportGenerationServiceTest extends KualiTestBase {
     public void testGenerateReportToPdfFile_10000DataSet() throws Exception {
         this.generateReportWithLargeDataSet(10000);
     }
-    
+
     private void generateReportWithLargeDataSet(int size) throws Exception {
         String reportFileName = infoForParameterMapReport.getReportFileName();
         String reportDirectoty = infoForParameterMapReport.getReportsDirectory();
@@ -146,10 +146,10 @@ public class ReportGenerationServiceTest extends KualiTestBase {
         try {
             String template = reportTemplateClassPath + reportTemplateName;
             String fullReportFileName = reportDirectoty + reportFileName + "LargeDataSet" + size;
-            
+
             long start = System.currentTimeMillis();
             reportGenerationService.generateReportToPdfFile(reportData, template, fullReportFileName);
-            
+
             long duration = System.currentTimeMillis() - start;
             LOG.info("=======Data Size: " +  accounts.size() + " account records and " + accounts.size() + " sub account records.");
             LOG.info("=======Execution time: " +  duration + " millis");
@@ -171,7 +171,7 @@ public class ReportGenerationServiceTest extends KualiTestBase {
         return accounts;
     }
 
-    // create a list of sub accounts that will be posted in report 
+    // create a list of sub accounts that will be posted in report
     private Collection<SubAccount> getSubAccounts(int size) {
         Collection<SubAccount> subAccounts = new ArrayList<SubAccount>();
         for(int i = 0; i< size; i++) {
@@ -191,7 +191,7 @@ public class ReportGenerationServiceTest extends KualiTestBase {
         return accounts;
     }
 
-    // create a list of sub accounts that will be posted in report 
+    // create a list of sub accounts that will be posted in report
     private Collection<SubAccount> getSubAccounts() {
         Collection<SubAccount> subAccounts = new ArrayList<SubAccount>();
         for (SubAccountFixture subAccount : SubAccountFixture.values()) {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,9 +31,9 @@ import org.kuali.kfs.krad.util.ObjectUtils;
  */
 public abstract class ParameterizedValidation {
     private List<ValidationFieldConvertible> parameterProperties;
-    
+
     /**
-     * Gets the parameterProperties attribute. 
+     * Gets the parameterProperties attribute.
      * @return Returns the parameterProperties.
      */
     protected List<ValidationFieldConvertible> getParameterProperties() {
@@ -47,9 +47,9 @@ public abstract class ParameterizedValidation {
     public void setParameterProperties(List<ValidationFieldConvertible> parameterProperties) {
         this.parameterProperties = parameterProperties;
     }
-    
+
     /**
-     * Given an event and the parameterProperties given by the validations, copies the values from the events to the proper fields in the validation. 
+     * Given an event and the parameterProperties given by the validations, copies the values from the events to the proper fields in the validation.
      * @param event an array to derive properties from
      * @param the parameter to set the parameters on
      */
@@ -60,7 +60,7 @@ public abstract class ParameterizedValidation {
             }
         }
     }
-    
+
     /**
      * Populates a single parameter field based on a field conversion, given an event to populate data from
      * @param event the event which acts as the source of data

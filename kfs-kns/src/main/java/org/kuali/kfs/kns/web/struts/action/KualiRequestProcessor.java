@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -73,11 +73,11 @@ import java.io.IOException;
 
 /**
  * This class handles setup of user session and restoring of action form.
- * 
- * 
+ *
+ *
  */
 public class KualiRequestProcessor extends RequestProcessor {
-	
+
 	private static final String MDC_DOC_ID = "docId";
 	private static final String PREVIOUS_REQUEST_EDITABLE_PROPERTIES_GUID_PARAMETER_NAME = "actionEditablePropertiesGuid";
 
@@ -86,7 +86,7 @@ public class KualiRequestProcessor extends RequestProcessor {
 	private SessionDocumentService sessionDocumentService;
 	private PlatformTransactionManager transactionManager;
 	private ConfigurationService configurationService;
-	
+
     public void process(final HttpServletRequest request,
             final HttpServletResponse response) throws IOException, ServletException {
         // indicates that we are running in legacy KNS context
@@ -154,11 +154,11 @@ public class KualiRequestProcessor extends RequestProcessor {
             LegacyUtils.endLegacyContext();
         }
     }
-	
+
 	@Override
 	protected boolean processPreprocess(HttpServletRequest request, HttpServletResponse response) {
         final UserSession session = KRADUtils.getUserSessionFromRequest(request);
-        
+
         if (session == null) {
         	throw new IllegalStateException("the user session has not been established");
         }
@@ -166,7 +166,7 @@ public class KualiRequestProcessor extends RequestProcessor {
     	KNSGlobalVariables.clear();
 		return true;
 	}
-	
+
 	/**
      * <p>ProcessDefinition an <code>HttpServletRequest</code> and create the
      * corresponding <code>HttpServletResponse</code> or dispatch
@@ -188,7 +188,7 @@ public class KualiRequestProcessor extends RequestProcessor {
         if (path == null) {
             return;
         }
-        
+
         if (log.isDebugEnabled()) {
             log.debug("Processing a '" + request.getMethod() +
                       "' for path '" + path + "'");
@@ -205,7 +205,7 @@ public class KualiRequestProcessor extends RequestProcessor {
         if (!processPreprocess(request, response)) {
             return;
         }
-        
+
         this.processCachedMessages(request, response);
 
         // Identify the mapping for this request
@@ -266,9 +266,9 @@ public class KualiRequestProcessor extends RequestProcessor {
 
 
 	/**
-	 * This method gets the document number from the request.  The request should have been processed already 
-	 * before this is called if it is multipart.  
-	 * 
+	 * This method gets the document number from the request.  The request should have been processed already
+	 * before this is called if it is multipart.
+	 *
 	 * @param request
 	 * @return the document number, or null if one can't be found in the request.
 	 */
@@ -279,7 +279,7 @@ public class KualiRequestProcessor extends RequestProcessor {
 		if (documentNumber == null) {
 			documentNumber = request.getParameter(KRADConstants.DOC_NUM);
 		}
-		
+
 		if (documentNumber == null) {
 			documentNumber = request.getParameter("documentId");
 		}
@@ -287,7 +287,7 @@ public class KualiRequestProcessor extends RequestProcessor {
 		if (documentNumber == null) {
 			documentNumber = request.getParameter("docId");
 		}
-		
+
 		return documentNumber;
 	}
 
@@ -311,12 +311,12 @@ public class KualiRequestProcessor extends RequestProcessor {
 			super.processPopulate(request, response, form, mapping);
 			return;
 		}
-		
+
 		final String previousRequestGuid = request.getParameter(KualiRequestProcessor.PREVIOUS_REQUEST_EDITABLE_PROPERTIES_GUID_PARAMETER_NAME);
 
 		((PojoForm)form).clearEditablePropertyInformation();
 		((PojoForm)form).registerStrutsActionMappingScope(mapping.getScope());
-		
+
 		String multipart = mapping.getMultipartClass();
 		if (multipart != null) {
 			request.setAttribute(Globals.MULTIPART_KEY, multipart);
@@ -404,10 +404,10 @@ public class KualiRequestProcessor extends RequestProcessor {
 	 */
 	@Override
 	protected ActionForm processActionForm(HttpServletRequest request, HttpServletResponse response, ActionMapping mapping) {
-		
+
 		String documentNumber = getDocumentNumber(request);
 		if (documentNumber != null) { MDC.put(MDC_DOC_ID, documentNumber); }
-		
+
 		UserSession userSession = (UserSession) request.getSession().getAttribute(KRADConstants.USER_SESSION_KEY);
 
 		String docFormKey = request.getParameter(KRADConstants.DOC_FORM_KEY);
@@ -467,7 +467,7 @@ public class KualiRequestProcessor extends RequestProcessor {
 				((PojoForm) form).getMethodToCallsToBypassSessionRetrievalForGETRequests().contains(methodToCall)) {
 			return createNewActionForm(mapping, request);
 		}
-		
+
 		// if we have a multipart request, parse it and return the stored form
 		// from session if the doc form key is not blank. If it is blank, then
 		// we just return the form
@@ -513,7 +513,7 @@ public class KualiRequestProcessor extends RequestProcessor {
 	/**
 	 * Hook into action perform to handle errors in the error map and catch
 	 * exceptions.
-	 * 
+	 *
 	 * <p>
 	 * A transaction is started prior to the execution of the action. This
 	 * allows for the action code to execute efficiently without the need for
@@ -610,7 +610,7 @@ public class KualiRequestProcessor extends RequestProcessor {
 				        ((PojoForm)form).setActionEditablePropertiesGuid(guid);
 				        GlobalVariables.getUserSession().addObject(KRADConstants.EDITABLE_PROPERTIES_HISTORY_HOLDER_ATTR_NAME, holder);
 					}
-				}			
+				}
 				// display error messages and return to originating page
 				publishMessages(request);
 				return mapping.findForward(RiceConstants.MAPPING_BASIC);
@@ -636,7 +636,7 @@ public class KualiRequestProcessor extends RequestProcessor {
 
 	/**
 	 * Adds more detailed logging for unhandled exceptions
-	 * 
+	 *
 	 * @see org.apache.struts.action.RequestProcessor#processException(HttpServletRequest,
 	 *      HttpServletResponse, Exception, ActionForm, ActionMapping)
 	 */
@@ -695,18 +695,18 @@ public class KualiRequestProcessor extends RequestProcessor {
 			request.setAttribute(Globals.ERROR_KEY, errorContainer.getRequestErrors());
 			request.setAttribute("ErrorPropertyList", errorContainer.getErrorPropertyList());
 		}
-		
+
 		if (errorMap.hasWarnings()) {
 			WarningContainer warningsContainer = new WarningContainer(errorMap);
-			
+
 			request.setAttribute("WarningContainer", warningsContainer);
 			request.setAttribute("WarningActionMessages", warningsContainer.getRequestMessages());
 			request.setAttribute("WarningPropertyList", warningsContainer.getMessagePropertyList());
 		}
-		
+
 		if (errorMap.hasInfo()) {
 			InfoContainer infoContainer = new InfoContainer(errorMap);
-			
+
 			request.setAttribute("InfoContainer", infoContainer);
 			request.setAttribute("InfoActionMessages", infoContainer.getRequestMessages());
 			request.setAttribute("InfoPropertyList", infoContainer.getMessagePropertyList());
@@ -771,7 +771,7 @@ public class KualiRequestProcessor extends RequestProcessor {
 
 		return configurationService;
 	}
-	
+
 	private ActionForm createNewActionForm(ActionMapping mapping, HttpServletRequest request) {
         String name = mapping.getName();
         FormBeanConfig config = moduleConfig.findFormBeanConfig(name);

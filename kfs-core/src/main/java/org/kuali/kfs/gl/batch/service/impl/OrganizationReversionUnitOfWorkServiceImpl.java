@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,13 +35,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class OrganizationReversionUnitOfWorkServiceImpl implements OrganizationReversionUnitOfWorkService {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(OrganizationReversionUnitOfWorkServiceImpl.class);
-    
+
     protected BusinessObjectService businessObjectService;
     protected OrganizationReversionUnitOfWorkDao orgReversionUnitOfWorkDao;
 
     /**
      * This method takes a unit of work retrieved from the persistence store and loads its categories
-     * 
+     *
      * @param orgRevUnitOfWork org reversion unit of work to load categories for
      * @return the org reversion unit of work with loaded categories
      * @see org.kuali.kfs.gl.batch.service.OrganizationReversionUnitOfWorkService#loadCategories(org.kuali.kfs.gl.businessobject.OrgReversionUnitOfWork)
@@ -72,7 +72,7 @@ public class OrganizationReversionUnitOfWorkServiceImpl implements OrganizationR
 
     /**
      * This save method is guaranteed to save the category data as well.
-     * 
+     *
      * @param orgRevUnitOfWork organizationReversionUnitOfWork to save
      * @see org.kuali.kfs.gl.batch.service.OrganizationReversionUnitOfWorkService#save(org.kuali.kfs.gl.businessobject.OrgReversionUnitOfWork)
      */
@@ -92,7 +92,7 @@ public class OrganizationReversionUnitOfWorkServiceImpl implements OrganizationR
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -101,7 +101,7 @@ public class OrganizationReversionUnitOfWorkServiceImpl implements OrganizationR
 
     /**
      * Sets the orgReversionUnitOfWorkDao attribute value.
-     * 
+     *
      * @param orgReversionUnitOfWorkDao The orgReversionUnitOfWorkDao to set.
      */
     public void setOrgReversionUnitOfWorkDao(OrganizationReversionUnitOfWorkDao orgReversionUnitOfWorkDao) {

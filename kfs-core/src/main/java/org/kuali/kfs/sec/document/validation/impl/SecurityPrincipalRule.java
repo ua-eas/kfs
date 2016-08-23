@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -95,7 +95,7 @@ public class SecurityPrincipalRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Validates the new security principal record
-     * 
+     *
      * @return boolean true if validation was successful, false if there are errors
      */
     protected boolean validateSecurityPrincipal() {
@@ -118,7 +118,7 @@ public class SecurityPrincipalRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Validates a definition assignment to the principal
-     * 
+     *
      * @param principalDefinition SecurityPrincipalDefinition to validate
      * @param errorKeyPrefix String errorPrefix to use if any errors are found
      * @return boolean true if validation was successful, false if there are errors
@@ -127,14 +127,14 @@ public class SecurityPrincipalRule extends MaintenanceDocumentRuleBase {
         boolean isValid = true;
 
         principalDefinition.refreshNonUpdateableReferences();
-        
+
         if (ObjectUtils.isNull(principalDefinition.getSecurityDefinition())) {
             return false;
         }
 
         String attributeName = principalDefinition.getSecurityDefinition().getSecurityAttribute().getName();
         String attributeValue = principalDefinition.getAttributeValue();
-        
+
         // if value is blank (which is allowed) no need to validate
         if (StringUtils.isBlank(attributeValue)) {
             return true;

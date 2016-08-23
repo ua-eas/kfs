@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,8 +35,8 @@ import java.util.List;
  * <code>GridLayoutManager</code>. It addition it can be used to style the label
  * (from the inherited styleClass and style properties)
  * </p>
- * 
- * 
+ *
+ *
  */
 public class LabelField extends FieldBase {
     private static final long serialVersionUID = -6491546893195180114L;
@@ -92,7 +92,7 @@ public class LabelField extends FieldBase {
      * element. Note this gets set automatically by the framework during the
      * initialize phase
      * </p>
-     * 
+     *
      * @return String component id
      */
     public String getLabelForComponentId() {
@@ -101,7 +101,7 @@ public class LabelField extends FieldBase {
 
     /**
      * Setter for the component id the label applies to
-     * 
+     *
      * @param labelForComponentId
      */
     public void setLabelForComponentId(String labelForComponentId) {
@@ -110,7 +110,7 @@ public class LabelField extends FieldBase {
 
     /**
      * Text that will display as the label
-     * 
+     *
      * @return String label text
      */
     public String getLabelText() {
@@ -119,7 +119,7 @@ public class LabelField extends FieldBase {
 
     /**
      * Setter for the label text
-     * 
+     *
      * @param labelText
      */
     public void setLabelText(String labelText) {
@@ -130,7 +130,7 @@ public class LabelField extends FieldBase {
      * Indicates whether a colon should be rendered after the label text,
      * generally used when the label appears to the left of the field's control
      * or value
-     * 
+     *
      * @return boolean true if a colon should be rendered, false if it should
      *         not be
      */
@@ -140,7 +140,7 @@ public class LabelField extends FieldBase {
 
     /**
      * Setter for the render colon indicator
-     * 
+     *
      * @param renderColon
      */
     public void setRenderColon(boolean renderColon) {
@@ -149,14 +149,14 @@ public class LabelField extends FieldBase {
 
     /**
      * <code>MessageField</code> instance that will display a required indicator
-     * 
+     *
      * <p>
      * To indicate a field must have a value (required input) the required
      * message field can be set to display an indicator or message along with
      * the label. The message field also dictates the styling of the required
      * message
      * </p>
-     * 
+     *
      * @return MessageField instance
      */
     public MessageField getRequiredMessageField() {
@@ -165,7 +165,7 @@ public class LabelField extends FieldBase {
 
     /**
      * Setter for the required message field
-     * 
+     *
      * @param requiredMessageField
      */
     public void setRequiredMessageField(MessageField requiredMessageField) {
@@ -175,7 +175,7 @@ public class LabelField extends FieldBase {
     /**
      * Indicates where the required message field should be placed in relation
      * to the label field, valid options are 'LEFT' and 'RIGHT'
-     * 
+     *
      * @return Position the requiredMessage placement
      */
     public Position getRequiredMessagePlacement() {
@@ -184,7 +184,7 @@ public class LabelField extends FieldBase {
 
     /**
      * Setter for the required message field placement
-     * 
+     *
      * @param requiredMessagePlacement
      */
     public void setRequiredMessagePlacement(Position requiredMessagePlacement) {

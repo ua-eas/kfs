@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -82,19 +82,19 @@ public class AccountBalanceConsolidationDaoJdbc extends AccountBalanceDaoJdbcBas
 
             // Add some reference data
             getSimpleJdbcTemplate().update(
-                    "INSERT INTO FP_INTERIM2_CONS_MT (UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, CURR_BDLN_BAL_AMT, ACLN_ACTLS_BAL_AMT, " + "ACLN_ENCUM_BAL_AMT, TIMESTAMP, FIN_REPORT_SORT_CD,FIN_OBJ_TYP_CD, SESID, CONS_FIN_REPORT_SORT_CD, FIN_CONS_OBJ_CD, ACCTG_CTGRY_CD ) " + 
-                            " SELECT a.UNIV_FISCAL_YR, a.FIN_COA_CD, a.ACCOUNT_NBR, a.SUB_ACCT_NBR,a.FIN_OBJECT_CD, a.FIN_SUB_OBJ_CD, a.CURR_BDLN_BAL_AMT, a.ACLN_ACTLS_BAL_AMT, " + "a.ACLN_ENCUM_BAL_AMT, a.TIMESTAMP, a.FIN_REPORT_SORT_CD, a.FIN_OBJ_TYP_CD, a.SESID,c.fin_report_sort_cd,c.fin_cons_obj_cd,t.acctg_ctgry_cd" + 
+                    "INSERT INTO FP_INTERIM2_CONS_MT (UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, CURR_BDLN_BAL_AMT, ACLN_ACTLS_BAL_AMT, " + "ACLN_ENCUM_BAL_AMT, TIMESTAMP, FIN_REPORT_SORT_CD,FIN_OBJ_TYP_CD, SESID, CONS_FIN_REPORT_SORT_CD, FIN_CONS_OBJ_CD, ACCTG_CTGRY_CD ) " +
+                            " SELECT a.UNIV_FISCAL_YR, a.FIN_COA_CD, a.ACCOUNT_NBR, a.SUB_ACCT_NBR,a.FIN_OBJECT_CD, a.FIN_SUB_OBJ_CD, a.CURR_BDLN_BAL_AMT, a.ACLN_ACTLS_BAL_AMT, " + "a.ACLN_ENCUM_BAL_AMT, a.TIMESTAMP, a.FIN_REPORT_SORT_CD, a.FIN_OBJ_TYP_CD, a.SESID,c.fin_report_sort_cd,c.fin_cons_obj_cd,t.acctg_ctgry_cd" +
                             " FROM FP_INTERIM1_CONS_MT a,CA_OBJECT_CODE_T o,CA_OBJ_LEVEL_T l,CA_OBJ_CONSOLDTN_T c, CA_OBJ_TYPE_T t" +
-                            " WHERE a.univ_fiscal_yr = o.univ_fiscal_yr " + 
+                            " WHERE a.univ_fiscal_yr = o.univ_fiscal_yr " +
                             " AND a.fin_coa_cd = o.fin_coa_cd " +
                             " AND a.fin_object_cd = o.fin_object_cd " +
                             " AND o.fin_coa_cd = l.fin_coa_cd " +
-                            " AND o.fin_obj_level_cd = l.fin_obj_level_cd " + 
+                            " AND o.fin_obj_level_cd = l.fin_obj_level_cd " +
                             " AND c.fin_coa_cd = l.fin_coa_cd " +
                             " AND c.fin_cons_obj_cd = l.fin_cons_obj_cd " +
-                            " AND o.fin_obj_typ_cd = t.fin_obj_typ_cd " + 
-                    		" AND o.univ_fiscal_yr = ?" + 
-                            " AND o.fin_coa_cd = ?" + 
+                            " AND o.fin_obj_typ_cd = t.fin_obj_typ_cd " +
+                    		" AND o.univ_fiscal_yr = ?" +
+                            " AND o.fin_coa_cd = ?" +
                             " AND l.fin_coa_cd = ?" + " AND a.SESID = ?", universityFiscalYear, chartOfAccountsCode, chartOfAccountsCode, sessionId);
 
             // Get rid of stuff we don't need

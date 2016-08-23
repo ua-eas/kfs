@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -105,34 +105,34 @@ public class VendorExcludeInputFileType extends BatchInputFileTypeBase{
     @Override
     public Object parse(byte[] fileByteContent) throws ParseException {
         LOG.info("Parsing Vendor Exclude Input File ...");
-        
-        // create CSVReader, using conventional separator, quote, null escape char, skip first line, use strict quote, ignore leading white space 
+
+        // create CSVReader, using conventional separator, quote, null escape char, skip first line, use strict quote, ignore leading white space
         int skipLine = 1; // skip the first line, which is the header line
         Reader inReader = new InputStreamReader(new ByteArrayInputStream(fileByteContent));
         CSVReader reader = new CSVReader(inReader, ',', '"', Character.MIN_VALUE, skipLine, true, true);
-        
+
         List <DebarredVendorDetail> debarredVendors = new ArrayList<DebarredVendorDetail>();
         String[] nextLine;
         DebarredVendorDetail vendor;
-        int lineNumber = skipLine; 
-        
-        try {           
+        int lineNumber = skipLine;
+
+        try {
             while ((nextLine = reader.readNext()) != null) {
-                lineNumber++; 
+                lineNumber++;
                 LOG.debug("Line " + lineNumber + ": " + nextLine[0]);
-                
+
                 vendor = new DebarredVendorDetail();
-                boolean emptyLine = true; 
-                
-                // this should never happen, as for an empty line, CSVReader.readNext returns a string array with an empty string as the only element 
+                boolean emptyLine = true;
+
+                // this should never happen, as for an empty line, CSVReader.readNext returns a string array with an empty string as the only element
                 // but just in case somehow a zero sized array is returned, we skip it.
                 if (nextLine.length == 0) {
-                    continue;                   
+                    continue;
                 }
 
-                StringBuffer name = new StringBuffer();  
-                // if the name field is not empty, use that as vendor name 
-                if (StringUtils.isNotEmpty(nextLine[0])) {                    
+                StringBuffer name = new StringBuffer();
+                // if the name field is not empty, use that as vendor name
+                if (StringUtils.isNotEmpty(nextLine[0])) {
                     name.append(nextLine[0]);
                 }
                 // otherwise, there should be a first/middle/last name, which we concatenate into vendor name
@@ -157,7 +157,7 @@ public class VendorExcludeInputFileType extends BatchInputFileTypeBase{
                     vendor.setName(StringUtils.left(name.toString(), FIELD_SIZES[0]));
                     emptyLine = false;
                 }
-                
+
                 if (nextLine.length > 6 && StringUtils.isNotEmpty(nextLine[6])) {
                     vendor.setAddress1(StringUtils.left(nextLine[6], FIELD_SIZES[1]));
                     emptyLine = false;
@@ -190,14 +190,14 @@ public class VendorExcludeInputFileType extends BatchInputFileTypeBase{
                     vendor.setDescription(StringUtils.left(nextLine[18], FIELD_SIZES[8]));
                     emptyLine = false;
                 }
-                
+
                 if (emptyLine) {
                     /* give warnings on a line that doesn't have any useful vendor info
                     LOG.warn("Note: line " + lineNumber + " in the Vendor Exclude Input File is skipped since all parsed fields are empty.");
                     */
                     // throw parser exception on a line that doesn't have any useful vendor info.
-                    // Since the file usually doesn't contain empty lines or lines with empty fields, this happening usually is a good indicator that 
-                    // some line ahead has wrong data format, for ex, missing a quote on a field, which could mess up the following fields and lines. 
+                    // Since the file usually doesn't contain empty lines or lines with empty fields, this happening usually is a good indicator that
+                    // some line ahead has wrong data format, for ex, missing a quote on a field, which could mess up the following fields and lines.
                     throw new ParseException("Line " + lineNumber + " in the Vendor Exclude Input File contains no valid field or only empty fields within quote pairs. Please check the lines ahead to see if any field is missing quotes.");
                 }
                 else {
@@ -209,7 +209,7 @@ public class VendorExcludeInputFileType extends BatchInputFileTypeBase{
         catch (IOException ex) {
             throw new ParseException("Error reading Vendor Exclude Input File at line " + lineNumber + ": " + ex.getMessage());
         }
-        
+
         LOG.info("Total number of lines read from Vendor Exclude Input File: " + lineNumber);
         LOG.info("Total number of vendors parsed from Vendor Exclude Input File: " + debarredVendors.size());
         return debarredVendors;

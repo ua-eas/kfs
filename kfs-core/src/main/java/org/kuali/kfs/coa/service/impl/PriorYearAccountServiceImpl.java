@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -60,7 +60,7 @@ public class PriorYearAccountServiceImpl implements PriorYearAccountService {
     protected PersistenceService persistenceServiceOjb;
     protected BusinessObjectService businessObjectService;
     protected ParameterService parameterService;
-    
+
     /**
      * @see org.kuali.kfs.coa.service.PriorYearAccountService#getByPrimaryKey(java.lang.String, java.lang.String)
      */
@@ -107,19 +107,19 @@ public class PriorYearAccountServiceImpl implements PriorYearAccountService {
     /**
      * @see org.kuali.kfs.coa.service.PriorYearAccountService#addPriorYearAccountsFromParameter()
      */
-    public void addPriorYearAccountsFromParameter() {        
+    public void addPriorYearAccountsFromParameter() {
         /*
         Collection<String> accountsColl = new ArrayList<String>();
         accountsColl.add("BL-9923234");
         accountsColl.add("BL-1024600");
         accountsColl.add("0000000");
         accountsColl.add("BL-0000000");
-        accountsColl.add("UA-2131401");      
+        accountsColl.add("UA-2131401");
         accountsColl.add("BA-6044909");
         accountsColl.add("BA-6044901");
         accountsColl.add("UA-7014960");
         */
-        
+
         // clear cache so that batch job will be reading most up-to-date data from Account and PriorYearAccount tables
         persistenceServiceOjb.clearCache();
 
@@ -130,7 +130,7 @@ public class PriorYearAccountServiceImpl implements PriorYearAccountService {
         int countError = 0;
         String errmsg = "";
         String failmsg = "Failed to add account ";
-        
+
         LOG.info("Adding Accounts to Prior Year Account table from parameter " + param);
         reportWriterService.writeSubTitle("Accounts failed to be added to Prior Year Account table from parameter " + param);
 
@@ -138,18 +138,18 @@ public class PriorYearAccountServiceImpl implements PriorYearAccountService {
             // retrieve chart code and account number from parameter
             String accountStr = accountsIter.next();
             String chartCode = StringUtils.substringBefore(accountStr, "-");
-            String accountNumber = StringUtils.substringAfter(accountStr, "-");       
-            
-            // if account format is invalid, report error      
+            String accountNumber = StringUtils.substringAfter(accountStr, "-");
+
+            // if account format is invalid, report error
             if (StringUtils.isEmpty(chartCode) || StringUtils.isEmpty(accountNumber)) {
-                countError++;                
-                errmsg = accountStr + " : invalid format. Correct account format: coaCode-accountNumber."; 
+                countError++;
+                errmsg = accountStr + " : invalid format. Correct account format: coaCode-accountNumber.";
                 reportWriterService.writeFormattedMessageLine("%s", errmsg);
                 LOG.error(failmsg + errmsg);
                 continue;
             }
 
-            // check whether account exists, report error if not   
+            // check whether account exists, report error if not
             // TODO switch back to accountService.getByPrimaryId when cache issue is fixed
             // not using accountService.getByPrimaryId here because there is an issue with Account cache
             // using businessObjectService instead will skip cache issue
@@ -158,29 +158,29 @@ public class PriorYearAccountServiceImpl implements PriorYearAccountService {
             keys.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, chartCode);
             keys.put(KFSPropertyConstants.ACCOUNT_NUMBER, accountNumber);
             Account account = businessObjectService.findByPrimaryKey(Account.class, keys);
-            
+
             if (ObjectUtils.isNull(account)) {
                 countError++;
-                errmsg = accountStr + " : doesn't exist in Account table."; 
-                reportWriterService.writeFormattedMessageLine("%s", errmsg);
-                LOG.error(failmsg + errmsg);
-            }            
-            // check whether account already exists in prior year, report error if yes 
-            else if (ObjectUtils.isNotNull(getByPrimaryKey(chartCode, accountNumber))) {
-                countError++;
-                errmsg = accountStr + " : already exists in Prior Year Account table."; 
+                errmsg = accountStr + " : doesn't exist in Account table.";
                 reportWriterService.writeFormattedMessageLine("%s", errmsg);
                 LOG.error(failmsg + errmsg);
             }
-            // otherwise, add account to prior year table 
+            // check whether account already exists in prior year, report error if yes
+            else if (ObjectUtils.isNotNull(getByPrimaryKey(chartCode, accountNumber))) {
+                countError++;
+                errmsg = accountStr + " : already exists in Prior Year Account table.";
+                reportWriterService.writeFormattedMessageLine("%s", errmsg);
+                LOG.error(failmsg + errmsg);
+            }
+            // otherwise, add account to prior year table
             else {
                 PriorYearAccount priorAccount = new PriorYearAccount(account);
-                businessObjectService.save(priorAccount);                
+                businessObjectService.save(priorAccount);
                 priorAccounts.add(priorAccount);
                 LOG.info("Successfully added account " + accountStr);
             }
         }
-        
+
         String totalSuccessMsg = "Total number of accounts successfully added to prior year: " + priorAccounts.size();
         String totalFailureMsg = "Total number of accounts failed to be added to prior year: " + countError;
         reportWriterService.writeSubTitle("Accounts successfully added to Prior Year Account table:");
@@ -190,11 +190,11 @@ public class PriorYearAccountServiceImpl implements PriorYearAccountService {
         LOG.info(totalSuccessMsg);
         LOG.info(totalFailureMsg);
     }
-    
+
     public void setPriorYearAccountDao(PriorYearAccountDao priorYearAccountDao) {
         this.priorYearAccountDao = priorYearAccountDao;
     }
-    
+
     public void setAccountService(AccountService accountService) {
         this.accountService = accountService;
     }
@@ -206,7 +206,7 @@ public class PriorYearAccountServiceImpl implements PriorYearAccountService {
     public void setPersistenceStructureService(PersistenceStructureService persistenceStructureService) {
         this.persistenceStructureService = persistenceStructureService;
     }
-    
+
     public void setPersistenceServiceOjb(PersistenceService persistenceServiceOjb) {
         this.persistenceServiceOjb = persistenceServiceOjb;
     }
@@ -214,9 +214,9 @@ public class PriorYearAccountServiceImpl implements PriorYearAccountService {
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;
     }
-    
+
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }
-    
+
 }

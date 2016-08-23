@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,8 +28,8 @@ import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
 
 /**
  * InquiryMapBuilder
- * 
- * 
+ *
+ *
  */
 @Deprecated
 public class InquiryMapBuilder {
@@ -49,16 +49,16 @@ public class InquiryMapBuilder {
     public ExportMap buildInquiryMap(BusinessObjectEntry entry) {
     	try {
 	        ExportMap inquiryMap = null;
-	
+
 	        if (entry.hasInquiryDefinition()) {
 	            InquiryDefinition inquiryDefinition = entry.getInquiryDefinition();
 	            inquiryMap = new ExportMap("inquiry");
-	
+
 	            inquiryMap.set("title", inquiryDefinition.getTitle());
-	
+
 	            inquiryMap.set(buildInquiryFieldsMap(inquiryDefinition));
 	        }
-	
+
 	        return inquiryMap;
     	} catch ( Exception ex ) {
     		throw new RuntimeException( "Unable to build inquiry Map for " + entry, ex );

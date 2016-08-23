@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -50,13 +50,13 @@
 					<c:set var="isCustom" value="${perDiemExpense.primaryDestinationId == TemConstants.CUSTOM_PRIMARY_DESTINATION_ID}" />
 					<c:set var="colspan" value="${!showPerDiemBreakdown && !isCustom && !isTR ? 10 : 14}" />
 					<c:set var="mileageDate" value="${KualiForm.document.perDiemExpenses[perDiemIndex.count - 1].mileageDate}" />
-					
+
 					<tr>
 						<td colspan="<c:out value="${colspan}"/>" class="tab-subhead">Trip Detail: <fmt:formatDate value="${mileageDate}" type="date" pattern="MM/dd/yyyy"/>
 						</td>
 					</tr>
 					<tr>
-			
+
 						<kul:htmlAttributeHeaderCell attributeEntry="${perDiemExpensesAttributes.countryState}" />
 						<kul:htmlAttributeHeaderCell attributeEntry="${perDiemExpensesAttributes.county}" />
 						<kul:htmlAttributeHeaderCell attributeEntry="${perDiemExpensesAttributes.primaryDestination}" />
@@ -68,15 +68,15 @@
 							<kul:htmlAttributeHeaderCell attributeEntry="${perDiemExpensesAttributes.dinner}" />
 							<kul:htmlAttributeHeaderCell attributeEntry="${perDiemExpensesAttributes.incidentalsValue}" />
 						</c:if>
-						
+
 						<c:if test="${showPerDiem}">
 							<th colspan="1" rowspan="1">&nbsp;Meals and Incidentals</th>
 						</c:if>
-						
+
 						<c:if test="${showLodging}">
 							<kul:htmlAttributeHeaderCell attributeEntry="${perDiemExpensesAttributes.lodging}" />
 						</c:if>
-						
+
 						<c:if test="${showMiles}">
 							<kul:htmlAttributeHeaderCell attributeEntry="${perDiemExpensesAttributes.miles}" />
 							<kul:htmlAttributeHeaderCell attributeEntry="${perDiemExpensesAttributes.mileageRateExpenseTypeCode}" useShortLabel="false" />
@@ -93,7 +93,7 @@
 									attributeEntry="${perDiemExpensesAttributes.countryStateText}"
 									property="document.perDiemExpenses[${perDiemIndex.count - 1}].countryState"
 									readOnly="${!fullEntryMode}" />
-								
+
 							</c:when>
 							<c:otherwise>
 								<kul:htmlControlAttribute
@@ -111,7 +111,7 @@
 						<td valign=top class="datacell"><kul:htmlControlAttribute
 								attributeEntry="${perDiemExpensesAttributes.primaryDestination}"
 								property="document.perDiemExpenses[${perDiemIndex.count - 1}].primaryDestination"
-								readOnly="${!isCustom || !fullEntryMode}" /> 
+								readOnly="${!isCustom || !fullEntryMode}" />
 							<c:if test="${fullEntryMode}">
 								<kul:lookup
 									boClassName="org.kuali.kfs.module.tem.businessobject.PrimaryDestination"
@@ -139,7 +139,7 @@
 						<c:if test="${showPerDiemBreakdown || isCustom || isTR}">
 							<c:set var="breakfastDisabled" value="document.perDiemExpenses[${perDiemIndex.count - 1}].breakfast" />
 							<c:set var="lunchDisabled" value="document.perDiemExpenses[${perDiemIndex.count - 1}].lunch" />
-							<c:set var="dinnerDisabled" value="document.perDiemExpenses[${perDiemIndex.count - 1}].dinner" />						
+							<c:set var="dinnerDisabled" value="document.perDiemExpenses[${perDiemIndex.count - 1}].dinner" />
 							<c:choose>
 								<c:when test="${showPerDiemBreakdown || isCustom}">
 									<td valign=top class="datacell">
@@ -169,8 +169,8 @@
 											attributeEntry="${perDiemExpensesAttributes.incidentalsValue}"
 											property="document.perDiemExpenses[${perDiemIndex.count - 1}].unfilteredIncidentalsValue"
 											disabled="${!fullEntryMode || KualiForm.document.perDiemExpenses[perDiemIndex.count - 1].personal}" />
-									</td>								
-								</c:when>					
+									</td>
+								</c:when>
 								<c:when test="${isTR}">
 									<td valign=top class="datacell"><kul:htmlControlAttribute
 											attributeEntry="${perDiemExpensesAttributes.breakfast}"
@@ -191,20 +191,20 @@
 											attributeEntry="${perDiemExpensesAttributes.incidentalsValue}"
 											property="document.perDiemExpenses[${perDiemIndex.count - 1}].unfilteredIncidentalsValue"
 											disabled="true" />
-									</td>									
+									</td>
 								</c:when>
 							</c:choose>
 						</c:if>
 						<c:if test="${showPerDiem}">
 							<td valign=top class="datacell">
-								<input type="hidden" id="document.perDiemExpenses[${perDiemIndex.count - 1}].mealsAndIncidentals.holder" value="${KualiForm.document.perDiemExpenseTotals[perDiemIndex.count - 1]['mealsAndIncidentalsTotal']}" />								
+								<input type="hidden" id="document.perDiemExpenses[${perDiemIndex.count - 1}].mealsAndIncidentals.holder" value="${KualiForm.document.perDiemExpenseTotals[perDiemIndex.count - 1]['mealsAndIncidentalsTotal']}" />
 								<div id="document.perDiemExpenses[${perDiemIndex.count - 1}].mealsAndIncidentals">${KualiForm.document.perDiemExpenseTotals[perDiemIndex.count-1]['mealsAndIncidentalsTotal']}</div>
 							</td>
 						</c:if>
 						<c:if test="${showLodging}">
 							<c:set var="lodgingDisabled" value="document.perDiemExpenses[${perDiemIndex.count- 1}].lodging" />
 							<td valign=top class="datacell">
-								<input type="hidden" id="document.perDiemExpenses[${perDiemIndex.count - 1}].lodging.holder" value="<bean:write name="KualiForm" property="document.perDiemExpenses[${perDiemIndex.count - 1}].lodging" />" />                                    
+								<input type="hidden" id="document.perDiemExpenses[${perDiemIndex.count - 1}].lodging.holder" value="<bean:write name="KualiForm" property="document.perDiemExpenses[${perDiemIndex.count - 1}].lodging" />" />
 								<kul:htmlControlAttribute
 									attributeEntry="${perDiemExpensesAttributes.lodging}"
 									property="document.perDiemExpenses[${perDiemIndex.count - 1}].unfilteredLodging"
@@ -225,7 +225,7 @@
 								<c:if test="${empty selectedMileageRateExpenseTypeCode}">
 									<c:set var="selectedMileageRateExpenseTypeCode" value="${KualiForm.defaultPerDiemMileageExpenseType}"/>
 								</c:if>
-								<input type="hidden" id="document.perDiemExpenses[${perDiemIndex.count - 1}].mileageRateExpenseTypeCode.holder" value="<bean:write name="KualiForm" property="document.perDiemExpenses[${perDiemIndex.count - 1}].mileageRateExpenseTypeCode" />" />                               
+								<input type="hidden" id="document.perDiemExpenses[${perDiemIndex.count - 1}].mileageRateExpenseTypeCode.holder" value="<bean:write name="KualiForm" property="document.perDiemExpenses[${perDiemIndex.count - 1}].mileageRateExpenseTypeCode" />" />
 								<html:select
 									styleId="document.perDiemExpenses[${perDiemIndex.count - 1}].mileageRateExpenseTypeCode"
 									property="document.perDiemExpenses[${perDiemIndex.count - 1}].mileageRateExpenseTypeCode"
@@ -242,7 +242,7 @@
 
 										<option value="${option.key}"${mileageSelected}>${option.value}</option>
 									</c:forEach>
-								</html:select> 
+								</html:select>
 								<c:if test="${fn:length(temfunc:getOptionList('org.kuali.kfs.module.tem.businessobject.options.MileageRateValuesFinder', paramMap)) == 0}">
 									<div align="left">No Rates Available</div>
 								</c:if>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,7 +29,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 public interface SufficientFundsDao {
     /**
      * Calculate the Prior Fiscal Year Budget total
-     * 
+     *
      * @param universityFiscalYear the university fiscal year of sufficient funds balances that will be summarized
      * @param chartOfAccountCode the chart of accounts code of sufficient fund balance records that will be summarized
      * @param accountNumber the account number of sufficient fund balances that will be summarized
@@ -39,8 +39,8 @@ public interface SufficientFundsDao {
 
     /**
      * Calculate the prior fiscal year encumbrnace total
-     * 
-     * 
+     *
+     *
      * @param universityFiscalYear the university fiscal year of sufficient funds balances to summarize
      * @param chartOfAccountsCode the chart of accounts code of sufficient funds balances to summarize
      * @param accountNumber the account number of sufficient fund balances to summarize
@@ -50,7 +50,7 @@ public interface SufficientFundsDao {
 
     /**
      * Calculate the prior fiscal year pending actual amount
-     * 
+     *
      * @param universityFiscalYear the university fiscal year of sufficient funds balances to summarize
      * @param chartOfAccountsCode the chart of accounts code of sufficient funds balances to summarize
      * @param accountNumber the account number of sufficient fund balances to summarize
@@ -62,7 +62,7 @@ public interface SufficientFundsDao {
 
     /**
      * Calculates the current pending actual
-     * 
+     *
      * @param isYearEndDocument should year end documents be included?
      * @param actualFinancialBalanceTypeCd the actual balance type code
      * @param universityFiscalYear the university fiscal year of sufficient funds balances to summarize
@@ -76,7 +76,7 @@ public interface SufficientFundsDao {
 
     /**
      * calculates the current year pending budget total
-     * 
+     *
      * @param isYearEndDocument should year end documents be included?
      * @param budgetCheckingBalanceTypeCd the budget balance type code
      * @param universityFiscalYear the university fiscal year of sufficient funds balances to summarize
@@ -90,7 +90,7 @@ public interface SufficientFundsDao {
 
     /**
      * Calculates the current year pending encumbrance total
-     * 
+     *
      * @param isYearEndDocument should year end documents be included?
      * @param extrnlEncumFinBalanceTypCd the external encumbrance balance type
      * @param intrnlEncumFinBalanceTypCd the internal encumbrance balance type
@@ -106,7 +106,7 @@ public interface SufficientFundsDao {
 
     /**
      * Purge table by year/chart
-     * 
+     *
      * @param chart the chart of sufficient fund records to purge
      * @param year the year of sufficient fund records to purge
      */

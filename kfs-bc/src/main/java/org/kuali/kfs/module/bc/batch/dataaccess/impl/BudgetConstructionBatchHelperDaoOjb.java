@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,42 +35,42 @@ public class BudgetConstructionBatchHelperDaoOjb extends PlatformAwareDaoBaseOjb
 
 /**
  *   provides methods used throughout budget constuction batch to size hashmaps for efficiency
- *   for distinct and group by queries, we try to improve on the count returned by OJB's getCount.  
+ *   for distinct and group by queries, we try to improve on the count returned by OJB's getCount.
  *   in both cases, OJB produces a COUNT(DISTINCT concat(select fields, primary key fields)), which can substantially overcount the rows returned.
  */
     /*
      * ******************************************************************************
      *   These are utility routines used by all the units
-     * ******************************************************************************  
+     * ******************************************************************************
      */
-    //  return the recommended length of a hash map (to avoid collisions but avoid 
+    //  return the recommended length of a hash map (to avoid collisions but avoid
     //  wasting too much space)
     //**********************************************************
     // our technique of doing joins in Java instead of OJB is going to use a lot of
     // memory.  since memory is a finite resource, we want the garbage collector to
     // remove things no longer in use.  we could use weak hashmaps, but since many of
     // the hashed objects in the globally scoped hashmaps are built within the scope
-    // of a method, doing so might cause them to be trashed prematurely.  instead, 
+    // of a method, doing so might cause them to be trashed prematurely.  instead,
     // we instantiate all the hashmaps on declaration with a length of 1 (to avoid
     // null pointers).  then, we instantiate them again on first use with a size
     // determined by the likely number of objects * (1/.75) (see Horstman).  When
     // we are done with the hash objects, we clear them, so the underlying objects
-    // are no longer referred to by anything and are fair game for the garbage 
+    // are no longer referred to by anything and are fair game for the garbage
     // collector.
     //***********************************************************
 
-    
+
     private String ojbPlatform;
-    
+
     private HashMap<String,String> countDistinctLeader  = null;
     private HashMap<String,String> countDistinctTrailer = null;
     private HashMap<String,String> concatSeparator      = null;
-    
+
     // a MAX, say, with a GROUP BY would return one row.  So, would COUNT (DISTINCT 1)
     private Integer DEFAULT_QUERY_RETURN_COUNT = 1;
 
-    
-    
+
+
     /*
      *  takes an OJB queryByCriteria object as input
      *  returns the recommended size of a hashmap that is to be created from the results of the query
@@ -85,12 +85,12 @@ public class BudgetConstructionBatchHelperDaoOjb extends PlatformAwareDaoBaseOjb
         Double tempValue = ((Number)(getPersistenceBrokerTemplate().getCount(queryID))).floatValue()*(1.45);
         return (Integer) tempValue.intValue();
     }
-    
+
     /*
      *  takes an OJB reportQueryByCriteria object as input
      *  this is a second version of the overloaded method hashcapacity
      */
-    
+
     protected Integer hashCapacity(ReportQueryByCriteria queryID)
     {
         // for a distinct or a group by query, we build our own COUNT(DISTINCT...) from the fields in the SELECT list, because OJB doesn't do this correctly.
@@ -119,14 +119,14 @@ public class BudgetConstructionBatchHelperDaoOjb extends PlatformAwareDaoBaseOjb
         Double tempValue = hashSize.floatValue()*(1.45);
         return (Integer) tempValue.intValue();
     }
-    
+
     protected Integer hashObjectSize(Class classID, Criteria criteriaID)
     {
         // this counts all rows
         String[] selectList = new String[] {"COUNT(*)"};
-        ReportQueryByCriteria queryID = 
+        ReportQueryByCriteria queryID =
             new ReportQueryByCriteria(classID, selectList, criteriaID);
-        Iterator resultRows = 
+        Iterator resultRows =
             getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(queryID);
         if (resultRows.hasNext())
         {
@@ -134,7 +134,7 @@ public class BudgetConstructionBatchHelperDaoOjb extends PlatformAwareDaoBaseOjb
         }
         return (new Integer(1));
     }
-    
+
     protected Integer hashObjectSize(Class classID, Criteria criteriaID,
                                    String propertyName)
     {
@@ -145,9 +145,9 @@ public class BudgetConstructionBatchHelperDaoOjb extends PlatformAwareDaoBaseOjb
         {
             return (new Integer(this.DEFAULT_QUERY_RETURN_COUNT));
         }
-        ReportQueryByCriteria queryID = 
+        ReportQueryByCriteria queryID =
             new ReportQueryByCriteria(classID, selectList, criteriaID);
-        Iterator resultRows = 
+        Iterator resultRows =
             getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(queryID);
         if (resultRows.hasNext())
         {
@@ -155,8 +155,8 @@ public class BudgetConstructionBatchHelperDaoOjb extends PlatformAwareDaoBaseOjb
         }
         return (new Integer(1));
     }
-    
-    protected Integer hashObjectSize(Class classID, Criteria criteriaID, 
+
+    protected Integer hashObjectSize(Class classID, Criteria criteriaID,
                                    String[] selectList)
     {
         // this version is designed to do a count of distinct composite key values
@@ -166,11 +166,11 @@ public class BudgetConstructionBatchHelperDaoOjb extends PlatformAwareDaoBaseOjb
         // OJB's getCount does NOT handle this properly (it counts the number of primary keys)
         // so, we use a helper method to build our own DISTINCT query, based on the OJB platform
         // if the platform is not Oracle or MySQL, we return a default size
-        ReportQueryByCriteria queryID = 
+        ReportQueryByCriteria queryID =
             new ReportQueryByCriteria(classID, selectList, criteriaID, true);
         return (hashCapacity(queryID));
     }
-    
+
     protected String[] buildCountDistinct(ReportQueryByCriteria originalQuery)
     {
         // build the select list element COUNT(DISTINCT from the input query.
@@ -209,7 +209,7 @@ public class BudgetConstructionBatchHelperDaoOjb extends PlatformAwareDaoBaseOjb
         returnSelectList[0] = countDistinctElement.toString();
         return returnSelectList;
     }
-    
+
     protected String[] buildCountDistinct(String ojbAttributeName, Class ojbClass)
     {
         String[] returnSelectList = {""};
@@ -227,10 +227,10 @@ public class BudgetConstructionBatchHelperDaoOjb extends PlatformAwareDaoBaseOjb
     }
 
     /**
-     * 
+     *
      * fetch the DB column names for the fields in the class for the query
      * @param ojbClass = class of the query
-     * @return hash set of DB column names keyed by OJB attribute name, 
+     * @return hash set of DB column names keyed by OJB attribute name,
      */
     protected HashMap<String,String> getDBFieldNamesForClass(Class ojbClass)
     {
@@ -241,11 +241,11 @@ public class BudgetConstructionBatchHelperDaoOjb extends PlatformAwareDaoBaseOjb
         {
             returnSet.put(fieldInDB.getAttributeName(),fieldInDB.getColumnName());
         }
-        return returnSet;   
+        return returnSet;
     }
-    
+
     /**
-     * 
+     *
      * build a correct, DB-specific COUNT DISTINCT query to indicate how many rows a distinct or GROUP BY query will return.  the default count is returned if this is not possible
      * @param originalQuery = OJB report query for which to find a value for the row count returned
      * @return: number of rows the query should return
@@ -266,7 +266,7 @@ public class BudgetConstructionBatchHelperDaoOjb extends PlatformAwareDaoBaseOjb
         Criteria criteriaID = originalQuery.getCriteria();
         ReportQueryByCriteria countQuery = new ReportQueryByCriteria(targetClass, countDistinctElement, criteriaID);
         // run the new COUNT(DISTINCT query in OJB, and return the result
-        Iterator resultRows = 
+        Iterator resultRows =
             getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(countQuery);
         if (resultRows.hasNext())
         {
@@ -274,14 +274,14 @@ public class BudgetConstructionBatchHelperDaoOjb extends PlatformAwareDaoBaseOjb
         }
         return (new Integer(this.DEFAULT_QUERY_RETURN_COUNT));
     }
-    
+
     public String getOjbPlatform()
     {
         return this.ojbPlatform;
     }
-    
+
     /**
-     * 
+     *
      * initialize the ojbPlatform from the configuration properties
      * @param ojbPlatform = configuration property indicating the DB platform in use
      */
@@ -289,10 +289,10 @@ public class BudgetConstructionBatchHelperDaoOjb extends PlatformAwareDaoBaseOjb
     {
         this.ojbPlatform = ojbPlatform;
     }
-    
+
 
     /**
-     * 
+     *
      * build the Oracle-specific COUNT (DISTINCT syntax--which is ANSI standard
      * @param ojbOraclePlatform is the Kuali constant matching the configuration property for Oracle
      */
@@ -315,9 +315,9 @@ public class BudgetConstructionBatchHelperDaoOjb extends PlatformAwareDaoBaseOjb
         countDistinctTrailer.put(ojbOraclePlatform,new String(")"));
         concatSeparator.put(ojbOraclePlatform,new String("||"));
     }
-    
+
     /**
-     * 
+     *
      * build the MYSQL-specific COUNT(DISTINCT syntax
      * @param ojbMySqlPlatform is the Kuali constant matching the configuration property for MySQL
      */
@@ -340,5 +340,5 @@ public class BudgetConstructionBatchHelperDaoOjb extends PlatformAwareDaoBaseOjb
         countDistinctTrailer.put(ojbMySqlPlatform,new String("))"));
         concatSeparator.put(ojbMySqlPlatform,new String(","));
     }
-    
+
 }

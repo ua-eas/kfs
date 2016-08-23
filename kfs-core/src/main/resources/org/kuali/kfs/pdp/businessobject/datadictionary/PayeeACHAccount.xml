@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -62,12 +62,12 @@
           </property>
           <property name="supportAttributes">
             <list>
-              <bean parent="SupportAttributeDefinition" p:sourceName="payeeIdentifierTypeCode" p:targetName="payeeTypeCode"/>                
+              <bean parent="SupportAttributeDefinition" p:sourceName="payeeIdentifierTypeCode" p:targetName="payeeTypeCode"/>
             </list>
-          </property>      
+          </property>
         </bean>
       </list>
-    </property>        
+    </property>
   </bean>
 
 <!-- Attribute Definitions -->
@@ -85,7 +85,7 @@
       <ref bean="NumericValidation" />
     </property>
     <property name="required" value="true"/>
-    <property name="formatterClass" value="org.kuali.kfs.pdp.businessobject.DisbursementNumberFormatter"/> 
+    <property name="formatterClass" value="org.kuali.kfs.pdp.businessobject.DisbursementNumberFormatter"/>
     <property name="control">
       <ref bean="HiddenControl" />
     </property>
@@ -107,13 +107,13 @@
     </property>
     <property name="attributeSecurity">
 		<bean parent="AttributeSecurity">
-  			<property name="mask" value="true"/> 
+  			<property name="mask" value="true"/>
 			<property name="maskFormatter">
-  			<bean parent="MaskFormatterLiteral" p:literal="*****************"/> 
+  			<bean parent="MaskFormatterLiteral" p:literal="*****************"/>
   			</property>
-  			<property name="partialMask" value="true"/> 
+  			<property name="partialMask" value="true"/>
   			<property name="partialMaskFormatter">
-  			<bean parent="MaskFormatterSubString" p:maskLength="5"/> 
+  			<bean parent="MaskFormatterSubString" p:maskLength="5"/>
   			</property>
   		</bean>
   	</property>
@@ -133,20 +133,20 @@
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.pdp.businessobject.options.AchTransactionCodeValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
-  
+
   <bean id="PayeeACHAccount-payeeIdNumber" parent="PayeeACHAccount-payeeIdNumber-parentBean"/>
   <bean id="PayeeACHAccount-payeeIdNumber-parentBean" abstract="true" parent="DisbursementPayee-payeeIdNumber">
     <property name="name" value="payeeIdNumber"/>
     <property name="label" value="Payee Number"/>
   </bean>
-  
+
   <bean id="PayeeACHAccount-payeeName" parent="PayeeACHAccount-payeeName-parentBean"/>
   <bean id="PayeeACHAccount-payeeName-parentBean" abstract="true" parent="DisbursementPayee-payeeName">
     <property name="name" value="payeeName"/>
     <property name="label" value="Payee Name"/>
     <property name="shortLabel" value="Payee Name"/>
-  </bean>  
-  
+  </bean>
+
 
   <bean id="PayeeACHAccount-payeeEmailAddress" parent="PayeeACHAccount-payeeEmailAddress-parentBean"/>
   <bean id="PayeeACHAccount-payeeEmailAddress-parentBean" abstract="true" parent="AttributeDefinition">
@@ -162,7 +162,7 @@
       <bean parent="TextControlDefinition" p:size="43"/>
     </property>
   </bean>
-  
+
   <bean id="PayeeACHAccount-payeeIdentifierTypeCode" parent="PayeeACHAccount-payeeIdentifierTypeCode-parentBean"/>
   <bean id="PayeeACHAccount-payeeIdentifierTypeCode-parentBean" abstract="true" parent="ACHPayee-payeeTypeCode">
     <property name="name" value="payeeIdentifierTypeCode"/>
@@ -174,19 +174,19 @@
   <bean id="PayeeACHAccount-achTransactionType-parentBean" abstract="true" parent="ACHTransactionType-code-parentBean">
     <property name="name" value="achTransactionType"/>
   </bean>
-  
+
   <bean id="PayeeACHAccount-bankRoutingNumber" parent="PayeeACHAccount-bankRoutingNumber-parentBean"/>
 
   <bean id="PayeeACHAccount-bankRoutingNumber-parentBean" abstract="true" parent="ACHBank-bankRoutingNumber">
   </bean>
-  
+
   <bean id="PayeeACHAccount-active" parent="PayeeACHAccount-active-parentBean"/>
 
   <bean id="PayeeACHAccount-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="active"/>
     <property name="required" value="true"/>
   </bean>
-  
+
   <bean id="PayeeACHAccount-autoInactivationIndicator" parent="PayeeACHAccount-autoInactivationIndicator-parentBean"/>
 
   <bean id="PayeeACHAccount-autoInactivationIndicator-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
@@ -194,7 +194,7 @@
     <property name="label" value="Auto-Inactivation Indicator"/>
     <property name="shortLabel" value="Auto-Inactivation"/>
   </bean>
-  
+
   <bean id="PayeeACHAccount-lastUpdate" parent="PayeeACHAccount-lastUpdate-parentBean"/>
 
   <bean id="PayeeACHAccount-lastUpdate-parentBean" abstract="true" parent="GenericAttributes-genericTimestamp">
@@ -202,8 +202,8 @@
 	<property name="label" value="Last Update Time"/>
 	<property name="shortLabel" value="Last Update"/>
 	<property name="formatterClass" value="org.kuali.rice.core.web.format.DateViewTimestampObjectFormatter"/>
-  </bean> 
- 
+  </bean>
+
   <bean id="PayeeACHAccount-bankRouting.bankName" parent="PayeeACHAccount-bankRouting.bankName-parentBean"/>
 
   <bean id="PayeeACHAccount-bankRouting.bankName-parentBean" abstract="true" parent="ACHBank-bankName">
@@ -223,7 +223,7 @@
 		<ref bean="PayeeACHAccount-inquirySectionDefinition"/>
       </list>
     </property>
-    <property name="inquirableClass" value="org.kuali.kfs.pdp.businessobject.inquiry.PayeeAchAccountInquirable"/>    
+    <property name="inquirableClass" value="org.kuali.kfs.pdp.businessobject.inquiry.PayeeAchAccountInquirable"/>
   </bean>
 
   <bean id="PayeeACHAccount-inquirySectionDefinition" parent="PayeeACHAccount-inquirySectionDefinition-parentBean"/>
@@ -234,7 +234,7 @@
         <bean parent="FieldDefinition" p:attributeName="achAccountGeneratedIdentifier"/>
         <bean parent="FieldDefinition" p:attributeName="bankRoutingNumber"/>
         <bean parent="FieldDefinition" p:attributeName="bankAccountNumber"/>
-        <bean parent="FieldDefinition" p:attributeName="payeeIdNumber"/>                    
+        <bean parent="FieldDefinition" p:attributeName="payeeIdNumber"/>
         <bean parent="FieldDefinition" p:attributeName="payeeName"/>
         <bean parent="FieldDefinition" p:attributeName="payeeEmailAddress"/>
         <bean parent="FieldDefinition" p:attributeName="achTransactionType"/>
@@ -245,7 +245,7 @@
       </list>
     </property>
   </bean>
-  
+
 <!-- Business Object Lookup Definition -->
 
 
@@ -253,7 +253,7 @@
 
   <bean id="PayeeACHAccount-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Payee ACH Account Lookup"/>
-    <property name="lookupableID" value="payeeACHAccountLookupable" />    
+    <property name="lookupableID" value="payeeACHAccountLookupable" />
     <property name="defaultSort">
       <bean parent="SortDefinition">
         <property name="attributeNames">
@@ -266,7 +266,7 @@
     <property name="lookupFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="payeeIdentifierTypeCode"/>
-        <bean parent="FieldDefinition" p:attributeName="payeeIdNumber"/>              
+        <bean parent="FieldDefinition" p:attributeName="payeeIdNumber"/>
         <bean parent="FieldDefinition" p:attributeName="bankRoutingNumber"/>
         <bean parent="FieldDefinition" p:attributeName="bankAccountNumber"/>
         <bean parent="FieldDefinition" p:attributeName="bankAccountTypeCode"/>

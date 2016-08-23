@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -67,7 +67,7 @@ public class AccountingDocumentRuleHelperServiceImpl implements AccountingDocume
 
     /**
      * Makes sure that the objectCode attribute is fully populated b/c we are using proxying in our persistence layer.
-     * 
+     *
      * @param accountingLine
      * @return the object type code of the object code of the given accounting line
      */
@@ -92,7 +92,7 @@ public class AccountingDocumentRuleHelperServiceImpl implements AccountingDocume
 
     /**
      * Looks up a label from the data dictionary
-     * 
+     *
      * @param entryClass the class of the attribute to lookup the label for
      * @param attributeName the attribute to look up the label for
      * @return the label
@@ -166,7 +166,7 @@ public class AccountingDocumentRuleHelperServiceImpl implements AccountingDocume
     /**
      * Gets the named property from ConfigurationService (i.e., from ApplicationResources.properties) and formats it with the
      * given arguments (if any).
-     * 
+     *
      * @param propertyName
      * @param arguments
      * @return the formatted property (i.e., message), with any {@code {0}} replaced with the first argument, {@code {1}} with the
@@ -178,7 +178,7 @@ public class AccountingDocumentRuleHelperServiceImpl implements AccountingDocume
 
     /**
      * Sets the dataDictionaryService attribute value.
-     * 
+     *
      * @param ddService The ddService to set.
      */
     public void setDataDictionaryService(DataDictionaryService ddService) {
@@ -187,7 +187,7 @@ public class AccountingDocumentRuleHelperServiceImpl implements AccountingDocume
 
     /**
      * Sets the objectTypeService attribute value.
-     * 
+     *
      * @param objectTypeService The objectTypeService to set.
      */
     public void setObjectTypeService(ObjectTypeService objectTypeService) {

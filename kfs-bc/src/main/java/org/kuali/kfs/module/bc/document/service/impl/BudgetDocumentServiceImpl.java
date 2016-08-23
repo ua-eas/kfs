@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -207,7 +207,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
                 bcDoc.setRevenueAccountLineAnnualBalanceAmountTotal(bcDoc.getRevenueAccountLineAnnualBalanceAmountTotal().add(changeAmount));
             } else {
                 bcDoc.setExpenditureAccountLineAnnualBalanceAmountTotal(bcDoc.getExpenditureAccountLineAnnualBalanceAmountTotal().add(changeAmount));
-                
+
             }
         }
 
@@ -276,7 +276,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
         // allow benefits calculation if document's account is not salary setting only lines
         bcDoc.setBenefitsCalcNeeded(false);
         if (!bcDoc.isSalarySettingOnly()) {
-            
+
             // pbgl lines are saved at this point, calc benefits
             String sysParam = SpringContext.getBean(ParameterService.class).getParameterValueAsString(KfsParameterConstants.FINANCIAL_SYSTEM_ALL.class, KFSParameterKeyConstants.LdParameterConstants.ENABLE_FRINGE_BENEFIT_CALC_BY_BENEFIT_RATE_CATEGORY_IND);
             LOG.debug("sysParam: " + sysParam);
@@ -287,7 +287,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
                 // rate category code off - call original benefits calc
                 benefitsCalculationService.calculateAnnualBudgetConstructionGeneralLedgerBenefits(bcDoc.getDocumentNumber(), bcDoc.getUniversityFiscalYear(), bcDoc.getChartOfAccountsCode(), bcDoc.getAccountNumber(), bcDoc.getSubAccountNumber());
             }
-            
+
             // write global message on calc success
             KNSGlobalVariables.getMessageList().add(BCKeyConstants.MESSAGE_BENEFITS_CALCULATED);
         }
@@ -302,7 +302,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
         // allow benefits calculation if document's account is not salary setting only lines
         bcDoc.setMonthlyBenefitsCalcNeeded(false);
         if (!bcDoc.isSalarySettingOnly()) {
-            
+
             // pbgl lines are saved at this point, calc benefits
             String sysParam = SpringContext.getBean(ParameterService.class).getParameterValueAsString(KfsParameterConstants.FINANCIAL_SYSTEM_ALL.class, KFSParameterKeyConstants.LdParameterConstants.ENABLE_FRINGE_BENEFIT_CALC_BY_BENEFIT_RATE_CATEGORY_IND);
             LOG.debug("sysParam: " + sysParam);
@@ -313,7 +313,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
                 // rate category code off - call original benefits calc
                 benefitsCalculationService.calculateMonthlyBudgetConstructionGeneralLedgerBenefits(bcDoc.getDocumentNumber(), bcDoc.getUniversityFiscalYear(), bcDoc.getChartOfAccountsCode(), bcDoc.getAccountNumber(), bcDoc.getSubAccountNumber());
             }
-                
+
             // write global message on calc success
             KNSGlobalVariables.getMessageList().add(BCKeyConstants.MESSAGE_BENEFITS_MONTHLY_CALCULATED);
         }
@@ -321,7 +321,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Does sanity checks for null document object and null documentNumber
-     * 
+     *
      * @param document
      */
     @NonTransactional
@@ -336,7 +336,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Runs validation and persists a document to the database.
-     * 
+     *
      * @param document
      * @param event
      * @throws WorkflowException
@@ -469,7 +469,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
      * Reloads benefits target accounting lines. Usually called right after an annual benefits calculation and the display needs
      * updated with a fresh copy from the database. All old row versions are removed and database row versions are inserted in the
      * list in the correct order.
-     * 
+     *
      * @param bcDoc
      */
     @Transactional
@@ -926,7 +926,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
     /**
      * determine whether the plug line can be updated or created. If the given appointment funding is in the plug override mode or
      * it associates with a contract and grant account, then no plug can be updated or created
-     * 
+     *
      * @param appointmentFunding the given appointment funding
      * @return true if the plug line can be updated or created; otherwise, false
      */
@@ -956,7 +956,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
     /**
      * get a pending budget construction GL record, and set its to the given update amount if it exists in database; otherwise,
      * create it with the given information
-     * 
+     *
      * @param budgetConstructionHeader the budget construction header of the pending budget construction GL record
      * @param appointmentFunding the appointment funding associated with the pending budget construction GL record
      * @param updateAmount the amount being used to update the retrieved pending budget construction GL record
@@ -1013,7 +1013,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * retrieve a pending budget construction GL record based on the given infromation
-     * 
+     *
      * @param budgetConstructionHeader the budget construction header of the pending budget construction GL record to be retrieved
      * @param appointmentFunding the appointment funding associated with the pending budget construction GL record to be retrieved
      * @param is2PLG the flag used to instrcut to retrieve a pending budget construction GL plug record
@@ -1138,7 +1138,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Sets the budgetConstructionDao attribute value.
-     * 
+     *
      * @param budgetConstructionDao The budgetConstructionDao to set.
      */
     @NonTransactional
@@ -1148,7 +1148,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Sets the documentService attribute value.
-     * 
+     *
      * @param documentService The documentService to set.
      */
     @NonTransactional
@@ -1158,7 +1158,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Sets the workflowDocumentService attribute value.
-     * 
+     *
      * @param workflowDocumentService The workflowDocumentService to set.
      */
     @NonTransactional
@@ -1168,7 +1168,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Sets the documentDao attribute value.
-     * 
+     *
      * @param documentDao The documentDao to set.
      */
     @NonTransactional
@@ -1179,7 +1179,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Sets the benefitsCalculationService attribute value.
-     * 
+     *
      * @param benefitsCalculationService The benefitsCalculationService to set.
      */
     @NonTransactional
@@ -1190,7 +1190,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     @NonTransactional
@@ -1200,7 +1200,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Sets the budgetParameterService attribute value.
-     * 
+     *
      * @param budgetParameterService The budgetParameterService to set.
      */
     @NonTransactional
@@ -1210,7 +1210,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Sets the parameterService attribute value.
-     * 
+     *
      * @param parameterService The parameterService to set.
      */
     @NonTransactional
@@ -1220,7 +1220,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Sets the fiscalYearFunctionControlService attribute value.
-     * 
+     *
      * @param fiscalYearFunctionControlService The fiscalYearFunctionControlService to set.
      */
     @NonTransactional
@@ -1231,7 +1231,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Sets the optionsService attribute value.
-     * 
+     *
      * @param optionsService The optionsService to set.
      */
     @NonTransactional
@@ -1242,7 +1242,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Gets the persistenceService attribute.
-     * 
+     *
      * @return Returns the persistenceService.
      */
     @NonTransactional
@@ -1252,7 +1252,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Sets the persistenceService attribute value.
-     * 
+     *
      * @param persistenceService The persistenceService to set.
      */
     @NonTransactional
@@ -1262,7 +1262,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Sets the organizationService attribute value.
-     * 
+     *
      * @param organizationService The organizationService to set.
      */
     @NonTransactional
@@ -1272,7 +1272,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
 
     /**
      * Sets the kualiModuleService attribute value.
-     * 
+     *
      * @param kualiModuleService The kualiModuleService to set.
      */
     @NonTransactional
@@ -1281,7 +1281,7 @@ public class BudgetDocumentServiceImpl implements BudgetDocumentService {
     }
 
     /**
-     * Gets the defaultLaborBenefitRateCategoryCode attribute. 
+     * Gets the defaultLaborBenefitRateCategoryCode attribute.
      * @return Returns the defaultLaborBenefitRateCategoryCode.
      */
     @Transactional

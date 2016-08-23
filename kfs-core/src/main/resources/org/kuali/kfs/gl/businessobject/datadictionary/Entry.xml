@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -75,8 +75,8 @@
            <bean parent="OrganizationRestriction"><property name="attribute" ref="Entry-account.organizationCode"/></bean>
            <bean parent="OrganizationHierarchyRestriction"><property name="attribute" ref="Entry-account.organizationCode"/></bean>
            <bean parent="ObjectLevelRestriction"><property name="attribute" ref="Entry-objectCode.financialObjectLevelCode"/></bean>
-           <bean parent="ObjectConsolidationRestriction"><property name="attribute" ref="Entry-objectCode.financialObjectLevel.financialConsolidationObjectCode"/></bean> 
-           <bean parent="ProjectCodeRestriction"><property name="attribute" ref="Entry-projectCode"/></bean> 
+           <bean parent="ObjectConsolidationRestriction"><property name="attribute" ref="Entry-objectCode.financialObjectLevel.financialConsolidationObjectCode"/></bean>
+           <bean parent="ProjectCodeRestriction"><property name="attribute" ref="Entry-projectCode"/></bean>
        </list>
     </property>
     <property name="relationships">
@@ -347,18 +347,18 @@
     <bean id="Entry-objectCode.financialObjectLevelCode-parentBean" abstract="true" parent="ObjectLevel-financialObjectLevelCode">
          <property name="name" value="financialObject.financialObjectLevelCode"/>
     </bean>
-        
+
     <bean id="Entry-objectCode.financialObjectLevel.financialConsolidationObjectCode" parent="Entry-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean"/>
     <bean id="Entry-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean" abstract="true" parent="ObjectConsolidation-finConsolidationObjectCode">
          <property name="name" value="financialObject.financialObjectLevel.financialConsolidationObjectCode"/>
     </bean>
-   
+
     <bean id="Entry-account.organizationCode" parent="Entry-account.organizationCode-parentBean"/>
     <bean id="Entry-account.organizationCode-parentBean" abstract="true" parent="Organization-organizationCode">
          <property name="name" value="account.organizationCode"/>
-    </bean> 
+    </bean>
  <bean id="Entry-dummyBusinessObject.debitCreditOption" parent="Entry-dummyBusinessObject.debitCreditOption-parentBean"/>
- 
+
  <bean id="Entry-dummyBusinessObject.debitCreditOption-parentBean" abstract="true" parent="TransientBalanceInquiryAttributes-debitCreditOption">
  	<property name="name" value="dummyBusinessObject.debitCreditOption"/>
  	<property name="label" value="Debit/Credit View"/>
@@ -427,7 +427,7 @@
     <property name="title" value="General Ledger Entry Lookup"/>
     <property name="lookupableID" value="glEntryLookupable"/>
     <property name="numOfColumns" value="2"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
         <property name="attributeNames">
@@ -488,7 +488,7 @@
         <bean parent="FieldDefinition" p:attributeName="referenceFinancialDocumentTypeCode"/>
         <bean parent="FieldDefinition" p:attributeName="referenceFinancialSystemOriginationCode"/>
         <bean parent="FieldDefinition" p:attributeName="referenceFinancialDocumentNumber"/>
-        <bean parent="FieldDefinition" p:attributeName="dummyBusinessObject.pendingEntryOption"/>      
+        <bean parent="FieldDefinition" p:attributeName="dummyBusinessObject.pendingEntryOption"/>
       </list>
     </property>
   </bean>

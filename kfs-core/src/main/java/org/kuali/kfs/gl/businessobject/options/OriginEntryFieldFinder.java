@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,7 +36,7 @@ import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 /**
- * An extension of KeyValuesBase that 
+ * An extension of KeyValuesBase that
  */
 public class OriginEntryFieldFinder extends KeyValuesBase {
 
@@ -77,7 +77,7 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Given the property field name for a field, returns the display name
-     * 
+     *
      * @param fieldName the property field name for a field
      * @return the display field name of that field
      */
@@ -93,7 +93,7 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Given the display name of a field, returns the property field name
-     * 
+     *
      * @param fieldDisplayName the display name of the field
      * @return the property field name for that field
      */
@@ -109,7 +109,7 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Given a field name and a value, determines if that value is valid for the field
-     * 
+     *
      * @param fieldName the name of a field to inquire on
      * @param value the value that the field will potentially be set to
      * @return true if the value is valid, false if otherwise
@@ -163,7 +163,7 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Returns a String with the name of the type of the given field
-     * 
+     *
      * @param fieldName the name of the field to inquire on
      * @return a String with the name of the class that field returns
      */
@@ -188,7 +188,7 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Returns whether the given field can be set to null or not
-     * 
+     *
      * @param fieldName the name of the field to inquire about
      * @return true if it can be set to null, false otherwise
      */
@@ -201,7 +201,7 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Returns the length of a given field in Origin Entry
-     * 
+     *
      * @param fieldName the name of the Origin Entry field to get a length for
      * @return the length of the field
      */
@@ -211,5 +211,5 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
         fieldLength = dataDictionaryService.getAttributeMaxLength(OriginEntryFull.class, fieldName);
         return fieldLength;
     }
-    
+
 }

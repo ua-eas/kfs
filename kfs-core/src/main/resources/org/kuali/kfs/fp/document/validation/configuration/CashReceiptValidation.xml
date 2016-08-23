@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -22,24 +22,24 @@
     xmlns:p="http://www.springframework.org/schema/p"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-        
+
     <bean id="cashReceiptFamilyDocumentFieldConversion" parent="validationFieldConversion">
 		<property name="sourceEventProperty" value="document" />
 		<property name="targetValidationProperty" value="cashReceiptFamilyDocumentForValidation" />
 	</bean>
-	
+
 	<bean id="checkFieldConversion" parent="validationFieldConversion">
 		<property name="sourceEventProperty" value="check" />
 		<property name="targetValidationProperty" value="checkForValidation" />
 	</bean>
-	
+
 	<bean id="cashRecieptDocumentFieldConversion" parent="validationFieldConversion">
 		<property name="sourceEventProperty" value="document" />
 		<property name="targetValidationProperty" value="cashReceiptDocumentForValidation" />
 	</bean>
 
 	<bean id="CashReceipt-routeDocumentValidation" parent="CashReceipt-routeDocumentValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CashReceipt-routeDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -58,16 +58,16 @@
 						</list>
 					</property>
 				</bean>
-				
+
 				<bean parent="AccountingDocument-capitalAssetLineUniquenessValidation" scope="prototype" />
 				<bean parent="AccountingDocument-capitalAssetLineUniquenessValidation" scope="prototype" />
 				<bean parent="CapitalAccountingLines-capitalAccountingLinesValidations" scope="prototype" />
-				
-				<bean parent="CapitialAssetInformation-capitalAssetInformationValidation" scope="prototype" />  
+
+				<bean parent="CapitialAssetInformation-capitalAssetInformationValidation" scope="prototype" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CashReceipt-saveEvent-accoutingLinesCheck" abstract="true" parent="CollectionValidation" scope="prototype">
 		<property name="collectionProperty" value="document.sourceAccountingLines" />
 		<property name="validations">
@@ -85,9 +85,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CashReceipt-saveDocumentValidation" parent="CashReceipt-saveDocumentValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CashReceipt-saveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -110,9 +110,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CashReceipt-approveDocumentValidation" parent="CashReceipt-approveDocumentValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CashReceipt-approveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -141,9 +141,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CashReceipt-blanketApproveDocumentValidation" parent="CashReceipt-blanketApproveDocumentValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CashReceipt-blanketApproveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -154,11 +154,11 @@
 						</list>
 					</property>
 				</bean>
-				
+
 				<bean parent="AccountingDocument-capitalAssetLineUniquenessValidation" scope="prototype" />
 
 				<bean parent="CapitalAccountingLines-capitalAccountingLinesValidations" scope="prototype" />
-				
+
 				<bean parent="CashReceipt-cashManagerValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
@@ -166,11 +166,11 @@
 						</list>
 					</property>
 				</bean>
-				<bean parent="CapitialAssetInformation-capitalAssetInformationValidation" scope="prototype" />  
+				<bean parent="CapitialAssetInformation-capitalAssetInformationValidation" scope="prototype" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CashReciept-addAccountingLine-failFastValidation" abstract="true" parent="CompositeValidation" scope="prototype"> <!-- here to get the quit on fail issues correct -->
 		<property name="validations">
 			<list>
@@ -203,9 +203,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CashReceipt-addAccountingLineValidation" parent="CashReceipt-addAccountingLineValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CashReceipt-addAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -229,9 +229,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CashReceipt-deleteAccountingLineValidation" parent="CashReceipt-deleteAccountingLineValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CashReceipt-deleteAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -239,7 +239,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CashReceipt-updateAccountingLine-failFastValidation" abstract="true" parent="CompositeValidation" scope="prototype"> <!-- here to get the quit on fail issues correct -->
 		<property name="validations">
 			<list>
@@ -271,9 +271,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CashReceipt-updateAccountingLineValidation" parent="CashReceipt-updateAccountingLineValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CashReceipt-updateAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -289,9 +289,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CashReceipt-reviewAccountingLineValidation" parent="CashReceipt-reviewAccountingLineValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CashReceipt-reviewAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -322,9 +322,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CashReceipt-addCheckValidation" parent="CashReceipt-addCheckValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CashReceipt-addCheckValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -357,9 +357,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CashReceipt-updateCheckValidation" parent="CashReceipt-updateCheckValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CashReceipt-updateCheckValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -394,7 +394,7 @@
 	</bean>
       <!-- object sub type check Event  -->
 	<bean id="CashReceipt-capitalAccountingLinesObjectSubtypeValidations" parent="CashReceipt-capitalAccountingLinesObjectSubtypeValidations-parentBean" scope="prototype" />
-  
+
 	<bean id="CashReceipt-capitalAccountingLinesObjectSubtypeValidations-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
@@ -402,7 +402,7 @@
         			<property name="parameterProperties">
            				<list>
              				<bean parent="accountingDocumentFieldConversion" />
-           				</list> 
+           				</list>
                    </property>
        			</bean>
   			</list>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,7 +36,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 public enum PurchaseOrderDocumentFixture {
 
     // TODO f2f: fix the REQ id
-    
+
     PO_ONLY_REQUIRED_FIELDS(
             PO.CREATE_DATE, // purchaseOrderCreateDate
             PO.REQ_ID, // requisitionIdentifier
@@ -68,7 +68,7 @@ public enum PurchaseOrderDocumentFixture {
             PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purchasingDocumentFixture
             new PurchaseOrderItemFixture[] { // purchaseOrderItemMultiFixtures
                     PurchaseOrderItemFixture.PO_QTY_UNRESTRICTED_ITEM_1 }
-    ),             
+    ),
     PO_ONLY_REQUIRED_FIELDS_MULTI_ITEMS(
             PO.CREATE_DATE, // purchaseOrderCreateDate
             PO.REQ_ID, // requisitionIdentifier
@@ -99,9 +99,9 @@ public enum PurchaseOrderDocumentFixture {
             PurchasingAccountsPayableDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purapDocumentFixture
             PurchasingDocumentFixture.PO_ONLY_REQUIRED_FIELDS, // purchasingDocumentFixture
             new PurchaseOrderItemFixture[] { // purchaseOrderItemMultiFixtures
-                    PurchaseOrderItemFixture.PO_QTY_UNRESTRICTED_ITEM_1, 
+                    PurchaseOrderItemFixture.PO_QTY_UNRESTRICTED_ITEM_1,
                     PurchaseOrderItemFixture.PO_QTY_UNRESTRICTED_ITEM_2 }
-    ), 
+    ),
     PO_WITH_VENDOR_CONTRACT(
             PO.CREATE_DATE, // purchaseOrderCreateDate
             PO.REQ_ID, // requisitionIdentifier
@@ -133,7 +133,7 @@ public enum PurchaseOrderDocumentFixture {
             PurchasingDocumentFixture.PO_WITH_VENDOR_CONTRACT, // purchasingDocumentFixture
             new PurchaseOrderItemFixture[] { // purchaseOrderItemMultiFixtures
                     PurchaseOrderItemFixture.PO_QTY_UNRESTRICTED_ITEM_1}
-    ),       
+    ),
     PO_APPROVAL_REQUIRED(PO.CREATE_DATE, // purchaseOrderCreateDate
             PO.REQ_ID, // requisitionIdentifier
             "LPRC", // purchaseOrderVendorChoiceCode
@@ -418,7 +418,7 @@ public enum PurchaseOrderDocumentFixture {
 
     /**
      * Creates a Purchase Order Document using this Fixture.
-     * 
+     *
      * @return the created Purchase Order Document.
      */
     public PurchaseOrderDocument createPurchaseOrderDocument() {
@@ -459,12 +459,12 @@ public enum PurchaseOrderDocumentFixture {
         //vendor service and set it to this PO.
         Integer vendorHeaderGeneratedId = doc.getVendorHeaderGeneratedIdentifier();
         Integer vendorDetailAssignedId = doc.getVendorDetailAssignedIdentifier();
-        
+
         if (vendorHeaderGeneratedId != null && vendorDetailAssignedId != null) {
-            VendorDetail vendorDetail = SpringContext.getBean(VendorService.class).getVendorDetail(vendorHeaderGeneratedId, vendorDetailAssignedId);   
+            VendorDetail vendorDetail = SpringContext.getBean(VendorService.class).getVendorDetail(vendorHeaderGeneratedId, vendorDetailAssignedId);
             doc.setVendorDetail(vendorDetail);
         }
-        
+
         return doc;
     }
 }

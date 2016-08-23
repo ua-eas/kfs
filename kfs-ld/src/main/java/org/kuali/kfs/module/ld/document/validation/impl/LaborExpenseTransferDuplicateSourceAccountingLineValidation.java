@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,7 +35,7 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * determine whether the given accounting line has already been in the given document
- * 
+ *
  * @param accountingDocument the given document
  * @param accountingLine the given accounting line
  * @return true if the given accounting line has already been in the given document; otherwise, false
@@ -43,7 +43,7 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 public class LaborExpenseTransferDuplicateSourceAccountingLineValidation extends GenericValidation {
     private AccountingLine accountingLineForValidation;
     private AccountingDocument accountingDocumentForValidation;
-    
+
     /**
      * Validates that an accounting line does not duplicate in the source lines
      * <strong>Expects an accounting line as the first a parameter</strong>
@@ -53,19 +53,19 @@ public class LaborExpenseTransferDuplicateSourceAccountingLineValidation extends
         boolean result = true;
         AccountingDocument accountingDocument = getAccountingDocumentForValidation();
         AccountingLine accountingLine = getAccountingLineForValidation();
-               
+
         // not allow the duplicate source accounting line in the document
         if (isDuplicateSourceAccountingLine(accountingDocument, accountingLine)) {
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.SOURCE_ACCOUNTING_LINES, LaborKeyConstants.ERROR_DUPLICATE_SOURCE_ACCOUNTING_LINE );
             return false;
         }
-        
+
         return result;
     }
 
     /**
      * determine whether the given accounting line has already been in the given document
-     * 
+     *
      * @param accountingDocument the given document
      * @param accountingLine the given accounting line
      * @return true if the given accounting line has already been in the given document; otherwise, false
@@ -91,10 +91,10 @@ public class LaborExpenseTransferDuplicateSourceAccountingLineValidation extends
         }
         return false;
     }
-    
+
     /**
      * Gets the default key of ExpenseTransferAccountingLine
-     * 
+     *
      * @return the default key of ExpenseTransferAccountingLine
      */
     protected List<String> defaultKeyOfExpenseTransferAccountingLine() {
@@ -117,9 +117,9 @@ public class LaborExpenseTransferDuplicateSourceAccountingLineValidation extends
 
         return defaultKey;
     }
-    
+
     /**
-     * Gets the accountingLineForValidation attribute. 
+     * Gets the accountingLineForValidation attribute.
      * @return Returns the accountingLineForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -133,9 +133,9 @@ public class LaborExpenseTransferDuplicateSourceAccountingLineValidation extends
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
         this.accountingDocumentForValidation = accountingDocumentForValidation;
     }
-    
+
     /**
-     * Gets the accountingLineForValidation attribute. 
+     * Gets the accountingLineForValidation attribute.
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {

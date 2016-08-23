@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,7 +39,7 @@ import org.kuali.kfs.krad.util.MessageMap;
 public class BudgetAdjustmentFundGroupAdjustmentRestrictionValidation extends GenericValidation {
     private BudgetAdjustmentDocument accountingDocumentForValidation;
     AccountingLineRuleHelperService accountingLineRuleHelperService;
-    
+
     /**
      * Retrieves the fund group and sub fund group for each accounting line. Then verifies that the codes associated with the
      * 'Budget Adjustment Restriction Code' field are met.
@@ -173,7 +173,7 @@ public class BudgetAdjustmentFundGroupAdjustmentRestrictionValidation extends Ge
     }
 
     /**
-     * Gets the accountingDocumentForValidation attribute. 
+     * Gets the accountingDocumentForValidation attribute.
      * @return Returns the accountingDocumentForValidation.
      */
     public BudgetAdjustmentDocument getAccountingDocumentForValidation() {
@@ -189,7 +189,7 @@ public class BudgetAdjustmentFundGroupAdjustmentRestrictionValidation extends Ge
     }
 
     /**
-     * Gets the accountingLineRuleHelperService attribute. 
+     * Gets the accountingLineRuleHelperService attribute.
      * @return Returns the accountingLineRuleHelperService.
      */
     public AccountingLineRuleHelperService getAccountingLineRuleHelperService() {

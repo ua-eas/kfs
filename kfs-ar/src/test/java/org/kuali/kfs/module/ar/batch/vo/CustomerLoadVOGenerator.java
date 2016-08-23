@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,11 +32,11 @@ public class CustomerLoadVOGenerator {
         addresses.add(address);
         return generateCustomerVO(customerFields, addresses);
     }
-    
+
     public static final CustomerDigesterVO generateCustomerVO(Map<String, String> customerFields, List<Map<String, String>> addresses) {
-        
+
         CustomerDigesterVO customerVO = new CustomerDigesterVO();
-        
+
         String propertyValue = null;
         for (String propertyName : customerFields.keySet()) {
             propertyValue = customerFields.get(propertyName);
@@ -47,7 +47,7 @@ public class CustomerLoadVOGenerator {
                 throw new RuntimeException("Exception trying to set property [" + propertyName + "] to value [" + propertyValue + "]", e);
             }
         }
-        
+
         for (Map<String, String> addressFields : addresses) {
             CustomerAddressDigesterVO addressVO = new CustomerAddressDigesterVO();
             for (String propertyName : addressFields.keySet()) {
@@ -66,7 +66,7 @@ public class CustomerLoadVOGenerator {
 
     public static final Map<String, String> getValidCustomerVO1() {
         Map<String, String> fields = new HashMap<String, String>();
-        
+
         fields.put("customerName", "Sample Customer One");
         fields.put("customerParentCompanyNumber", "");
         fields.put("customerTypeCode", "05");
@@ -87,10 +87,10 @@ public class CustomerLoadVOGenerator {
 
         return fields;
     }
-    
+
     public static final Map<String, String> getBadCustomerVO_InvalidDates_01() {
         Map<String, String> fields = new HashMap<String, String>();
-        
+
         fields.put("customerName", "Sample Customer One");
         fields.put("customerParentCompanyNumber", "");
         fields.put("customerTypeCode", "05");
@@ -111,10 +111,10 @@ public class CustomerLoadVOGenerator {
 
         return fields;
     }
-    
+
     public static final Map<String, String> getValidCustomerVOTemplate() {
         Map<String, String> fields = new HashMap<String, String>();
-        
+
         fields.put("customerName", "");
         fields.put("customerParentCompanyNumber", "");
         fields.put("customerTypeCode", "");
@@ -135,10 +135,10 @@ public class CustomerLoadVOGenerator {
 
         return fields;
     }
-    
+
     public static final Map<String, String> getValidAddressVO1() {
         Map<String, String> fields = new HashMap<String, String>();
-        
+
         fields.put("customerAddressName", "Headquarters");
         fields.put("customerLine1StreetAddress", "1234 N Any St");
         fields.put("customerLine2StreetAddress", "Suite 440");
@@ -157,7 +157,7 @@ public class CustomerLoadVOGenerator {
 
     public static final Map<String, String> getBadAddressVO_InvalidDates_01() {
         Map<String, String> fields = new HashMap<String, String>();
-        
+
         fields.put("customerAddressName", "Headquarters");
         fields.put("customerLine1StreetAddress", "1234 N Any St");
         fields.put("customerLine2StreetAddress", "Suite 440");
@@ -176,7 +176,7 @@ public class CustomerLoadVOGenerator {
 
     public static final Map<String, String> getValidAddressVOTemplate() {
         Map<String, String> fields = new HashMap<String, String>();
-        
+
         fields.put("customerAddressName", "");
         fields.put("customerLine1StreetAddress", "");
         fields.put("customerLine2StreetAddress", "");

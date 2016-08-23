@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-       
+
   <bean id="CustomerCreditMemoDetail" parent="CustomerCreditMemoDetail-parentBean"/>
   <bean id="CustomerCreditMemoDetail-parentBean" abstract="true" parent="BusinessObjectEntry">
     <property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail"/>
@@ -35,7 +35,7 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="CustomerCreditMemoDetail-referenceInvoiceItemNumber" parent="CustomerCreditMemoDetail-referenceInvoiceItemNumber-parentBean">
       <property name="control">
       <bean parent="TextControlDefinition" p:size="5"/>
@@ -74,7 +74,7 @@
       <bean parent="TextControlDefinition" p:size="22"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerCreditMemoDetail-creditMemoItemTaxAmount" parent="CustomerCreditMemoDetail-creditMemoItemTaxAmount-parentBean"/>
   <bean id="CustomerCreditMemoDetail-creditMemoItemTaxAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="creditMemoItemTaxAmount"/>
@@ -82,7 +82,7 @@
     <property name="shortLabel" value="Tax Amount"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="CustomerCreditMemoDetail-creditMemoItemTotalAmount" parent="CustomerCreditMemoDetail-creditMemoItemTotalAmount-parentBean"/>
   <bean id="CustomerCreditMemoDetail-creditMemoItemTotalAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="creditMemoItemTotalAmount"/>
@@ -90,7 +90,7 @@
     <property name="shortLabel" value="Amount"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="CustomerCreditMemoDetail-creditMemoLineTotalAmount" parent="CustomerCreditMemoDetail-creditMemoLineTotalAmount-parentBean"/>
   <bean id="CustomerCreditMemoDetail-creditMemoLineTotalAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="creditMemoLineTotalAmount"/>
@@ -98,7 +98,7 @@
     <property name="shortLabel" value="Total Amount"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="CustomerCreditMemoDetail-invoiceLineTotalAmount" parent="CustomerCreditMemoDetail-invoiceLineTotalAmount-parentBean"/>
   <bean id="CustomerCreditMemoDetail-invoiceLineTotalAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="invoiceLineTotalAmount"/>
@@ -106,15 +106,15 @@
     <property name="shortLabel" value="Total Amount"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="CustomerCreditMemoDetail-invoiceOpenItemQuantity" parent="CustomerCreditMemoDetail-invoiceOpenItemQuantity-parentBean"/>
   <bean id="CustomerCreditMemoDetail-invoiceOpenItemQuantity-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="invoiceOpenItemQuantity"/>
     <property name="label" value="Open Invoice Quantity"/>
     <property name="shortLabel" value="Open Invoice Quantity"/>
-    <property name="forceUppercase" value="true"/>    
-    <!-- 
-    	Increased maxLength to accommodate higher precision scale of 10; 
+    <property name="forceUppercase" value="true"/>
+    <!--
+    	Increased maxLength to accommodate higher precision scale of 10;
     	Removed validation as it is not needed because this field is always calculated.
     -->
     <property name="maxLength" value="20"/>
@@ -123,7 +123,7 @@
       <bean parent="TextControlDefinition" p:size="22"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerCreditMemoDetail-invoiceOpenItemAmount" parent="CustomerCreditMemoDetail-invoiceOpenItemAmount-parentBean"/>
   <bean id="CustomerCreditMemoDetail-invoiceOpenItemAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="invoiceOpenItemAmount"/>
@@ -131,5 +131,5 @@
     <property name="shortLabel" value="Open Invoice Amount"/>
     <property name="required" value="false"/>
   </bean>
-  
+
 </beans>

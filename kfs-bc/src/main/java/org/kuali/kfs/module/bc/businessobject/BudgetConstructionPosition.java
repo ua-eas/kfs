@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -86,7 +86,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Computes the positionFullTimeEquivalency attribute.
-     * 
+     *
      * @return Returns the compute positionFullTimeEquivalency
      */
     public static BigDecimal getCalculatedBCPositionFTE(BigDecimal positionStandardHoursDefault, Integer iuNormalWorkMonths, Integer iuPayMonths) {
@@ -104,7 +104,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the positionNumber attribute.
-     * 
+     *
      * @return Returns the positionNumber
      */
     public String getPositionNumber() {
@@ -113,7 +113,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the positionNumber attribute.
-     * 
+     *
      * @param positionNumber The positionNumber to set.
      */
     public void setPositionNumber(String positionNumber) {
@@ -122,7 +122,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -131,7 +131,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -140,7 +140,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the positionEffectiveDate attribute.
-     * 
+     *
      * @return Returns the positionEffectiveDate
      */
     public Date getPositionEffectiveDate() {
@@ -149,7 +149,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the positionEffectiveDate attribute.
-     * 
+     *
      * @param positionEffectiveDate The positionEffectiveDate to set.
      */
     public void setPositionEffectiveDate(Date positionEffectiveDate) {
@@ -158,27 +158,27 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the positionEffectiveStatus attribute.
-     * 
+     *
      * @return Returns the positionEffectiveStatus.
      */
     public String getPositionEffectiveStatus() {
-        return (this.active ? BudgetConstructionPositionConstants.POSITION_EFFECTIVE_STATUS_ACTIVE : BudgetConstructionPositionConstants.POSITION_EFFECTIVE_STATUS_INACTIVE); 
+        return (this.active ? BudgetConstructionPositionConstants.POSITION_EFFECTIVE_STATUS_ACTIVE : BudgetConstructionPositionConstants.POSITION_EFFECTIVE_STATUS_INACTIVE);
 //        return positionEffectiveStatus;
     }
 
     /**
      * Sets the positionEffectiveStatus attribute value.
-     * 
+     *
      * @param positionEffectiveStatus The positionEffectiveStatus to set.
      */
     public void setPositionEffectiveStatus(String positionEffectiveStatus) {
-        
+
 //        this.positionEffectiveStatus = positionEffectiveStatus;
-        this.active = Boolean.valueOf(BudgetConstructionPositionConstants.POSITION_EFFECTIVE_STATUS_ACTIVE.indexOf(positionEffectiveStatus) >= 0); 
+        this.active = Boolean.valueOf(BudgetConstructionPositionConstants.POSITION_EFFECTIVE_STATUS_ACTIVE.indexOf(positionEffectiveStatus) >= 0);
     }
 
     /**
-     * Gets the active attribute. 
+     * Gets the active attribute.
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -195,7 +195,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the positionStatus attribute.
-     * 
+     *
      * @return Returns the positionStatus.
      */
     public String getPositionStatus() {
@@ -204,7 +204,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the positionStatus attribute value.
-     * 
+     *
      * @param positionStatus The positionStatus to set.
      */
     public void setPositionStatus(String positionStatus) {
@@ -213,7 +213,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the budgetedPosition attribute.
-     * 
+     *
      * @return Returns the budgetedPosition.
      */
     public boolean isBudgetedPosition() {
@@ -222,7 +222,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the budgetedPosition attribute value.
-     * 
+     *
      * @param budgetedPosition The budgetedPosition to set.
      */
     public void setBudgetedPosition(boolean budgetedPosition) {
@@ -231,7 +231,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the confidentialPosition attribute.
-     * 
+     *
      * @return Returns the confidentialPosition.
      */
     public boolean isConfidentialPosition() {
@@ -240,7 +240,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the confidentialPosition attribute value.
-     * 
+     *
      * @param confidentialPosition The confidentialPosition to set.
      */
     public void setConfidentialPosition(boolean confidentialPosition) {
@@ -249,7 +249,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the positionStandardHoursDefault attribute.
-     * 
+     *
      * @return Returns the positionStandardHoursDefault
      */
     public BigDecimal getPositionStandardHoursDefault() {
@@ -258,7 +258,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the positionStandardHoursDefault attribute.
-     * 
+     *
      * @param positionStandardHoursDefault The positionStandardHoursDefault to set.
      */
     public void setPositionStandardHoursDefault(BigDecimal positionStandardHoursDefault) {
@@ -267,7 +267,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the positionRegularTemporary attribute.
-     * 
+     *
      * @return Returns the positionRegularTemporary
      */
     public String getPositionRegularTemporary() {
@@ -276,7 +276,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the positionRegularTemporary attribute.
-     * 
+     *
      * @param positionRegularTemporary The positionRegularTemporary to set.
      */
     public void setPositionRegularTemporary(String positionRegularTemporary) {
@@ -285,7 +285,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the positionFullTimeEquivalency attribute.
-     * 
+     *
      * @return Returns the positionFullTimeEquivalency
      */
     public BigDecimal getPositionFullTimeEquivalency() {
@@ -294,7 +294,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the positionFullTimeEquivalency attribute.
-     * 
+     *
      * @param positionFullTimeEquivalency The positionFullTimeEquivalency to set.
      */
     public void setPositionFullTimeEquivalency(BigDecimal positionFullTimeEquivalency) {
@@ -303,7 +303,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the iuNormalWorkMonths attribute.
-     * 
+     *
      * @return Returns the iuNormalWorkMonths
      */
     public Integer getIuNormalWorkMonths() {
@@ -312,7 +312,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the iuNormalWorkMonths attribute.
-     * 
+     *
      * @param iuNormalWorkMonths The iuNormalWorkMonths to set.
      */
     public void setIuNormalWorkMonths(Integer iuNormalWorkMonths) {
@@ -321,7 +321,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the iuPayMonths attribute.
-     * 
+     *
      * @return Returns the iuPayMonths
      */
     public Integer getIuPayMonths() {
@@ -330,7 +330,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the iuPayMonths attribute.
-     * 
+     *
      * @param iuPayMonths The iuPayMonths to set.
      */
     public void setIuPayMonths(Integer iuPayMonths) {
@@ -339,7 +339,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the positionDescription attribute.
-     * 
+     *
      * @return Returns the positionDescription
      */
     public String getPositionDescription() {
@@ -348,7 +348,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the positionDescription attribute.
-     * 
+     *
      * @param positionDescription The positionDescription to set.
      */
     public void setPositionDescription(String positionDescription) {
@@ -357,7 +357,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the setidDepartment attribute.
-     * 
+     *
      * @return Returns the setidDepartment
      */
     public String getSetidDepartment() {
@@ -366,7 +366,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the setidDepartment attribute.
-     * 
+     *
      * @param setidDepartment The setidDepartment to set.
      */
     public void setSetidDepartment(String setidDepartment) {
@@ -375,7 +375,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the positionDepartmentIdentifier attribute.
-     * 
+     *
      * @return Returns the positionDepartmentIdentifier
      */
     public String getPositionDepartmentIdentifier() {
@@ -384,7 +384,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the positionDepartmentIdentifier attribute.
-     * 
+     *
      * @param positionDepartmentIdentifier The positionDepartmentIdentifier to set.
      */
     public void setPositionDepartmentIdentifier(String positionDepartmentIdentifier) {
@@ -393,7 +393,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the responsibilityCenterCode attribute.
-     * 
+     *
      * @return Returns the responsibilityCenterCode
      */
     public String getResponsibilityCenterCode() {
@@ -402,7 +402,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the responsibilityCenterCode attribute.
-     * 
+     *
      * @param responsibilityCenterCode The responsibilityCenterCode to set.
      */
     public void setResponsibilityCenterCode(String responsibilityCenterCode) {
@@ -411,7 +411,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the positionUnionCode attribute.
-     * 
+     *
      * @return Returns the positionUnionCode
      */
     public String getPositionUnionCode() {
@@ -420,7 +420,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the positionUnionCode attribute.
-     * 
+     *
      * @param positionUnionCode The positionUnionCode to set.
      */
     public void setPositionUnionCode(String positionUnionCode) {
@@ -429,7 +429,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the positionSalaryPlanDefault attribute.
-     * 
+     *
      * @return Returns the positionSalaryPlanDefault
      */
     public String getPositionSalaryPlanDefault() {
@@ -438,7 +438,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the positionSalaryPlanDefault attribute.
-     * 
+     *
      * @param positionSalaryPlanDefault The positionSalaryPlanDefault to set.
      */
     public void setPositionSalaryPlanDefault(String positionSalaryPlanDefault) {
@@ -447,7 +447,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the positionGradeDefault attribute.
-     * 
+     *
      * @return Returns the positionGradeDefault
      */
     public String getPositionGradeDefault() {
@@ -456,7 +456,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the positionGradeDefault attribute.
-     * 
+     *
      * @param positionGradeDefault The positionGradeDefault to set.
      */
     public void setPositionGradeDefault(String positionGradeDefault) {
@@ -465,7 +465,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the setidJobCode attribute.
-     * 
+     *
      * @return Returns the setidJobCode
      */
     public String getSetidJobCode() {
@@ -474,7 +474,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the setidJobCode attribute.
-     * 
+     *
      * @param setidJobCode The setidJobCode to set.
      */
     public void setSetidJobCode(String setidJobCode) {
@@ -483,7 +483,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the jobCode attribute.
-     * 
+     *
      * @return Returns the jobCode
      */
     public String getJobCode() {
@@ -492,7 +492,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the jobCode attribute.
-     * 
+     *
      * @param jobCode The jobCode to set.
      */
     public void setJobCode(String jobCode) {
@@ -501,7 +501,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the jobCodeDescription attribute.
-     * 
+     *
      * @return Returns the jobCodeDescription
      */
     public String getJobCodeDescription() {
@@ -510,7 +510,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the jobCodeDescription attribute.
-     * 
+     *
      * @param jobCodeDescription The jobCodeDescription to set.
      */
     public void setJobCodeDescription(String jobCodeDescription) {
@@ -519,7 +519,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the setidSalary attribute.
-     * 
+     *
      * @return Returns the setidSalary
      */
     public String getSetidSalary() {
@@ -528,7 +528,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the setidSalary attribute.
-     * 
+     *
      * @param setidSalary The setidSalary to set.
      */
     public void setSetidSalary(String setidSalary) {
@@ -537,7 +537,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the iuDefaultObjectCode attribute.
-     * 
+     *
      * @return Returns the iuDefaultObjectCode
      */
     public String getIuDefaultObjectCode() {
@@ -546,7 +546,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the iuDefaultObjectCode attribute.
-     * 
+     *
      * @param iuDefaultObjectCode The iuDefaultObjectCode to set.
      */
     public void setIuDefaultObjectCode(String iuDefaultObjectCode) {
@@ -555,7 +555,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the iuPositionType attribute.
-     * 
+     *
      * @return Returns the iuPositionType
      */
     public String getIuPositionType() {
@@ -564,7 +564,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the iuPositionType attribute.
-     * 
+     *
      * @param iuPositionType The iuPositionType to set.
      */
     public void setIuPositionType(String iuPositionType) {
@@ -573,7 +573,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the positionLockUserIdentifier attribute.
-     * 
+     *
      * @return Returns the positionLockUserIdentifier
      */
     public String getPositionLockUserIdentifier() {
@@ -582,7 +582,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the positionLockUserIdentifier attribute.
-     * 
+     *
      * @param positionLockUserIdentifier The positionLockUserIdentifier to set.
      */
     public void setPositionLockUserIdentifier(String positionLockUserIdentifier) {
@@ -591,7 +591,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the responsibilityCenter attribute.
-     * 
+     *
      * @return Returns the responsibilityCenter.
      */
     public ResponsibilityCenter getResponsibilityCenter() {
@@ -600,7 +600,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the responsibilityCenter attribute value.
-     * 
+     *
      * @param responsibilityCenter The responsibilityCenter to set.
      * @deprecated
      */
@@ -610,7 +610,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the positionLockUser attribute value.
-     * 
+     *
      * @return Returns the positionLockUser
      */
     public Person getPositionLockUser() {
@@ -622,7 +622,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the positionLockUser attribute.
-     * 
+     *
      * @param positionLockUser The positionLockUser to set.
      * @deprecated
      */
@@ -632,7 +632,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the universityFiscal attribute.
-     * 
+     *
      * @return Returns the universityFiscal.
      */
     public SystemOptions getUniversityFiscal() {
@@ -641,7 +641,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the universityFiscal attribute value.
-     * 
+     *
      * @param universityFiscal The universityFiscal to set.
      */
     public void setUniversityFiscal(SystemOptions universityFiscal) {
@@ -651,7 +651,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
     /**
      * @see org.kuali.rice.krad.bo.PersistableBusinessObjectBase#buildListOfDeletionAwareLists()
      */
-    
+
     public List buildListOfDeletionAwareLists() {
 
         List managedLists = super.buildListOfDeletionAwareLists();
@@ -661,7 +661,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Returns a map with the primitive field names as the key and the primitive values as the map value.
-     * 
+     *
      * @return Map
      */
     public Map getValuesMap() {
@@ -687,7 +687,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * determine whether the current budget position is effective
-     * 
+     *
      * @return true if the current budget position is effective; otherwise, false
      */
     public boolean isEffective() {
@@ -696,7 +696,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the pendingBudgetConstructionAppointmentFunding attribute.
-     * 
+     *
      * @return Returns the pendingBudgetConstructionAppointmentFunding.
      */
     public List<PendingBudgetConstructionAppointmentFunding> getPendingBudgetConstructionAppointmentFunding() {
@@ -705,7 +705,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the pendingBudgetConstructionAppointmentFunding attribute value.
-     * 
+     *
      * @param pendingBudgetConstructionAppointmentFunding The pendingBudgetConstructionAppointmentFunding to set.
      */
     @Deprecated
@@ -715,7 +715,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Gets the budgetConstructionPositionSelect attribute.
-     * 
+     *
      * @return Returns the budgetConstructionPositionSelect.
      */
     public List<BudgetConstructionPositionSelect> getBudgetConstructionPositionSelect() {
@@ -724,7 +724,7 @@ public class BudgetConstructionPosition extends PersistableBusinessObjectBase im
 
     /**
      * Sets the budgetConstructionPositionSelect attribute value.
-     * 
+     *
      * @param budgetConstructionPositionSelect The budgetConstructionPositionSelect to set.
      */
     @Deprecated

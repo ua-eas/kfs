@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,7 +53,7 @@ public enum RequisitionItemFixture {
             PurApItemFixture.APO_FREIGHT_ITEM_1, // purApItemFixture
             new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.APO_REQ_ACCOUNT_4 } // requisitionAccountMultiFixtures
     ),
-    
+
     REQ_MULTI_ITEM_QUANTITY(false, // itemRestrictedIndicator
             PurApItemFixture.REQ_MULTI_ITEM_QUANTITY, // purApItemFixture
             new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.REQ_ACCOUNT_MULTI_QUANTITY } // requisitionAccountMultiFixtures
@@ -77,7 +77,7 @@ public enum RequisitionItemFixture {
     REQ_ITEM_NO_APO_TOTAL_NOT_GREATER_THAN_ZERO(false, // itemRestrictedIndicator
             PurApItemFixture.BASIC_QTY_ITEM_NO_APO_TOTAL_NOT_GREATER_THAN_ZERO, // purApItemFixture
             new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
-    ), 
+    ),
     REQ_ITEM_NO_APO_RESTRICTED_ITEM (
             true,                              // itemRestrictedIndicator
             PurApItemFixture.APO_QTY_ITEM_1,  // purApItemFixture
@@ -133,7 +133,7 @@ public enum RequisitionItemFixture {
             PurApItemFixture.BASIC_QTY_ITEM_NO_APO, // purApItemFixture
             new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 }, // requisitionAccountMultiFixtures
             CommodityCodeFixture.COMMODITY_CODE_NON_EXISTENCE  //commodityCodeFixture
-    ),    
+    ),
     REQ_ITEM_APO_BASIC_INACTIVE_COMMODITY_CODE(false, // itemRestrictedIndicator
             PurApItemFixture.APO_QTY_ITEM_1, // purApItemFixture
             new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 }, // requisitionAccountMultiFixtures
@@ -150,19 +150,19 @@ public enum RequisitionItemFixture {
     ),
     REQ_ITEM_VALID_CAPITAL_ASSET(false, // itemRestrictedIndicator
             PurApItemFixture.APO_QTY_ITEM_1, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { 
+            new RequisitionAccountingLineFixture[] {
                 RequisitionAccountingLineFixture.APO_ACCOUNT_VALID_CAPITAL_ASSET_OBJECT_CODE } // requisitionAccountMultiFixtures
     ),
     REQ_ITEM_INVALID_CAPITAL_ASSET(false, // itemRestrictedIndicator
             PurApItemFixture.APO_QTY_ITEM_1, // purApItemFixture
-            new RequisitionAccountingLineFixture[] { 
+            new RequisitionAccountingLineFixture[] {
                 RequisitionAccountingLineFixture.APO_ACCOUNT_VALID_CAPITAL_ASSET_OBJECT_CODE_50_PERCENT,
                 RequisitionAccountingLineFixture.APO_ACCOUNT_VALID_EXPENSE_OBJECT_CODE_50_PERCENT } // requisitionAccountMultiFixtures
-    ),   
+    ),
     REQ_QTY_B2B_ITEM_1(false, // itemRestrictedIndicator
             PurApItemFixture.BASIC_B2B_QTY_ITEM_1, // purApItemFixture
             new RequisitionAccountingLineFixture[] { RequisitionAccountingLineFixture.BASIC_REQ_ACCOUNT_1 } // requisitionAccountMultiFixtures
-    ),    
+    ),
     ;
 
     private boolean itemRestrictedIndicator;
@@ -176,7 +176,7 @@ public enum RequisitionItemFixture {
         this.purApItemFixture = purApItemFixture;
         this.requisitionAccountingLineFixtures = requisitionAccountingLineFixtures;
     }
-    
+
     private RequisitionItemFixture(boolean itemRestrictedIndicator, PurApItemFixture purApItemFixture, RequisitionAccountingLineFixture[] requisitionAccountingLineFixtures, CommodityCodeFixture commodityCodeFixture) {
         this.itemRestrictedIndicator = itemRestrictedIndicator;
         this.purApItemFixture = purApItemFixture;
@@ -227,7 +227,7 @@ public enum RequisitionItemFixture {
         }
         return item;
     }
-    
+
     /**
      * @return
      */
@@ -235,8 +235,8 @@ public enum RequisitionItemFixture {
     // return createRequisitionItem(defaultItemFixture);
     // }
     //
-    //    
-    //    
+    //
+    //
     // /**
     // *
     // * This method adds an item to a document
@@ -250,6 +250,6 @@ public enum RequisitionItemFixture {
     // RequisitionItem item = (RequisitionItem)this.createRequisitionItem(purApItemFixture);
     // document.addItem(item);
     // return item;
-    //        
+    //
     // }
 }

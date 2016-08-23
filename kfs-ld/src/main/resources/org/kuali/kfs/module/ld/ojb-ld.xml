@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -25,7 +25,7 @@
 	<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
 	<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
    	<field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-   		
+
 	<reference-descriptor name="financialObject" class-ref="org.kuali.kfs.coa.businessobject.ObjectCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
 		<foreignkey field-ref="universityFiscalYear" />
 		<foreignkey field-ref="chartOfAccountsCode" />
@@ -135,7 +135,7 @@
 		</reference-descriptor>
 
 	</class-descriptor>
-	
+
 	<class-descriptor
 		class="org.kuali.kfs.module.ld.businessobject.LaborBenefitRateCategory"
 		table="LD_LBR_BFT_RT_CAT_T">
@@ -459,12 +459,12 @@
 			<foreignkey field-ref="financialBalanceTypeCode" />
 		</reference-descriptor>
 
-		<!-- This should be unnecessary for Labor <reference-descriptor name="financialBalance" 
-			class-ref="org.kuali.kfs.gl.businessobject.Balance" auto-retrieve="true" 
-			auto-update="none" auto-delete="none" proxy="true" > <foreignkey field-ref="universityFiscalYear" 
-			/> <foreignkey field-ref="chartOfAccountsCode" /> <foreignkey field-ref="accountNumber" 
-			/> <foreignkey field-ref="subAccountNumber" /> <foreignkey field-ref="financialObjectCode" 
-			/> <foreignkey field-ref="financialSubObjectCode" /> <foreignkey field-ref="financialBalanceTypeCode" 
+		<!-- This should be unnecessary for Labor <reference-descriptor name="financialBalance"
+			class-ref="org.kuali.kfs.gl.businessobject.Balance" auto-retrieve="true"
+			auto-update="none" auto-delete="none" proxy="true" > <foreignkey field-ref="universityFiscalYear"
+			/> <foreignkey field-ref="chartOfAccountsCode" /> <foreignkey field-ref="accountNumber"
+			/> <foreignkey field-ref="subAccountNumber" /> <foreignkey field-ref="financialObjectCode"
+			/> <foreignkey field-ref="financialSubObjectCode" /> <foreignkey field-ref="financialBalanceTypeCode"
 			/> <foreignkey field-ref="financialObjectTypeCode" /> </reference-descriptor> -->
 		<reference-descriptor name="option"
 			class-ref="org.kuali.kfs.sys.businessobject.SystemOptions"
@@ -555,7 +555,7 @@
 	<field-descriptor name="financialObjectFringeOrSalaryCode" column="FINOBJ_FRNGSLRY_CD" jdbc-type="VARCHAR"/>
 	<field-descriptor name="positionObjectGroupCode" column="POS_OBJ_GRP_CD" jdbc-type="VARCHAR"/>
    	<field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-   		
+
 	<reference-descriptor name="financialObject" class-ref="org.kuali.kfs.coa.businessobject.ObjectCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
 		<foreignkey field-ref="universityFiscalYear" />
 		<foreignkey field-ref="chartOfAccountsCode" />
@@ -567,7 +567,7 @@
 	<reference-descriptor name="positionObjectGroup" class-ref="org.kuali.kfs.module.ld.businessobject.PositionObjectGroup" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
 		<foreignkey field-ref="positionObjectGroupCode" />
 	</reference-descriptor>
-	
+
 	<reference-descriptor name="option" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="universityFiscalYear" />
     </reference-descriptor>
@@ -826,12 +826,12 @@
 			<foreignkey field-ref="postingYear" />
 			<foreignkey field-ref="postingPeriodCode" />
 		</reference-descriptor>
-		
+
 		<reference-descriptor name="errorCertification"
 			class-ref="org.kuali.kfs.module.ld.businessobject.ErrorCertification"
 			auto-retrieve="true" auto-update="object" auto-delete="object">
 			<foreignkey field-ref="documentNumber" />
-		</reference-descriptor>		
+		</reference-descriptor>
 
 		<collection-descriptor name="sourceAccountingLines"
 			proxy="true"
@@ -1032,7 +1032,7 @@
 	</class-descriptor>
 
 	<class-descriptor class="org.kuali.kfs.module.ld.businessobject.ErrorCertification" table="LD_ERROR_CERT_T">
-		<field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true" index="true"/>   
+		<field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true" index="true"/>
     	<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
     	<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
 		<field-descriptor name="expenditureDescription" column="EXPND_DESC" jdbc-type="VARCHAR" />
@@ -1924,8 +1924,8 @@
 			column="GL_COR_OUT_FL_NM" jdbc-type="VARCHAR" />
 		<field-descriptor name="correctionScriptText" column="GL_COR_SCR_TXT"
 			jdbc-type="CLOB" />
-		<!-- <field-descriptor name="correctionInputGroupId" column="GL_COR_INP_GRP_ID" 
-			jdbc-type="INTEGER" /> <field-descriptor name="correctionOutputGroupId" column="GL_COR_OUT_GRP_ID" 
+		<!-- <field-descriptor name="correctionInputGroupId" column="GL_COR_INP_GRP_ID"
+			jdbc-type="INTEGER" /> <field-descriptor name="correctionOutputGroupId" column="GL_COR_OUT_GRP_ID"
 			jdbc-type="INTEGER" /> -->
 		<field-descriptor name="correctionBudgetTotalAmount"
 			column="GL_COR_BDGT_TOT_AMT" jdbc-type="DECIMAL"
@@ -1986,7 +1986,7 @@
 			jdbc-type="VARCHAR" />
 	</class-descriptor>
 
-	<!-- make AccountStatusBaseFunds point to GL Balance table here in order 
+	<!-- make AccountStatusBaseFunds point to GL Balance table here in order
 		to avoid the naming inconsistency and bundling labor object with GL -->
 	<class-descriptor
 		class="org.kuali.kfs.module.ld.businessobject.AccountStatusBaseFunds"

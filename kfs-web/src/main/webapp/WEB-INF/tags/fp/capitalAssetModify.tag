@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -21,12 +21,12 @@
 
 <%@ tag description="render the given field in the capital asset info object"%>
 
-<%@ attribute name="readOnly" required="false" description="Whether the capital asset information should be read only" %>	
+<%@ attribute name="readOnly" required="false" description="Whether the capital asset information should be read only" %>
 
 <script language="JavaScript" type="text/javascript" src="dwr/interface/VendorService.js"></script>
 <script language="JavaScript" type="text/javascript" src="scripts/vnd/objectInfo.js"></script>
-	
-<c:set var="attributes" value="${DataDictionary.CapitalAssetInformation.attributes}" />	
+
+<c:set var="attributes" value="${DataDictionary.CapitalAssetInformation.attributes}" />
 <c:set var="dataCellCssClass" value="datacell" />
 <c:set var="capitalAssetInfoName" value="document.capitalAssetInformation" />
 <c:set var="amountReadOnly" value="${readOnly or KualiForm.distributeEqualAmount}" />
@@ -45,7 +45,7 @@
 	   	<c:if test="${KualiForm.createdAssetsControlAmount == 0.00}" >
 	   		<c:set var="totalColumnSpan" value="3"/>
 	   	</c:if>
-	   	
+
 	   	<td colspan="${totalColumnSpan}" class="tab-subhead">
 	   		System Control Remainder Amount: <c:out value="${KualiForm.createdAssetsControlAmount}" />
 	   	</td>
@@ -61,7 +61,7 @@
 	   		<td colspan="1" class="tab-subhead">
 	   			<div class="right">
 	   				Lookup/Add Multiple Capital Asset Lines <kul:multipleValueLookup boClassName="org.kuali.kfs.integration.cam.CapitalAssetManagementAsset" lookedUpCollectionName="capitalAssetManagementAssets" />
-				</div>	   			
+				</div>
 	   		</td>
 	   	</c:if>
 	</tr>
@@ -94,8 +94,8 @@
 		     		<div align="center" valign="middle">
 			     		<table class="datatable" style="border-top: 1px solid #c3c3c3; width: 60%;" cellpadding="0" cellspacing="0" summary="Asset for Accounting Lines">
 						   <tr>
-								<kul:htmlAttributeHeaderCell literalLabel=""/>	   
-						   	    <kul:htmlAttributeHeaderCell attributeEntry="${attributes.capitalAssetNumber}" labelFor="${capitalAssetInfoName}.capitalAssetNumber"/> 
+								<kul:htmlAttributeHeaderCell literalLabel=""/>
+						   	    <kul:htmlAttributeHeaderCell attributeEntry="${attributes.capitalAssetNumber}" labelFor="${capitalAssetInfoName}.capitalAssetNumber"/>
 								<kul:htmlAttributeHeaderCell attributeEntry="${attributes.distributionAmountCode}" labelFor="${capitalAssetInfoName}.distributionAmountCode"/>
 								<kul:htmlAttributeHeaderCell attributeEntry="${attributes.capitalAssetLineAmount}" labelFor="${capitalAssetInfoName}.capitalAssetLineAmount"/>
 								<c:if test="${!readOnly}">
@@ -113,16 +113,16 @@
 									lookupOrInquiryKeys="capitalAssetNumber"
 									businessObjectValuesMap="${capitalAssetInfo.valuesMap}"/></td>
 
-								<td>	
+								<td>
 									<div><c:out value="${distributionAmountDescription}"/></div>
-								</td>	
-									
+								</td>
+
 								<fp:dataCell dataCellCssClass="${dataCellCssClass}" dataFieldCssClass="amount"
 									businessObjectFormName="${capitalAssetInfoName}[${status.index}]" attributes="${attributes}" readOnly="${amountReadOnly}"
 									field="capitalAssetLineAmount" lookup="false" inquiry="false" /></td>
-									
+
 								<c:if test="${!readOnly}">
-									<td class="infoline"> 
+									<td class="infoline">
                                         <html:submit
                                                 property="methodToCall.refreshCapitalAssetModify.line${status.index}.Anchor"
                                                 title="Refresh Modify capital Asset Information"
@@ -142,12 +142,12 @@
                                                 styleClass="btn btn-default"
                                                 value="Clear"/>
 									</td>
-								</c:if>		
+								</c:if>
 						   </tr>
 						</table>
 					</div>
 		   		</td>
 			</tr>
 		</c:if>
-	</c:forEach>	
+	</c:forEach>
 </table>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -151,7 +151,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
                 AnchorHtmlData anchorHtmlData = new AnchorHtmlData(url, PdpConstants.ActionMethods.CONFIRM_CANCEL_ACTION, linkText);
                 anchorHtmlDataList.add(anchorHtmlData);
             }
-            
+
             if ( pdpAuthorizationService.hasHoldPaymentPermission(person.getPrincipalId())) {
 
                 if (batchMaintenanceService.doBatchPaymentsHaveHeldStatus(batchId)) {
@@ -231,7 +231,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
 
     /**
      * This method gets the kualiConfigurationService.
-     * 
+     *
      * @return the configurationService
      */
     public ConfigurationService getConfigurationService() {
@@ -240,7 +240,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
 
     /**
      * This method sets the configurationService.
-     * 
+     *
      * @param configurationService ConfigurationService
      */
     public void setConfigurationService(ConfigurationService configurationService) {
@@ -249,7 +249,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
 
     /**
      * This method gets the batchMaintenanceService.
-     * 
+     *
      * @return the batchMaintenanceService
      */
     public BatchMaintenanceService getBatchMaintenanceService() {
@@ -258,7 +258,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
 
     /**
      * This method sets the batchMaintenanceService.
-     * 
+     *
      * @param batchMaintenanceService BatchMaintenanceService
      */
     public void setBatchMaintenanceService(BatchMaintenanceService batchMaintenanceService) {
@@ -267,7 +267,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
 
     /**
      * This method gets the lookupDao.
-     * 
+     *
      * @return the lookupDao
      */
     public LookupDao getLookupDao() {
@@ -276,7 +276,7 @@ public class BatchLookupableHelperService extends KualiLookupableHelperServiceIm
 
     /**
      * This method sets lookupDao.
-     * 
+     *
      * @param lookupDao LookupDao
      */
     public void setLookupDao(LookupDao lookupDao) {

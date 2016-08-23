@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -50,7 +50,7 @@ import org.kuali.kfs.krad.util.UrlFactory;
 public class AccountInquirable extends KualiInquirableImpl {
 
 	private ParameterService parameterService;
-	
+
     /**
      * @see org.kuali.kfs.kns.inquiry.KualiInquirableImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject,
      *      java.lang.String, boolean)
@@ -81,7 +81,7 @@ public class AccountInquirable extends KualiInquirableImpl {
 
         return super.getInquiryUrl(businessObject, attributeName, forceInquiry);
     }
-    
+
     @Override
     @Deprecated
     public List<Section> getSections(BusinessObject arg0) {
@@ -97,17 +97,17 @@ public class AccountInquirable extends KualiInquirableImpl {
 			    row.setFields(updatedFields);
 		    }
 	    }
-		
+
 	    return sections;
     }
-    
+
     protected boolean shouldIncludeField(Field field) {
     	boolean includeField = true;
         if (field.getPropertyName().equalsIgnoreCase(KFSPropertyConstants.SOURCE_OF_FUNDS_TYPE_CODE)) {
-        
+
             if (getParameterService().parameterExists(Account.class,  KFSParameterKeyConstants.CoaParameterConstants.DISPLAY_SOURCE_OF_FUNDS_IND)) {
         	    String sourceOfFundsParmValue = getParameterService().getParameterValueAsString(Account.class, KFSParameterKeyConstants.CoaParameterConstants.DISPLAY_SOURCE_OF_FUNDS_IND);
-    			
+
             	if (sourceOfFundsParmValue.equalsIgnoreCase(KFSConstants.ParameterValues.YES)) {
             	    includeField = true;
     			} else {
@@ -115,11 +115,11 @@ public class AccountInquirable extends KualiInquirableImpl {
     			}
         	} else {
         		includeField = false;
-        	}       	
+        	}
         }
         return includeField;
     }
-    
+
     public ParameterService getParameterService() {
         if(parameterService == null){
             parameterService = SpringContext.getBean(ParameterService.class);

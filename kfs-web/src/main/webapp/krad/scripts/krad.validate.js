@@ -1,17 +1,20 @@
 /*
- * Copyright 2005-2015 The Kuali Foundation
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Licensed under the Educational Community License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Copyright 2005-2016 The Kuali Foundation
  *
- * http://www.opensource.org/licenses/ecl2.php
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
  * Runs the validation script if the validator is already setup, otherwise adds a handler
@@ -45,10 +48,10 @@ function dependsOnCheck(element, nameArray){
     name = escapeName(name);
 	jq("[name='"+ name + "']").trigger("checkReq");
 	nameArray.push(name);
-	
+
 
 	jq(".dependsOn-" + name).each(function(){
-		
+
 		var elementName;
 		if(jq(this).is("option")){
 			elementName = jq(this).parent().attr('name');
@@ -57,7 +60,7 @@ function dependsOnCheck(element, nameArray){
 			elementName = jq(this).attr('name');
 		}
 		elementName = escapeName(elementName);
-		
+
 		if (jq(this).hasClass("valid") || jq(this).hasClass("error")) {
 			jq.watermark.hide(this);
 			var valid = jq(this).valid();
@@ -102,7 +105,7 @@ function setupShowReqIndicatorCheck(controlName, requiredName, booleanFunction){
 		jq("[name='"+ escapeName(controlName) + "']").change(function(){
 			checkForRequiredness(controlName, requiredName, booleanFunction, indicator);
 		});
-		
+
 		jq("[name='"+ escapeName(controlName) + "']").bind("checkReq", function(){
 			checkForRequiredness(controlName, requiredName, booleanFunction, indicator);
 		});

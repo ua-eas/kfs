@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -35,11 +35,11 @@
 	<c:if test="${KualiForm.document.invoiceResearchIndicator}">
 		NOTE: This reject document is currently being researched. See the notes below for more detail. The document will not be allowed to be routed until the research is complete.<br /><br />
 	</c:if>
-			
+
 	<sys:documentOverview editingMode="${KualiForm.editingMode}"
 		includePostingYear="false" >
     </sys:documentOverview>
-	
+
 	<kul:tab tabTitle="Comparison Data" defaultOpen="TRUE" tabErrorKey="${PurapConstants.REJECT_DOCUMENT_TAB_ERRORS}">
 	    <div class="tab-container">
 			<c:if test="${fn:length(KualiForm.document.invoiceRejectReasons)>0}" >
@@ -54,7 +54,7 @@
 	            <tr>
 	                <td colspan="4" class="subhead">Electronic Invoice Data</td>
 	            </tr>
-	
+
 	            <tr>
 	                <th align="right" valign="middle" class="bord-l-b" width="25%">
 	                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorDunsNumber}" /></div>
@@ -63,7 +63,7 @@
 	                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorDunsNumber}" property="document.vendorDunsNumber" readOnly="${not fullEntryMode}" />
 	                </td>
 	            </tr>
-	
+
 	            <tr>
 	                <th align="right" valign="middle" class="bord-l-b">
 	                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${vendorAttributes.vendorName}" /></div>
@@ -80,7 +80,7 @@
 	                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceNumberAcceptIndicator}" noColon="true" />
 					</td>
 	            </tr>
-	
+
 	            <tr>
 	                <th align="right" valign="middle" class="bord-l-b">
 	                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoicePurchaseOrderNumber}" /></div>
@@ -114,9 +114,9 @@
 					            <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.invoiceItemUnitOfMeasureCode}"/>
 								<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.invoiceItemCatalogNumber}" />
 								<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.invoiceReferenceItemDescription}" />
-								<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.invoiceItemUnitPrice}" />				
-								<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.invoiceItemSubTotalAmount}" />				
-								<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.invoiceItemTaxAmount}" />				
+								<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.invoiceItemUnitPrice}" />
+								<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.invoiceItemSubTotalAmount}" />
+								<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.invoiceItemTaxAmount}" />
 		    					<c:if test="${KualiForm.document.invoiceFileSpecialHandlingInLineIndicator || KualiForm.document.invoiceFileShippingInLineIndicator || KualiForm.document.invoiceFileDiscountInLineIndicator}">
 									<th>Inline Item Values</th>
 		    					</c:if>
@@ -238,7 +238,7 @@
 								    <kul:htmlControlAttribute
 									    attributeEntry="${documentAttributes.invoiceItemTaxAmount}"
 									    property="document.invoiceItemTaxAmount"
-									    readOnly="${not fullEntryMode || KualiForm.document.invoiceFileTaxInLineIndicator}" />									    
+									    readOnly="${not fullEntryMode || KualiForm.document.invoiceFileTaxInLineIndicator}" />
 								</td>
 							</tr>
 							<tr>
@@ -306,7 +306,7 @@
 	                    <kul:htmlControlAttribute attributeEntry="${vendorAttributes.vendorDunsNumber}" property="document.vendorDetail.vendorDunsNumber" readOnly="true" />
 	                </td>
 	            </tr>
-	
+
 	            <tr>
 	                <th align="right" valign="middle" class="bord-l-b">
 	                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${vendorAttributes.vendorName}" /></div>
@@ -350,7 +350,7 @@
 								<kul:htmlAttributeHeaderCell attributeEntry="${purapItemAttributes.itemUnitPrice}" />
 								<kul:htmlAttributeHeaderCell attributeEntry="${purapItemAttributes.extendedPrice}" />
 								<kul:htmlAttributeHeaderCell attributeEntry="${purapItemAttributes.itemTaxAmount}"/>
-								<kul:htmlAttributeHeaderCell attributeEntry="${purapItemAttributes.totalAmount}"/>				
+								<kul:htmlAttributeHeaderCell attributeEntry="${purapItemAttributes.totalAmount}"/>
 							</tr>
 
 							<logic:iterate indexId="ctr" name="KualiForm" property="document.currentPurchaseOrderDocument.items" id="itemLine">
@@ -397,7 +397,7 @@
 										    attributeEntry="${purapItemAttributes.extendedPrice}"
 										    property="document.currentPurchaseOrderDocument.items[${ctr}].extendedPrice"
 										    readOnly="true" />
-									</td>									
+									</td>
 									<td class="datacell">
 									    <kul:htmlControlAttribute
 										    attributeEntry="${purapItemAttributes.itemTaxAmount}"
@@ -429,13 +429,13 @@
 										</td>
 										<td>
 										    <kul:htmlControlAttribute attributeEntry="${purapItemAttributes.extendedPrice}" property="document.currentPurchaseOrderDocument.item[${ctr}].extendedPrice" readOnly="${true}" styleClass="amount" />
-										</td>										
+										</td>
 										<td>
 										    <kul:htmlControlAttribute attributeEntry="${purapItemAttributes.itemTaxAmount}" property="document.currentPurchaseOrderDocument.item[${ctr}].itemTaxAmount" readOnly="${true}" styleClass="amount" />
 										</td>
 										<td>
 										    <kul:htmlControlAttribute attributeEntry="${purapItemAttributes.totalAmount}" property="document.currentPurchaseOrderDocument.item[${ctr}].totalAmount" readOnly="${true}" styleClass="amount" />
-										</td>										
+										</td>
 									</tr>
 								</c:if>
 							</logic:iterate>
@@ -464,7 +464,7 @@
 				                        property="document.currentPurchaseOrderDocument.totalTaxAmount"
 				                        readOnly="true" />
 								</td>
-							</tr>							
+							</tr>
 							<tr>
 								<th align="right" colspan="8">
 							        <kul:htmlAttributeLabel attributeEntry="${DataDictionary.RequisitionDocument.attributes.totalDollarAmount}" />
@@ -481,13 +481,13 @@
 				</c:otherwise>
 				</c:choose>
 	        </table>
-	
+
 	    </div>
 	</kul:tab>
-	
-	
+
+
 	<kul:tab tabTitle="Addresses" defaultOpen="TRUE" tabErrorKey="">
-	    <div class="tab-container" align="center">			
+	    <div class="tab-container" align="center">
 	        <table cellpadding="0" cellspacing="0" class="datatable" summary="Vendor Section">
 	            <tr>
 	                <td colspan="4" class="subhead">Electronic Invoice Data</td>
@@ -592,7 +592,7 @@
 	                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.invoiceBillToAddressCountryName}" property="document.invoiceBillToAddressCountryName" readOnly="true" />
 	                </td>
 	            </tr>
-	
+
 	            <tr>
 	                <td colspan="4" class="subhead">Purchase Order Data</td>
 	            </tr>
@@ -698,9 +698,9 @@
 	</kul:tab>
 
     <purap:relatedDocuments documentAttributes="${DataDictionary.RelatedDocuments.attributes}" />
-    
+
     <purap:paymentHistory documentAttributes="${DataDictionary.RelatedDocuments.attributes}" />
-	            
+
 	<kul:notes />
 
 	<kul:adHocRecipients />

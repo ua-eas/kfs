@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -114,7 +114,7 @@ public final class FieldUtils {
     private static BusinessObjectMetaDataService businessObjectMetaDataService = null;
     private static BusinessObjectDictionaryService businessObjectDictionaryService = null;
     private static KualiModuleService kualiModuleService = null;
-    
+
 	private FieldUtils() {
 		throw new UnsupportedOperationException("do not call");
 	}
@@ -359,13 +359,13 @@ public final class FieldUtils {
     public static Field getPropertyField(Class businessObjectClass, String attributeName, boolean convertForLookup) {
         Field field = new Field();
         field.setPropertyName(attributeName);
-        
+
         //hack to get correct BO impl in case of ebos....
         if (ExternalizableBusinessObjectUtils.isExternalizableBusinessObject(businessObjectClass)) {
             ModuleService moduleService = getKualiModuleService().getResponsibleModuleService(businessObjectClass);
             businessObjectClass = moduleService.getExternalizableBusinessObjectDictionaryEntry(businessObjectClass).getDataObjectClass();
         }
-        
+
         field.setFieldLabel(getDataDictionaryService().getAttributeLabel(businessObjectClass, attributeName));
 		field.setFieldShortLabel(getDataDictionaryService().getAttributeShortLabel(businessObjectClass, attributeName));
 
@@ -392,7 +392,7 @@ public final class FieldUtils {
         if (upperCase != null) {
             field.setUpperCase(upperCase.booleanValue());
         }
-        
+
 		if (!businessObjectClass.isInterface()) {
 			try {
 				field.setFormatter(
@@ -418,12 +418,12 @@ public final class FieldUtils {
 	 * For attributes that are codes (determined by whether they have a
 	 * reference to a KualiCode bo and similar naming) sets the name as an
 	 * additional display property
-	 * 
+	 *
 	 * @param businessObjectClass -
 	 *            class containing attribute
-	 * @param attributeName - 
+	 * @param attributeName -
 	 *            name of attribute in the business object
-	 * @param field - 
+	 * @param field -
 	 *            property display element
 	 */
 	public static void setAdditionalDisplayPropertyForCodes(Class businessObjectClass, String attributeName, PropertyRenderingConfigElement field) {
@@ -599,7 +599,7 @@ public final class FieldUtils {
         if (bo instanceof PersistableBusinessObject) {
         	((PersistableBusinessObject) bo).refreshNonUpdateableReferences();
         }
-        
+
         for (Iterator<Field> iter = fields.iterator(); iter.hasNext();) {
             Field element = iter.next();
             if (element.containsBOData()) {
@@ -614,7 +614,7 @@ public final class FieldUtils {
                 else if (isPropertyReadable(bo, propertyName)) {
                 	populateReadableField(element, bo);
                 }
-                
+
     			if (StringUtils.isNotBlank(element.getAlternateDisplayPropertyName())) {
     				String alternatePropertyValue = ObjectUtils.getFormattedPropertyValueUsingDataDictionary(bo, element
     						.getAlternateDisplayPropertyName());
@@ -632,7 +632,7 @@ public final class FieldUtils {
 
         return populatedFields;
     }
-    
+
     private static boolean isPropertyReadable(Object bean, String name) {
         try {
             return PropertyUtils.isReadable(bean, name);
@@ -664,7 +664,7 @@ public final class FieldUtils {
         if (obj != null) {
 			String formattedValue = ObjectUtils.getFormattedPropertyValueUsingDataDictionary(businessObject, field.getPropertyName());
 			field.setPropertyValue(formattedValue);
-        	
+
             // for user fields, attempt to pull the principal ID and person's name from the source object
             if ( field.getFieldType().equals(Field.KUALIUSER) ) {
             	// this is supplemental, so catch and log any errors
@@ -686,7 +686,7 @@ public final class FieldUtils {
             	}
             }
         }
-        
+
         populateSecureField(field, obj);
     }
 
@@ -1372,13 +1372,13 @@ public final class FieldUtils {
 			if ((isHiddenMap.containsKey(field.getPropertyName()) && isHiddenMap.get(field.getPropertyName()).booleanValue())) {
 				field.setFieldType(Field.HIDDEN);
 			}
-            
+
             boolean triggerOnChange = getBusinessObjectDictionaryService().isLookupFieldTriggerOnChange(businessObjectClass, attributeName);
             field.setTriggerOnChange(triggerOnChange);
 
             field.setFieldLevelHelpEnabled(isLookupFieldLevelHelpEnabled(businessObjectClass, attributeName));
             field.setFieldLevelHelpDisabled(isLookupFieldLevelHelpDisabled(businessObjectClass, attributeName));
-            
+
             fields.add(field);
         }
         return fields;

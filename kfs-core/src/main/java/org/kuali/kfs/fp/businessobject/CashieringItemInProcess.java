@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,7 +26,7 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * This class represents in a cashiering item in process. This cashiering item in process
- *  has an item amount, reduced amount, and remaining amount.  It also has a closed and open date.  
+ *  has an item amount, reduced amount, and remaining amount.  It also has a closed and open date.
  */
 public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
@@ -48,7 +48,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Gets the campusCode attribute.
-     * 
+     *
      * @return Returns the campusCode
      */
     public String getCampusCode() {
@@ -57,7 +57,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Sets the campusCode attribute.
-     * 
+     *
      * @param campusCode The campusCode to set.
      */
     public void setCampusCode(String campusCode) {
@@ -67,7 +67,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Gets the itemIdentifier attribute.
-     * 
+     *
      * @return Returns the itemIdentifier
      */
     public Integer getItemIdentifier() {
@@ -76,7 +76,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Sets the itemIdentifier attribute.
-     * 
+     *
      * @param itemIdentifier The itemIdentifier to set.
      */
     public void setItemIdentifier(Integer itemIdentifier) {
@@ -86,7 +86,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Gets the itemAmount attribute.
-     * 
+     *
      * @return Returns the itemAmount
      */
     public KualiDecimal getItemAmount() {
@@ -95,7 +95,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Sets the itemAmount attribute.
-     * 
+     *
      * @param itemAmount The itemAmount to set.
      */
     public void setItemAmount(KualiDecimal itemAmount) {
@@ -105,7 +105,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Gets the itemReducedAmount attribute.
-     * 
+     *
      * @return Returns the itemReducedAmount
      */
     public KualiDecimal getItemReducedAmount() {
@@ -114,7 +114,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Sets the itemReducedAmount attribute.
-     * 
+     *
      * @param itemReducedAmount The itemReducedAmount to set.
      */
     public void setItemReducedAmount(KualiDecimal itemReducedAmount) {
@@ -124,7 +124,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Gets the itemRemainingAmount attribute.
-     * 
+     *
      * @return Returns the itemRemainingAmount
      */
     public KualiDecimal getItemRemainingAmount() {
@@ -133,7 +133,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Sets the itemRemainingAmount attribute.
-     * 
+     *
      * @param itemRemainingAmount The itemRemainingAmount to set.
      */
     public void setItemRemainingAmount(KualiDecimal itemTotalAmount) {
@@ -143,7 +143,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Gets the itemOpenDate attribute.
-     * 
+     *
      * @return Returns the itemOpenDate
      */
     public Date getItemOpenDate() {
@@ -152,7 +152,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Sets the itemOpenDate attribute.
-     * 
+     *
      * @param itemOpenDate The itemOpenDate to set.
      */
     public void setItemOpenDate(Date itemOpenDate) {
@@ -162,7 +162,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Gets the itemClosedDate attribute.
-     * 
+     *
      * @return Returns the itemClosedDate
      */
     public Date getItemClosedDate() {
@@ -171,7 +171,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Sets the itemClosedDate attribute.
-     * 
+     *
      * @param itemClosedDate The itemClosedDate to set.
      */
     public void setItemClosedDate(Date itemClosedDate) {
@@ -181,7 +181,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Gets the itemDescription attribute.
-     * 
+     *
      * @return Returns the itemDescription
      */
     public String getItemDescription() {
@@ -190,7 +190,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Sets the itemDescription attribute.
-     * 
+     *
      * @param itemDescription The itemDescription to set.
      */
     public void setItemDescription(String itemDescription) {
@@ -199,7 +199,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Gets the currentPayment attribute.
-     * 
+     *
      * @return Returns the currentPayment.
      */
     public KualiDecimal getCurrentPayment() {
@@ -208,7 +208,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
 
     /**
      * Sets the currentPayment attribute value.
-     * 
+     *
      * @param currentPayment The currentPayment to set.
      */
     public void setCurrentPayment(KualiDecimal currentPayment) {
@@ -230,7 +230,7 @@ public class CashieringItemInProcess extends PersistableBusinessObjectBase {
     /**
      * This method determines if this cashiering item in process was likely filled in by someone Since campusCode is likely
      * automatically populated, it doesn't count
-     * 
+     *
      * @return if this item in process is populated
      */
     public boolean isPopulated() {

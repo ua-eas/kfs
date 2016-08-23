@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,7 +39,7 @@ import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
 @Deprecated
 public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase implements ControlDefinition {
     private static final long serialVersionUID = 4372435175782501152L;
-    
+
 	protected boolean datePicker;
 	protected boolean expandedTextArea;
     protected String script;
@@ -65,20 +65,20 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
 
     /** Whether this control should have a date picker button next to the field.
      *  Valid for text fields.
-     *  
+     *
      * @see ControlDefinition#setDatePicker(boolean)
      */
     public void setDatePicker(boolean datePicker) {
         this.datePicker=datePicker;
     }
-    
+
     public boolean isExpandedTextArea() {
         return expandedTextArea;
     }
 
     /** Whether this control should have a expanded text area button next to the field.
      *  Valid for textarea fields.
-     *  
+     *
      * @see ControlDefinition#setExpandedTextArea(boolean)
      */
     public void setExpandedTextArea(boolean eTextArea) {
@@ -112,7 +112,7 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
     public boolean isSelect() {
         return false;
     }
-    
+
     /**
      * @see ControlDefinition#isSelect()
      */
@@ -176,21 +176,21 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
     public boolean isLookupReadonly() {
         return false;
     }
-    
+
     /**
      * @see ControlDefinition#isButton()
      */
     public boolean isButton() {
         return false;
     }
-    
+
     /**
      * @see ControlDefinition#isLink()
      */
     public boolean isLink() {
         return false;
     }
-    
+
 
     /**
      * @see ControlDefinition#setKeyValuesFinder(java.lang.String)
@@ -213,9 +213,9 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
     /**
      * Used by a PersistableBusinessObjectValuesFinder to automatically query and display a list
      * of business objects as part of a select list or set of radio buttons.
-     * 
+     *
      * The keyAttribute, labelAttribute, and includeKeyInLabel are used with this property.
-     * 
+     *
      * @param businessObjectClass the dataObjectClass to set
      */
     public void setBusinessObjectClass(String businessObjectClass) {
@@ -263,7 +263,7 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
 
     /**
      * Attribute of the given dataObjectClass to use as the value of a select list
-     * or set of radio buttons. 
+     * or set of radio buttons.
      */
     public void setKeyAttribute(String keyAttribute) {
         this.keyAttribute = keyAttribute;
@@ -278,7 +278,7 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
 
     /**
      * Attribute of the given dataObjectClass to use as the displayed label on a select list
-     * or set of radio buttons. 
+     * or set of radio buttons.
      */
     public void setLabelAttribute(String labelAttribute) {
         this.labelAttribute = labelAttribute;
@@ -293,7 +293,7 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
 
     /**
      * Size of a text control.
-     * 
+     *
      * @see ControlDefinition#setSize(int)
      */
     public void setSize(Integer size) {
@@ -316,7 +316,7 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
 
     /**
      * Number of rows to display on a text-area widget.
-     * 
+     *
      * @see ControlDefinition#setRows(int)
      */
     public void setRows(Integer rows) {
@@ -332,7 +332,7 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
 
     /**
      * Number of columns to display on a text-area widget.
-     * 
+     *
      * @see ControlDefinition#setCols(int)
      */
     public void setCols(Integer cols) {
@@ -386,13 +386,13 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
 
     /**
      * JavaScript script to run when a select control's value is changed.
-     * 
+     *
      * @see ControlDefinition#setScript()
      */
     public void setScript(String script) {
         this.script = script;
     }
-    
+
     /**
      * @see ControlDefinition#isRanged()
      */
@@ -402,7 +402,7 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
 
     /**
      * Sets the control as a ranged (from and to) date field if true, or a single date field if false
-     * 
+     *
      * @param ranged boolean true for a ranged control, false for a single date field
      */
 	public void setRanged(boolean ranged) {
@@ -431,6 +431,6 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
     			.append( this.keyAttribute, rhs.keyAttribute )
     			.isEquals();
     }
-    
-    
+
+
 }

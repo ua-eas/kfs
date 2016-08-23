@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -121,10 +121,10 @@ public class FormatServiceImpl implements FormatService {
     @Override
     public FormatSelection getDataForFormat(Person user) {
         String campusCode = user.getCampusCode();
-        
+
         return getDataForFormat(campusCode);
     }
-    
+
     /**
 	 * @see org.kuali.kfs.pdp.service.FormatService#getDataForFormat(java.lang.String)
 	 */
@@ -340,7 +340,7 @@ public class FormatServiceImpl implements FormatService {
 
 //        LOG.info("Sending email to " + user.getEmailAddress());
 //        sendEmail(user.getEmailAddress(), processId);
-        
+
         LOG.info("Send summary email for processId: " + processId);
         sendSummaryEmail(postFormatProcessSummary);
 
@@ -363,35 +363,35 @@ public class FormatServiceImpl implements FormatService {
 			else if (PdpConstants.DisbursementTypeCodes.CHECK.equals(procSum.getDisbursementType().getCode())) {
 				addSummaryToCustomerProfileMap(checkSummaryMap, procSum);
 			}
-			
+
 			formatTotalCount = formatTotalCount.add(procSum.getProcessTotalCount());
 			formatTotalAmount = formatTotalAmount.add(procSum.getProcessTotalAmount());
 		}
-		
-		
+
+
 		final Map<String, Object> templateVariables = new HashMap<String, Object>();
 
 		DateFormatter dateFormatter = new DateFormatter();
         templateVariables.put(KFSConstants.ProcurementCardEmailVariableTemplate.DOC_CREATE_DATE, dateFormatter.formatForPresentation(new Date()));
-        
+
         // set email subject message
 		String processId = postFormatProcessSummary.getProcessId().toString();
-		
+
 		String emailSubject = MessageFormat.format(getKualiConfigurationService()
 								.getPropertyValueAsString(PdpKeyConstants.Format.MESSAGE_PDP_FORMAT_BATCH_EMAIL_SUBJECT), new Object[] { processId });
-        
+
         templateVariables.put("emailSubject", emailSubject);
         templateVariables.put("achSummaryMap", achSummaryMap);
         templateVariables.put("checkSummaryMap", checkSummaryMap);
         templateVariables.put("formatTotalCount", formatTotalCount);
         templateVariables.put("formatTotalAmount", formatTotalAmount);
         templateVariables.put("numberTool", new NumberTool());
-        
+
         getFormatCheckACHEmailService().setEmailSubject(emailSubject);
-        
+
         // Handle for email sending exception
         getFormatCheckACHEmailService().sendEmailNotification(templateVariables);
-		
+
 	}
 
 	/**
@@ -404,30 +404,30 @@ public class FormatServiceImpl implements FormatService {
 		// Gate Keeper 1
 		if (ObjectUtils.isNull(summaryByCustomerProfile))
 			summaryByCustomerProfile = new HashMap<CustomerProfile, List<KualiDecimal>>();
-		
+
 		// Gate Keeper 2
 		if(ObjectUtils.isNull(procSum) || ObjectUtils.isNull(procSum.getCustomer())) return;
-		
+
 		CustomerProfile customerProfile = procSum.getCustomer();
-		
+
 		List<KualiDecimal> summary = new ArrayList<KualiDecimal>();
-		
+
 		// check if customer profile already exists in the map
 		if (summaryByCustomerProfile.containsKey(customerProfile)){
 			summary = summaryByCustomerProfile.get(customerProfile);
-			
+
 			KualiDecimal totCount = summary.get(0).add(procSum.getProcessTotalCount().kualiDecimalValue());
 			KualiDecimal totAmount = summary.get(1).add(procSum.getProcessTotalAmount());
-			
+
 			summary.set(0, totCount);
 			summary.set(1, totAmount);
-			
-		// if no key exists 
+
+		// if no key exists
 		} else {
 			summary.add(procSum.getProcessTotalCount().kualiDecimalValue());
 			summary.add(procSum.getProcessTotalAmount());
 		}
-		
+
 		// add summary to customer profile
 		summaryByCustomerProfile.put(customerProfile, summary);
 	}

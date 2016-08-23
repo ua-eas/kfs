@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-        
+
   <bean id="ReceivingThresholdMaintenanceDocument" parent="ReceivingThresholdMaintenanceDocument-parentBean"/>
 
   <bean id="ReceivingThresholdMaintenanceDocument-parentBean" abstract="true" parent="MaintenanceDocumentEntry">
@@ -33,9 +33,9 @@
         <value>thresholdIdentifier</value>
       </list>
     </property>
-    
-    
-    
+
+
+
     <property name="documentTypeName" value="THLD"/>
     <property name="businessRulesClass" value="org.kuali.kfs.module.purap.document.validation.impl.ThresholdRule"/>
     <property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase"/>
@@ -44,13 +44,13 @@
     </property>
     <property name="defaultExistenceChecks">
         <list>
-	      	<bean parent="ReferenceDefinition" p:attributeName="chart" p:attributeToHighlightOnFail="chartOfAccountsCode" /> 
+	      	<bean parent="ReferenceDefinition" p:attributeName="chart" p:attributeToHighlightOnFail="chartOfAccountsCode" />
 	      	<bean parent="ReferenceDefinition" p:attributeName="accountType" p:attributeToHighlightOnFail="accountTypeCode" />
-	      	<bean parent="ReferenceDefinition" p:attributeName="subFundGroup" p:attributeToHighlightOnFail="subFundGroupCode" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="financialObject" p:attributeToHighlightOnFail="financialObjectCode" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="organization" p:attributeToHighlightOnFail="organizationCode" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="commodityCode" p:attributeToHighlightOnFail="purchasingCommodityCode" /> 
-  	    </list>   
+	      	<bean parent="ReferenceDefinition" p:attributeName="subFundGroup" p:attributeToHighlightOnFail="subFundGroupCode" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="financialObject" p:attributeToHighlightOnFail="financialObjectCode" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="organization" p:attributeToHighlightOnFail="organizationCode" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="commodityCode" p:attributeToHighlightOnFail="purchasingCommodityCode" />
+  	    </list>
     </property>
   </bean>
 
@@ -79,9 +79,9 @@
       </list>
     </property>
   </bean>
-  
+
   <!-- workflow attributes -->
   <bean id="ReceivingThresholdMaintenanceDocument-workflowAttributes" parent="ReceivingThresholdMaintenanceDocument-workflowAttributes-parentBean"/>
-  
+
   <bean id="ReceivingThresholdMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true"/>
 </beans>

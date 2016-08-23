@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -43,7 +43,7 @@ public class PermissionTypeServiceBase extends DataDictionaryTypeServiceBase imp
 
 	/**
 	 * Internal method for matching permissions.  Override this method to customize the matching behavior.
-	 * 
+	 *
 	 * This base implementation uses the {@link #performMatch(Map, Map)} method
 	 * to perform an exact match on the permission details and return all that are equal.
 	 */
@@ -56,14 +56,14 @@ public class PermissionTypeServiceBase extends DataDictionaryTypeServiceBase imp
 		}
 		return matchingPermissions;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * Internal method for checking if property name matches
-	 * 
+	 *
 	 * @param requestedDetailsPropertyName name of requested details property
 	 * @param permissionDetailsPropertyName name of permission details property
-	 * @return boolean 
+	 * @return boolean
 	 */
 	protected boolean doesPropertyNameMatch(
 			String requestedDetailsPropertyName,

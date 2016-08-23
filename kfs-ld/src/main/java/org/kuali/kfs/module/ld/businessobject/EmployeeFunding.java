@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -55,7 +55,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Gets the person name.
-     * 
+     *
      * @return Returns the PersonName.
      */
     public String getName() {
@@ -63,13 +63,13 @@ public class EmployeeFunding extends LedgerBalance {
         if (person == null) {
             return LaborConstants.BalanceInquiries.UnknownPersonName;
         }
-        
+
         return person.getName();
     }
 
     /**
      * Sets the persons name.
-     * 
+     *
      * @param personName The personName to set.
      */
 
@@ -79,7 +79,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Gets the csfAmount
-     * 
+     *
      * @return Returns the csfAmount.
      */
     public KualiDecimal getCsfAmount() {
@@ -88,7 +88,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Sets the csfAmount.
-     * 
+     *
      * @param csfAmount The csfAmount to set.
      */
     public void setCsfAmount(KualiDecimal csfAmount) {
@@ -97,7 +97,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Gets the csfDeleteCode.
-     * 
+     *
      * @return Returns the csfDeleteCode.
      */
     public String getCsfDeleteCode() {
@@ -106,7 +106,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Sets the csfDeleteCode.
-     * 
+     *
      * @param csfDeleteCode The csfDeleteCode to set.
      */
     public void setCsfDeleteCode(String csfDeleteCode) {
@@ -115,7 +115,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Gets the csfFundingStatusCode.
-     * 
+     *
      * @return Returns the csfFundingStatusCode.
      */
     public String getCsfFundingStatusCode() {
@@ -124,7 +124,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Sets the csfFundingStatusCode.
-     * 
+     *
      * @param csfFundingStatusCode The csfFundingStatusCode to set.
      */
     public void setCsfFundingStatusCode(String csfFundingStatusCode) {
@@ -133,7 +133,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Gets the csfTimePercent.
-     * 
+     *
      * @return Returns the csfTimePercent.
      */
     public BigDecimal getCsfTimePercent() {
@@ -142,7 +142,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Sets the csfTimePercent.
-     * 
+     *
      * @param csfTimePercent The csfTimePercent to set.
      */
     public void setCsfTimePercent(BigDecimal csfTimePercent) {
@@ -151,7 +151,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Gets the currentAmount.
-     * 
+     *
      * @return Returns the currentAmount.
      */
     public KualiDecimal getCurrentAmount() {
@@ -160,7 +160,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Sets the currentAmount.
-     * 
+     *
      * @param currentAmount The currentAmount to set.
      */
     public void setCurrentAmount(KualiDecimal currentAmount) {
@@ -169,7 +169,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Gets the outstandingEncumbrance.
-     * 
+     *
      * @return Returns the outstandingEncumbrance.
      */
     public KualiDecimal getOutstandingEncumbrance() {
@@ -178,7 +178,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Sets the outstandingEncumbrance.
-     * 
+     *
      * @param outstandingEncumbrance The outstandingEncumbrance to set.
      */
     public void setOutstandingEncumbrance(KualiDecimal outstandingEncumbrance) {
@@ -187,7 +187,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Returns a total amount based upon adding any outstanding encumberence records to the annual balance amount.
-     * 
+     *
      * @return TotalAmount
      */
     public KualiDecimal getTotalAmount() {
@@ -196,7 +196,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Sets the total amount.
-     * 
+     *
      * @param totalAmount The totalAmount to set.
      */
     public void setTotalAmount(KualiDecimal totalAmount) {
@@ -266,7 +266,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Gets the csfFullTimeEmploymentQuantity.
-     * 
+     *
      * @return Returns the csfFullTimeEmploymentQuantity.
      */
     public BigDecimal getCsfFullTimeEmploymentQuantity() {
@@ -275,7 +275,7 @@ public class EmployeeFunding extends LedgerBalance {
 
     /**
      * Sets the csfFullTimeEmploymentQuantity.
-     * 
+     *
      * @param csfFullTimeEmploymentQuantity The csfFullTimeEmploymentQuantity to set.
      */
     public void setCsfFullTimeEmploymentQuantity(BigDecimal csfFullTimeEmploymentQuantity) {

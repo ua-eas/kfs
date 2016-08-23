@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -51,22 +51,22 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 public class LineItemReceivingDocumentRule extends DocumentRuleBase implements ContinuePurapRule, AddReceivingItemRule{
 
     @Override
-    protected boolean processCustomRouteDocumentBusinessRules(Document document) {        
+    protected boolean processCustomRouteDocumentBusinessRules(Document document) {
         boolean valid = true;
         LineItemReceivingDocument lineItemReceivingDocument = (LineItemReceivingDocument)document;
-        
+
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(KFSPropertyConstants.DOCUMENT);
-        
+
         valid &= super.processCustomRouteDocumentBusinessRules(document);
         valid &= canCreateLineItemReceivingDocument(lineItemReceivingDocument);
         valid &= isAtLeastOneItemEntered(lineItemReceivingDocument);
         valid &= validateItemUnitOfMeasure(lineItemReceivingDocument);
-        
-        //  makes sure all of the lines adhere to the rule that quantityDamaged and 
+
+        //  makes sure all of the lines adhere to the rule that quantityDamaged and
         // quantityReturned cannot (each) equal more than the quantityReceived
         valid &= validateAllReceivingLinesHaveSaneQuantities(lineItemReceivingDocument);
-        
+
         return valid;
     }
     /**
@@ -85,36 +85,36 @@ public class LineItemReceivingDocumentRule extends DocumentRuleBase implements C
         //if no items are entered return false
         GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_RECEIVING_LINEITEM_REQUIRED);
         return false;
-        
-    }    
-    
+
+    }
+
     public boolean processContinuePurapBusinessRules(TransactionalDocument document) {
-        
+
         boolean valid = true;
         LineItemReceivingDocument lineItemReceivingDocument = (LineItemReceivingDocument)document;
-        
+
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(KFSPropertyConstants.DOCUMENT);
-        
+
         valid &= hasRequiredFieldsForContinue(lineItemReceivingDocument);
         //only do this if valid
         if(valid){
             valid &= canCreateLineItemReceivingDocument(lineItemReceivingDocument);
         }
-        
+
         return valid;
     }
-    
+
     /**
      * Make sure the required fields on the init screen are filled in.
-     * 
+     *
      * @param lineItemReceivingDocument
      * @return
      */
     protected boolean hasRequiredFieldsForContinue(LineItemReceivingDocument lineItemReceivingDocument){
-        
+
         boolean valid = true;
-        
+
         if (ObjectUtils.isNull(lineItemReceivingDocument.getPurchaseOrderIdentifier())) {
             GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, KFSKeyConstants.ERROR_REQUIRED, PREQDocumentsStrings.PURCHASE_ORDER_ID);
             valid &= false;
@@ -127,23 +127,23 @@ public class LineItemReceivingDocumentRule extends DocumentRuleBase implements C
 
         return valid;
     }
-    
+
     /**
      * Determines if it is valid to create a receiving line document.  Only one
      * receiving line document can be active at any time per purchase order document.
-     * 
+     *
      * @param lineItemReceivingDocument
      * @return
      */
     protected boolean canCreateLineItemReceivingDocument(LineItemReceivingDocument lineItemReceivingDocument){
-        
+
         boolean valid = true;
-        
+
         if( SpringContext.getBean(ReceivingService.class).canCreateLineItemReceivingDocument(lineItemReceivingDocument.getPurchaseOrderIdentifier(), lineItemReceivingDocument.getDocumentNumber()) == false){
             valid &= false;
             GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, PurapKeyConstants.ERROR_RECEIVING_LINE_DOCUMENT_ACTIVE_FOR_PO, lineItemReceivingDocument.getDocumentNumber(), lineItemReceivingDocument.getPurchaseOrderIdentifier().toString());
         }
-         
+
         return valid;
     }
 
@@ -181,15 +181,15 @@ public class LineItemReceivingDocumentRule extends DocumentRuleBase implements C
      */
     public boolean processAddReceivingItemRules(ReceivingDocument document, LineItemReceivingItem item,String errorPathPrefix) {
         boolean valid = true;
-        
+
         valid &= SpringContext.getBean(DictionaryValidationService.class).isBusinessObjectValid(item,errorPathPrefix);
-        
-        //  test that the amount entered in the QuantityReturned and/or QuantityDamaged fields dont 
-        // either equal more than the QuantityReceived.  In other words, you can only return or mark as 
-        // damaged those that are received.  It doesnt make sense to receive 2 but return 3.  
+
+        //  test that the amount entered in the QuantityReturned and/or QuantityDamaged fields dont
+        // either equal more than the QuantityReceived.  In other words, you can only return or mark as
+        // damaged those that are received.  It doesnt make sense to receive 2 but return 3.
         valid &= validateQuantityReturnedNotMoreThanReceived(document, item, errorPathPrefix, new Integer(0));
         valid &= validateQuantityDamagedNotMoreThanReceived(document, item, errorPathPrefix, new Integer(0));
-        
+
         return valid;
     }
 
@@ -212,17 +212,17 @@ public class LineItemReceivingDocumentRule extends DocumentRuleBase implements C
         }
         return true;
     }
-    
+
     protected boolean validateAllReceivingLinesHaveSaneQuantities(ReceivingDocument document) {
         GlobalVariables.getMessageMap().clearErrorPath();
         boolean valid = true;
         for (int i = 0; i < document.getItems().size(); i++) {
             LineItemReceivingItem item = (LineItemReceivingItem) document.getItems().get(i);
-            
+
             valid &= validateQuantityReturnedNotMoreThanReceived(document, item, "", new Integer(i + 1));
             valid &= validateQuantityDamagedNotMoreThanReceived(document, item, "", new Integer(i + 1));
         }
         return valid;
     }
-    
+
 }

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,7 +34,7 @@ import org.kuali.kfs.kns.web.ui.Field;
  * A renderable element that renders child elements within a div that can be hidden or displayed
  */
 public class HideShowBlock implements RenderableElement {
-    private List<AccountingLineTableRow> contentRows; 
+    private List<AccountingLineTableRow> contentRows;
     private AccountingLineViewHideShowLinesDefinition definition;
     private AccountingLineRenderingContext renderingContext;
     private String tabKey;
@@ -42,7 +42,7 @@ public class HideShowBlock implements RenderableElement {
     /**
      * Has child table rows add any fields they know about to the List
      * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFields(java.util.List)
-     * 
+     *
      * KRAD Conversion: Customization of adding the fields - No use of data dictionary
      */
     public void appendFields(List<Field> fields) {
@@ -97,14 +97,14 @@ public class HideShowBlock implements RenderableElement {
      */
     public void renderElement(PageContext pageContext, Tag parentTag, AccountingLineRenderingContext renderingContext) throws JspException {
         this.renderingContext = renderingContext;
-        
+
         HideShowBlockRenderer renderer = new HideShowBlockRenderer();
         renderer.setHideShowBlock(this);
         renderer.render(pageContext, parentTag);
-        
+
         this.renderingContext = null;
     }
-    
+
     /**
      * Forces all children rows to render themselves
      * @param pageContext the pageContext to render to
@@ -118,7 +118,7 @@ public class HideShowBlock implements RenderableElement {
     }
 
     /**
-     * Gets the contentRows attribute. 
+     * Gets the contentRows attribute.
      * @return Returns the contentRows.
      */
     public List<AccountingLineTableRow> getContentRows() {
@@ -141,7 +141,7 @@ public class HideShowBlock implements RenderableElement {
         this.definition = definition;
     }
 
-    /** 
+    /**
      * @return the tab key for this hide/show block
      */
     public String getTabKey() {
@@ -150,7 +150,7 @@ public class HideShowBlock implements RenderableElement {
         }
         return tabKey;
     }
-    
+
     /**
      * @return the current tab state
      */
@@ -158,7 +158,7 @@ public class HideShowBlock implements RenderableElement {
         String tabState = renderingContext.getTabState(getTabKey());
         return StringUtils.isNotBlank(tabState) ? tabState : "CLOSE";
     }
-    
+
     /**
      * Determines if this tab should currently be showing or not
      * @return true if the tab shows its contents; false otherwise
@@ -166,14 +166,14 @@ public class HideShowBlock implements RenderableElement {
     public boolean isShowing() {
         return getTabState().equals("OPEN");
     }
-    
+
     /**
      * @return the label for this hide/show block
      */
     public String getLabel() {
         return definition.getLabel();
     }
-    
+
     /**
      * @return the concatenation of the group label and this block's label
      */

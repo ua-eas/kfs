@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -45,13 +45,13 @@ public class ContractManagerAssignmentDetail extends PersistableBusinessObjectBa
     private Integer contractManagerCode;
     private String deliveryCampusCode;
     private String vendorName;
-    
+
     private RequisitionDocument requisition;
     private ContractManager contractManager;
     private ContractManagerAssignmentDocument contractManagerAssignmentDocument;
-    
+
     private String createDate;
-    
+
     /**
      * Default constructor.
      */
@@ -61,7 +61,7 @@ public class ContractManagerAssignmentDetail extends PersistableBusinessObjectBa
 
     /**
      * Constructs a ContractManagerAssignmentDetail object from an existing ContractManagerAssignmentDocument object.
-     * 
+     *
      * @param acmDocument the ContractManagerAssignmentDocument to copy from.
      * @param requisitionDocument reference to the related requisition document.
      */
@@ -98,7 +98,7 @@ public class ContractManagerAssignmentDetail extends PersistableBusinessObjectBa
      * return null. If the first line item of the requisition does not contain commodity
      * code, or contain commodity code that does not have contract manager, we'll
      * also return null
-     * 
+     *
      * @return Integer the default contract manager code if applicable, or null.
      */
     public Integer getContractManagerCode() {
@@ -157,11 +157,11 @@ public class ContractManagerAssignmentDetail extends PersistableBusinessObjectBa
     public void setContractManagerAssignmentDocument(ContractManagerAssignmentDocument contractManagerAssignmentDocument) {
         this.contractManagerAssignmentDocument = contractManagerAssignmentDocument;
     }
-    
+
     /**
      * Returns the formatted string of the create date. If the createDate is currently null, we'll
      * get the createDate from the workflowDocument.
-     * 
+     *
      * @return
      * @throws WorkflowException
      */
@@ -208,5 +208,5 @@ public class ContractManagerAssignmentDetail extends PersistableBusinessObjectBa
         }
         return m;
     }
-    
+
 }

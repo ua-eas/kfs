@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -29,7 +29,7 @@
     <property name="documentAuthorizerClass" value="org.kuali.kfs.module.purap.document.authorization.PurchasingAccountsPayableTransactionalDocumentAuthorizerBase"/>
     <property name="documentPresentationControllerClass" value="org.kuali.kfs.module.purap.document.authorization.VendorCreditMemoDocumentPresentationController"/>
     <property name="attachmentTypesValuesFinderClass" value="org.kuali.kfs.module.purap.businessobject.options.VendorCreditMemoAttachmentTypeValuesFinder"/>
-    <property name="importedLineParserClass" value="org.kuali.kfs.module.purap.businessobject.PurApAccountingLineParser" />    
+    <property name="importedLineParserClass" value="org.kuali.kfs.module.purap.businessobject.PurApAccountingLineParser" />
     <property name="sessionDocument" value="true"/>
     <property name="potentiallySensitive" value="true"/>
     <property name="allowsNoteAttachments" value="true" />
@@ -43,7 +43,7 @@
 	    		<ref bean="VendorCreditMemoDocument-sourceAccountingLineGroup" parent="AccountingLineGroup"/>
 	    	</entry>
     	</map>
-    </property>       
+    </property>
     <property name="attributes">
       <list>
         <ref bean="VendorCreditMemoDocument-applicationDocumentStatus"/>
@@ -71,7 +71,7 @@
         <ref bean="VendorCreditMemoDocument-noteLine2Text"/>
         <ref bean="VendorCreditMemoDocument-noteLine3Text"/>
         <ref bean="VendorCreditMemoDocument-purapDocumentIdentifier"/>
-        <ref bean="VendorCreditMemoDocument-vendorHeaderGeneratedIdentifier"/>        
+        <ref bean="VendorCreditMemoDocument-vendorHeaderGeneratedIdentifier"/>
         <ref bean="VendorCreditMemoDocument-creditMemoDate"/>
         <ref bean="VendorCreditMemoDocument-purchaseOrderIdentifier"/>
         <ref bean="VendorCreditMemoDocument-purchaseOrderEndDate"/>
@@ -84,16 +84,16 @@
         <ref bean="VendorCreditMemoDocument-lineItemTotal"/>
         <ref bean="VendorCreditMemoDocument-grandTotal"/>
         <ref bean="VendorCreditMemoDocument-grandPreTaxTotal"/>
-        <ref bean="VendorCreditMemoDocument-grandTaxAmount"/>        
+        <ref bean="VendorCreditMemoDocument-grandTaxAmount"/>
         <ref bean="VendorCreditMemoDocument-reopenPurchaseOrderIndicator"/>
         <ref bean="VendorCreditMemoDocument-useTaxIndicator"/>
-        <ref bean="VendorCreditMemoDocument-bankCode"/>        
+        <ref bean="VendorCreditMemoDocument-bankCode"/>
         <ref bean="VendorCreditMemoDocument-extractedIndicatorForSearching"/>
         <ref bean="VendorCreditMemoDocument-holdIndicatorForSearching"/>
         <ref bean="VendorCreditMemoDocument-holdIndicatorForResult"/>
         <ref bean="VendorCreditMemoDocument-paidIndicatorForResult"/>
         <ref bean="VendorCreditMemoDocument-documentChartOfAccountsCodeForSearching"/>
-        <ref bean="VendorCreditMemoDocument-documentOrganizationCodeForSearching"/> 
+        <ref bean="VendorCreditMemoDocument-documentOrganizationCodeForSearching"/>
         <ref bean="VendorCreditMemoDocument-processingCampusCodeForSearch"/>
         <ref bean="VendorCreditMemoDocument-sensitive"/>
       </list>
@@ -238,13 +238,13 @@
     <property name="name" value="vendorCountryCode"/>
     <property name="required" value="true"/>
   </bean>
-  
+
   <bean id="VendorCreditMemoDocument-vendorAttentionName" parent="VendorCreditMemoDocument-vendorAttentionName-parentBean"/>
 
   <bean id="VendorCreditMemoDocument-vendorAttentionName-parentBean" abstract="true" parent="VendorGenericAttributes-attentionName">
     <property name="name" value="vendorAttentionName"/>
   </bean>
-  
+
   <bean id="VendorCreditMemoDocument-accountsPayableApprovalTimestamp" parent="VendorCreditMemoDocument-accountsPayableApprovalTimestamp-parentBean"/>
 
   <bean id="VendorCreditMemoDocument-accountsPayableApprovalTimestamp-parentBean" abstract="true" parent="GenericAttributes-genericDate">
@@ -252,7 +252,7 @@
     <property name="label" value="AP Processed Date"/>
     <property name="shortLabel" value="Date"/>
   </bean>
-  
+
   <bean id="VendorCreditMemoDocument-holdIndicator" parent="VendorCreditMemoDocument-holdIndicator-parentBean"/>
 
   <bean id="VendorCreditMemoDocument-holdIndicator-parentBean" abstract="true" parent="AttributeDefinition">
@@ -265,16 +265,16 @@
       <bean parent="CheckboxControlDefinition"/>
     </property>
   </bean>
-  
+
   <bean id="VendorCreditMemoDocument-holdIndicatorForSearching" parent="VendorCreditMemoDocument-holdIndicatorForSearching-parentBean"/>
   <bean id="VendorCreditMemoDocument-holdIndicatorForSearching-parentBean" abstract="true" parent="VendorCreditMemoDocument-holdIndicator-parentBean">
   	<property name="name" value="holdIndicatorForSearching"/>
   	<property name="label" value="Hold"/>
    	<property name="control">
       <bean parent="RadioControlDefinition" p:valuesFinderClass="org.kuali.kfs.krad.keyvalues.IndicatorValuesFinder" p:includeKeyInLabel="false"/>
-    </property> 	
-  </bean>  
-  
+    </property>
+  </bean>
+
   <bean id="VendorCreditMemoDocument-holdIndicatorForResult" parent="VendorCreditMemoDocument-holdIndicatorForResult-parentBean"/>
 
   <bean id="VendorCreditMemoDocument-holdIndicatorForResult-parentBean" abstract="true" parent="AttributeDefinition">
@@ -289,7 +289,7 @@
       <ref bean="TenCharacterTextControl" />
     </property>
   </bean>
-  
+
   <bean id="VendorCreditMemoDocument-paidIndicatorForResult" parent="VendorCreditMemoDocument-paidIndicatorForResult-parentBean"/>
 
   <bean id="VendorCreditMemoDocument-paidIndicatorForResult-parentBean" abstract="true" parent="AttributeDefinition">
@@ -304,7 +304,7 @@
       <ref bean="TenCharacterTextControl" />
     </property>
   </bean>
-  
+
   <bean id="VendorCreditMemoDocument-extractedTimestamp" parent="VendorCreditMemoDocument-extractedTimestamp-parentBean"/>
 
   <bean id="VendorCreditMemoDocument-extractedTimestamp-parentBean" abstract="true" parent="GenericAttributes-genericDate">
@@ -312,7 +312,7 @@
     <property name="label" value="Extract Date"/>
     <property name="shortLabel" value="Extract Date"/>
   </bean>
-  
+
   <bean id="VendorCreditMemoDocument-extractedIndicatorForSearching" parent="VendorCreditMemoDocument-extractedIndicatorForSearching-parentBean"/>
   <bean id="VendorCreditMemoDocument-extractedIndicatorForSearching-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
   	<property name="name" value="extractedIndicatorForSearching"/>
@@ -321,7 +321,7 @@
       <bean parent="RadioControlDefinition" p:valuesFinderClass="org.kuali.kfs.krad.keyvalues.IndicatorValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
-    
+
   <bean id="VendorCreditMemoDocument-processingCampusCode" parent="VendorCreditMemoDocument-processingCampusCode-parentBean"/>
 
   <bean id="VendorCreditMemoDocument-processingCampusCode-parentBean" abstract="true" parent="VendorGenericAttributes-campusCode">
@@ -541,21 +541,21 @@
       <bean parent="CheckboxControlDefinition"/>
     </property>
   </bean>
-  
+
   <bean id="VendorCreditMemoDocument-useTaxIndicator" parent="VendorCreditMemoDocument-useTaxIndicator-parentBean"/>
-  
+
   <bean id="VendorCreditMemoDocument-useTaxIndicator-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
   	<property name="name" value="useTaxIndicator"/>
   	<property name="label" value="Use Tax Indicator"/>
   	<property name="shortLabel" value="Use Tax"/>
   </bean>
-  
+
   <bean id="VendorCreditMemoDocument-bankCode" parent="VendorCreditMemoDocument-bankCode-parentBean"/>
-  
+
   <bean id="VendorCreditMemoDocument-bankCode-parentBean" abstract="true" parent="Bank-bankCode">
   	<property name="required" value="false"/>
   </bean>
-   
+
   <bean id="VendorCreditMemoDocument-documentChartOfAccountsCodeForSearching" parent="VendorCreditMemoDocument-documentChartOfAccountsCodeForSearching-parentBean"/>
 
   <bean id="VendorCreditMemoDocument-documentChartOfAccountsCodeForSearching-parentBean" abstract="true" parent="Chart-chartOfAccountsCode">
@@ -564,7 +564,7 @@
     <property name="shortLabel" value="Chart Code"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="VendorCreditMemoDocument-documentOrganizationCodeForSearching" parent="VendorCreditMemoDocument-documentOrganizationCodeForSearching-parentBean"/>
 
   <bean id="VendorCreditMemoDocument-documentOrganizationCodeForSearching-parentBean" abstract="true" parent="PurApGenericAttributes-organizationCode">
@@ -573,7 +573,7 @@
     <property name="shortLabel" value="Organization Code"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="VendorCreditMemoDocument-processingCampusCodeForSearch" parent="VendorCreditMemoDocument-processingCampusCodeForSearch-parentBean"/>
 
   <bean id="VendorCreditMemoDocument-processingCampusCodeForSearch-parentBean" abstract="true" parent="AttributeDefinition">
@@ -589,7 +589,7 @@
       <ref bean="FourCharacterTextControl" />
     </property>
   </bean>
-  	    
+
   <!-- Credit Memo accountingInformation -->
     <bean id="creditMemoAccountingInformation" parent="creditMemoAccountingInformation-parent"/>
 
@@ -619,22 +619,22 @@
 				<bean parent="AccountingLineView-field" p:name="organizationReferenceId" p:useShortLabel="true"/>
 			</list>
 		</property>
-	</bean>  
-	
+	</bean>
+
     <!-- accounting line groups -->
-    <bean id="VendorCreditMemoDocument-sourceAccountingLineGroup" parent="VendorCreditMemoDocument-sourceAccountingLineGroup-parentBean"/>  
+    <bean id="VendorCreditMemoDocument-sourceAccountingLineGroup" parent="VendorCreditMemoDocument-sourceAccountingLineGroup-parentBean"/>
     <bean id="VendorCreditMemoDocument-sourceAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
 	    <property name="accountingLineView" ref="VendorCreditMemoDocument-accountingLineView"/>
 	    <property name="accountingLineClass" value="org.kuali.kfs.sys.businessobject.SourceAccountingLine"/>
 	    <property name="groupLabel" value="Source"/>
 	    <property name="accountingLineAuthorizerClass" value="org.kuali.kfs.module.purap.document.authorization.VendorCreditMemoAccountingLineAuthorizer"/>
 	    <property name="importedLinePropertyPrefix" value="source"/>
-	    <property name="errorKey" value="document.sourceAccounting*,sourceAccountingLines,newSourceLine*"/> 
+	    <property name="errorKey" value="document.sourceAccounting*,sourceAccountingLines,newSourceLine*"/>
 	    <property name="importingAllowed" value="false"/>
 	    <property name="accountingLineGroupClass" value="org.kuali.kfs.sys.document.web.CollectionAccountingLineGroupImpl"/>
-        <property name="accountingLineComparatorClass" value="org.kuali.kfs.module.purap.util.PurapAccountingLineComparator"/>      
+        <property name="accountingLineComparatorClass" value="org.kuali.kfs.module.purap.util.PurapAccountingLineComparator"/>
     </bean>
-  
+
     <bean id="VendorCreditMemoDocument-accountingLineView" parent="VendorCreditMemoDocument-accountingLineView-parent"/>
 
     <bean id="VendorCreditMemoDocument-accountingLineView-parent" parent="AccountingLineView" abstract="true">
@@ -655,10 +655,10 @@
     </bean>
 
 	<bean id="VendorCreditMemoDocument-validations" parent="VendorCreditMemoDocument-validations-parentBean"/>
- 
+
 	<bean id="VendorCreditMemoDocument-validations-parentBean" abstract="true"  class="org.springframework.beans.factory.config.MapFactoryBean">
  		<property name="sourceMap">
-		<map key-type="java.lang.Class">			
+		<map key-type="java.lang.Class">
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.AttributedRouteDocumentEvent</value></key>
 				<value>VendorCreditMemo-routeDocumentValidation</value>
@@ -666,7 +666,7 @@
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.AttributedApproveDocumentEvent</value></key>
 				<value>VendorCreditMemo-approveDocumentValidation</value>
-			</entry>		
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.AttributedBlanketApproveDocumentEvent</value></key>
 				<value>VendorCreditMemo-blanketApproveDocumentValidation</value>
@@ -678,49 +678,49 @@
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.UpdateAccountingLineEvent</value></key>
 				<value>VendorCreditMemo-updateAccountingLineValidation</value>
-			</entry>	
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.ReviewAccountingLineEvent</value></key>
 				<value>VendorCreditMemo-reviewAccountingLineValidation</value>
 			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedContinuePurapEvent</value></key>
-				<value>VendorCreditMemo-continuePurapValidation</value>				
-			</entry>				
+				<value>VendorCreditMemo-continuePurapValidation</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedPreCalculateAccountsPayableEvent</value></key>
-				<value>VendorCreditMemo-preCalculateAccountsPayableValidation</value>				
-			</entry>				
+				<value>VendorCreditMemo-preCalculateAccountsPayableValidation</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedCalculateAccountsPayableEvent</value></key>
-				<value>VendorCreditMemo-calculateAccountsPayableValidation</value>				
-			</entry>				
+				<value>VendorCreditMemo-calculateAccountsPayableValidation</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedCancelAccountsPayableEvent</value></key>
-				<value>VendorCreditMemo-cancelAccountsPayableValidation</value>				
+				<value>VendorCreditMemo-cancelAccountsPayableValidation</value>
 			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedAddPurchasingAccountsPayableItemEvent</value></key>
-				<value>VendorCreditMemo-addPurchasingAccountsPayableItemValidation</value>				
+				<value>VendorCreditMemo-addPurchasingAccountsPayableItemValidation</value>
 			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedImportPurchasingAccountsPayableItemEvent</value></key>
-				<value>VendorCreditMemo-importPurchasingAccountsPayableItemValidation</value>				
-			</entry>																									
+				<value>VendorCreditMemo-importPurchasingAccountsPayableItemValidation</value>
+			</entry>
 	   	</map>
 		</property>
-	</bean>  
-	
+	</bean>
+
 	<bean id="VendorCreditMemoDocument-sensitive" parent="VendorCreditMemoDocument-sensitive-parentBean"/>
 
     <bean id="VendorCreditMemoDocument-sensitive-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
   		<property name="name" value="sensitive"/>
   		<property name="label" value="Sensitive"/>
     </bean>
-      
+
     <!-- workflow attributes -->
     <bean id="VendorCreditMemoDocument-workflowAttributes" parent="VendorCreditMemoDocument-workflowAttributes-parentBean"/>
-  
+
     <bean id="VendorCreditMemoDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true">
     	<property name="routingTypeDefinitions">
     		<map>
@@ -750,7 +750,7 @@
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
     						<property name="businessObjectClassName" value="org.kuali.kfs.module.purap.document.VendorCreditMemoDocument"/>
     						<property name="attributeName" value="purapDocumentIdentifier"/>
-    						<property name="showAttributeInResultSet" value="true"/>	
+    						<property name="showAttributeInResultSet" value="true"/>
     					</bean>
     				</property>
     				<property name="documentValues">
@@ -764,7 +764,7 @@
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
     						<property name="businessObjectClassName" value="org.kuali.kfs.module.purap.document.VendorCreditMemoDocument"/>
     						<property name="attributeName" value="creditMemoNumber"/>
-    						<property name="showAttributeInResultSet" value="true"/>	
+    						<property name="showAttributeInResultSet" value="true"/>
     					</bean>
     				</property>
     				<property name="documentValues">
@@ -778,7 +778,7 @@
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
     						<property name="businessObjectClassName" value="org.kuali.kfs.module.purap.document.VendorCreditMemoDocument"/>
     						<property name="attributeName" value="paymentRequestIdentifier"/>
-    						<property name="showAttributeInResultSet" value="true"/>	
+    						<property name="showAttributeInResultSet" value="true"/>
     					</bean>
     				</property>
     				<property name="documentValues">
@@ -792,7 +792,7 @@
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
     						<property name="businessObjectClassName" value="org.kuali.kfs.module.purap.document.VendorCreditMemoDocument"/>
     						<property name="attributeName" value="purchaseOrderIdentifier"/>
-    						<property name="showAttributeInResultSet" value="true"/>	
+    						<property name="showAttributeInResultSet" value="true"/>
     					</bean>
     				</property>
     				<property name="documentValues">
@@ -837,7 +837,7 @@
     						<property name="businessObjectClassName" value="org.kuali.kfs.module.purap.document.VendorCreditMemoDocument"/>
     						<property name="attributeName" value="vendorName"/>
     						<property name="showAttributeInSearchCriteria" value="false"/>
-    						<property name="showAttributeInResultSet" value="true"/>	
+    						<property name="showAttributeInResultSet" value="true"/>
     					</bean>
     				</property>
     				<property name="documentValues">
@@ -886,7 +886,7 @@
     	      				<value>documentOrganizationCodeForSearching</value>
     	      			</list>
     	      		</property>
-    	      	</bean>			
+    	      	</bean>
      			<bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
   					<property name="searchingAttribute">
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -905,7 +905,7 @@
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
     						<property name="businessObjectClassName" value="org.kuali.kfs.module.purap.document.VendorCreditMemoDocument"/>
     						<property name="attributeName" value="vendorCustomerNumber"/>
-    						<property name="showAttributeInResultSet" value="true"/>	
+    						<property name="showAttributeInResultSet" value="true"/>
     					</bean>
     				</property>
     				<property name="documentValues">
@@ -932,7 +932,7 @@
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
     						<property name="businessObjectClassName" value="org.kuali.kfs.module.purap.document.VendorCreditMemoDocument"/>
     						<property name="attributeName" value="accountsPayableApprovalTimestamp"/>
-    						<property name="showAttributeInResultSet" value="true"/>	
+    						<property name="showAttributeInResultSet" value="true"/>
     					</bean>
     				</property>
     				<property name="documentValues">
@@ -947,7 +947,7 @@
     						<property name="businessObjectClassName" value="org.kuali.kfs.module.purap.document.VendorCreditMemoDocument"/>
     						<property name="attributeName" value="extractedTimestamp"/>
     						<property name="showAttributeInSearchCriteria" value="false"/>
-    						<property name="showAttributeInResultSet" value="true"/>	
+    						<property name="showAttributeInResultSet" value="true"/>
     					</bean>
     				</property>
     				<property name="documentValues">
@@ -996,8 +996,8 @@
     						<value>holdIndicator</value>
     					</list>
     				</property>
-    			</bean>   			
+    			</bean>
     		</list>
     	</property>
-    </bean>           
+    </bean>
 </beans>

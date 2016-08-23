@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -110,7 +110,7 @@ public enum ElectronicInvoiceRejectDocumentFixture {
             new BigDecimal("1.00"), // invoiceDiscountAmount
             new BigDecimal("1821.00"), // invoiceNetAmount
             new ElectronicInvoiceRejectItemFixture[] {ElectronicInvoiceRejectItemFixture.EIRI_BASIC},
-            new ElectronicInvoiceRejectReasonFixture[] {}            
+            new ElectronicInvoiceRejectReasonFixture[] {}
     ),
     EIR_MATCHING(
             new Timestamp(new java.util.Date().getTime()), // invoiceProcessTimestamp
@@ -192,7 +192,7 @@ public enum ElectronicInvoiceRejectDocumentFixture {
             new BigDecimal("1.00"), // invoiceDiscountAmount
             new BigDecimal("1821.00"), // invoiceNetAmount
             new ElectronicInvoiceRejectItemFixture[] {ElectronicInvoiceRejectItemFixture.EIRI_BASIC},
-            new ElectronicInvoiceRejectReasonFixture[] {}            
+            new ElectronicInvoiceRejectReasonFixture[] {}
     ),
     ;
 
@@ -206,7 +206,7 @@ public enum ElectronicInvoiceRejectDocumentFixture {
     public Boolean invoiceFileSpecialHandlingInLineIndicator = Boolean.FALSE;
     public Boolean invoiceFileShippingInLineIndicator = Boolean.FALSE;
     public Boolean invoiceFileDiscountInLineIndicator = Boolean.FALSE;
-    
+
     public String invoiceFileName;
     public String vendorDunsNumber;
     public Integer vendorHeaderGeneratedIdentifier;
@@ -257,12 +257,12 @@ public enum ElectronicInvoiceRejectDocumentFixture {
     public String invoiceRemitToAddressPostalCode;
     public String invoiceRemitToAddressCountryCode;
     public String invoiceRemitToAddressCountryName;
-    
+
     public String invoiceCustomerNumber;
     public String invoicePurchaseOrderNumber;
     public Integer purchaseOrderIdentifier;
     public String purchaseOrderDeliveryCampusCode;
-    
+
     public String invoiceItemSubTotalCurrencyCode;
     public String invoiceItemSpecialHandlingCurrencyCode;
     public String invoiceItemSpecialHandlingDescription;
@@ -273,7 +273,7 @@ public enum ElectronicInvoiceRejectDocumentFixture {
     public String invoiceItemGrossCurrencyCode;
     public String invoiceItemDiscountCurrencyCode;
     public String invoiceItemNetCurrencyCode;
-    
+
     public BigDecimal invoiceItemSubTotalAmount;
     public BigDecimal invoiceItemSpecialHandlingAmount;
     public BigDecimal invoiceItemShippingAmount;
@@ -281,7 +281,7 @@ public enum ElectronicInvoiceRejectDocumentFixture {
     public BigDecimal invoiceItemGrossAmount;
     public BigDecimal invoiceItemDiscountAmount;
     public BigDecimal invoiceItemNetAmount;
-    
+
     public ElectronicInvoiceRejectItemFixture[] invoiceRejectItemFixtures;
     public ElectronicInvoiceRejectReasonFixture[] invoiceRejectReasonFixtures;
 
@@ -379,7 +379,7 @@ public enum ElectronicInvoiceRejectDocumentFixture {
         this.invoiceItemGrossAmount = invoiceItemGrossAmount;
         this.invoiceItemDiscountAmount = invoiceItemDiscountAmount;
         this.invoiceItemNetAmount = invoiceItemNetAmount;
-        
+
         this.invoiceRejectItemFixtures = invoiceRejectItemFixtures;
         this.invoiceRejectReasonFixtures = invoiceRejectReasonFixtures;
     }
@@ -392,7 +392,7 @@ public enum ElectronicInvoiceRejectDocumentFixture {
         catch (WorkflowException e) {
             throw new RuntimeException("Document creation failed.");
         }
-        
+
         doc.setInvoiceProcessTimestamp(invoiceProcessTimestamp);
         doc.setInvoiceFileHeaderTypeIndicator(invoiceFileHeaderTypeIndicator);
         doc.setInvoiceFileInformationOnlyIndicator(invoiceFileInformationOnlyIndicator);
@@ -400,7 +400,7 @@ public enum ElectronicInvoiceRejectDocumentFixture {
         doc.setInvoiceFileSpecialHandlingInLineIndicator(invoiceFileSpecialHandlingInLineIndicator);
         doc.setInvoiceFileShippingInLineIndicator(invoiceFileShippingInLineIndicator);
         doc.setInvoiceFileDiscountInLineIndicator(invoiceFileDiscountInLineIndicator);
-        
+
         doc.setInvoiceFileName(invoiceFileName);
         doc.setInvoiceFileNumber(invoiceFileNumber);
         doc.setVendorDunsNumber(vendorDunsNumber);
@@ -451,12 +451,12 @@ public enum ElectronicInvoiceRejectDocumentFixture {
         doc.setInvoiceRemitToAddressPostalCode(invoiceRemitToAddressPostalCode);
         doc.setInvoiceRemitToAddressCountryCode(invoiceRemitToAddressCountryCode);
         doc.setInvoiceRemitToAddressCountryName(invoiceRemitToAddressCountryName);
-        
+
         doc.setInvoiceCustomerNumber(invoiceCustomerNumber);
         doc.setInvoicePurchaseOrderNumber(invoicePurchaseOrderNumber);
         doc.setPurchaseOrderIdentifier(purchaseOrderIdentifier);
         doc.setPurchaseOrderDeliveryCampusCode(purchaseOrderDeliveryCampusCode);
-        
+
         doc.setInvoiceItemSubTotalCurrencyCode(invoiceItemSubTotalCurrencyCode);
         doc.setInvoiceItemSpecialHandlingCurrencyCode(invoiceItemSpecialHandlingCurrencyCode);
         doc.setInvoiceItemSpecialHandlingDescription(invoiceItemSpecialHandlingDescription);
@@ -483,7 +483,7 @@ public enum ElectronicInvoiceRejectDocumentFixture {
         for (ElectronicInvoiceRejectReasonFixture invoiceRejectReasonFixture : invoiceRejectReasonFixtures) {
             invoiceRejectReasonFixture.addTo(doc);
         }
-        
+
         return doc;
     }
 

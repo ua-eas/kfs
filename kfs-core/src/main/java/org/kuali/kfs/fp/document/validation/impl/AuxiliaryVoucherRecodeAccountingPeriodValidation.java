@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -51,7 +51,7 @@ public class AuxiliaryVoucherRecodeAccountingPeriodValidation extends GenericVal
      */
     public boolean validate(AttributedDocumentEvent event) {
         AccountingPeriod acctPeriod = getAccountingPeriodService().getByPeriod(auxiliaryVoucherDocumentForValidation.getPostingPeriodCode(), auxiliaryVoucherDocumentForValidation.getPostingYear());
-        
+
         if (auxiliaryVoucherDocumentForValidation.isRecodeType()) {
             boolean numericPeriod = true;
             Integer period = null;
@@ -64,7 +64,7 @@ public class AuxiliaryVoucherRecodeAccountingPeriodValidation extends GenericVal
             Integer year = auxiliaryVoucherDocumentForValidation.getPostingYear();
             Timestamp ts = new Timestamp(new java.util.Date().getTime());
             AccountingPeriod currPeriod = getAccountingPeriodService().getByDate(new Date(ts.getTime()));
-            
+
             // can't post into a previous fiscal year
             Integer currFiscalYear = currPeriod.getUniversityFiscalYear();
             if (currFiscalYear > year) {
@@ -88,12 +88,12 @@ public class AuxiliaryVoucherRecodeAccountingPeriodValidation extends GenericVal
                 return false;
             }
         }
-        
+
         return true;
     }
 
     /**
-     * Gets the accountingPeriodService attribute. 
+     * Gets the accountingPeriodService attribute.
      * @return Returns the accountingPeriodService.
      */
     public AccountingPeriodService getAccountingPeriodService() {
@@ -109,7 +109,7 @@ public class AuxiliaryVoucherRecodeAccountingPeriodValidation extends GenericVal
     }
 
     /**
-     * Gets the auxiliaryVoucherDocumentForValidation attribute. 
+     * Gets the auxiliaryVoucherDocumentForValidation attribute.
      * @return Returns the auxiliaryVoucherDocumentForValidation.
      */
     public AuxiliaryVoucherDocument getAuxiliaryVoucherDocumentForValidation() {

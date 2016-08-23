@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,7 +39,7 @@ public class PurApAccountLineGroup extends AccountLineGroup {
 
     /**
      * Constructs a PurApAccountLineGroup from a PurApAccountingLineBase Line Entry
-     * 
+     *
      * @param entry PurApAccountingLineBase Line
      */
     protected PurApAccountLineGroup() {
@@ -80,7 +80,7 @@ public class PurApAccountLineGroup extends AccountLineGroup {
 
     /**
      * Returns true if input PurApAccountingLineBase entry belongs to this account group
-     * 
+     *
      * @param entry PurApAccountingLineBase
      * @return true if PurApAccountingLineBase belongs to same account line group
      */
@@ -91,7 +91,7 @@ public class PurApAccountLineGroup extends AccountLineGroup {
 
     /**
      * This method will combine multiple Purap account entries for the same account line group.
-     * 
+     *
      * @param entry PurApAccountingLineBase
      */
     public void combineEntry(PurApAccountingLineBase newEntry) {
@@ -107,7 +107,7 @@ public class PurApAccountLineGroup extends AccountLineGroup {
 
     /**
      * Gets the sourceEntries attribute.
-     * 
+     *
      * @return Returns the sourceEntries
      */
     public List<PurApAccountingLineBase> getSourceEntries() {
@@ -116,7 +116,7 @@ public class PurApAccountLineGroup extends AccountLineGroup {
 
     /**
      * Sets the sourceEntries attribute.
-     * 
+     *
      * @param sourceEntries The sourceEntries to set.
      */
     public void setSourceEntries(List<PurApAccountingLineBase> sourceGlEntries) {

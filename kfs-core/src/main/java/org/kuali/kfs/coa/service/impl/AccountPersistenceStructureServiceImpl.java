@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -38,21 +38,21 @@ import org.kuali.kfs.krad.util.KRADConstants;
 import org.springframework.beans.factory.InitializingBean;
 
 public class AccountPersistenceStructureServiceImpl extends PersistenceStructureServiceImpl implements AccountPersistenceStructureService, InitializingBean {
-    
+
     protected List<AccountReferencePersistenceExemption> accountReferencePersistenceExemptions;
     protected Map<Class<?>, List<AccountReferencePersistenceExemption>> accountReferencePersistenceExemptionsMap;
-    
-    /* 
-     * The following list is commented out as it's not used in code anymore, but still can server as a reference for testing. 
+
+    /*
+     * The following list is commented out as it's not used in code anymore, but still can server as a reference for testing.
      * The list causes problems when referencing AwardAccount.class, a class in optional module;
      * also it's not a good practice to hard-code the list as it may have to be expanded when new sub/classes are added.
-     * Instead of using "if (ACCOUNT_CLASSES.contains(clazz))" to judge whether whether a class is account-related,  
+     * Instead of using "if (ACCOUNT_CLASSES.contains(clazz))" to judge whether whether a class is account-related,
      * we now judge by whether the PKs of the class contain chartOfAccountsCode-accountNumber.
-     * 
-     *      
+     *
+     *
     // List of account-related BO classes (and all their subclasses) which have chartOfAccountsCode and accountNumber as (part of) the primary keys,
-    // i.e. the complete list of all possible referenced BO classes with chart code and account number as (part of) the foreign keys. 
-    protected static final HashSet<Class<? extends BusinessObject>> ACCOUNT_CLASSES = new HashSet<Class<? extends BusinessObject>>();    
+    // i.e. the complete list of all possible referenced BO classes with chart code and account number as (part of) the foreign keys.
+    protected static final HashSet<Class<? extends BusinessObject>> ACCOUNT_CLASSES = new HashSet<Class<? extends BusinessObject>>();
     static {
         ACCOUNT_CLASSES.add(Account.class);
         ACCOUNT_CLASSES.add(SubAccount.class);
@@ -66,12 +66,12 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
         ACCOUNT_CLASSES.add(AccountGuideline.class);
         ACCOUNT_CLASSES.add(SubObjectCode.class);
         ACCOUNT_CLASSES.add(SubObjectCodeCurrent.class);
-    }     
+    }
     */
-    
+
     public boolean isAccountRelatedClass(Class clazz) {
         List<String> pks = listPrimaryKeyFieldNames(clazz);
-        
+
         if (pks.contains(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE) && pks.contains(KFSPropertyConstants.ACCOUNT_NUMBER )) {
             return true;
         }
@@ -79,7 +79,7 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
             return false;
         }
     }
-    
+
     private MaintenanceDocumentDictionaryService maintenanceDocumentDictionaryService;
 
     public void setMaintenanceDocumentDictionaryService(MaintenanceDocumentDictionaryService maintenanceDocumentDictionaryService) {
@@ -88,41 +88,41 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
 
     @SuppressWarnings("rawtypes")
     public Map<String, Class> listCollectionAccountFields(PersistableBusinessObject bo) {
-        Map<String, Class> accountFields = new HashMap<String, Class>(); 
+        Map<String, Class> accountFields = new HashMap<String, Class>();
         Iterator<Map.Entry<String, Class>> collObjs = listCollectionObjectTypes(bo).entrySet().iterator();
-        
+
         while (collObjs.hasNext()) {
             Map.Entry<String, Class> entry = (Map.Entry<String, Class>)collObjs.next();
             String accountCollName = entry.getKey();
             Class accountCollType = entry.getValue();
-            
-            // if the reference object is of Account or Account-involved BO class (including all subclasses) 
+
+            // if the reference object is of Account or Account-involved BO class (including all subclasses)
             if (isAccountRelatedClass(accountCollType)) {
                 // exclude non-maintainable account collection
                 String docTypeName = maintenanceDocumentDictionaryService.getDocumentTypeName(bo.getClass());
                 if (maintenanceDocumentDictionaryService.getMaintainableCollection(docTypeName, accountCollName) == null)
                     continue;
-                
+
                 // otherwise include the account field
-                accountFields.put(accountCollName, accountCollType);                
+                accountFields.put(accountCollName, accountCollType);
             }
         }
-        
+
         return accountFields;
     }
-    
+
     @SuppressWarnings("rawtypes")
     public Set<String> listCollectionChartOfAccountsCodeNames(PersistableBusinessObject bo) {
         Set<String> coaCodeNames = new HashSet<String>();
         String docTypeName = maintenanceDocumentDictionaryService.getDocumentTypeName(bo.getClass());
         Iterator<Map.Entry<String, Class>> collObjs = listCollectionObjectTypes(bo).entrySet().iterator();
-        
+
         while (collObjs.hasNext()) {
             Map.Entry<String, Class> entry = (Map.Entry<String, Class>)collObjs.next();
             String accountCollName = entry.getKey();
             Class accountCollType = entry.getValue();
-            
-            // if the reference object is of Account or Account-involved BO class (including all subclasses) 
+
+            // if the reference object is of Account or Account-involved BO class (including all subclasses)
             if (isAccountRelatedClass(accountCollType)) {
                 // exclude non-maintainable account collection
                 if (maintenanceDocumentDictionaryService.getMaintainableCollection(docTypeName, accountCollName) == null)
@@ -136,132 +136,132 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
 
         return coaCodeNames;
     }
-    
+
     @SuppressWarnings("rawtypes")
     public Map<String, Class> listReferenceAccountFields(PersistableBusinessObject bo) {
-        Map<String, Class> accountFields = new HashMap<String, Class>();       
+        Map<String, Class> accountFields = new HashMap<String, Class>();
         Iterator<Map.Entry<String, Class>> refObjs = listReferenceObjectFields(bo).entrySet().iterator();
-        
+
         while (refObjs.hasNext()) {
             Map.Entry<String, Class> entry = (Map.Entry<String, Class>)refObjs.next();
             String accountName = entry.getKey();
             Class accountType = entry.getValue();
-            
-            // if the reference object is of Account or Account-involved BO class (including all subclasses)            
+
+            // if the reference object is of Account or Account-involved BO class (including all subclasses)
             if (isAccountRelatedClass(accountType)) {
                 String coaCodeName = getForeignKeyFieldName(bo.getClass(), accountName, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
                 String acctNumName = getForeignKeyFieldName(bo.getClass(), accountName, KFSPropertyConstants.ACCOUNT_NUMBER);
-                
+
                 // exclude the case when chartOfAccountsCode-accountNumber don't exist as foreign keys in the BO:
                 // for ex, in SubAccount, a21SubAccount is a reference object but its PKs don't exist as FKs in SubAccount;
-                // rather, A21SubAccount has a nested reference account - costShareAccount, 
+                // rather, A21SubAccount has a nested reference account - costShareAccount,
                 // whose PKs exists in A21SubAccount as FKs, and are used in SubAccount maint doc as nested reference;
                 // special treatment outside this method is needed for this case
-                if (StringUtils.isEmpty(coaCodeName) || StringUtils.isEmpty(acctNumName)) 
+                if (StringUtils.isEmpty(coaCodeName) || StringUtils.isEmpty(acctNumName))
                     continue;
-                
-                // in general we do want to have chartOfAccountsCode fields readOnly/auto-populated even when they are part of PKs,  
-                // (such as in SubAccount), as the associated account shall only be chosen from existing accounts; 
-                // however, when the BO is Account itself, we don't want to make the PK chartOfAccountsCode field readOnly, 
-                // as it shall be editable when a new Account is being created; so we shall exclude such case 
+
+                // in general we do want to have chartOfAccountsCode fields readOnly/auto-populated even when they are part of PKs,
+                // (such as in SubAccount), as the associated account shall only be chosen from existing accounts;
+                // however, when the BO is Account itself, we don't want to make the PK chartOfAccountsCode field readOnly,
+                // as it shall be editable when a new Account is being created; so we shall exclude such case
                 List<String> pks = listPrimaryKeyFieldNames(bo.getClass());
-                if (bo instanceof Account && pks.contains(coaCodeName) && pks.contains(acctNumName )) 
-                    continue;                
-                
+                if (bo instanceof Account && pks.contains(coaCodeName) && pks.contains(acctNumName ))
+                    continue;
+
                 // exclude non-maintainable account field
                 String docTypeName = maintenanceDocumentDictionaryService.getDocumentTypeName(bo.getClass());
                 if (maintenanceDocumentDictionaryService.getMaintainableField(docTypeName, coaCodeName) == null ||
                     maintenanceDocumentDictionaryService.getMaintainableField(docTypeName, acctNumName) == null)
                     continue;
-                
+
                 // otherwise include the account field
-                accountFields.put(accountName, accountType);                
+                accountFields.put(accountName, accountType);
             }
         }
-        
+
         return accountFields;
     }
-    
+
     @SuppressWarnings("rawtypes")
     public Map<String, String> listChartCodeAccountNumberPairs(PersistableBusinessObject bo) {
-        Map<String, String> chartAccountPairs = new HashMap<String, String>();       
+        Map<String, String> chartAccountPairs = new HashMap<String, String>();
         Iterator<Map.Entry<String, Class>> refObjs = listReferenceObjectFields(bo).entrySet().iterator();
-        
+
         while (refObjs.hasNext()) {
             Map.Entry<String, Class> entry = (Map.Entry<String, Class>)refObjs.next();
             String accountName = entry.getKey();
             Class accountType = entry.getValue();
-            
-            // if the reference object is of Account or Account-involved BO class (including all subclasses)            
+
+            // if the reference object is of Account or Account-involved BO class (including all subclasses)
             if (isAccountRelatedClass(accountType)) {
                 String coaCodeName = getForeignKeyFieldName(bo.getClass(), accountName, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
                 String acctNumName = getForeignKeyFieldName(bo.getClass(), accountName, KFSPropertyConstants.ACCOUNT_NUMBER);
-                
+
                 // exclude the case when chartOfAccountsCode-accountNumber don't exist as foreign keys in the BO:
                 // for ex, in SubAccount, a21SubAccount is a reference object but its PKs don't exist as FKs in SubAccount;
-                // rather, A21SubAccount has a nested reference account - costShareAccount, 
+                // rather, A21SubAccount has a nested reference account - costShareAccount,
                 // whose PKs exists in A21SubAccount as FKs, and are used in SubAccount maint doc as nested reference
                 // special treatment outside this method is needed for this case
-                if (StringUtils.isEmpty(coaCodeName) || StringUtils.isEmpty(acctNumName)) 
+                if (StringUtils.isEmpty(coaCodeName) || StringUtils.isEmpty(acctNumName))
                     continue;
-                
-                // in general we do want to have chartOfAccountsCode fields readOnly/auto-populated even when they are part of PKs,  
-                // (such as in SubAccount), as the associated account shall only be chosen from existing accounts; 
-                // however, when the BO is Account itself, we don't want to make the PK chartOfAccountsCode field readOnly, 
-                // as it shall be editable when a new Account is being created; so we shall exclude such case 
+
+                // in general we do want to have chartOfAccountsCode fields readOnly/auto-populated even when they are part of PKs,
+                // (such as in SubAccount), as the associated account shall only be chosen from existing accounts;
+                // however, when the BO is Account itself, we don't want to make the PK chartOfAccountsCode field readOnly,
+                // as it shall be editable when a new Account is being created; so we shall exclude such case
                 List<String> pks = listPrimaryKeyFieldNames(bo.getClass());
-                if (bo instanceof Account && pks.contains(coaCodeName) && pks.contains(acctNumName )) 
+                if (bo instanceof Account && pks.contains(coaCodeName) && pks.contains(acctNumName ))
                     continue;
-                
+
                 // if this relationship is specifically exempted then exempt it
                 if (isExemptedFromAccountsCannotCrossChartsRules(bo.getClass(), coaCodeName, acctNumName)) {
                     continue;
                 }
-                                
+
                 // exclude non-maintainable account field
                 String docTypeName = maintenanceDocumentDictionaryService.getDocumentTypeName(bo.getClass());
                 if (maintenanceDocumentDictionaryService.getMaintainableField(docTypeName, coaCodeName) == null ||
                     maintenanceDocumentDictionaryService.getMaintainableField(docTypeName, acctNumName) == null)
                     continue;
-                
+
                 // otherwise include the account field PKs
-                chartAccountPairs.put(coaCodeName, acctNumName);                
+                chartAccountPairs.put(coaCodeName, acctNumName);
             }
         }
-        
+
         return chartAccountPairs;
     }
-    
+
     @SuppressWarnings("rawtypes")
     public Map<String, String> listAccountNumberChartCodePairs(PersistableBusinessObject bo) {
-        Map<String, String> accountChartPairs = new HashMap<String, String>(); 
+        Map<String, String> accountChartPairs = new HashMap<String, String>();
         Iterator<Map.Entry<String, Class>> refObjs = listReferenceObjectFields(bo).entrySet().iterator();
-        
+
         while (refObjs.hasNext()) {
             Map.Entry<String, Class> entry = (Map.Entry<String, Class>)refObjs.next();
             String accountName = entry.getKey();
             Class accountType = entry.getValue();
-            
-            // if the reference object is of Account or Account-involved BO class (including all subclasses)            
+
+            // if the reference object is of Account or Account-involved BO class (including all subclasses)
             if (isAccountRelatedClass(accountType)) {
                 String coaCodeName = getForeignKeyFieldName(bo.getClass(), accountName, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
                 String acctNumName = getForeignKeyFieldName(bo.getClass(), accountName, KFSPropertyConstants.ACCOUNT_NUMBER);
-                
+
                 // exclude the case when chartOfAccountsCode-accountNumber don't exist as foreign keys in the BO:
                 // for ex, in SubAccount, a21SubAccount is a reference object but its PKs don't exist as FKs in SubAccount;
-                // rather, A21SubAccount has a nested reference account - costShareAccount, 
+                // rather, A21SubAccount has a nested reference account - costShareAccount,
                 // whose PKs exists in A21SubAccount as FKs, and are used in SubAccount maint doc as nested reference
                 // special treatment outside this method is needed for this case
-                if (StringUtils.isEmpty(coaCodeName) || StringUtils.isEmpty(acctNumName)) 
+                if (StringUtils.isEmpty(coaCodeName) || StringUtils.isEmpty(acctNumName))
                     continue;
-                
-                // in general we do want to have chartOfAccountsCode fields readOnly/auto-populated even when they are part of PKs,  
-                // (such as in SubAccount), as the associated account shall only be chosen from existing accounts; 
-                // however, when the BO is Account itself, we don't want to make the PK chartOfAccountsCode field readOnly, 
-                // as it shall be editable when a new Account is being created; so we shall exclude such case 
+
+                // in general we do want to have chartOfAccountsCode fields readOnly/auto-populated even when they are part of PKs,
+                // (such as in SubAccount), as the associated account shall only be chosen from existing accounts;
+                // however, when the BO is Account itself, we don't want to make the PK chartOfAccountsCode field readOnly,
+                // as it shall be editable when a new Account is being created; so we shall exclude such case
                 List<String> pks = listPrimaryKeyFieldNames(bo.getClass());
-                if (bo instanceof Account && pks.contains(coaCodeName) && pks.contains(acctNumName )) 
-                    continue;                
+                if (bo instanceof Account && pks.contains(coaCodeName) && pks.contains(acctNumName ))
+                    continue;
 
                 // if this relationship is specifically exempted then exempt it
                 if (isExemptedFromAccountsCannotCrossChartsRules(bo.getClass(), coaCodeName, acctNumName)) {
@@ -273,35 +273,35 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
                 if (maintenanceDocumentDictionaryService.getMaintainableField(docTypeName, coaCodeName) == null ||
                     maintenanceDocumentDictionaryService.getMaintainableField(docTypeName, acctNumName) == null)
                     continue;
-                
+
                 // otherwise include the account field PKs
                 accountChartPairs.put(acctNumName, coaCodeName);
             }
         }
-        
+
         return accountChartPairs;
     }
 
     public Set<String> listChartOfAccountsCodeNames(PersistableBusinessObject bo) {;
-        return listChartCodeAccountNumberPairs(bo).keySet();        
+        return listChartCodeAccountNumberPairs(bo).keySet();
     }
 
     public Set<String> listAccountNumberNames(PersistableBusinessObject bo) {
-        return listAccountNumberChartCodePairs(bo).keySet();     
+        return listAccountNumberChartCodePairs(bo).keySet();
     }
-    
+
     public String getChartOfAccountsCodeName(PersistableBusinessObject bo, String accountNumberName) {
-        return listAccountNumberChartCodePairs(bo).get(accountNumberName);        
+        return listAccountNumberChartCodePairs(bo).get(accountNumberName);
     }
-    
+
     public String getAccountNumberName(PersistableBusinessObject bo, String chartOfAccountsCodeName) {
-        return listChartCodeAccountNumberPairs(bo).get(chartOfAccountsCodeName);        
+        return listChartCodeAccountNumberPairs(bo).get(chartOfAccountsCodeName);
     }
-    
-    /** 
+
+    /**
      * Need to stop this method from running for objects which are not bound into the ORM layer (OJB),
      * for ex. OrgReviewRole is not persistable. In this case, we can just return an empty list.
-     * 
+     *
      * @see org.kuali.rice.krad.service.impl.PersistenceStructureServiceImpl#listReferenceObjectFields(org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @SuppressWarnings("rawtypes")
@@ -359,5 +359,5 @@ public class AccountPersistenceStructureServiceImpl extends PersistenceStructure
             }
         }
     }
-    
+
 }

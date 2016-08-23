@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,7 +44,7 @@ import java.util.Set;
 /**
  * Layout manager that works with <code>CollectionGroup</code> components and
  * renders the collection as a Table
- * 
+ *
  * <p>
  * Based on the fields defined, the <code>TableLayoutManager</code> will
  * dynamically create instances of the fields for each collection row. In
@@ -53,8 +53,8 @@ import java.util.Set;
  * <code>GridLayoutManager</code> such as rowSpan, colSpan, and cell width
  * settings.
  * </p>
- * 
- * 
+ *
+ *
  */
 public class TableLayoutManager extends GridLayoutManager implements CollectionLayoutManager {
 	private static final long serialVersionUID = 3622267585541524208L;
@@ -96,22 +96,22 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 		headerFields = new ArrayList<LabelField>();
 		dataFields = new ArrayList<Field>();
 	}
-	
+
 	/**
 	 * The following actions are performed:
-	 * 
+	 *
 	 * <ul>
 	 * <li>Sets sequence field prototype if auto sequence is true</li>
 	 * <li>Initializes the prototypes</li>
 	 * </ul>
-	 * 
+	 *
 	 * @see BoxLayoutManager#performInitialization(View,
 	 *      java.lang.Object, Container)
 	 */
 	@Override
 	public void performInitialization(View view, Object model, Container container) {
 		super.performInitialization(view, model, container);
-		
+
         if (generateAutoSequence && !(sequenceFieldPrototype instanceof MessageField)) {
             sequenceFieldPrototype = ComponentFactory.getMessageField();
             view.assignComponentIds(sequenceFieldPrototype);
@@ -127,7 +127,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 	/**
 	 * Sets up the final column count for rendering based on whether the
 	 * sequence and action fields have been generated
-	 * 
+	 *
 	 * @see LayoutManagerBase#performFinalize(View,
 	 *      java.lang.Object, Container)
 	 */
@@ -177,7 +177,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 	 * the actionFieldPrototype is made and the given actions are set as the
 	 * items for the action field. Finally the generated items are assembled
 	 * together into the dataFields list with the given lineFields.
-	 * 
+	 *
 	 * @see CollectionLayoutManager#buildLine(View,
 	 *      java.lang.Object, CollectionGroup,
 	 *      java.util.List, java.util.List, java.lang.String, java.util.List,
@@ -301,7 +301,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 	/**
 	 * Create the <code>LabelField</code> instances that will be used to render
 	 * the table header
-	 * 
+	 *
 	 * <p>
 	 * For each column, a copy of headerFieldPrototype is made that determines
 	 * the label configuration. The actual label text comes from the field for
@@ -309,11 +309,11 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 	 * enabled) and the last column contains the actions. Both the sequence and
 	 * action header fields will span all rows for the header.
 	 * </p>
-	 * 
+	 *
 	 * <p>
 	 * The headerFields list will contain the final list of header fields built
 	 * </p>
-	 * 
+	 *
 	 * @param collectionGroup
 	 *            - CollectionGroup container the table applies to
 	 * @param lineFields - fields for the data columns from which the headers are pulled
@@ -343,7 +343,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 		    if (!field.isRender() && StringUtils.isEmpty(field.getProgressiveRender())) {
 		        continue;
 		    }
-		    
+
 			cellPosition += field.getColSpan();
 			addHeaderField(field, cellPosition);
 
@@ -362,7 +362,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 	 * label to the short (if useShortLabels is set to true) or long label of
 	 * the given component. After created the header field is added to the list
 	 * making up the table header
-	 * 
+	 *
 	 * @param field
 	 *            - field instance the header field is being created for
 	 * @param column
@@ -394,14 +394,14 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 	 * Calculates how many rows will be needed per collection line to display
 	 * the list of fields. Assumption is made that the total number of cells the
 	 * fields take up is evenly divisible by the configured number of columns
-	 * 
+	 *
 	 * @param items
 	 *            - list of items that make up one collection line
 	 * @return int number of rows
 	 */
 	protected int calculateNumberOfRows(List<? extends Field> items) {
 		int rowCount = 0;
-		
+
 		// check flag that indicates only one row should be created
 		if (isSuppressLineWrapping()) {
 		    return 1;
@@ -461,7 +461,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 	/**
 	 * Indicates whether the short label for the collection field should be used
 	 * as the table header or the regular label
-	 * 
+	 *
 	 * @return boolean true if short label should be used, false if long label
 	 *         should be used
 	 */
@@ -471,7 +471,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 
 	/**
 	 * Setter for the use short label indicator
-	 * 
+	 *
 	 * @param useShortLabels
 	 */
 	public void setUseShortLabels(boolean useShortLabels) {
@@ -481,7 +481,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 	/**
 	 * Indicates whether the header should be repeated before each collection
 	 * row. If false the header is only rendered at the beginning of the table
-	 * 
+	 *
 	 * @return boolean true if header should be repeated, false if it should
 	 *         only be rendered once
 	 */
@@ -491,7 +491,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 
 	/**
 	 * Setter for the repeat header indicator
-	 * 
+	 *
 	 * @param repeatHeader
 	 */
 	public void setRepeatHeader(boolean repeatHeader) {
@@ -502,7 +502,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 	 * <code>LabelField</code> instance to use as a prototype for creating the
 	 * tables header fields. For each header field the prototype will be copied
 	 * and adjusted as necessary
-	 * 
+	 *
 	 * @return LabelField instance to serve as prototype
 	 */
 	public LabelField getHeaderFieldPrototype() {
@@ -511,7 +511,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 
 	/**
 	 * Setter for the header field prototype
-	 * 
+	 *
 	 * @param headerFieldPrototype
 	 */
 	public void setHeaderFieldPrototype(LabelField headerFieldPrototype) {
@@ -521,7 +521,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 	/**
 	 * List of <code>LabelField</code> instances that should be rendered to make
 	 * up the tables header
-	 * 
+	 *
 	 * @return List of label field instances
 	 */
 	public List<LabelField> getHeaderFields() {
@@ -531,7 +531,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 	/**
 	 * Indicates whether the sequence field should be rendered for the
 	 * collection
-	 * 
+	 *
 	 * @return boolean true if sequence field should be rendered, false if not
 	 */
 	public boolean isRenderSequenceField() {
@@ -540,7 +540,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 
 	/**
 	 * Setter for the render sequence field indicator
-	 * 
+	 *
 	 * @param renderSequenceField
 	 */
 	public void setRenderSequenceField(boolean renderSequenceField) {
@@ -551,7 +551,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 	 * Attribute name to use as sequence value. For each collection line the
 	 * value of this field on the line will be retrieved and used as the
 	 * sequence value
-	 * 
+	 *
 	 * @return String sequence property name
 	 */
     public String getSequencePropertyName() {
@@ -564,7 +564,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 
     /**
      * Setter for the sequence property name
-     * 
+     *
      * @param sequencePropertyName
      */
     public void setSequencePropertyName(String sequencePropertyName) {
@@ -572,17 +572,17 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
             ((DataField) sequenceFieldPrototype).setPropertyName(sequencePropertyName);
         }
     }
-	
+
     /**
      * Indicates whether the sequence field should be generated with the current
      * line number
-     * 
+     *
      * <p>
      * If set to true the sequence field prototype will be changed to a message
      * field (if not already a message field) and the text will be set to the
      * current line number
      * </p>
-     * 
+     *
      * @return boolean true if the sequence field should be generated from the
      *         line number, false if not
      */
@@ -592,7 +592,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 
     /**
      * Setter for the generate auto sequence field
-     * 
+     *
      * @param generateAutoSequence
      */
     public void setGenerateAutoSequence(boolean generateAutoSequence) {
@@ -603,7 +603,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 	 * <code>Field</code> instance to serve as a prototype for the
 	 * sequence field. For each collection line this instance is copied and
 	 * adjusted as necessary
-	 * 
+	 *
 	 * @return Attribute field instance
 	 */
 	public Field getSequenceFieldPrototype() {
@@ -612,7 +612,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 
 	/**
 	 * Setter for the sequence field prototype
-	 * 
+	 *
 	 * @param sequenceFieldPrototype
 	 */
 	public void setSequenceFieldPrototype(Field sequenceFieldPrototype) {
@@ -628,7 +628,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 	 * FieldGroup prototype is useful for setting styling of the actions column
 	 * and for the layout of the action fields. Note also the label associated
 	 * with the prototype is used for the action column header
-	 * 
+	 *
 	 * @return GroupField instance
 	 */
 	public FieldGroup getActionFieldPrototype() {
@@ -637,7 +637,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 
 	/**
 	 * Setter for the action field prototype
-	 * 
+	 *
 	 * @param actionFieldPrototype
 	 */
 	public void setActionFieldPrototype(FieldGroup actionFieldPrototype) {
@@ -653,7 +653,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 
 	/**
 	 * Setter for the sub-collection field group prototype
-	 * 
+	 *
 	 * @param subCollectionFieldGroupPrototype
 	 */
 	public void setSubCollectionFieldGroupPrototype(FieldGroup subCollectionFieldGroupPrototype) {
@@ -742,7 +742,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
     /**
 	 * List of <code>Field</code> instances that make up the tables body. Pulled
 	 * by the layout manager template to send through the Grid layout
-	 * 
+	 *
 	 * @return List<Field> table body fields
 	 */
 	public List<Field> getDataFields() {
@@ -752,7 +752,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 	/**
 	 * Widget associated with the table to add functionality such as sorting,
 	 * paging, and export
-	 * 
+	 *
 	 * @return TableTools instance
 	 */
 	public RichTable getRichTable() {
@@ -761,7 +761,7 @@ public class TableLayoutManager extends GridLayoutManager implements CollectionL
 
 	/**
 	 * Setter for the table tools widget
-	 * 
+	 *
 	 * @param richTable
 	 */
 	public void setRichTable(RichTable richTable) {

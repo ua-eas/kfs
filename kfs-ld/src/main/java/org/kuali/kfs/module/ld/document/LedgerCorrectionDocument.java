@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -79,23 +79,23 @@ public class LedgerCorrectionDocument extends GeneralLedgerCorrectionProcessDocu
             // First, save the origin entries to the origin entry table
             LaborCorrectionDocumentService laborCorrectionDocumentService = SpringContext.getBean(LaborCorrectionDocumentService.class);
             OriginEntryGroupService originEntryGroupService = (OriginEntryGroupService) SpringContext.getBean(LaborOriginEntryGroupService.class);
-            
+
             // QUESTION - since this *is* the labor correction document - why are we loading it again?
             LedgerCorrectionDocument doc = laborCorrectionDocumentService.findByCorrectionDocumentHeaderId(docId);
 
             String correctionType = doc.getCorrectionTypeCode();
             if (LaborCorrectionDocumentService.CORRECTION_TYPE_REMOVE_GROUP_FROM_PROCESSING.equals(correctionType)) {
-                
+
                 String dataFileName = doc.getCorrectionInputFileName();
                 String doneFileName = dataFileName.replace(GeneralLedgerConstants.BatchFileSystem.EXTENSION, GeneralLedgerConstants.BatchFileSystem.DONE_FILE_EXTENSION);
                 originEntryGroupService.deleteFile(doneFileName);
                 if ( LOG.isInfoEnabled() ) {
                     LOG.info( "Document " + docId + " : deleted done file to remove from processing: " + doneFileName );
                 }
-                
-            } else if (LaborCorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(correctionType) 
+
+            } else if (LaborCorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(correctionType)
                     || LaborCorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(correctionType)) {
-                
+
                 synchronized ( LaborCorrectionDocumentService.class ) {
                     if ( !checkForExistingOutputDocument( docId ) ) {
 
@@ -110,11 +110,11 @@ public class LedgerCorrectionDocument extends GeneralLedgerCorrectionProcessDocu
                             }
                         }
                         doc.setCorrectionOutputFileName(outputFileName);
-                        
+
                         if ( LOG.isInfoEnabled() ) {
                             LOG.info( "Document " + docId + " : about to run scrubber -- output file: " + outputFileName );
-                        }                        
-                        Step step = BatchSpringContext.getStep(LaborCorrectionProcessScrubberStep.STEP_NAME);                        
+                        }
+                        Step step = BatchSpringContext.getStep(LaborCorrectionProcessScrubberStep.STEP_NAME);
                         LaborCorrectionProcessScrubberStep correctionStep = (LaborCorrectionProcessScrubberStep) ProxyUtils.getTargetIfProxied(step);
                         correctionStep.setDocumentId(docId);
                         try {
@@ -126,8 +126,8 @@ public class LedgerCorrectionDocument extends GeneralLedgerCorrectionProcessDocu
                         correctionStep.setDocumentId(null);
                         if ( LOG.isInfoEnabled() ) {
                             LOG.info( "Document " + docId + " : completed scrubber run -- generating reports" );
-                        }                        
-                        
+                        }
+
                         laborCorrectionDocumentService.generateCorrectionReport(this);
                         laborCorrectionDocumentService.aggregateCorrectionDocumentReports(this);
                     } else {

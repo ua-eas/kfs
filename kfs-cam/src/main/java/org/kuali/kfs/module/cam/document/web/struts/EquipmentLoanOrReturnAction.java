@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,7 +46,7 @@ public class EquipmentLoanOrReturnAction extends KualiTransactionalDocumentActio
 
     /**
      * This method had to override because equipmentLoanOrReturn information has to be refreshed before display
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#docHandler(org.apache.struts.action.ActionMapping,
      *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
@@ -72,7 +72,7 @@ public class EquipmentLoanOrReturnAction extends KualiTransactionalDocumentActio
 
     /**
      * This method handles when request is from a work flow document search
-     * 
+     *
      * @param equipmentLoanOrReturnForm Form
      * @param equipmentLoanOrReturnDocument Document
      * @param service BusinessObjectService
@@ -90,7 +90,7 @@ public class EquipmentLoanOrReturnAction extends KualiTransactionalDocumentActio
 
     /**
      * This method handles the request coming from asset lookup screen
-     * 
+     *
      * @param request Request
      * @param equipmentLoanOrReturnForm Current form
      * @param equipmentLoanOrReturnDocument Document
@@ -106,11 +106,11 @@ public class EquipmentLoanOrReturnAction extends KualiTransactionalDocumentActio
             String capitalAssetNumber = request.getParameter(CAPITAL_ASSET_NUMBER);
             keys.put(CAPITAL_ASSET_NUMBER, capitalAssetNumber);
             newAsset = (Asset) businessObjectService.findByPrimaryKey(Asset.class, keys);
-            
+
             // set document status
             equipmentLoanOrReturnDocument.setNewLoan(true);
             equipmentLoanOrReturnDocument.setReturnLoan(false);
-            
+
             if (newAsset != null) {
                 // populate equipmentLoanOrReturn info when loan type is renew or return loan
                 if (!request.getParameter(CamsConstants.AssetActions.LOAN_TYPE).equals(CamsConstants.AssetActions.LOAN)) {
@@ -136,7 +136,7 @@ public class EquipmentLoanOrReturnAction extends KualiTransactionalDocumentActio
 
     /**
      * This method populate equipmentloanOrReturn document from asset and asset location
-     * 
+     *
      * @param equipmentLoanOrReturnDocument EquipmentLoanOrReturnDocument
      * @param newAsset Asset
      * @return

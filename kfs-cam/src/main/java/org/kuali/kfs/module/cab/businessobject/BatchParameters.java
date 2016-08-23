@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,7 +39,7 @@ public class BatchParameters {
 
     /**
      * Gets the lastRunTime attribute.
-     * 
+     *
      * @return Returns the lastRunTime
      */
 
@@ -49,7 +49,7 @@ public class BatchParameters {
 
     /**
      * Sets the lastRunTime attribute.
-     * 
+     *
      * @param lastRunTime The lastRunTime to set.
      */
 
@@ -59,7 +59,7 @@ public class BatchParameters {
 
     /**
      * Gets the excludedChartCodes attribute.
-     * 
+     *
      * @return Returns the excludedChartCodes
      */
 
@@ -69,7 +69,7 @@ public class BatchParameters {
 
     /**
      * Sets the excludedChartCodes attribute.
-     * 
+     *
      * @param excludedChartCodes The excludedChartCodes to set.
      */
 
@@ -79,7 +79,7 @@ public class BatchParameters {
 
     /**
      * Gets the excludedSubFundCodes attribute.
-     * 
+     *
      * @return Returns the excludedSubFundCodes
      */
 
@@ -89,7 +89,7 @@ public class BatchParameters {
 
     /**
      * Sets the excludedSubFundCodes attribute.
-     * 
+     *
      * @param excludedSubFundCodes The excludedSubFundCodes to set.
      */
 
@@ -99,7 +99,7 @@ public class BatchParameters {
 
     /**
      * Gets the includedFinancialBalanceTypeCodes attribute.
-     * 
+     *
      * @return Returns the includedFinancialBalanceTypeCodes
      */
 
@@ -109,7 +109,7 @@ public class BatchParameters {
 
     /**
      * Sets the includedFinancialBalanceTypeCodes attribute.
-     * 
+     *
      * @param includedFinancialBalanceTypeCodes The includedFinancialBalanceTypeCodes to set.
      */
 
@@ -119,7 +119,7 @@ public class BatchParameters {
 
     /**
      * Gets the excludedFiscalPeriods attribute.
-     * 
+     *
      * @return Returns the excludedFiscalPeriods
      */
 
@@ -129,7 +129,7 @@ public class BatchParameters {
 
     /**
      * Sets the excludedFiscalPeriods attribute.
-     * 
+     *
      * @param excludedFiscalPeriods The excludedFiscalPeriods to set.
      */
 
@@ -139,7 +139,7 @@ public class BatchParameters {
 
     /**
      * Gets the excludedDocTypeCodes attribute.
-     * 
+     *
      * @return Returns the excludedDocTypeCodes
      */
 
@@ -149,7 +149,7 @@ public class BatchParameters {
 
     /**
      * Sets the excludedDocTypeCodes attribute.
-     * 
+     *
      * @param excludedDocTypeCodes The excludedDocTypeCodes to set.
      */
 
@@ -159,7 +159,7 @@ public class BatchParameters {
 
     /**
      * Gets the includedFinancialObjectSubTypeCodes attribute.
-     * 
+     *
      * @return Returns the includedFinancialObjectSubTypeCodes
      */
 
@@ -169,7 +169,7 @@ public class BatchParameters {
 
     /**
      * Sets the includedFinancialObjectSubTypeCodes attribute.
-     * 
+     *
      * @param includedFinancialObjectSubTypeCodes The includedFinancialObjectSubTypeCodes to set.
      */
 
@@ -179,7 +179,7 @@ public class BatchParameters {
 
     /**
      * Gets the capitalizationLimitAmount attribute.
-     * 
+     *
      * @return Returns the capitalizationLimitAmount.
      */
     public BigDecimal getCapitalizationLimitAmount() {
@@ -188,7 +188,7 @@ public class BatchParameters {
 
     /**
      * Sets the capitalizationLimitAmount attribute value.
-     * 
+     *
      * @param capitalizationLimitAmount The capitalizationLimitAmount to set.
      */
     public void setCapitalizationLimitAmount(BigDecimal capitalizationLimitAmount) {
@@ -197,7 +197,7 @@ public class BatchParameters {
 
     /**
      * Gets the lastRunDate attribute.
-     * 
+     *
      * @return Returns the lastRunDate.
      */
     public Date getLastRunDate() {
@@ -206,7 +206,7 @@ public class BatchParameters {
 
     /**
      * Sets the lastRunDate attribute value.
-     * 
+     *
      * @param lastRunDate The lastRunDate to set.
      */
     public void setLastRunDate(Date lastRunDate) {

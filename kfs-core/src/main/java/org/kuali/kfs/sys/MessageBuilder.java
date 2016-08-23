@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -38,7 +38,7 @@ public class MessageBuilder {
 
     /**
      * add the given message into the given message list
-     * 
+     *
      * @param messageList the given message list
      * @param message the given message
      */
@@ -97,7 +97,7 @@ public class MessageBuilder {
 
     /**
      * get the message from application resource properties with the given key
-     * 
+     *
      * @param messageKey the given message key
      * @return the message from application resource properties with the given key
      */
@@ -107,7 +107,7 @@ public class MessageBuilder {
 
     /**
      * build the error message with the given label and current value
-     * 
+     *
      * @param label the given label
      * @param currentValue the given current value
      * @return the error message built from the given label and current value
@@ -120,7 +120,7 @@ public class MessageBuilder {
 
     /**
      * get the label of the specified attribute of the given business object
-     * 
+     *
      * @param businessObjectClass the given business object
      * @param attributeName the specified attribute name
      * @return the label of the specified attribute of the given business object

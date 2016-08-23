@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,7 +34,7 @@ import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class CustomerStatementDetailReportDataHolder {
-    
+
     private String documentNumber;
     private Date documentFinalDate;
     private String documentFinalDateString;
@@ -44,13 +44,13 @@ public class CustomerStatementDetailReportDataHolder {
     private String orgName;
     private String fein;
     private String docType;
-    
+
     public CustomerStatementDetailReportDataHolder(String description, KualiDecimal totalAmount) {
         this.docType = "";
         this.documentDescription = description;
         this.financialDocumentTotalAmountCharge = totalAmount;
     }
-    
+
     public CustomerStatementDetailReportDataHolder(FinancialSystemDocumentHeader docHeader, Organization processingOrg, String docType, KualiDecimal totalAmount) {
        documentDescription = docHeader.getDocumentDescription();
        if (docType.equals(ArConstants.INVOICE_DOC_TYPE)) {
@@ -58,7 +58,7 @@ public class CustomerStatementDetailReportDataHolder {
        } else {
            financialDocumentTotalAmountCredit = totalAmount;
        }
-       
+
        documentNumber = docHeader.getDocumentNumber();
        if (ObjectUtils.isNotNull(docHeader.getWorkflowDocument().getDateApproved())) {
            java.util.Date lastApprovedDate = docHeader.getWorkflowDocument().getDateApproved().toDate();
@@ -67,24 +67,24 @@ public class CustomerStatementDetailReportDataHolder {
        this.docType = docType;
 
        orgName = processingOrg.getOrganizationName();
-       
+
        String fiscalYear = SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear().toString();
        Map<String, String> criteria = new HashMap<String, String>();
        criteria.put("universityFiscalYear", fiscalYear);
        criteria.put("processingChartOfAccountCode", processingOrg.getChartOfAccountsCode());
-       criteria.put("processingOrganizationCode", processingOrg.getOrganizationCode());         
-         
+       criteria.put("processingOrganizationCode", processingOrg.getOrganizationCode());
+
        SystemInformation sysinfo = (SystemInformation)SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(SystemInformation.class, criteria);
        if (sysinfo == null) {
            fein = null;
        } else {
            fein = sysinfo.getUniversityFederalEmployerIdentificationNumber();
        }
-       
+
     }
 
     /**
-     * Gets the documentNumber attribute. 
+     * Gets the documentNumber attribute.
      * @return Returns the documentNumber.
      */
     public String getDocumentNumber() {
@@ -100,7 +100,7 @@ public class CustomerStatementDetailReportDataHolder {
     }
 
     /**
-     * Gets the documentFinalDate attribute. 
+     * Gets the documentFinalDate attribute.
      * @return Returns the documentFinalDate.
      */
     public Date getDocumentFinalDate() {
@@ -108,7 +108,7 @@ public class CustomerStatementDetailReportDataHolder {
     }
 
     /**
-     * 
+     *
      * This method formats the date value into a string that can then be used
      * @return
      */
@@ -127,7 +127,7 @@ public class CustomerStatementDetailReportDataHolder {
     }
 
     /**
-     * Gets the documentDescription attribute. 
+     * Gets the documentDescription attribute.
      * @return Returns the documentDescription.
      */
     public String getDocumentDescription() {
@@ -143,7 +143,7 @@ public class CustomerStatementDetailReportDataHolder {
     }
 
     /**
-     * Gets the orgName attribute. 
+     * Gets the orgName attribute.
      * @return Returns the orgName.
      */
     public String getOrgName() {
@@ -159,7 +159,7 @@ public class CustomerStatementDetailReportDataHolder {
     }
 
     /**
-     * Gets the fein attribute. 
+     * Gets the fein attribute.
      * @return Returns the fein.
      */
     public String getFein() {
@@ -175,7 +175,7 @@ public class CustomerStatementDetailReportDataHolder {
     }
 
     /**
-     * Gets the docType attribute. 
+     * Gets the docType attribute.
      * @return Returns the docType.
      */
     public String getDocType() {
@@ -191,7 +191,7 @@ public class CustomerStatementDetailReportDataHolder {
     }
 
     /**
-     * Gets the financialDocumentTotalAmountCharge attribute. 
+     * Gets the financialDocumentTotalAmountCharge attribute.
      * @return Returns the financialDocumentTotalAmountCharge.
      */
     public KualiDecimal getFinancialDocumentTotalAmountCharge() {
@@ -207,7 +207,7 @@ public class CustomerStatementDetailReportDataHolder {
     }
 
     /**
-     * Gets the financialDocumentTotalAmountCredit attribute. 
+     * Gets the financialDocumentTotalAmountCredit attribute.
      * @return Returns the financialDocumentTotalAmountCredit.
      */
     public KualiDecimal getFinancialDocumentTotalAmountCredit() {
@@ -221,7 +221,7 @@ public class CustomerStatementDetailReportDataHolder {
     public void setFinancialDocumentTotalAmountCredit(KualiDecimal financialDocumentTotalAmountCredit) {
         this.financialDocumentTotalAmountCredit = financialDocumentTotalAmountCredit;
     }
-    
-    
+
+
 }
-    
+

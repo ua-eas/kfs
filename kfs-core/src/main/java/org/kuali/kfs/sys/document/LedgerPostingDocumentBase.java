@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,7 +36,7 @@ public class LedgerPostingDocumentBase extends FinancialSystemTransactionalDocum
     static protected transient DateTimeService dateTimeService;
     static protected transient AccountingPeriodService accountingPeriodService;
     static protected transient DataDictionaryService dataDictionaryService;
-       
+
     protected AccountingPeriod accountingPeriod;
     protected Integer postingYear;
     protected String postingPeriodCode;
@@ -57,14 +57,14 @@ public class LedgerPostingDocumentBase extends FinancialSystemTransactionalDocum
      * <p>
      * This is a hack right now because its intended to be set by the
      * <code>{@link org.kuali.kfs.coa.service.AccountingPeriodService}</code>
-     * 
+     *
      * @return AccountingPeriod
      */
-    public void createInitialAccountingPeriod() { 
+    public void createInitialAccountingPeriod() {
         AccountingPeriod accountingPeriod = retrieveCurrentAccountingPeriod();
         setAccountingPeriod(accountingPeriod);
     }
-    
+
     /**
      * Finds the accounting period for the current date
      * @return the current accounting period
@@ -72,7 +72,7 @@ public class LedgerPostingDocumentBase extends FinancialSystemTransactionalDocum
     public AccountingPeriod retrieveCurrentAccountingPeriod() {
     	// CSU 6702 BEGIN
         try {
-        // CSU 6702 END    	
+        // CSU 6702 END
             Date date = getDateTimeService().getCurrentSqlDate();
             return getAccountingPeriodService().getByDate(date);
        	// CSU 6702 BEGIN
@@ -125,13 +125,13 @@ public class LedgerPostingDocumentBase extends FinancialSystemTransactionalDocum
      */
     public void setAccountingPeriod(AccountingPeriod accountingPeriod) {
         this.accountingPeriod = accountingPeriod;
-        
+
         if(ObjectUtils.isNotNull(accountingPeriod)) {
             this.setPostingYear(accountingPeriod.getUniversityFiscalYear());
             this.setPostingPeriodCode(accountingPeriod.getUniversityFiscalPeriodCode());
         }
     }
-    
+
     /**
      * If we've copied, we need to update the posting period and year
      * @see org.kuali.rice.krad.document.DocumentBase#toCopy()
@@ -141,7 +141,7 @@ public class LedgerPostingDocumentBase extends FinancialSystemTransactionalDocum
         super.toCopy();
         setAccountingPeriod(retrieveCurrentAccountingPeriod());
     }
-    
+
     /**
      * Returns the financial document type code for the given document, using the DataDictionaryService
      * @return the financial document type code for the given document
@@ -149,7 +149,7 @@ public class LedgerPostingDocumentBase extends FinancialSystemTransactionalDocum
     public String getFinancialDocumentTypeCode() {
         return getDataDictionaryService().getDocumentTypeNameByClass(this.getClass());
     }
-    
+
 
     public static DataDictionaryService getDataDictionaryService() {
         if ( dataDictionaryService == null ) {
@@ -171,7 +171,7 @@ public class LedgerPostingDocumentBase extends FinancialSystemTransactionalDocum
         }
         return accountingPeriodService;
     }
-    
+
     // CSU 6702 BEGIN
     // rSmart-jkneal-KFSCSU-199-begin mod for selected accounting period
     /**
@@ -195,5 +195,5 @@ public class LedgerPostingDocumentBase extends FinancialSystemTransactionalDocum
         }
     }
     // rSmart-jkneal-KFSCSU-199-end mod for selected accounting period
-    // CSU 6702 END    
+    // CSU 6702 END
 }

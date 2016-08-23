@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -47,7 +47,7 @@ public class GenesisServiceImpl implements GenesisService {
         boolean ReturnValue = (genesisDao.getBudgetConstructionControlFlag(RequestYear, BudgetConstructionConstants.BUDGET_CONSTRUCTION_GENESIS_RUNNING)) || ((genesisDao.getBudgetConstructionControlFlag(RequestYear, BudgetConstructionConstants.BUDGET_CONSTRUCTION_ACTIVE)) && (genesisDao.getBudgetConstructionControlFlag(RequestYear, BudgetConstructionConstants.BUDGET_BATCH_SYNCHRONIZATION_OK)));
         return ReturnValue;
     }
-    
+
     public boolean CSFUpdatesAllowed(Integer BaseYear) {
         Integer RequestYear = BaseYear + 1;
         boolean ReturnValue = (genesisDao.getBudgetConstructionControlFlag(RequestYear, BudgetConstructionConstants.BUDGET_CONSTRUCTION_GENESIS_RUNNING)) || ((genesisDao.getBudgetConstructionControlFlag(RequestYear, BudgetConstructionConstants.BUDGET_CONSTRUCTION_ACTIVE)) && (genesisDao.getBudgetConstructionControlFlag(RequestYear, BudgetConstructionConstants.CSF_UPDATES_OK)));
@@ -59,7 +59,7 @@ public class GenesisServiceImpl implements GenesisService {
         boolean ReturnValue = (genesisDao.getBudgetConstructionControlFlag(RequestYear, BudgetConstructionConstants.BUDGET_CONSTRUCTION_GENESIS_RUNNING)) || ((genesisDao.getBudgetConstructionControlFlag(RequestYear, BudgetConstructionConstants.BUDGET_CONSTRUCTION_ACTIVE)) && (genesisDao.getBudgetConstructionControlFlag(BaseYear, BudgetConstructionConstants.BASE_BUDGET_UPDATES_OK)));
         return ReturnValue;
     }
-    
+
     public boolean IsBudgetConstructionInUpdateMode(Integer baseYear)
     {
         Integer requestYear = baseYear + 1;
@@ -154,7 +154,7 @@ public class GenesisServiceImpl implements GenesisService {
         genesisDao.setControlFlagsAtTheEndOfGenesis(BaseYear);
         LOG.warn("\n  end of genesis");
     }
-    
+
     /*
      *   look of accounts from the payroll (CSF) or GL that came into budget construction but are *not* in the budget construction accounting table.
      *   this can be due to an oversight on the part of the chart manager, or to problems with the current year's budget control.
@@ -169,9 +169,9 @@ public class GenesisServiceImpl implements GenesisService {
     public void setGenesisDao(GenesisDao genesisDao) {
         this.genesisDao = genesisDao;
     }
-    
+
     public void setBudgetConstructionHumanResourcesPayrollInterfaceService(BudgetConstructionHumanResourcesPayrollInterfaceService budgetConstructionHumanResourcesPayrollInterfaceService)
     {
-        this.budgetConstructionHumanResourcesPayrollInterfaceService = budgetConstructionHumanResourcesPayrollInterfaceService; 
+        this.budgetConstructionHumanResourcesPayrollInterfaceService = budgetConstructionHumanResourcesPayrollInterfaceService;
     }
 }

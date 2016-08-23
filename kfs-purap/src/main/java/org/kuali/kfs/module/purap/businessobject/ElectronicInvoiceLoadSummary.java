@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,7 +31,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 public class ElectronicInvoiceLoadSummary extends PersistableBusinessObjectBase {
-  
+
   private Integer invoiceLoadSummaryIdentifier;
   private String vendorDunsNumber; // this is string constant if DUNS not found
   private Integer vendorHeaderGeneratedIdentifier;
@@ -43,63 +43,63 @@ public class ElectronicInvoiceLoadSummary extends PersistableBusinessObjectBase 
   private KualiDecimal invoiceLoadFailAmount = new KualiDecimal(0.00);
   private Boolean isEmpty = Boolean.TRUE;
   private Timestamp fileProcessTimestamp;
-  
+
   public ElectronicInvoiceLoadSummary() {
     super();
   }
-  
+
   public ElectronicInvoiceLoadSummary(String vendorDunsNumber) {
     super();
     this.vendorDunsNumber = vendorDunsNumber;
   }
-  
-  public void addSuccessfulInvoiceOrder(KualiDecimal amount, 
+
+  public void addSuccessfulInvoiceOrder(KualiDecimal amount,
                                         ElectronicInvoice eInvoice) {
     isEmpty = Boolean.FALSE;
     invoiceLoadSuccessCount = new Integer(invoiceLoadSuccessCount.intValue() + 1);
     fileProcessTimestamp = SpringContext.getBean(DateTimeService.class).getCurrentTimestamp();
-    
+
     if (amount != null) {
       invoiceLoadSuccessAmount = invoiceLoadSuccessAmount.add(amount);
     }
-    
+
     setupVendorInformation(eInvoice);
   }
-  
-  public void addFailedInvoiceOrder(KualiDecimal amount, 
+
+  public void addFailedInvoiceOrder(KualiDecimal amount,
                                     ElectronicInvoice eInvoice) {
     isEmpty = Boolean.FALSE;
     invoiceLoadFailCount = new Integer(invoiceLoadFailCount.intValue() + 1);
     fileProcessTimestamp = SpringContext.getBean(DateTimeService.class).getCurrentTimestamp();
-    
+
     if (amount != null) {
       invoiceLoadFailAmount = invoiceLoadFailAmount.add(amount);
     }
-    
+
     setupVendorInformation(eInvoice);
   }
-  
+
   public void addFailedInvoiceOrder(ElectronicInvoice ei) {
     this.addFailedInvoiceOrder(new KualiDecimal(0),ei);
   }
-  
+
   public void addFailedInvoiceOrder() {
     this.addFailedInvoiceOrder(new KualiDecimal(0),null);
   }
 
   private void setupVendorInformation(ElectronicInvoice eInvoice) {
-      
-    if (eInvoice != null && 
-        getVendorHeaderGeneratedIdentifier() == null && 
+
+    if (eInvoice != null &&
+        getVendorHeaderGeneratedIdentifier() == null &&
         getVendorDetailAssignedIdentifier() == null) {
-        
+
         setVendorHeaderGeneratedIdentifier(eInvoice.getVendorHeaderID());
         setVendorDetailAssignedIdentifier(eInvoice.getVendorDetailID());
         setVendorName(eInvoice.getVendorName());
-        
+
     }
   }
-  
+
   public String getVendorDescriptor() {
     String kualiDescriptor = null;
     if ( (this.vendorName != null) && (this.vendorHeaderGeneratedIdentifier != null) && (this.vendorDetailAssignedIdentifier != null) ) {
@@ -153,7 +153,7 @@ public class ElectronicInvoiceLoadSummary extends PersistableBusinessObjectBase 
   public void setVendorName(String kualiVendorName) {
     this.vendorName = kualiVendorName;
   }
-  
+
   /**
    * @return the invoiceLoadFailAmount
    */
@@ -167,14 +167,14 @@ public class ElectronicInvoiceLoadSummary extends PersistableBusinessObjectBase 
   public void setInvoiceLoadFailAmount(KualiDecimal failAmount) {
     this.invoiceLoadFailAmount = failAmount;
   }
-  
+
   /**
    * @return the invoiceLoadFailCount
    */
   public Integer getInvoiceLoadFailCount() {
     return invoiceLoadFailCount;
   }
-  
+
   /**
    * @param invoiceLoadFailCount the invoiceLoadFailCount to set
    */

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,14 +46,14 @@ public class SecTransactionalDocumentAuthorizer implements TransactionalDocument
     protected TransactionalDocumentAuthorizer documentAuthorizer;
 
     private static AccessSecurityService accessSecurityService;
-    
+
     protected AccessSecurityService getAccessSecurityService() {
         if ( accessSecurityService == null ) {
             accessSecurityService = SpringContext.getBean(AccessSecurityService.class);
         }
         return accessSecurityService;
     }
-    
+
     public Set<String> getEditModes(Document document, Person user, Set<String> editModes) {
         return documentAuthorizer.getEditModes(document, user, editModes);
     }
@@ -72,7 +72,7 @@ public class SecTransactionalDocumentAuthorizer implements TransactionalDocument
 
     /**
      * If user has open permission then does further checks to verify there are no access security restriction setup that prevents the user from opening the document
-     * 
+     *
      * @see org.kuali.rice.krad.document.authorization.DocumentAuthorizer#canOpen(org.kuali.rice.krad.document.Document, org.kuali.rice.kim.api.identity.Person)
      */
     public boolean canOpen(Document document, Person user) {
@@ -99,7 +99,7 @@ public class SecTransactionalDocumentAuthorizer implements TransactionalDocument
     /**
      * If user has permission to view notes/attachments then does further checks to verify there are no access security restriction setup that prevents the user from viewing the
      * notes/attachments
-     * 
+     *
      * @see org.kuali.rice.krad.document.authorization.DocumentAuthorizer#canViewNoteAttachment(org.kuali.rice.krad.document.Document, java.lang.String, org.kuali.rice.kim.api.identity.Person)
      */
     public boolean canViewNoteAttachment(Document document, String attachmentTypeCode, Person user) {
@@ -118,7 +118,7 @@ public class SecTransactionalDocumentAuthorizer implements TransactionalDocument
     /**
      * If there are line restrictions and the initiator override flag is turned on, we need to disable the copy and error correct buttons since those would result in documents
      * displaying the restricted lines
-     * 
+     *
      * @see org.kuali.rice.krad.document.authorization.DocumentAuthorizer#getDocumentActions(org.kuali.rice.krad.document.Document, org.kuali.rice.kim.api.identity.Person, java.util.Set)
      */
     public Set<String> getDocumentActions(Document document, Person user, Set<String> documentActions) {

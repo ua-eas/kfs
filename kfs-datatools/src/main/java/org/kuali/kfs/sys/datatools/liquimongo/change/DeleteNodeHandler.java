@@ -26,7 +26,7 @@ import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 
 public class DeleteNodeHandler extends AbstractNodeChangeHandler implements DocumentStoreChangeHandler {
-    
+
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DeleteNodeHandler.class);
     public static final String DELETE_NODE = "deleteNode";
 
@@ -42,15 +42,15 @@ public class DeleteNodeHandler extends AbstractNodeChangeHandler implements Docu
         verifyKeyExistence(change,COLLECTION_NAME);
         verifyKeyExistence(change,QUERY);
         verifyKeyExistence(change,PATH);
-        
+
         String collectionName = change.get(COLLECTION_NAME).asText();
         String path = change.get(PATH).asText();
-        JsonNode query = change.get(QUERY); 
+        JsonNode query = change.get(QUERY);
         Query q = JsonUtils.getQueryFromJson(query);
-        
-        String documentJson = mongoTemplate.findOne(q, DBObject.class, collectionName).toString();    
-        String newJson = JsonPath.parse(documentJson).delete(path).jsonString();        
-        
+
+        String documentJson = mongoTemplate.findOne(q, DBObject.class, collectionName).toString();
+        String newJson = JsonPath.parse(documentJson).delete(path).jsonString();
+
         DBObject result = (DBObject) JSON.parse(newJson);
         mongoTemplate.remove(q, collectionName);
         mongoTemplate.save(result, collectionName);

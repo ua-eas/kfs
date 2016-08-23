@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -90,7 +90,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     protected String batchFileDirectoryName;
     protected PrintStream POSTER_OUTPUT_ERR_FILE_ps;
-    
+
     /**
      * @see org.kuali.kfs.module.ld.batch.service.LaborPosterService#postMainEntries()
      */
@@ -103,7 +103,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * post the qualified origin entries into Labor Ledger tables
-     * 
+     *
      * @param validGroup the origin entry group that holds the valid transactions
      * @param invalidGroup the origin entry group that holds the invalid transactions
      * @param runDate the data when the process is running
@@ -149,12 +149,12 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
             while (currentLine != null) {
                 LaborOriginEntry laborOriginEntry = null;
-                
+
                 try {
                     lineNumber++;
                     if (!StringUtils.isEmpty(currentLine) && !StringUtils.isBlank(currentLine.trim())) {
                         laborOriginEntry = new LaborOriginEntry();
-                    
+
                         // checking parsing process and stop poster when it has errors.
                         List<Message> parsingError = new ArrayList<Message>();
                         parsingError = laborOriginEntry.setFromTextFileForBatch(currentLine, lineNumber);
@@ -210,7 +210,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * post the given entry into the labor ledger tables if the entry is qualified; otherwise report error
-     * 
+     *
      * @param originEntry the given origin entry, a transaction
      * @param reportSummary the report summary object that need to be update when a transaction is posted
      * @param runDate the data when the process is running
@@ -244,7 +244,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * validate the given entry, and generate an error list if the entry cannot meet the business rules
-     * 
+     *
      * @param originEntry the given origin entry, a transcation
      * @return error message list. If the given transaction is invalid, the list has message(s); otherwise, it is empty
      */
@@ -254,7 +254,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * post the given entry to the labor entry table
-     * 
+     *
      * @param originEntry the given origin entry, a transaction
      * @param postDate the data when the transaction is processes return the operation type of the process
      */
@@ -264,7 +264,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * update the labor ledger balance for the given entry
-     * 
+     *
      * @param originEntry the given origin entry, a transaction
      * @param postDate the data when the transaction is processes return the operation type of the process
      */
@@ -274,7 +274,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * determine if the given origin entry can be posted back to Labor GL entry
-     * 
+     *
      * @param originEntry the given origin entry, atransaction
      * @return a message list. The list has message(s) if the given origin entry cannot be posted back to Labor GL entry; otherwise,
      *         it is empty
@@ -330,7 +330,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * summary the valid origin entries for the General Ledger
-     * 
+     *
      * @param laborOriginEntry the current entry to check for summarization
      * @param laborLedgerUnitOfWork the current (in process) summarized entry for the GL
      * @param runDate the data when the process is running
@@ -344,7 +344,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
                 laborOriginEntry.setTransactionLedgerEntryDescription(description);
             }
         }
-        
+
         LaborOriginEntry summarizedEntry = null;
         if (laborLedgerUnitOfWork.canContain(laborOriginEntry)) {
             laborLedgerUnitOfWork.addEntryIntoUnit(laborOriginEntry);
@@ -360,7 +360,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     protected void writeLaborGLEntry(LaborOriginEntry laborOriginEntry, LaborLedgerUnitOfWork laborLedgerUnitOfWork, Date runDate, int lineNumber, Map<String, Integer> glEntryReportSummary) {
         LaborOriginEntry summarizedEntry = summarizeLaborGLEntries(laborOriginEntry, laborLedgerUnitOfWork, runDate, lineNumber, glEntryReportSummary);
-        if (summarizedEntry == null) { 
+        if (summarizedEntry == null) {
             return;
         }
 
@@ -405,7 +405,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * Get a set of the balance type codes that are bypassed by Labor Poster
-     * 
+     *
      * @return a set of the balance type codes that are bypassed by Labor Poster
      */
     public Collection<String> getBalanceTypesNotProcessed() {
@@ -414,7 +414,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * Get a set of the fiscal period codes that are bypassed by Labor Poster
-     * 
+     *
      * @return a set of the fiscal period codes that are bypassed by Labor Poster
      */
     public Collection<String> getPeriodCodesNotProcessed() {
@@ -423,7 +423,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * Sets the dateTimeService attribute value.
-     * 
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -433,7 +433,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * Sets the laborLedgerBalancePoster attribute value.
-     * 
+     *
      * @param laborLedgerBalancePoster The laborLedgerBalancePoster to set.
      */
     public void setLaborLedgerBalancePoster(PostTransaction laborLedgerBalancePoster) {
@@ -442,7 +442,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * Sets the laborGLLedgerEntryPoster attribute value.
-     * 
+     *
      * @param laborGLLedgerEntryPoster The laborGLLedgerEntryPoster to set.
      */
     public void setLaborGLLedgerEntryPoster(PostTransaction laborGLLedgerEntryPoster) {
@@ -451,7 +451,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * Sets the laborLedgerEntryPoster attribute value.
-     * 
+     *
      * @param laborLedgerEntryPoster The laborLedgerEntryPoster to set.
      */
     public void setLaborLedgerEntryPoster(PostTransaction laborLedgerEntryPoster) {
@@ -460,7 +460,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * Sets the laborOriginEntryService attribute value.
-     * 
+     *
      * @param laborOriginEntryService The laborOriginEntryService to set.
      */
     public void setLaborOriginEntryService(LaborOriginEntryService laborOriginEntryService) {
@@ -469,7 +469,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * Sets the originEntryGroupService attribute value.
-     * 
+     *
      * @param originEntryGroupService The originEntryGroupService to set.
      */
     public void setOriginEntryGroupService(OriginEntryGroupService originEntryGroupService) {
@@ -483,10 +483,10 @@ public class LaborPosterServiceImpl implements LaborPosterService {
     public void setLaborTransactionDescriptionService(LaborTransactionDescriptionService laborTransactionDescriptionService) {
         this.laborTransactionDescriptionService = laborTransactionDescriptionService;
     }
-    
+
     /**
      * Sets the reportWriterService
-     * 
+     *
      * @param reportWriterService The reportWriterService to set.
      */
     public void setReportWriterService(ReportWriterService reportWriterService) {
@@ -495,7 +495,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * Sets the errorListingReportWriterService
-     * 
+     *
      * @param errorListingReportWriterService The errorListingReportWriterService to set.
      */
     public void setErrorListingReportWriterService(ReportWriterService errorListingReportWriterService) {
@@ -504,7 +504,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * Sets the ledgerSummaryReportWriterService
-     * 
+     *
      * @param ledgerSummaryReportWriterService The ledgerSummaryReportWriterService to set.
      */
     public void setLedgerSummaryReportWriterService(ReportWriterService ledgerSummaryReportWriterService) {
@@ -513,7 +513,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * Sets the laborPosterTransactionValidator attribute value.
-     * 
+     *
      * @param laborPosterTransactionValidator The laborPosterTransactionValidator to set.
      */
     public void setLaborPosterTransactionValidator(VerifyTransaction laborPosterTransactionValidator) {
@@ -522,7 +522,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * Sets the parameterService attribute value.
-     * 
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -531,7 +531,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * Sets the laborGlEntryStatisticsReportWriterService attribute value.
-     * 
+     *
      * @param laborGlEntryStatisticsReportWriterService The laborGlEntryStatisticsReportWriterService to set.
      */
     public void setLaborGlEntryStatisticsReportWriterService(ReportWriterService laborGlEntryStatisticsReportWriterService) {
@@ -540,7 +540,7 @@ public class LaborPosterServiceImpl implements LaborPosterService {
 
     /**
      * Sets the batchFileDirectoryName attribute value.
-     * 
+     *
      * @param batchFileDirectoryName The batchFileDirectoryName to set.
      */
     public void setBatchFileDirectoryName(String batchFileDirectoryName) {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,16 +26,16 @@ import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
- * Receiving Address Business Object. 
- * Used when an institution has products shipped by vendors to their "central receiving" organziation, 
+ * Receiving Address Business Object.
+ * Used when an institution has products shipped by vendors to their "central receiving" organziation,
  * which will then deliever the products to the final delivery addresses.
- * ReceivingAddress defines all the required address fields as well as an indicator to decide whether the 
+ * ReceivingAddress defines all the required address fields as well as an indicator to decide whether the
  * receiving address or the final delivery address will be used as the shipping address provided to a vendor.
  */
 public class ReceivingAddress extends PersistableBusinessObjectBase implements MutableInactivatable{
 
     private Integer receivingAddressIdentifier;
-    private String chartOfAccountsCode;    
+    private String chartOfAccountsCode;
     private String organizationCode;
     private String receivingName;
     private String receivingLine1Address;
@@ -56,7 +56,7 @@ public class ReceivingAddress extends PersistableBusinessObjectBase implements M
      */
     public ReceivingAddress() {
     }
-    
+
     public boolean isActive() {
         return active;
     }
@@ -160,7 +160,7 @@ public class ReceivingAddress extends PersistableBusinessObjectBase implements M
     public void setUseReceivingIndicator(boolean useReceivingIndicator) {
         this.useReceivingIndicator = useReceivingIndicator;
     }
-    
+
     public Chart getChartOfAccounts() {
         return chartOfAccounts;
     }

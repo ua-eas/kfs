@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <xsd:schema elementFormDefault="qualified"
     targetNamespace="http://www.kuali.org/kfs/ar/customer"
     xmlns="http://www.kuali.org/kfs/ar/customer" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  
+
 	<!--  elements -->
 	<xsd:element name="customers" type="customersType" />
 	<xsd:element name="customer" type="customerType" />
 	<xsd:element name="addresses" type="addressesType" />
 	<xsd:element name="address" type="addressType" />
-	
+
 	<xsd:element name="customerNumber"                type="xsd:normalizedString" />
 	<xsd:element name="customerName"                  type="xsd:normalizedString" />
 	<xsd:element name="customerParentCompanyNumber"   type="xsd:normalizedString" />
@@ -60,8 +60,8 @@
 	<xsd:element name="customerAddressTypeCode"       type="xsd:normalizedString" />
 	<xsd:element name="customerAddressEndDate"        type="xsd:date" />
 
-    
-    
+
+
     <!-- definition of complex type elements -->
     <xsd:complexType name="addressType">
 	    <xsd:sequence>
@@ -77,7 +77,7 @@
 	       <xsd:element maxOccurs="1" minOccurs="0" ref="customerEmailAddress" />
 	       <xsd:element maxOccurs="1" minOccurs="1" ref="customerAddressTypeCode" />
 	       <xsd:element maxOccurs="1" minOccurs="0" ref="customerAddressEndDate" />
-	     </xsd:sequence>  
+	     </xsd:sequence>
     </xsd:complexType>
 
     <xsd:complexType name="addressesType">
@@ -85,7 +85,7 @@
 		    <xsd:element maxOccurs="unbounded" minOccurs="1" ref="address"/>
 		</xsd:sequence>
     </xsd:complexType>
-    
+
     <xsd:complexType name="customerType">
 	   <xsd:sequence>
 	      <xsd:element maxOccurs="1" minOccurs="0" ref="customerNumber" />
@@ -107,7 +107,7 @@
 	      <xsd:element maxOccurs="1" minOccurs="0" ref="customerCreditApprovedByName" />
 	      <xsd:element maxOccurs="1" minOccurs="0" ref="customerEmailAddress" />
 	      <xsd:element maxOccurs="unbounded" minOccurs="1" ref="addresses" />
-	    </xsd:sequence>  
+	    </xsd:sequence>
     </xsd:complexType>
 
     <xsd:complexType name="customersType">
@@ -115,5 +115,5 @@
 	        <xsd:element maxOccurs="unbounded" minOccurs="1" ref="customer"/>
 	    </xsd:sequence>
     </xsd:complexType>
-    
+
 </xsd:schema>

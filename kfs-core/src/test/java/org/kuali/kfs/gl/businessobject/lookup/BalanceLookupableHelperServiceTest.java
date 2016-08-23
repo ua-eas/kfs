@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -99,7 +99,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * This method includes the test cases applied to the pending entry option: Approved and All
-     * 
+     *
      * @throws Exception thrown if an exception is encountered for any reason
      */
     public void testPendingEntryOption() throws Exception {
@@ -150,7 +150,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * This method tests if the orphan pending entries can be included in the search results
-     * 
+     *
      * @throws Exception thrown if an exception is encountered for any reason
      */
     public void testOrphanPendingEntry() throws Exception {
@@ -178,7 +178,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * This method includes the test cases applied to the consolidation option: Consolidate and Detail
-     * 
+     *
      * @throws Exception thrown if an exception is encountered for any reason
      */
     public void testConsolidationOption() throws Exception {
@@ -217,7 +217,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * This method includes the test cases applied to the amount view option: Monthly and Accumulate
-     * 
+     *
      * @throws Exception thrown if an exception is encountered for any reason
      */
     public void testAmountViewOption() throws Exception {
@@ -258,7 +258,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * This method includes the test cases applied to the consolidation option: Consolidate and Detail
-     * 
+     *
      * @throws Exception thrown if an exception is encountered for any reason
      */
     public void testPerformance() throws Exception {
@@ -324,7 +324,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * This method inserts a new balance record into database
-     * 
+     *
      * @param balance the given balance
      */
     protected void insertNewRecord(Balance balance) {
@@ -338,7 +338,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * Gets the balanceService attribute.
-     * 
+     *
      * @return Returns the balanceService.
      */
     public BalanceService getBalanceService() {
@@ -347,7 +347,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * Sets the balanceService attribute value.
-     * 
+     *
      * @param balanceService The balanceService to set.
      */
     public void setBalanceService(BalanceService balanceService) {

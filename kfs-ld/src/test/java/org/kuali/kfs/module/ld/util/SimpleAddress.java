@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -47,7 +47,7 @@ public class SimpleAddress {
 
     /**
      * Constructs a SimpleAddress.java.
-     * 
+     *
      * @param street
      * @param city
      * @param state
@@ -87,7 +87,7 @@ public class SimpleAddress {
 
     /**
      * Gets the city attribute.
-     * 
+     *
      * @return Returns the city.
      */
     public String getCity() {
@@ -96,7 +96,7 @@ public class SimpleAddress {
 
     /**
      * Sets the city attribute value.
-     * 
+     *
      * @param city The city to set.
      */
     public void setCity(String city) {
@@ -105,7 +105,7 @@ public class SimpleAddress {
 
     /**
      * Gets the state attribute.
-     * 
+     *
      * @return Returns the state.
      */
     public String getState() {
@@ -114,7 +114,7 @@ public class SimpleAddress {
 
     /**
      * Sets the state attribute value.
-     * 
+     *
      * @param state The state to set.
      */
     public void setState(String state) {
@@ -123,7 +123,7 @@ public class SimpleAddress {
 
     /**
      * Gets the street attribute.
-     * 
+     *
      * @return Returns the street.
      */
     public String getStreet() {
@@ -132,7 +132,7 @@ public class SimpleAddress {
 
     /**
      * Sets the street attribute value.
-     * 
+     *
      * @param street The street to set.
      */
     public void setStreet(String street) {
@@ -141,7 +141,7 @@ public class SimpleAddress {
 
     /**
      * Gets the zip attribute.
-     * 
+     *
      * @return Returns the zip.
      */
     public Integer getZip() {
@@ -150,7 +150,7 @@ public class SimpleAddress {
 
     /**
      * Sets the zip attribute value.
-     * 
+     *
      * @param zip The zip to set.
      */
     public void setZip(Integer zip) {
@@ -159,7 +159,7 @@ public class SimpleAddress {
 
     /**
      * Gets the licenseDate attribute.
-     * 
+     *
      * @return Returns the licenseDate.
      */
     public Date getLicenseDate() {
@@ -168,7 +168,7 @@ public class SimpleAddress {
 
     /**
      * Sets the licenseDate attribute value.
-     * 
+     *
      * @param licenseDate The licenseDate to set.
      */
     public void setLicenseDate(Date licenseDate) {
@@ -177,7 +177,7 @@ public class SimpleAddress {
 
     /**
      * Gets the propertyValue attribute.
-     * 
+     *
      * @return Returns the propertyValue.
      */
     public KualiDecimal getPropertyValue() {
@@ -186,7 +186,7 @@ public class SimpleAddress {
 
     /**
      * Sets the propertyValue attribute value.
-     * 
+     *
      * @param propertyValue The propertyValue to set.
      */
     public void setPropertyValue(KualiDecimal propertyValue) {

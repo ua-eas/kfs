@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -65,7 +65,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 public class RequisitionAction extends PurchasingActionBase {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(RequisitionAction.class);
     private RequisitionService requisitionService;
-    
+
     /**
      * save the document without any validations.....
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#save(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -73,24 +73,24 @@ public class RequisitionAction extends PurchasingActionBase {
     @Override
     public ActionForward save(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         //call the super save to save the document without validations...
-        
+
         ActionForward actionForward = super.save(mapping, form, request, response);
-        
+
         //we need to make "calculated" to false so that the "below lines"
         //can be edited until calculated button is clicked.
         KualiDocumentFormBase kualiDocumentFormBase = (KualiDocumentFormBase) form;
         PurchasingFormBase baseForm = (PurchasingFormBase) form;
         PurchasingAccountsPayableDocument purapDocument = (PurchasingAccountsPayableDocument) kualiDocumentFormBase.getDocument();
-        
+
         baseForm.setCalculated(false);
         purapDocument.setCalculated(false);
-        
+
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }
-    
+
     /**
      * Does initialization for a new requisition.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#createDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
      */
     @Override
@@ -101,7 +101,7 @@ public class RequisitionAction extends PurchasingActionBase {
 
     public ActionForward setAsDefaultBuilding(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         RequisitionDocument req = (RequisitionDocument) ((RequisitionForm) form).getDocument();
-        
+
         if (ObjectUtils.isNotNull(req.getDeliveryCampusCode()) && ObjectUtils.isNotNull(req.getDeliveryBuildingCode())) {
             DefaultPrincipalAddress defaultPrincipalAddress = new DefaultPrincipalAddress(GlobalVariables.getUserSession().getPerson().getPrincipalId());
             Map addressKeys = SpringContext.getBean(PersistenceService.class).getPrimaryKeyFieldValues(defaultPrincipalAddress);
@@ -110,12 +110,12 @@ public class RequisitionAction extends PurchasingActionBase {
             if (ObjectUtils.isNull(defaultPrincipalAddress)) {
                 defaultPrincipalAddress = new DefaultPrincipalAddress(GlobalVariables.getUserSession().getPerson().getPrincipalId());
             }
-            
+
             defaultPrincipalAddress.setDefaultBuilding(req.getDeliveryCampusCode(), req.getDeliveryBuildingCode(), req.getDeliveryBuildingRoomNumber());
             SpringContext.getBean(BusinessObjectService.class).save(defaultPrincipalAddress);
             KNSGlobalVariables.getMessageList().add(PurapKeyConstants.DEFAULT_BUILDING_SAVED);
         }
-        
+
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 
@@ -133,11 +133,11 @@ public class RequisitionAction extends PurchasingActionBase {
         document.setOrganizationAutomaticPurchaseOrderLimit(SpringContext.getBean(PurapService.class).getApoLimit(document.getVendorContractGeneratedIdentifier(), document.getChartOfAccountsCode(), document.getOrganizationCode()));
         return forward;
     }
-    
+
     /**
-     * Adds a PurchasingItemCapitalAsset (a container for the Capital Asset Number) to the selected 
+     * Adds a PurchasingItemCapitalAsset (a container for the Capital Asset Number) to the selected
      * item's list.
-     * 
+     *
      * @param mapping       An ActionMapping
      * @param form          The Form
      * @param request       An HttpServletRequest
@@ -164,19 +164,19 @@ public class RequisitionAction extends PurchasingActionBase {
         }
         request.getSession().removeAttribute("docId");
         request.getSession().removeAttribute("multipleB2BRequisitions");
-        
+
         // attach any extra JS from the data dictionary
         if (reqForm.getAdditionalScriptFiles().isEmpty()) {
             KNSDocumentEntry docEntry = (KNSDocumentEntry) getDataDictionaryService().getDataDictionary().getDocumentEntry(reqForm.getDocument().getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
             reqForm.getAdditionalScriptFiles().addAll(docEntry.getWebScriptFiles());
         }
-        
+
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 
     /**
      * Clears the vendor selection from the Requisition.  NOTE, this functionality is only available on Requisition and not PO.
-     * 
+     *
      * @param mapping An ActionMapping
      * @param form An ActionForm
      * @param request A HttpServletRequest
@@ -210,7 +210,7 @@ public class RequisitionAction extends PurchasingActionBase {
     /**
      * Set up blanket approve indicator which will be used to decide if need to run accounting line validation at the time of
      * blanket approve.
-     * 
+     *
      * @see org.kuali.kfs.module.purap.document.web.struts.PurchasingActionBase#blanketApprove(org.apache.struts.action.ActionMapping,
      *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
@@ -220,10 +220,10 @@ public class RequisitionAction extends PurchasingActionBase {
         document.setBlanketApproveRequest(true);
         return super.blanketApprove(mapping, form, request, response);
     }
-    
+
     /**
      * Add a new item to the document.
-     * 
+     *
      * @param mapping An ActionMapping
      * @param form An ActionForm
      * @param request The HttpServletRequest
@@ -237,7 +237,7 @@ public class RequisitionAction extends PurchasingActionBase {
         PurApItem item = purchasingForm.getNewPurchasingItemLine();
         RequisitionItem requisitionItem = (RequisitionItem)item;
         PurchasingDocument purDocument = (PurchasingDocument) purchasingForm.getDocument();
-        
+
         if (StringUtils.isBlank(requisitionItem.getPurchasingCommodityCode())) {
             boolean commCodeParam = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(RequisitionDocument.class, PurapParameterConstants.ENABLE_DEFAULT_VENDOR_COMMODITY_CODE_IND);
 
@@ -260,7 +260,7 @@ public class RequisitionAction extends PurchasingActionBase {
                 }
             }
         }
-        
+
         boolean rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new AttributedAddPurchasingAccountsPayableItemEvent("", purDocument, item));
 
         if (rulePassed) {
@@ -280,7 +280,7 @@ public class RequisitionAction extends PurchasingActionBase {
                 String answer = request.getParameter(KRADConstants.QUESTION_CLICKED_BUTTON);
                 // if the answer is "yes"- continue routing, but if it isn't...
                 if (!StringUtils.equals(answer, ConfirmationQuestion.YES)) {
-                    // answer is "no, don't continue." so we'll just add a warning and refresh the page 
+                    // answer is "no, don't continue." so we'll just add a warning and refresh the page
                     LOG.info("add a warning and refresh the page ");
                     GlobalVariables.getMessageMap().putWarning(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapConstants.REQ_NO_ACCOUNTING_LINES);
                     return refresh(mapping, form, request, response);
@@ -295,7 +295,7 @@ public class RequisitionAction extends PurchasingActionBase {
         }
         return super.route(mapping, form, request, response);
     }
-    
+
     protected boolean shouldWarnIfNoAccountingLines(ActionForm form){
         RequisitionDocument doc = (RequisitionDocument) ((PurchasingFormBase) form).getDocument();
         RequisitionService reqs = getRequisitionService();

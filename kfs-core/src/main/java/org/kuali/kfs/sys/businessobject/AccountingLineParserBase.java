@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -82,19 +82,19 @@ public class AccountingLineParserBase implements AccountingLineParser {
     }
 
     /**
-     * If accounts can cross charts, returns the given format; 
+     * If accounts can cross charts, returns the given format;
      * otherwise returns the format with ChartOfAccountsCode field removed.
      */
     public String[] removeChartFromFormatIfNeeded(String[] format) {
         if (SpringContext.getBean(AccountService.class).accountsCanCrossCharts()) {
             return format;
         }
-        
+
         // if accounts can't cross charts, exclude ChartOfAccountsCode field from the format
         String[] formatNoChart = new String[format.length-1];
         int idx = 0;
         for (int i=0; i<format.length; i++) {
-            if (format[i].equals(CHART_OF_ACCOUNTS_CODE)) 
+            if (format[i].equals(CHART_OF_ACCOUNTS_CODE))
                 continue;
             else {
                 formatNoChart[idx] = format[i];
@@ -103,7 +103,7 @@ public class AccountingLineParserBase implements AccountingLineParser {
         }
         return formatNoChart;
     }
-    
+
     /**
      * @see org.kuali.rice.krad.bo.AccountingLineParser#getExpectedAccountingLineFormatAsString(java.lang.Class)
      */
@@ -131,7 +131,7 @@ public class AccountingLineParserBase implements AccountingLineParser {
         SourceAccountingLine sourceAccountingLine = (SourceAccountingLine) populateAccountingLine(transactionalDocument, sourceAccountingLineClass, sourceAccountingLineString, parseAccountingLine(sourceAccountingLineClass, sourceAccountingLineString), transactionalDocument.getNextSourceLineNumber());
         return sourceAccountingLine;
     }
-    
+
     /**
      * Given a document, determines what class the source lines of that document uses
      * @param accountingDocument the document to find the class of the source lines for
@@ -150,7 +150,7 @@ public class AccountingLineParserBase implements AccountingLineParser {
         TargetAccountingLine targetAccountingLine = (TargetAccountingLine) populateAccountingLine(transactionalDocument, targetAccountingLineClass, targetAccountingLineString, parseAccountingLine(targetAccountingLineClass, targetAccountingLineString), transactionalDocument.getNextTargetLineNumber());
         return targetAccountingLine;
     }
-    
+
     /**
      * Given a document, determines what class that document uses for target accounting lines
      * @param accountingDocument the document to determine the target accounting line class for
@@ -162,7 +162,7 @@ public class AccountingLineParserBase implements AccountingLineParser {
 
     /**
      * Populates a source/target line with values
-     * 
+     *
      * @param transactionalDocument
      * @param accountingLineClass
      * @param accountingLineAsString
@@ -179,7 +179,7 @@ public class AccountingLineParserBase implements AccountingLineParser {
 
         try {
             accountingLine = (AccountingLine) accountingLineClass.newInstance();
-            
+
             // perform custom line population
             if (SourceAccountingLine.class.isAssignableFrom(accountingLineClass)) {
                 performCustomSourceAccountingLinePopulation(attributeValueMap, (SourceAccountingLine) accountingLine, accountingLineAsString);
@@ -190,7 +190,7 @@ public class AccountingLineParserBase implements AccountingLineParser {
             else {
                 throw new IllegalArgumentException("invalid (unknown) accounting line type: " + accountingLineClass);
             }
-            
+
             for (Entry<String, String> entry : attributeValueMap.entrySet()) {
                 try {
                     try {
@@ -211,9 +211,9 @@ public class AccountingLineParserBase implements AccountingLineParser {
                     throw new AccountingLineParserException("invalid '" + entry.getKey() + "=" + entry.getValue() + "for " + accountingLineAsString, ERROR_INVALID_PROPERTY_VALUE, errorParameters);
                 }
             }
-            
+
             // override chart code if accounts can't cross charts
-            SpringContext.getBean(AccountService.class).populateAccountingLineChartIfNeeded(accountingLine);            
+            SpringContext.getBean(AccountService.class).populateAccountingLineChartIfNeeded(accountingLine);
         }
         catch (SecurityException e) {
             throw new InfrastructureException("unable to complete accounting line population.", e);
@@ -240,7 +240,7 @@ public class AccountingLineParserBase implements AccountingLineParser {
 
     /**
      * Places fields common to both source/target accounting lines in the attribute map
-     * 
+     *
      * @param attributeValueMap
      * @param document
      * @param sequenceNumber
@@ -253,7 +253,7 @@ public class AccountingLineParserBase implements AccountingLineParser {
 
     /**
      * Parses the csv line
-     * 
+     *
      * @param accountingLineClass
      * @param lineToParse
      * @return Map containing accounting line attribute,value pairs
@@ -276,7 +276,7 @@ public class AccountingLineParserBase implements AccountingLineParser {
 
     /**
      * Should be voerriden by documents to perform any additional <code>SourceAccountingLine</code> population
-     * 
+     *
      * @param attributeValueMap
      * @param sourceAccountingLine
      * @param accountingLineAsString
@@ -286,7 +286,7 @@ public class AccountingLineParserBase implements AccountingLineParser {
 
     /**
      * Should be overridden by documents to perform any additional <code>TargetAccountingLine</code> attribute population
-     * 
+     *
      * @param attributeValueMap
      * @param targetAccountingLine
      * @param accountingLineAsString
@@ -296,7 +296,7 @@ public class AccountingLineParserBase implements AccountingLineParser {
 
     /**
      * Calls the appropriate parseAccountingLine method
-     * 
+     *
      * @param stream
      * @param transactionalDocument
      * @param isSource
@@ -312,11 +312,11 @@ public class AccountingLineParserBase implements AccountingLineParser {
             lineNo = 0;
             while ((accountingLineAsString = br.readLine()) != null) {
                 lineNo++;
-                
+
                 if (StringUtils.isBlank(StringUtils.remove(StringUtils.deleteWhitespace(accountingLineAsString),KFSConstants.COMMA))) {
                     continue;
                 }
-                
+
                 AccountingLine accountingLine = null;
 
                 try {
@@ -368,7 +368,7 @@ public class AccountingLineParserBase implements AccountingLineParser {
 
     /**
      * performs any additional accounting line validation
-     * 
+     *
      * @param line
      * @param accountingLineAsString
      * @throws AccountingLineParserException

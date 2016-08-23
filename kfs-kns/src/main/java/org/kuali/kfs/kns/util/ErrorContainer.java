@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,12 +36,12 @@ import java.util.List;
  * Provides access to a copy of an ErrorMap and information derived from it. Necessary because ErrorMap implements the Map
  * interface, which for some reason makes JSTL unwilling to translate ErrorMap.errorCount into a call to the getErrorCount method of
  * that ErrorMap instance.
- * 
+ *
  * Since I had to create this class to provide easy access to the error count (which must be computed as the sum of the sizes of the
  * error message lists of all properties in the ErrorMap), I also moved in the existing code which massaged the contents of the
  * ErrorMap for the purposes of export to the JSP.
- * 
- * 
+ *
+ *
  */
 public class ErrorContainer implements Serializable {
     private final MessageMap errorMap;
@@ -49,7 +49,7 @@ public class ErrorContainer implements Serializable {
 
     /**
      * Constructs an ErrorContainer
-     * 
+     *
      * @param errorMap
      */
     public ErrorContainer(MessageMap errorMap) {
@@ -97,7 +97,7 @@ public class ErrorContainer implements Serializable {
         }
         return false;
     }
-    
+
     /**
      * @return ActionMessages instance containing error messages constructed from the contents of the ErrorMap with which this
      *         container was initialized

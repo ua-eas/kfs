@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,14 +31,14 @@ import org.w3c.dom.NodeList;
 public class AttributeBeanDefinitionParser extends KualiBeanDefinitionParserBase {
 
     private static Logger LOG = Logger.getLogger(AttributeBeanDefinitionParser.class);
-    
-    
+
+
     @Override
     protected String getBaseBeanTypeParent(Element element) {
         return "AttributeDefinition";
-    }    
-    
-    
+    }
+
+
     @Override
     protected void doParse(Element element, ParserContext context, BeanDefinitionBuilder bean) {
         // get all attributes
@@ -49,7 +49,7 @@ public class AttributeBeanDefinitionParser extends KualiBeanDefinitionParserBase
         processChildNodes( children, bean );
         parseEmbeddedPropertyElements(element, bean);
     }
-    
+
     protected void processAttributeAttributes( Element element, BeanDefinitionBuilder bean ) {
         String attributeName = element.getAttribute("attributeName");
         String label = element.getAttribute("label");
@@ -112,22 +112,22 @@ public class AttributeBeanDefinitionParser extends KualiBeanDefinitionParserBase
             }
         }
     }
-    
+
     protected BeanDefinition processTextControlElement( Element ele ) {
         BeanDefinitionBuilder controlBean = BeanDefinitionBuilder.childBeanDefinition( "TextControlDefinition" );
-        
+
         String size = ele.getAttribute("size");
         if ( StringUtils.hasText(size) ) {
             controlBean.addPropertyValue("size", Integer.valueOf(size) );
         }
         parseEmbeddedPropertyElements(ele, controlBean);
-        
+
         return controlBean.getBeanDefinition();
     }
 
     protected BeanDefinition processUserControlElement( Element ele ) {
         BeanDefinitionBuilder controlBean = BeanDefinitionBuilder.childBeanDefinition( "KualiUserControlDefinition" );
-        
+
         String universalIdAttribute = ele.getAttribute("universalIdAttribute");
         if ( StringUtils.hasText(universalIdAttribute) ) {
             controlBean.addPropertyValue("universalIdAttributeName", universalIdAttribute );
@@ -138,13 +138,13 @@ public class AttributeBeanDefinitionParser extends KualiBeanDefinitionParserBase
             controlBean.addPropertyValue("personNameAttributeName", userObjectAttribute + "." + KFSPropertyConstants.PERSON_NAME );
         }
         parseEmbeddedPropertyElements(ele, controlBean);
-        
+
         return controlBean.getBeanDefinition();
     }
 
     protected BeanDefinition processTextareaControlElement( Element ele ) {
         BeanDefinitionBuilder controlBean = BeanDefinitionBuilder.childBeanDefinition( "TextareaControlDefinition" );
-        
+
         String rows = ele.getAttribute("rows");
         if ( StringUtils.hasText(rows) ) {
             controlBean.addPropertyValue("rows", Integer.valueOf(rows) );
@@ -154,7 +154,7 @@ public class AttributeBeanDefinitionParser extends KualiBeanDefinitionParserBase
             controlBean.addPropertyValue("cols", Integer.valueOf(cols) );
         }
         parseEmbeddedPropertyElements(ele, controlBean);
-        
+
         return controlBean.getBeanDefinition();
     }
 
@@ -169,7 +169,7 @@ public class AttributeBeanDefinitionParser extends KualiBeanDefinitionParserBase
         parseEmbeddedPropertyElements(ele, controlBean);
         return controlBean.getBeanDefinition();
     }
-    
+
     protected void setMultiValueControlAttributes( Element ele, BeanDefinitionBuilder controlBean ) {
         String valuesFinderClass = ele.getAttribute("valuesFinderClass");
         if ( StringUtils.hasText(valuesFinderClass) ) {
@@ -192,13 +192,13 @@ public class AttributeBeanDefinitionParser extends KualiBeanDefinitionParserBase
             controlBean.addPropertyValue("includeKeyInLabel", Boolean.valueOf(includeKeyInLabel) );
         }
     }
-    
+
     protected BeanDefinition processSelectControlElement( Element ele ) {
         BeanDefinitionBuilder controlBean = BeanDefinitionBuilder.childBeanDefinition( "SelectControlDefinition" );
-        
+
         setMultiValueControlAttributes( ele, controlBean );
         parseEmbeddedPropertyElements(ele, controlBean);
-                  
+
         return controlBean.getBeanDefinition();
     }
 
@@ -207,7 +207,7 @@ public class AttributeBeanDefinitionParser extends KualiBeanDefinitionParserBase
 
         setMultiValueControlAttributes( ele, controlBean );
         parseEmbeddedPropertyElements(ele, controlBean);
-        
+
         return controlBean.getBeanDefinition();
     }
 
@@ -225,9 +225,9 @@ public class AttributeBeanDefinitionParser extends KualiBeanDefinitionParserBase
                 throw new RuntimeException( "Invalid class name given for validationPattern bean: " + validationPatternClass, ex );
             }
         }
-        
+
         parseEmbeddedPropertyElements(ele, validatorBean);
-                   
+
         return validatorBean.getBeanDefinition();
     }
 }

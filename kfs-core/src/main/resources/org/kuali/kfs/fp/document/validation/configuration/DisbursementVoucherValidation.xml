@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -22,8 +22,8 @@
     xmlns:p="http://www.springframework.org/schema/p"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-        
-	<bean id="DisbursementVoucher-routeDocumentValidation" parent="DisbursementVoucher-routeDocumentValidation-parentBean" />	
+
+	<bean id="DisbursementVoucher-routeDocumentValidation" parent="DisbursementVoucher-routeDocumentValidation-parentBean" />
 	<bean id="DisbursementVoucher-routeDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -34,7 +34,7 @@
 							<bean parent="accountingDocumentFieldConversion" />
 						</list>
 					</property>
-				</bean>			
+				</bean>
 				<bean parent="DisbursementVoucher-documentFieldValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
@@ -62,7 +62,7 @@
 							<bean parent="accountingDocumentFieldConversion" />
 						</list>
 					</property>
-				</bean>               
+				</bean>
 				<bean parent="DisbursementVoucher-vendorInformationValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
@@ -76,14 +76,14 @@
 							<bean parent="accountingDocumentFieldConversion" />
 						</list>
 					</property>
-				</bean>				
+				</bean>
 				<bean parent="DisbursementVoucher-employeeInformationValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
 							<bean parent="accountingDocumentFieldConversion" />
 						</list>
 					</property>
-				</bean>				
+				</bean>
 				<bean parent="PaymentSource-wireTransferValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
@@ -139,12 +139,12 @@
 							<bean parent="accountingDocumentFieldConversion" />
 						</list>
 					</property>
-				</bean>												
+				</bean>
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="DisbursementVoucher-approveDocumentValidation" parent="DisbursementVoucher-approveDocumentValidation-parentBean" />	
+
+	<bean id="DisbursementVoucher-approveDocumentValidation" parent="DisbursementVoucher-approveDocumentValidation-parentBean" />
 	<bean id="DisbursementVoucher-approveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -168,8 +168,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="DisbursementVoucher-blanketApproveDocumentValidation" parent="DisbursementVoucher-blanketApproveDocumentValidation-parentBean" />	
+
+	<bean id="DisbursementVoucher-blanketApproveDocumentValidation" parent="DisbursementVoucher-blanketApproveDocumentValidation-parentBean" />
 	<bean id="DisbursementVoucher-blanketApproveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -177,7 +177,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="DisbursementVoucher-addAccountingLineValidation" parent="DisbursementVoucher-addAccountingLineValidation-parentBean" />
 	<bean id="DisbursementVoucher-addAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
@@ -206,8 +206,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="DisbursementVoucher-deleteAccountingLineValidation" parent="DisbursementVoucher-deleteAccountingLineValidation-parentBean" />	
+
+	<bean id="DisbursementVoucher-deleteAccountingLineValidation" parent="DisbursementVoucher-deleteAccountingLineValidation-parentBean" />
 	<bean id="DisbursementVoucher-deleteAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -215,7 +215,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="DisbursementVoucher-updateAccountingLineValidation" parent="DisbursementVoucher-updateAccountingLineValidation-parentBean" />
 	<bean id="DisbursementVoucher-updateAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
@@ -248,8 +248,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="DisbursementVoucher-reviewAccountingLineValidation" parent="DisbursementVoucher-reviewAccountingLineValidation-parentBean" />	
+
+	<bean id="DisbursementVoucher-reviewAccountingLineValidation" parent="DisbursementVoucher-reviewAccountingLineValidation-parentBean" />
 	<bean id="DisbursementVoucher-reviewAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -259,8 +259,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="DisbursementVoucher-saveDocumentValidation" parent="DisbursementVoucher-saveDocumentValidation-parentBean" />	
+
+	<bean id="DisbursementVoucher-saveDocumentValidation" parent="DisbursementVoucher-saveDocumentValidation-parentBean" />
 	<bean id="DisbursementVoucher-saveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -280,8 +280,8 @@
 				</bean>
 			</list>
 		</property>
-	</bean>	
-		
+	</bean>
+
 	<bean id="DisbursementVoucher-checkAccountingLine" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -314,7 +314,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="DisbursementVoucher-checkUpdatedAccountingLine" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -347,5 +347,5 @@
 			</list>
 		</property>
 	</bean>
-	
+
 </beans>

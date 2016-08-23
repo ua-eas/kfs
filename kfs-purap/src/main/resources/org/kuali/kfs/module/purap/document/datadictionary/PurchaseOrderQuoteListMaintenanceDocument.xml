@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -34,9 +34,9 @@
         <value>purchaseOrderQuoteListIdentifier</value>
       </list>
     </property>
-    
-    
-    
+
+
+
     <property name="documentTypeName" value="PMQT"/>
     <property name="businessRulesClass" value="org.kuali.kfs.module.purap.document.validation.impl.PurchaseOrderQuoteListRule"/>
     <property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase"/>
@@ -57,7 +57,7 @@
         <bean parent="MaintainableFieldDefinition" p:name="purchaseOrderQuoteListIdentifier"/>
         <bean parent="MaintainableFieldDefinition" p:name="purchaseOrderQuoteListName" p:required="true"/>
         <bean parent="MaintainableFieldDefinition" p:name="contractManagerCode" p:required="true"/>
-        <bean parent="MaintainableFieldDefinition" p:name="active" p:required="true" p:defaultValue="true"/>              
+        <bean parent="MaintainableFieldDefinition" p:name="active" p:required="true" p:defaultValue="true"/>
       </list>
     </property>
   </bean>
@@ -80,11 +80,11 @@
           </property>
           <property name="maintainableFields">
             <list>
-              <bean parent="MaintainableFieldDefinition" p:name="vendorDetail.vendorNumber"  p:template="vendorDetail.vendorNumber"  p:readOnlyAfterAdd="true" p:required="true" p:overrideFieldConversions="vendorNumber:vendorDetail.vendorNumber,vendorName:vendorDetail.vendorName,vendorHeaderGeneratedIdentifier:vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier:vendorDetailAssignedIdentifier"/>              <bean parent="MaintainableFieldDefinition" p:name="newCollectionRecord"/>                    
+              <bean parent="MaintainableFieldDefinition" p:name="vendorDetail.vendorNumber"  p:template="vendorDetail.vendorNumber"  p:readOnlyAfterAdd="true" p:required="true" p:overrideFieldConversions="vendorNumber:vendorDetail.vendorNumber,vendorName:vendorDetail.vendorName,vendorHeaderGeneratedIdentifier:vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier:vendorDetailAssignedIdentifier"/>              <bean parent="MaintainableFieldDefinition" p:name="newCollectionRecord"/>
               <bean parent="MaintainableFieldDefinition" p:name="vendorHeaderGeneratedIdentifier" p:template="vendorHeaderGeneratedIdentifier"/>
               <bean parent="MaintainableFieldDefinition" p:name="vendorDetailAssignedIdentifier" p:template="vendorDetailAssignedIdentifier"/>
-              <bean parent="MaintainableFieldDefinition" p:name="vendorDetail.vendorName" p:template="vendorDetail.vendorName" p:unconditionallyReadOnly="true"/>                    
-		      <bean parent="MaintainableFieldDefinition" p:name="active" p:required="true" p:defaultValue="true"/>              
+              <bean parent="MaintainableFieldDefinition" p:name="vendorDetail.vendorName" p:template="vendorDetail.vendorName" p:unconditionallyReadOnly="true"/>
+		      <bean parent="MaintainableFieldDefinition" p:name="active" p:required="true" p:defaultValue="true"/>
             </list>
           </property>
           <property name="duplicateIdentificationFields">
@@ -97,9 +97,9 @@
       </list>
     </property>
   </bean>
-  
+
   <!-- workflow attributes -->
   <bean id="PurchaseOrderQuoteListMaintenanceDocument-workflowAttributes" parent="PurchaseOrderQuoteListMaintenanceDocument-workflowAttributes-parentBean"/>
-  
+
   <bean id="PurchaseOrderQuoteListMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true"/>
 </beans>

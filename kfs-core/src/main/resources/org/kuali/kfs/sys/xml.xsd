@@ -1,24 +1,24 @@
 <?xml version='1.0'?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 
-<!-- This line should be commented out. Otherwise, xeres will throw an exception like 'unable to resolve xml:lang' since 
+<!-- This line should be commented out. Otherwise, xeres will throw an exception like 'unable to resolve xml:lang' since
  XMLSchema.dtd(datatypes.dtd also) doesn't exists in our system-->
 <!-- <!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "XMLSchema.dtd" > -->
 
@@ -30,7 +30,7 @@
    http://www.w3.org/TR/REC-xml for information about this namespace.
 
     This schema document describes the XML namespace, in a form
-    suitable for import by other schema documents.  
+    suitable for import by other schema documents.
 
     Note that local names in this namespace are intended to be defined
     only by the World Wide Web Consortium or its subgroups.  The
@@ -48,16 +48,16 @@
          is a language code for the natural language of the content of
          any element; its value is inherited.  This name is reserved
          by virtue of its definition in the XML specification.
-  
+
     space (as an attribute name): denotes an attribute whose
          value is a keyword indicating what whitespace processing
          discipline is intended for the content of the element; its
          value is inherited.  This name is reserved by virtue of its
          definition in the XML specification.
 
-    Father (in any context at all): denotes Jon Bosak, the chair of 
-         the original XML Working Group.  This name is reserved by 
-         the following decision of the W3C XML Plenary and 
+    Father (in any context at all): denotes Jon Bosak, the chair of
+         the original XML Working Group.  This name is reserved by
+         the following decision of the W3C XML Plenary and
          XML Coordination groups:
 
              In appreciation for his vision, leadership and dedication
@@ -86,7 +86,7 @@
         &lt;type . . .>
          . . .
          &lt;attributeGroup ref="xml:specialAttrs"/>
- 
+
          will define a type which will schema-validate an instance
          element with any of those attributes</xs:documentation>
  </xs:annotation>

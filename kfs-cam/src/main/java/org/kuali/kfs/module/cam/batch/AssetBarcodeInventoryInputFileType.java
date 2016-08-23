@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -48,21 +48,21 @@ import org.kuali.rice.kim.api.identity.Person;
 public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AssetBarcodeInventoryInputFileType.class);
 
-    private String directoryPath; 
+    private String directoryPath;
     private static final String FILE_NAME_PREFIX = "barcode_inv";
     private static final String FILE_NAME_PART_DELIMITER = "_";
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getDirectoryPath(java.lang.String)
      */
     public String getDirectoryPath(String fileType) {
         return this.directoryPath;
     }
 
-    
+
     /**
-     * 
+     *
      * Sets the path were the files will be saved
      * @param directoryPath
      */
@@ -72,7 +72,7 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getFileTypes()
      */
     public List<String> getFileTypes() {
@@ -83,7 +83,7 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
 
     /**
      * Returns the file extension depending on the file type
-     * 
+     *
      * @param fileType the file type (returned in {@link #getFileTypes()})
      * @return the file extension
      */
@@ -93,9 +93,9 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
 
     /**
      * Returns a map with the enterprise feeder file type descriptions
-     * 
+     *
      * @return a map containing the following key/description pairs: DATA/Data Files, RECON/Reconciliation File
-     * 
+     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getFileTypeDescription()
      */
     public Map<String, String> getFileTypeDescription() {
@@ -106,11 +106,11 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
 
     /**
      * Return the file name based on information from user and file user identifier
-     * 
+     *
      * @param user Person object representing user who uploaded file
      * @param fileUserIdentifer String representing user who uploaded file
      * @return String enterprise feeder formated file name string using information from user and file user identifier
-     * 
+     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getFileName(java.lang.String, org.kuali.rice.kim.api.identity.Person, java.lang.String)
      */
     public String getFileName(String fileType, String principalName, String fileUserIdentifer, Date creationDate) {
@@ -139,7 +139,7 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
     public String getFileSetTypeIdentifer() {
         return CamsConstants.BarCodeInventory.FILE_TYPE_INDENTIFIER;
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.batch.BatchInputType#getTitleKey()
      */
@@ -152,7 +152,7 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
      */
     public boolean isFileRequired(String fileType) {
         return true;
-//        if (CamsConstants.BarCodeInventory.DATA_FILE_TYPE.equals(fileType)) { 
+//        if (CamsConstants.BarCodeInventory.DATA_FILE_TYPE.equals(fileType)) {
 //            return true;
 //        }
 //        throw new IllegalArgumentException("Unknown file type found: " + fileType);
@@ -174,11 +174,11 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
 
     /**
      * Returns done file name for a specific user and file user identifier
-     * 
+     *
      * @param user the user who uploaded or will upload the file
      * @param fileUserIdentifier the file identifier
      * @return String done file name
-     * 
+     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getDoneFileName(org.kuali.rice.kim.api.identity.Person, java.lang.String)
      */
     public String getDoneFileName(Person user, String fileUserIdentifer, Date creationDate) {
@@ -195,11 +195,11 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
 
     /**
      * Return set of file user identifiers from a list of files
-     * 
+     *
      * @param user user who uploaded or will upload file
      * @param files list of files objects
      * @return Set containing all user identifiers from list of files
-     * 
+     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#extractFileUserIdentifiers(org.kuali.rice.kim.api.identity.Person, java.util.List)
      */
     public Set<String> extractFileUserIdentifiers(Person user, List<File> files) {
@@ -229,19 +229,19 @@ public class AssetBarcodeInventoryInputFileType implements BatchInputFileSetType
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#process(java.util.Map)
      */
-    public void process(Map<String, File> typeToFiles) {        
-    }        
+    public void process(Map<String, File> typeToFiles) {
+    }
 
-    
-    public void process(Map<String, File> typeToFiles, AssetBarCodeInventoryInputFileForm form) {        
+
+    public void process(Map<String, File> typeToFiles, AssetBarCodeInventoryInputFileForm form) {
         SpringContext.getBean(AssetBarcodeInventoryLoadService.class).processFile(typeToFiles.get(CamsConstants.BarCodeInventory.DATA_FILE_TYPE),form);
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#validate(java.util.Map)
      */
     public boolean validate(Map<String, File> typeToFiles) {

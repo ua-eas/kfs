@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -88,7 +88,7 @@ public class PositionSalarySettingForm extends DetailSalarySettingForm {
 
     /**
      * Gets the budgetConstructionPosition attribute.
-     * 
+     *
      * @return Returns the budgetConstructionPosition.
      */
     public BudgetConstructionPosition getBudgetConstructionPosition() {
@@ -97,7 +97,7 @@ public class PositionSalarySettingForm extends DetailSalarySettingForm {
 
     /**
      * Sets the budgetConstructionPosition attribute value.
-     * 
+     *
      * @param budgetConstructionPosition The budgetConstructionPosition to set.
      */
     public void setBudgetConstructionPosition(BudgetConstructionPosition budgetConstructionPosition) {
@@ -106,7 +106,7 @@ public class PositionSalarySettingForm extends DetailSalarySettingForm {
 
     /**
      * checks if at least one active edit-able appointment funding line has a sync flag set
-     * 
+     *
      * @return true or false
      */
     public boolean isPendingPositionSalaryChange(){
@@ -124,7 +124,7 @@ public class PositionSalarySettingForm extends DetailSalarySettingForm {
 
     /**
      * Gets the refreshPositionBeforeSalarySetting attribute.
-     * 
+     *
      * @return Returns the refreshPositionBeforeSalarySetting.
      */
     public boolean isRefreshPositionBeforeSalarySetting() {
@@ -133,7 +133,7 @@ public class PositionSalarySettingForm extends DetailSalarySettingForm {
 
     /**
      * Sets the refreshPositionBeforeSalarySetting attribute value.
-     * 
+     *
      * @param refreshPositionBeforeSalarySetting The refreshPositionBeforeSalarySetting to set.
      */
     public void setRefreshPositionBeforeSalarySetting(boolean refreshPositionBeforeSalarySetting) {

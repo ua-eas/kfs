@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -50,7 +50,7 @@
 	    	</entry>
     	</map>
     </property>
-  
+
     <property name="attributes">
       <list>
         <ref bean="RequisitionDocument-applicationDocumentStatus"/>
@@ -65,7 +65,7 @@
         <ref bean="RequisitionDocument-vendorAddressInternationalProvinceName"/>
         <ref bean="RequisitionDocument-vendorPostalCode"/>
         <ref bean="RequisitionDocument-totalDollarAmount"/>
-        <ref bean="RequisitionDocument-totalPreTaxDollarAmount"/>        
+        <ref bean="RequisitionDocument-totalPreTaxDollarAmount"/>
         <ref bean="RequisitionDocument-totalTaxAmount"/>
         <ref bean="RequisitionDocument-purapDocumentIdentifier"/>
         <ref bean="RequisitionDocument-chartOfAccountsCode"/>
@@ -151,10 +151,10 @@
         <ref bean="RequisitionDocument-alternate4VendorName"/>
         <ref bean="RequisitionDocument-alternate5VendorName"/>
         <ref bean="RequisitionDocument-capitalAssetSystemStateCode"/>
-        <ref bean="RequisitionDocument-capitalAssetSystemTypeCode"/>  
+        <ref bean="RequisitionDocument-capitalAssetSystemTypeCode"/>
         <ref bean="RequisitionDocument-useTaxIndicator"/>
         <ref bean="RequisitionDocument-documentChartOfAccountsCodeForSearching"/>
-        <ref bean="RequisitionDocument-documentOrganizationCodeForSearching"/> 
+        <ref bean="RequisitionDocument-documentOrganizationCodeForSearching"/>
         <ref bean="RequisitionDocument-chartAndOrgCodeForResult"/>
         <ref bean="RequisitionDocument-deliveryCampusCodeForSearch"/>
         <ref bean="RequisitionDocument-createDateForResult"/>
@@ -226,7 +226,7 @@
 
   <bean id="RequisitionDocument-versionNumber-parentBean" abstract="true" parent="GenericAttributes-versionNumber">
   </bean>
-  
+
   <bean id="RequisitionDocument-postingYear" parent="RequisitionDocument-postingYear-parentBean"/>
 
   <bean id="RequisitionDocument-postingYear-parentBean" abstract="true" parent="GenericAttributes-genericFiscalYear">
@@ -236,7 +236,7 @@
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.module.purap.businessobject.options.PurapFiscalYearValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
-  
+
   <bean id="RequisitionDocument-vendorNumber" parent="RequisitionDocument-vendorNumber-parentBean"/>
 
   <bean id="RequisitionDocument-vendorNumber-parentBean" abstract="true" parent="VendorDetail-vendorNumber">
@@ -252,13 +252,13 @@
   <bean id="RequisitionDocument-vendorCustomerNumber-parentBean" abstract="true" parent="VendorCustomerNumber-vendorCustomerNumber">
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="RequisitionDocument-vendorAttentionName" parent="RequisitionDocument-vendorAttentionName-parentBean"/>
 
   <bean id="RequisitionDocument-vendorAttentionName-parentBean" abstract="true" parent="VendorGenericAttributes-attentionName">
     <property name="name" value="vendorAttentionName"/>
   </bean>
-  
+
   <bean id="RequisitionDocument-vendorLine2Address" parent="RequisitionDocument-vendorLine2Address-parentBean"/>
 
   <bean id="RequisitionDocument-vendorLine2Address-parentBean" abstract="true" parent="VendorGenericAttributes-line2Address">
@@ -312,7 +312,7 @@
     <property name="label" value="Chart"/>
     <property name="shortLabel" value="Code"/>
   </bean>
-  
+
   <bean id="RequisitionDocument-chartAndOrgCodeForResult" parent="RequisitionDocument-chartAndOrgCodeForResult-parentBean"/>
 
   <bean id="RequisitionDocument-chartAndOrgCodeForResult-parentBean" abstract="true" parent="AttributeDefinition">
@@ -327,7 +327,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="RequisitionDocument-documentChartOfAccountsCodeForSearching" parent="RequisitionDocument-documentChartOfAccountsCodeForSearching-parentBean"/>
 
   <bean id="RequisitionDocument-documentChartOfAccountsCodeForSearching-parentBean" abstract="true" parent="Chart-chartOfAccountsCode">
@@ -335,7 +335,7 @@
     <property name="label" value="Requisition Chart Code"/>
     <property name="shortLabel" value="Chart Code"/>
   </bean>
-  
+
   <bean id="RequisitionDocument-organizationCode" parent="RequisitionDocument-organizationCode-parentBean"/>
 
   <bean id="RequisitionDocument-organizationCode-parentBean" abstract="true" parent="PurApGenericAttributes-organizationCode">
@@ -348,7 +348,7 @@
     <property name="label" value="Requisition Organization Code"/>
     <property name="shortLabel" value="Organization Code"/>
   </bean>
-  
+
   <bean id="RequisitionDocument-vendorAddressGeneratedIdentifier" parent="RequisitionDocument-vendorAddressGeneratedIdentifier-parentBean"/>
 
   <bean id="RequisitionDocument-vendorAddressGeneratedIdentifier-parentBean" abstract="true" parent="VendorAddress-vendorAddressGeneratedIdentifier">
@@ -479,7 +479,7 @@
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.sys.businessobject.options.BuildingValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
-  
+
   <bean id="RequisitionDocument-deliveryCampusCode" parent="RequisitionDocument-deliveryCampusCode-parentBean"/>
 
   <bean id="RequisitionDocument-deliveryCampusCode-parentBean" abstract="true" parent="VendorGenericAttributes-campusCode">
@@ -488,7 +488,7 @@
     <property name="shortLabel" value="Delivery Campus"/>
     <property name="required" value="true"/>
   </bean>
-  
+
   <bean id="RequisitionDocument-deliveryCampusCodeForSearch" parent="RequisitionDocument-deliveryCampusCodeForSearch-parentBean"/>
 
   <bean id="RequisitionDocument-deliveryCampusCodeForSearch-parentBean" abstract="true" parent="AttributeDefinition">
@@ -504,7 +504,7 @@
       <ref bean="FourCharacterTextControl" />
     </property>
   </bean>
-  
+
   <bean id="RequisitionDocument-createDateForResult" parent="RequisitionDocument-createDateForResult-parentBean"/>
 
   <bean id="RequisitionDocument-createDateForResult-parentBean" abstract="true" parent="GenericAttributes-genericDate">
@@ -512,7 +512,7 @@
     <property name="label" value="Date Created"/>
     <property name="shortLabel" value="Date Created"/>
   </bean>
-  
+
   <bean id="RequisitionDocument-deliveryBuildingOtherIndicator" parent="RequisitionDocument-deliveryBuildingOtherIndicator-parentBean"/>
 
   <bean id="RequisitionDocument-deliveryBuildingOtherIndicator-parentBean" abstract="true" parent="AttributeDefinition">
@@ -998,16 +998,16 @@
     <property name="control">
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.module.purap.businessobject.options.CapitalAssetSystemTypeValuesFinder" p:includeKeyInLabel="false"/>
     </property>
-  </bean> 
-  
+  </bean>
+
   <bean id="RequisitionDocument-useTaxIndicator" parent="RequisitionDocument-useTaxIndicator-parentBean"/>
-  
+
   <bean id="RequisitionDocument-useTaxIndicator-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
   	<property name="name" value="useTaxIndicator"/>
   	<property name="label" value="Use Tax Indicator"/>
   	<property name="shortLabel" value="Use Tax"/>
   </bean>
-  
+
   <bean id="RequisitionDocument-statusCodeForMultiboxSearching" parent="RequisitionDocument-statusCodeForMultiboxSearching-parentBean"/>
 
   <bean id="RequisitionDocument-statusCodeForMultiboxSearching-parentBean" abstract="true" parent="AttributeDefinition">
@@ -1020,7 +1020,7 @@
   	  <bean parent="MultiselectControlDefinition">
 		<property name="valuesFinderClass" value="org.kuali.kfs.module.purap.businessobject.options.RequisitionStatusValuesFinder"/>
 	  </bean>
-    </property> 
+    </property>
   </bean>
   <bean id="RequisitionDocument-accountDistributionMethod" parent="RequisitionDocument-accountDistributionMethod-parentBean"/>
 
@@ -1057,7 +1057,7 @@
   <bean id="RequisitionDocument-documentHeader.documentDescription-parentBean" abstract="true" parent="DocumentHeader-documentDescription">
     <property name="name" value="documentHeader.documentDescription"/>
   </bean>
- 
+
   <!-- Requisition accountingInformation -->
     <bean id="requisitionAccountingInformation" parent="requisitionAccountingInformation-parent"/>
 
@@ -1087,34 +1087,34 @@
 				<bean parent="AccountingLineView-field" p:name="organizationReferenceId" p:useShortLabel="true"/>
 			</list>
 		</property>
-	</bean>  
+	</bean>
   <!-- accounting line groups -->
 
-  <bean id="RequisitionDocument-sourceAccountingLineGroup" parent="RequisitionDocument-sourceAccountingLineGroup-parentBean"/>  
+  <bean id="RequisitionDocument-sourceAccountingLineGroup" parent="RequisitionDocument-sourceAccountingLineGroup-parentBean"/>
   <bean id="RequisitionDocument-sourceAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
 	  <property name="accountingLineView" ref="RequisitionDocument-accountingLineView"/>
 	  <property name="accountingLineClass" value="org.kuali.kfs.sys.businessobject.SourceAccountingLine"/>
 	  <property name="groupLabel" value="Source"/>
 	  <property name="accountingLineAuthorizerClass" value="org.kuali.kfs.module.purap.document.authorization.RequisitionAccountingLineAuthorizer"/>
-	  <property name="importedLinePropertyPrefix" value="source"/>	  
-	  <property name="errorKey" value="document.sourceAccounting*,sourceAccountingLines,newSourceLine*"/> 
-      <property name="importingAllowed" value="false"/> 
+	  <property name="importedLinePropertyPrefix" value="source"/>
+	  <property name="errorKey" value="document.sourceAccounting*,sourceAccountingLines,newSourceLine*"/>
+      <property name="importingAllowed" value="false"/>
       <property name="accountingLineGroupClass" value="org.kuali.kfs.sys.document.web.CollectionAccountingLineGroupImpl"/>
-      <property name="accountingLineComparatorClass" value="org.kuali.kfs.module.purap.util.PurapAccountingLineComparator"/>      
+      <property name="accountingLineComparatorClass" value="org.kuali.kfs.module.purap.util.PurapAccountingLineComparator"/>
   </bean>
 
-  <bean id="RequisitionDocument-distributeSourceAccountingLineGroup" parent="RequisitionDocument-distributeSourceAccountingLineGroup-parentBean"/>  
+  <bean id="RequisitionDocument-distributeSourceAccountingLineGroup" parent="RequisitionDocument-distributeSourceAccountingLineGroup-parentBean"/>
   <bean id="RequisitionDocument-distributeSourceAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
 	  <property name="accountingLineView" ref="RequisitionDocument-accountingLineView"/>
 	  <property name="accountingLineClass" value="org.kuali.kfs.sys.businessobject.SourceAccountingLine"/>
 	  <property name="groupLabel" value="Source"/>
 	  <property name="accountingLineAuthorizerClass" value="org.kuali.kfs.module.purap.document.authorization.RequisitionAccountingLineAuthorizer"/>
-	  <property name="importedLinePropertyPrefix" value="source"/>	  
-	  <property name="errorKey" value="document.sourceAccounting*,sourceAccountingLines,newSourceLine*,accountDistribution*"/> 
-	  <property name="importingAllowed" value="true"/> 
+	  <property name="importedLinePropertyPrefix" value="source"/>
+	  <property name="errorKey" value="document.sourceAccounting*,sourceAccountingLines,newSourceLine*,accountDistribution*"/>
+	  <property name="importingAllowed" value="true"/>
       <property name="accountingLineGroupClass" value="org.kuali.kfs.sys.document.web.CollectionAccountingLineGroupImpl"/>
   </bean>
-  
+
   <bean id="RequisitionDocument-accountingLineView" parent="RequisitionDocument-accountingLineView-parent"/>
 
   <bean id="RequisitionDocument-accountingLineView-parent" parent="AccountingLineView" abstract="true">
@@ -1131,14 +1131,14 @@
 				<bean parent="AccountingLineView-field" p:name="amount" p:required="false"/>
 				<bean parent="AccountingLineView-actions"/>
 			</list>
-		</property>		
+		</property>
   </bean>
 
   <bean id="RequisitionDocument-validations" parent="RequisitionDocument-validations-parentBean"/>
-  
+
   <bean id="RequisitionDocument-validations-parentBean" abstract="true"  class="org.springframework.beans.factory.config.MapFactoryBean">
   	<property name="sourceMap">
-		<map key-type="java.lang.Class">			
+		<map key-type="java.lang.Class">
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.AttributedRouteDocumentEvent</value></key>
 				<value>Requisition-routeDocumentValidation</value>
@@ -1146,7 +1146,7 @@
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.AttributedApproveDocumentEvent</value></key>
 				<value>Requisition-approveDocumentValidation</value>
-			</entry>		
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.AddAccountingLineEvent</value></key>
 				<value>Requisition-addAccountingLineValidation</value>
@@ -1154,39 +1154,39 @@
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.UpdateAccountingLineEvent</value></key>
 				<value>Requisition-updateAccountingLineValidation</value>
-			</entry>	
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.ReviewAccountingLineEvent</value></key>
 				<value>Requisition-reviewAccountingLineValidation</value>
-			</entry>				
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedAddPurchasingAccountsPayableItemEvent</value></key>
-				<value>Requisition-addPurchasingAccountsPayableItemValidation</value>				
+				<value>Requisition-addPurchasingAccountsPayableItemValidation</value>
 			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedImportPurchasingAccountsPayableItemEvent</value></key>
-				<value>Requisition-importPurchasingAccountsPayableItemValidation</value>				
-			</entry>						
+				<value>Requisition-importPurchasingAccountsPayableItemValidation</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedChangeSystemPurapEvent</value></key>
-				<value>Requisition-changeSystemPurapValidation</value>				
-			</entry>			
+				<value>Requisition-changeSystemPurapValidation</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedSelectSystemPurapEvent</value></key>
-				<value>Requisition-selectSystemPurapValidation</value>				
-			</entry>			
+				<value>Requisition-selectSystemPurapValidation</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedUpdateCamsViewPurapEvent</value></key>
-				<value>Requisition-updateCamsViewPurapValidation</value>				
-			</entry>			
+				<value>Requisition-updateCamsViewPurapValidation</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedAddPurchasingItemCapitalAssetEvent</value></key>
-				<value>Requisition-addPurchasingItemCapitalAssetValidation</value>				
-			</entry>			
+				<value>Requisition-addPurchasingItemCapitalAssetValidation</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedAddPurchasingCapitalAssetLocationEvent</value></key>
-				<value>Requisition-addPurchasingCapitalAssetLocationValidation</value>				
-			</entry>						
+				<value>Requisition-addPurchasingCapitalAssetLocationValidation</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedCommodityCodesForDistributionEvent</value></key>
 				<value>Requisition-commodityCodesForDistributionValidation</value>
@@ -1197,15 +1197,15 @@
 			</entry>
     	</map>
     </property>
-  </bean> 
-  
+  </bean>
+
   	<bean id="RequisitionDocument-sensitive" parent="RequisitionDocument-sensitive-parentBean"/>
 
     <bean id="RequisitionDocument-sensitive-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
   		<property name="name" value="sensitive"/>
   		<property name="label" value="Sensitive"/>
-    </bean> 
-  	
+    </bean>
+
     <!-- workflow attributes for routing -->
     <bean id="RequisitionDocument-workflowAttributes" parent="RequisitionDocument-workflowAttributes-parentBean"/>
 
@@ -1270,7 +1270,7 @@
     						<value>chartAndOrgCodeForResult</value>
     					</list>
     				</property>
-    			</bean>    		 
+    			</bean>
     			<bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
     				<property name="searchingAttribute">
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -1298,7 +1298,7 @@
                             <value>vendorNumber</value>
                         </list>
                     </property>
-                </bean>             
+                </bean>
     			<bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
     	      		<property name="searchingAttribute">
     	      			<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -1327,7 +1327,7 @@
     	      				<value>documentOrganizationCodeForSearching</value>
     	      			</list>
     	      		</property>
-    	      	</bean>   			
+    	      	</bean>
     		    <bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
     				<property name="searchingAttribute">
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -1340,7 +1340,7 @@
     						<value>requestorPersonName</value>
     					</list>
     				</property>
-    			</bean>    			 			
+    			</bean>
     			<bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
     				<property name="searchingAttribute">
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -1420,10 +1420,10 @@
     						<value>createDateForResult</value>
     					</list>
     				</property>
-    			</bean>   			
+    			</bean>
     		</list>
     	</property>
-    
+
     	<property name="routingTypeDefinitions">
     		<map>
     		    <entry key="Organization" value-ref="RoutingType-RequisitionDocument-Organization"/>
@@ -1434,5 +1434,5 @@
                 <!-- no qualifiers for separation of duties -->
     		</map>
     	</property>
-	</bean>    	  	
+	</bean>
 </beans>

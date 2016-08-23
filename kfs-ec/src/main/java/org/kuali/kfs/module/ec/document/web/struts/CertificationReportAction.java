@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -327,7 +327,7 @@ public class CertificationReportAction extends EffortCertificationAction {
 
     /**
      * find the detail lines belonging to the given group from the given detail lines
-     * 
+     *
      * @param detailLines the given detail lines
      * @param groupId the given group id
      * @return the detail lines belonging to the given group
@@ -346,20 +346,20 @@ public class CertificationReportAction extends EffortCertificationAction {
 
     /**
      * determine whether the summarized detail lines need to be rendered
-     * 
+     *
      * @param certificationReportForm the action form
      * @return true if the summarized detail lines need to be rendered; otherwise, false
      */
     protected boolean isSummarizeDetailLinesRendered(CertificationReportForm certificationReportForm) {
         populateAuthorizationFields(certificationReportForm);
         //super.populateAuthorizationFields(certificationReportForm);
-        
+
         return certificationReportForm.getEditingMode().containsKey(EffortCertificationEditMode.SUMMARY_TAB_ENTRY);
     }
 
     /**
      * recalculate all detail lines with the information in summarized detail lines
-     * 
+     *
      * @param certificationReportForm the given action form
      */
     protected void recalculateAllDetailLines(CertificationReportForm certificationReportForm) {
@@ -381,7 +381,7 @@ public class CertificationReportAction extends EffortCertificationAction {
 
     /**
      * recalculate all detail lines with the information in summarized detail lines
-     * 
+     *
      * @param certificationReportForm the given action form
      */
     protected void updateDetailLinesFromSummaryLines(CertificationReportForm certificationReportForm) {
@@ -439,7 +439,7 @@ public class CertificationReportAction extends EffortCertificationAction {
 
     /**
      * update detail line group with the the information in the given detail line
-     * 
+     *
      * @param detailLineGroup the given detail line group
      * @param detailLine the given detail line
      * @param totalPayrollAmount the total payroll amount of the document associating with the detail line group
@@ -541,9 +541,9 @@ public class CertificationReportAction extends EffortCertificationAction {
         KualiDocumentFormBase kualiDocumentFormBase = (KualiDocumentFormBase) form;
         EffortCertificationDocument effortDocument = (EffortCertificationDocument) kualiDocumentFormBase.getDocument();
 
-        EffortCertificationDocumentService effortCertificationDocumentService = SpringContext.getBean(EffortCertificationDocumentService.class);        
+        EffortCertificationDocumentService effortCertificationDocumentService = SpringContext.getBean(EffortCertificationDocumentService.class);
         effortCertificationDocumentService.addRouteLooping(effortDocument);
-        
+
         ActionForward actionForward = super.approve(mapping, kualiDocumentFormBase, request, response);
 
         return actionForward;
@@ -556,7 +556,7 @@ public class CertificationReportAction extends EffortCertificationAction {
     public ActionForward insertBONote(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         KualiDocumentFormBase kualiDocumentFormBase = (KualiDocumentFormBase) form;
         kualiDocumentFormBase.getNewNote().setNewCollectionRecord(true);
-        
+
         return super.insertBONote(mapping, form, request, response);
     }
 
@@ -565,38 +565,38 @@ public class CertificationReportAction extends EffortCertificationAction {
      * @see org.kuali.rice.kns.web.struts.action.KualiTransactionalDocumentActionBase#populateAuthorizationFields(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
      */
     @Override
-    protected void populateAuthorizationFields(KualiDocumentFormBase formBase) {        
-        
+    protected void populateAuthorizationFields(KualiDocumentFormBase formBase) {
+
         //call super for authorization fields
         super.populateAuthorizationFields(formBase);
 
         CertificationReportForm certificationReportForm = (CertificationReportForm) formBase;
-        
+
         //get document authorizer
         EffortCertificationDocumentAuthorizer certReportDocAuthorizer = (EffortCertificationDocumentAuthorizer)SpringContext.getBean(DocumentHelperService.class).getDocumentAuthorizer(EffortConstants.EffortDocumentTypes.EFFORT_CERTIFICATION_DOCUMENT);
 
         //grab document
         KualiDocumentFormBase kualiDocumentFormBase = (KualiDocumentFormBase) formBase;
-        EffortCertificationDocument effortDocument = (EffortCertificationDocument) kualiDocumentFormBase.getDocument();                               
-                
+        EffortCertificationDocument effortDocument = (EffortCertificationDocument) kualiDocumentFormBase.getDocument();
+
         //get principal id
         String currentPrincipalId = GlobalVariables.getUserSession().getPrincipalId();
-        
-        //set additional details for summary tab 
+
+        //set additional details for summary tab
         Map<String, String> additionalPermissionDetails = new HashMap<String, String>();
         additionalPermissionDetails.put(KimConstants.AttributeConstants.EDIT_MODE, EffortCertificationEditMode.SUMMARY_TAB_ENTRY);
 
         //get list of chart/account numbers
         List<EffortCertificationDetail> summarizedDetailLines = createSummarizedDetailLines(certificationReportForm);
-        
+
         //set additional role qualifiers
         Map<String, String> additionalRoleQualifiers = new HashMap<String, String>();
         String proposalNumber = getPropsalNumberForProjectDirector(currentPrincipalId, summarizedDetailLines);
-        
+
         //set proposal number if found
         if (StringUtils.isNotBlank(proposalNumber)){
             additionalRoleQualifiers.put(KFSPropertyConstants.PROPOSAL, proposalNumber);
-                                        
+
             //re-check summary permission
             if (certReportDocAuthorizer.doPermissionExistsByTemplate(
                     effortDocument,
@@ -607,68 +607,68 @@ public class CertificationReportAction extends EffortCertificationAction {
                             effortDocument,
                             KRADConstants.KNS_NAMESPACE,
                             KimConstants.PermissionTemplateNames.USE_TRANSACTIONAL_DOCUMENT,
-                            currentPrincipalId, 
+                            currentPrincipalId,
                             additionalPermissionDetails,
                             additionalRoleQualifiers)) {
-                
+
                 formBase.getEditingMode().put(EffortCertificationEditMode.SUMMARY_TAB_ENTRY, KRADConstants.KUALI_DEFAULT_TRUE_VALUE);
             }
         }
     }
-    
+
     /**
-     * Retrieves a proposal number for a project director from a list of awards pulled by chart/account number. 
-     * 
+     * Retrieves a proposal number for a project director from a list of awards pulled by chart/account number.
+     *
      * @param projectDirectorId
      * @return
      */
     protected String getPropsalNumberForProjectDirector(String projectDirectorId, List<EffortCertificationDetail> summarizedDetailLines){
-        
+
         String proposalNumber = null;
         String chartOfAccountsCode = null;
         String accountNumber = null;
 
         for (EffortCertificationDetail line : summarizedDetailLines) {
             proposalNumber = SpringContext.getBean(ContractsAndGrantsModuleService.class).getProposalNumberForAccountAndProjectDirector(line.getChartOfAccountsCode(), line.getAccountNumber(), projectDirectorId);
-            
+
             //if found a proposal number, break and return
             if( StringUtils.isNotEmpty(proposalNumber)) break;
         }
-                
+
         return proposalNumber;
     }
 
     protected List<EffortCertificationDetail> createSummarizedDetailLines(CertificationReportForm certificationReportForm){
 
         List<EffortCertificationDetail> summarizedDetailLines = new ArrayList<EffortCertificationDetail>();
-        Map<String, DetailLineGroup> detailLineGroupMap = null; 
-            
+        Map<String, DetailLineGroup> detailLineGroupMap = null;
+
         summarizedDetailLines = certificationReportForm.getSummarizedDetailLines();
-        
+
         if(ObjectUtils.isNull(summarizedDetailLines) || summarizedDetailLines.isEmpty()){
             if(ObjectUtils.isNotNull(certificationReportForm.getDetailLines()) && !certificationReportForm.getDetailLines().isEmpty()){
-                summarizedDetailLines = certificationReportForm.getDetailLines();                
+                summarizedDetailLines = certificationReportForm.getDetailLines();
             }
-        }        
-        
+        }
+
         return summarizedDetailLines;
 
     }
-    
+
     /**
      * Transforms the summarized effort detail lines into a chart/account number map
-     * 
+     *
      * @param summaryDetail
      * @return
      */
     protected Map<String,String> convertSummarizedDetailToChartAccountMap(List<EffortCertificationDetail> summaryDetail){
-        
+
         Map<String,String> chartAccountMap = new HashMap<String,String>();
-        
+
         for(EffortCertificationDetail line: summaryDetail){
-            chartAccountMap.put(line.getChartOfAccountsCode(), line.getAccountNumber());            
+            chartAccountMap.put(line.getChartOfAccountsCode(), line.getAccountNumber());
         }
-        
+
         return chartAccountMap;
     }
 }

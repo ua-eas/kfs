@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -129,8 +129,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="16"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="GECSourceAccountingLine-sequenceNumber" parent="GECSourceAccountingLine-sequenceNumber-parentBean"/>
 
@@ -164,8 +164,8 @@
     <property name="control">
       <ref bean="TenCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="GECSourceAccountingLine-chartOfAccountsCode" parent="GECSourceAccountingLine-chartOfAccountsCode-parentBean"/>
 
@@ -173,7 +173,7 @@
     <property name="control">
       <ref bean="ChartSimpleSelectControl" />
     </property>
-    
+
   </bean>
   <bean id="GECSourceAccountingLine-postingYear" parent="GECSourceAccountingLine-postingYear-parentBean"/>
 
@@ -195,20 +195,20 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="14"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="GECSourceAccountingLine-overrideCode" parent="GECSourceAccountingLine-overrideCode-parentBean"/>
 
   <bean id="GECSourceAccountingLine-overrideCode-parentBean" abstract="true" parent="SourceAccountingLine-overrideCode"/>
-   
+
   <bean id="GECSourceAccountingLine-amount" parent="GECSourceAccountingLine-amount-parentBean"/>
 
   <bean id="GECSourceAccountingLine-amount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="amount"/>
     <property name="required" value="true"/>
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
-    
+
   </bean>
   <bean id="GECSourceAccountingLine-subAccountNumber" parent="GECSourceAccountingLine-subAccountNumber-parentBean"/>
 
@@ -260,8 +260,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="GECSourceAccountingLine-encumbranceUpdateCode" parent="GECSourceAccountingLine-encumbranceUpdateCode-parentBean"/>
 
@@ -277,8 +277,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="GECSourceAccountingLine-objectTypeCode" parent="GECSourceAccountingLine-objectTypeCode-parentBean"/>
 
@@ -297,8 +297,8 @@
     <property name="control">
       <bean parent="CheckboxControlDefinition"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="GECSourceAccountingLine-nonFringeAccountOverride" parent="GECSourceAccountingLine-nonFringeAccountOverride-parentBean"/>
 
@@ -311,8 +311,8 @@
     <property name="control">
       <bean parent="CheckboxControlDefinition"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="GECSourceAccountingLine-objectBudgetOverride" parent="GECSourceAccountingLine-objectBudgetOverride-parentBean"/>
 
@@ -325,8 +325,8 @@
     <property name="control">
       <bean parent="CheckboxControlDefinition"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="GECSourceAccountingLine-financialDocumentLineDescription" parent="GECSourceAccountingLine-financialDocumentLineDescription-parentBean"/>
 
@@ -339,8 +339,8 @@
     <property name="control">
       <ref bean="StandardNameTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="GECSourceAccountingLine-salesTaxRequired" parent="GECSourceAccountingLine-salesTaxRequired-parentBean"/>
 
@@ -353,8 +353,8 @@
     <property name="control">
       <ref bean="HiddenControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="GECSourceAccountingLine-salesTax.chartOfAccountsCode" parent="GECSourceAccountingLine-salesTax.chartOfAccountsCode-parentBean"/>
 
@@ -362,8 +362,8 @@
     <property name="name" value="salesTax.chartOfAccountsCode"/>
     <property name="label" value="Sales Tax Chart of Accounts Code"/>
     <property name="shortLabel" value="Sales Tax Chart"/>
-    
-    
+
+
   </bean>
   <bean id="GECSourceAccountingLine-salesTax.accountNumber" parent="GECSourceAccountingLine-salesTax.accountNumber-parentBean"/>
 
@@ -371,8 +371,8 @@
     <property name="name" value="salesTax.accountNumber"/>
     <property name="label" value="Sales Tax Account Number"/>
     <property name="shortLabel" value="Sales Tax Account"/>
-    
-    
+
+
   </bean>
   <bean id="GECSourceAccountingLine-salesTax.financialDocumentGrossSalesAmount" parent="GECSourceAccountingLine-salesTax.financialDocumentGrossSalesAmount-parentBean"/>
 
@@ -380,7 +380,7 @@
     <property name="name" value="salesTax.financialDocumentGrossSalesAmount"/>
     <property name="label" value="Gross Sales Amount"/>
     <property name="shortLabel" value="Gross Sales Amt."/>
-    
+
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
   <bean id="GECSourceAccountingLine-salesTax.financialDocumentTaxableSalesAmount" parent="GECSourceAccountingLine-salesTax.financialDocumentTaxableSalesAmount-parentBean"/>
@@ -389,7 +389,7 @@
     <property name="name" value="salesTax.financialDocumentTaxableSalesAmount"/>
     <property name="label" value="Taxable Sales Amount"/>
     <property name="shortLabel" value="Taxable Sales Amt."/>
-    
+
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
   <bean id="GECSourceAccountingLine-salesTax.financialDocumentSaleDate" parent="GECSourceAccountingLine-salesTax.financialDocumentSaleDate-parentBean"/>
@@ -397,6 +397,6 @@
   <bean id="GECSourceAccountingLine-salesTax.financialDocumentSaleDate-parentBean" abstract="true" parent="SalesTax-financialDocumentSaleDate">
     <property name="name" value="salesTax.financialDocumentSaleDate"/>
     <property name="label" value="Sale Date"/>
-    
+
   </bean>
 </beans>

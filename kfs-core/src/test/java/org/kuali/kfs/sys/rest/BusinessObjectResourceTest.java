@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.sys.rest;
 
 import org.apache.commons.beanutils.BeanMap;
@@ -68,7 +86,7 @@ import java.util.regex.Pattern;
 
 @RunWith(PowerMockRunner.class)
 public class BusinessObjectResourceTest {
-    
+
     private BusinessObjectResource apiResource;
     private KualiModuleService kualiModuleService;
     private ModuleService moduleService;
@@ -84,7 +102,7 @@ public class BusinessObjectResourceTest {
     private Deposit deposit = getDeposit();
     private UnitOfMeasure uom = getUom();
     private Bank bank = getBank();
-    
+
     @Before
     public void setup() {
         apiResource = new BusinessObjectResource();
@@ -102,24 +120,24 @@ public class BusinessObjectResourceTest {
         PowerMock.mockStaticPartial(org.kuali.kfs.krad.util.ObjectUtils.class, "materializeSubObjectsToDepth");
         PowerMock.mockStatic(KRADUtils.class);
     }
-    
+
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testClassNotFound() throws Exception {
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(getModuleConfiguration());
         EasyMock.expect(dataDictionaryService.containsDictionaryObject("Sillyclasse")).andReturn(false);
-        
+
         EasyMock.replay(kualiModuleService, moduleService, businessObjectService, dataDictionaryService);
         BusinessObjectResource.setKualiModuleService(kualiModuleService);
         BusinessObjectResource.setBusinessObjectService(businessObjectService);
         BusinessObjectResource.setDataDictionaryService(dataDictionaryService);
-        
+
         Response response = apiResource.getSingleObject("sys", "sillyclasses", "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, dataDictionaryService);
         Assert.assertTrue("Should have returned 404", response.getStatus() == Status.NOT_FOUND.getStatusCode());
     }
-    
+
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testNotAuthorized() throws Exception {
@@ -128,7 +146,7 @@ public class BusinessObjectResourceTest {
         Class clazz = UnitOfMeasure.class;
         String namespaceCode = "KFS-SYS";
         Person person = getPerson();
-        
+
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(moduleConfig).anyTimes();
         EasyMock.expect(dataDictionaryService.containsDictionaryObject(className)).andReturn(true);
@@ -138,8 +156,8 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(userSession.getPerson()).andReturn(person);
         EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS, makeMap(namespaceCode, className), Collections.<String, String>emptyMap()))
             .andReturn(false);
-        
-        
+
+
         EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession);
         PowerMock.replay(KRADServiceLocator.class);
         PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
@@ -149,12 +167,12 @@ public class BusinessObjectResourceTest {
         BusinessObjectResource.setPermissionService(permissionService);
         BusinessObjectResource.setAccessSecurityService(accessSecurityService);
         BusinessObjectResource.setDataDictionaryService(dataDictionaryService);
-        
+
         Response response = apiResource.getSingleObject("sys", "unit-of-measures", "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession);
         Assert.assertTrue("Should have returned Forbidden", response.getStatus() == Status.FORBIDDEN.getStatusCode());
     }
-    
+
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testNoAccessSecurity() throws Exception {
@@ -164,7 +182,7 @@ public class BusinessObjectResourceTest {
         String namespaceCode = "KFS-SYS";
         Person person = getPerson();
         Collection collection = getUomCollection();
-        
+
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(moduleConfig).anyTimes();
         EasyMock.expect(dataDictionaryService.containsDictionaryObject(className)).andReturn(true);
@@ -187,7 +205,7 @@ public class BusinessObjectResourceTest {
                 results.clear();
             }
         });
-        
+
         EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService);
         PowerMock.replay(KRADServiceLocator.class);
         PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
@@ -198,12 +216,12 @@ public class BusinessObjectResourceTest {
         BusinessObjectResource.setAccessSecurityService(accessSecurityService);
         BusinessObjectResource.setDataDictionaryService(dataDictionaryService);
         BusinessObjectResource.setConfigurationService(configurationService);
-        
+
         Response response = apiResource.getSingleObject("sys", "unit-of-measures", "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession);
         Assert.assertTrue("Should have returned Forbidden", response.getStatus() == Status.FORBIDDEN.getStatusCode());
     }
-    
+
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testSimpleBoReturned() throws Exception {
@@ -219,14 +237,14 @@ public class BusinessObjectResourceTest {
         BusinessObjectResource.setAccessSecurityService(accessSecurityService);
         BusinessObjectResource.setDataDictionaryService(dataDictionaryService);
         BusinessObjectResource.setConfigurationService(configurationService);
-        
+
         Response response = apiResource.getSingleObject("sys", "unit-of-measures", "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService);
         Assert.assertTrue("Should have returned OK", response.getStatus() == Status.OK.getStatusCode());
         Map<String, Object> entity = (Map<String, Object>) response.getEntity();
         BeanMap beanMap = new BeanMap(uom);
-        Assert.assertTrue("Beans should have matching values " + beanMap.toString() + " and " + entity.toString(), 
-                mapsEqualEnough(entity, beanMap, "itemUnitOfMeasureCode", "itemUnitOfMeasureDescription"));      
+        Assert.assertTrue("Beans should have matching values " + beanMap.toString() + " and " + entity.toString(),
+                mapsEqualEnough(entity, beanMap, "itemUnitOfMeasureCode", "itemUnitOfMeasureDescription"));
     }
 
     @Test
@@ -234,18 +252,18 @@ public class BusinessObjectResourceTest {
     public void testComplexBoReturned() throws Exception {
         commonTestPrep(Deposit.class, "KFS-FP", getDepositCollection(), getFpModuleConfiguration());
         EasyMock.expect(dataDictionaryService.getAttributeDefinition(Deposit.class.getSimpleName(), EasyMock.anyString())).andReturn(null).anyTimes();
-        
+
         EasyMock.expect(dataDictionary.getBusinessObjectEntryForConcreteClass(Bank.class.getName())).andReturn(getDDEntry(Bank.class));
         EasyMock.expect(dataDictionary.getBusinessObjectEntryForConcreteClass(DepositCashReceiptControl.class.getName()))
             .andReturn(getDDEntry(DepositCashReceiptControl.class))
-            .times(2);       
+            .times(2);
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).anyTimes();
         EasyMock.expect(kualiModuleService.getResponsibleModuleService(Bank.class)).andReturn(moduleService);
         EasyMock.expect(kualiModuleService.getResponsibleModuleService(DepositCashReceiptControl.class)).andReturn(moduleService);
         EasyMock.expect(kualiModuleService.getResponsibleModuleService(DepositCashReceiptControl.class)).andReturn(moduleService);
         EasyMock.expect(configurationService.getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY)).andReturn("http://myapp").times(3);
-        
-        EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, configurationService, dataDictionaryService, 
+
+        EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, configurationService, dataDictionaryService,
                 dataDictionary, permissionService, accessSecurityService, userSession);
         PowerMock.replay(KRADServiceLocator.class);
         PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
@@ -256,14 +274,14 @@ public class BusinessObjectResourceTest {
         BusinessObjectResource.setPermissionService(permissionService);
         BusinessObjectResource.setAccessSecurityService(accessSecurityService);
         BusinessObjectResource.setDataDictionaryService(dataDictionaryService);
-        
+
         Response response = apiResource.getSingleObject("fp", "deposits", "12345");
-        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, dataDictionary, 
+        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, dataDictionary,
                 permissionService, accessSecurityService, userSession, configurationService);
         Assert.assertTrue("Should have returned OK", response.getStatus() == Status.OK.getStatusCode());
         Map<String, Object> entity = (Map<String, Object>) response.getEntity();
         BeanMap beanMap = new BeanMap(deposit);
-        Assert.assertTrue("Beans should have matching values " + beanMap.toString() + " and " + entity.toString(), 
+        Assert.assertTrue("Beans should have matching values " + beanMap.toString() + " and " + entity.toString(),
                 mapsEqualEnough(entity, beanMap, "depositBankCode", "depositAmount"));
         Map<String, Object> bankMap = (Map<String, Object>) entity.get("bank");
         String bankLink = (String) bankMap.get("link");
@@ -273,7 +291,7 @@ public class BusinessObjectResourceTest {
         String dcLink = (String) depositCashReceiptControl.get(0).get("link");
         Assert.assertEquals("depositCashReceiptControl link incorrect", "http://myapp/api/v1/business-object/fp/deposit-cash-receipt-controls/DC001", dcLink);
         Long depositDate = (Long) entity.get("depositDate");
-        Assert.assertEquals("depositDate incorrect", now.getTime(), depositDate.longValue());       
+        Assert.assertEquals("depositDate incorrect", now.getTime(), depositDate.longValue());
     }
 
     @Test
@@ -304,7 +322,7 @@ public class BusinessObjectResourceTest {
         Assert.assertEquals("Bank routing number should be partially masked", "************4444", entity.get(KFSPropertyConstants.BANK_ROUTING_NUMBER));
         Assert.assertEquals("Bank account number should be fully masked", "XXXXZZZZ", entity.get(KFSPropertyConstants.BANK_ACCOUNT_NUMBER));
     }
-    
+
     private void commonTestPrep(Class clazz, String namespaceCode, Collection collection, ModuleConfiguration moduleConfig) {
         String className = clazz.getSimpleName();
         Person person = getPerson();
@@ -345,7 +363,7 @@ public class BusinessObjectResourceTest {
         uom.setItemUnitOfMeasureDescription("Developer");
         return uom;
     }
-    
+
     private Collection<Deposit> getDepositCollection() {
         List<Deposit> result = new ArrayList<>();
         result.add(deposit);
@@ -360,7 +378,7 @@ public class BusinessObjectResourceTest {
         deposit.setBank(bank);
         deposit.setDepositDate(now);
         deposit.setDepositAmount(new KualiDecimal(100.02));
-        
+
         DepositCashReceiptControl receiptControl1 = new DepositCashReceiptControl();
         receiptControl1.setObjectId("DC001");
         DepositCashReceiptControl receiptControl2 = new DepositCashReceiptControl();
@@ -385,21 +403,21 @@ public class BusinessObjectResourceTest {
         bank.setObjectId("BK12345");
         return bank;
     }
-    
+
     private Map<String, String> makeMap(String namespaceCode, String className) {
         Map<String, String> result = new HashMap<>();
         result.put(KRADConstants.NAMESPACE_CODE, namespaceCode);
         result.put(KRADConstants.COMPONENT_NAME, className);
         return result;
     }
-    
+
     private boolean mapsEqualEnough(Map<String, Object> map1, Map<String, Object> map2, String... properties) {
         for (String property : properties) {
             if (!ObjectUtils.equals(map1.get(property), map2.get(property))) {
                 return false;
             }
         }
-        
+
         return true;
     }
 
@@ -411,7 +429,7 @@ public class BusinessObjectResourceTest {
         result.setDataDictionaryService(dataDictionaryService);
         return result;
     }
-    
+
     private ModuleConfiguration getFpModuleConfiguration() {
         ModuleConfiguration result = new ModuleConfiguration();
         result.setNamespaceCode("KFS-FP");
@@ -426,15 +444,15 @@ public class BusinessObjectResourceTest {
         result.add(moduleService);
         return result;
     }
-    
+
     private BusinessObjectEntry getDDEntry(Class clazz) {
         BusinessObjectEntry result = new BusinessObjectEntry();
         result.setBusinessObjectClass(clazz);
         return result;
     }
-    
+
     private Person getPerson() {
-        return new TestPerson("testPrincipalId", "testPrincipalName");       
+        return new TestPerson("testPrincipalId", "testPrincipalName");
     }
 
     class MockDataDictionaryService implements DataDictionaryService {

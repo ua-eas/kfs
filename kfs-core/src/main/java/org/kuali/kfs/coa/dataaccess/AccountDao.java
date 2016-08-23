@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,7 +49,7 @@ public interface AccountDao {
 
     /**
      * fetch the AccountResponsibility objects that the user has associated with them
-     * 
+     *
      * @param kualiUser
      * @param currentDate current date
      * @return a list of AccountResponsibility objects
@@ -58,7 +58,7 @@ public interface AccountDao {
 
     /**
      * This method should determine if the given user has any responsibilities on the given account
-     * 
+     *
      * @param person the user to check responsibilities for
      * @param account the account to check responsibilities on
      * @param currentSqlDate current Sql date
@@ -68,14 +68,14 @@ public interface AccountDao {
 
     /**
      * get all accounts in the system. This is needed by a sufficient funds rebuilder job
-     * 
+     *
      * @return iterator of all accounts
      */
     public Iterator getAllAccounts();
 
     /**
      * Retrieves all active accounts from the database where the given principal is the fiscal officer
-     * 
+     *
      * @param principalId the principal id of the fiscal officer
      * @param currentSqlDate current sql date
      * @return an Iterator of active Accounts
@@ -84,7 +84,7 @@ public interface AccountDao {
 
     /**
      * Retrieves all expired accounts from the database where the given principal is the fiscal officer
-     * 
+     *
      * @param principalId the principal id of the fiscal officer
      * @param currentSqlDate current Sql Date
      * @return an Iterator of expired Accounts
@@ -93,7 +93,7 @@ public interface AccountDao {
 
     /**
      * Retrieves all active accounts from the database where the given principal is the account supervisor
-     * 
+     *
      * @param principalId the principal id of the account supervisor
      * @param currentSalDate
      * @return an Iterator of active Accounts
@@ -102,7 +102,7 @@ public interface AccountDao {
 
     /**
      * Retrieves all active accounts from the database where the given principal is the account supervisor
-     * 
+     *
      * @param principalId the principal id of the account supervisor
      * @param currentSqlDate current Sql Date
      * @return an Iterator of expired Accounts
@@ -111,7 +111,7 @@ public interface AccountDao {
 
     /**
      * Determines if the given principal is the fiscal officer of any non-closed account
-     * 
+     *
      * @param principalId the principal to check for the fiscal officer role
      * @return true if the principal is a fiscal officer for any non-closed account, false otherwise
      */
@@ -119,7 +119,7 @@ public interface AccountDao {
 
     /**
      * Determines if the given principal is the account supervisor of any non-closed account
-     * 
+     *
      * @param principalId the principal to check for the account supervisor role
      * @return true if the principal is a account supervisor for any non-closed account, false otherwise
      */
@@ -127,7 +127,7 @@ public interface AccountDao {
 
     /**
      * Determines if the given principal is the account manager of any non-closed account
-     * 
+     *
      * @param principalId the principal to check for the account manager role
      * @return true if the principal is a account manager for any non-closed account, false otherwise
      */

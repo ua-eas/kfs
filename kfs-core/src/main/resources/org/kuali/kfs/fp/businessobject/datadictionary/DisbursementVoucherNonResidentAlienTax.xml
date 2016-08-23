@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -56,7 +56,7 @@
       <ref bean="TenCharacterTextControl" />
     </property>
   </bean>
-  
+
   <bean id="DisbursementVoucherNonResidentAlienTax-stateIncomeTaxPercent" parent="DisbursementVoucherNonResidentAlienTax-stateIncomeTaxPercent-parentBean"/>
 
   <bean id="DisbursementVoucherNonResidentAlienTax-stateIncomeTaxPercent-parentBean" abstract="true" parent="AttributeDefinition">
@@ -88,7 +88,7 @@
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.CountryValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
-  
+
   <bean id="DisbursementVoucherNonResidentAlienTax-incomeTaxTreatyExemptCode" parent="DisbursementVoucherNonResidentAlienTax-incomeTaxTreatyExemptCode-parentBean"/>
 
   <bean id="DisbursementVoucherNonResidentAlienTax-incomeTaxTreatyExemptCode-parentBean" abstract="true" parent="AttributeDefinition">
@@ -115,7 +115,7 @@
       <bean parent="CheckboxControlDefinition"/>
     </property>
   </bean>
-  
+
   <bean id="DisbursementVoucherNonResidentAlienTax-incomeTaxGrossUpCode" parent="DisbursementVoucherNonResidentAlienTax-incomeTaxGrossUpCode-parentBean"/>
 
   <bean id="DisbursementVoucherNonResidentAlienTax-incomeTaxGrossUpCode-parentBean" abstract="true" parent="AttributeDefinition">
@@ -129,7 +129,7 @@
       <bean parent="CheckboxControlDefinition"/>
     </property>
   </bean>
-  
+
   <bean id="DisbursementVoucherNonResidentAlienTax-referenceFinancialDocumentNumber" parent="DisbursementVoucherNonResidentAlienTax-referenceFinancialDocumentNumber-parentBean"/>
 
   <bean id="DisbursementVoucherNonResidentAlienTax-referenceFinancialDocumentNumber-parentBean" abstract="true" parent="DocumentHeader-documentNumber">
@@ -137,7 +137,7 @@
     <property name="label" value="Reference Doc"/>
     <property name="shortLabel" value="Ref Doc"/>
   </bean>
-  
+
   <bean id="DisbursementVoucherNonResidentAlienTax-taxNQIId" parent="DisbursementVoucherNonResidentAlienTax-taxNQIId-parentBean"/>
 
   <bean id="DisbursementVoucherNonResidentAlienTax-taxNQIId-parentBean" abstract="true" parent="AttributeDefinition">
@@ -152,17 +152,17 @@
       <bean parent="TextControlDefinition" p:size="36"/>
     </property>
   </bean>
-  
+
   <bean id="DisbursementVoucherNonResidentAlienTax-taxUSAIDPerDiemIndicator" parent="DisbursementVoucherNonResidentAlienTax-taxUSAIDPerDiemIndicator-parentBean"/>
-       
+
   <bean id="DisbursementVoucherNonResidentAlienTax-taxUSAIDPerDiemIndicator-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
     <property name="name" value="taxUSAIDPerDiemIndicator"/>
     <property name="label" value="USAID Per Diem"/>
     <property name="shortLabel" value="USAID Per Diem"/>
   </bean>
-  
+
   <bean id="DisbursementVoucherNonResidentAlienTax-taxOtherExemptIndicator" parent="DisbursementVoucherNonResidentAlienTax-taxOtherExemptIndicator-parentBean"/>
-       
+
   <bean id="DisbursementVoucherNonResidentAlienTax-taxOtherExemptIndicator-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="taxOtherExemptIndicator"/>
     <property name="forceUppercase" value="false"/>
@@ -174,13 +174,13 @@
       <bean parent="CheckboxControlDefinition"/>
     </property>
   </bean>
-  
+
   <bean id="DisbursementVoucherNonResidentAlienTax-taxSpecialW4Amount" parent="DisbursementVoucherNonResidentAlienTax-taxSpecialW4Amount-parentBean"/>
 
   <bean id="DisbursementVoucherNonResidentAlienTax-taxSpecialW4Amount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="taxSpecialW4Amount"/>
     <property name="label" value="Special W-4 Amount"/>
     <property name="shortLabel" value="W4 Amount"/>
-  </bean>  
-  
+  </bean>
+
 </beans>

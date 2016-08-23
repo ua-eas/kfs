@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,7 +44,7 @@ public class LaborPurgeEntryStep extends AbstractStep {
         LOG.info("Purge labor entries posted before the year: " + fiscalYearAsString);
 
         Integer fiscalYear = Integer.parseInt(StringUtils.trim(fiscalYearAsString));
-        
+
         List<String> allChartOfAccountsCode = chartService.getAllChartCodes();
         for (String chartOfAccountsCode : allChartOfAccountsCode) {
             laborLedgerEntryService.deleteLedgerEntriesPriorToYear(fiscalYear, chartOfAccountsCode);
@@ -55,7 +55,7 @@ public class LaborPurgeEntryStep extends AbstractStep {
 
     /**
      * Sets the chartService attribute value.
-     * 
+     *
      * @param chartService The chartService to set.
      */
     public void setChartService(ChartService chartService) {
@@ -64,7 +64,7 @@ public class LaborPurgeEntryStep extends AbstractStep {
 
     /**
      * Sets the laborLedgerEntryService attribute value.
-     * 
+     *
      * @param laborLedgerEntryService The laborLedgerEntryService to set.
      */
     public void setLaborLedgerEntryService(LaborLedgerEntryService laborLedgerEntryService) {

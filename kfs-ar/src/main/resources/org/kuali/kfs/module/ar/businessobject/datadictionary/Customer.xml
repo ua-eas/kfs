@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -65,7 +65,7 @@
 				<ref bean="Customer-customerAddresses.customerCopiesToPrint" />
 				<ref bean="Customer-customerAddresses.customerEnvelopesToPrintQuantity" />
 				<ref bean="Customer-customerTaxTypeCode" />
-				<ref bean="Customer-customerTaxNbr" />				
+				<ref bean="Customer-customerTaxNbr" />
 				<ref bean="Customer-bankruptcyType"/>
 				<ref bean="Customer-bankruptcyDate"/>
 				<ref bean="Customer-bankruptcyReviewDate"/>
@@ -440,7 +440,7 @@
 		abstract="true" parent="CustomerAddress-customerEmailAddress">
 		<property name="name" value="customerAddresses.customerEmailAddress" />
 	</bean>
-	
+
 		<bean id="Customer-customerAddresses.customerInvoiceTemplateCode"
 		parent="Customer-customerAddresses.customerInvoiceTemplateCode-parentBean" />
 
@@ -491,7 +491,7 @@
 		<property name="label" value="Bankruptcy Date" />
 		<property name="shortLabel" value="Bankruptcy Date" />
 	</bean>
-	
+
 	<bean id="Customer-bankruptcyReviewDate" parent="Customer-bankruptcyReviewDate-parentBean" />
 
 	<bean id="Customer-bankruptcyReviewDate-parentBean" abstract="true"
@@ -500,7 +500,7 @@
 		<property name="label" value="Bankruptcy Review Date" />
 		<property name="shortLabel" value="Bankruptcy Review Date" />
 	</bean>
-	
+
 	<bean id="Customer-stopWorkIndicator" parent="Customer-stopWorkIndicator-parentBean" />
 
 	<bean id="Customer-stopWorkIndicator-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
@@ -508,8 +508,8 @@
 		<property name="label" value="Stop Work" />
 		<property name="shortLabel" value="Stop Work" />
 	</bean>
-	
-	
+
+
   <bean id="Customer-stopWorkReason" parent="Customer-stopWorkReason-parentBean"/>
 
   <bean id="Customer-stopWorkReason-parentBean" abstract="true" parent="AttributeDefinition">
@@ -618,7 +618,7 @@
 				<bean parent="FieldDefinition" p:attributeName="customerFaxNumber" />
 				<bean parent="FieldDefinition" p:attributeName="customerContactName" />
 				<bean parent="FieldDefinition" p:attributeName="customerContactPhoneNumber" />
-				
+
 			</list>
 		</property>
 	</bean>
@@ -633,7 +633,7 @@
 			</list>
 		</property>
 	</bean>
-		
+
 	<bean id="Customer-inquiryCollectionDefinition-customerAddresses"
 		parent="Customer-inquiryCollectionDefinition-customerAddresses-parentBean" />
 	<bean
@@ -680,7 +680,7 @@
 				<bean parent="FieldDefinition" p:attributeName="bankruptcyDate"/>
 				<bean parent="FieldDefinition" p:attributeName="bankruptcyReviewDate"/>
 				<bean parent="FieldDefinition" p:attributeName="stopWorkIndicator"/>
-				<bean parent="FieldDefinition" p:attributeName="stopWorkReason"/>				
+				<bean parent="FieldDefinition" p:attributeName="stopWorkReason"/>
 			</list>
 		</property>
 	</bean>

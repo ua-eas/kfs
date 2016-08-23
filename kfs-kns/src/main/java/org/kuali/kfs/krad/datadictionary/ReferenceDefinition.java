@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,14 +40,14 @@ import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
  */
 public class ReferenceDefinition extends DataDictionaryDefinitionBase {
     private static final long serialVersionUID = 1737968024207302931L;
-    
+
 	protected String attributeName;
     protected String attributeToHighlightOnFail;
     protected String displayFieldName;
     protected String collection;
     protected Class<? extends BusinessObject> collectionBusinessObjectClass;
     protected Class<? extends BusinessObject> businessObjectClass;
-    
+
     public ReferenceDefinition() {}
 
     /**
@@ -62,7 +62,7 @@ public class ReferenceDefinition extends DataDictionaryDefinitionBase {
                         must exist and not be null.  In the case of a collection,
                         then this is the name of a reference object within the
                         collection element.
-     * 
+     *
      * @throws IllegalArgumentException if the given attributeName is blank
      */
     public void setAttributeName(String attributeName) {
@@ -74,7 +74,7 @@ public class ReferenceDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * Gets the attributeToHighlightOnFail attribute.
-     * 
+     *
      * @return Returns the attributeToHighlightOnFail.
      */
     public String getAttributeToHighlightOnFail() {
@@ -95,7 +95,7 @@ public class ReferenceDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * Gets the displayFieldName attribute.
-     * 
+     *
      * @return Returns the displayFieldName.
      */
     public String getDisplayFieldName() {
@@ -113,7 +113,7 @@ public class ReferenceDefinition extends DataDictionaryDefinitionBase {
     /**
      * This method returns true if the displayFieldName is set, otherwise it returns false. Whether the displayFieldName is set is
      * defined by whether it has any non-whitespace content in it.
-     * 
+     *
      * @return
      */
     public boolean isDisplayFieldNameSet() {
@@ -152,7 +152,7 @@ public class ReferenceDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * Directly validate simple fields.
-     * 
+     *
      * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Object)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -169,7 +169,7 @@ public class ReferenceDefinition extends DataDictionaryDefinitionBase {
             if ( collectionBusinessObjectClass == null ) {
                 throw new AttributeValidationException("Unable to determine collectionBusinessObjectClass for collection '" + businessObjectClass.getName() + "." + collection + "'");
             }
-            
+
             if (!DataDictionary.isPropertyOf(collectionBusinessObjectClass, attributeToHighlightOnFail)) {
                 throw new AttributeValidationException("unable to find attribute '" + attributeToHighlightOnFail + "' in collectionBusinessObjectClass '" + collectionBusinessObjectClass.getName() + "' (" + "" + ")");
             }

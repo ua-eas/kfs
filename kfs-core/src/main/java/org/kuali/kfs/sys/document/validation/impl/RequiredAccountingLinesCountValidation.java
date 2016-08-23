@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,7 +37,7 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
     protected String accountingLineGroupPropertyName;
     protected String errorMessageName;
     private AccountingDocument accountingDocumentForValidation;
-    
+
     private static final String ACCOUNTING_LINES_GROUP_PROPERTY_SUFFIX = "AccountingLines";
 
     /**
@@ -54,7 +54,7 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
         }
         return true;
     }
-    
+
     /**
      * Returns the title of the given accounting line group on the document
      * @return an accounting line group title
@@ -75,7 +75,7 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
         }
         return title;
     }
-    
+
     /**
      * Looks up what should be the method on the AccountingDocument class that returns the group title
      * @return
@@ -92,12 +92,12 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
         catch (NoSuchMethodException nsme) {
             throw new RuntimeException(nsme);
         }
-        
+
         return groupTitleMethod;
     }
-    
+
     /**
-     * Gets the accountingLineGroupName attribute. 
+     * Gets the accountingLineGroupName attribute.
      * @return Returns the accountingLineGroupName.
      */
     public String getAccountingLineGroupName() {
@@ -115,7 +115,7 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
     }
 
     /**
-     * Gets the minimumNumber attribute. 
+     * Gets the minimumNumber attribute.
      * @return Returns the minimumNumber.
      */
     public int getMinimumNumber() {
@@ -131,7 +131,7 @@ public class RequiredAccountingLinesCountValidation extends GenericValidation {
     }
 
     /**
-     * Gets the accountingDocumentForValidation attribute. 
+     * Gets the accountingDocumentForValidation attribute.
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {

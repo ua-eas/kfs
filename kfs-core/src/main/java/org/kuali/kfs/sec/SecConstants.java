@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -43,9 +43,9 @@ public class SecConstants {
 
     public final static String ACCESS_SECURITY_NAMESPACE_CODE = KFSConstants.CoreModuleNamespaces.ACCESS_SECURITY;
     public final static String LABOR_MODULE_NAMESPACE_CODE = KFSConstants.OptionalModuleNamespaces.LABOR_DISTRIBUTION;
-    
+
     public final static String ACCESS_SECURITY_MODULE_ENABLED_PROPERTY_NAME = "module.access.security.enabled";
-    
+
     public final static String ACCOUNTING_GROUP_ERROR_KEY_PREFIX = "SecurityGroupErrors:";
     public final static String ALL_DOCUMENT_TYPE_NAME = KFSConstants.ROOT_DOCUMENT_TYPE;
     public final static String ALL_PARAMETER_DETAIL_COMPONENT = ParameterConstants.ALL_COMPONENT;

@@ -1,24 +1,24 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<c:set var="journalVoucherAttributes" value="${DataDictionary.LaborJournalVoucherDocument.attributes}" />	
+<c:set var="journalVoucherAttributes" value="${DataDictionary.LaborJournalVoucherDocument.attributes}" />
 <c:set var="readOnly" value="${empty KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
 
 <kul:documentPage showDocumentInfo="true"
@@ -44,7 +44,7 @@
 					<td class="datacell-nowrap">
 						<c:if test="${readOnly}">
                         	${KualiForm.accountingPeriod.universityFiscalPeriodName}
-						</c:if> 
+						</c:if>
 					<c:if test="${!readOnly}">
 						<SCRIPT type="text/javascript">
 						<!--
@@ -59,7 +59,7 @@
 								<html:option value="${accountingPeriodCompositeValue}">${accountingPeriod.universityFiscalPeriodName}</html:option>
 							</c:forEach>
 						</html:select>
-						
+
 						<NOSCRIPT><html:submit value="refresh"
 							title="press this button to refresh the page after changing the accounting period" alt="press this button to refresh the page after changing the accounting period" />
 						</NOSCRIPT>
@@ -74,8 +74,8 @@
 					<td class="datacell-nowrap">
 					<c:if test="${readOnly}">
                         ${KualiForm.selectedBalanceType.financialBalanceTypeName}
-					</c:if> 
-					
+					</c:if>
+
 					<c:if test="${!readOnly}">
 						<SCRIPT type="text/javascript">
 						<!--
@@ -87,19 +87,19 @@
 						<html:select property="selectedBalanceType.code" onchange="submitForChangedBalanceType()">
 							<c:forEach items="${KualiForm.balanceTypes}" var="balanceType">
 								<html:option value="${balanceType.code}" >
-									<c:out value="${balanceType.codeAndDescription}" /> 
+									<c:out value="${balanceType.codeAndDescription}" />
 								</html:option>
 							</c:forEach>
 						</html:select>
 						<NOSCRIPT>
 							<html:submit value="refresh"
-								title="press this button to refresh the page after changing the balance type" 
+								title="press this button to refresh the page after changing the balance type"
 								alt="press this button to refresh the page after changing the balance type" />
 						</NOSCRIPT>
 						<kul:lookup
 							boClassName="org.kuali.kfs.coa.businessobject.BalanceType"
 							fieldConversions="code:selectedBalanceType.code"
-							lookupParameters="selectedBalanceType.code:code" 
+							lookupParameters="selectedBalanceType.code:code"
 							fieldLabel="${journalVoucherAttributes.balanceTypeCode.label}" />
 					</c:if></td>
 				</tr>
@@ -116,7 +116,7 @@
 		</table>
 		</div>
 	</kul:tab>
-	
+
 	<c:set var="isEncumbrance" value="${KualiForm.isEncumbranceBalanceType}" />
 	<c:set var="isDebitCreditAmount" value="${KualiForm.selectedBalanceType.financialOffsetGenerationIndicator}" />
 
@@ -126,7 +126,7 @@
 		</c:when>
 		<c:when test="${!isEncumbrance && isDebitCreditAmount}">
 			<c:set var="attributeGroupName" value="source-withDebitCredit"/>
-		</c:when>		
+		</c:when>
 		<c:when test="${isEncumbrance && !isDebitCreditAmount}">
 			<c:set var="attributeGroupName" value="source-withEncumbrance"/>
 		</c:when>
@@ -141,7 +141,7 @@
 			<sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="${attributeGroupName}" />
 		</sys-java:accountingLines>
 	</kul:tab>
-        		
+
 	<ld:laborLedgerPendingEntries />
 	<kul:notes />
 	<kul:adHocRecipients />

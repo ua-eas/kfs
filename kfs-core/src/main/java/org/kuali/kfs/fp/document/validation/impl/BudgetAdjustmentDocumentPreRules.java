@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,7 +46,7 @@ public class BudgetAdjustmentDocumentPreRules extends PromptBeforeValidationBase
 
     /**
      * Execute pre-rules for BudgetAdjustmentDocument
-     * 
+     *
      * @document document with pre-rules being applied
      * @return true if pre-rules fire without problem
      * @see org.kuali.rice.kns.rules.PromptBeforeValidationBase#doRules(org.kuali.rice.kns.document.MaintenanceDocument)
@@ -57,7 +57,7 @@ public class BudgetAdjustmentDocumentPreRules extends PromptBeforeValidationBase
 
         BudgetAdjustmentDocument budgetDocument = (BudgetAdjustmentDocument) document;
         preRulesOK = askLaborBenefitsGeneration(budgetDocument);
-        
+
         preRulesOK &= SpringContext.getBean(AccountingDocumentPreRuleService.class).expiredAccountOverrideQuestion((AccountingDocumentBase) document, this, this.event);
 
         return preRulesOK;
@@ -67,7 +67,7 @@ public class BudgetAdjustmentDocumentPreRules extends PromptBeforeValidationBase
     /**
      * Calls service to determine if any labor object codes are present on the ba document. If so, asks the user if they want the
      * system to automatically generate the benefit lines. If Yes, calls service to generate the accounting lines.
-     * 
+     *
      * @param budgetDocument submitted budget document
      * @return true if labor benefits generation question is NOT asked
      */
@@ -103,7 +103,7 @@ public class BudgetAdjustmentDocumentPreRules extends PromptBeforeValidationBase
         }
         return copiedLines;
     }
-    
+
     /**
      * Based on the routing status of the document, determines if labor benefits can be generated on the document
      * @param budgetAdjustmentDocument the budget adjustment document that labor benefits would be generated on

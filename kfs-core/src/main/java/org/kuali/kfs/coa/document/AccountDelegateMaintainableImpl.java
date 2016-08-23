@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -47,7 +47,7 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
 
     /**
      * This method will reset AccountDelegate's Start Date to the current timestamp on edits and copies
-     * 
+     *
      * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#processAfterRetrieve()
      */
     @Override
@@ -58,7 +58,7 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
 
     /**
      * This method will reset AccountDelegate's Start Date to the current timestamp on edits and copies
-     * 
+     *
      * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#processAfterEdit()
      */
     @Override
@@ -79,7 +79,7 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
 
     /**
      * Generates the appropriate maintenance locks for the {@link Delegate}
-     * 
+     *
      * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#generateMaintenanceLocks()
      */
     @Override
@@ -103,10 +103,10 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
            return lock;
        }
     }
-    
+
     /**
      * This method creates a maintenance lock for the field names supplied
-     * 
+     *
      * @param fieldNames
      * @return the maintenance lock for supplied field names
      */
@@ -120,7 +120,7 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
 
     /**
      * This method create a locking representation for the field names supplied
-     * 
+     *
      * @param fieldNames
      * @return locking representation string
      */
@@ -130,8 +130,8 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
         lockRepresentation.append(AccountDelegate.class.getName());
         lockRepresentation.append(KFSConstants.Maintenance.AFTER_CLASS_DELIM);
 
-        DataDictionaryService dataDictionaryService = SpringContext.getBean(DataDictionaryService.class); 
-        EncryptionService encryptionService = SpringContext.getBean(EncryptionService.class); 
+        DataDictionaryService dataDictionaryService = SpringContext.getBean(DataDictionaryService.class);
+        EncryptionService encryptionService = SpringContext.getBean(EncryptionService.class);
 
         int count = 0;
         for (String fieldName : fieldNames) {
@@ -150,7 +150,7 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
 
     /**
      * This method returns the field value of a given field, converting the value to a String and encrypting it if necessary
-     * 
+     *
      * @param fieldName
      * @param ddService
      * @return string field value for a lock
@@ -173,27 +173,27 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
         }
         return String.valueOf(fieldValue);
     }
-    
+
     /**
      * This method created a MaintenanceLock for the chartOfAccountsCode and accountNumber for an AccountDelegateGlobal.
      *
      * @return the MainenanceLock
      */
-    
+
     public MaintenanceLock createGlobalAccountLock() {
-        
+
         String[] fields = {"chartOfAccountsCode", "accountNumber"};
         MaintenanceLock lock = new MaintenanceLock();
         lock.setDocumentNumber(getDocumentNumber());
-        
+
         StringBuilder lockRepresentation = new StringBuilder();
 
         lockRepresentation.append(AccountDelegateGlobal.class.getName());
         lockRepresentation.append(KFSConstants.Maintenance.AFTER_CLASS_DELIM);
 
-        DataDictionaryService dataDictionaryService = SpringContext.getBean(DataDictionaryService.class); 
-        EncryptionService encryptionService = SpringContext.getBean(EncryptionService.class); 
-        
+        DataDictionaryService dataDictionaryService = SpringContext.getBean(DataDictionaryService.class);
+        EncryptionService encryptionService = SpringContext.getBean(EncryptionService.class);
+
         int count = 0;
         for (String fieldName : fields) {
             lockRepresentation.append(fieldName);
@@ -206,7 +206,7 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
         }
 
         lock.setLockingRepresentation(lockRepresentation.toString());
-        
+
         return lock;
     }
 
@@ -219,11 +219,11 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
     public void saveBusinessObject() {
         final AccountDelegate accountDelegate = (AccountDelegate)getBusinessObject();
         final AccountDelegateService accountDelegateService = SpringContext.getBean(AccountDelegateService.class);
-        
+
         accountDelegateService.saveForMaintenanceDocument(accountDelegate);
-        
+
         accountDelegateService.updateDelegationRole();
     }
 
-    
+
 }

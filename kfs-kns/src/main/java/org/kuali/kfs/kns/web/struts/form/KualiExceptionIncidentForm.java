@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,13 +31,13 @@ import java.util.Set;
 
 /**
  * This class is the action form for all Question Prompts.
- * 
- * 
+ *
+ *
  */
 public class KualiExceptionIncidentForm extends KualiForm {
     private static final long serialVersionUID = 831951332440283401L;
-    private static Logger LOG=Logger.getLogger(KualiExceptionIncidentForm.class); 
-    
+    private static Logger LOG=Logger.getLogger(KualiExceptionIncidentForm.class);
+
     /**
      * The form properties that should be populated in order for the toMap() method to function properly.
      */
@@ -54,7 +54,7 @@ public class KualiExceptionIncidentForm extends KualiForm {
     	PROPS_NEEDED_FOR_MAP.add(ExceptionIncident.DISPLAY_MESSAGE);
     	PROPS_NEEDED_FOR_MAP.add(ExceptionIncident.STACK_TRACE);
     }
-    
+
     /**
      * Flag to determine whether it's cancel action
      */
@@ -82,7 +82,7 @@ public class KualiExceptionIncidentForm extends KualiForm {
      /**
       * Document id. it's blank if not a document process
       */
-     private String documentId=""; 
+     private String documentId="";
      /**
       * Session user email address
       */
@@ -108,20 +108,20 @@ public class KualiExceptionIncidentForm extends KualiForm {
      * @see org.kuali.rice.krad.web.struts.pojo.PojoForm#populate(javax.servlet.http.HttpServletRequest)
      */
     public void populate(HttpServletRequest request) {
-        
+
         super.populate(request);
-        
+
         // KULRICE-4402: ie explorer needs this.
         if(notNull(request.getParameter(KRADConstants.CANCEL_METHOD + ".x")) && notNull(request.getParameter(
                 KRADConstants.CANCEL_METHOD + ".y"))){
         	this.setCancel(true);
-        }                
+        }
     }
-    
+
     private boolean notNull(String s){
     	if(s != null && !"".equals(s)){
     		return true;
-    	}else 
+    	}else
     		return false;
     }
 
@@ -132,12 +132,12 @@ public class KualiExceptionIncidentForm extends KualiForm {
      * @param request
      */
     public void reset(ActionMapping mapping, HttpServletRequest request) {
-        
+
         this.setMethodToCall(null);
         this.setRefreshCaller(null);
         this.setAnchor(null);
         this.setCurrentTabIndex(0);
-        
+
         this.cancel=false;
         this.documentId=null;
         this.componentName=null;
@@ -150,11 +150,11 @@ public class KualiExceptionIncidentForm extends KualiForm {
         this.principalName=null;
 
     }
-    
+
     /**
      * This method return list of required information contained by the jsp in both
      * display and hidden properties.
-     * 
+     *
      * @return
      * <p>Example:
      * <code>
@@ -166,14 +166,14 @@ public class KualiExceptionIncidentForm extends KualiForm {
      * displayMessage, Either exception error message or generic exception error message
      * stackTrace, Exception stack trace here
      * </code>
-     * 
+     *
      */
     public Map<String, String> toMap() {
         if (LOG.isTraceEnabled()) {
             String message=String.format("ENTRY");
             LOG.trace(message);
         }
-        
+
         Map<String, String> map=new HashMap<String, String>();
         map.put(ExceptionIncident.DOCUMENT_ID, this.documentId);
         map.put(ExceptionIncident.USER_EMAIL, this.userEmail);
@@ -185,12 +185,12 @@ public class KualiExceptionIncidentForm extends KualiForm {
         map.put(ExceptionIncident.EXCEPTION_MESSAGE, this.exceptionMessage);
         map.put(ExceptionIncident.DISPLAY_MESSAGE, this.displayMessage);
         map.put(ExceptionIncident.STACK_TRACE, this.stackTrace);
-        
+
         if (LOG.isTraceEnabled()) {
             String message=String.format("ENTRY %s", map.toString());
             LOG.trace(message);
         }
-        
+
         return map;
     }
 
@@ -270,7 +270,7 @@ public class KualiExceptionIncidentForm extends KualiForm {
     public final void setDocumentId(String documentId) {
         this.documentId = documentId;
     }
-    
+
     /**
      * @return the userEmail
      */
@@ -357,7 +357,7 @@ public class KualiExceptionIncidentForm extends KualiForm {
 
 	/**
 	 * This overridden method ...
-	 * 
+	 *
 	 * @see org.kuali.rice.krad.web.struts.form.KualiForm#shouldMethodToCallParameterBeUsed(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override

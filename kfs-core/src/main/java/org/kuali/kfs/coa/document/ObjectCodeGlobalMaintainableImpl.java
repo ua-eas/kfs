@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -101,7 +101,7 @@ public class ObjectCodeGlobalMaintainableImpl extends FinancialSystemGlobalMaint
 
     /**
      * This generates the appropriate maintenance locks for the {@link ObjectCode}
-     * 
+     *
      * @see org.kuali.rice.kns.maintenance.Maintainable#generateMaintenanceLocks()
      */
     @Override
@@ -109,7 +109,7 @@ public class ObjectCodeGlobalMaintainableImpl extends FinancialSystemGlobalMaint
         ObjectCodeGlobal objectCodeGlobal = (ObjectCodeGlobal) getBusinessObject();
         List<MaintenanceLock> maintenanceLocks = new ArrayList();
         SubObjectTrickleDownInactivationService subObjectTrickleDownInactivationService = SpringContext.getBean(SubObjectTrickleDownInactivationService.class);
-        
+
         for (ObjectCodeGlobalDetail detail : objectCodeGlobal.getObjectCodeGlobalDetails()) {
             MaintenanceLock maintenanceLock = new MaintenanceLock();
             StringBuffer lockrep = new StringBuffer();
@@ -125,29 +125,29 @@ public class ObjectCodeGlobalMaintainableImpl extends FinancialSystemGlobalMaint
             maintenanceLock.setDocumentNumber(objectCodeGlobal.getDocumentNumber());
             maintenanceLock.setLockingRepresentation(lockrep.toString());
             maintenanceLocks.add(maintenanceLock);
-            
+
             ObjectCode objectCode = new ObjectCode();
             objectCode.setUniversityFiscalYear(detail.getUniversityFiscalYear());
             objectCode.setChartOfAccountsCode(detail.getChartOfAccountsCode());
             objectCode.setFinancialObjectCode(detail.getFinancialObjectCode());
             objectCode.setActive(objectCodeGlobal.isFinancialObjectActiveIndicator());
-            
+
             if (isInactivatingObjectCode(objectCode)) {
                 // if it turns out that the object code does not have associated sub-objects (either because the object code doesn't exist or doesn't have sub-objects)
-                // then the generateTrickleDownMaintenanceLocks method returns an empty list 
+                // then the generateTrickleDownMaintenanceLocks method returns an empty list
                 maintenanceLocks.addAll(subObjectTrickleDownInactivationService.generateTrickleDownMaintenanceLocks(objectCode, getDocumentNumber()));
             }
         }
         return maintenanceLocks;
     }
-    
+
     /**
      * @see org.kuali.rice.kns.maintenance.Maintainable#saveBusinessObject()
      */
     @Override
     public void saveBusinessObject() {
         BusinessObjectService boService = SpringContext.getBean(BusinessObjectService.class);
-        
+
         GlobalBusinessObject gbo = (GlobalBusinessObject) businessObject;
 
         // delete any indicated BOs
@@ -157,13 +157,13 @@ public class ObjectCodeGlobalMaintainableImpl extends FinancialSystemGlobalMaint
                 boService.save(bosToDeactivate);
             }
         }
-        
+
         // OJB caches the any ObjectCodes that are retrieved from the database.  If multiple queries return the same row (identified by the PK
         // values), OJB will return the same instance of the ObjectCode.  However, in generateGlobalChangesToPersist(), the ObjectCode returned by
         // OJB is altered, meaning that any subsequent OJB calls will return the altered object.  The following cache will store the active statuses
         // of object codes affected by this global document before generateGlobalChangesToPersist() alters them.
         Map<String, Boolean> objectCodeActiveStatusCache = buildObjectCodeActiveStatusCache((ObjectCodeGlobal) gbo);
-        
+
         SubObjectTrickleDownInactivationService subObjectTrickleDownInactivationService = SpringContext.getBean(SubObjectTrickleDownInactivationService.class);
         // persist any indicated BOs
         List<PersistableBusinessObject> bosToPersist = gbo.generateGlobalChangesToPersist();
@@ -171,9 +171,9 @@ public class ObjectCodeGlobalMaintainableImpl extends FinancialSystemGlobalMaint
             if (!bosToPersist.isEmpty()) {
                 for (PersistableBusinessObject bo : bosToPersist) {
                     ObjectCode objectCode = (ObjectCode) bo;
-                    
+
                     boService.save(objectCode);
-                    
+
                     if (isInactivatingObjectCode(objectCode, objectCodeActiveStatusCache)) {
                         subObjectTrickleDownInactivationService.trickleDownInactivateSubObjects(objectCode, getDocumentNumber());
                     }
@@ -181,7 +181,7 @@ public class ObjectCodeGlobalMaintainableImpl extends FinancialSystemGlobalMaint
             }
         }
     }
-    
+
     protected boolean isInactivatingObjectCode(ObjectCode objectCode) {
         ObjectCodeService objectCodeService = SpringContext.getBean(ObjectCodeService.class);
         if (!objectCode.isActive()) {
@@ -192,7 +192,7 @@ public class ObjectCodeGlobalMaintainableImpl extends FinancialSystemGlobalMaint
         }
         return false;
     }
-    
+
     protected boolean isInactivatingObjectCode(ObjectCode objectCode, Map<String, Boolean> objectCodeActiveStatusCache) {
         if (!objectCode.isActive()) {
             if (Boolean.TRUE.equals(objectCodeActiveStatusCache.get(buildObjectCodeCachingKey(objectCode)))) {
@@ -201,12 +201,12 @@ public class ObjectCodeGlobalMaintainableImpl extends FinancialSystemGlobalMaint
         }
         return false;
     }
-    
+
     protected String buildObjectCodeCachingKey(ObjectCode objectCode) {
-        return objectCode.getUniversityFiscalYear() + KRADConstants.Maintenance.LOCK_AFTER_VALUE_DELIM + objectCode.getChartOfAccountsCode() + 
-                KRADConstants.Maintenance.LOCK_AFTER_VALUE_DELIM + objectCode.getFinancialObjectCode(); 
+        return objectCode.getUniversityFiscalYear() + KRADConstants.Maintenance.LOCK_AFTER_VALUE_DELIM + objectCode.getChartOfAccountsCode() +
+                KRADConstants.Maintenance.LOCK_AFTER_VALUE_DELIM + objectCode.getFinancialObjectCode();
     }
-    
+
     protected Map<String, Boolean> buildObjectCodeActiveStatusCache(ObjectCodeGlobal objectCodeGlobal) {
         ObjectCodeService objectCodeService = SpringContext.getBean(ObjectCodeService.class);
         Map<String, Boolean> cache = new HashMap<String, Boolean>();

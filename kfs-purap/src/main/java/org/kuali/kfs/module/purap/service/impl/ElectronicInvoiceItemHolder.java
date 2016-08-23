@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,48 +29,48 @@ import org.kuali.kfs.module.purap.util.ElectronicInvoiceUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 public class ElectronicInvoiceItemHolder {
-    
+
     private ElectronicInvoiceOrderHolder orderHolder;
     private ElectronicInvoiceRejectItem rejectItem;
     private ElectronicInvoiceItem invoiceItem;
     private PurchaseOrderItem poItem;
     private Map<String,ElectronicInvoiceItemMapping> itemTypeMappings;
-    
+
     private boolean isRejectItemHolder;
     private boolean validateHeader;
-    
+
     public ElectronicInvoiceItemHolder(ElectronicInvoiceRejectItem rejectItem,
                                        Map itemTypeMappings,
                                        PurchaseOrderItem poItem,
                                        ElectronicInvoiceOrderHolder orderHolder){
-        
+
         if (rejectItem == null){
             throw new NullPointerException("ElectronicInvoiceRejectItem should not be null");
         }
-        
+
         this.rejectItem = rejectItem;
         this.poItem = poItem;
         this.orderHolder = orderHolder;
-        
+
         isRejectItemHolder = true;
     }
-    
+
     public ElectronicInvoiceItemHolder(ElectronicInvoiceItem invoiceItem,
                                         Map itemTypeMappings,
                                         PurchaseOrderItem poItem,
                                         ElectronicInvoiceOrderHolder orderHolder){
-        
+
         if (invoiceItem == null){
             throw new NullPointerException("ElectronicInvoiceItem should not be null");
         }
-        
+
         this.invoiceItem = invoiceItem;
         this.poItem = poItem;
         this.orderHolder = orderHolder;
-        
+
         isRejectItemHolder = false;
     }
- 
+
     public Integer getInvoiceItemLineNumber(){
         if (isRejectItemHolder()){
             return rejectItem.getInvoiceReferenceItemLineNumber();
@@ -78,7 +78,7 @@ public class ElectronicInvoiceItemHolder {
            return invoiceItem.getReferenceLineNumberInteger();
         }
     }
-    
+
     public String getInvoiceItemDescription(){
         if (isRejectItemHolder()){
             return rejectItem.getInvoiceReferenceItemDescription();
@@ -86,11 +86,11 @@ public class ElectronicInvoiceItemHolder {
            return invoiceItem.getReferenceDescription();
         }
     }
-    
+
     public PurchaseOrderItem getPurchaseOrderItem(){
         return poItem;
     }
-        
+
     public String getCatalogNumberStripped(){
         if (isRejectItemHolder()){
             return ElectronicInvoiceUtils.stripSplChars(rejectItem.getInvoiceItemCatalogNumber());
@@ -98,7 +98,7 @@ public class ElectronicInvoiceItemHolder {
             return ElectronicInvoiceUtils.stripSplChars(invoiceItem.getCatalogNumber());
         }
     }
-    
+
     public BigDecimal getUnitPrice(){
         if (isRejectItemHolder()){
             return rejectItem.getInvoiceItemUnitPrice();
@@ -106,7 +106,7 @@ public class ElectronicInvoiceItemHolder {
             return invoiceItem.getInvoiceLineUnitCostBigDecimal();
         }
     }
-    
+
     public String getUnitPriceCurrency(){
         if (isRejectItemHolder()){
             return rejectItem.getInvoiceItemUnitPriceCurrencyCode();
@@ -114,7 +114,7 @@ public class ElectronicInvoiceItemHolder {
             return invoiceItem.getUnitPriceCurrency();
         }
     }
-    
+
     public BigDecimal getQuantity(){
         if (isRejectItemHolder()){
             return rejectItem.getInvoiceItemQuantity();
@@ -122,7 +122,7 @@ public class ElectronicInvoiceItemHolder {
             return invoiceItem.getInvoiceLineQuantityBigDecimal();
         }
     }
-    
+
     public KualiDecimal getSubTotalAmount(){
         if (isRejectItemHolder()){
             return new KualiDecimal(rejectItem.getInvoiceItemSubTotalAmount().setScale(KualiDecimal.SCALE, KualiDecimal.ROUND_BEHAVIOR));
@@ -130,11 +130,11 @@ public class ElectronicInvoiceItemHolder {
             return new KualiDecimal(invoiceItem.getInvoiceLineSubTotalAmountBigDecimal());
         }
     }
-    
+
     public boolean isRejectItemHolder(){
         return isRejectItemHolder;
     }
-    
+
     public ElectronicInvoiceItemMapping getItemMapping(String invoiceItemTypeCode){
         if (itemTypeMappings == null){
             return null;
@@ -142,11 +142,11 @@ public class ElectronicInvoiceItemHolder {
             return itemTypeMappings.get(invoiceItemTypeCode);
         }
     }
-    
+
     public String getItemTypeCode(String invoiceItemTypeCode) {
-        
+
         ElectronicInvoiceItemMapping itemMapping = getItemMapping(invoiceItemTypeCode);
-        
+
         if (itemMapping != null) {
             return itemMapping.getItemTypeCode();
         }
@@ -162,7 +162,7 @@ public class ElectronicInvoiceItemHolder {
             return invoiceItem.getReferenceItemIDSupplierPartID();
         }
     }
-    
+
     public String getInvoiceItemUnitOfMeasureCode(){
         if (isRejectItemHolder()){
             return rejectItem.getInvoiceItemUnitOfMeasureCode();
@@ -170,7 +170,7 @@ public class ElectronicInvoiceItemHolder {
             return invoiceItem.getUnitOfMeasure();
         }
     }
-    
+
     public boolean isUnitOfMeasureAcceptIndicatorEnabled() {
         if (isRejectItemHolder()){
             return rejectItem.isUnitOfMeasureAcceptIndicator();
@@ -178,7 +178,7 @@ public class ElectronicInvoiceItemHolder {
             return false;
         }
     }
-    
+
     public boolean isCatalogNumberAcceptIndicatorEnabled() {
         if (isRejectItemHolder()){
             return rejectItem.isCatalogNumberAcceptIndicator();
@@ -186,7 +186,7 @@ public class ElectronicInvoiceItemHolder {
             return false;
         }
     }
-    
+
     public BigDecimal getInvoiceItemUnitPrice(){
         if (isRejectItemHolder()){
             return rejectItem.getInvoiceItemUnitPrice();
@@ -194,7 +194,7 @@ public class ElectronicInvoiceItemHolder {
             return invoiceItem.getInvoiceLineUnitCostBigDecimal();
         }
     }
-    
+
     public BigDecimal getInvoiceItemQuantity(){
         if (isRejectItemHolder()){
             return rejectItem.getInvoiceItemQuantity();
@@ -202,7 +202,7 @@ public class ElectronicInvoiceItemHolder {
             return invoiceItem.getInvoiceLineQuantityBigDecimal();
         }
     }
-    
+
     public BigDecimal getInvoiceItemSubTotalAmount(){
         if (isRejectItemHolder()){
             return rejectItem.getInvoiceItemSubTotalAmount();
@@ -210,7 +210,7 @@ public class ElectronicInvoiceItemHolder {
             return invoiceItem.getInvoiceLineSubTotalAmountBigDecimal();
         }
     }
-    
+
     public BigDecimal getTaxAmount(){
         if (isRejectItemHolder()){
             return rejectItem.getInvoiceItemTaxAmount();
@@ -218,7 +218,7 @@ public class ElectronicInvoiceItemHolder {
             return invoiceItem.getInvoiceLineTaxAmountBigDecimal();
         }
     }
-    
+
     public ElectronicInvoiceOrderHolder getInvoiceOrderHolder(){
         return orderHolder;
     }

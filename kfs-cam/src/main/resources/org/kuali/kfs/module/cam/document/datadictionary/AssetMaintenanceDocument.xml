@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -39,7 +39,7 @@
         <ref bean="AssetMaintenanceDocument-Warranty"/>
         <ref bean="AssetMaintenanceDocument-RepairHistory"/>
         <ref bean="AssetMaintenanceDocument-Components"/>
-		<ref bean="AssetMaintenanceDocument-ViewRelatedDocumentLink"/>       
+		<ref bean="AssetMaintenanceDocument-ViewRelatedDocumentLink"/>
       </list>
     </property>
     <property name="defaultExistenceChecks">
@@ -47,7 +47,7 @@
         <bean parent="ReferenceDefinition" p:attributeName="agency" p:attributeToHighlightOnFail="agencyNumber"/>
         <bean parent="ReferenceDefinition" p:attributeName="campus" p:attributeToHighlightOnFail="campusCode"/>
         <bean parent="ReferenceDefinition" p:attributeName="building" p:attributeToHighlightOnFail="buildingCode"/>
-        <bean parent="ReferenceDefinition" p:attributeName="buildingRoom" p:attributeToHighlightOnFail="buildingRoomNumber"/>   
+        <bean parent="ReferenceDefinition" p:attributeName="buildingRoom" p:attributeToHighlightOnFail="buildingRoomNumber"/>
         <bean parent="ReferenceDefinition" p:attributeName="organizationOwnerChartOfAccounts" p:attributeToHighlightOnFail="organizationOwnerChartOfAccountsCode"/>
       </list>
     </property>
@@ -63,7 +63,7 @@
     <property name="workflowAttributes">
       <ref bean="AssetMaintenanceDocument-workflowAttributes"/>
     </property>
-    <property name="additionalSectionsFile" value="/jsp/module/cams/AssetPendingLookup.jsp"/> 
+    <property name="additionalSectionsFile" value="/jsp/module/cams/AssetPendingLookup.jsp"/>
 
     <property name="webScriptFiles">
       <list>
@@ -71,18 +71,18 @@
         <value>../scripts/coa/accountDocument.js</value>
       </list>
     </property>
-    
+
   </bean>
 
 <!-- Maintenance Section Definitions -->
   <bean id="AssetMaintenanceDocument-AssetPaymentLink" parent="AssetMaintenanceDocument-AssetPaymentLink-parentBean"/>
   <bean id="AssetMaintenanceDocument-AssetPaymentLink-parentBean" abstract="true" parent="MaintainableSectionDefinition">
     <property name="defaultOpen" value="false"/>
-	<property name="id" value="paymentLookup"/>  
+	<property name="id" value="paymentLookup"/>
     <property name="title" value="Payments Lookup"/>
     <property name="maintainableItems">
       <list>
-     	<bean parent="MaintainableFieldDefinition" p:name="lookup"/>	                        
+     	<bean parent="MaintainableFieldDefinition" p:name="lookup"/>
       </list>
 	</property>
   </bean>
@@ -91,7 +91,7 @@
   <bean id="AssetMaintenanceDocument-AssetDetailInformation-parentBean" abstract="true" parent="MaintainableSectionDefinition">
     <property name="id" value="Asset Detail Information"/>
     <property name="title" value="Asset Detail Information"/>
-    <property name="maintainableItems">    
+    <property name="maintainableItems">
       <list>
         <bean parent="MaintainableSubSectionHeaderDefinition" p:name="Asset Detail Info"/>
         <bean parent="MaintainableFieldDefinition" p:name="capitalAssetNumber" p:unconditionallyReadOnly="true"/>
@@ -101,8 +101,8 @@
 				<list>
 					<value>organizationOwnerChartOfAccountsCode</value>
 				</list>
-			</property> 
-		</bean>        
+			</property>
+		</bean>
         <bean parent="MaintainableFieldDefinition" p:name="organizationOwnerAccount.organizationCode" p:unconditionallyReadOnly="true"/>
         <bean parent="MaintainableFieldDefinition" p:name="agencyNumber"/>
         <bean parent="MaintainableFieldDefinition" p:name="acquisitionTypeCode" p:unconditionallyReadOnly="true" p:defaultValue="C"/>
@@ -149,7 +149,7 @@
         <bean parent="MaintainableFieldDefinition" p:name="offCampusLocation.assetLocationStateCode"/>
         <bean parent="MaintainableFieldDefinition" p:name="offCampusLocation.assetLocationZipCode"/>
         <bean parent="MaintainableFieldDefinition" p:name="offCampusLocation.assetLocationCountryCode"/>
-        <bean parent="MaintainableFieldDefinition" p:name="lastInventoryDateUpdateButton"/> 
+        <bean parent="MaintainableFieldDefinition" p:name="lastInventoryDateUpdateButton"/>
       </list>
     </property>
   </bean>
@@ -181,9 +181,9 @@
     <property name="title" value="Fabrication Information"/>
     <property name="maintainableItems">
       <list>
-      <!-- Please read this comment, you should not make these fields required, 
+      <!-- Please read this comment, you should not make these fields required,
       in that case asset edit will not work. Right now there is no fix to make conditional asterisk to work -->
-        <bean parent="MaintainableFieldDefinition" p:name="estimatedFabricationCompletionDate" p:required="false"/>              
+        <bean parent="MaintainableFieldDefinition" p:name="estimatedFabricationCompletionDate" p:required="false"/>
         <bean parent="MaintainableFieldDefinition" p:name="fabricationEstimatedTotalAmount" p:required="false"/>
         <bean parent="MaintainableFieldDefinition" p:name="fabricationEstimatedRetentionYears" p:required="false"/>
       </list>
@@ -192,7 +192,7 @@
   <bean id="AssetMaintenanceDocument-LandInformation" parent="AssetMaintenanceDocument-LandInformation-parentBean"/>
 
   <bean id="AssetMaintenanceDocument-LandInformation-parentBean" abstract="true" parent="MaintainableSectionDefinition">
-    <property name="defaultOpen" value="false"/>  
+    <property name="defaultOpen" value="false"/>
     <property name="id" value="landInformation"/>
     <property name="title" value="Land Information"/>
     <property name="maintainableItems">
@@ -270,7 +270,7 @@
   <bean id="AssetMaintenanceDocument-AssetDepreciationInformation" parent="AssetMaintenanceDocument-AssetDepreciationInformation-parentBean"/>
 
   <bean id="AssetMaintenanceDocument-AssetDepreciationInformation-parentBean" abstract="true" parent="MaintainableSectionDefinition">
-    <property name="defaultOpen" value="false"/>  
+    <property name="defaultOpen" value="false"/>
     <property name="id" value="depreciationInformation"/>
     <property name="title" value="Asset Depreciation Information"/>
     <property name="maintainableItems">
@@ -287,7 +287,7 @@
         <bean parent="MaintainableFieldDefinition" p:name="prevYearDepreciation" p:unconditionallyReadOnly="true"/>
       </list>
     </property>
-  </bean> 
+  </bean>
   <bean id="AssetMaintenanceDocument-ViewAssetSeparateHistory" parent="AssetMaintenanceDocument-ViewAssetSeparateHistory-parentBean"/>
 
   <bean id="AssetMaintenanceDocument-ViewAssetSeparateHistory-parentBean" abstract="true" parent="MaintainableSectionDefinition">
@@ -300,7 +300,7 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="AssetMaintenanceDocument-ViewEquipmentLoanInformation" parent="AssetMaintenanceDocument-ViewEquipmentLoanInformation-parentBean"/>
 
   <bean id="AssetMaintenanceDocument-ViewEquipmentLoanInformation-parentBean" abstract="true" parent="MaintainableSectionDefinition">
@@ -334,7 +334,7 @@
   <bean id="AssetMaintenanceDocument-Warranty-parentBean" abstract="true" parent="MaintainableSectionDefinition">
     <property name="id" value="warrenty"/>
     <property name="title" value="Warranty"/>
-    <property name="defaultOpen" value="false"/>    
+    <property name="defaultOpen" value="false"/>
     <property name="maintainableItems">
       <list>
         <bean parent="MaintainableFieldDefinition" p:name="assetWarranty.warrantyNumber" p:noLookup="true"/>
@@ -351,7 +351,7 @@
   <bean id="AssetMaintenanceDocument-RepairHistory" parent="AssetMaintenanceDocument-RepairHistory-parentBean"/>
 
   <bean id="AssetMaintenanceDocument-RepairHistory-parentBean" abstract="true" parent="MaintainableSectionDefinition">
-    <property name="defaultOpen" value="false"/>  
+    <property name="defaultOpen" value="false"/>
     <property name="id" value="repairHistory"/>
     <property name="title" value="Repair History"/>
     <property name="maintainableItems">
@@ -382,7 +382,7 @@
   <bean id="AssetMaintenanceDocument-Components-parentBean" abstract="true" parent="MaintainableSectionDefinition">
     <property name="id" value="components"/>
     <property name="title" value="Components"/>
-    <property name="defaultOpen" value="false"/>    
+    <property name="defaultOpen" value="false"/>
     <property name="maintainableItems">
       <list>
         <bean parent="MaintainableCollectionDefinition">
@@ -419,29 +419,29 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="AssetMaintenanceDocument-ViewRelatedDocumentLink" parent="AssetMaintenanceDocument-ViewRelatedDocumentLink-parentBean"/>
   <bean id="AssetMaintenanceDocument-ViewRelatedDocumentLink-parentBean" abstract="true" parent="MaintainableSectionDefinition">
-	<property name="id" value="documentLookup"/>  
+	<property name="id" value="documentLookup"/>
     <property name="title" value="Lookup Related Capital Asset Document(s)"/>
     <property name="maintainableItems">
       <list>
-     	<bean parent="MaintainableFieldDefinition" p:name="assetMaintenanceDocumentLookup"/>	                        
-     	<bean parent="MaintainableFieldDefinition" p:name="assetFabricationDocumentLookup"/>	                        
-     	<bean parent="MaintainableFieldDefinition" p:name="assetCreateOrSeparateDocumentLookup"/>	                        
-     	<bean parent="MaintainableFieldDefinition" p:name="assetPaymentDocumentLookup"/>	                        
-     	<bean parent="MaintainableFieldDefinition" p:name="assetTransferDocumentLookup"/>	                        
-     	<bean parent="MaintainableFieldDefinition" p:name="assetEquipmentLoanOrReturnDocumentLookup"/>	                        
-     	<bean parent="MaintainableFieldDefinition" p:name="assetLocationDocumentLookup"/>	                        
-     	<bean parent="MaintainableFieldDefinition" p:name="assetMergeOrRetirementDocumentLookup"/>	                        
-     	<bean parent="MaintainableFieldDefinition" p:name="camsComplexMaintenanceDocumentLookup"/>	                        
+     	<bean parent="MaintainableFieldDefinition" p:name="assetMaintenanceDocumentLookup"/>
+     	<bean parent="MaintainableFieldDefinition" p:name="assetFabricationDocumentLookup"/>
+     	<bean parent="MaintainableFieldDefinition" p:name="assetCreateOrSeparateDocumentLookup"/>
+     	<bean parent="MaintainableFieldDefinition" p:name="assetPaymentDocumentLookup"/>
+     	<bean parent="MaintainableFieldDefinition" p:name="assetTransferDocumentLookup"/>
+     	<bean parent="MaintainableFieldDefinition" p:name="assetEquipmentLoanOrReturnDocumentLookup"/>
+     	<bean parent="MaintainableFieldDefinition" p:name="assetLocationDocumentLookup"/>
+     	<bean parent="MaintainableFieldDefinition" p:name="assetMergeOrRetirementDocumentLookup"/>
+     	<bean parent="MaintainableFieldDefinition" p:name="camsComplexMaintenanceDocumentLookup"/>
       </list>
 	</property>
   </bean>
-  
-  
+
+
   <bean id="AssetMaintenanceDocument-workflowAttributes" parent="AssetMaintenanceDocument-workflowAttributes-parentBean"/>
-	
+
   <bean id="AssetMaintenanceDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
     	<property name="searchingTypeDefinitions">
     		<list>

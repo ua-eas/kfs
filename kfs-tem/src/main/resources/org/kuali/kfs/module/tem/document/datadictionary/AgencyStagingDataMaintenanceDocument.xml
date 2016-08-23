@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -70,7 +70,7 @@
 						<list>
 							<value>agency</value>
 						</list>
-					</property> 
+					</property>
                 </bean>
                 <bean parent="MaintainableFieldDefinition" p:name="agency" p:unconditionallyReadOnly="true" />
                 <bean parent="MaintainableFieldDefinition" p:name="agencyDataId" p:unconditionallyReadOnly="true" />
@@ -88,7 +88,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="TripInformation-Section" parent="TripInformation-Section-parentBean" />
     <bean id="TripInformation-Section-parentBean" abstract="true" parent="MaintainableSectionDefinition">
         <property name="id" value="trip" />
@@ -100,11 +100,11 @@
                 <bean parent="MaintainableFieldDefinition" p:name="tripInvoiceNumber" p:required="true" />
                 <bean parent="MaintainableFieldDefinition" p:name="tripExpenseAmount" p:required="true" />
                 <bean parent="MaintainableFieldDefinition" p:name="otherAmount"  />
-        		<bean parent="MaintainableFieldDefinition" p:name="distributionCode" />                
+        		<bean parent="MaintainableFieldDefinition" p:name="distributionCode" />
             </list>
         </property>
     </bean>
-    
+
     <bean id="TravelerInformation-Section" parent="TravelerInformation-Section-parentBean" />
     <bean id="TravelerInformation-Section-parentBean" abstract="true" parent="MaintainableSectionDefinition">
         <property name="id" value="traveler" />
@@ -117,11 +117,11 @@
                 <bean parent="MaintainableFieldDefinition" p:name="travelerNetworkId" p:unconditionallyReadOnly="true"/>
                 <bean parent="MaintainableFieldDefinition" p:name="tripTravelerTypeId"  p:unconditionallyReadOnly="true"/>
                 <bean parent="MaintainableFieldDefinition" p:name="tripArrangerName" p:unconditionallyReadOnly="true"/>
-                
+
             </list>
         </property>
     </bean>
-    
+
     <bean id="TicketItinerary-Section" parent="TicketItinerary-Section-parentBean" />
     <bean id="TicketItinerary-Section-parentBean" abstract="true" parent="MaintainableSectionDefinition">
         <property name="id" value="ticketItinerary" />
@@ -131,7 +131,7 @@
                 <bean parent="MaintainableFieldDefinition" p:name="airTicketNumber" />
                 <bean parent="MaintainableFieldDefinition" p:name="lodgingItineraryNumber" />
                 <bean parent="MaintainableFieldDefinition" p:name="rentalCarItineraryNumber" />
-                
+
             </list>
         </property>
     </bean>
@@ -200,14 +200,14 @@
 				<bean parent="MaintainableFieldDefinition" p:name="rentalCarTaxAmount" p:unconditionallyReadOnly="true"  />
 				<bean parent="MaintainableFieldDefinition" p:name="rentalCarDetailText" p:unconditionallyReadOnly="true"  />
 				<bean parent="MaintainableFieldDefinition" p:name="rentalCarSurchargeAmount" p:unconditionallyReadOnly="true" />
-				<bean parent="MaintainableFieldDefinition" p:name="rentalCarGovernmentSurchargeAmount" p:unconditionallyReadOnly="true" />				
+				<bean parent="MaintainableFieldDefinition" p:name="rentalCarGovernmentSurchargeAmount" p:unconditionallyReadOnly="true" />
 			</list>
 		</property>
 	</bean>
-		
-	<bean id="AccountingInformation-Section" parent="AccountingInformation-Section-parentBean"/>	
+
+	<bean id="AccountingInformation-Section" parent="AccountingInformation-Section-parentBean"/>
 	<bean id="AccountingInformation-Section-parentBean" abstract="true" parent="MaintainableSectionDefinition">
-    <property name="defaultOpen" value="true"/>  
+    <property name="defaultOpen" value="true"/>
     <property name="id" value="accountingInfo"/>
     <property name="title" value="Accounting Information"/>
     <property name="maintainableItems">
@@ -232,7 +232,7 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="ConferenceRegistration-Section" parent="ConferenceRegistration-Section-parentBean" />
     <bean id="ConferenceRegistration-Section-parentBean" abstract="true" parent="MaintainableSectionDefinition">
         <property name="id" value="TravelAgencyAudit" />

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -70,7 +70,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
      * Sets the class of the origin entries this class deals with.  This makes this particular
      * class very flexible; instances of it can deal with OriginEntryLites as well as they deal
      * with OriginEntryFulls.
-     * 
+     *
      * @param entryClass the class of OriginEntries this instance will use for OJB operations
      */
     public void setEntryClass(Class entryClass) {
@@ -79,7 +79,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
 
     /**
      * Gets the entryClass attribute.
-     * 
+     *
      * @return Returns the entryClass.
      */
     public Class getEntryClass() {
@@ -158,7 +158,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
 
     /**
      * Counts of rows of all the origin entry groups
-     * 
+     *
      * @return iterator of Object[] {[BigDecimal id,BigDecimal count]}
      * @see org.kuali.kfs.gl.dataaccess.OriginEntryDao#getGroupCounts()
      */
@@ -187,7 +187,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
 
     /**
      * Return an iterator of keys of all documents referenced by origin entries in a given group
-     * 
+     *
      * @param oeg Group the origin entry group to find entries in, by origin entry
      * @return Iterator of java.lang.Object[] with report data about all of the distinct document numbers/type code/origination code combinations of origin entries in the group
      * @see org.kuali.kfs.gl.dataaccess.OriginEntryDao#getDocumentsByGroup(org.kuali.kfs.gl.businessobject.OriginEntryGroup)
@@ -208,7 +208,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
 
     /**
      * Iterator of entries that match criteria
-     * 
+     *
      * @param searchCriteria Map of field, value pairs
      * @return collection of entries
      * @see org.kuali.kfs.gl.dataaccess.OriginEntryDao#getMatchingEntries(java.util.Map)
@@ -229,7 +229,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
 
     /**
      * Get bad balance entries
-     * 
+     *
      * @param groups a Collection of groups to remove bad entries in
      * @return an Iterator of no good, won't use, bad balance entries
      * @see org.kuali.kfs.gl.dataaccess.OriginEntryDao#getBadBalanceEntries(java.util.Collection)
@@ -278,10 +278,10 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
     /**
      * This method is special because of the order by. It is used in the scrubber. The getMatchingEntries wouldn't work because of
      * the required order by.
-     * 
+     *
      * @param OriginEntryGroup the originEntryGroup that holds the origin entries to find
      * @param sort the sort order to sort entries by, defined in OriginEntryDao
-     * 
+     *
      * @return an Iterator of whichever flavor of OriginEntries this instance uses
      */
     public <T> Iterator<T> getEntriesByGroup(OriginEntryGroup oeg, int sort) {
@@ -364,7 +364,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
     /**
      * This method should only be used in unit tests. It loads all the gl_origin_entry_t rows in memory into a collection. This
      * won't work for production because there would be too many rows to load into memory.
-     * 
+     *
      * @return a collection of OriginEntryFulls
      */
     public Collection<OriginEntryFull> testingGetAllEntries() {
@@ -379,7 +379,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
 
     /**
      * Delete entries matching searchCriteria search criteria.
-     * 
+     *
      * @param searchCriteria a map of criteria to use as keys for building a query
      */
     public void deleteMatchingEntries(Map searchCriteria) {
@@ -403,7 +403,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
     /**
      * Delete all the groups in the list. This will delete the entries. The OriginEntryGroupDao has a method to delete the groups,
      * and one has to use both to really delete the whole group
-     * 
+     *
      * @param groups a Collection of Origin Entry Groups to delete entries in
      * @see org.kuali.kfs.gl.dataaccess.OriginEntryDao#deleteGroups(java.util.Collection)
      */
@@ -434,7 +434,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
 
     /**
      * Collection of entries that match criteria
-     * 
+     *
      * @param searchCriteria Map of field, value pairs
      * @return collection of entries
      * @see org.kuali.kfs.gl.dataaccess.OriginEntryDao#getMatchingEntriesByCollection(java.util.Map)
@@ -455,7 +455,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
 
     /**
      * get the summarized information of the entries that belong to the entry groups with the given group ids
-     * 
+     *
      * @param groupIdList the ids of origin entry groups
      * @return a set of summarized information of the entries within the specified groups
      * @see org.kuali.kfs.gl.dataaccess.OriginEntryDao#getSummaryByGroupId(java.util.List)
@@ -495,7 +495,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
 
     /**
      * Fetches an entry for the given entryId, or returns a newly created on
-     * 
+     *
      * @param entryId an entry id to find an entry for
      * @return the entry for the given entry id, or a newly created entry
      * @see org.kuali.kfs.gl.dataaccess.OriginEntryDao#getExactMatchingEntry(java.lang.Integer)
@@ -516,7 +516,7 @@ public class OriginEntryDaoOjb extends PlatformAwareDaoBaseOjb implements Origin
 
     /**
      * get the summarized information of poster input entries that belong to the entry groups with the given group id list
-     * 
+     *
      * @param groups the origin entry groups
      * @return a set of summarized information of poster input entries within the specified groups
      * @see org.kuali.kfs.gl.dataaccess.OriginEntryDao#getPosterOutputSummaryByGroupId(java.util.Collection)

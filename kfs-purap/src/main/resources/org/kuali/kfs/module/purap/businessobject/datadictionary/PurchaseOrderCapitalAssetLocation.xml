@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -72,7 +72,7 @@
   </bean>
 
   <bean id="PurchaseOrderCapitalAssetLocation-campusCode" parent="PurchaseOrderCapitalAssetLocation-campusCode-parentBean"/>
-  <bean id="PurchaseOrderCapitalAssetLocation-campusCode-parentBean" parent="Campus-code" abstract="true" 
+  <bean id="PurchaseOrderCapitalAssetLocation-campusCode-parentBean" parent="Campus-code" abstract="true"
   		p:name="campusCode" p:label="Campus" p:shortLabel="Campus"
   		p:required="false">
   </bean>
@@ -88,9 +88,9 @@
   </bean>
 
   <bean id="PurchaseOrderCapitalAssetLocation-capitalAssetCountryCode" parent="PurchaseOrderCapitalAssetLocation-capitalAssetCountryCode-parentBean"/>
-  <bean id="PurchaseOrderCapitalAssetLocation-capitalAssetCountryCode-parentBean" 
-  		parent="Country-code" abstract="true" 
-  		p:name="capitalAssetCountryCode" 
+  <bean id="PurchaseOrderCapitalAssetLocation-capitalAssetCountryCode-parentBean"
+  		parent="Country-code" abstract="true"
+  		p:name="capitalAssetCountryCode"
 		p:label="Country" p:shortLabel="Country" p:required="false">
     <property name="control">
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.CountryNotRestrictedValuesFinder" p:includeKeyInLabel="false"/>
@@ -118,16 +118,16 @@
   </bean>
 
   <bean id="PurchaseOrderCapitalAssetLocation-capitalAssetPostalCode" parent="PurchaseOrderCapitalAssetLocation-capitalAssetPostalCode-parentBean"/>
-  <bean id="PurchaseOrderCapitalAssetLocation-capitalAssetPostalCode-parentBean" parent="PostalCode-code" abstract="true" 
-  		p:name="capitalAssetPostalCode" 
-  		p:label="Postal Code" p:shortLabel="Postal Code" 
+  <bean id="PurchaseOrderCapitalAssetLocation-capitalAssetPostalCode-parentBean" parent="PostalCode-code" abstract="true"
+  		p:name="capitalAssetPostalCode"
+  		p:label="Postal Code" p:shortLabel="Postal Code"
   		p:required="false">
   </bean>
 
   <bean id="PurchaseOrderCapitalAssetLocation-capitalAssetStateCode" parent="PurchaseOrderCapitalAssetLocation-capitalAssetStateCode-parentBean"/>
-  <bean id="PurchaseOrderCapitalAssetLocation-capitalAssetStateCode-parentBean" parent="State-code" abstract="true" 
-  		p:name="capitalAssetStateCode" 
-  		p:label="State" p:shortLabel="State" 
+  <bean id="PurchaseOrderCapitalAssetLocation-capitalAssetStateCode-parentBean" parent="State-code" abstract="true"
+  		p:name="capitalAssetStateCode"
+  		p:label="State" p:shortLabel="State"
   		p:required="false">
     <property name="control">
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.StateValuesFinder" p:includeKeyInLabel="false"/>
@@ -193,7 +193,7 @@
   </bean>
 
 <!-- Business Object Lookup Definition -->
-        
+
   <bean id="PurchaseOrderCapitalAssetLocation-lookupDefinition" parent="PurchaseOrderCapitalAssetLocation-lookupDefinition-parentBean"/>
 
   <bean id="PurchaseOrderCapitalAssetLocation-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition" p:title="Purchase Order Capital Asset Location Lookup">

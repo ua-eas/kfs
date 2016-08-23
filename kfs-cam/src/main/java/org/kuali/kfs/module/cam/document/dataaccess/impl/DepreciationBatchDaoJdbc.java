@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -395,15 +395,15 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
 
         return getJdbcTemplate().queryForInt("select count(1) from CM_AST_TRNFR_DOC_T t inner join FS_DOC_HEADER_T h on t.fdoc_nbr = h.fdoc_nbr where h.fdoc_status_cd ='" + KFSConstants.DocumentStatusCodes.ENROUTE + "'");
     }
-    
+
     /**
      * @see org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao#getTransferDocPendingAssets()
      */
     @Override
     public Set<Long> getTransferDocPendingAssets() {
         LOG.debug("getTransferDocPendingAssets() started");
-        
-        final Set<Long> assets = new HashSet<>();        
+
+        final Set<Long> assets = new HashSet<>();
         getJdbcTemplate().query("select t.cptlast_nbr from CM_AST_TRNFR_DOC_T t inner join FS_DOC_HEADER_T h on t.fdoc_nbr = h.fdoc_nbr where h.fdoc_status_cd = '" + KFSConstants.DocumentStatusCodes.ENROUTE + "'", new ResultSetExtractor() {
             @Override
             public Object extractData(ResultSet rs) throws SQLException, DataAccessException {

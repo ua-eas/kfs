@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -54,7 +54,7 @@ public class TransferOfFundsDocument extends AccountingDocumentBase implements C
 
     /**
      * Overrides the base implementation to return "From".
-     * 
+     *
      * @see org.kuali.kfs.sys.document.AccountingDocument#getSourceAccountingLinesSectionTitle()
      */
     public String getSourceAccountingLinesSectionTitle() {
@@ -63,23 +63,23 @@ public class TransferOfFundsDocument extends AccountingDocumentBase implements C
 
     /**
      * Overrides the base implementation to return "To".
-     * 
+     *
      * @see org.kuali.kfs.sys.document.AccountingDocument#getTargetAccountingLinesSectionTitle()
      */
     public String getTargetAccountingLinesSectionTitle() {
         return KFSConstants.TO;
     }
-    
+
     /**
      * Set attributes of an offset pending entry according to rules specific to TransferOfFundsDocument.  The current rules
      * require setting the balance type code to 'actual'.
-     * 
+     *
      * @param financialDocument The accounting document containing the general ledger pending entries being customized.
      * @param accountingLine The accounting line the explicit general ledger pending entry was generated from.
      * @param explicitEntry The explicit general ledger pending entry the offset entry is generated for.
      * @param offsetEntry The offset general ledger pending entry being customized.
      * @return This method always returns true.
-     * 
+     *
      * @see org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBase#customizeOffsetGeneralLedgerPendingEntry(org.kuali.rice.krad.document.FinancialDocument,
      *      org.kuali.rice.krad.bo.AccountingLine, org.kuali.module.gl.bo.GeneralLedgerPendingEntry,
      *      org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
@@ -92,11 +92,11 @@ public class TransferOfFundsDocument extends AccountingDocumentBase implements C
 
     /**
      * Set attributes of an explicit pending entry according to rules specific to TransferOfFundsDocument.
-     * 
+     *
      * @param financialDocument The accounting document containing the general ledger pending entries being customized.
      * @param accountingLine The accounting line the explicit general ledger pending entry was generated from.
      * @param explicitEntry The explicit general ledger pending entry to be customized.
-     * 
+     *
      * @see org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBase#customizeExplicitGeneralLedgerPendingEntry(org.kuali.rice.krad.document.FinancialDocument,
      *      org.kuali.rice.krad.bo.AccountingLine, org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
      */
@@ -127,11 +127,11 @@ public class TransferOfFundsDocument extends AccountingDocumentBase implements C
      * <li> Only allow income or expense object type codes
      * <li> Target lines have the opposite debit/credit codes as the source lines
      * </ol>
-     * 
+     *
      * @param financialDocument The document used to determine if the accounting line is a debit line.
      * @param accountingLine The accounting line to be analyzed.
      * @return True if the accounting line provided is a debit line, false otherwise.
-     * 
+     *
      * @see IsDebitUtils#isDebitConsideringNothingPositiveOnly(FinancialDocumentRuleBase, FinancialDocument, AccountingLine)
      * @see org.kuali.rice.krad.rule.AccountingLineRule#isDebit(org.kuali.rice.krad.document.FinancialDocument,
      *      org.kuali.rice.krad.bo.AccountingLine)

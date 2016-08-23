@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,8 +29,8 @@ import javax.xml.namespace.QName;
 
 /**
  * Exports services in the {@link org.kuali.rice.core.api.resourceloader.GlobalResourceLoader} as beans available to Spring.
- * 
- * 
+ *
+ *
  *
  */
 public class GlobalResourceLoaderServiceFactoryBean implements FactoryBean<Object>, InitializingBean {
@@ -47,11 +47,11 @@ public class GlobalResourceLoaderServiceFactoryBean implements FactoryBean<Objec
             return false;
         }
 	};
-	
+
 	public GlobalResourceLoaderServiceFactoryBean() {
 		this.mustExist = true;
 	}
-	
+
 	public Object getObject() throws Exception {
 		if (isFetchingService.get()) return null; // we already have been invoked, don't recurse, just return null.
 		isFetchingService.set(true);
@@ -98,15 +98,15 @@ public class GlobalResourceLoaderServiceFactoryBean implements FactoryBean<Objec
 	public void setSingleton(boolean singleton) {
 		this.singleton = singleton;
 	}
-	
+
 	public boolean isMustExist() {
 		return mustExist;
 	}
-	
+
 	public void setMustExist(boolean mustExist) {
 		this.mustExist = mustExist;
 	}
-	
+
 
 	public void afterPropertiesSet() throws Exception {
 		if (StringUtils.isBlank(this.getServiceName())) {

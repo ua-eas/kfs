@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -57,7 +57,7 @@ public class GeneralErrorCorrectionDocument extends CapitalAccountingLinesDocume
 
     /**
      * Overrides the base implementation to return "From".
-     * 
+     *
      * @see org.kuali.kfs.sys.document.AccountingDocument#getSourceAccountingLinesSectionTitle()
      */
     @Override
@@ -67,7 +67,7 @@ public class GeneralErrorCorrectionDocument extends CapitalAccountingLinesDocume
 
     /**
      * Overrides the base implementation to return "To".
-     * 
+     *
      * @see org.kuali.kfs.sys.document.AccountingDocument#getTargetAccountingLinesSectionTitle()
      */
     @Override
@@ -93,7 +93,7 @@ public class GeneralErrorCorrectionDocument extends CapitalAccountingLinesDocume
 
     /**
      * Customizes a GLPE by setting financial document number, financial system origination code and document type code to null
-     * 
+     *
      * @param transactionalDocument submitted accounting document
      * @param accountingLine accounting line in document
      * @param explicitEntry general ledger pending entry
@@ -115,7 +115,7 @@ public class GeneralErrorCorrectionDocument extends CapitalAccountingLinesDocume
     /**
      * Builds an appropriately formatted string to be used for the <code>transactionLedgerEntryDescription</code>. It is built
      * using information from the <code>{@link AccountingLine}</code>. Format is "01-12345: blah blah blah".
-     * 
+     *
      * @param line accounting line
      * @param transactionalDocument submitted accounting document
      * @return String formatted string to be used for transaction ledger entry description

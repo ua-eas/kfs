@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,20 +28,20 @@ import java.util.Map;
 
 /**
  * Provides methods for implementing the various phases of a <code>View</code>
- * 
+ *
  * <ul>
  * <li>Initialize Phase: Invoked when the view is first requested to setup
  * necessary state</li>
  * </ul>
- * 
- * 
+ *
+ *
  */
 public interface ViewHelperService {
 
 	/**
 	 * Populates the <code>View</code> properties from the given request
 	 * parameters
-	 * 
+	 *
 	 * <p>
 	 * The <code>View</code> instance is inspected for fields that have the
 	 * <code>RequestParameter</code> annotation and if corresponding parameters
@@ -51,7 +51,7 @@ public interface ViewHelperService {
 	 * <code>ViewServiceHelper</code> implementations can add additional
 	 * parameter key/value pairs to the returned map if necessary.
 	 * </p>
-	 * 
+	 *
 	 * @see RequestParameter
 	 */
 	public void populateViewFromRequestParameters(View view, Map<String, String> parameters);
@@ -60,16 +60,16 @@ public interface ViewHelperService {
 	 * Performs the Initialization phase for the <code>View</code>. During this
 	 * phase each component of the tree is invoked to setup state based on the
 	 * configuration and request options.
-	 * 
+	 *
 	 * <p>
 	 * The initialize phase is only called once per <code>View</code> lifecycle
 	 * </p>
-	 * 
+	 *
 	 * <p>
 	 * Note the <code>View</code> instance also contains the context Map that
 	 * was created based on the parameters sent to the view service
 	 * </p>
-	 * 
+	 *
 	 * @param view
 	 *            - View instance that should be initialized
      * @param model - object instance containing the view data
@@ -78,12 +78,12 @@ public interface ViewHelperService {
 
 	/**
 	 * Performs the Initialization phase for the given <code>Component</code>
-	 * 
+	 *
 	 * <p>
 	 * Can be called for component instances constructed via code or prototypes
 	 * to initialize the constructed component
 	 * </p>
-	 * 
+	 *
 	 * @param view
 	 *            - view instance the component belongs to
      * @param model - object instance containing the view data
@@ -95,7 +95,7 @@ public interface ViewHelperService {
 	/**
 	 * Executes the ApplyModel phase. During this phase each component of the
 	 * tree if invoked to setup any state based on the given model data
-	 * 
+	 *
 	 * <p>
 	 * Part of the view lifecycle that applies the model data to the view.
 	 * Should be called after the model has been populated before the view is
@@ -106,12 +106,12 @@ public interface ViewHelperService {
 	 * based on model values)</li>
 	 * </ul>
 	 * </p>
-	 * 
+	 *
 	 * <p>
 	 * The update phase can be called multiple times for the view's lifecycle
 	 * (typically only once per request)
 	 * </p>
-	 * 
+	 *
 	 * @param view
 	 *            - View instance that the model should be applied to
 	 * @param model
@@ -123,14 +123,14 @@ public interface ViewHelperService {
 	/**
 	 * The last phase before the view is rendered. Here final preparations can
 	 * be made based on the updated view state
-	 * 
+	 *
 	 * <p>
 	 * The finalize phase runs after the apply model phase and can be called
 	 * multiple times for the view's lifecylce (however typically only once per
 	 * request)
 	 * </p>
-	 * 
-	 * 
+	 *
+	 *
 	 * @param view
 	 *            - view instance that should be finalized for rendering
 	 * @param model
@@ -170,7 +170,7 @@ public interface ViewHelperService {
 	 * further processing on the line such as defaults. If the action is valid
 	 * the line should be added to the collection, otherwise errors should be
 	 * added to the global <code>MessageMap</code>
-	 * 
+	 *
 	 * @param view
 	 *            - view instance that is being presented (the action was taken
 	 *            on)
@@ -189,7 +189,7 @@ public interface ViewHelperService {
 	 * allowed. If the action is valid the line should be deleted from the
 	 * collection, otherwise errors should be added to the global
 	 * <code>MessageMap</code>
-	 * 
+	 *
 	 * @param view
 	 *            - view instance that is being presented (the action was taken
 	 *            on)
@@ -214,10 +214,10 @@ public interface ViewHelperService {
      */
     public void processMultipleValueLookupResults(View view, Object model, String collectionPath,
             String lookupResultValues);
-	
+
 	/**
 	 * Invoked by the <code>Inquiry</code> widget to build the inquiry link
-	 * 
+	 *
 	 * <p>
 	 * Note this is used primarily for custom <code>Inquirable</code>
 	 * implementations to customize the inquiry class or parameters for an
@@ -227,7 +227,7 @@ public interface ViewHelperService {
 	 * Class<?>, Map<String, String>) given an inquiry class and parameters to
 	 * build the link field.
 	 * </p>
-	 * 
+	 *
 	 * @param dataObject
 	 *            - parent object for the inquiry property
 	 * @param propertyName
@@ -240,7 +240,7 @@ public interface ViewHelperService {
     /**
      * Applies configured default values for the line fields to the line
      * instance
-     * 
+     *
      * @param view
      *            - view instance the collection line belongs to
      * @param model

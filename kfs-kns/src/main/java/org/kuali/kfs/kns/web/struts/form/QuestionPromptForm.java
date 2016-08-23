@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,8 +28,8 @@ import java.util.ArrayList;
 
 /**
  * This class is the action form for all Question Prompts.
- * 
- * 
+ *
+ *
  */
 public class QuestionPromptForm extends KualiForm {
     private static final long serialVersionUID = 1L;
@@ -140,11 +140,11 @@ public class QuestionPromptForm extends KualiForm {
         else if (request.getParameter(KRADConstants.DOC_FORM_KEY) != null) {
             this.setFormKey(request.getParameter(KRADConstants.DOC_FORM_KEY));
         }
-        
+
         if (request.getAttribute(KRADConstants.DOC_NUM) != null) {
             this.setFormKey((String) request.getAttribute(KRADConstants.DOC_NUM));
         }
-        
+
 
         if (request.getParameter(KRADConstants.RETURN_LOCATION_PARAMETER) != null) {
             this.setBackLocation(request.getParameter(KRADConstants.RETURN_LOCATION_PARAMETER));
@@ -155,16 +155,16 @@ public class QuestionPromptForm extends KualiForm {
             if (kualiQuestion == null) {
                 throw new RuntimeException("question implementation not found: " + request.getParameter(KRADConstants.QUESTION_IMPL_ATTRIBUTE_NAME));
             }
-           
+
             // KULRICE-8077: PO Quote Limitation of Only 9 Vendors
             String questionId = request.getParameter(KRADConstants.QUESTION_INST_ATTRIBUTE_NAME);
             String questionTextAttributeName = KRADConstants.QUESTION_TEXT_ATTRIBUTE_NAME + questionId;
-            
+
             if (GlobalVariables.getUserSession().retrieveObject(questionTextAttributeName)!=null) {
                 this.setQuestionText((String)GlobalVariables.getUserSession().retrieveObject(questionTextAttributeName));
                 GlobalVariables.getUserSession().removeObject(questionTextAttributeName);
             }
-           
+
             // some questions types default these so we should default if not
             // present in request
             if (questionText == null) {
@@ -262,5 +262,5 @@ public class QuestionPromptForm extends KualiForm {
     public void setMethodToCallPath(String methodToCallPath) {
         this.methodToCallPath = methodToCallPath;
     }
-    
+
 }

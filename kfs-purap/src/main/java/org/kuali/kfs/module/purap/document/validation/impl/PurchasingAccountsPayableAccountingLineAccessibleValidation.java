@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,7 +32,7 @@ public class PurchasingAccountsPayableAccountingLineAccessibleValidation extends
 
     /**
      * Determines the route levels for a given document.
-     * 
+     *
      * @param workflowDocument The workflow document from which the current route levels are to be obtained.
      * @return List The List of current route levels of the given document.
      */
@@ -48,9 +48,9 @@ public class PurchasingAccountsPayableAccountingLineAccessibleValidation extends
 
     @Override
     protected String getAccountingLineCollectionProperty() {
-        return "items.sourceAccountingLines"; 
+        return "items.sourceAccountingLines";
     }
-    
+
     /**
      * @return true if a dummy account identifier should be set on the accounting line, false otherwise
      */
@@ -58,12 +58,12 @@ public class PurchasingAccountsPayableAccountingLineAccessibleValidation extends
         if (((PurApAccountingLine)getAccountingLineForValidation()).getAccountIdentifier() != null) {
             return false;
         }
-        
+
         final WorkflowDocument workflowDocument = getAccountingDocumentForValidation().getDocumentHeader().getWorkflowDocument();
         if (workflowDocument.isInitiated() || workflowDocument.isSaved()) {
             return false;
         }
-        
+
         return true;
     }
 }

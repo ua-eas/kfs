@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,7 +32,7 @@ public class DebitCreditTotalDefinition extends TotalDefinition {
 
     private String debitTotalProperty;
     private String creditTotalProperty;
-    
+
     private boolean nestedProperty;
     private String containingPropertyName;
 
@@ -50,7 +50,7 @@ public class DebitCreditTotalDefinition extends TotalDefinition {
 
         String actualCreditTotalProperty = this.getActualPropertyName(containingPropertyName, creditTotalProperty);
         renderer.setCreditTotalProperty(actualCreditTotalProperty);
-        
+
         String actualDebitTotalProperty = this.getActualPropertyName(containingPropertyName, debitTotalProperty);
         renderer.setDebitTotalProperty(actualDebitTotalProperty);
 
@@ -64,7 +64,7 @@ public class DebitCreditTotalDefinition extends TotalDefinition {
 
     /**
      * Validates that total properties have been added
-     * 
+     *
      * @see org.kuali.rice.krad.datadictionary.DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -75,7 +75,7 @@ public class DebitCreditTotalDefinition extends TotalDefinition {
 
     /**
      * Gets the debitTotalProperty attribute.
-     * 
+     *
      * @return Returns the debitTotalProperty.
      */
     public String getDebitTotalProperty() {
@@ -84,7 +84,7 @@ public class DebitCreditTotalDefinition extends TotalDefinition {
 
     /**
      * Sets the debitTotalProperty attribute value.
-     * 
+     *
      * @param debitTotalProperty The debitTotalProperty to set.
      */
     public void setDebitTotalProperty(String debitTotalProperty) {
@@ -93,7 +93,7 @@ public class DebitCreditTotalDefinition extends TotalDefinition {
 
     /**
      * Gets the creditTotalProperty attribute.
-     * 
+     *
      * @return Returns the creditTotalProperty.
      */
     public String getCreditTotalProperty() {
@@ -102,7 +102,7 @@ public class DebitCreditTotalDefinition extends TotalDefinition {
 
     /**
      * Sets the creditTotalProperty attribute value.
-     * 
+     *
      * @param creditTotalProperty The creditTotalProperty to set.
      */
     public void setCreditTotalProperty(String creditTotalProperty) {
@@ -111,7 +111,7 @@ public class DebitCreditTotalDefinition extends TotalDefinition {
 
     /**
      * Gets the debitTotalLabelProperty attribute.
-     * 
+     *
      * @return Returns the debitTotalLabelProperty.
      */
     public String getDebitTotalLabelProperty() {
@@ -120,7 +120,7 @@ public class DebitCreditTotalDefinition extends TotalDefinition {
 
     /**
      * Sets the debitTotalLabelProperty attribute value.
-     * 
+     *
      * @param debitTotalLabelProperty The debitTotalLabelProperty to set.
      */
     public void setDebitTotalLabelProperty(String debitTotalLabelProperty) {
@@ -129,7 +129,7 @@ public class DebitCreditTotalDefinition extends TotalDefinition {
 
     /**
      * Gets the creditTotalLabelProperty attribute.
-     * 
+     *
      * @return Returns the creditTotalLabelProperty.
      */
     public String getCreditTotalLabelProperty() {
@@ -138,7 +138,7 @@ public class DebitCreditTotalDefinition extends TotalDefinition {
 
     /**
      * Sets the creditTotalLabelProperty attribute value.
-     * 
+     *
      * @param creditTotalLabelProperty The creditTotalLabelProperty to set.
      */
     public void setCreditTotalLabelProperty(String creditTotalLabelProperty) {
@@ -147,7 +147,7 @@ public class DebitCreditTotalDefinition extends TotalDefinition {
 
     /**
      * Gets the representedProperty attribute.
-     * 
+     *
      * @return Returns the representedProperty.
      */
     public String getRepresentedProperty() {
@@ -156,7 +156,7 @@ public class DebitCreditTotalDefinition extends TotalDefinition {
 
     /**
      * Sets the representedProperty attribute value.
-     * 
+     *
      * @param representedProperty The representedProperty to set.
      */
     public void setRepresentedProperty(String representedProperty) {

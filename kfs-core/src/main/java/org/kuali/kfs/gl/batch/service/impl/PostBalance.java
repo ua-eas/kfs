@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,7 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PostBalance implements PostTransaction, BalanceCalculator {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PostBalance.class);
-    
+
     private AccountingCycleCachingService accountingCycleCachingService;
     private static final KualiDecimal NEGATIVE_ONE = new KualiDecimal(-1);
     /**
@@ -52,7 +52,7 @@ public class PostBalance implements PostTransaction, BalanceCalculator {
 
     /**
      * This posts the effect of the transaction upon the appropriate balance record.
-     * 
+     *
      * @param t the transaction which is being posted
      * @param mode the mode the poster is currently running in
      * @param postDate the date this transaction should post to
@@ -88,13 +88,13 @@ public class PostBalance implements PostTransaction, BalanceCalculator {
         } else {
             accountingCycleCachingService.updateBalance(b);
         }
-        
+
         return postType;
     }
 
     /**
      * Given a list of balances, determines which one the given trsnaction should post to
-     * 
+     *
      * @param balanceList a Collection of balances
      * @param t the transaction that is being posted
      * @return the balance, either found from the list, or, if not present in the list, newly created

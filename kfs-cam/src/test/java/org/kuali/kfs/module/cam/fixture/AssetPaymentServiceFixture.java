@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -52,7 +52,7 @@ public enum AssetPaymentServiceFixture {
     static String FIELD_NAME="fieldName";
     static String FIELD_NAMES="fieldNames";
     static String NUM_OF_DATA="numOfData";
-    
+
     private AssetPaymentServiceFixture(int dataPos) {
         this.testDataPos = dataPos;
     }
@@ -77,13 +77,13 @@ public enum AssetPaymentServiceFixture {
 
     @SuppressWarnings("deprecation")
     public AssetPaymentDocument newAssetPaymentDocument() {
-        AssetPaymentDocument assetPaymentDocument = new AssetPaymentDocument();        
-        List<AssetPaymentDetail> assetPaymentDetails = new ArrayList<AssetPaymentDetail>();        
+        AssetPaymentDocument assetPaymentDocument = new AssetPaymentDocument();
+        List<AssetPaymentDetail> assetPaymentDetails = new ArrayList<AssetPaymentDetail>();
         List<AssetPaymentAssetDetail> assetPaymentAssetDetails = new ArrayList<AssetPaymentAssetDetail>();
 
-        String fieldNames   = properties.getProperty(ASSET_PAYMENT_DETAIL+"."+FIELD_NAMES);        
+        String fieldNames   = properties.getProperty(ASSET_PAYMENT_DETAIL+"."+FIELD_NAMES);
         String deliminator  = properties.getProperty("deliminator");
-        Integer dataRows    = new Integer(properties.getProperty(ASSET_PAYMENT_DETAIL+"."+NUM_OF_DATA));                
+        Integer dataRows    = new Integer(properties.getProperty(ASSET_PAYMENT_DETAIL+"."+NUM_OF_DATA));
         String propertyKey="";
 
         for(int i=1;i<=dataRows.intValue();i++) {
@@ -92,9 +92,9 @@ public enum AssetPaymentServiceFixture {
             assetPaymentDetails.add(assetPaymentDetail);
         }
 
-        fieldNames   = properties.getProperty(CamsPropertyConstants.AssetPaymentDocument.ASSET_PAYMENT_ASSET_DETAIL+"."+FIELD_NAMES);        
+        fieldNames   = properties.getProperty(CamsPropertyConstants.AssetPaymentDocument.ASSET_PAYMENT_ASSET_DETAIL+"."+FIELD_NAMES);
         deliminator  = properties.getProperty("deliminator");
-        dataRows    = new Integer(properties.getProperty(CamsPropertyConstants.AssetPaymentDocument.ASSET_PAYMENT_ASSET_DETAIL+"."+NUM_OF_DATA));                
+        dataRows    = new Integer(properties.getProperty(CamsPropertyConstants.AssetPaymentDocument.ASSET_PAYMENT_ASSET_DETAIL+"."+NUM_OF_DATA));
         propertyKey="";
 
         for(int i=1;i<=dataRows.intValue();i++) {

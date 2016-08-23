@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,9 +31,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This is a description of what this class does - kellerj don't forget to fill this in. 
- * 
- * 
+ * This is a description of what this class does - kellerj don't forget to fill this in.
+ *
+ *
  *
  */
 public abstract class QualifierResolverBase implements QualifierResolver {
@@ -44,7 +44,7 @@ public abstract class QualifierResolverBase implements QualifierResolver {
     protected static final String KIM_ATTRIBUTE_ROUTE_LEVEL_NAME = KimConstants.AttributeConstants.ROUTE_NODE_NAME;
 
     private static DocumentService documentService;
-    
+
     /**
      * Retrieves the document that the current route context is operating on
      * @param context the current route context
@@ -52,7 +52,7 @@ public abstract class QualifierResolverBase implements QualifierResolver {
      */
     protected Document getDocument(RouteContext context) {
         String documentID = getDocumentId(context);
-        
+
         if (documentID != null) {
             try {
                 return getDocumentService().getByDocumentHeaderIdSessionless(documentID);
@@ -65,7 +65,7 @@ public abstract class QualifierResolverBase implements QualifierResolver {
         return null;
     }
 
-    
+
     /**
      * Retrieves the id of the current document from the RouteContext
      * @param context the current route context
@@ -83,7 +83,7 @@ public abstract class QualifierResolverBase implements QualifierResolver {
 		}
 		return documentService;
 	}
-	
+
     /**
      * Add common qualifiers to every Map<String, String> in the given List of Map<String, String>
      * @param qualifiers a List of Map<String, String>s to add common qualifiers to
@@ -96,7 +96,7 @@ public abstract class QualifierResolverBase implements QualifierResolver {
             addCommonQualifiersToMap(qualifier, context, customDocTypeName);
         }
     }
-    
+
     /**
      * Adds common qualifiers to a given Map<String, String>
      * @param qualifier an Map<String, String> to add common qualifiers to
@@ -108,13 +108,13 @@ public abstract class QualifierResolverBase implements QualifierResolver {
         qualifier.put(KIM_ATTRIBUTE_DOCUMENT_NUMBER, context.getDocument().getDocumentId() );
         if ( !qualifier.containsKey(KIM_ATTRIBUTE_DOCUMENT_TYPE_NAME) ) {
 	        if ( StringUtils.isBlank(customDocTypeName)) {
-	        	qualifier.put(KIM_ATTRIBUTE_DOCUMENT_TYPE_NAME, 
+	        	qualifier.put(KIM_ATTRIBUTE_DOCUMENT_TYPE_NAME,
 	        			context.getDocument().getDocumentType().getName() );
 	        } else {
-	        	qualifier.put(KIM_ATTRIBUTE_DOCUMENT_TYPE_NAME, customDocTypeName );        	
+	        	qualifier.put(KIM_ATTRIBUTE_DOCUMENT_TYPE_NAME, customDocTypeName );
 	        }
         }
         qualifier.put(KIM_ATTRIBUTE_ROUTE_LEVEL_NAME, context.getNodeInstance().getName());
     }
-	
+
 }

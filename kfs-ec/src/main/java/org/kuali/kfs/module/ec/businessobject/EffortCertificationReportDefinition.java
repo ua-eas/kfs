@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -79,7 +79,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear.
      */
     public Integer getUniversityFiscalYear() {
@@ -88,7 +88,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the universityFiscalYear attribute value.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -97,7 +97,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the effortCertificationReportNumber attribute.
-     * 
+     *
      * @return Returns the effortCertificationReportNumber.
      */
     public String getEffortCertificationReportNumber() {
@@ -106,7 +106,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the effortCertificationReportNumber attribute value.
-     * 
+     *
      * @param effortCertificationReportNumber The effortCertificationReportNumber to set.
      */
     public void setEffortCertificationReportNumber(String effortCertificationReportNumber) {
@@ -115,7 +115,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the effortCertificationReportPeriodTitle attribute.
-     * 
+     *
      * @return Returns the effortCertificationReportPeriodTitle.
      */
     public String getEffortCertificationReportPeriodTitle() {
@@ -124,7 +124,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the effortCertificationReportPeriodTitle attribute value.
-     * 
+     *
      * @param effortCertificationReportPeriodTitle The effortCertificationReportPeriodTitle to set.
      */
     public void setEffortCertificationReportPeriodTitle(String effortCertificationReportPeriodTitle) {
@@ -133,7 +133,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the effortCertificationReportPeriodStatusCode attribute.
-     * 
+     *
      * @return Returns the effortCertificationReportPeriodStatusCode.
      */
     public String getEffortCertificationReportPeriodStatusCode() {
@@ -142,7 +142,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the effortCertificationReportPeriodStatusCode attribute value.
-     * 
+     *
      * @param effortCertificationReportPeriodStatusCode The effortCertificationReportPeriodStatusCode to set.
      */
     public void setEffortCertificationReportPeriodStatusCode(String effortCertificationReportPeriodStatusCode) {
@@ -151,7 +151,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the expenseTransferFiscalYear attribute.
-     * 
+     *
      * @return Returns the expenseTransferFiscalYear.
      */
     public Integer getExpenseTransferFiscalYear() {
@@ -160,7 +160,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the expenseTransferFiscalYear attribute value.
-     * 
+     *
      * @param expenseTransferFiscalYear The expenseTransferFiscalYear to set.
      */
     public void setExpenseTransferFiscalYear(Integer expenseTransferFiscalYear) {
@@ -169,7 +169,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the expenseTransferFiscalPeriodCode attribute.
-     * 
+     *
      * @return Returns the expenseTransferFiscalPeriodCode.
      */
     public String getExpenseTransferFiscalPeriodCode() {
@@ -178,7 +178,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the expenseTransferFiscalPeriodCode attribute value.
-     * 
+     *
      * @param expenseTransferFiscalPeriodCode The expenseTransferFiscalPeriodCode to set.
      */
     public void setExpenseTransferFiscalPeriodCode(String expenseTransferFiscalPeriodCode) {
@@ -187,7 +187,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the effortCertificationReportTypeCode attribute.
-     * 
+     *
      * @return Returns the effortCertificationReportTypeCode.
      */
     public String getEffortCertificationReportTypeCode() {
@@ -196,7 +196,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the effortCertificationReportTypeCode attribute value.
-     * 
+     *
      * @param effortCertificationReportTypeCode The effortCertificationReportTypeCode to set.
      */
     public void setEffortCertificationReportTypeCode(String effortCertificationReportTypeCode) {
@@ -205,7 +205,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the effortCertificationReportReturnDate attribute.
-     * 
+     *
      * @return Returns the effortCertificationReportReturnDate.
      */
     public Date getEffortCertificationReportReturnDate() {
@@ -214,7 +214,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the effortCertificationReportReturnDate attribute value.
-     * 
+     *
      * @param effortCertificationReportReturnDate The effortCertificationReportReturnDate to set.
      */
     public void setEffortCertificationReportReturnDate(Date effortCertificationReportReturnDate) {
@@ -223,7 +223,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the effortCertificationReportBeginFiscalYear attribute.
-     * 
+     *
      * @return Returns the effortCertificationReportBeginFiscalYear.
      */
     public Integer getEffortCertificationReportBeginFiscalYear() {
@@ -232,7 +232,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the effortCertificationReportBeginFiscalYear attribute value.
-     * 
+     *
      * @param effortCertificationReportBeginFiscalYear The effortCertificationReportBeginFiscalYear to set.
      */
     public void setEffortCertificationReportBeginFiscalYear(Integer effortCertificationReportBeginFiscalYear) {
@@ -241,7 +241,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the effortCertificationReportBeginPeriodCode attribute.
-     * 
+     *
      * @return Returns the effortCertificationReportBeginPeriodCode.
      */
     public String getEffortCertificationReportBeginPeriodCode() {
@@ -250,7 +250,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the effortCertificationReportBeginPeriodCode attribute value.
-     * 
+     *
      * @param effortCertificationReportBeginPeriodCode The effortCertificationReportBeginPeriodCode to set.
      */
     public void setEffortCertificationReportBeginPeriodCode(String effortCertificationReportBeginPeriodCode) {
@@ -259,7 +259,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the effortCertificationReportEndFiscalYear attribute.
-     * 
+     *
      * @return Returns the effortCertificationReportEndFiscalYear.
      */
     public Integer getEffortCertificationReportEndFiscalYear() {
@@ -268,7 +268,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the effortCertificationReportEndFiscalYear attribute value.
-     * 
+     *
      * @param effortCertificationReportEndFiscalYear The effortCertificationReportEndFiscalYear to set.
      */
     public void setEffortCertificationReportEndFiscalYear(Integer effortCertificationReportEndFiscalYear) {
@@ -277,7 +277,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the effortCertificationReportEndPeriodCode attribute.
-     * 
+     *
      * @return Returns the effortCertificationReportEndPeriodCode.
      */
     public String getEffortCertificationReportEndPeriodCode() {
@@ -286,7 +286,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the effortCertificationReportEndPeriodCode attribute value.
-     * 
+     *
      * @param effortCertificationReportEndPeriodCode The effortCertificationReportEndPeriodCode to set.
      */
     public void setEffortCertificationReportEndPeriodCode(String effortCertificationReportEndPeriodCode) {
@@ -295,7 +295,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the expenseTransferFiscalPeriod attribute.
-     * 
+     *
      * @return Returns the expenseTransferFiscalPeriod.
      */
     public AccountingPeriod getExpenseTransferFiscalPeriod() {
@@ -304,7 +304,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the expenseTransferFiscalPeriod attribute value.
-     * 
+     *
      * @param expenseTransferFiscalPeriod The expenseTransferFiscalPeriod to set.
      */
     @Deprecated
@@ -330,7 +330,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
     }
 
     /**
-     * 
+     *
      * gets reportBeginFiscalYear attribute value
      * @return
      */
@@ -339,7 +339,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
     }
 
     /**
-     * 
+     *
      * sets the reportBeginFiscalYear attribute
      * @param reportBeginFiscalYear
      */
@@ -349,7 +349,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
     }
 
     /**
-     * 
+     *
      * gets reportEndFiscalYear attribute
      * @return
      */
@@ -358,7 +358,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
     }
 
     /**
-     * 
+     *
      * sets reportEndFiscalYear attribute
      * @param reportEndFiscalYear
      */
@@ -368,7 +368,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
     }
 
     /**
-     * 
+     *
      * gets reportBeginPeriod
      * @return
      */
@@ -405,7 +405,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the effortCertificationPeriodStatusCode attribute.
-     * 
+     *
      * @return Returns the effortCertificationPeriodStatusCode.
      */
     public EffortCertificationPeriodStatusCode getEffortCertificationPeriodStatusCode() {
@@ -414,7 +414,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the effortCertificationPeriodStatusCode attribute value.
-     * 
+     *
      * @param effortCertificationPeriodStatusCode The effortCertificationPeriodStatusCode to set.
      */
     @Deprecated
@@ -424,7 +424,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the effortCertificationReportType attribute.
-     * 
+     *
      * @return Returns the effortCertificationReportType.
      */
     public EffortCertificationReportType getEffortCertificationReportType() {
@@ -433,7 +433,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the effortCertificationReportType attribute value.
-     * 
+     *
      * @param effortCertificationReportType The effortCertificationReportType to set.
      */
     @Deprecated
@@ -443,7 +443,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the effortCertificationReportPositions attribute.
-     * 
+     *
      * @return Returns the effortCertificationReportPositions.
      */
     public Collection<EffortCertificationReportPosition> getEffortCertificationReportPositions() {
@@ -452,7 +452,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the effortCertificationReportPositions attribute value.
-     * 
+     *
      * @param effortCertificationReportPositions The effortCertificationReportPositions to set.
      */
     public void setEffortCertificationReportPositions(Collection<EffortCertificationReportPosition> effortCertificationReportPositions) {
@@ -461,7 +461,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -470,7 +470,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the active attribute value.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {
@@ -479,7 +479,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Gets the options attribute.
-     * 
+     *
      * @return Returns the options.
      */
     public SystemOptions getOptions() {
@@ -488,7 +488,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * Sets the options attribute value.
-     * 
+     *
      * @param options The options to set.
      */
     @Deprecated
@@ -505,7 +505,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * build a primary key field map for the current report definition
-     * 
+     *
      * @return a primary key field map for the current report definition
      */
     public Map<String, String> buildKeyMapForCurrentReportDefinition() {
@@ -514,7 +514,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
 
     /**
      * build a primary key field map for a report definition from the given values
-     * 
+     *
      * @param universityFiscalYear the given fiscal year
      * @param reportNumber the given report number
      * @return a primary key field map for a report definition
@@ -542,7 +542,7 @@ public class EffortCertificationReportDefinition extends PersistableBusinessObje
     }
 
     /**
-     * Gets the reportPeriods attribute. 
+     * Gets the reportPeriods attribute.
      * @return Returns the reportPeriods.
      */
     public Map<Integer, Set<String>> getReportPeriods() {

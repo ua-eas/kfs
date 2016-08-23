@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,7 +31,7 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
- * Like a regular accounting line rendering transformer, though this  
+ * Like a regular accounting line rendering transformer, though this
  */
 public class AccountingLineAuthorizationTransformerImpl implements AccountingLineAuthorizationTransformer {
 
@@ -42,15 +42,15 @@ public class AccountingLineAuthorizationTransformerImpl implements AccountingLin
      * @param document the document that accounting line lives on
      * @param lineAuthorizer the authorizer for the accounting line
      * @param newLine is this line a new line or a line already on a document?
-     * 
+     *
      */
     public void transformElements(List<TableJoining> elements, AccountingLine accountingLine, AccountingDocument document, AccountingLineAuthorizer lineAuthorizer, boolean newLine, String accountingLinePropertyName) {
         final Person currentUser = GlobalVariables.getUserSession().getPerson();
         removeUnviewableBlocks(elements, lineAuthorizer.getUnviewableBlocks(document, accountingLine, newLine, currentUser));
     }
-    
+
     /**
-     * 
+     *
      * @param elements the elements of the rendering tree
      * @param unviewableBlocks a Set of the names of blocks that are not viewable
      */

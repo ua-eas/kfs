@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,7 +37,7 @@ import java.util.Collection;
  * An immutable representation of an {@link ComponentContract}.
  *
  * Use the class {@link Component.Builder} to construct an Component object.
- * 
+ *
  * @see ComponentContract
  */
 @XmlRootElement(name = Component.Constants.ROOT_ELEMENT_NAME)
@@ -53,12 +53,12 @@ import java.util.Collection;
     CoreConstants.CommonElements.FUTURE_ELEMENTS
 })
 public final class Component extends AbstractDataTransferObject implements ComponentContract {
-	
+
 	private static final long serialVersionUID = -5114772381708593543L;
 
 	@XmlElement(name = Elements.NAMESPACE_CODE, required=true)
 	private final String namespaceCode;
-	
+
     @XmlElement(name = Elements.CODE, required=true)
     private final String code;
 
@@ -73,7 +73,7 @@ public final class Component extends AbstractDataTransferObject implements Compo
 
     @XmlElement(name = CoreConstants.CommonElements.VERSION_NUMBER, required = false)
     private final Long versionNumber;
-    
+
     @XmlElement(name = CoreConstants.CommonElements.OBJECT_ID, required = false)
 	private final String objectId;
 
@@ -81,8 +81,8 @@ public final class Component extends AbstractDataTransferObject implements Compo
     @XmlAnyElement
     private final Collection<Element> _futureElements = null;
 
-    /** 
-     * This constructor should never be called.  It is only present for use during JAXB unmarshalling. 
+    /**
+     * This constructor should never be called.  It is only present for use during JAXB unmarshalling.
      */
     private Component() {
     	this.namespaceCode = null;
@@ -109,8 +109,8 @@ public final class Component extends AbstractDataTransferObject implements Compo
         versionNumber = builder.getVersionNumber();
         this.objectId = builder.getObjectId();
     }
-    
-    
+
+
     @Override
     public String getNamespaceCode() {
 		return namespaceCode;
@@ -140,7 +140,7 @@ public final class Component extends AbstractDataTransferObject implements Compo
 	public Long getVersionNumber() {
 		return versionNumber;
 	}
-    
+
     @Override
 	public String getObjectId() {
 		return objectId;
@@ -186,7 +186,7 @@ public final class Component extends AbstractDataTransferObject implements Compo
 
         /**
          * Creates a builder by populating it with data from the given {@link ComponentContract}.
-         * 
+         *
          * @param contract the contract from which to populate this builder
          * @return an instance of the builder populated with data from the contract
          */
@@ -211,7 +211,7 @@ public final class Component extends AbstractDataTransferObject implements Compo
 		   }
 		   this.namespaceCode = namespaceCode;
 	   }
-		
+
 		/**
  		 * Sets the value of the component code on this builder to the given value.
 		 *
@@ -282,12 +282,12 @@ public final class Component extends AbstractDataTransferObject implements Compo
 		public void setVersionNumber(Long versionNumber) {
 			this.versionNumber = versionNumber;
 		}
-		
+
 		@Override
     	public String getObjectId() {
     		return objectId;
     	}
-		
+
 		public void setObjectId(String objectId) {
         	this.objectId = objectId;
         }
@@ -303,7 +303,7 @@ public final class Component extends AbstractDataTransferObject implements Compo
         }
 
     }
-	
+
 	/**
 	 * Defines some internal constants used on this class.
 	 */
@@ -311,7 +311,7 @@ public final class Component extends AbstractDataTransferObject implements Compo
 	   final static String ROOT_ELEMENT_NAME = "component";
 	   final static String TYPE_NAME = "ComponentType";
 	}
-   
+
 	/**
 	 * A private class which exposes constants which define the XML element names to use
 	 * when this object is marshalled to XML.
@@ -327,5 +327,5 @@ public final class Component extends AbstractDataTransferObject implements Compo
     public static class Cache {
         public static final String NAME = CoreConstants.Namespaces.CORE_NAMESPACE_2_0 + "/" + Component.Constants.TYPE_NAME;
     }
-   
+
 }

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -52,7 +52,7 @@ public class AccountBalanceDaoOjb extends PlatformAwareDaoBaseOjb implements Acc
 
     /**
      * Given a transaction, finds a matching account balance in the database
-     * 
+     *
      * @param t a transaction to find an appropriate related account balance for
      * @return an appropriate account balance
      * @see org.kuali.kfs.gl.dataaccess.AccountBalanceDao#getByTransaction(org.kuali.kfs.gl.businessobject.Transaction)
@@ -74,7 +74,7 @@ public class AccountBalanceDaoOjb extends PlatformAwareDaoBaseOjb implements Acc
 
     /**
      * This method finds the available account balances according to input fields and values
-     * 
+     *
      * @param fieldValues the input fields and values
      * @return the summary records of account balance entries
      * @see org.kuali.kfs.gl.dataaccess.AccountBalanceDao#findAvailableAccountBalance(java.util.Map, boolean)
@@ -98,7 +98,7 @@ public class AccountBalanceDaoOjb extends PlatformAwareDaoBaseOjb implements Acc
 
     /**
      * This method finds the available account balances according to input fields and values
-     * 
+     *
      * @param fieldValues the input fields and values
      * @return account balance entries
      * @see org.kuali.kfs.gl.dataaccess.AccountBalanceDao#findAvailableAccountBalance(java.util.Map)
@@ -115,7 +115,7 @@ public class AccountBalanceDaoOjb extends PlatformAwareDaoBaseOjb implements Acc
 
     /**
      * Get available balances by consolidation for specific object types
-     * 
+     *
      * @param objectTypes the object types that reported account balances must have
      * @param universityFiscalYear the university fiscal year of account balances to find
      * @param chartOfAccountsCode the chart of accounts of account balances to find
@@ -177,7 +177,7 @@ public class AccountBalanceDaoOjb extends PlatformAwareDaoBaseOjb implements Acc
 
     /**
      * Purge an entire fiscal year for a single chart.
-     * 
+     *
      * @param chartOfAccountsCode the chart of accounts code of account balances to purge
      * @param year the fiscal year of account balances to purge
      * @see org.kuali.kfs.gl.dataaccess.AccountBalanceDao#purgeYearByChart(java.lang.String, int)

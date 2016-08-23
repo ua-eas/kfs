@@ -1,29 +1,29 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<%@ attribute name="documentAttributes" required="true" type="java.util.Map" 
+<%@ attribute name="documentAttributes" required="true" type="java.util.Map"
               description="The DataDictionary entry containing attributes for this row's fields."%>
 <%@ attribute name="purchaseOrder" required="false"
               description="A boolean as to whether the document is a Purchase Order."%>
 <%@ attribute name="paymentRequest" required="false"
-              description="A boolean as to whether the document is a PREQ."%>              
+              description="A boolean as to whether the document is a PREQ."%>
 <%@ attribute name="detailSectionLabel" required="true"
 			  description="The label of the detail section."%>
 <%@ attribute name="editableFundingSource" required="false"
@@ -32,14 +32,14 @@
 			  description="error map to display"%>
 <%@ attribute name="editableAccountDistributionMethod" required="false"
 			  description="Is editableAccountDistributionMethod editable?"%>
-			
+
 <c:set var="fullEntryMode" value="${KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT] && (empty KualiForm.editingMode['restrictFiscalEntry'])}" />
 <c:if test="${empty editableFundingSource}">
 	<c:set var="editableFundingSource" value="false" />
 </c:if>
 
 <c:if test="${amendmentEntry}">
-	<c:if test="${KualiForm.readOnlyReceivingRequired eq 'true'}">	
+	<c:if test="${KualiForm.readOnlyReceivingRequired eq 'true'}">
 		<c:set var="readOnlyReceivingRequired" value="true" />
 	</c:if>
 </c:if>
@@ -84,10 +84,10 @@
 	        </td>
 	    </tr>
     </c:if>
-	
+
 	<c:if test="${KualiForm.document.enableReceivingDocumentRequiredIndicator or KualiForm.document.enablePaymentRequestPositiveApprovalIndicator}">
 		<tr>
-		  <c:if test="${KualiForm.document.enableReceivingDocumentRequiredIndicator}">			
+		  <c:if test="${KualiForm.document.enableReceivingDocumentRequiredIndicator}">
 	        <th class="right">
 	            <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.receivingDocumentRequiredIndicator}" /></label>
 	        </th>
@@ -95,18 +95,18 @@
 	            <kul:htmlControlAttribute
 	                property="document.receivingDocumentRequiredIndicator"
 	                attributeEntry="${documentAttributes.receivingDocumentRequiredIndicator}"
-	                readOnly="${paymentRequest or 
-	                readOnlyReceivingRequired or 
-	                not(fullEntryMode or amendmentEntry) and 
+	                readOnly="${paymentRequest or
+	                readOnlyReceivingRequired or
+	                not(fullEntryMode or amendmentEntry) and
 	                not (contentReadOnly or internalPurchasingReadOnly)}"
 	                tabindexOverride="${tabindexOverrideBase + 0}"/>
 	        </td>
 	      </c:if>
-		  <c:if test="${not KualiForm.document.enableReceivingDocumentRequiredIndicator}">	
+		  <c:if test="${not KualiForm.document.enableReceivingDocumentRequiredIndicator}">
 		    <th class="right">&nbsp;</th>
 		    <td >&nbsp;</td>
 		  </c:if>
-		  <c:if test="${KualiForm.document.enablePaymentRequestPositiveApprovalIndicator}">				        
+		  <c:if test="${KualiForm.document.enablePaymentRequestPositiveApprovalIndicator}">
 			<th class="right">
 			  <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.paymentRequestPositiveApprovalIndicator}" /></label>
 			</th>
@@ -121,8 +121,8 @@
 		  <c:if test="${not KualiForm.document.enablePaymentRequestPositiveApprovalIndicator}">
 		    <th class="right">&nbsp;</th>
 		    <td>&nbsp;</td>
-	      </c:if>			  
-		</tr>  
+	      </c:if>
+		</tr>
 	</c:if>
 
 	<c:if test="${purchaseOrder}">
@@ -131,24 +131,24 @@
                 <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.contractManager}" /></label>
             </th>
             <td>
-                <kul:htmlControlAttribute 
-                    property="document.contractManager.contractManagerName" 
-                    attributeEntry="${documentAttributes.contractManagerName}" 
+                <kul:htmlControlAttribute
+                    property="document.contractManager.contractManagerName"
+                    attributeEntry="${documentAttributes.contractManagerName}"
                     readOnly="true" tabindexOverride="${tabindexOverrideBase + 0}" />
                 <c:if test="${preRouteChangeMode}" >
                     <kul:lookup
                         boClassName="org.kuali.kfs.vnd.businessobject.ContractManager"
                         fieldConversions="contractManagerName:document.contractManager.contractManagerName,contractManagerCode:document.contractManagerCode" />
-                </c:if>                     
+                </c:if>
             </td>
 		   	<th class="right">
 		        <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderPreviousIdentifier}" /></label>
 		    </th>
 		    <td>
-		       	<kul:htmlControlAttribute 
-		            property="document.purchaseOrderPreviousIdentifier" 
-		            attributeEntry="${documentAttributes.purchaseOrderPreviousIdentifier}" 
-		            readOnly="${not (fullEntryMode or amendmentEntry)}" 
+		       	<kul:htmlControlAttribute
+		            property="document.purchaseOrderPreviousIdentifier"
+		            attributeEntry="${documentAttributes.purchaseOrderPreviousIdentifier}"
+		            readOnly="${not (fullEntryMode or amendmentEntry)}"
 		            tabindexOverride="${tabindexOverrideBase + 5}" />
 		    </td>
 		</tr>
@@ -157,26 +157,26 @@
                 <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.assignedUserPrincipalName}" /></label>
             </th>
             <td>
-             	<kul:htmlControlAttribute 
-                    property="document.assignedUserPrincipalName" 
-                    attributeEntry="${documentAttributes.assignedUserPrincipalName}" 
+             	<kul:htmlControlAttribute
+                    property="document.assignedUserPrincipalName"
+                    attributeEntry="${documentAttributes.assignedUserPrincipalName}"
                     readOnly="${!fullEntryMode and !amendmentEntry}" tabindexOverride="${tabindexOverrideBase + 0}" />
                 <c:if test="${fullEntryMode or amendmentEntry}"  >
-                    <kul:lookup boClassName="org.kuali.rice.kim.api.identity.Person" 
+                    <kul:lookup boClassName="org.kuali.rice.kim.api.identity.Person"
                     	fieldConversions="principalId:document.assignedUserPrincipalId,principalName:document.assignedUserPrincipalName" /></div>
-                </c:if>                     
+                </c:if>
             </td>
             <th class="right">
                 <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderConfirmedIndicator}" /></label>
             </th>
             <td>
-                <kul:htmlControlAttribute 
+                <kul:htmlControlAttribute
                     property="document.purchaseOrderConfirmedIndicator"
-                    attributeEntry="${documentAttributes.purchaseOrderConfirmedIndicator}" 
-                    readOnly="${not (fullEntryMode or amendmentEntry)}" 
+                    attributeEntry="${documentAttributes.purchaseOrderConfirmedIndicator}"
+                    readOnly="${not (fullEntryMode or amendmentEntry)}"
                     tabindexOverride="${tabindexOverrideBase + 5}" />
-            </td> 
-		</tr>		
+            </td>
+		</tr>
 	</c:if>
 
     <c:if test="${purapTaxEnabled or purchaseOrder}">
@@ -190,7 +190,7 @@
 		                property="document.useTaxIndicator"
 		                attributeEntry="${documentAttributes.useTaxIndicator}"
 		                readOnly="true"/>&nbsp;
-		            <c:if test="${fullEntryMode and paymentRequest}">          
+		            <c:if test="${fullEntryMode and paymentRequest}">
 		                <html:submit
                                 property="methodToCall.changeUseTaxIndicator"
                                 alt="Change Use Tax Indicator"
@@ -210,11 +210,11 @@
 	                <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.requisitionSource}" /></label>
 	            </th>
 	            <td>
-	                <kul:htmlControlAttribute 
-	                    property="document.requisitionSource.requisitionSourceDescription" 
-	                    attributeEntry="${documentAttributes.requisitionSource}" 
+	                <kul:htmlControlAttribute
+	                    property="document.requisitionSource.requisitionSourceDescription"
+	                    attributeEntry="${documentAttributes.requisitionSource}"
 	                    readOnly="true" />
-	            </td>                   
+	            </td>
 			</c:if>
 	        <c:if test="${not purchaseOrder}">
 	            <th class="right">&nbsp;</th>
@@ -236,14 +236,14 @@
 	      </td>
           <th class="right">&nbsp;</th>
           <td>&nbsp;</td>
-	  </tr>  
+	  </tr>
 
 
 </table>
-	
+
 <c:if test="${purchaseOrder and preRouteChangeMode and !poOutForQuote and !amendmentEntry}">
 	<h3>Status Changes</h3>
-		
+
 	<table cellpadding="0" cellspacing="0" class="datatable" summary="Status Changes Section">
 		<tr>
 			<th class="right">

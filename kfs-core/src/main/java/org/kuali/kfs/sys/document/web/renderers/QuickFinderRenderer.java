@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,11 +37,11 @@ import org.kuali.kfs.krad.util.KRADConstants;
  */
 public class QuickFinderRenderer extends FieldRendererBase {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(QuickFinderRenderer.class);
-    
+
     private int tabIndex = -1;
-    
+
     /**
-     * Gets the tabIndex attribute. 
+     * Gets the tabIndex attribute.
      * @return Returns the tabIndex.
      */
     public int getTabIndex() {
@@ -68,7 +68,7 @@ public class QuickFinderRenderer extends FieldRendererBase {
             throw new JspException("Cannot render quick finder for field "+getField(), ioe);
         }
     }
-    
+
     /**
      * Creates the HTML for a quick finder icon
      * @param businessObjectToRender the business object we're rendering
@@ -79,37 +79,37 @@ public class QuickFinderRenderer extends FieldRendererBase {
         quickFinderHtml.append("&nbsp;<input type=\"image\" ");
         //quickFinderHtml.append("tabindex=\"${tabindex}\" ");
         quickFinderHtml.append("name=\"").append(buildQuickFinderName(pageContext)).append("\" ");
-        
+
         quickFinderHtml.append("src=\"");
         quickFinderHtml.append(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("kr.externalizable.images.url"));
         quickFinderHtml.append("searchicon.png");
         quickFinderHtml.append("\" ");
-        
+
         quickFinderHtml.append("border=\"0\" ");
-        
+
         quickFinderHtml.append("class=\"tinybutton searchicon embed\" ");
-        
+
         quickFinderHtml.append("valign=\"middle\" ");
-        
+
         quickFinderHtml.append("alt=\"");
         quickFinderHtml.append(getAccessibleTitle());
         quickFinderHtml.append("\" ");
-        
+
         quickFinderHtml.append("title=\"");
         quickFinderHtml.append(getAccessibleTitle());
         quickFinderHtml.append("\" ");
-        
+
         if (tabIndex > -1) {
             quickFinderHtml.append(" tabIndex=\"");
             quickFinderHtml.append(getTabIndex());
             quickFinderHtml.append("\"");
         }
-        
+
         quickFinderHtml.append("/> ");
-        
+
         return quickFinderHtml.toString();
     }
-    
+
     /**
      * Builds the (quite complex) name for the quick finder field
      * @return the name of the quick finder field
@@ -117,40 +117,40 @@ public class QuickFinderRenderer extends FieldRendererBase {
     protected String buildQuickFinderName(PageContext pageContext) {
         StringBuilder nameBuf = new StringBuilder();
         nameBuf.append("methodToCall.performLookup.");
-        
+
         nameBuf.append(KRADConstants.METHOD_TO_CALL_BOPARM_LEFT_DEL);
         nameBuf.append(getField().getQuickFinderClassNameImpl());
         nameBuf.append(KRADConstants.METHOD_TO_CALL_BOPARM_RIGHT_DEL);
         nameBuf.append(".");
-        
+
         nameBuf.append(KRADConstants.METHOD_TO_CALL_PARM1_LEFT_DEL);
         nameBuf.append(getField().getFieldConversions());
         nameBuf.append(KRADConstants.METHOD_TO_CALL_PARM1_RIGHT_DEL);
         nameBuf.append(".");
-        
+
         nameBuf.append(KRADConstants.METHOD_TO_CALL_PARM2_LEFT_DEL);
         nameBuf.append(getField().getLookupParameters());
         nameBuf.append(KRADConstants.METHOD_TO_CALL_PARM2_RIGHT_DEL);
         nameBuf.append(".");
-        
+
         nameBuf.append(KRADConstants.METHOD_TO_CALL_PARM3_LEFT_DEL+KRADConstants.METHOD_TO_CALL_PARM3_RIGHT_DEL+"."); // hide return link
-        
+
         nameBuf.append(KRADConstants.METHOD_TO_CALL_PARM4_LEFT_DEL+KRADConstants.METHOD_TO_CALL_PARM4_RIGHT_DEL+"."); // extra button source
-        
+
         nameBuf.append(KRADConstants.METHOD_TO_CALL_PARM5_LEFT_DEL+KRADConstants.METHOD_TO_CALL_PARM5_RIGHT_DEL+"."); // extra button params
-        
+
         nameBuf.append(KRADConstants.METHOD_TO_CALL_PARM7_LEFT_DEL+KRADConstants.METHOD_TO_CALL_PARM7_RIGHT_DEL+"."); // supress actions
-        
+
         nameBuf.append(KRADConstants.METHOD_TO_CALL_PARM8_LEFT_DEL+KRADConstants.METHOD_TO_CALL_PARM8_RIGHT_DEL+"."); // read only fields
-        
+
         nameBuf.append(KRADConstants.METHOD_TO_CALL_PARM10_LEFT_DEL);
         nameBuf.append(getField().getReferencesToRefresh());
         nameBuf.append(KRADConstants.METHOD_TO_CALL_PARM10_RIGHT_DEL+".");
-        
+
         nameBuf.append(KRADConstants.METHOD_TO_CALL_PARM9_LEFT_DEL+KRADConstants.METHOD_TO_CALL_PARM9_RIGHT_DEL+"."); // auto-search
-        
+
         nameBuf.append("anchor"); // anchor
-        
+
         String name = nameBuf.toString();
         RendererUtil.registerEditableProperty(pageContext, name);
         return name;

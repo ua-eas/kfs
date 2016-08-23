@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -30,7 +30,7 @@
         <bean parent="DocumentHeader-organizationDocumentNumber"/>
         <bean parent="DocumentHeader-documentTemplateNumber"/>
         <bean parent="DocumentHeader-explanation"/>
-      	
+
         <ref bean="FinancialSystemDocumentHeader-applicationDocumentStatus"/>
         <ref bean="FinancialSystemDocumentHeader-financialDocumentStatusCode"/>
         <ref bean="FinancialSystemDocumentHeader-financialDocumentInErrorNumber"/>
@@ -64,7 +64,7 @@
     <property name="maxLength" value="64"/>
     <property name="control">
       <bean parent="TextControlDefinition" p:size="20"/>
-    </property>    
+    </property>
   </bean>
 
   <bean id="FinancialSystemDocumentHeader-financialDocumentStatusCode" parent="FinancialSystemDocumentHeader-financialDocumentStatusCode-parentBean"/>
@@ -74,7 +74,7 @@
     <property name="shortLabel" value="Status"/>
     <property name="maxLength" value="2"/>
     <property name="control" ref="TwoCharacterTextControl" />
-    <property name="label" value="Document Status Code"/>    
+    <property name="label" value="Document Status Code"/>
   </bean>
 
   <bean id="FinancialSystemDocumentHeader-financialDocumentInErrorNumber" parent="FinancialSystemDocumentHeader-financialDocumentInErrorNumber-parentBean"/>
@@ -98,9 +98,9 @@
     <property name="name" value="financialDocumentTotalAmount"/>
     <property name="label" value="Total Amount"/>
     <property name="shortLabel" value="Total Amount"/>
-    <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/> 
+    <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
-  
+
   <bean id="FinancialSystemDocumentHeader-workflowDocumentStatusCode" parent="FinancialSystemDocumentHeader-workflowDocumentStatusCode-parentBean"/>
   <bean id="FinancialSystemDocumentHeader-workflowDocumentStatusCode-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="workflowDocumentStatusCode"/>
@@ -109,7 +109,7 @@
     <property name="maxLength" value="1"/>
     <property name="control" ref="OneCharacterTextControl"/>
   </bean>
-  
+
   <bean id="FinancialSystemDocumentHeader-initiatorPrincipalId" parent="FinancialSystemDocumentHeader-initiatorPrincipalId-parentBean"/>
   <bean id="FinancialSystemDocumentHeader-initiatorPrincipalId-parentBean" abstract="true" parent="PersonImpl-principalId">
     <property name="name" value="initiatorPrincipalId"/>
@@ -117,7 +117,7 @@
     <property name="shortLabel" value="Init Prncpl Id"/>
     <property name="required" value="false"/> <!-- this shouldn't be required at the UI layer -->
   </bean>
-  
+
   <bean id="FinancialSystemDocumentHeader-workflowDocumentTypeName" parent="FinancialSystemDocumentHeader-workflowDocumentTypeName-parentBean"/>
   <bean id="FinancialSystemDocumentHeader-workflowDocumentTypeName-parentBean" abstract="true" parent="GenericAttributes-financialSystemDocumentTypeCode">
     <property name="name" value="workflowDocumentTypeName"/>

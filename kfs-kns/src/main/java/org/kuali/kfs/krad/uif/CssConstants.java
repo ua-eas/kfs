@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,8 +22,8 @@ import java.text.MessageFormat;
 
 /**
  * Constants for CSS style strings
- * 
- * 
+ *
+ *
  */
 public class CssConstants {
 
@@ -35,7 +35,7 @@ public class CssConstants {
 		public static final String INLINE_BLOCK = DISPLAY + "inline-block;";
 		public static final String NONE = DISPLAY + "none;";
 	}
-	
+
 	public static final String TEXT_ALIGN = "text-align: ";
 
 	public static class TextAligns {
@@ -61,20 +61,20 @@ public class CssConstants {
 		public static final String MARGIN_TOP = "margin-top: {0};";
 		public static final String MARGIN_BOTTOM = "margin-bottom: {0};";
 	}
-	
+
 	public static class Padding {
 		public static final String PADDING_LEFT = "padding-left: {0};";
 		public static final String PADDING_RIGHT = "padding-right: {0};";
 		public static final String PADDING_TOP = "padding-top: {0};";
 		public static final String PADDING_BOTTOM = "padding-bottom: {0};";
 	}
-	
+
 	public static final String WIDTH = "width: ";
 
 	/**
 	 * Replaces parameters in the given CSS string with the corresponding
 	 * parameter values given
-	 * 
+	 *
 	 * @param style
 	 *            - String with parameters to replace
 	 * @param parameters

@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -133,7 +133,7 @@
 		<property name="description" value="Error Code" />
 		<property name="control"><bean parent="TextControlDefinition" p:size="40"/></property>
 	</bean>
-	
+
     <bean id="AgencyStagingData-duplicateRecordId" parent="AgencyStagingData-duplicateRecordId-parentBean" />
     <bean id="AgencyStagingData-duplicateRecordId-parentBean" abstract="true" parent="AttributeDefinition">
         <property name="name" value="duplicateRecordId" />
@@ -180,8 +180,8 @@
 		<property name="description" value="Other Company Name" />
 		<property name="control"><bean parent="TextControlDefinition" p:size="30"/></property>
 	</bean>
-	
-	
+
+
     <bean id="AgencyStagingData-searchChartOfAccountsCode" parent="AgencyStagingData-searchChartOfAccountsCode-parentBean" />
     <bean id="AgencyStagingData-searchChartOfAccountsCode-parentBean" abstract="true" parent="Chart-chartOfAccountsCode">
         <property name="name" value="searchChartOfAccountsCode" />
@@ -192,18 +192,18 @@
         <property name="summary" value="Search Chart Code" />
         <property name="description" value="Search Chart Code" />
     </bean>
-  
+
 	<bean id="AgencyStagingData-searchAccountNumber" parent="AgencyStagingData-searchAccountNumber-parentBean" />
     <bean id="AgencyStagingData-searchAccountNumber-parentBean" abstract="true" parent="AccountAttribute" >
-        <property name="name" value="searchAccountNumber" />     
+        <property name="name" value="searchAccountNumber" />
     </bean>
-    
-    
+
+
     <bean id="AgencyStagingData-searchSubAccountNumber" parent="AgencyStagingData-searchSubAccountNumber-parentBean"/>
     <bean id="AgencyStagingData-searchSubAccountNumber-parentBean" abstract="true" parent="SubAccountAttribute"  >
-        <property name="name" value="searchSubAccountNumber" />     
+        <property name="name" value="searchSubAccountNumber" />
     </bean>
-  
+
 	<bean id="AgencyStagingData-agencyFileName" parent="AgencyStagingData-agencyFileName-parentBean" />
 	<bean id="AgencyStagingData-agencyFileName-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="agencyFileName" />
@@ -818,12 +818,12 @@
 		<property name="shortLabel" value="Version Number" />
 		<property name="summary" value="Version Number" />
 		<property name="description" value="Version Number" />
-	</bean>    
+	</bean>
     <bean id="AgencyStagingData-manualCreated" parent="AgencyStagingData-manualCreated-parentBean" />
     <bean id="AgencyStagingData-manualCreated-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
         <property name="name" value="manualCreated" />
         <property name="label" value="Manually Created" />
-    </bean>    
+    </bean>
     <bean id="AgencyStagingData-copiedFromId" parent="AgencyStagingData-copiedFromId-parentBean" />
     <bean id="AgencyStagingData-copiedFromId-parentBean" abstract="true" parent="AgencyStagingData-id">
         <property name="name" value="copiedFromId" />
@@ -835,7 +835,7 @@
         <property name="name" value="active" />
         <property name="label" value="Active" />
     </bean>
-    
+
 	<bean id="AgencyStagingData-inquiryDefinition" parent="AgencyStagingData-inquiryDefinition-parentBean" />
 	<bean id="AgencyStagingData-inquiryDefinition-parentBean" abstract="true" parent="InquiryDefinition">
 		<property name="title" value="Travel Agency Audit Inquiry"/>
@@ -851,7 +851,7 @@
 				<ref bean="AgencyStagingData-inquirySectionDefinition-accounting" />
 			</list>
 		</property>
-	</bean>			
+	</bean>
 	<bean id="AgencyStagingData-inquirySectionDefinition-agencyData" parent="AgencyStagingData-inquirySectionDefinition-agencyData-parentBean" />
 	<bean id="AgencyStagingData-inquirySectionDefinition-agencyData-parentBean" parent="InquirySectionDefinition" abstract="true">
 	    <property name="title" value="Travel Agency Data"/>
@@ -861,7 +861,7 @@
 	            <bean parent="FieldDefinition" p:attributeName="agency" />
 	            <bean parent="FieldDefinition" p:attributeName="agencyFileName" />
 	            <bean parent="FieldDefinition" p:attributeName="creditCardOrAgencyCode" />
-	            <bean parent="FieldDefinition" p:attributeName="stagingFileName" />	            
+	            <bean parent="FieldDefinition" p:attributeName="stagingFileName" />
 	            <bean parent="FieldDefinition" p:attributeName="merchantName" />
 	            <bean parent="FieldDefinition" p:attributeName="billingCycleDate" />
 	            <bean parent="FieldDefinition" p:attributeName="otherCompanyName" />
@@ -876,7 +876,7 @@
 	            <bean parent="FieldDefinition" p:attributeName="active" />
 	            <bean parent="FieldDefinition" p:attributeName="moveToHistoryIndicator" />
 	        </list>
-	    </property>	
+	    </property>
 	</bean>
 	<bean id="AgencyStagingData-inquirySectionDefinition-trip" parent="AgencyStagingData-inquirySectionDefinition-trip-parentBean" />
 	<bean id="AgencyStagingData-inquirySectionDefinition-trip-parentBean" parent="InquirySectionDefinition" abstract="true">
@@ -890,7 +890,7 @@
               <bean parent="FieldDefinition" p:attributeName="distributionCode" />
               <bean parent="FieldDefinition" p:attributeName="otherAmount"/>
         	</list>
-      	</property>	
+      	</property>
 	</bean>
 	<bean id="AgencyStagingData-inquirySectionDefinition-traveler" parent="AgencyStagingData-inquirySectionDefinition-traveler-parentBean" />
 	<bean id="AgencyStagingData-inquirySectionDefinition-traveler-parentBean" parent="InquirySectionDefinition" abstract="true">
@@ -981,13 +981,13 @@
 	<bean id="AgencyStagingData-inquirySectionDefinition-accounting" parent="AgencyStagingData-inquirySectionDefinition-accounting-parentBean" />
 	<bean id="AgencyStagingData-inquirySectionDefinition-accounting-parentBean" parent="InquirySectionDefinition" abstract="true">
 	    <property name="title" value="Accounting Information"/>
-	  	<property name="defaultOpen" value="true"/>          
+	  	<property name="defaultOpen" value="true"/>
 	    <property name="inquiryFields">
 	    	<list>
 	        	<ref bean="AgencyStagingData-inquiryCollectionDefinition-tripAccountingInformation" />
 	        </list>
 	    </property>
-	</bean>		
+	</bean>
 	<bean id="AgencyStagingData-inquiryCollectionDefinition-tripAccountingInformation" parent="AgencyStagingData-inquiryCollectionDefinition-tripAccountingInformation-parentBean" />
 	<bean id="AgencyStagingData-inquiryCollectionDefinition-tripAccountingInformation-parentBean" parent="InquiryCollectionDefinition" abstract="true">
 	    <property name="attributeName" value="tripAccountingInformation"/>
@@ -995,9 +995,9 @@
 	    <property name="inquiryFields">
 	      <list>
 	        <bean parent="FieldDefinition" p:attributeName="tripChartCode"/>
-	        <bean parent="FieldDefinition" p:attributeName="objectCode"/>                    
+	        <bean parent="FieldDefinition" p:attributeName="objectCode"/>
 	        <bean parent="FieldDefinition" p:attributeName="tripAccountNumber"/>
-	        <bean parent="FieldDefinition" p:attributeName="subObjectCode"/>                    
+	        <bean parent="FieldDefinition" p:attributeName="subObjectCode"/>
 	        <bean parent="FieldDefinition" p:attributeName="tripSubAccountNumber"/>
 	        <bean parent="FieldDefinition" p:attributeName="projectCode"/>
 	        <bean parent="FieldDefinition" p:attributeName="amount"/>
@@ -1009,9 +1009,9 @@
 				<bean parent="FieldDefinition" p:attributeName="tripChartCode" />
 				<bean parent="FieldDefinition" p:attributeName="tripAccountNumber" />
 			</list>
-		</property>                
+		</property>
 	</bean>
-	
+
 	<bean id="AgencyStagingData-lookupDefinition" parent="AgencyStagingData-lookupDefinition-parentBean" />
 	<bean id="AgencyStagingData-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
 		<property name="title" value="Travel Agency Audit and Correction Lookup" />

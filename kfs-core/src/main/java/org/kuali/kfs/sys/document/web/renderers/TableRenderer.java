@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,7 +41,7 @@ public class TableRenderer implements Renderer {
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -55,7 +55,7 @@ public class TableRenderer implements Renderer {
             throw new JspException("Difficulty with rendering inner table", ioe);
         }
     }
-    
+
     /**
      * Builds the opening tag of the table, ie <table class="standard">
      * @return the String for the opening tag
@@ -63,7 +63,7 @@ public class TableRenderer implements Renderer {
     protected String buildBeginningTableTag() {
         return "<table class=\"standard\">";
     }
-    
+
     /**
      * Builds the closing tag of the table, ie </table>
      * @return the String for the closing tag
@@ -73,7 +73,7 @@ public class TableRenderer implements Renderer {
     }
 
     /**
-     * Gets the table attribute. 
+     * Gets the table attribute.
      * @return Returns the table.
      */
     public AccountingLineTable getTable() {

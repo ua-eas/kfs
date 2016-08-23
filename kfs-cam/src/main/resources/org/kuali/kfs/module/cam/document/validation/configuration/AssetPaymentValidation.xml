@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -22,9 +22,9 @@
     xmlns:p="http://www.springframework.org/schema/p"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-    
+
     <bean id="AssetPayment-saveDocumentValidation" parent="AssetPayment-saveDocumentValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="AssetPayment-saveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -32,20 +32,20 @@
 		</property>
 	</bean>
 
-	
+
 	<bean id="AssetPayment-routeDocumentValidation" parent="AssetPayment-routeDocumentValidation-parentBean" scope="prototype" />
-  
+
   	<bean id="AssetPayment-routeDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
-  			<list>  	
+  			<list>
   			</list>
   		</property>
   	</bean>
-  
+
     <bean id="AssetPayment-assetPaymentPrepareRouteValidation" parent="AssetPayment-assetPaymentPrepareRouteValidation-parentBean" scope="prototype" />
     <bean id="AssetPayment-assetPaymentPrepareRouteValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
     	<property name="validations">
-  			<list> 
+  			<list>
   				<bean parent="AccountingDocument-businessObjectDataDictionaryValidation" scope="prototype">
   					<property name="parameterProperties">
   						<list>
@@ -56,18 +56,18 @@
   						</list>
   					</property>
   				</bean>
-				<bean parent="AssetPayment-accountingLineCountValidation" scope="prototype">								
+				<bean parent="AssetPayment-accountingLineCountValidation" scope="prototype">
 					<property name="quitOnFail" value="true" />
-				</bean>										
-				<bean parent="AssetPayment-assetCountValidation" scope="prototype">								
+				</bean>
+				<bean parent="AssetPayment-assetCountValidation" scope="prototype">
 					<property name="quitOnFail" value="true" />
 				</bean>
 				<bean parent="AssetPayment-assetValidation" scope="prototype">
-					<property name="quitOnFail" value="true" />					
-				</bean>														
-  				<bean parent="AssetPayment-lockValidation" scope="prototype">								
 					<property name="quitOnFail" value="true" />
-				</bean>  
+				</bean>
+  				<bean parent="AssetPayment-lockValidation" scope="prototype">
+					<property name="quitOnFail" value="true" />
+				</bean>
   			</list>
   		</property>
     </bean>
@@ -83,25 +83,25 @@
   		</property>
     </bean>
 
-    
+
   	<bean id="AssetPayment-approveDocumentValidation" parent="AssetPayment-approveDocumentValidation-parentBean" scope="prototype" />
-  
+
   	<bean id="AssetPayment-approveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list><bean parent="AccountingDocument-ApproveDocument-DefaultValidation" scope="prototype" /></list>
   		</property>
   	</bean>
-  
+
 	<bean id="AssetPayment-blanketApproveDocumentValidation" parent="AssetPayment-blanketApproveDocumentValidation-parentBean" scope="prototype" />
-  
+
   	<bean id="AssetPayment-blanketApproveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list><bean parent="AccountingDocument-BlanketApproveDocument-DefaultValidation" scope="prototype" /></list>
   		</property>
 	</bean>
-  
+
 	<bean id="AssetPayment-manuallyAddAccountingLineValidation" parent="AssetPayment-manuallyAddAccountingLineValidation-parentBean" scope="prototype" />
-  
+
 	<bean id="AssetPayment-manuallyAddAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
@@ -112,7 +112,7 @@
 						</list>
 					</property>
 					<property name="quitOnFail" value="true" />
-				</bean>			
+				</bean>
 				<bean parent="AccountingDocument-defaultAccountingLineValuesAllowedValidation" scope="prototype">
 					<property name="accountingDocumentParameterPropertyName" value="document" />
 					<property name="accountingLineParameterPropertyName" value="accountingLine" />
@@ -121,7 +121,7 @@
 		</property>
 	</bean>
 	<bean id="AssetPayment-addAccountingLineValidation" parent="AssetPayment-addAccountingLineValidation-parentBean" scope="prototype" />
-  
+
 	<bean id="AssetPayment-addAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
@@ -148,7 +148,7 @@
 						</list>
 					</property>
 					<property name="quitOnFail" value="false" />
-				</bean>				
+				</bean>
 				<bean parent="AssetPayment-documentTypeValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
@@ -168,17 +168,17 @@
 			</list>
   		</property>
 	</bean>
-  
+
 	<bean id="AssetPayment-deleteAccountingLineValidation" parent="AssetPayment-deleteAccountingLineValidation-parentBean" scope="prototype" />
-  
+
 	<bean id="AssetPayment-deleteAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<bean parent="AccountingDocument-DeleteAccountingLine-DefaultValidation" scope="prototype" />
   		</property>
 	</bean>
-  
+
 	<bean id="AssetPayment-updateAccountingLineValidation" parent="AssetPayment-updateAccountingLineValidation-parentBean" scope="prototype" />
-  
+
 	<bean id="AssetPayment-updateAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
@@ -193,7 +193,7 @@
 					</property>
 					<property name="quitOnFail" value="false" />
 				</bean>
-											
+
 				<bean parent="AssetPayment-zeroAmountValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
@@ -215,7 +215,7 @@
 						</list>
 					</property>
 					<property name="quitOnFail" value="false" />
-				</bean>				
+				</bean>
 				<bean parent="AssetPayment-documentTypeValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
@@ -241,9 +241,9 @@
 			</list>
   		</property>
 	</bean>
-  
+
 	<bean id="AssetPayment-reviewAccountingLineValidation" parent="AssetPayment-reviewAccountingLineValidation-parentBean" scope="prototype" />
-  
+
 	<bean id="AssetPayment-reviewAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
@@ -280,7 +280,7 @@
 
 
 	<bean id="AssetPayment-addAssetPaymentAssetValidation" parent="AssetPayment-addAssetPaymentAssetValidation-parentBean" scope="prototype" />
-		
+
 	<bean id="AssetPayment-addAssetPaymentAssetValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
   			<list>
@@ -293,9 +293,9 @@
 							</bean>
 						</list>
 					</property>
-				</bean>				
+				</bean>
 			</list>
   		</property>
-	</bean>	
+	</bean>
 
 </beans>

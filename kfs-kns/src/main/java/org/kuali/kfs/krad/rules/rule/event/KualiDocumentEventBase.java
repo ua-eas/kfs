@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,10 +37,10 @@ abstract public class KualiDocumentEventBase implements KualiDocumentEvent {
     protected Document document;
 
     /**
-     * 
+     *
      * As a general rule, business rule classes should not change the original object. This constructor was created so that
      * PreRulesCheckEvent, a UI level rule checker, can make changes.
-     * 
+     *
      * @param description
      * @param errorPathPrefix
      */
@@ -51,7 +51,7 @@ abstract public class KualiDocumentEventBase implements KualiDocumentEvent {
 
     /**
      * Constructs a KualiEvent with the given description and errorPathPrefix for the given document.
-     * 
+     *
      * @param errorPathPrefix
      * @param document
      * @param description
@@ -120,7 +120,7 @@ abstract public class KualiDocumentEventBase implements KualiDocumentEvent {
 
     /**
      * Provides null-safe access to the documentNumber of the given document.
-     * 
+     *
      * @param document
      * @return String containing the documentNumber of the given document, or some indication of why the documentNumber isn't
      *         accessible

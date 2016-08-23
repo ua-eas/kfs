@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -46,7 +46,7 @@
     <property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase"/>
     <property name="workflowAttributes">
     	<ref bean="SecurityModelMaintenanceDocument-workflowAttributes"/>
-    </property> 
+    </property>
   </bean>
 
   <!-- Maintenance Section Definitions -->
@@ -65,7 +65,7 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="SecurityModelMaintenanceDocument-EditModelDefinitions" parent="SecurityModelMaintenanceDocument-EditModelDefinitions-parentBean"/>
 
   <bean id="SecurityModelMaintenanceDocument-EditModelDefinitions-parentBean" abstract="true" parent="MaintainableSectionDefinition">
@@ -88,10 +88,10 @@
               <bean parent="MaintainableFieldDefinition" p:name="modelDefinitionId"/>
               <bean parent="MaintainableFieldDefinition" p:name="definitionId"/>
             </list>
-          </property>                 
+          </property>
           <property name="maintainableFields">
             <list>
-            <!-- 
+            <!--
               <bean parent="MaintainableFieldDefinition" p:name="modelDefinitionId" p:required="true" p:unconditionallyReadOnly="true"/>
               <bean parent="MaintainableFieldDefinition" p:name="definitionId" p:required="true"/>
                -->
@@ -106,8 +106,8 @@
         </bean>
       </list>
     </property>
-  </bean> 
-  
+  </bean>
+
   <bean id="SecurityModelMaintenanceDocument-EditModelMembers" parent="SecurityModelMaintenanceDocument-EditModelMembers-parentBean"/>
 
   <bean id="SecurityModelMaintenanceDocument-EditModelMembers-parentBean" abstract="true" parent="MaintainableSectionDefinition">
@@ -130,7 +130,7 @@
               <bean parent="MaintainableFieldDefinition" p:name="memberTypeCode"/>
               <bean parent="MaintainableFieldDefinition" p:name="memberId"/>
             </list>
-          </property>                 
+          </property>
           <property name="maintainableFields">
             <list>
               <bean parent="MaintainableFieldDefinition" p:name="memberTypeCode" p:required="true" p:readOnlyAfterAdd="true" p:noLookup="true"/>
@@ -143,12 +143,12 @@
         </bean>
       </list>
     </property>
-  </bean>   
+  </bean>
 
   <!-- workflow attributes -->
-  
+
   <bean id="SecurityModelMaintenanceDocument-workflowAttributes" parent="SecurityModelMaintenanceDocument-workflowAttributes-parentBean"/>
-  
+
   <bean id="SecurityModelMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true"/>
-	
+
 </beans>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,7 +35,7 @@ public class CustomerAgingReportDataHolder {
     private KualiDecimal totalSYSPRplus1orMore;
     private KualiDecimal totalAmountDue;
     /**
-     * Gets the knownCustomers attribute. 
+     * Gets the knownCustomers attribute.
      * @return Returns the knownCustomers.
      */
     public Map<String, Object> getKnownCustomers() {
@@ -49,7 +49,7 @@ public class CustomerAgingReportDataHolder {
         this.knownCustomers = knownCustomers;
     }
     /**
-     * Gets the total0to30 attribute. 
+     * Gets the total0to30 attribute.
      * @return Returns the total0to30.
      */
     public KualiDecimal getTotal0to30() {
@@ -63,7 +63,7 @@ public class CustomerAgingReportDataHolder {
         this.total0to30 = total0to30;
     }
     /**
-     * Gets the total31to60 attribute. 
+     * Gets the total31to60 attribute.
      * @return Returns the total31to60.
      */
     public KualiDecimal getTotal31to60() {
@@ -77,7 +77,7 @@ public class CustomerAgingReportDataHolder {
         this.total31to60 = total31to60;
     }
     /**
-     * Gets the total61to90 attribute. 
+     * Gets the total61to90 attribute.
      * @return Returns the total61to90.
      */
     public KualiDecimal getTotal61to90() {
@@ -91,7 +91,7 @@ public class CustomerAgingReportDataHolder {
         this.total61to90 = total61to90;
     }
     /**
-     * Gets the total91toSYSPR attribute. 
+     * Gets the total91toSYSPR attribute.
      * @return Returns the total91toSYSPR.
      */
     public KualiDecimal getTotal91toSYSPR() {
@@ -105,7 +105,7 @@ public class CustomerAgingReportDataHolder {
         this.total91toSYSPR = total91toSYSPR;
     }
     /**
-     * Gets the totalSYSPRplus1orMore attribute. 
+     * Gets the totalSYSPRplus1orMore attribute.
      * @return Returns the totalSYSPRplus1orMore.
      */
     public KualiDecimal getTotalSYSPRplus1orMore() {
@@ -119,7 +119,7 @@ public class CustomerAgingReportDataHolder {
         this.totalSYSPRplus1orMore = totalSYSPRplus1orMore;
     }
     /**
-     * Gets the totalAmountDue attribute. 
+     * Gets the totalAmountDue attribute.
      * @return Returns the totalAmountDue.
      */
     public KualiDecimal getTotalAmountDue() {
@@ -134,7 +134,7 @@ public class CustomerAgingReportDataHolder {
     }
 
     /**
-     * 
+     *
      * This method clears all the amount fields and resets them to zero.
      */
     public void clearAllAmounts() {

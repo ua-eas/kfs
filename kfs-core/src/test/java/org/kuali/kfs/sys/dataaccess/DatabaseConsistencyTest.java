@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,8 +46,8 @@ public class DatabaseConsistencyTest extends KualiTestBase {
         super.setUp();
         DataSource mySource = SpringContext.getBean(DataSource.class);
         String userName = mySource.getConnection().getMetaData().getUserName();
-        
-        try {            
+
+        try {
             dbCon = mySource.getConnection();
             dbType =  dbCon.getMetaData().getDatabaseProductName().toLowerCase();
         }
@@ -63,7 +63,7 @@ public class DatabaseConsistencyTest extends KualiTestBase {
             queryString.append(" data_type ,data_precision, data_scale, data_length\n");
             queryString.append(" from user_tab_columns\n");
             queryString.append(" where 1=1\n");
-            
+
         }else{
             System.err.println("Running mySQL Test ");
             queryString.append("select table_name, column_name,\n");
@@ -85,17 +85,17 @@ public class DatabaseConsistencyTest extends KualiTestBase {
             tempList.put("Length", (null == dbAnswer.getString(6))?"null":dbAnswer.getString(6));
             tableData.add(tempList);
         }
-        
+
     }
     public void tearDown() throws Exception {
-        
+
             try {
                 dbCon.close();
             }
             catch (SQLException e) {
                 LOG.error( "Unable to establish close to database.", e );
             }
-       
+
     }
     public void testNumber() throws Exception {
         System.err.println( "dbType: " + dbType );
@@ -106,7 +106,7 @@ public class DatabaseConsistencyTest extends KualiTestBase {
                     !(resultList.get("Precision").equals("8")||resultList.get("Scale").equals("0"))){
                 tempString=tempString+"Bad VER_NBR field in "+resultList.get("Table")+"\n";
                 testFailed=true;
-            }    
+            }
         }
         assertFalse(tempString,testFailed);
     }
@@ -119,7 +119,7 @@ public class DatabaseConsistencyTest extends KualiTestBase {
                 tempString=tempString+"Bad OBJ_ID field in "+resultList.get("Table")+"\n";
                 testFailed=true;
             }
-     
+
         }
     }
 

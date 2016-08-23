@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,15 +30,15 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 
 public class ElectronicInvoiceUtils {
-    
+
     private final static Logger LOG = Logger.getLogger(ElectronicInvoiceUtils.class);
-    
+
     public static Date getDate(String invoiceDateString){
-        
+
         boolean formatInvalid = true;
         String formattedDateString = "";
         String stringToParse = null;
-        
+
         if (StringUtils.isNotEmpty(invoiceDateString)) {
 
             String dateToConvert = null;
@@ -79,7 +79,7 @@ public class ElectronicInvoiceUtils {
                  */
             }
         }
-        
+
         if (formatInvalid) {
             return null;
         }
@@ -93,9 +93,9 @@ public class ElectronicInvoiceUtils {
                 return null;
             }
         }
-        
+
     }
-    
+
     public static String getDateDisplayText(java.util.Date date) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
@@ -105,16 +105,16 @@ public class ElectronicInvoiceUtils {
         if (monthPart.length() == 1){
             monthPart = "0" + monthPart;
         }
-        
+
         if (dayPart.length() == 1){
             dayPart = "0" + dayPart;
         }
-        
+
         String useDate =  monthPart + "/" + dayPart + "/" + c.get(Calendar.YEAR);
         String actualDate = (date != null) ? date.toString() : "empty given date";
         return useDate;
     }
-    
+
     public static String stripSplChars(String data){
         if (data != null){
             StringBuffer result = new StringBuffer();
@@ -128,5 +128,5 @@ public class ElectronicInvoiceUtils {
             return null;
         }
     }
-    
+
 }

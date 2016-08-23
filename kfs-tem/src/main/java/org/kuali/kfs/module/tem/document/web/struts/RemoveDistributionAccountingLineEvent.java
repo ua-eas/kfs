@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -43,10 +43,10 @@ public class RemoveDistributionAccountingLineEvent  implements Observer {
             return;
         }
         TravelMvcWrapperBean wrapper = (TravelMvcWrapperBean) args[WRAPPER_ARG_IDX];
-        
+
         final TravelDocument document = wrapper.getTravelDocument();
         final Integer deleteIndex = (Integer) args[SELECTED_LINE_ARG_IDX];
-        
+
         wrapper.getAccountDistributionsourceAccountingLines().remove(deleteIndex.intValue());
         int lineNumber = wrapper.getAccountDistributionnextSourceLineNumber() - 1;
         wrapper.setAccountDistributionnextSourceLineNumber(lineNumber);
@@ -55,13 +55,13 @@ public class RemoveDistributionAccountingLineEvent  implements Observer {
             line.setSequenceNumber(new Integer(counter));
             counter++;
         }
-        
+
         getAccountingDistributionService().buildDistributionFrom(document);
     }
 
     /**
      * Gets the travelReimbursementService attribute.
-     * 
+     *
      * @return Returns the travelReimbursementService.
      */
     protected TravelDocumentService getTravelDocumentService() {
@@ -71,14 +71,14 @@ public class RemoveDistributionAccountingLineEvent  implements Observer {
 
     /**
      * Gets the kualiRulesService attribute.
-     * 
+     *
      * @return Returns the kualiRuleseService.
      */
     protected KualiRuleService getRuleService() {
         return SpringContext.getBean(KualiRuleService.class);
     }
-    
+
     protected AccountingDistributionService getAccountingDistributionService() {
         return SpringContext.getBean(AccountingDistributionService.class);
-    } 
+    }
 }

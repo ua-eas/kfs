@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -66,7 +66,7 @@ public abstract class AbstractGeneralLedgerLookupableHelperServiceTestBase exten
 
     /**
      * This method defines the lookup fields
-     * 
+     *
      * @param isExtended flag if the non required fields are included
      * @return a list of lookup fields
      */
@@ -74,7 +74,7 @@ public abstract class AbstractGeneralLedgerLookupableHelperServiceTestBase exten
 
     /**
      * This method defines the primary key fields
-     * 
+     *
      * @return a list of primary key fields
      */
     public List getPrimaryKeyFields() {
@@ -89,7 +89,7 @@ public abstract class AbstractGeneralLedgerLookupableHelperServiceTestBase exten
 
     /**
      * This method tests if the search results have the given entry
-     * 
+     *
      * @param searchResults the search results
      * @param businessObject the given business object
      * @return true if the given business object is in the search results
@@ -127,7 +127,7 @@ public abstract class AbstractGeneralLedgerLookupableHelperServiceTestBase exten
 
     /**
      * This method creates the lookup form fields with the given business object and lookup fields
-     * 
+     *
      * @param businessObject the given business object
      * @param isExtended determine if the extended lookup fields are used
      * @return a lookup form fields
@@ -140,7 +140,7 @@ public abstract class AbstractGeneralLedgerLookupableHelperServiceTestBase exten
 
     /**
      * This method inserts a new pending ledger Entry record into database
-     * 
+     *
      * @param pendingEntry the given pending ledger Entry
      */
     protected void insertNewPendingEntry(GeneralLedgerPendingEntry pendingEntry) {
@@ -154,7 +154,7 @@ public abstract class AbstractGeneralLedgerLookupableHelperServiceTestBase exten
 
     /**
      * Gets the pendingEntryService attribute.
-     * 
+     *
      * @return Returns the pendingEntryService.
      */
     public GeneralLedgerPendingEntryService getPendingEntryService() {
@@ -163,7 +163,7 @@ public abstract class AbstractGeneralLedgerLookupableHelperServiceTestBase exten
 
     /**
      * Sets the pendingEntryService attribute value.
-     * 
+     *
      * @param pendingEntryService The pendingEntryService to set.
      */
     public void setPendingEntryService(GeneralLedgerPendingEntryService pendingEntryService) {

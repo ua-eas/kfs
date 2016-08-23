@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -84,7 +84,7 @@ public class AssetBarcodeInventoryLoadServiceImpl implements AssetBarcodeInvento
 
     /**
      * Determines whether or not the BCIE document has all its records corrected or deleted
-     * 
+     *
      * @param document
      * @return boolean
      */
@@ -209,7 +209,7 @@ public class AssetBarcodeInventoryLoadServiceImpl implements AssetBarcodeInvento
                         errorMsg += ", " + inventoryScannedCodeLabel + " is invalid";
                     }
 
-                    // validate date 
+                    // validate date
                     if(!validateDate(column[2])) {
                         errorMsg += ", " + InventoryDateLabel + " is invalid";
                     }
@@ -259,7 +259,7 @@ public class AssetBarcodeInventoryLoadServiceImpl implements AssetBarcodeInvento
      */
     public boolean processFile(File file, AssetBarCodeInventoryInputFileForm form) {
         LOG.debug("processFile(File file) - start");
-        
+
         // Removing *.done files that are created automatically by the framework.
         this.removeDoneFile(file);
 
@@ -276,7 +276,7 @@ public class AssetBarcodeInventoryLoadServiceImpl implements AssetBarcodeInvento
 
         SimpleDateFormat formatter = new SimpleDateFormat(CamsConstants.DateFormats.MONTH_DAY_YEAR + " " + CamsConstants.DateFormats.MILITARY_TIME, Locale.US);
         formatter.setLenient(false);
-        
+
         BarcodeInventoryErrorDetail barcodeInventoryErrorDetail;
         List<BarcodeInventoryErrorDetail> barcodeInventoryErrorDetails = new ArrayList<BarcodeInventoryErrorDetail>();
 
@@ -360,7 +360,7 @@ public class AssetBarcodeInventoryLoadServiceImpl implements AssetBarcodeInvento
     /**
      * This method removes the *.done files. If not deleted, then the program will display the name of the file in a puldown menu
      * with a label of ready for process.
-     * 
+     *
      * @param file
      */
     protected void removeDoneFile(File file) {
@@ -375,7 +375,7 @@ public class AssetBarcodeInventoryLoadServiceImpl implements AssetBarcodeInvento
     /**
      * This method invokes the rules in order to validate each records of the barcode file and invokes the method that updates the
      * asset table with the records that passes the rules validation
-     * 
+     *
      * @param barcodeInventoryErrorDetails
      */
     protected void processBarcodeInventory(List<BarcodeInventoryErrorDetail> barcodeInventoryErrorDetails, AssetBarCodeInventoryInputFileForm form) throws Exception {
@@ -429,7 +429,7 @@ public class AssetBarcodeInventoryLoadServiceImpl implements AssetBarcodeInvento
 
     /**
      * This method...
-     * 
+     *
      * @param bcies
      * @param barcodeInventoryErrorDocument
      */
@@ -485,7 +485,7 @@ public class AssetBarcodeInventoryLoadServiceImpl implements AssetBarcodeInvento
     /**
      * This method updates the asset information particularly the building code, bulding room, building subrool, campus code, and
      * condition code
-     * 
+     *
      * @param barcodeInventoryErrorDetail
      */
     public void updateAssetInformation(BarcodeInventoryErrorDetail barcodeInventoryErrorDetail, boolean updateWithDateAssetWasScanned) {
@@ -498,7 +498,7 @@ public class AssetBarcodeInventoryLoadServiceImpl implements AssetBarcodeInvento
         asset.setBuildingRoomNumber(barcodeInventoryErrorDetail.getBuildingRoomNumber());
         asset.setBuildingSubRoomNumber(barcodeInventoryErrorDetail.getBuildingSubRoomNumber());
         asset.setCampusCode(barcodeInventoryErrorDetail.getCampusCode());
-        asset.setConditionCode(barcodeInventoryErrorDetail.getAssetConditionCode());        
+        asset.setConditionCode(barcodeInventoryErrorDetail.getAssetConditionCode());
 
         // set building code and room number to null if they are empty string, to avoid FK violation exception
         if (StringUtils.isEmpty(asset.getBuildingCode())) {
@@ -508,14 +508,14 @@ public class AssetBarcodeInventoryLoadServiceImpl implements AssetBarcodeInvento
         if (StringUtils.isEmpty(asset.getBuildingRoomNumber())) {
             asset.setBuildingRoomNumber(null);
             asset.setBuildingRoom(null);
-        }        
-        
+        }
+
         if (updateWithDateAssetWasScanned) {
             asset.setLastInventoryDate(barcodeInventoryErrorDetail.getUploadScanTimestamp());
         } else {
             asset.setLastInventoryDate(new Timestamp(dateTimeService.getCurrentSqlDate().getTime()));
         }
-        
+
         // Purposefully deleting off-campus locations when loading locations via barcode scanning.
         List<AssetLocation> assetLocations = asset.getAssetLocations();
         for (AssetLocation assetLocation : assetLocations) {
@@ -531,7 +531,7 @@ public class AssetBarcodeInventoryLoadServiceImpl implements AssetBarcodeInvento
 
     /**
      * This method creates a transaction document with the invalid barcode inventory records
-     * 
+     *
      * @param barcodeInventoryErrorDetails
      * @return BarcodeInventoryErrorDocument
      */
@@ -550,7 +550,7 @@ public class AssetBarcodeInventoryLoadServiceImpl implements AssetBarcodeInvento
 
     /**
      * saves the barcode inventory document
-     * 
+     *
      * @param document
      */
     protected void saveInvalidBarcodeInventoryDocument(BarcodeInventoryErrorDocument document) {
@@ -570,7 +570,7 @@ public class AssetBarcodeInventoryLoadServiceImpl implements AssetBarcodeInvento
 
     /**
      * This method builds a recipient for Approval.
-     * 
+     *
      * @param userId
      * @return
      */
@@ -607,9 +607,9 @@ public class AssetBarcodeInventoryLoadServiceImpl implements AssetBarcodeInvento
             catch (Exception e) {
                 valid = false;
             }
-            
+
         }
-        
+
         return valid;
     }
         public void setBusinessObjectService(BusinessObjectService businessObjectService) {

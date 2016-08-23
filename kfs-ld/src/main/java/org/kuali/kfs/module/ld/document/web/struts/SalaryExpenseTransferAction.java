@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,7 +53,7 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBase {
     /**
      * Resets lookup fields for salary expense transfer action
-     * 
+     *
      * @see org.kuali.kfs.module.ld.document.web.struts.ExpenseTransferDocumentActionBase#resetLookupFields(org.kuali.kfs.module.ld.document.web.struts.ExpenseTransferDocumentFormBase,
      *      org.kuali.kfs.module.ld.businessobject.LedgerBalance)
      */
@@ -66,7 +66,7 @@ public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBa
 
     /**
      * If user is approving document, capture the object code balances for comparison in business rules on route
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#docHandler(org.apache.struts.action.ActionMapping,
      *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
@@ -126,7 +126,7 @@ public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBa
 
     /**
      * Calls service to verify the salary transfer does not conflict with effort certifications and handle any errors returned.
-     * 
+     *
      * @return ActionForward which is null if everything was OK, the question redirect if errors found and user is admin, the basic
      *         mapping (which goes back to document) if errors were found and the user is not admin and document is not enroute, or
      *         finally redirect back to portal if document was disapproved due to errors
@@ -163,19 +163,19 @@ public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBa
     /**
      * If the user is an effort administrator ask if they want to override the errors (if not already asked). Otherwise if the
      * document is enroute it will be disapproved or if being initiated just return to doc.
-     * 
+     *
      * @return ActionForward which is question redirect, portal redirect, or basic mapping (back to doc)
      * @throws Exception
      */
     protected ActionForward handleEffortValidationErrors(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, String caller, boolean questionAsked) throws Exception {
         SalaryExpenseTransferDocument salaryExpenseDocument = (SalaryExpenseTransferDocument) ((KualiDocumentFormBase) form).getDocument();
-        
-        TransactionalDocumentAuthorizer documentAuthorizer = (TransactionalDocumentAuthorizer) SpringContext.getBean(DocumentHelperService.class).getDocumentAuthorizer(salaryExpenseDocument);        
-        
-        boolean isAdmin = documentAuthorizer.isAuthorized(salaryExpenseDocument, LaborConstants.LABOR_MODULE_CODE, 
-                 LaborConstants.PermissionNames.OVERRIDE_TRANSFER_IMPACTING_EFFORT_CERTIFICATION, 
+
+        TransactionalDocumentAuthorizer documentAuthorizer = (TransactionalDocumentAuthorizer) SpringContext.getBean(DocumentHelperService.class).getDocumentAuthorizer(salaryExpenseDocument);
+
+        boolean isAdmin = documentAuthorizer.isAuthorized(salaryExpenseDocument, LaborConstants.LABOR_MODULE_CODE,
+                 LaborConstants.PermissionNames.OVERRIDE_TRANSFER_IMPACTING_EFFORT_CERTIFICATION,
                                   GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        
+
         if (isAdmin && !questionAsked) {
             // error found, ask admin user if they want to override
             ConfigurationService kualiConfigurationService = SpringContext.getBean(ConfigurationService.class);
@@ -188,7 +188,7 @@ public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBa
                     message += MessageFormat.format(errorMsg, (Object[]) ((ErrorMessage) errorMessage).getMessageParameters());
                 }
             }
-            
+
             if (GlobalVariables.getMessageMap().doesPropertyHaveError(KFSPropertyConstants.TARGET_ACCOUNTING_LINES)) {
                 for (Object errorMessage : GlobalVariables.getMessageMap().getMessages(KFSPropertyConstants.TARGET_ACCOUNTING_LINES)) {
                     String errorMsg = kualiConfigurationService.getPropertyValueAsString(((ErrorMessage) errorMessage).getErrorKey());
@@ -212,7 +212,7 @@ public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBa
 
     /**
      * Delete all source accounting lines
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -224,13 +224,13 @@ public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBa
     public ActionForward deleteAllSourceAccountingLines(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         SalaryExpenseTransferForm financialDocumentForm = (SalaryExpenseTransferForm) form;
         financialDocumentForm.getSalaryExpenseTransferDocument().setNextSourceLineNumber(KFSConstants.ONE.intValue());
-        
+
         return super.deleteAllSourceAccountingLines(mapping, form, request, response);
     }
-    
+
     /**
      * Delete all target accounting lines
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -242,12 +242,12 @@ public class SalaryExpenseTransferAction extends ExpenseTransferDocumentActionBa
     public ActionForward deleteAllTargetAccountingLines(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         SalaryExpenseTransferForm financialDocumentForm = (SalaryExpenseTransferForm) form;
         financialDocumentForm.getSalaryExpenseTransferDocument().setNextTargetLineNumber(KFSConstants.ONE.intValue());
-        
+
         return super.deleteAllTargetAccountingLines(mapping, form, request, response);
     }
-    
-    
-   
-    
+
+
+
+
 }
 

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -72,7 +72,7 @@
            		<bean parent="OrganizationRestriction"><property name="attribute" ref="AccountStatusCurrentFunds-account.organizationCode"/></bean>
            		<bean parent="OrganizationHierarchyRestriction"><property name="attribute" ref="AccountStatusCurrentFunds-account.organizationCode"/></bean>
            		<bean parent="ObjectLevelRestriction"><property name="attribute" ref="AccountStatusCurrentFunds-objectCode.financialObjectLevelCode"/></bean>
-           		<bean parent="ObjectConsolidationRestriction"><property name="attribute" ref="AccountStatusCurrentFunds-objectCode.financialObjectLevel.financialConsolidationObjectCode"/></bean> 
+           		<bean parent="ObjectConsolidationRestriction"><property name="attribute" ref="AccountStatusCurrentFunds-objectCode.financialObjectLevel.financialConsolidationObjectCode"/></bean>
        		</list>
     	</property>
 	</bean>
@@ -104,7 +104,7 @@
 	<bean id="AccountStatusCurrentFunds-accountNumber-parentBean"
 		abstract="true" parent="Account-accountNumber">
 	</bean>
-    
+
 	<bean id="AccountStatusCurrentFunds-chartOfAccountsCode"
 		parent="AccountStatusCurrentFunds-chartOfAccountsCode-parentBean" />
 
@@ -245,21 +245,21 @@
 			<ref bean="HiddenControl" />
 		</property>
 	</bean>
-	
+
 	<bean id="AccountStatusCurrentFunds-objectCode.financialObjectLevelCode" parent="AccountStatusCurrentFunds-objectCode.financialObjectLevelCode-parentBean"/>
     <bean id="AccountStatusCurrentFunds-objectCode.financialObjectLevelCode-parentBean" abstract="true" parent="ObjectLevel-financialObjectLevelCode">
          <property name="name" value="financialObject.financialObjectLevelCode"/>
     </bean>
-        
+
     <bean id="AccountStatusCurrentFunds-objectCode.financialObjectLevel.financialConsolidationObjectCode" parent="AccountStatusCurrentFunds-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean"/>
     <bean id="AccountStatusCurrentFunds-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean" abstract="true" parent="ObjectConsolidation-finConsolidationObjectCode">
          <property name="name" value="financialObject.financialObjectLevel.financialConsolidationObjectCode"/>
-    </bean>    
-    	
+    </bean>
+
 	<bean id="AccountStatusCurrentFunds-account.organizationCode" parent="AccountStatusCurrentFunds-account.organizationCode-parentBean"/>
     <bean id="AccountStatusCurrentFunds-account.organizationCode-parentBean" abstract="true" parent="Organization-organizationCode">
          <property name="name" value="account.organizationCode"/>
-    </bean>  
+    </bean>
 
 	<!-- Business Object Inquiry Definition -->
 

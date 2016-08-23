@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -67,10 +67,10 @@
 							valign="middle"
 							value="Unselect All"/>
 			</p>
-			
-            <c:set var="numOfMonthField" value="14" scope="request" />            
+
+            <c:set var="numOfMonthField" value="14" scope="request" />
             <c:set var="numOfNonMonthField" value="${fn:length(resultsList[0].columns) - numOfMonthField}" scope="request" />
-            
+
 			<table class="fixed" width="100%" id="row">
 				<thead>
 					<tr>
@@ -100,15 +100,15 @@
 								<c:if test="${!empty column.propertyURL}">
 									<a href="<c:out value="${column.propertyURL}"/>" target="blank">
 								</c:if>
-								
+
 								<c:out value="${fn:substring(column.propertyValue, 0, column.maxLength)}"/>
 								<c:if test="${column.maxLength gt 0 && fn:length(column.propertyValue) gt column.maxLength}">...</c:if>
-								
+
 								<c:if test="${!empty column.propertyURL}"></a></c:if>
 							</td>
 						</c:forEach>
 					</tr>
-					
+
                     <tr>
                         <td colspan="${numOfNonMonthField + 1}"><br/>
                             <center>
@@ -117,37 +117,37 @@
                                     <c:if test="${(columnStatus.index - numOfNonMonthField) % 4 == 1}">
                                 	<tr>
                                     </c:if>
-                                    
+
                                     <c:if test="${(columnStatus.index - numOfNonMonthField + 1) eq numOfMonthField}">
-                                        <td colspan="6"></td>                                      
+                                        <td colspan="6"></td>
                                     </c:if>
-                                    
-                                    <th class="infocell" style="text-align: left; width: 10%; white-space: nowrap;">                                    	
+
+                                    <th class="infocell" style="text-align: left; width: 10%; white-space: nowrap;">
                                     	<c:set var="monthlyAmount" value="${fn:replace(column.propertyValue, ',', '')}"/>
-                                    	
+
                                     	<!-- restore the negtive number -->
                                     	<c:if test="${fn:contains(monthlyAmount, '(')}">
                                     		<c:set var="monthlyAmount" value="${fn:replace(monthlyAmount, '(', '-')}"/>
                                     		<c:set var="monthlyAmount" value="${fn:replace(monthlyAmount, ')', '')}"/>
                                     	</c:if>
-                                    	
+
                                     	<fmt:formatNumber var="amount" value="${monthlyAmount}" maxFractionDigits="2" minFractionDigits="2" groupingUsed="false"/>
                                     	<c:set var="monthlyAmount" value="${fn:replace(amount, '.', '')}"/>
 
                                     	<c:set var="objectIdPrefix" value="${row.objectId}.${column.propertyName}" />
                                     	<c:set var="objectId" value="${objectIdPrefix}.${monthlyAmount}" />
-                                    	
+
                                     	<c:set var="checked" value="${empty KualiForm.compositeObjectIdMap[objectId] ? '' : 'checked=checked'}" />
                                     	<c:set var="disabled" value="${amount != 0.0 ? '' : 'disabled=disabled'}" />
-                                    	
-						                <c:set var="checkBoxObjectIdName" value="${Constants.MULTIPLE_VALUE_LOOKUP_SELECTED_OBJ_ID_PARAM_PREFIX}${objectId}" />                    	
+
+						                <c:set var="checkBoxObjectIdName" value="${Constants.MULTIPLE_VALUE_LOOKUP_SELECTED_OBJ_ID_PARAM_PREFIX}${objectId}" />
 											${kfunc:registerEditableProperty(KualiForm, checkBoxObjectIdName)}
 											<input type="checkbox" name="${checkBoxObjectIdName}" title="${column.columnTitle}" value="checked" ${disabled} ${checked}>
 												${column.columnTitle}
 											 </input>
                                     	<input type="hidden" name="${Constants.MULTIPLE_VALUE_LOOKUP_DISPLAYED_OBJ_ID_PARAM_PREFIX}${objectId}" value="onscreen"/>
                                    	</th>
-                                    
+
                                     <td class="numbercell" width="10%">
                                     	<a href="${column.propertyURL}" target="blank">${column.propertyValue}</a>
                                     </td>
@@ -162,7 +162,7 @@
                     </tr>
 				</c:forEach>
 			</table>
-			
+
 			<p>
 				<c:set var="balanceInquirySelectAllButtonName" value="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" />
 					${kfunc:registerEditableProperty(KualiForm, balanceInquirySelectAllButtonName)}
@@ -188,7 +188,7 @@
 							class="btn btn-default"
 							valign="middle"
 							value="Unselect All"/>
-			
+
 			</p>
 			<kul:multipleValueLookupExportBanner/>
 		</c:when>

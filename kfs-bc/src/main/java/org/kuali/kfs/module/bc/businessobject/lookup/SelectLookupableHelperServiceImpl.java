@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,9 +37,9 @@ import org.kuali.kfs.krad.util.KRADConstants;
 public class SelectLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
 
     /**
-     * Super impl clears out hidden values but we need to keep principalId hidden field in the criteria. 
+     * Super impl clears out hidden values but we need to keep principalId hidden field in the criteria.
      * Overridding here so that the call to clear hiddens is not executed.
-     * 
+     *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getSearchResults(java.util.Map)
      */
     @Override
@@ -59,12 +59,12 @@ public class SelectLookupableHelperServiceImpl extends KualiLookupableHelperServ
         return searchResults;
     }
 
-    
+
     /**
      * Since this lookupable is called by the budget lookup action, the context will be KFS, not Rice. So the generated inquiries
      * will not have the Rice context (kr/) and be invalid. This override adds the Rice context to the inquiry Url to working
      * around the issue.
-     * 
+     *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject,
      *      java.lang.String)
      */

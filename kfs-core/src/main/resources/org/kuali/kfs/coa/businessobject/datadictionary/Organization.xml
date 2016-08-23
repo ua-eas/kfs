@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -82,8 +82,8 @@
         <ref bean="Organization-organizationExtension.hrmsIuTitleAllowedFlag"/>
         <ref bean="Organization-organizationExtension.hrmsIuOccupationalUnitAllowedFlag"/>
         <ref bean="Organization-organizationExtension.hrmsLastUpdateDate"/>
-		<ref bean="Organization-organizationPhysicalCampusCodeForReport"/>   
-		<ref bean="Organization-organizationCodeForReport"/>     
+		<ref bean="Organization-organizationPhysicalCampusCodeForReport"/>
+		<ref bean="Organization-organizationCodeForReport"/>
       </list>
     </property>
     <property name="accessRestrictedAttributes">
@@ -116,7 +116,7 @@
             <list>
               <bean parent="PrimitiveAttributeDefinition" p:sourceName="organizationExtension.hrmsPersonnelApproverUniversalId" p:targetName="principalId"/>
             </list>
-          </property>          
+          </property>
         </bean>
         <bean parent="RelationshipDefinition">
           <property name="objectAttributeName" value="organizationExtension.fiscalApproverUniversal"/>
@@ -125,7 +125,7 @@
               <bean parent="PrimitiveAttributeDefinition" p:sourceName="organizationExtension.fiscalApproverUniversalId" p:targetName="principalId"/>
             </list>
           </property>
-          
+
         </bean>
         <dd:relationship objectAttribute="postalZip">
         	<dd:primitiveAttribute source="organizationCountryCode" target="countryCode"/>
@@ -133,10 +133,10 @@
         </dd:relationship>
         <dd:relationship objectAttribute="organizationCountry">
             <dd:primitiveAttribute source="organizationCountryCode" target="code"/>
-        </dd:relationship>       
+        </dd:relationship>
         <dd:relationship objectAttribute="organizationPhysicalCampus">
             <dd:primitiveAttribute source="organizationPhysicalCampusCode" target="code"/>
-        </dd:relationship>        
+        </dd:relationship>
       </list>
     </property>
     <property name="inactivationBlockingDefinitions">
@@ -307,7 +307,7 @@
 		<property name="shortLabel" value="Postal Code" />
 		<property name="required" value="true" />
 	</bean>
-	
+
 	<bean id="Organization-organizationStateCode" parent="Organization-organizationStateCode-parentBean" />
 	<bean id="Organization-organizationStateCode-parentBean" abstract="true"
 		parent="State-code" >
@@ -757,7 +757,7 @@
   <bean id="Organization-lookupDefinition-parentBean" abstract="true" parent="Organization-lookupDefinition-base-parentBean" />
   <bean id="Organization-lookupDefinition-base-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Organization Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
         <property name="attributeNames">

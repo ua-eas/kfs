@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -80,7 +80,7 @@ import java.util.Set;
  * KULRICE - 3355 Modified to prevent infinite looping (to maxDepth) scenario when a parent references a child which
  * references a parent
  *
- * 
+ *
  */
 public class DictionaryValidationServiceImpl implements DictionaryValidationService {
     private static org.apache.log4j.Logger LOG =
@@ -222,7 +222,7 @@ public class DictionaryValidationServiceImpl implements DictionaryValidationServ
      * @see DictionaryValidationService#validateDocumentAndUpdatableReferencesRecursively(Document, int, boolean, boolean)
      */
     @Override
-    public void validateDocumentAndUpdatableReferencesRecursively(Document document, int maxDepth, 
+    public void validateDocumentAndUpdatableReferencesRecursively(Document document, int maxDepth,
             boolean validateRequired, boolean chompLastLetterSFromCollectionName) {
         String documentEntryName = document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName();
         validate(document, documentEntryName, validateRequired);
@@ -774,7 +774,7 @@ public class DictionaryValidationServiceImpl implements DictionaryValidationServ
         if (result.getNumberOfErrors() > 0) {
             for (Iterator<ConstraintValidationResult> iterator = result.iterator(); iterator.hasNext(); ) {
                 ConstraintValidationResult constraintValidationResult = iterator.next();
-                if (constraintValidationResult.getStatus().getLevel() >= ErrorLevel.WARN.getLevel()){                    
+                if (constraintValidationResult.getStatus().getLevel() >= ErrorLevel.WARN.getLevel()){
                     String attributePath = constraintValidationResult.getAttributePath();
                     if (attributePath == null || attributePath.isEmpty()){
                         attributePath = constraintValidationResult.getAttributeName();
@@ -916,13 +916,13 @@ public class DictionaryValidationServiceImpl implements DictionaryValidationServ
                     "Unable to validate constraints for attribute \"" + attributeValueReader.getAttributeName() +
                             "\" on entry \"" + attributeValueReader.getEntryName() +
                             "\" because no attribute definition can be found.");
-        
+
         Object value = attributeValueReader.getValue();
 
         processElementConstraints(result, value, definition, attributeValueReader, checkIfRequired);
     }
 
-    private void validateObject(DictionaryValidationResult result, AttributeValueReader attributeValueReader, 
+    private void validateObject(DictionaryValidationResult result, AttributeValueReader attributeValueReader,
             boolean doOptionalProcessing, boolean processAttributes) throws AttributeValidationException {
 
         // If the entry itself is constrainable then the attribute value reader will return it here and we'll need to check if it has any constraints

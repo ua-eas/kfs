@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -125,7 +125,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
         entryForManualEdit = new OriginEntryFull();
         entryForManualEdit.setEntryId(0);
-        
+
         setDocType();
     }
 
@@ -133,7 +133,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
     protected String getDefaultDocumentTypeName() {
         return "GLCP";
     }
-    
+
     /**
      * @see org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase#populate(javax.servlet.http.HttpServletRequest)
      */
@@ -180,13 +180,13 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
                 throw new RuntimeException("Couldn't find column to sort");
             }
         }
-        
+
         // since the processInBatch option defaults to true, there's no built in POJO way to detect whether it's been unchecked
         // this code takes care of that
         if (StringUtils.isNotBlank(request.getParameter("processInBatch" + KFSConstants.CHECKBOX_PRESENT_ON_FORM_ANNOTATION)) && StringUtils.isBlank(request.getParameter("processInBatch"))) {
             setProcessInBatch(false);
         }
-        
+
         if (StringUtils.isNotBlank(request.getParameter("matchCriteriaOnly" + KFSConstants.CHECKBOX_PRESENT_ON_FORM_ANNOTATION)) && StringUtils.isBlank(request.getParameter("matchCriteriaOnly"))) {
             setMatchCriteriaOnly(false);
         }
@@ -194,7 +194,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * This method synchronizes number of group holders added with the group count
-     * 
+     *
      */
     public void syncGroups() {
         int groupCount = getCorrectionDocument().getCorrectionChangeGroup().size();
@@ -203,7 +203,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Return group sizes
-     * 
+     *
      * @return
      */
     public int getGroupsSize() {
@@ -212,7 +212,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Returns group item with given ID
-     * 
+     *
      * @param i index of group
      * @return
      */
@@ -245,7 +245,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
         setDocument(null);
         instantiateDocument();
-        
+
         // These are for the blank rows that are used to add criteria/changes
         groups = new ArrayList<GroupHolder>();
 
@@ -261,7 +261,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
     }
 
     /**
-     * Update origin entry for manual edit with correction document attributes (i.e. university fiscal year, entry transaction ledger 
+     * Update origin entry for manual edit with correction document attributes (i.e. university fiscal year, entry transaction ledger
      * sequence number, entry transaction ledger entry amount, entry transaction date, entry financial document reversal date)
      */
     public void updateEntryForManualEdit() {
@@ -274,7 +274,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Clears origin entry for manual edit
-     * 
+     *
      */
     public void clearEntryForManualEdit() {
         OriginEntryFull oe = new OriginEntryFull();
@@ -389,7 +389,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
     public void setEditMethod(String editMethod) {
         this.editMethod = editMethod;
     }
-    
+
     public String getInputGroupId() {
         return ((GeneralLedgerCorrectionProcessDocument) getDocument()).getCorrectionInputFileName();
     }
@@ -476,17 +476,17 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Gets the originEntrySearchResultTableMetadata attribute.
-     * 
+     *
      * @return Returns the originEntrySearchResultTableMetadata.
      */
     public KualiTableRenderFormMetadata getOriginEntrySearchResultTableMetadata() {
         return originEntrySearchResultTableMetadata;
     }
 
-    
+
     /**
      * Returns list of Column objects for table render column meta data
-     * 
+     *
      * @return list of column objects
      */
     public List<Column> getTableRenderColumnMetadata() {
@@ -495,7 +495,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Gets the restrictedFunctionalityMode attribute.
-     * 
+     *
      * @return Returns the restrictedFunctionalityMode.
      */
     public boolean isRestrictedFunctionalityMode() {
@@ -504,7 +504,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Sets the restrictedFunctionalityMode attribute value.
-     * 
+     *
      * @param restrictedFunctionalityMode The restrictedFunctionalityMode to set.
      */
     public void setRestrictedFunctionalityMode(boolean restrictedFunctionalityMode) {
@@ -513,7 +513,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Gets the glcpSearchResuiltsSequenceNumber attribute.
-     * 
+     *
      * @return Returns the glcpSearchResuiltsSequenceNumber.
      */
     public String getGlcpSearchResultsSequenceNumber() {
@@ -522,7 +522,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Sets the glcpSearchResuiltsSequenceNumber attribute value.
-     * 
+     *
      * @param glcpSearchResuiltsSequenceNumber The glcpSearchResuiltsSequenceNumber to set.
      */
     public void setGlcpSearchResultsSequenceNumber(String glcpSearchResuiltsSequenceNumber) {
@@ -531,7 +531,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Gets the previousChooseSystem attribute.
-     * 
+     *
      * @return Returns the previousChooseSystem.
      */
     public String getPreviousChooseSystem() {
@@ -540,7 +540,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Sets the previousChooseSystem attribute value.
-     * 
+     *
      * @param previousChooseSystem The previousChooseSystem to set.
      */
     public void setPreviousChooseSystem(String previousChooseSystem) {
@@ -549,7 +549,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Gets the previousEditMethod attribute.
-     * 
+     *
      * @return Returns the previousEditMethod.
      */
     public String getPreviousEditMethod() {
@@ -558,7 +558,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Sets the previousEditMethod attribute value.
-     * 
+     *
      * @param previousEditMethod The previousEditMethod to set.
      */
     public void setPreviousEditMethod(String previousEditMethod) {
@@ -567,7 +567,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Gets the previousInputGroupId attribute.
-     * 
+     *
      * @return Returns the previousInputGroupId.
      */
     public String getPreviousInputGroupId() {
@@ -576,7 +576,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Sets the previousInputGroupId attribute value.
-     * 
+     *
      * @param previousInputGroupId The previousInputGroupId to set.
      */
     public void setPreviousInputGroupId(String previousInputGroupId) {
@@ -585,7 +585,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Gets the input group ID of the document when it was persisted in the DB
-     * 
+     *
      * @return the input group ID of the document when it was persisted in the DB
      */
     public String getInputGroupIdFromLastDocumentLoad() {
@@ -594,7 +594,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Sets the input group ID of the document when it was persisted in the DB
-     * 
+     *
      * @param inputGroupIdFromLastDocumentLoad the input group ID of the document when it was persisted in the DB
      */
     public void setInputGroupIdFromLastDocumentLoad(String inputGroupIdFromLastDocumentLoad) {
@@ -603,7 +603,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Gets whether the selected input group ID does not correspond to an input group in the system.
-     * 
+     *
      * @return Returns the inputGroupIdFromLastDocumentLoadIsMissing.
      */
     public boolean isInputGroupIdFromLastDocumentLoadIsMissing() {
@@ -612,7 +612,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Sets whether the selected input group ID does not correspond to an input group in the system
-     * 
+     *
      * @param inputGroupIdFromLastDocumentLoadIsMissing The inputGroupIdFromLastDocumentLoadIsMissing to set.
      */
     public void setInputGroupIdFromLastDocumentLoadIsMissing(boolean inputGroupIdFromLastDocumentLoadIsMissing) {
@@ -622,7 +622,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
     /**
      * Gets whether the origin entries we should be displaying on the form are not currently persisted by the
      * {@link CorrectionDocumentService}.
-     * 
+     *
      * @return Returns the persistedOriginEntriesMissing.
      */
     public boolean isPersistedOriginEntriesMissing() {
@@ -632,7 +632,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
     /**
      * Sets whether the origin entries we should be displaying on the form are not currently persisted by the
      * {@link CorrectionDocumentService}.
-     * 
+     *
      * @param persistedOriginEntriesMissing The persistedOriginEntriesMissing to set.
      */
     public void setPersistedOriginEntriesMissing(boolean persistedOriginEntriesMissing) {
@@ -675,7 +675,7 @@ public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase im
 
     /**
      * Adds the origin entry max file size to the list of max file sizes.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.form.pojo.PojoFormBase#customInitMaxUploadSizes()
      */
     @Override

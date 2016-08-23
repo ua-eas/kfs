@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,7 +29,7 @@ import org.kuali.kfs.sys.businessobject.SufficientFundsItem;
 public interface GeneralLedgerPostingDocument extends LedgerPostingDocument {
     /**
      * This method retrieves the list of GLPEs for the document.
-     * 
+     *
      * @return A list of pending entries.
      */
     List<GeneralLedgerPendingEntry> getGeneralLedgerPendingEntries();
@@ -40,7 +40,7 @@ public interface GeneralLedgerPostingDocument extends LedgerPostingDocument {
      * instantiated within lists. This behavior is required because otherwise when the PojoProcessor tries to automatically inject
      * values into the list, it will get an index out of bounds error if the instance at an index is being called and prior
      * instances at indices before that one are not being instantiated.
-     * 
+     *
      * @param index
      * @return The GLPE instance at the passed in index.
      */
@@ -48,14 +48,14 @@ public interface GeneralLedgerPostingDocument extends LedgerPostingDocument {
 
     /**
      * This method sets the list of pending entries for this document.
-     * 
+     *
      * @param generalLedgerPendingEntries
      */
     void setGeneralLedgerPendingEntries(List<GeneralLedgerPendingEntry> generalLedgerPendingEntries);
 
     /**
      * This method will check sufficient funds for the document
-     * 
+     *
      * @return a list of sufficientfundsitems that do not have sufficient funds. It returns an empty list if there is sufficient
      *         funds for the entire document
      */
@@ -64,7 +64,7 @@ public interface GeneralLedgerPostingDocument extends LedgerPostingDocument {
     /**
      * This method will return only PLEs that should be checked for SF. Normally this will be all PLEs, but some docs (such as BA)
      * have additional requirements.
-     * 
+     *
      * @return a list of sufficientfundsitems that do not have sufficient funds. It returns an empty list if there is sufficient
      *         funds for the entire document
      */

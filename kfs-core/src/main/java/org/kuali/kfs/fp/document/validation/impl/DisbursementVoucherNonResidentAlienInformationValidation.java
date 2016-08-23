@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -215,7 +215,7 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
 // CHECK BOX SECTION
 
     /*examine check boxes*/
-       
+
     // the 4 check boxes (Foreign Source, Treaty Exempt, Gross Up Payment, Exempt Under Other Code) shall be mutual exclusive
     if( OneOrLessBoxesChecked(document) ) {
 
@@ -227,7 +227,7 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
                 errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_NRA_TAX_WHEN_CHECKED_FEDERAL_AND_STATE_TAXES_SHOULD_BE_ZERO , "Foreign Source");
                 return false;
             }
-            // No other items (mutual exclusiveness checking on USAID Per Diem and Special W-4 Amount are optional here since these are also ensured by their validation later)  
+            // No other items (mutual exclusiveness checking on USAID Per Diem and Special W-4 Amount are optional here since these are also ensured by their validation later)
             if((nonResidentAlienTax.isTaxUSAIDPerDiemIndicator()) || (nonResidentAlienTax.getTaxSpecialW4Amount() != null) ||
                     (nonResidentAlienTax.getReferenceFinancialDocumentNumber() != null) || (nonResidentAlienTax.getTaxNQIId() != null) ){
                 errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_NRA_TAX_WHEN_CHECKED_CANNOT_HAVE_VALUE , "Foreign Source", "NQI Id, Reference Doc, USAID Per Diem, or Special W-4 Amount");
@@ -238,7 +238,7 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
         // if Treaty Exempt is checked
         if( nonResidentAlienTax.isIncomeTaxTreatyExemptCode() ) {
             // Conditions to be met for "Treaty Exempt" error to be generated
-            // No other items (mutual exclusiveness checking on USAID Per Diem and Special W-4 Amount are optional here since these are also ensured by their validation later)  
+            // No other items (mutual exclusiveness checking on USAID Per Diem and Special W-4 Amount are optional here since these are also ensured by their validation later)
             if((nonResidentAlienTax.isTaxUSAIDPerDiemIndicator()) || (nonResidentAlienTax.getTaxSpecialW4Amount() != null) ||
                     (nonResidentAlienTax.getReferenceFinancialDocumentNumber() != null) || (nonResidentAlienTax.getTaxNQIId() != null) ){
                 errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_NRA_TAX_WHEN_CHECKED_CANNOT_HAVE_VALUE , "Treaty Exempt", "NQI Id, Reference Doc, USAID Per Diem, or Special W-4 Amount");
@@ -255,7 +255,7 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
                 errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_NRA_TAX_WHEN_CHECKED_FEDERAL_TAX_CANNOT_BE_ZERO, "Gross Up Payment" );
                 return false;
             }
-            // No other items (mutual exclusiveness checking on USAID Per Diem and Special W-4 Amount are optional here since these are also ensured by their validation later)  
+            // No other items (mutual exclusiveness checking on USAID Per Diem and Special W-4 Amount are optional here since these are also ensured by their validation later)
             if((nonResidentAlienTax.isTaxUSAIDPerDiemIndicator()) || (nonResidentAlienTax.getTaxSpecialW4Amount() != null) ||
                     (nonResidentAlienTax.getReferenceFinancialDocumentNumber() != null) || (nonResidentAlienTax.getTaxNQIId() != null) ){
                 errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_NRA_TAX_WHEN_CHECKED_CANNOT_HAVE_VALUE , "Gross Up Payment", "NQI Id, Reference Doc, USAID Per Diem, or Special W-4 Amount");
@@ -292,7 +292,7 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
                 errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_NRA_TAX_WHEN_CHECKED_SHOULD_BE_SELECTED, "USAID Per Diem", "Exempt Under Other Code");
                 return false;
             }
-            // Special W-4 Amount shall have no value 
+            // Special W-4 Amount shall have no value
             if( nonResidentAlienTax.getTaxSpecialW4Amount() != null ) {
                 errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_NRA_TAX_WHEN_CHECKED_CANNOT_HAVE_VALUE, "USAID Per Diem", "Special W-4 Amount");
                 return false;
@@ -317,7 +317,7 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
                 errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_NRA_TAX_WHEN_CHECKED_SHOULD_BE_SELECTED, "Special W-4 Amount", "Exempt Under Other Code");
                 return false;
             }
-            // USAID Per Diem should not be checked (mutual exclusive checking on USAID Per Diem here is optional since this is also ensured by validation on Special W-4 Amount above   
+            // USAID Per Diem should not be checked (mutual exclusive checking on USAID Per Diem here is optional since this is also ensured by validation on Special W-4 Amount above
             if( ( nonResidentAlienTax.isTaxUSAIDPerDiemIndicator() ) ) {
                 errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_NRA_TAX_WHEN_CHECKED_CANNOT_BE_SELECTED, "Special W-4 Amount", "USAID Per Diem");
                 return false;

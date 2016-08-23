@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -55,7 +55,7 @@ public enum PurchaseOrderForPurchaseOrderDocumentActionAuthorizerFixture {
         false, //pendingActionIndicator
         false, //purchaseOrderAutomaticIndicator
         PurapConstants.POTransmissionMethods.NOPRINT //transmissionMethodCode
-    ),    
+    ),
     PO_VALID_VOID_PENDING_PRINT (
         PurapConstants.PurchaseOrderStatuses.APPDOC_PENDING_PRINT, //statusCode
         new Timestamp(System.currentTimeMillis()), //purchaseOrderLastTransmitTimestamp
@@ -81,14 +81,14 @@ public enum PurchaseOrderForPurchaseOrderDocumentActionAuthorizerFixture {
         PurapConstants.POTransmissionMethods.NOPRINT //transmissionMethodCode
     )
     ;
-    
+
     private String statusCode;
     private Timestamp purchaseOrderLastTransmitTimestamp;
     private boolean purchaseOrderCurrentIndicator;
     private boolean pendingActionIndicator;
     private boolean purchaseOrderAutomaticIndicator;
     private String transmissionMethodCode;
-    
+
     private PurchaseOrderForPurchaseOrderDocumentActionAuthorizerFixture(
             String statusCode,
             Timestamp purchaseOrderLastTransmitTimestamp,
@@ -103,7 +103,7 @@ public enum PurchaseOrderForPurchaseOrderDocumentActionAuthorizerFixture {
         this.purchaseOrderAutomaticIndicator = purchaseOrderAutomaticIndicator;
         this.transmissionMethodCode = transmissionMethodCode;
     }
-    
+
     public PurchaseOrderDocument createPurchaseOrderDocument() {
         PurchaseOrderDocument doc = PurchaseOrderDocumentFixture.PO_ONLY_REQUIRED_FIELDS.createPurchaseOrderDocument();
         doc.setApplicationDocumentStatus(this.statusCode);

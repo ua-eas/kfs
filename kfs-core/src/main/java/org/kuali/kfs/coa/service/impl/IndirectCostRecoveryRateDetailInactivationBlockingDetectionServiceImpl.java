@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,14 +34,14 @@ import org.kuali.kfs.krad.service.impl.InactivationBlockingDetectionServiceImpl;
 
 public class IndirectCostRecoveryRateDetailInactivationBlockingDetectionServiceImpl extends InactivationBlockingDetectionServiceImpl {
     protected PersistenceService persistenceService;
-    
+
     @Override
     protected Map<String, String> buildInactivationBlockerQueryMap(BusinessObject blockedBo, InactivationBlockingMetadata inactivationBlockingMetadata) {
         Class<? extends BusinessObject> boClass = blockedBo.getClass();
         if (!(Account.class.isAssignableFrom(boClass) || SubAccount.class.isAssignableFrom(boClass) || ObjectCode.class.isAssignableFrom(boClass) || SubObjectCode.class.isAssignableFrom(boClass))) {
             throw new IllegalArgumentException("BO must be either an Account, SubAccount, ObjectCode, or SubObjectCode (was: " + boClass + ")");
         }
-        
+
         // this code assumes that the PK field names in the BO are identical to the field names in the ICR Rate Detail BO
         Map<String, Object> fieldValues = persistenceService.getPrimaryKeyFieldValues(blockedBo);
         if (Account.class.isAssignableFrom(boClass)) {
@@ -52,7 +52,7 @@ public class IndirectCostRecoveryRateDetailInactivationBlockingDetectionServiceI
         }
         return convertFieldValuesToStrings(fieldValues);
     }
-    
+
     /**
      * Converts the map of PKs - which is a Map of <String, Object> to a Map of <String, String> by turning any objects inside into Strings...
      * @param fieldValues field values to convert

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -61,12 +61,12 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
     public boolean validate(AttributedDocumentEvent event) {
         LOG.debug("validate start");
         boolean isValid = true;
-      
+
         DisbursementVoucherDocument document = (DisbursementVoucherDocument) accountingDocumentForValidation;
         DisbursementVoucherPayeeDetail payeeDetail = document.getDvPayeeDetail();
 
         if (!payeeDetail.isVendor()) {
-            
+
             String initiator = document.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId();
             final Entity entity= SpringContext.getBean(IdentityManagementService.class).getEntityByPrincipalId(initiator);
             // KFSCNTRB-1718- Don't assume that an initiator is an employee.
@@ -125,7 +125,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
 
                 }
             }
-           
+
             else if (isEmployeeSSN(vendor.getVendorHeader().getVendorTaxNumber())) {
                 // check param setting for paid outside payroll check
                 boolean performPaidOutsidePayrollInd = parameterService.getParameterValueAsBoolean(DisbursementVoucherDocument.class, DisbursementVoucherConstants.CHECK_EMPLOYEE_PAID_OUTSIDE_PAYROLL_PARM_NM);
@@ -139,15 +139,15 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
                 }
             }
         }
-        
+
         errors.removeFromErrorPath(KFSPropertyConstants.DOCUMENT);
-        
+
         return isValid;
     }
 
     /**
      * Retrieves the VendorDetail object from the vendor id number.
-     * 
+     *
      * @param vendorIdNumber vendor ID number
      * @param vendorDetailIdNumber vendor detail ID number
      * @return <code>VendorDetail</code>
@@ -158,7 +158,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
 
     /**
      * Retrieves Person from SSN
-     * 
+     *
      * @param ssnNumber social security number
      * @return <code>Person</code>
      */
@@ -172,7 +172,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
 
     /**
      * Confirms that the SSN provided is associated with an employee.
-     * 
+     *
      * @param ssnNumber social security number
      * @return true if the ssn number is a valid employee ssn
      */
@@ -182,7 +182,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
 
     /**
      * Performs a lookup on universal users for the given ssn number.
-     * 
+     *
      * @param ssnNumber social security number
      * @return true if the ssn number is a valid employee ssn and the employee is active
      */
@@ -193,7 +193,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
-     * 
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -209,7 +209,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
     }
 
     /**
-     * Gets the accountingDocumentForValidation attribute. 
+     * Gets the accountingDocumentForValidation attribute.
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {

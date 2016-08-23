@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,13 +31,13 @@ import org.kuali.kfs.krad.util.ObjectUtils;
  * Purchasing Item Base Business Object.
  */
 public abstract class PurchasingItemBase extends PurApItemBase implements PurchasingItem {
-    
+
     private String purchasingCommodityCode;
-    
+
     private CommodityCode commodityCode;
-    
+
     private UnitOfMeasure itemUnitOfMeasure;
-    
+
     /**
      * @see org.kuali.kfs.module.purap.businessobject.PurApItem#isConsideredEntered()
      */
@@ -59,7 +59,7 @@ public abstract class PurchasingItemBase extends PurApItemBase implements Purcha
 
     /**
      * Determines if the Purchasing Item is empty.
-     * 
+     *
      * @return boolean - true if item is empty, false if conditions show its not empty.
      */
     public boolean isEmpty() {
@@ -68,7 +68,7 @@ public abstract class PurchasingItemBase extends PurApItemBase implements Purcha
 
     /**
      * Determines if the Purchasing Item Detail is empty.
-     * 
+     *
      * @return boolean - true if item is empty, false if conditions show its not empty.
      */
     public boolean isItemDetailEmpty() {
@@ -99,7 +99,7 @@ public abstract class PurchasingItemBase extends PurApItemBase implements Purcha
     public void setPurchasingCommodityCode(String purchasingCommodityCode) {
         this.purchasingCommodityCode = (StringUtils.isNotBlank(purchasingCommodityCode) ? purchasingCommodityCode.toUpperCase() : purchasingCommodityCode);
     }
-    
+
     public PurchasingCapitalAssetItem getPurchasingCapitalAssetItem(){
         PurchasingDocument pd = (PurchasingDocument)this.getPurapDocument();
         if (this.getItemIdentifier() != null) {

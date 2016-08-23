@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,21 +39,21 @@ import org.kuali.kfs.krad.util.MessageMap;
 
 public class DisbursementVoucherPayeeInitiatorValidation extends GenericValidation implements DisbursementVoucherConstants{
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DisbursementVoucherPayeeInitiatorValidation.class);
-    
+
     private AccountingDocument accountingDocumentForValidation;
-    
+
     public static final String DV_PAYEE_ID_NUMBER_PROPERTY_PATH = KFSPropertyConstants.DV_PAYEE_DETAIL + "." + KFSPropertyConstants.DISB_VCHR_PAYEE_ID_NUMBER;
 
     /**
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
-        LOG.debug("validate start");        
+        LOG.debug("validate start");
         boolean isValid = true;
-        
+
         DisbursementVoucherDocument document = (DisbursementVoucherDocument) accountingDocumentForValidation;
         DisbursementVoucherPayeeDetail payeeDetail = document.getDvPayeeDetail();
-        
+
         MessageMap errors = GlobalVariables.getMessageMap();
         errors.addToErrorPath(KFSPropertyConstants.DOCUMENT);
 
@@ -83,15 +83,15 @@ public class DisbursementVoucherPayeeInitiatorValidation extends GenericValidati
                 isValid = false;
             }
         }
-        
-        errors.removeFromErrorPath(KFSPropertyConstants.DOCUMENT);   
-        
+
+        errors.removeFromErrorPath(KFSPropertyConstants.DOCUMENT);
+
         return isValid;
     }
 
     /**
      * Retrieves the VendorDetail object from the vendor id number.
-     * 
+     *
      * @param vendorIdNumber vendor ID number
      * @param vendorDetailIdNumber vendor detail ID number
      * @return <code>VendorDetail</code>
@@ -102,7 +102,7 @@ public class DisbursementVoucherPayeeInitiatorValidation extends GenericValidati
 
     /**
      * Retrieves Person from SSN
-     * 
+     *
      * @param ssnNumber social security number
      * @return <code>Person</code>
      */
@@ -113,10 +113,10 @@ public class DisbursementVoucherPayeeInitiatorValidation extends GenericValidati
         }
         return person;
     }
-    
+
     /**
      * Returns the initiator of the document as a KualiUser
-     * 
+     *
      * @param document submitted document
      * @return <code>KualiUser</code>
      */
@@ -128,7 +128,7 @@ public class DisbursementVoucherPayeeInitiatorValidation extends GenericValidati
 
         return initUser;
     }
-    
+
     /**
      * Sets the accountingDocumentForValidation attribute value.
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
@@ -138,7 +138,7 @@ public class DisbursementVoucherPayeeInitiatorValidation extends GenericValidati
     }
 
     /**
-     * Gets the accountingDocumentForValidation attribute. 
+     * Gets the accountingDocumentForValidation attribute.
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {

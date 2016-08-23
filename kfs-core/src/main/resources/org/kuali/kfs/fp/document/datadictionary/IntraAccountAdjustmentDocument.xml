@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 
 	 <bean id="IntraAccountAdjustmentDocument" parent="IntraAccountAdjustmentDocument-parentBean"/>
-	
-	 <bean id="IntraAccountAdjustmentDocument-parentBean" abstract="true" parent="AccountingDocumentEntry">	   
+
+	 <bean id="IntraAccountAdjustmentDocument-parentBean" abstract="true" parent="AccountingDocumentEntry">
 	   <property name="allowsErrorCorrection" value="true"/>
 	   <property name="documentTypeName" value="IAA"/>
-	   <property name="documentClass" value="org.kuali.kfs.fp.document.IntraAccountAdjustmentDocument"/>	   
+	   <property name="documentClass" value="org.kuali.kfs.fp.document.IntraAccountAdjustmentDocument"/>
 	   <property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.AccountingDocumentAuthorizerBase"/>
 	   <property name="businessRulesClass" value="org.kuali.kfs.sys.document.validation.impl.AccountingRuleEngineRuleBase"/>
 	   <property name="sessionDocument" value="true"/>
@@ -41,25 +41,25 @@
     			<ref bean="IntraAccountAdjustmentDocument-targetAccountingLineGroup" parent="AccountingLineGroup"/>
     		</entry>
    	   </map>
-	   </property>  
+	   </property>
 	   <property name="importedLineParserClass" value="org.kuali.kfs.fp.businessobject.IntraAccountAdjustmentDocumentAccountingLineParser"/>
 	   <property name="workflowAttributes">
 	   		<ref bean="IntraAccountAdjustmentDocument-workflowAttributes"/>
 	   </property>
-	   
+
 	 </bean>
-	 
+
 	 <!-- Validations -->
-	 
+
 	 <bean id="IntraAccountAdjustmentDocument-validations" parent="IntraAccountAdjustmentDocument-validations-parentBean"/>
-	 
+
 	 <bean id="IntraAccountAdjustmentDocument-validations-parentBean" class="org.springframework.beans.factory.config.MapFactoryBean" abstract="true">
 	 	<property name="sourceMap">
 		<map key-type="java.lang.Class">
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.AttributedRouteDocumentEvent</value></key>
 				<value>IntraAccountAdjustment-routeDocumentValidation</value>
-			</entry>			
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.AttributedSaveDocumentEvent</value></key>
 				<value>IntraAccountAdjustment-saveDocumentValidation</value>
@@ -87,13 +87,13 @@
 			<entry>
 				<key><value>org.kuali.kfs.fp.document.validation.event.CapitalAccountingLinesSameObjectCodeSubTypeEvent</value></key>
 				<value>IntraAccountAdjustment-capitalAccountingLinesObjectSubtypeValidations</value>
-			</entry>			
+			</entry>
 	   	</map>
 	   </property>
 	 </bean>
-	 
+
 	 <!-- accounting line groups -->
-	 <bean id="IntraAccountAdjustmentDocument-sourceAccountingLineGroup" parent="IntraAccountAdjustmentDocument-sourceAccountingLineGroup-parentBean"/>  
+	 <bean id="IntraAccountAdjustmentDocument-sourceAccountingLineGroup" parent="IntraAccountAdjustmentDocument-sourceAccountingLineGroup-parentBean"/>
 	 <bean id="IntraAccountAdjustmentDocument-sourceAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
 	  <property name="accountingLineView" ref="IntraAccountAdjustmentDocument-accountingLineView"/>
 	  <property name="accountingLineClass" value="org.kuali.kfs.fp.businessobject.IntraAccountAdjustmentSourceAccountingLine"/>
@@ -103,8 +103,8 @@
 	  <property name="totals" ref="AccountingDocument-sourceGroupTotals"/>
 	  <property name="errorKey" value="document.sourceAccounting*,sourceAccountingLines,newSourceLine*"/>
 	</bean>
-	
-	<bean id="IntraAccountAdjustmentDocument-targetAccountingLineGroup" parent="IntraAccountAdjustmentDocument-targetAccountingLineGroup-parentBean"/>	
+
+	<bean id="IntraAccountAdjustmentDocument-targetAccountingLineGroup" parent="IntraAccountAdjustmentDocument-targetAccountingLineGroup-parentBean"/>
 	<bean id="IntraAccountAdjustmentDocument-targetAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
 	 <property name="accountingLineView" ref="IntraAccountAdjustmentDocument-accountingLineView"/>
 	 <property name="accountingLineClass" value="org.kuali.kfs.fp.businessobject.IntraAccountAdjustmentTargetAccountingLine"/>
@@ -114,7 +114,7 @@
 	 <property name="totals" ref="AccountingDocument-targetGroupTotals"/>
 	 <property name="errorKey" value="document.targetAccounting*,targetAccountingLines,newTargetLine*"/>
 	</bean>
-	 
+
 	<bean id="IntraAccountAdjustmentDocument-accountingLineView" parent="IntraAccountAdjustmentDocument-accountingLineView-parent" />
 	<bean id="IntraAccountAdjustmentDocument-accountingLineView-parent" parent="AccountingLineView" abstract="true">
 		<property name="elements">
@@ -136,12 +136,12 @@
 	</bean>
 
 	<bean id="IntraAccountAdjustmentDocument-workflowAttributes" parent="IntraAccountAdjustmentDocument-workflowAttributes-parentBean"/>
-	
+
 	<bean id="IntraAccountAdjustmentDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
-	   	
+
 	   	<property name="routingTypeDefinitions">
 	   		<map>
-	   			<entry key="Account" value-ref="RoutingType-AccountingDocument-Account"/>	   			
+	   			<entry key="Account" value-ref="RoutingType-AccountingDocument-Account"/>
 	   		</map>
 	   	</property>
 	</bean>

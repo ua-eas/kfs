@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,7 +33,7 @@ import java.util.Collection;
 
 /**
 *  This class represents the 4-part key which uniquely identifies a parameter.
-*  
+*
 *  @see ParameterContract
 *  @see Parameter
 */
@@ -58,7 +58,7 @@ public final class ParameterKey extends AbstractDataTransferObject {
 
 	@XmlElement(name = Elements.COMPONENT_CODE, required=true)
 	private final String componentCode;
-	
+
     @XmlElement(name = Elements.NAME, required=true)
     private final String name;
 
@@ -66,8 +66,8 @@ public final class ParameterKey extends AbstractDataTransferObject {
 	@XmlAnyElement
     private final Collection<Element> _futureElements = null;
 
-    /** 
-     * This constructor should never be called except during JAXB unmarshalling. 
+    /**
+     * This constructor should never be called except during JAXB unmarshalling.
      */
     private ParameterKey() {
     	this.applicationId = null;
@@ -100,7 +100,7 @@ public final class ParameterKey extends AbstractDataTransferObject {
 
     /**
      * Creates a ParameterKey from the given required values.
-     * 
+     *
      * @param applicationId the application id, cannot be null or blank
      * @param namespaceCode the namespace code, cannot be null or blank
      * @param componentCode the component code, cannot be null or blank
@@ -111,7 +111,7 @@ public final class ParameterKey extends AbstractDataTransferObject {
     public static ParameterKey create(String applicationId, String namespaceCode, String componentCode, String name) {
         return new ParameterKey(applicationId, namespaceCode, componentCode, name);
     }
-	
+
     public String getApplicationId() {
 		return applicationId;
 	}
@@ -131,7 +131,7 @@ public final class ParameterKey extends AbstractDataTransferObject {
     public String getCacheKey() {
         return this.applicationId + ":" + this.namespaceCode + ":" + this.componentCode + ":" + this.name;
     }
-    
+
 	/**
 	 * Defines some internal constants used on this class.
 	 */
@@ -139,7 +139,7 @@ public final class ParameterKey extends AbstractDataTransferObject {
 		final static String ROOT_ELEMENT_NAME = "parameterKey";
 		final static String TYPE_NAME = "ParameterKeyType";
 	}
-  
+
 	/**
 	 * A private class which exposes constants which define the XML element names to use
 	 * when this object is marshalled to XML.
@@ -150,5 +150,5 @@ public final class ParameterKey extends AbstractDataTransferObject {
 		final static String COMPONENT_CODE = "componentCode";
 		final static String NAME = "name";
 	}
-  
+
 }

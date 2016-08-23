@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -331,7 +331,7 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
 
     /**
      * Gets the bankCode attribute.
-     * 
+     *
      * @return Returns the bankCode.
      */
     public String getOrigBankCode() {
@@ -340,7 +340,7 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
 
     /**
      * Sets the bankCode attribute value.
-     * 
+     *
      * @param bankCode The bankCode to set.
      */
     public void setOrigBankCode(String bankCode) {
@@ -399,7 +399,7 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
 
     /**
      * Gets the disbursementTypeCode attribute.
-     * 
+     *
      * @return Returns the disbursementTypeCode.
      */
     public String getDisbursementTypeCode() {
@@ -408,7 +408,7 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
 
     /**
      * Sets the disbursementTypeCode attribute value.
-     * 
+     *
      * @param disbursementTypeCode The disbursementTypeCode to set.
      */
     public void setDisbursementTypeCode(String disbursementTypeCode) {
@@ -417,7 +417,7 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
 
     /**
      * Gets the paymentStatusCode attribute.
-     * 
+     *
      * @return Returns the paymentStatusCode.
      */
     public String getPaymentStatusCode() {
@@ -426,7 +426,7 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
 
     /**
      * Sets the paymentStatusCode attribute value.
-     * 
+     *
      * @param paymentStatusCode The paymentStatusCode to set.
      */
     public void setPaymentStatusCode(String paymentStatusCode) {
@@ -435,7 +435,7 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
 
     /**
      * Gets the paymentProcess attribute.
-     * 
+     *
      * @return Returns the paymentProcess.
      */
     public PaymentProcess getPaymentProcess() {
@@ -444,7 +444,7 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
 
     /**
      * Sets the paymentProcess attribute value.
-     * 
+     *
      * @param paymentProcess The paymentProcess to set.
      */
     public void setPaymentProcess(PaymentProcess paymentProcess) {
@@ -453,7 +453,7 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
 
     /**
      * Gets the paymentChangeCode attribute.
-     * 
+     *
      * @return Returns the paymentChangeCode.
      */
     public String getPaymentChangeCode() {
@@ -462,7 +462,7 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
 
     /**
      * Sets the paymentChangeCode attribute value.
-     * 
+     *
      * @param paymentChangeCode The paymentChangeCode to set.
      */
     public void setPaymentChangeCode(String paymentChangeCode) {
@@ -471,7 +471,7 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
 
     /**
      * Gets the paymentGroupId attribute.
-     * 
+     *
      * @return Returns the paymentGroupId.
      */
     public KualiInteger getPaymentGroupId() {
@@ -480,7 +480,7 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
 
     /**
      * Sets the paymentGroupId attribute value.
-     * 
+     *
      * @param paymentGroupId The paymentGroupId to set.
      */
     public void setPaymentGroupId(KualiInteger paymentGroupId) {
@@ -503,7 +503,7 @@ public class PaymentGroupHistory extends TimestampedBusinessObjectBase {
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
 

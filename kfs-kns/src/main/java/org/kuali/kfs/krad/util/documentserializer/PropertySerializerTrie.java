@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,21 +28,21 @@ import java.util.StringTokenizer;
  * during the document serialization process.
  *
  */
-public class PropertySerializerTrie {  
+public class PropertySerializerTrie {
     private static final String PROPERTY_NAME_COMPONENT_SEPARATOR = ".";
     private PropertySerializerTrieNode rootNode;
-    
+
     public PropertySerializerTrie() {
         rootNode = new PropertySerializerTrieNode(KRADConstants.EMPTY_STRING, KRADConstants.EMPTY_STRING);
     }
-    
+
     /**
      * Registers a new serializable property so that all of its primitives are serialized.  All nesting properties
      * will be serialized only to render open/close tags to maintain consistency with the document structure, unless
      * they are registered as well.
-     * 
+     *
      * For example, if only property "document.a.b" is registered, then the XML will look like the following:
-     * 
+     *
      * &lt;document&gt;
      *     &lt;a&gt;
      *         &lt;b&gt;
@@ -50,9 +50,9 @@ public class PropertySerializerTrie {
      *         &lt;/b&gt;
      *     &lt;/a&gt;
      * &lt;/document&gt;
-     * 
+     *
      * That is, primitives of "document" and "document.a" will not be serialized unless those property strings are registered.
-     * 
+     *
      * @param propertyName
      * @param setPropertySerializabilityToObjectAndAllPrimitivesForAll
      */
@@ -83,7 +83,7 @@ public class PropertySerializerTrie {
                     childNode = new PropertySerializerTrieNode(buf.toString(), attributeNameComponent);
                     currentNode.addChildNode(childNode);
                 }
-                
+
                 if (tok.hasMoreTokens()) {
                     buf.append(PROPERTY_NAME_COMPONENT_SEPARATOR);
                 }
@@ -91,14 +91,14 @@ public class PropertySerializerTrie {
                 if(setPropertySerializabilityToObjectAndAllPrimitivesForAll)
                 	currentNode.setPropertySerializabilityToObjectAndAllPrimitives();
             }
-            
+
             currentNode.setPropertySerializabilityToObjectAndAllPrimitives();
         }
     }
-    
+
     /**
      * Retrieves the metadata about the given property name
-     * 
+     *
      * @param propertyName
      * @return
      */
@@ -111,7 +111,7 @@ public class PropertySerializerTrie {
         }
         else {
             StringTokenizer tok = new StringTokenizer(propertyName, PROPERTY_NAME_COMPONENT_SEPARATOR, false);
-            
+
             PropertySerializerTrieNode currentNode = rootNode;
             while (tok.hasMoreTokens()) {
                 String attributeNameComponent = tok.nextToken();
@@ -131,16 +131,16 @@ public class PropertySerializerTrie {
             return currentNode;
         }
     }
-    
+
     /**
      * Returns the root node of the trie
-     * 
+     *
      * @return
      */
     public PropertySerializabilityMetadata getRootPropertySerializibilityMetadata() {
         return rootNode;
     }
-    
+
     protected void validateAttributeNameComponent(String attributeNameComponent) {
         if (StringUtils.isBlank(attributeNameComponent)) {
             throw new IllegalArgumentException("Blank attribute name component specified");

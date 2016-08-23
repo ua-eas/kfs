@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -52,13 +52,13 @@
         </dd:relationship>
         <dd:relationship objectAttribute="assetLocationState">
         	<dd:primitiveAttribute source="assetLocationCountryCode" target="countryCode"/>
-            <dd:primitiveAttribute source="assetLocationStateCode" target="code"/>            
+            <dd:primitiveAttribute source="assetLocationStateCode" target="code"/>
         </dd:relationship>
         <dd:relationship objectAttribute="assetLocationCountry">
             <dd:primitiveAttribute source="assetLocationCountryCode" target="code"/>
         </dd:relationship>
       </list>
-    </property>    
+    </property>
   </bean>
 
 <!-- Attribute Definitions -->
@@ -77,7 +77,7 @@
       <bean parent="TextControlDefinition" p:size="52"/>
     </property>
   </bean>
-  
+
   <bean id="AssetLocation-assetLocationContactIdentifier" parent="AssetLocation-assetLocationContactIdentifier-parentBean"/>
   <bean id="AssetLocation-assetLocationContactIdentifier-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="assetLocationContactIdentifier"/>
@@ -92,7 +92,7 @@
       <ref bean="StandardShortNameTextControl" />
     </property>
   </bean>
-  
+
   <bean id="AssetLocation-assetLocationContactName" parent="AssetLocation-assetLocationContactName-parentBean"/>
   <bean id="AssetLocation-assetLocationContactName-parentBean" abstract="true" parent="PersonImpl-name">
     <property name="name" value="assetLocationContactName"/>
@@ -106,7 +106,7 @@
       <bean parent="TextControlDefinition" p:size="52"/>
     </property>
   </bean>
-  
+
   <bean id="AssetLocation-assetLocationCountryCode" parent="AssetLocation-assetLocationCountryCode-parentBean"/>
   <bean id="AssetLocation-assetLocationCountryCode-parentBean" abstract="true" parent="Country-code">
     <property name="name" value="assetLocationCountryCode"/>
@@ -117,7 +117,7 @@
       <bean parent="SelectControlDefinition" p:includeBlankRow="true" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.CountryValuesFinder"/>
     </property>
   </bean>
-  
+
   <bean id="AssetLocation-assetLocationInstitutionName" parent="AssetLocation-assetLocationInstitutionName-parentBean"/>
   <bean id="AssetLocation-assetLocationInstitutionName-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="assetLocationInstitutionName"/>
@@ -132,7 +132,7 @@
       <bean parent="TextControlDefinition" p:size="52"/>
     </property>
   </bean>
-  
+
   <bean id="AssetLocation-assetLocationPhoneNumber" parent="AssetLocation-assetLocationPhoneNumber-parentBean"/>
   <bean id="AssetLocation-assetLocationPhoneNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="assetLocationPhoneNumber"/>
@@ -147,7 +147,7 @@
       <bean parent="TextControlDefinition" p:size="15"/>
     </property>
   </bean>
-  
+
   <bean id="AssetLocation-assetLocationStateCode" parent="AssetLocation-assetLocationStateCode-parentBean"/>
   <bean id="AssetLocation-assetLocationStateCode-parentBean" abstract="true" parent="State-code">
     <property name="name" value="assetLocationStateCode"/>
@@ -156,7 +156,7 @@
     <property name="shortLabel" value="Code"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="AssetLocation-assetLocationStreetAddress" parent="AssetLocation-assetLocationStreetAddress-parentBean"/>
   <bean id="AssetLocation-assetLocationStreetAddress-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="assetLocationStreetAddress"/>
@@ -171,11 +171,11 @@
       <bean parent="TextControlDefinition" p:size="52"/>
     </property>
   </bean>
-  
+
   <bean id="AssetLocation-assetLocationTypeCode" parent="AssetLocation-assetLocationTypeCode-parentBean"/>
   <bean id="AssetLocation-assetLocationTypeCode-parentBean" abstract="true" parent="AssetLocationType-assetLocationTypeCode">
   </bean>
-  
+
   <bean id="AssetLocation-assetLocationZipCode" parent="AssetLocation-assetLocationZipCode-parentBean"/>
   <bean id="AssetLocation-assetLocationZipCode-parentBean" abstract="true" parent="PostalCode-code" >
     <property name="name" value="assetLocationZipCode"/>
@@ -183,7 +183,7 @@
     <property name="shortLabel" value="Postal Code"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="AssetLocation-capitalAssetNumber" parent="AssetLocation-capitalAssetNumber-parentBean"/>
   <bean id="AssetLocation-capitalAssetNumber-parentBean" abstract="true" parent="Asset-capitalAssetNumber">
   </bean>
@@ -222,7 +222,7 @@
   <bean id="AssetLocation-lookupDefinition" parent="AssetLocation-lookupDefinition-parentBean"/>
   <bean id="AssetLocation-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Asset Location Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
       </bean>

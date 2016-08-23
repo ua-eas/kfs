@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -59,7 +59,7 @@ public class TestDataGenerator {
 
     /**
      * Constructs a TestDataGenerator instance
-     * 
+     *
      * @param propertiesFileName the name of the properties file to load
      * @param messageFileName the name of the message file to load
      */
@@ -74,7 +74,7 @@ public class TestDataGenerator {
 
     /**
      * Generates transaction data for a business object from properties
-     * 
+     *
      * @param businessObject the transction business object
      * @return the transction business object with data
      * @throws Exception thrown if an exception is encountered for any reason
@@ -98,9 +98,9 @@ public class TestDataGenerator {
         setFiscalYear(businessObject);
         return businessObject;
     }
-    
+
     /**
-     * If the actual transaction implementation has a "setUniversityFiscalYear" method, use that to set the 
+     * If the actual transaction implementation has a "setUniversityFiscalYear" method, use that to set the
      * fiscal year to the value of TestUtils.getFiscalYearForTesting()
      * @param transaction transaction to try to set fiscal year on
      */
@@ -120,12 +120,12 @@ public class TestDataGenerator {
         catch (NoSuchMethodException nsme) {
             LOG.info("Could test universityFiscalYear property on fixture of transaction type: "+transaction.getClass().getName(), nsme);
         }
-        
+
     }
 
     /**
      * Generates lookup fields and values through reading properties
-     * 
+     *
      * @param businessObject the business object ot populate
      * @throws Exception thrown if an exception is encountered for any reason
      */
@@ -135,7 +135,7 @@ public class TestDataGenerator {
 
     /**
      * This method generates lookup fields and values through reading properties
-     * 
+     *
      * @param businessObject the business object to populate
      * @return the map of lookup fields and values
      * @throws Exception thrown if an exception is encountered for any reason
@@ -173,7 +173,7 @@ public class TestDataGenerator {
 
     /**
      * This method loads the properties from the property file
-     * 
+     *
      * @param propertiesFileName the name of file containing the properties
      * @return the properties that have been populated
      */
@@ -192,7 +192,7 @@ public class TestDataGenerator {
 
     /**
      * This method gets the approperiate property value by examining the given parameters
-     * 
+     *
      * @param businessObject the given business object
      * @param propertyName the given property name
      * @param propertyValue the given property value
@@ -229,7 +229,7 @@ public class TestDataGenerator {
 
     /**
      * This method obtains the value of the message with the given name
-     * 
+     *
      * @param messageName the given message name
      * @return the value of the message
      */
@@ -242,7 +242,7 @@ public class TestDataGenerator {
 
     /**
      * This method obtains the value of the property with the given name
-     * 
+     *
      * @param propertyName the given property name
      * @return the value of the property
      */
@@ -255,7 +255,7 @@ public class TestDataGenerator {
 
     /**
      * Gets the properties attribute.
-     * 
+     *
      * @return Returns the properties.
      */
     public Properties getProperties() {
@@ -264,7 +264,7 @@ public class TestDataGenerator {
 
     /**
      * Sets the properties attribute value.
-     * 
+     *
      * @param properties The properties to set.
      */
     public void setProperties(Properties properties) {
@@ -273,7 +273,7 @@ public class TestDataGenerator {
 
     /**
      * Gets the message attribute.
-     * 
+     *
      * @return Returns the message.
      */
     public Properties getMessage() {
@@ -282,7 +282,7 @@ public class TestDataGenerator {
 
     /**
      * Sets the message attribute value.
-     * 
+     *
      * @param message The message to set.
      */
     public void setMessage(Properties message) {

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -28,7 +28,7 @@
                            http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
                            http://www.springframework.org/schema/aop
                            http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
-                           
+
     <bean id="vndModuleConfiguration" parent="vndModuleConfiguration-parentBean" />
 
 	<bean id="vndModuleConfiguration-parentBean" class="org.kuali.kfs.sys.FinancialSystemModuleConfiguration" abstract="true">
@@ -75,9 +75,9 @@
 	</bean>
 
     <bean id="vendorDao" parent="platformAwareDao" class="org.kuali.kfs.vnd.dataaccess.impl.VendorDaoOjb" />
-   
+
     <bean id="vendorService" parent="vendorService-parentBean"/>
-   
+
     <bean id="vendorService-parentBean" class="org.kuali.kfs.vnd.document.service.impl.VendorServiceImpl" abstract="true">
         <property name="vendorDao" ref="vendorDao"/>
         <property name="businessObjectService" ref="businessObjectService"/>
@@ -93,14 +93,14 @@
         </property>
     </bean>
     <bean id="taxNumberService" parent="taxNumberService-parentBean"/>
-    
+
     <bean id="taxNumberService-parentBean" class="org.kuali.kfs.vnd.service.impl.TaxNumberServiceImpl" abstract="true">
         <property name="parameterService">
             <ref bean="parameterService"/>
         </property>
     </bean>
     <bean id="vendorLookupableHelperService" parent="vendorLookupableHelperService-parentBean" scope="prototype" />
-    
+
     <bean id="vendorLookupableHelperService-parentBean" class="org.kuali.kfs.vnd.businessobject.lookup.VendorLookupableHelperServiceImpl"  abstract="true" scope="prototype">
         <property name="persistenceStructureService">
             <ref bean="persistenceStructureService" />
@@ -144,7 +144,7 @@
         </property>
     </bean>
     <bean id="vendorPhoneLookupableHelperService" parent="vendorPhoneLookupableHelperService-parentBean" scope="prototype" />
-    
+
     <bean id="vendorPhoneLookupableHelperService-parentBean" class="org.kuali.kfs.vnd.businessobject.lookup.VendorPhoneLookupableHelperServiceImpl"  abstract="true" scope="prototype">
         <property name="persistenceStructureService">
             <ref bean="persistenceStructureService" />
@@ -163,7 +163,7 @@
         </property>
     </bean>
 	<bean id="vendorContractLookupableHelperService" parent="vendorContractLookupableHelperService-parentBean" scope="prototype" />
-	   
+
     <bean id="vendorContractLookupableHelperService-parentBean" class="org.kuali.kfs.vnd.businessobject.lookup.VendorContractLookupableHelperServiceImpl" scope="prototype" abstract="true">
         <property name="persistenceStructureService">
             <ref bean="persistenceStructureService" />
@@ -176,7 +176,7 @@
         </property>
         <property name="dateTimeService">
             <ref bean="dateTimeService" />
-        </property>                
+        </property>
         <property name="businessObjectMetaDataService">
             <ref bean="businessObjectMetaDataService" />
         </property>
@@ -188,7 +188,7 @@
         </property>
     </bean>
     <bean id="vendorAddressLookupableHelperService" parent="vendorAddressLookupableHelperService-parentBean" scope="prototype" />
-    
+
     <bean id="vendorAddressLookupableHelperService-parentBean" class="org.kuali.kfs.vnd.businessobject.lookup.VendorAddressLookupableHelperServiceImpl" scope="prototype" abstract="true">
         <property name="persistenceStructureService">
             <ref bean="persistenceStructureService" />
@@ -207,7 +207,7 @@
         </property>
     </bean>
     <bean id="vendorCustomerNumberLookupableHelperService" parent="vendorCustomerNumberLookupableHelperService-parentBean" scope="prototype" />
-  
+
     <bean id="vendorCustomerNumberLookupableHelperService-parentBean" class="org.kuali.kfs.vnd.businessobject.lookup.VendorCustomerNumberLookupableHelperServiceImpl" scope="prototype" abstract="true">
         <property name="persistenceStructureService">
             <ref bean="persistenceStructureService" />
@@ -226,48 +226,48 @@
         </property>
     </bean>
     <bean id="vendorLookupable" parent="vendorLookupable-parentBean"/>
-    
+
     <bean id="vendorLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
         <property name="lookupableHelperService">
             <ref bean="vendorLookupableHelperService" />
         </property>
     </bean>
     <bean id="vendorContactLookupable" parent="vendorContactLookupable-parentBean"/>
-    
+
     <bean id="vendorContactLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
         <property name="lookupableHelperService">
             <ref bean="vendorContactLookupableHelperService" />
         </property>
     </bean>
     <bean id="vendorPhoneLookupable" parent="vendorPhoneLookupable-parentBean"/>
-    
+
     <bean id="vendorPhoneLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
         <property name="lookupableHelperService">
             <ref bean="vendorPhoneLookupableHelperService" />
         </property>
     </bean>
     <bean id="vendorContractLookupable" parent="vendorContractLookupable-parentBean"/>
-    
+
     <bean id="vendorContractLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
         <property name="lookupableHelperService">
             <ref bean="vendorContractLookupableHelperService" />
         </property>
     </bean>
     <bean id="vendorAddressLookupable" parent="vendorAddressLookupable-parentBean"/>
-    
+
     <bean id="vendorAddressLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
         <property name="lookupableHelperService">
             <ref bean="vendorAddressLookupableHelperService" />
         </property>
     </bean>
     <bean id="vendorCustomerNumberLookupable" parent="vendorCustomerNumberLookupable-parentBean"/>
-  
+
     <bean id="vendorCustomerNumberLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
         <property name="lookupableHelperService">
             <ref bean="vendorCustomerNumberLookupableHelperService" />
         </property>
     </bean>
-   
+
    <bean id="commodityCodeDao" parent="platformAwareDao" class="org.kuali.kfs.vnd.dataaccess.impl.CommodityCodeDaoOjb" />
 
     <bean id="commodityCodeService" parent="commodityCodeService-parentBean"/>
@@ -275,15 +275,15 @@
     <bean id="commodityCodeService-parentBean" class="org.kuali.kfs.vnd.service.impl.CommodityCodeServiceImpl" abstract="true">
          <property name="businessObjectService">
             <ref bean="businessObjectService" />
-        </property> 
+        </property>
         <property name="commodityCodeDao">
             <ref bean="commodityCodeDao" />
-        </property> 
+        </property>
     </bean>
 
 	<bean id="debarredVendorMatchDao" parent="platformAwareDao"
 		class="org.kuali.kfs.vnd.batch.dataaccess.DebarredVendorMatchDaoOjb" />
-		
+
 	<bean id="debarredVendorDao" parent="platformAwareDaoJdbc"
 		class="org.kuali.kfs.vnd.batch.dataaccess.DebarredVendorDaoJdbc">
 		<property name="debarredVendorMatchDao">
@@ -293,7 +293,7 @@
 			<ref bean="vendorService" />
 		</property>
 	</bean>
-		
+
 	<bean id="vendorExcludeService" parent="vendorExcludeService-parentBean"/>
 	<bean id="vendorExcludeService-parentBean" abstract="true" class="org.kuali.kfs.vnd.batch.service.impl.VendorExcludeServiceImpl">
 		<property name="batchInputFileService">
@@ -314,8 +314,8 @@
 		<property name="dateTimeService">
 			<ref bean="dateTimeService" />
 		</property>
-	</bean>  
-	
+	</bean>
+
 	<bean id="vendorExcludeInputFileType" parent="vendorExcludeInputFileType-parentBean"/>
 	<bean id="vendorExcludeInputFileType-parentBean" abstract="true" class="org.kuali.kfs.vnd.batch.VendorExcludeInputFileType">
     	<property name="directoryPath">
@@ -327,8 +327,8 @@
 	    <property name="dateTimeService">
 	       <ref bean="dateTimeService"/>
 	    </property>
-	</bean> 
-	
+	</bean>
+
 	<bean id="vendorExcludeJob" parent="unscheduledJobDescriptor">
 	<property name="steps">
 			<list>
@@ -337,33 +337,33 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="loadEplsFileStep" class="org.kuali.kfs.vnd.batch.LoadEplsFileStep"
 		parent="step">
 		<property name="vendorExcludeService">
 			<ref bean="vendorExcludeService" />
 		</property>
 	</bean>
-	
+
 	<bean id="vendorMatchStep" class="org.kuali.kfs.vnd.batch.VendorMatchStep"
 		parent="step">
 		<property name="vendorExcludeService">
 			<ref bean="vendorExcludeService" />
 		</property>
 	</bean>
-	
+
 	<bean id="vendorExclusionLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" parent="cf.kualiLookupable" scope="prototype">
         <property name="lookupableHelperService">
-         	<ref bean="vendorExclusionLookupableHelperServiceImpl" />   
+         	<ref bean="vendorExclusionLookupableHelperServiceImpl" />
         </property>
     </bean>
-     
+
     <bean id="debarredVendorUnmatchedLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" parent="cf.kualiLookupable" scope="prototype">
         <property name="lookupableHelperService">
-         	<ref bean="debarredVendorUnmatchedLookupableHelperServiceImpl" />   
+         	<ref bean="debarredVendorUnmatchedLookupableHelperServiceImpl" />
         </property>
     </bean>
-    
+
     <bean id="vendorExclusionLookupableHelperServiceImpl" class="org.kuali.kfs.vnd.businessobject.lookup.VendorExclusionLookupableHelperServiceImpl" parent="cf.lookupableHelperService">
 		<property name="vendorExcludeService">
 			<ref bean="vendorExcludeService" />
@@ -375,7 +375,7 @@
 			<ref bean="kualiConfigurationService" />
 		</property>
 	</bean>
-	
+
 	<bean id="debarredVendorUnmatchedLookupableHelperServiceImpl" class="org.kuali.kfs.vnd.businessobject.lookup.DebarredVendorUnmatchedLookupableHelperServiceImpl" parent="cf.lookupableHelperService">
 		<property name="vendorExcludeService">
 			<ref bean="vendorExcludeService" />
@@ -384,22 +384,22 @@
 			<ref bean="vendorService" />
 		</property>
 	</bean>
-    
+
 
 
     <bean id="commodityReviewRoleTypeService" parent="commodityReviewRoleTypeService-parentBean"/>
-    
+
     <bean id="commodityReviewRoleTypeService-parentBean" class="org.kuali.kfs.vnd.identity.CommodityReviewRoleTypeServiceImpl" abstract="true" />
-		
+
     <bean id="contractManagerRoleTypeService" parent="contractManagerRoleTypeService-parentBean"/>
 
     <bean id="contractManagerRoleTypeService-parentBean" class="org.kuali.kfs.vnd.identity.ContractManagerRoleTypeServiceImpl" abstract="true" />
-		
+
     <bean id="vendorTypeRoleTypeService" parent="vendorTypeRoleTypeService-parentBean"/>
 
     <bean id="vendorTypeRoleTypeService-parentBean" class="org.kuali.kfs.vnd.identity.VendorTypeRoleTypeServiceImpl" abstract="true" />
-    
+
     <import resource="spring-vnd-bus-exports.xml"/>
-		
-    
+
+
 </beans>

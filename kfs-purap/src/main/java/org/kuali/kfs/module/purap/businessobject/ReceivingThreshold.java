@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,12 +41,12 @@ public class ReceivingThreshold extends PersistableBusinessObjectBase implements
     private String organizationCode;
     private KualiDecimal thresholdAmount;
     private String purchasingCommodityCode;
-    
+
     private Integer vendorHeaderGeneratedIdentifier;
     private Integer vendorDetailAssignedIdentifier;
 
     private boolean active;
-    
+
     private Chart chart;
     private AccountType accountType;
     private SubFundGroup subFundGroup;
@@ -54,15 +54,15 @@ public class ReceivingThreshold extends PersistableBusinessObjectBase implements
     private Organization organization;
     private VendorDetail vendorDetail;
     private CommodityCode commodityCode;
-    
+
     public ReceivingThreshold(){
     }
-    
-    
+
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-        
+
         LinkedHashMap returnMap = new LinkedHashMap();
-        
+
         returnMap.put("thresholdIdentifier",thresholdIdentifier);
         returnMap.put("chartOfAccountsCode",chartOfAccountsCode);
         returnMap.put("accountTypeCode",accountTypeCode);
@@ -72,7 +72,7 @@ public class ReceivingThreshold extends PersistableBusinessObjectBase implements
         returnMap.put("vendorHeaderGeneratedIdentifier",vendorHeaderGeneratedIdentifier);
         returnMap.put("thresholdAmount",thresholdAmount);
         returnMap.put("active",active);
-        
+
         return returnMap;
     }
 
@@ -209,7 +209,7 @@ public class ReceivingThreshold extends PersistableBusinessObjectBase implements
         setVendorHeaderGeneratedIdentifier(tempVendorDetail.getVendorHeaderGeneratedIdentifier());
         setVendorDetailAssignedIdentifier(tempVendorDetail.getVendorDetailAssignedIdentifier());
     }
-    
+
     public Integer getVendorDetailAssignedIdentifier() {
         return vendorDetailAssignedIdentifier;
     }
@@ -217,7 +217,7 @@ public class ReceivingThreshold extends PersistableBusinessObjectBase implements
     public void setVendorDetailAssignedIdentifier(Integer vendorDetailAssignedIdentifier) {
         this.vendorDetailAssignedIdentifier = vendorDetailAssignedIdentifier;
     }
-    
+
     public String getPurchasingCommodityCode() {
         return purchasingCommodityCode;
     }
@@ -233,5 +233,5 @@ public class ReceivingThreshold extends PersistableBusinessObjectBase implements
     public void setCommodityCode(CommodityCode commodityCode) {
         this.commodityCode = commodityCode;
     }
-    
+
 }

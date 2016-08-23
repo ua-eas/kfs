@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -22,7 +22,7 @@
     xmlns:p="http://www.springframework.org/schema/p"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-        
+
     <bean id="InternalBilling-checkAllItemsValidation" abstract="true" parent="CollectionValidation" scope="prototype">
 		<property name="collectionProperty" value="document.items" />
 		<property name="validations">
@@ -42,7 +42,7 @@
 	</bean>
 
 	<bean id="InternalBilling-routeDocumentValidation" parent="InternalBilling-routeDocumentValidation-parentBean" scope="prototype" />
-  
+
   	<bean id="InternalBilling-routeDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
@@ -50,17 +50,17 @@
   				<bean parent="InternalBilling-checkAllItemsValidation" scope="prototype" />
 				<bean parent="AccountingDocument-capitalAssetLineUniquenessValidation" scope="prototype" />
 				<bean parent="CapitalAccountingLines-capitalAccountingLinesValidations" scope="prototype" />
-  				<bean parent="CapitialAssetInformation-capitalAssetInformationValidation" scope="prototype" />  				
+  				<bean parent="CapitialAssetInformation-capitalAssetInformationValidation" scope="prototype" />
   			</list>
   		</property>
   	</bean>
-  	
+
   	<bean id="InternalBilling-saveDocumentValidation" parent="InternalBilling-saveDocumentValidation-parentBean" scope="prototype" />
-  
+
   	<bean id="InternalBilling-saveDocumentValidation-parentBean" parent="AccountingDocument-SaveDocument-DefaultValidation" scope="prototype" abstract="true" />
-  
+
   	<bean id="InternalBilling-approveDocumentValidation" parent="InternalBilling-approveDocumentValidation-parentBean" scope="prototype" />
-  
+
   	<bean id="InternalBilling-approveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
@@ -69,9 +69,9 @@
   			</list>
   		</property>
   	</bean>
-  
+
 	<bean id="InternalBilling-blanketApproveDocumentValidation" parent="InternalBilling-blanketApproveDocumentValidation-parentBean" scope="prototype" />
-  
+
   	<bean id="InternalBilling-blanketApproveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
@@ -82,7 +82,7 @@
   			</list>
   		</property>
 	</bean>
-		
+
 	<bean id="InternalBilling-addAccountingLineValidation-AccountingLineGroupedValidation" abstract="true" parent="CompositeValidation" scope="prototype">
 		<property name="validations">
 			<list>
@@ -115,9 +115,9 @@
 			</list>
 		</property>
 	</bean>
-  
+
 	<bean id="InternalBilling-addAccountingLineValidation" parent="InternalBilling-addAccountingLineValidation-parentBean" scope="prototype" />
-  
+
 	<bean id="InternalBilling-addAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
@@ -133,15 +133,15 @@
 			</list>
   		</property>
 	</bean>
-  
+
 	<bean id="InternalBilling-deleteAccountingLineValidation" parent="InternalBilling-deleteAccountingLineValidation-parentBean" scope="prototype" />
-  
+
 	<bean id="InternalBilling-deleteAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<bean parent="AccountingDocument-DeleteAccountingLine-DefaultValidation" scope="prototype" />
   		</property>
 	</bean>
-	
+
 	<bean id="InternalBilling-updatedAccountingLineValidation-AccountingLineGroupedValidation" abstract="true" parent="CompositeValidation" scope="prototype">
 		<property name="validations">
 			<list>
@@ -173,9 +173,9 @@
 			</list>
 		</property>
 	</bean>
-  
+
 	<bean id="InternalBilling-updateAccountingLineValidation" parent="InternalBilling-updateAccountingLineValidation-parentBean" scope="prototype" />
-  
+
 	<bean id="InternalBilling-updateAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
@@ -191,9 +191,9 @@
 			</list>
   		</property>
 	</bean>
-  
+
 	<bean id="InternalBilling-reviewAccountingLineValidation" parent="InternalBilling-reviewAccountingLineValidation-parentBean" scope="prototype" />
-  
+
 	<bean id="InternalBilling-reviewAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
@@ -227,7 +227,7 @@
 	</bean>
       <!-- object sub type check Event  -->
 	<bean id="InternalBilling-capitalAccountingLinesObjectSubtypeValidations" parent="InternalBilling-capitalAccountingLinesObjectSubtypeValidations-parentBean" scope="prototype" />
-  
+
 	<bean id="InternalBilling-capitalAccountingLinesObjectSubtypeValidations-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
@@ -235,7 +235,7 @@
         			<property name="parameterProperties">
            				<list>
              				<bean parent="accountingDocumentFieldConversion" />
-           				</list> 
+           				</list>
                    </property>
        			</bean>
   			</list>

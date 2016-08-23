@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -52,7 +52,7 @@
      	<bean parent="TextControlDefinition" p:size="5"/>
     </property>
   </bean>
-  
+
   <bean id="budgetCategoryDTO-budgetCategoryTypeCode" parent="budgetCategoryDTO-budgetCategoryTypeCode-parentBean"/>
   <bean id="budgetCategoryDTO-budgetCategoryTypeCode-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="budgetCategoryTypeCode"/>
@@ -66,7 +66,7 @@
       <bean parent="TextareaControlDefinition" p:size="5"/>
     </property>
   </bean>
-  
+
   <bean id="budgetCategoryDTO-description" parent="budgetCategoryDTO-description-parentBean"/>
   <bean id="budgetCategoryDTO-description-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="description"/>
@@ -80,7 +80,7 @@
       <bean parent="TextareaControlDefinition" p:rows="3" p:cols="80"/>
     </property>
   </bean>
-       
+
  <!-- Business Object Inquiry Definition -->
 
   <bean id="budgetCategoryDTO-inquiryDefinition" parent="budgetCategoryDTO-inquiryDefinition-parentBean"/>
@@ -93,7 +93,7 @@
       </list>
     </property>
   </bean>
-  
+
  <bean id="budgetCategoryDTO-inquirySectionDefinition" parent="budgetCategoryDTO-inquirySectionDefinition-parentBean"/>
  <bean id="budgetCategoryDTO-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true"  p:title="Budget Category Code Details">
           <property name="inquiryFields">
@@ -113,7 +113,7 @@
   <bean id="budgetCategoryDTO-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Budget Category Code Lookup"/>
 	<property name="lookupableID" value="cf.kualiLookupable"/>
-	
+
     <property name="lookupFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="budgetCategoryCode"/>

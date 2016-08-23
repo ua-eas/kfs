@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,7 +46,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * Retrieves account business object by primary key
-     * 
+     *
      * @param chartOfAccountsCode - the FIN_COA_CD of the Chart Code that is part of the composite key of Account
      * @param accountNumber - the ACCOUNT_NBR part of the composite key of Accont
      * @return Account
@@ -64,7 +64,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * fetch the accounts that the user is either the fiscal officer or a delegate of the fiscal officer
-     * 
+     *
      * @param kualiUser
      * @return a list of Accounts that the user has responsibility for
      */
@@ -92,7 +92,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
     /**
      * Resolves the Primary Delegate for the given delegate example. If the primary delegate exists for a specific Document Type
      * Code and for a Document Type Code of "KFS", the delegate for the specific document type code is returned;
-     * 
+     *
      * @see org.kuali.kfs.coa.dataaccess.AccountDao#getPrimaryDelegationByExample(org.kuali.kfs.coa.businessobject.AccountDelegate,
      *      java.lang.String)
      */
@@ -110,7 +110,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * This method creates a {@link Criteria} based on {@link Delegate}, dollar amount and whether or not it is the primary delegate
-     * 
+     *
      * @param delegateExample
      * @param totalDollarAmount
      * @param accountsDelegatePrmrtIndicator
@@ -181,7 +181,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * method to get the fo responsibilities for the account
-     * 
+     *
      * @param person - fiscal officer to check for
      * @return list of {@link AccountResponsibility} for this fiscal officer
      */
@@ -200,7 +200,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * This method determines if a given user has fiscal officer responsiblity on a given account.
-     * 
+     *
      * @param person the user to check responsibilities for
      * @param account the account to check responsibilities on
      * @return true if user does have fiscal officer responsibility on account, false if otherwise
@@ -223,7 +223,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * method to get the fo delegated responsibilities for the account
-     * 
+     *
      * @param person - user to check against
      * @return a list of {@link AccountResponsibility} objects for a delegate
      */
@@ -252,7 +252,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * This method determines if a user has delegated responsibilities on a given account.
-     * 
+     *
      * @param person the user to check responsibilities for
      * @param account the account to check responsibilities on
      * @return true if user has delegated responsibilities
@@ -337,7 +337,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * Builds a criteria to find expired accounts
-     * 
+     *
      * @return a Criteria for expired accounts
      */
     protected Criteria getAccountExpiredCriteria(Date currentSqlDate) {
@@ -349,7 +349,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * Builds a criteria to find non-expired accounts
-     * 
+     *
      * @return a Criteria for non-expired accounts
      */
     protected Criteria getAccountNotExpiredCriteria(Date currentSqlDate) {
@@ -372,7 +372,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * Determines if any non-closed accounts exist where the principal id is in the role of the role name
-     * 
+     *
      * @param principalId the principal id to check
      * @param principalRoleName the name of the field on account to check for the principal id in
      * @return true if the principal has that account role, false otherwise

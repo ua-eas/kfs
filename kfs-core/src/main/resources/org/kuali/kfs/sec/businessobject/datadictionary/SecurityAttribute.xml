@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -55,7 +55,7 @@
       <bean parent="TextControlDefinition" p:size="10"/>
     </property>
   </bean>
-  
+
   <bean id="SecurityAttribute-name" parent="SecurityAttribute-name-parentBean"/>
 
   <bean id="SecurityAttribute-name-parentBean" abstract="true" parent="AttributeDefinition">
@@ -72,14 +72,14 @@
       <bean parent="TextControlDefinition" p:size="40"/>
     </property>
   </bean>
-     
+
   <bean id="SecurityAttribute-active" parent="SecurityAttribute-active-parentBean"/>
 
   <bean id="SecurityAttribute-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="active"/>
     <property name="shortLabel" value="Active"/>
   </bean>
-  
+
 <!-- Business Object Inquiry Definition -->
 
   <bean id="SecurityAttribute-inquiryDefinition" parent="SecurityAttribute-inquiryDefinition-parentBean"/>
@@ -92,9 +92,9 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="SecurityAttribute-inquirySectionDefinition" parent="SecurityAttribute-inquirySectionDefinition-parentBean"/>
-  <bean id="SecurityAttribute-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true"> 
+  <bean id="SecurityAttribute-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true">
 	  <property name="title" value=""/>
 	  <property name="numberOfColumns" value="1"/>
 	  <property name="inquiryFields">
@@ -113,7 +113,7 @@
 
   <bean id="SecurityAttribute-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Security Attribute Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
         <property name="attributeNames">

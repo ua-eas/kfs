@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,8 +21,8 @@ package org.kuali.kfs.krad.util;
 
 /**
  * Constants for the KNS module that describer object property fields
- * 
- * 
+ *
+ *
  */
 public final class KRADPropertyConstants {
 
@@ -98,7 +98,7 @@ public final class KRADPropertyConstants {
 	public static final String VERSION_NUMBER = "versionNumber";
 	public static final String WORKFLOW_DOCUMENT = "workflowDocument";
 	public static final String XML_DOCUMENT_CONTENTS = "xmlDocumentContents";
-	public static final String LAST_UPDATED_DATE = "lastUpdatedDate";	
+	public static final String LAST_UPDATED_DATE = "lastUpdatedDate";
 	public static final String POSTAL_COUNTRY_RESTRICTED_INDICATOR = "restricted";
 	public static final String POSTAL_COUNTRY_CODE = "code";
 	public static final String ALTERNATE_POSTAL_COUNTRY_CODE = "alternateCode";
@@ -108,10 +108,10 @@ public final class KRADPropertyConstants {
     public static final String POSTAL_STATE_CODE = "postalStateCode";
     public static final String POSTAL_CODE = "postalCode";
 
-    //  KULRICE-8091: Adhoc routing tab utilizing Groups on all documents missing asterisks 
+    //  KULRICE-8091: Adhoc routing tab utilizing Groups on all documents missing asterisks
     public static final String RECIPIENT_NAMESPACE_CODE = "recipientNamespaceCode";
     public static final String RECIPIENT_NAME="recipientName";
-    
+
 	private KRADPropertyConstants() {
 		throw new UnsupportedOperationException("do not call");
 	}

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -68,16 +68,16 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 public class LaborJournalVoucherAccountingLineParser extends AccountingLineParserBase {
     private String balanceTypeCode;
-    protected static final String[] LABOR_JV_FORMAT = { CHART_OF_ACCOUNTS_CODE, ACCOUNT_NUMBER, SUB_ACCOUNT_NUMBER, FINANCIAL_OBJECT_CODE, 
-        OBJECT_TYPE_CODE, FINANCIAL_SUB_OBJECT_CODE, PROJECT_CODE, ORGANIZATION_REFERENCE_ID, POSITION_NUMBER, EMPLID, EMPLOYEE_RECORD, 
-        EARN_CODE, PAY_GROUP, SALARY_ADMINISTRATION_PLAN, GRADE, RUN_IDENTIFIER, PAY_PERIOD_END_DATE, PAYROLL_END_DATE_FISCAL_YEAR, 
+    protected static final String[] LABOR_JV_FORMAT = { CHART_OF_ACCOUNTS_CODE, ACCOUNT_NUMBER, SUB_ACCOUNT_NUMBER, FINANCIAL_OBJECT_CODE,
+        OBJECT_TYPE_CODE, FINANCIAL_SUB_OBJECT_CODE, PROJECT_CODE, ORGANIZATION_REFERENCE_ID, POSITION_NUMBER, EMPLID, EMPLOYEE_RECORD,
+        EARN_CODE, PAY_GROUP, SALARY_ADMINISTRATION_PLAN, GRADE, RUN_IDENTIFIER, PAY_PERIOD_END_DATE, PAYROLL_END_DATE_FISCAL_YEAR,
         PAYROLL_END_DATE_FISCAL_PERIOD_CODE, TRANSACTION_TOTAL_HOURS, LABORLEDGER_ORIGINAL_CHART_OF_ACCOUNTS_CODE, LABORLEDGER_ORIGINAL_ACCOUNT_NUMBER,
         LABORLEDGER_ORIGINAL_SUB_ACCOUNT_NUMBER, LABORLEDGER_ORIGINAL_FINANCIAL_OBJECT_CODE, LABORLEDGER_ORIGINAL_FINANCIAL_SUB_OBJECT_CODE,
         HRMS_COMPANY, ENCUMBRANCE_UPDATE_CODE, SET_ID, DEBIT, CREDIT };
 
     /**
      * Constructs a JournalVoucherAccountingLineParser.java.
-     * 
+     *
      * @param balanceTypeCode
      */
     public LaborJournalVoucherAccountingLineParser(String balanceTypeCode) {
@@ -147,7 +147,7 @@ public class LaborJournalVoucherAccountingLineParser extends AccountingLineParse
 
     /**
      * chooses line format based on balance type code
-     * 
+     *
      * @return String []
      */
     private String[] selectFormat() {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -50,7 +50,7 @@ public class PurchaseOrderCloseDocument extends PurchaseOrderDocument {
     /**
      * General Ledger pending entries are not created on save for this document. They are created when the document has been finally
      * processed. Overriding this method so that entries are not created yet.
-     * 
+     *
      * @see org.kuali.kfs.module.purap.document.PurchaseOrderDocument#prepareForSave(org.kuali.rice.krad.rule.event.KualiDocumentEvent)
      */
     @Override
@@ -63,7 +63,7 @@ public class PurchaseOrderCloseDocument extends PurchaseOrderDocument {
     /**
      * When Purchase Order Close document has been Processed through Workflow, the general ledger entries are created and the PO
      * status changes to "CLOSED".
-     * 
+     *
      * @see org.kuali.kfs.module.purap.document.PurchaseOrderDocument#doRouteStatusChange()
      */
     @Override
@@ -78,7 +78,7 @@ public class PurchaseOrderCloseDocument extends PurchaseOrderDocument {
 
                 // update indicators
                 SpringContext.getBean(PurchaseOrderService.class).setCurrentAndPendingIndicatorsForApprovedPODocuments(this);
-                
+
                 // for app doc status
                 updateAndSaveAppDocStatus(PurchaseOrderStatuses.APPDOC_CLOSED);
             }
@@ -90,7 +90,7 @@ public class PurchaseOrderCloseDocument extends PurchaseOrderDocument {
                 try {
                     String nodeName = SpringContext.getBean(WorkflowDocumentService.class).getCurrentRouteLevelName(this.getFinancialSystemDocumentHeader().getWorkflowDocument());
                     String reqStatus = PurapConstants.PurchaseOrderStatuses.getPurchaseOrderAppDocDisapproveStatuses().get(nodeName);
-                    updateAndSaveAppDocStatus(PurapConstants.PurchaseOrderStatuses.getPurchaseOrderAppDocDisapproveStatuses().get(reqStatus));                    
+                    updateAndSaveAppDocStatus(PurapConstants.PurchaseOrderStatuses.getPurchaseOrderAppDocDisapproveStatuses().get(reqStatus));
 
                 } catch (WorkflowException e) {
                     logAndThrowRuntimeException("Error saving routing data while saving App Doc Status " + getDocumentNumber(), e);
@@ -123,7 +123,7 @@ public class PurchaseOrderCloseDocument extends PurchaseOrderDocument {
         explicitEntry.setFinancialDocumentTypeCode(PurapDocTypeCodes.PO_CLOSE_DOCUMENT);
         explicitEntry.setFinancialDocumentApprovedCode(KFSConstants.PENDING_ENTRY_APPROVED_STATUS_CODE.APPROVED);
     }
-    
+
     @Override
     public List<GeneralLedgerPendingEntrySourceDetail> getGeneralLedgerPendingEntrySourceDetails() {
         List<GeneralLedgerPendingEntrySourceDetail> accountingLines = new ArrayList<GeneralLedgerPendingEntrySourceDetail>();
@@ -136,7 +136,7 @@ public class PurchaseOrderCloseDocument extends PurchaseOrderDocument {
         }
         return accountingLines;
     }
-    
+
     @Override
     public List<String> getWorkflowEngineDocumentIdsToLock() {
         List<String> docIdStrings = new ArrayList<String>();

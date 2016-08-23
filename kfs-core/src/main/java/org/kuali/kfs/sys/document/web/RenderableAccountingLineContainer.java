@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -60,7 +60,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
     private boolean editableLine;
     private Set<String> currentNodes;
     private boolean deletable = false;
-    
+
     /**
      * Constructs a RenderableAccountingLineContainer
      * @param form the form being rendered
@@ -86,9 +86,9 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
         this.editableLine = editableLine;
         this.currentNodes = currentNodes;
     }
-    
+
     /**
-     * Gets the accountingLine attribute. 
+     * Gets the accountingLine attribute.
      * @return Returns the accountingLine.
      */
     public AccountingLine getAccountingLine() {
@@ -96,7 +96,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
     }
 
     /**
-     * Gets the accountingLineProperty attribute. 
+     * Gets the accountingLineProperty attribute.
      * @return Returns the accountingLineProperty.
      */
     public String getAccountingLineProperty() {
@@ -104,7 +104,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
     }
 
     /**
-     * Gets the actions attribute. 
+     * Gets the actions attribute.
      * @return Returns the actions.
      */
     public List<AccountingLineViewAction> getActionsForLine() {
@@ -115,7 +115,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
     }
 
     /**
-     * Gets the newLine attribute. 
+     * Gets the newLine attribute.
      * @return Returns the newLine.
      */
     public boolean isNewLine() {
@@ -130,13 +130,13 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
     }
 
     /**
-     * Gets the rows attribute. 
+     * Gets the rows attribute.
      * @return Returns the rows.
      */
     public List<AccountingLineTableRow> getRows() {
         return rows;
     }
-    
+
     /**
      * @return the number of cells this accounting line container will render
      */
@@ -150,7 +150,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
         }
         return maxCells;
     }
-    
+
     /**
      * Determines how many cells this container will say it wants to render
      * @see org.kuali.kfs.sys.document.web.AccountingLineRenderingContext#getRenderableCellCount()
@@ -165,7 +165,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
         }
         return maxCells;
     }
-    
+
     /**
      * Adds empty cells to a table row
      * @param cellCount the number of cells we should be rendering
@@ -176,7 +176,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
             row.addCell(new AccountingLineTableCell());
         }
     }
-    
+
     /**
      * While holding an action block, this is not an action block
      * @see org.kuali.kfs.sys.document.web.RenderableElement#isActionBlock()
@@ -184,7 +184,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
     public boolean isActionBlock() {
         return false;
     }
-    
+
     /**
      * This is never empty
      * @see org.kuali.kfs.sys.document.web.RenderableElement#isEmpty()
@@ -192,15 +192,15 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
     public boolean isEmpty() {
         return false;
     }
-    
+
     /**
-     * This is not hidden 
+     * This is not hidden
      * @see org.kuali.kfs.sys.document.web.RenderableElement#isHidden()
      */
     public boolean isHidden() {
         return false;
     }
-    
+
     /**
      * Renders all the rows
      * @see org.kuali.kfs.sys.document.web.RenderableElement#renderElement(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag, org.kuali.kfs.sys.document.web.AccountingLineRenderingContext)
@@ -215,14 +215,14 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
             row.renderElement(pageContext, parentTag, renderingContext);
         }
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.AccountingLineRenderingContext#getAccountingLinePropertyPath()
      */
     public String getAccountingLinePropertyPath() {
         return accountingLineProperty;
     }
-    
+
     /**
      * Appends all fields from rows that this contains
      * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFieldNames(java.util.List)
@@ -232,11 +232,11 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
             row.appendFields(fields);
         }
     }
-    
+
     /**
      * Returns all of the field names within the accounting line to render
      * @return a List of field names with the accounting line property prefixed
-     * 
+     *
      * KRAD Conversion: Customization of getting the fields - No use of data dictionary
      */
     public List<Field> getFieldsForAccountingLine() {
@@ -246,10 +246,10 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
         }
         return fields;
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.AccountingLineRenderingContext#getFieldNamesForAccountingLine()
-     * 
+     *
      * KRAD Conversion: Customization of the fields - No use of data dictionary
      */
     public List<String> getFieldNamesForAccountingLine() {
@@ -261,7 +261,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
         }
         return fieldNames;
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.RenderableElement#populateWithTabIndexIfRequested(int[], int)
      */
@@ -270,7 +270,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
             row.populateWithTabIndexIfRequested(reallyHighIndex);
         }
     }
-    
+
     /**
      * Returns the unconvertedValues for the current form
      * @see org.kuali.kfs.sys.document.web.AccountingLineRenderingContext#getUnconvertedValues()
@@ -278,28 +278,28 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
     public Map getUnconvertedValues() {
         return form.getUnconvertedValues();
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.AccountingLineRenderingContext#populateValuesForFields()
-     * 
+     *
      * KRAD Conversion: Customization of populating the field values - Use of data dictionary
      */
     public void populateValuesForFields() {
         FieldUtils.populateFieldsFromBusinessObject(getFieldsForAccountingLine(), accountingLine);
-        
+
         BusinessObjectEntry boDDEntry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(getAccountingLine().getClass().getName());
-        
+
         for (Field field : getFieldsForAccountingLine()) {
             setUnconvertedValueIfNecessary(field);
             setShouldShowSecure(field, boDDEntry);
         }
     }
-    
+
     /**
      * Sees if the given field has an unconverted value living in the unconverted value map and if so,
      * changes the value to that
      * @param field the field to possibly set an unconverted value on
-     * 
+     *
      * KRAD Conversion: Customization of the fields - No use of data dictionary
      */
     protected void setUnconvertedValueIfNecessary(Field field) {
@@ -308,17 +308,17 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
             field.setPropertyValue((String)getUnconvertedValues().get(propertyName));
         }
     }
-    
+
     /**
      * Sets the masked value equal to the value if the current user can see the unmasked value for a secure field
      * @param field the field to possible change the value for
      * @param boDDEntry the data dictionary entry for the accounting line
-     * 
+     *
      * KRAD Conversion: Customization of the fields - No use of data dictionary
      */
     protected void setShouldShowSecure(Field field, BusinessObjectEntry boDDEntry) {
         // TODO: FIX
-        
+
         // from Warren:  k... org.kuali.rice.kns.service.BusinessObjectAuthorizationService.getMaintenanceDocumentRestrictions(MaintenanceDocument, Person) has the determination of what restrictions there should be
         // org.kuali.rice.kns.util.FieldUtils.applyAuthorization(Field, String, MaintenanceDocumentRestrictions) applies those restrictions
     }
@@ -328,7 +328,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
     public AccountingDocument getAccountingDocument() {
         return form.getFinancialDocument();
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.AccountingLineRenderingContext#fieldsCanRenderDynamicLabels()
      */
@@ -353,16 +353,16 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
     public void incrementTabIndex() {
         form.incrementTabIndex();
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.AccountingLineRenderingContext#getGroupLabel()
      */
     public String getGroupLabel() {
-       return this.groupLabel; 
+       return this.groupLabel;
     }
 
     /**
-     * Gets the errors attribute. 
+     * Gets the errors attribute.
      * @return Returns the errors.
      */
     public List getErrors() {
@@ -393,16 +393,16 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
     }
 
     /**
-     * Gets the editableLine attribute. 
+     * Gets the editableLine attribute.
      * @return Returns the editableLine.
      */
     public boolean isEditableLine() {
         return editableLine;
     }
-    
+
     /**
      * Sets the editableLine attribute value.
-     * 
+     *
      * @param editableLine The editableLine to set.
      */
     public void setEditableLine(boolean editableLine) {
@@ -416,7 +416,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
     public boolean allowDelete() {
         return deletable;
     }
-    
+
     /**
      * Makes the line within this accounting line context deletable
      */

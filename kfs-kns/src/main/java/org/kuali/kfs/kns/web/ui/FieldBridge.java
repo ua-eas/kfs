@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -70,7 +70,7 @@ public class FieldBridge {
     public static final void setupField(Field field, FieldDefinitionI definition, Set<String> conditionallyRequiredMaintenanceFields) {
         if (definition instanceof MaintainableFieldDefinition) {
             MaintainableFieldDefinition maintainableFieldDefinition = ((MaintainableFieldDefinition) definition);
-            
+
             field.setFieldRequired(maintainableFieldDefinition.isRequired());
             field.setReadOnly(maintainableFieldDefinition.isUnconditionallyReadOnly());
             if (maintainableFieldDefinition.isLookupReadOnly()) {
@@ -89,7 +89,7 @@ public class FieldBridge {
             if (maintainableFieldDefinition.getWebUILeaveFieldFunctionParameters()!=null) {
                 field.setWebUILeaveFieldFunctionParameters(maintainableFieldDefinition.getWebUILeaveFieldFunctionParameters());
             }
-            
+
 			if (StringUtils.isNotBlank(maintainableFieldDefinition.getAlternateDisplayAttributeName())) {
 				field.setAlternateDisplayPropertyName(maintainableFieldDefinition.getAlternateDisplayAttributeName());
 			}
@@ -97,11 +97,11 @@ public class FieldBridge {
 			if (StringUtils.isNotBlank(maintainableFieldDefinition.getAdditionalDisplayAttributeName())) {
 				field.setAdditionalDisplayPropertyName(maintainableFieldDefinition.getAdditionalDisplayAttributeName());
 			}
-            
+
             if (conditionallyRequiredMaintenanceFields != null && conditionallyRequiredMaintenanceFields.contains(field.getPropertyName())) {
             	field.setFieldRequired(true);
             }
-            
+
             if (((MaintainableFieldDefinition) definition).isTriggerOnChange()) {
             	field.setTriggerOnChange(true);
             }
@@ -149,7 +149,7 @@ public class FieldBridge {
 				propValue = ObjectUtils.getFormattedPropertyValue(bo, field.getPropertyName(), formatter);
                     }
 			field.setPropertyValue(propValue);
-			
+
 			// set additional or alternate display property values if property
 			// name is specified
 			if (StringUtils.isNotBlank(field.getAlternateDisplayPropertyName())) {
@@ -167,7 +167,7 @@ public class FieldBridge {
 			// for user fields, attempt to pull the principal ID and person's
 			// name from the source object
             if ( fieldControl != null && fieldControl.isKualiUser() ) {
-            	// this is supplemental, so catch and log any errors 
+            	// this is supplemental, so catch and log any errors
             	try {
             		if ( StringUtils.isNotBlank(field.getUniversalIdAttributeName()) ) {
             			Object principalId = ObjectUtils.getNestedValue(bo, field.getUniversalIdAttributeName());
@@ -234,13 +234,13 @@ public class FieldBridge {
 		}
         return propValue;
     }
-    
+
     private static String lookupInactiveFinderValue(Object property, KeyValuesFinder finder){
     	List<KeyValue> keyValues = finder.getKeyValues(false);
     	return getPropertyValueFromList(property, keyValues);
-    	
+
     }
-    
+
     private static String getPropertyValueFromList(Object property, List<KeyValue> keyValues){
     	String propertyValue = null;
         if (property != null) {
@@ -254,7 +254,7 @@ public class FieldBridge {
         }
         return propertyValue;
     }
-    
+
     /**
      * Determines whether field level help is enabled for the field corresponding to the dataObjectClass and attribute name
      *
@@ -464,16 +464,16 @@ public class FieldBridge {
         }
         LOG.debug("Error Key for section " + collectionDefinition.getName() + " : " + containerRowErrorKey.toString());
 
-        
+
         collFields = constructContainerField(collectionDefinition, parents, o, hideAdd, numberOfColumns, collName, collFields);
 
         return collFields;
     }
 
     /**
-     * 
+     *
      * This method handles setting up a container field not including the add fields
-     * 
+     *
      * @param collectionDefinition
      * @param parents
      * @param o
@@ -546,7 +546,7 @@ public class FieldBridge {
      */
     public static Field toField(FieldDefinition d, BusinessObject o, Section s) {
         Field field = FieldUtils.getPropertyField(o.getClass(), d.getAttributeName(), false);
-        
+
         FieldUtils.setInquiryURL(field, o, field.getPropertyName());
 
 		String alternateDisplayPropertyName = getBusinessObjectDictionaryService()
@@ -590,14 +590,14 @@ public class FieldBridge {
     	if (businessObjectDictionaryService == null) {
     		businessObjectDictionaryService = KNSServiceLocator.getBusinessObjectDictionaryService();
     	}
-		return businessObjectDictionaryService; 
+		return businessObjectDictionaryService;
 	}
-	
+
 	public static MaintenanceDocumentDictionaryService getMaintenanceDocumentDictionaryService() {
     	if (maintenanceDocumentDictionaryService == null) {
     		maintenanceDocumentDictionaryService = KNSServiceLocator.getMaintenanceDocumentDictionaryService();
     	}
-		return maintenanceDocumentDictionaryService; 
+		return maintenanceDocumentDictionaryService;
 	}
 
 }

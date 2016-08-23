@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,12 +31,12 @@ public interface InactivatableFromTo extends MutableInactivatable {
 
 	/**
 	 * Sets the date for which record will be active
-	 * 
+	 *
 	 * @param from
 	 *            - Timestamp value to set
 	 */
 	public void setActiveFromDate(Timestamp from);
-	
+
 	/**
 	 * Gets the date for which the record become active
 	 *
@@ -46,12 +46,12 @@ public interface InactivatableFromTo extends MutableInactivatable {
 
 	/**
 	 * Sets the date for which record will be active to
-	 * 
+	 *
 	 * @param from
 	 *            - Timestamp value to set
 	 */
 	public void setActiveToDate(Timestamp to);
-	
+
 	/**
 	 * Gets the date for which the record become inactive
 	 *
@@ -61,7 +61,7 @@ public interface InactivatableFromTo extends MutableInactivatable {
 
 	/**
 	 * Gets the date for which the record is being compared to in determining active/inactive
-	 * 
+	 *
 	 * @return Timestamp
 	 */
 	public Timestamp getActiveAsOfDate();
@@ -69,7 +69,7 @@ public interface InactivatableFromTo extends MutableInactivatable {
 	/**
 	 * Sets the date for which the record should be compared to in determining active/inactive, if
 	 * not set then the current date will be used
-	 * 
+	 *
 	 * @param activeAsOfDate
 	 *            - Timestamp value to set
 	 */

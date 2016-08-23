@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -59,7 +59,7 @@ public class EncumbranceLookupableHelperServiceImpl extends AbstractGeneralLedge
     public HtmlData getInquiryUrl(BusinessObject businessObject, String propertyName) {
         return (new EncumbranceInquirableImpl()).getInquiryUrl(businessObject, propertyName);
     }
-    
+
     /**
      * Validates the fiscal year searched for in the inquiry
      * @param fieldValues the values of the query
@@ -79,13 +79,13 @@ public class EncumbranceLookupableHelperServiceImpl extends AbstractGeneralLedge
                 throw new ValidationException("errors in search criteria");
             }
         }
-        
+
         if (!allRequiredsForAccountSearch(fieldValues) && !allRequiredsForDocumentSearch(fieldValues)) {
             GlobalVariables.getMessageMap().putError("universityFiscalYear", KFSKeyConstants.ERROR_GL_LOOKUP_ENCUMBRANCE_NON_MATCHING_REQUIRED_FIELDS, new String[] {});
             throw new ValidationException("errors in search criteria");
         }
     }
-    
+
     /**
      * Determines if all the required values for an account based search are present - fiscal year, chart, account number, and fiscal period code
      * @param fieldValues field values to check
@@ -97,7 +97,7 @@ public class EncumbranceLookupableHelperServiceImpl extends AbstractGeneralLedge
         final String accountNumber = (String)fieldValues.get("accountNumber");
         return !StringUtils.isBlank(fiscalYearAsString) && !StringUtils.isBlank(chartOfAccountsCode) && !StringUtils.isBlank(accountNumber);
     }
-    
+
     /**
      * Determines if all the required values for an document based search are present - fiscal year and document number
      * @param fieldValues field values to check
@@ -122,7 +122,7 @@ public class EncumbranceLookupableHelperServiceImpl extends AbstractGeneralLedge
 
         // get the pending entry option. This method must be prior to the get search results
         String pendingEntryOption = this.getSelectedPendingEntryOption(fieldValues);
-        
+
         final String zeroEncumbranceOption = getSelectedZeroEncumbranceOption(fieldValues); // store in a temporary variable, because the method removes the key from the map
         final boolean includeZeroEncumbrances = (StringUtils.isBlank(zeroEncumbranceOption) || zeroEncumbranceOption.equals(Constant.ZERO_ENCUMBRANCE_INCLUDE));
 
@@ -142,7 +142,7 @@ public class EncumbranceLookupableHelperServiceImpl extends AbstractGeneralLedge
 
     /**
      * Updates pending entries before their results are included in the lookup results
-     * 
+     *
      * @param entryCollection a collection of balance entries
      * @param fieldValues the map containing the search fields and values
      * @param isApproved flag whether the approved entries or all entries will be processed
@@ -180,7 +180,7 @@ public class EncumbranceLookupableHelperServiceImpl extends AbstractGeneralLedge
         }
         return encumbranceCollection;
     }
-    
+
     /**
      * Method tests to see if the user selected to include or exclude zero encumbrances
      * @param fieldValues the lookup field values
@@ -192,7 +192,7 @@ public class EncumbranceLookupableHelperServiceImpl extends AbstractGeneralLedge
 
     /**
      * Sets the postEncumbrance attribute value.
-     * 
+     *
      * @param postEncumbrance The postEncumbrance to set.
      */
     public void setPostEncumbrance(EncumbranceCalculator postEncumbrance) {
@@ -201,7 +201,7 @@ public class EncumbranceLookupableHelperServiceImpl extends AbstractGeneralLedge
 
     /**
      * Sets the encumbranceService attribute value.
-     * 
+     *
      * @param encumbranceService The encumbranceService to set.
      */
     public void setEncumbranceService(EncumbranceService encumbranceService) {

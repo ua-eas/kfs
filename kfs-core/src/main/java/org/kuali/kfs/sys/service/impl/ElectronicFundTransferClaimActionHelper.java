@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -66,14 +66,14 @@ public class ElectronicFundTransferClaimActionHelper implements ElectronicFundTr
         if (!form.hasAvailableClaimingDocumentStrategies()) {
             throw new AuthorizationException(currentUser.getPrincipalName(), KFSConstants.CLAIM, ddService.getDataDictionary().getBusinessObjectEntry(ElectronicPaymentClaim.class.getName()).getTitleAttribute());
         }
-        
+
         // did the user say they have documentation?  If not, give an error...
         boolean continueClaiming = true;
         continueClaiming = handleDocumentationForClaim(form.getHasDocumentation());
-        
+
         // process admin's pre-claimed records
         List<ElectronicPaymentClaim> claims = form.getClaims();
-        
+
         boolean isAuthorized = form.isAllowElectronicFundsTransferAdministration();
         if (isAuthorized) {
             claims = handlePreClaimedRecords(claims, generatePreClaimedByCheckboxSet(form.getClaimedByCheckboxHelpers()), form.getAvailableClaimingDocumentStrategies());
@@ -86,17 +86,17 @@ public class ElectronicFundTransferClaimActionHelper implements ElectronicFundTr
                 return mapping.findForward(KFSConstants.MAPPING_PORTAL);
             }
         }
-        
+
         // put any remaining claims into a claiming doc
         String chosenDoc = form.getChosenElectronicPaymentClaimingDocumentCode();
         continueClaiming &= checkChosenDocumentType(chosenDoc);
         if (continueClaiming && KFSConstants.FinancialDocumentTypeCodes.YEAR_END_DISTRIBUTION_OF_INCOME_AND_EXPENSE.equalsIgnoreCase(chosenDoc)) {
             continueClaiming &= checkYEDIclaims(claims);
         }
-        
+
         // get the requested document claiming helper
         if (continueClaiming) {
-            
+
             ElectronicPaymentClaimingDocumentGenerationStrategy documentCreationHelper = getRequestedClaimingHelper(form.getChosenElectronicPaymentClaimingDocumentCode(), form.getAvailableClaimingDocumentStrategies(), currentUser);
             // take the claims from the form, create a document, and redirect to the given URL...which is easy
             String redirectURL = electronicPaymentClaimingService.createPaymentClaimingDocument(form.getClaims(), documentCreationHelper, currentUser);
@@ -105,7 +105,7 @@ public class ElectronicFundTransferClaimActionHelper implements ElectronicFundTr
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
         }
     }
-    
+
     /**
      * Verifies that the chosenElectronicPaymentClaimingDocumentCode has been filled in.
      * @param chosenDoc the value of chosenElectronicPaymentClaimingDocumentCode from the form
@@ -121,7 +121,7 @@ public class ElectronicFundTransferClaimActionHelper implements ElectronicFundTr
     }
 
     /**
-     * Using user entered form values, determines which of the available ElectronicPaymentClaimingDocumentGenerationStrategy implementations to use. 
+     * Using user entered form values, determines which of the available ElectronicPaymentClaimingDocumentGenerationStrategy implementations to use.
      * @param chosenDoc the document type code for the doc that the user selected
      * @param availableClaimingDocs a List of ElectronicPaymentClaimingDocumentGenerationStrategy implementations that can be used by the given user
      * @param currentUser the currently logged in user
@@ -143,11 +143,11 @@ public class ElectronicFundTransferClaimActionHelper implements ElectronicFundTr
         }
         return chosenDocHelper;
     }
-    
+
     /**
      * Administrative users can fill in a field that says that a given electronic payment claim has already been claimed by another document.  This method
      * traverses through the list of electronic payment claims, checks if it is pre-claimed, and saves it if it is pre-claimed
-     * @param claims the list of electronic payment claims 
+     * @param claims the list of electronic payment claims
      * @return the list of electronic payment claims with all pre-claimed records removed
      */
     protected List<ElectronicPaymentClaim> handlePreClaimedRecords(List<ElectronicPaymentClaim> claims, Set<String> preClaimedByCheckbox, List<ElectronicPaymentClaimingDocumentGenerationStrategy> documentGenerationStrategies) {
@@ -182,7 +182,7 @@ public class ElectronicFundTransferClaimActionHelper implements ElectronicFundTr
         }
         return stillToClaim;
     }
-    
+
     /**
      * Uses the list of checked pre-claimed checkbox helpers to create a Set of representations of electronic payment claim records that were marked as "pre-claimed"
      * @param checkboxHelpers the list of checked ElectronicPaymentClaimClaimedHelpers from the form
@@ -195,7 +195,7 @@ public class ElectronicFundTransferClaimActionHelper implements ElectronicFundTr
         }
         return claimedByCheckboxRepresentations;
     }
-    
+
     /**
      * Checks that the user was able to answer the "has documentation?" question correctly
      * @param hasDocumentation the user's response to the "has documentation" question
@@ -207,7 +207,7 @@ public class ElectronicFundTransferClaimActionHelper implements ElectronicFundTr
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.HAS_DOCUMENTATION, KFSKeyConstants.ElectronicPaymentClaim.ERROR_NO_DOCUMENTATION, new String[] {});
             success = false;
         }
-        
+
         return success;
     }
 
@@ -242,13 +242,13 @@ public class ElectronicFundTransferClaimActionHelper implements ElectronicFundTr
     public void setDocumentService(DocumentService documentService) {
         this.documentService = documentService;
     }
-    
-    
+
+
     /**
      * Verifies that if Year End Distribution of Income and Expense (YEDI) is
      * the chosenElectronicPaymentClaimingDocumentCode, all claims selected are
      * not posted in the the current fiscal year.
-     * 
+     *
      * @param claims
      *            the list of selected claims
      * @return true if the validation resulted in no errors, false if otherwise

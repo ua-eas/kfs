@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -59,7 +59,7 @@ public class JournalVoucherBalanceTypeValidation extends GenericValidation {
         }
         return true;
     }
-    
+
     /**
      * Looks up a label from the data dictionary
      * @param entryClass the class of the attribute to lookup the label for
@@ -79,7 +79,7 @@ public class JournalVoucherBalanceTypeValidation extends GenericValidation {
     }
 
     /**
-     * Gets the journalVoucherForValidation attribute. 
+     * Gets the journalVoucherForValidation attribute.
      * @return Returns the journalVoucherForValidation.
      */
     public JournalVoucherDocument getJournalVoucherForValidation() {
@@ -95,7 +95,7 @@ public class JournalVoucherBalanceTypeValidation extends GenericValidation {
     }
 
     /**
-     * Gets the dataDictionaryService attribute. 
+     * Gets the dataDictionaryService attribute.
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {

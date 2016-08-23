@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,10 +36,10 @@ import org.kuali.kfs.module.purap.util.ElectronicInvoiceUtils;
 
 public class ElectronicInvoiceOrder {
   private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicInvoiceOrder.class);
-  
+
   public static boolean INVOICE_ORDER_REJECTED = true;
   public static boolean INVOICE_ORDER_NOT_REJECTED = false;
-  
+
   // the following fields come from the <InvoiceDetailOrderInfo> tag
   private String orderReferenceOrderID;
   private String orderReferenceDocumentRefPayloadID;
@@ -54,21 +54,21 @@ public class ElectronicInvoiceOrder {
   private Date orderIDInfoDate;
   private String orderIDInfoDateString;
   private String supplierOrderInfoID;
-  
+
   private String invoicePurchaseOrderID;
   private String orderReferenceOrderDateString;
   private Integer purchaseOrderID = null;
   private String purchaseOrderCampusCode;
-  
+
   private boolean rejected = INVOICE_ORDER_NOT_REJECTED;
   private List orderRejectReasons = new ArrayList();
-  
+
   private List invoiceItems = new ArrayList();
-  
+
   public ElectronicInvoiceOrder() {
     super();
   }
-  
+
   public ElectronicInvoiceItem getElectronicInvoiceItemByPOLineNumber(Integer poLineNumber) {
     for (Iterator iter = this.invoiceItems.iterator(); iter.hasNext();) {
       ElectronicInvoiceItem eii = (ElectronicInvoiceItem) iter.next();
@@ -78,12 +78,12 @@ public class ElectronicInvoiceOrder {
     }
     return null;
   }
-  
+
   /**
    * This method takes in a roleID string and an addressName (constants from mapping file)
    * and returns a valid ElectronicInvoicePostalAddress or null if not found.  If the addressName string
    * is null then the roleID is used to find the first available
-   * 
+   *
    * @param roleID Cxml role id attribute value
    * @param addressName Cxml name attribute of postaladdress tag
    * @return CxmlPostal Address relating to given parameters
@@ -106,7 +106,7 @@ public class ElectronicInvoiceOrder {
     }
     return null;
   }
-  
+
   public ElectronicInvoiceContact getCxmlContactByRoleID(String roleID) {
     if (roleID != null) {
       for (Iterator itemIter = this.invoiceItems.iterator(); itemIter.hasNext();) {
@@ -122,10 +122,10 @@ public class ElectronicInvoiceOrder {
     return null;
   }
   /**
-   * This method returns the first shipping date found in the list of items.  This 
-   * is called if shipping information is in line. Since system only allows for one 
+   * This method returns the first shipping date found in the list of items.  This
+   * is called if shipping information is in line. Since system only allows for one
    * shipping date per invoice-order we take the first date we find
-   * 
+   *
    * @return  Date defining first shipping date found or null if none are found
    */
   public Date getInvoiceShippingDate() {
@@ -138,12 +138,12 @@ public class ElectronicInvoiceOrder {
     }
     return null;
   }
-  
+
   /**
-   * This method returns the first shipping date string found in the list of items.  This 
-   * is called if shipping information is in line. Since system only allows for one shipping 
+   * This method returns the first shipping date string found in the list of items.  This
+   * is called if shipping information is in line. Since system only allows for one shipping
    * date per invoice-order we take the first date string we find
-   * 
+   *
    * @return  Date defining first shipping date found or null if none are found
    */
   public String getInvoiceShippingDateString() {
@@ -156,12 +156,12 @@ public class ElectronicInvoiceOrder {
     }
     return null;
   }
-  
+
   public String getInvoiceTaxDescription() {
     BigDecimal total = BigDecimal.ZERO;
     for (Iterator iter = this.invoiceItems.iterator(); iter.hasNext();) {
       ElectronicInvoiceItem eii = (ElectronicInvoiceItem) iter.next();
-      BigDecimal taxAmount = eii.getInvoiceLineTaxAmountBigDecimal(); 
+      BigDecimal taxAmount = eii.getInvoiceLineTaxAmountBigDecimal();
       if ( (taxAmount != null) && (BigDecimal.ZERO.compareTo(taxAmount) != 0) ) {
         return eii.getTaxDescription();
       }
@@ -173,26 +173,26 @@ public class ElectronicInvoiceOrder {
     BigDecimal total = BigDecimal.ZERO;
     for (Iterator iter = this.invoiceItems.iterator(); iter.hasNext();) {
       ElectronicInvoiceItem eii = (ElectronicInvoiceItem) iter.next();
-      BigDecimal shippingAmount = eii.getInvoiceLineShippingAmountBigDecimal(); 
+      BigDecimal shippingAmount = eii.getInvoiceLineShippingAmountBigDecimal();
       if ( (shippingAmount != null) && (BigDecimal.ZERO.compareTo(shippingAmount) != 0) ) {
         return PurapConstants.ElectronicInvoice.DEFAULT_SHIPPING_DESCRIPTION;
       }
     }
     return null;
   }
-  
+
   public String getInvoiceSpecialHandlingDescription() {
       BigDecimal total = BigDecimal.ZERO;
       for (Iterator iter = this.invoiceItems.iterator(); iter.hasNext();) {
         ElectronicInvoiceItem eii = (ElectronicInvoiceItem) iter.next();
-        BigDecimal specialHandlingAmount = eii.getInvoiceLineSpecialHandlingAmountBigDecimal(); 
+        BigDecimal specialHandlingAmount = eii.getInvoiceLineSpecialHandlingAmountBigDecimal();
         if ( (specialHandlingAmount != null) && (BigDecimal.ZERO.compareTo(specialHandlingAmount) != 0) ) {
           return PurapConstants.ElectronicInvoice.DEFAULT_SPECIAL_HANDLING_DESCRIPTION;
         }
       }
       return null;
     }
-  
+
 
   public BigDecimal getInvoiceSubTotalAmount() {
     BigDecimal total = BigDecimal.ZERO;
@@ -256,14 +256,14 @@ public class ElectronicInvoiceOrder {
     }
     return total;
   }
-  
+
   public void addRejectReasonToList(ElectronicInvoiceRejectReason reason) {
     this.orderRejectReasons.add(reason);
   }
-    
+
   /**
    * Altered for special circumstances
-   * 
+   *
    * @param masterAgreementIDInfoDateString The masterAgreementIDInfoDateString to set.
    */
   public void setMasterAgreementIDInfoDateString(String masterAgreementIDInfoDateString) {
@@ -284,7 +284,7 @@ public class ElectronicInvoiceOrder {
   }
   /**
    * Altered for special circumstances
-   * 
+   *
    * @param masterAgreementReferenceDateString The masterAgreementReferenceDateString to set.
    */
   public void setMasterAgreementReferenceDateString(String masterAgreementReferenceDateString) {
@@ -305,7 +305,7 @@ public class ElectronicInvoiceOrder {
   }
   /**
    * Altered for special circumstances
-   * 
+   *
    * @param orderIDInfoDateString The orderIDInfoDateString to set.
    */
   public void setOrderIDInfoDateString(String orderIDInfoDateString) {
@@ -534,7 +534,7 @@ public class ElectronicInvoiceOrder {
   public String getOrderIDInfoDateString() {
     return orderIDInfoDateString;
   }
-  
+
   public void addInvoiceItem(ElectronicInvoiceItem electronicInvoiceItem){
       invoiceItems.add(electronicInvoiceItem);
       /**
@@ -542,13 +542,13 @@ public class ElectronicInvoiceOrder {
        * this sorting whenever the getter is called
        */
       Collections.sort(invoiceItems, new Comparator() {
-          public int compare (Object o1, Object o2) { 
-            return (((ElectronicInvoiceItem)o1).getReferenceLineNumberInteger()).compareTo(((ElectronicInvoiceItem)o2).getReferenceLineNumberInteger()); 
-          } 
+          public int compare (Object o1, Object o2) {
+            return (((ElectronicInvoiceItem)o1).getReferenceLineNumberInteger()).compareTo(((ElectronicInvoiceItem)o2).getReferenceLineNumberInteger());
+          }
         }
         );
   }
-  
+
   public ElectronicInvoiceItem[] getInvoiceItemsAsArray(){
       if (invoiceItems.size() > 0){
           ElectronicInvoiceItem[] tempItems = new ElectronicInvoiceItem[invoiceItems.size()];
@@ -557,7 +557,7 @@ public class ElectronicInvoiceOrder {
       }
       return null;
   }
-  
+
   public String getOrderReferenceOrderDateString() {
       return orderReferenceOrderDateString;
   }
@@ -565,11 +565,11 @@ public class ElectronicInvoiceOrder {
   public void setOrderReferenceOrderDateString(String orderReferenceOrderDateString) {
       this.orderReferenceOrderDateString = orderReferenceOrderDateString;
   }
-  
+
   public String toString(){
-      
+
       ToStringBuilder toString = new ToStringBuilder(this);
-      
+
       toString.append("orderReferenceOrderID",getOrderReferenceOrderID());
       toString.append("orderReferenceOrderDate",getOrderReferenceOrderDateString());
       toString.append("orderReferenceDocumentRefPayloadID",getOrderReferenceDocumentRefPayloadID());
@@ -582,9 +582,9 @@ public class ElectronicInvoiceOrder {
       toString.append("orderIDInfoDateString",getOrderIDInfoDateString());
       toString.append("supplierOrderInfoID",getSupplierOrderInfoID());
       toString.append("invoiceItems",getInvoiceItems());
-      
+
       return toString.toString();
-      
+
   }
 
 

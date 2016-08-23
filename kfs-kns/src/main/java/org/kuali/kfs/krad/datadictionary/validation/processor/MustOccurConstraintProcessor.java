@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,13 +33,13 @@ import org.kuali.kfs.krad.datadictionary.validation.ErrorLevel;
 import java.util.List;
 
 /**
- * 
- *  
+ *
+ *
  */
 public class MustOccurConstraintProcessor extends BasePrerequisiteConstraintProcessor<MustOccurConstraint> {
 
 	private static final String CONSTRAINT_NAME = "must occur constraint";
-	
+
 	/**
 	 * @see ConstraintProcessor#process(DictionaryValidationResult, Object, Constraint, AttributeValueReader)
      */
@@ -50,7 +50,7 @@ public class MustOccurConstraintProcessor extends BasePrerequisiteConstraintProc
 
 		if (ValidationUtils.isNullOrEmpty(value))
 			return new ProcessorResult(result.addSkipped(attributeValueReader, CONSTRAINT_NAME));
-		
+
 
 		ConstraintValidationResult constraintValidationResult = new ConstraintValidationResult(CONSTRAINT_NAME);
         constraintValidationResult.setConstraintLabelKey(constraint.getLabelKey());
@@ -66,7 +66,7 @@ public class MustOccurConstraintProcessor extends BasePrerequisiteConstraintProc
 		        constraintValidationResult.setAttributePath(attributeValueReader.getPath());
 		    }
 			constraintValidationResult.setError(RiceKeyConstants.ERROR_OCCURS);
-		} 
+		}
 
 		// Store the label key (if one exists) for this constraint on the constraint validation result so it can be shown later
 
@@ -76,8 +76,8 @@ public class MustOccurConstraintProcessor extends BasePrerequisiteConstraintProc
 		return new ProcessorResult(constraintValidationResult);
 
 	}
-	
-	@Override 
+
+	@Override
 	public String getName() {
 		return CONSTRAINT_NAME;
 	}
@@ -89,12 +89,12 @@ public class MustOccurConstraintProcessor extends BasePrerequisiteConstraintProc
 	public Class<? extends Constraint> getConstraintType() {
 		return MustOccurConstraint.class;
 	}
-	
+
     protected boolean processMustOccurConstraint(ConstraintValidationResult topLevelResult, MustOccurConstraint constraint, AttributeValueReader attributeValueReader) throws AttributeValidationException {
 
         boolean isSuccessful = false;
         int trueCount = 0;
-        
+
         List<PrerequisiteConstraint> prerequisiteConstraints = constraint.getPrerequisiteConstraints();
         if (prerequisiteConstraints != null) {
 	        for (PrerequisiteConstraint prerequisiteConstraint : prerequisiteConstraints) {
@@ -110,7 +110,7 @@ public class MustOccurConstraintProcessor extends BasePrerequisiteConstraintProc
         List<MustOccurConstraint> mustOccurConstraints = constraint.getMustOccurConstraints();
         if (mustOccurConstraints != null) {
 	        for (MustOccurConstraint mustOccurConstraint : mustOccurConstraints) {
-	        	// Create a new constraint validation result for this must occur constraint and make it child of the top-level constraint, 
+	        	// Create a new constraint validation result for this must occur constraint and make it child of the top-level constraint,
 	        	// then pass it in to the recursive call so that prerequisite constraints can be placed under it
 	        	ConstraintValidationResult constraintValidationResult = new ConstraintValidationResult(CONSTRAINT_NAME);
                 constraintValidationResult.setConstraintLabelKey(mustOccurConstraint.getLabelKey());
@@ -122,7 +122,7 @@ public class MustOccurConstraintProcessor extends BasePrerequisiteConstraintProc
 
         int minimum = constraint.getMin() != null ? constraint.getMin().intValue() : 0;
         int maximum = constraint.getMax() != null ? constraint.getMax().intValue() : 0;
-        
+
         isSuccessful = (trueCount >= minimum && trueCount <= maximum) ? true : false;
 
         return isSuccessful;

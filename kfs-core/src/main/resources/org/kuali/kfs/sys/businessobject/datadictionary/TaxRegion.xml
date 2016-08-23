@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -62,10 +62,10 @@
     <property name="control">
       <ref bean="TenCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
-  
+
   <bean id="TaxRegion-taxRegionName" parent="TaxRegion-taxRegionName-parentBean"/>
 
   <bean id="TaxRegion-taxRegionName-parentBean" abstract="true" parent="AttributeDefinition">
@@ -75,28 +75,28 @@
     <property name="maxLength" value="100"/>
     <property name="validationPattern">
       <ref bean="AnyCharacterWithWhitespaceValidation" />
-    </property>   
+    </property>
     <property name="required" value="true"/>
     <property name="control">
       <ref bean="StandardNameTextControl" />
     </property>
-    
-    
+
+
   </bean>
-  
+
   <bean id="TaxRegion-taxRegionTypeCode" parent="TaxRegion-taxRegionTypeCode-parentBean"/>
-  
+
   <bean id="TaxRegion-taxRegionTypeCode-parentBean" abstract="true" parent="TaxRegionType-taxRegionTypeCode"/>
-  
+
   <bean id="TaxRegion-taxRegionUseTaxIndicator" parent="TaxRegion-taxRegionUseTaxIndicator-parentBean"/>
-  
+
   <bean id="TaxRegion-taxRegionUseTaxIndicator-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
   	<property name="name" value="taxRegionUseTaxIndicator"/>
     <property name="label" value="Tax Region Use Tax Indicator"/>
     <property name="shortLabel" value="Use Tax Indicator"/>
     <property name="required" value="false"/>
-    
-    
+
+
   </bean>
 
   <bean id="TaxRegion-chartOfAccountsCode" parent="TaxRegion-chartOfAccountsCode-parentBean"/>
@@ -106,11 +106,11 @@
   </bean>
 
   <bean id="TaxRegion-accountNumber" parent="TaxRegion-accountNumber-parentBean"/>
-  
+
   <bean id="TaxRegion-accountNumber-parentBean" abstract="true" parent="Account-accountNumber">
 	<property name="label" value="Liability Account Number"/>
   </bean>
-  
+
   <bean id="TaxRegion-financialObjectCode" parent="TaxRegion-financialObjectCode-parentBean"/>
 
   <bean id="TaxRegion-financialObjectCode-parentBean" abstract="true" parent="ObjectCode-financialObjectCode">
@@ -133,7 +133,7 @@
 
   <bean id="TaxRegion-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Tax Region Lookup"/>
-    
+
     <property name="lookupableID" value="taxRegionLookupable"/>
     <property name="defaultSort">
       <bean parent="SortDefinition">
@@ -149,7 +149,7 @@
       <list>
         <bean parent="FieldDefinition" p:attributeName="taxRegionCode"/>
         <bean parent="FieldDefinition" p:attributeName="taxRegionName"/>
-        <bean parent="FieldDefinition" p:attributeName="taxRegionTypeCode"/>           
+        <bean parent="FieldDefinition" p:attributeName="taxRegionTypeCode"/>
         <bean parent="FieldDefinition" p:defaultValue="Y" p:attributeName="active"/>
       </list>
     </property>
@@ -157,12 +157,12 @@
       <list>
         <bean parent="FieldDefinition" p:attributeName="taxRegionCode"/>
         <bean parent="FieldDefinition" p:attributeName="taxRegionName"/>
-        <bean parent="FieldDefinition" p:attributeName="taxRegionTypeCode" p:forceInquiry="true"/>              
+        <bean parent="FieldDefinition" p:attributeName="taxRegionTypeCode" p:forceInquiry="true"/>
         <bean parent="FieldDefinition" p:attributeName="chartOfAccountsCode"/>
         <bean parent="FieldDefinition" p:attributeName="accountNumber"/>
         <bean parent="FieldDefinition" p:attributeName="financialObjectCode"/>
         <bean parent="FieldDefinition" p:attributeName="active"/>
-           
+
       </list>
     </property>
   </bean>
@@ -178,11 +178,11 @@
 		<ref bean="TaxRegion-inquirySectionDefinition-rates"/>
 		<ref bean="TaxRegion-inquirySectionDefinition-states"/>
 		<ref bean="TaxRegion-inquirySectionDefinition-countries"/>
-		<ref bean="TaxRegion-inquirySectionDefinition-postalCodes"/>                     
+		<ref bean="TaxRegion-inquirySectionDefinition-postalCodes"/>
       </list>
     </property>
   </bean>
-  
+
   <bean id="TaxRegion-inquirySectionDefinition-attributes" parent="TaxRegion-inquirySectionDefinition-attributes-parentBean"/>
   <bean id="TaxRegion-inquirySectionDefinition-attributes-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Tax Region Attributes"/>
@@ -208,7 +208,7 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="TaxRegion-inquiryCollectionDefinition-rates" parent="TaxRegion-inquiryCollectionDefinition-rates-parentBean"/>
   <bean id="TaxRegion-inquiryCollectionDefinition-rates-parentBean" parent="InquiryCollectionDefinition" abstract="true">
   <property name="attributeName" value="taxRegionRates"/>
@@ -221,7 +221,7 @@
     </list>
   </property>
 </bean>
-        
+
   <bean id="TaxRegion-inquirySectionDefinition-states" parent="TaxRegion-inquirySectionDefinition-states-parentBean"/>
   <bean id="TaxRegion-inquirySectionDefinition-states-parentBean" parent="InquirySectionDefinition" abstract="true">
 	 <property name="title" value="Tax Region States"/>
@@ -244,7 +244,7 @@
       </list>
     </property>
   </bean>
-	     
+
   <bean id="TaxRegion-inquirySectionDefinition-countries" parent="TaxRegion-inquirySectionDefinition-countries-parentBean"/>
   <bean id="TaxRegion-inquirySectionDefinition-countries-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Tax Region Counties"/>
@@ -254,8 +254,8 @@
 		<ref bean="TaxRegion-inquiryCollectionDefinition-countries"/>
       </list>
     </property>
-  </bean> 
- 
+  </bean>
+
   <bean id="TaxRegion-inquiryCollectionDefinition-countries" parent="TaxRegion-inquiryCollectionDefinition-countries-parentBean"/>
   <bean id="TaxRegion-inquiryCollectionDefinition-countries-parentBean" parent="InquiryCollectionDefinition" abstract="true">
    <property name="attributeName" value="taxRegionCounties"/>
@@ -268,7 +268,7 @@
      </list>
    </property>
  </bean>
-         
+
   <bean id="TaxRegion-inquirySectionDefinition-postalCodes" parent="TaxRegion-inquirySectionDefinition-postalCodes-parentBean"/>
   <bean id="TaxRegion-inquirySectionDefinition-postalCodes-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Tax Region Postal Codes"/>
@@ -278,7 +278,7 @@
 		<ref bean="TaxRegion-inquiryCollectionDefinition-postalCodes"/>
       </list>
     </property>
-  </bean> 
+  </bean>
 
   <bean id="TaxRegion-inquiryCollectionDefinition-postalCodes" parent="TaxRegion-inquiryCollectionDefinition-postalCodes-parentBean"/>
   <bean id="TaxRegion-inquiryCollectionDefinition-postalCodes-parentBean" parent="InquiryCollectionDefinition" abstract="true">
@@ -291,5 +291,5 @@
 	    </list>
 	  </property>
   </bean>
-              
+
 </beans>

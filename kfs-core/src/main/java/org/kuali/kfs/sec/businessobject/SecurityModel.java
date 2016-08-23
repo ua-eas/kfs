@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -43,7 +43,7 @@ public class SecurityModel extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Gets the id attribute.
-     * 
+     *
      * @return Returns the id.
      */
     public KualiInteger getId() {
@@ -53,7 +53,7 @@ public class SecurityModel extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the id attribute value.
-     * 
+     *
      * @param id The id to set.
      */
     public void setId(KualiInteger id) {
@@ -63,7 +63,7 @@ public class SecurityModel extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Gets the name attribute.
-     * 
+     *
      * @return Returns the name.
      */
     public String getName() {
@@ -73,7 +73,7 @@ public class SecurityModel extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the name attribute value.
-     * 
+     *
      * @param name The name to set.
      */
     public void setName(String name) {
@@ -83,7 +83,7 @@ public class SecurityModel extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Gets the description attribute.
-     * 
+     *
      * @return Returns the description.
      */
     public String getDescription() {
@@ -93,7 +93,7 @@ public class SecurityModel extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the description attribute value.
-     * 
+     *
      * @param description The description to set.
      */
     public void setDescription(String description) {
@@ -103,7 +103,7 @@ public class SecurityModel extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Gets the roleId attribute.
-     * 
+     *
      * @return Returns the roleId.
      */
     public String getRoleId() {
@@ -113,7 +113,7 @@ public class SecurityModel extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the roleId attribute value.
-     * 
+     *
      * @param roleId The roleId to set.
      */
     public void setRoleId(String roleId) {
@@ -123,7 +123,7 @@ public class SecurityModel extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -133,7 +133,7 @@ public class SecurityModel extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the active attribute value.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {
@@ -143,7 +143,7 @@ public class SecurityModel extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Gets the modelDefinitions attribute.
-     * 
+     *
      * @return Returns the modelDefinitions.
      */
     public List<SecurityModelDefinition> getModelDefinitions() {
@@ -153,7 +153,7 @@ public class SecurityModel extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the modelDefinitions attribute value.
-     * 
+     *
      * @param modelDefinitions The modelDefinitions to set.
      */
     public void setModelDefinitions(List<SecurityModelDefinition> modelDefinitions) {
@@ -163,7 +163,7 @@ public class SecurityModel extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Gets the modelMembers attribute.
-     * 
+     *
      * @return Returns the modelMembers.
      */
     public List<SecurityModelMember> getModelMembers() {
@@ -173,7 +173,7 @@ public class SecurityModel extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the modelMembers attribute value.
-     * 
+     *
      * @param modelMembers The modelMembers to set.
      */
     public void setModelMembers(List<SecurityModelMember> modelMembers) {
@@ -211,6 +211,6 @@ public class SecurityModel extends PersistableBusinessObjectBase implements Muta
         return builder.toString();
     }
 
-    
+
 
 }

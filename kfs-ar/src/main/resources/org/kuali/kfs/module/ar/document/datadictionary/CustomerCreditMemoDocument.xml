@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -22,9 +22,9 @@
   <bean id="CustomerCreditMemoDocument" parent="CustomerCreditMemoDocument-parentBean"/>
 
   <bean id="CustomerCreditMemoDocument-parentBean" abstract="true" parent="TransactionalDocumentEntry">
-    
-    
-    
+
+
+
     <property name="documentTypeName" value="CRM"/>
     <property name="documentClass" value="org.kuali.kfs.module.ar.document.CustomerCreditMemoDocument"/>
     <property name="baseDocumentClass" value="org.kuali.kfs.module.ar.document.CustomerCreditMemoDocument"/>
@@ -34,9 +34,9 @@
 -->
     <property name="promptBeforeValidationClass" value="org.kuali.kfs.module.ar.document.validation.impl.CustomerCreditMemoDocumentPreRules"/>
     <property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentAuthorizerBase"/>
-    <property name="documentPresentationControllerClass" value="org.kuali.kfs.module.ar.document.authorization.CustomerCreditMemoDocumentPresentationController"/>    
+    <property name="documentPresentationControllerClass" value="org.kuali.kfs.module.ar.document.authorization.CustomerCreditMemoDocumentPresentationController"/>
     <property name="attributes">
-      <list>                                 
+      <list>
         <ref bean="CustomerCreditMemoDocument-financialDocumentReferenceInvoiceNumber"/>
         <ref bean="CustomerCreditMemoDocument-crmTotalItemAmount"/>
         <ref bean="CustomerCreditMemoDocument-crmTotalTaxAmount"/>
@@ -65,7 +65,7 @@
       	<bean parent="TextControlDefinition" p:size="12"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerCreditMemoDocument-crmTotalItemAmount" parent="CustomerCreditMemoDocument-crmTotalItemAmount-parentBean"/>
 
   <bean id="CustomerCreditMemoDocument-crmTotalItemAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
@@ -73,7 +73,7 @@
     <property name="label" value="CRM Total Item Amount"/>
     <property name="shortLabel" value="CRM Total Item Amount"/>
   </bean>
-  
+
   <bean id="CustomerCreditMemoDocument-crmTotalTaxAmount" parent="CustomerCreditMemoDocument-crmTotalTaxAmount-parentBean"/>
 
   <bean id="CustomerCreditMemoDocument-crmTotalTaxAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
@@ -81,7 +81,7 @@
     <property name="label" value="CRM Total Tax Amount"/>
     <property name="shortLabel" value="CRM Total Tax Amount"/>
   </bean>
-  
+
   <bean id="CustomerCreditMemoDocument-crmTotalAmount" parent="CustomerCreditMemoDocument-crmTotalAmount-parentBean"/>
 
   <bean id="CustomerCreditMemoDocument-crmTotalAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
@@ -89,8 +89,8 @@
     <property name="label" value="CRM Total Amount"/>
     <property name="shortLabel" value="CRM Total Amount"/>
   </bean>
- 
- 
+
+
   <bean id="CustomerCreditMemoDocument-invOutstandingDays" parent="CustomerCreditMemoDocument-invOutstandingDays-parentBean"/>
 
   <bean id="CustomerCreditMemoDocument-invOutstandingDays-parentBean" abstract="true" parent="AttributeDefinition">
@@ -103,11 +103,11 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="7"/>
     </property>
-  </bean> 
-  
-<!-- Start - Workflow Attribute Beans -->  
+  </bean>
+
+<!-- Start - Workflow Attribute Beans -->
     <bean id="CustomerCreditMemoDocument-workflowAttributes" parent="CustomerCreditMemoDocument-workflowAttributes-parentBean"/>
-	
+
 	<bean id="CustomerCreditMemoDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
     	<property name="searchingTypeDefinitions">
     		<list>
@@ -132,8 +132,8 @@
     			<entry key="AccountingOrganizationHierarchy" value-ref="RoutingType-CustomerCreditMemoDocument-OrganizationHierarchy-sourceOnly"/>
     		</map>
     	</property>
-	</bean>  
-	
+	</bean>
+
 
 
 	<bean id="RoutingType-CustomerCreditMemoDocument-Account-sourceOnly" parent="RoutingTypeDefinition">
@@ -161,7 +161,7 @@
     <bean id="RoutingAttribute-CustomerCreditMemoDocument-crmTotalAmount" parent="RoutingAttribute">
    		<property name="qualificationAttributeName" value="financialDocumentTotalAmount"/>
     </bean>
-    
+
     <bean id="RoutingType-CustomerCreditMemoDocument-OrganizationHierarchy-sourceOnly" parent="RoutingType-CustomerCreditMemoDocument-OrganizationHierarchy-sourceOnly-parentBean"/>
     <bean id="RoutingType-CustomerCreditMemoDocument-OrganizationHierarchy-sourceOnly-parentBean" parent="RoutingTypeDefinition">
     	<property name="routingAttributes">
@@ -178,7 +178,7 @@
     		</list>
     	</property>
     </bean>
-    
+
     <bean id="DocumentValuePathGroup-CustomerCreditMemoDocument-OrganizationHierarchy-sourceAccountingLines" parent="DocumentValuePathGroup">
     	<property name="documentValues">
     		<list>
@@ -191,12 +191,12 @@
 			</bean>
 		</property>
 	</bean>
-    
+
 <!-- Granular Validations -->
-  <bean id="CustomerCreditMemoDocument-validations" parent="CustomerCreditMemoDocument-validations-parentBean"/>  
+  <bean id="CustomerCreditMemoDocument-validations" parent="CustomerCreditMemoDocument-validations-parentBean"/>
   <bean id="CustomerCreditMemoDocument-validations-parentBean" abstract="true"  class="org.springframework.beans.factory.config.MapFactoryBean">
   	<property name="sourceMap">
-		<map key-type="java.lang.Class">			
+		<map key-type="java.lang.Class">
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.AttributedSaveDocumentEvent</value></key>
 				<value>CustomerCreditMemo-saveDocumentValidation</value>
@@ -220,16 +220,16 @@
 			<entry>
 				<key><value>org.kuali.kfs.module.ar.document.validation.event.ContinueCustomerCreditMemoDocumentEvent</value></key>
 				<value>CustomerCreditMemo-continueCustomerCreditMemoDocumentValidation</value>
-			</entry>			
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.ar.document.validation.event.RecalculateCustomerCreditMemoDetailEvent</value></key>
 				<value>CustomerCreditMemo-recalculateCustomerCreditMemoDetailValidation</value>
-			</entry>			
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.ar.document.validation.event.RecalculateCustomerCreditMemoDocumentEvent</value></key>
 				<value>CustomerCreditMemo-recalculateCustomerCreditMemoDocumentValidation</value>
-			</entry>			
+			</entry>
     	</map>
     </property>
-  </bean>  
+  </bean>
 </beans>

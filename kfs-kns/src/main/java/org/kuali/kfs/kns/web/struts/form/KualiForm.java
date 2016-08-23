@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -73,12 +73,12 @@ public class KualiForm extends PojoFormBase {
     protected List<ExtraButton> extraButtons = new AutoPopulatingList( ExtraButton.class ) ;
 
     private boolean fieldLevelHelpEnabled;
-    
+
     private List<HeaderField> docInfo;
     private int numColumns = 2;
-    
+
     private String fieldNameToFocusOnAfterSubmit;
-    
+
     /**
      * @see org.kuali.rice.krad.web.struts.pojo.PojoFormBase#addRequiredNonEditableProperties()
      */
@@ -87,7 +87,7 @@ public class KualiForm extends PojoFormBase {
     	super.addRequiredNonEditableProperties();
     	registerRequiredNonEditableProperty(KRADConstants.REFRESH_CALLER);
     }
-    
+
     public int getNumColumns() {
         return this.numColumns;
     }
@@ -118,17 +118,17 @@ public class KualiForm extends PojoFormBase {
      */
     public void populate(HttpServletRequest request) {
         setMethodToCall(WebUtils.parseMethodToCall(this, request));
-        
+
         super.populate(request);
 
         populateBackLocation(request);
         populateFieldLevelHelpEnabled(request);
-        
+
         if (actionFormUtilMap instanceof ActionFormUtilMap) {
             ((ActionFormUtilMap) actionFormUtilMap).setCacheValueFinderResults(true);
         }
     }
-        
+
     private static Boolean ENABLE_FIELD_LEVEL_HELP_IND;
 
     protected void populateBackLocation(HttpServletRequest request){
@@ -136,11 +136,11 @@ public class KualiForm extends PojoFormBase {
             setBackLocation(getParameter(request, "returnLocation"));
         }
     }
-    
+
     /**
      * Populates whether the each field will have field-level help associated with it.  Depending on how the jsp/tags are implemented, the value
      * populated by this method may be overruled by other settings
-     * 
+     *
      * @param request
      */
     protected void populateFieldLevelHelpEnabled(HttpServletRequest request) {
@@ -257,7 +257,7 @@ public class KualiForm extends PojoFormBase {
     public int getNextArbitrarilyHighIndex() {
         return this.arbitrarilyHighIndex++;
     }
-    
+
 	public String getFieldNameToFocusOnAfterSubmit() {
 		return this.fieldNameToFocusOnAfterSubmit;
 	}
@@ -347,7 +347,7 @@ public class KualiForm extends PojoFormBase {
 
     /**
      * Returns whether field level help is enabled for this form.
-     * 
+     *
      * @return
      */
     public boolean isFieldLevelHelpEnabled() {
@@ -357,11 +357,11 @@ public class KualiForm extends PojoFormBase {
     public void setFieldLevelHelpEnabled(boolean fieldLevelHelpEnabled) {
         this.fieldLevelHelpEnabled = fieldLevelHelpEnabled;
     }
-    
-    
+
+
     /**
-     * Retrieves a value from the form for the purposes of passing it as a parameter into the lookup or inquiry frameworks 
-     * 
+     * Retrieves a value from the form for the purposes of passing it as a parameter into the lookup or inquiry frameworks
+     *
      * @param parameterName the name of the parameter, as expected by the lookup or inquiry frameworks
      * @param parameterValueLocation the name of the property containing the value of the parameter
      * @return the value of the parameter
@@ -380,12 +380,12 @@ public class KualiForm extends PojoFormBase {
 			return (String) value;
 		}
 		Formatter formatter = Formatter.getFormatter(value.getClass());
-		return (String) formatter.format(value);	
+		return (String) formatter.format(value);
     }
 
 	/**
 	 * This overridden method ...
-	 * 
+	 *
 	 * @see org.kuali.rice.krad.web.struts.pojo.PojoFormBase#shouldPropertyBePopulatedInForm(java.lang.String, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
@@ -394,17 +394,17 @@ public class KualiForm extends PojoFormBase {
 		if (requestParameterName.startsWith(KRADConstants.TAB_STATES)) {
 			return true;
 		}
-		
+
 		if (requestParameterName.equals(KRADConstants.DISPATCH_REQUEST_PARAMETER)) {
 			String methodToCallParameterName = request.getParameter(KRADConstants.DISPATCH_REQUEST_PARAMETER);
 			if(StringUtils.equals(methodToCallParameterName, KRADConstants.RETURN_METHOD_TO_CALL)){
 				return true;
 			}
 		}
-		
+
 		return super.shouldPropertyBePopulatedInForm(requestParameterName, request);
 	}
-    
+
     public boolean shouldMethodToCallParameterBeUsed(String methodToCallParameterName, String methodToCallParameterValue, HttpServletRequest request) {
     	if ("GET".equalsIgnoreCase(request.getMethod())) {
     		return true;
@@ -440,7 +440,7 @@ public class KualiForm extends PojoFormBase {
 	public void clearEditablePropertyInformation() {
 		super.clearEditablePropertyInformation();
 	}
-	
+
 	public void setDerivedValuesOnForm(HttpServletRequest request) {
 	}
 
@@ -469,7 +469,7 @@ public class KualiForm extends PojoFormBase {
 		//fieldNameToFocusOnAfterSubmit = "";
 		clearDisplayedMessages();
 	}
-	
+
 	private void clearDisplayedMessages() {
 		if (displayedErrors != null) {
 			displayedErrors.clear();
@@ -481,7 +481,7 @@ public class KualiForm extends PojoFormBase {
 			displayedInfo.clear();
 		}
 	}
-	
+
     /**
 	 * @return the backLocation
 	 */

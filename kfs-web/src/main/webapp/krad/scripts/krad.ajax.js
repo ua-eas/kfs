@@ -1,17 +1,20 @@
 /*
- * Copyright 2005-2015 The Kuali Foundation
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Licensed under the Educational Community License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Copyright 2005-2016 The Kuali Foundation
  *
- * http://www.opensource.org/licenses/ecl2.php
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
  * Submits the form through an ajax submit, the response is the new page html
@@ -45,7 +48,7 @@ function ajaxSubmitForm(methodToCall, successCallback, additionalData, elementTo
 	}
     //remove this since the methodToCall was passed in or extracted from the page, to avoid issues
     jq("input[name='methodToCall']").remove();
-	
+
 	if(additionalData != null){
 		jq.extend(data, additionalData);
 	}
@@ -58,9 +61,9 @@ function ajaxSubmitForm(methodToCall, successCallback, additionalData, elementTo
         jsonViewState = jsonViewState.replace(/"/g, "'");
         jq.extend(data, {clientViewState: jsonViewState});
     }
-	
+
 	var submitOptions = {
-			data: data, 
+			data: data,
 			success: function(response){
 				var tempDiv = document.createElement('div');
 				tempDiv.innerHTML = response;
@@ -79,7 +82,7 @@ function ajaxSubmitForm(methodToCall, successCallback, additionalData, elementTo
                 alert( "Request failed: " + textStatus );
             }
 	};
-	
+
 	if(elementToBlock != null && elementToBlock.length){
 		var elementBlockingOptions = {
 				beforeSend: function() {
@@ -110,7 +113,7 @@ function ajaxSubmitForm(methodToCall, successCallback, additionalData, elementTo
 				}
 		};
 	}
-	
+
 	jq.extend(submitOptions, elementBlockingOptions);
 	var form = jq("#kualiForm");
 	form.ajaxSubmit(submitOptions);
@@ -236,7 +239,7 @@ function retrieveComponent(id, baseId, methodToCall){
     if (!methodToCall) {
         methodToCall = "updateComponent";
     }
-	
+
 	ajaxSubmitForm(methodToCall, updateRefreshableComponentCallback,
 			{reqComponentId: id, skipViewInit: "true"}, elementToBlock);
 }
@@ -265,9 +268,9 @@ function toggleInactiveRecordDisplay(collectionGroupId, showInactive) {
 			}
 		});
     };
-    
-    ajaxSubmitForm("toggleInactiveRecordDisplay", updateCollectionCallback, 
-			{reqComponentId: collectionGroupId, skipViewInit: "true", showInactiveRecords : showInactive}, 
+
+    ajaxSubmitForm("toggleInactiveRecordDisplay", updateCollectionCallback,
+			{reqComponentId: collectionGroupId, skipViewInit: "true", showInactiveRecords : showInactive},
 			elementToBlock);
 }
 
@@ -286,7 +289,7 @@ function performCollectionAction(collectionGroupId){
 				}
 			});
 	    };
-	    
+
 	    var methodToCall = jq("input[name='methodToCall']").val();
 		ajaxSubmitForm(methodToCall, updateCollectionCallback, {reqComponentId: collectionGroupId, skipViewInit: "true"},
 				elementToBlock);

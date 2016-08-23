@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -51,35 +51,35 @@ import org.springframework.transaction.annotation.Transactional;
 public class BulkReceivingServiceImpl implements BulkReceivingService {
 
     private static final Logger LOG = Logger.getLogger(BulkReceivingServiceImpl.class);
-    
+
     protected PurchaseOrderService purchaseOrderService;
     protected BulkReceivingDao bulkReceivingDao;
     protected DocumentService documentService;
     protected WorkflowDocumentService workflowDocumentService;
-    protected ConfigurationService configurationService;    
+    protected ConfigurationService configurationService;
     protected PrintService printService;
-    
+
     public boolean canPrintReceivingTicket(BulkReceivingDocument blkRecDoc) {
 
         boolean canCreate = false;
         WorkflowDocument workflowDocument = null;
-        
+
         try{
             workflowDocument = workflowDocumentService.createWorkflowDocument(blkRecDoc.getDocumentHeader().getWorkflowDocument().getDocumentTypeName(), GlobalVariables.getUserSession().getPerson());
         }catch(WorkflowException we){
             throw new RuntimeException(we);
         }
 
-        if( workflowDocument.isFinal()){            
+        if( workflowDocument.isFinal()){
             canCreate = true;
         }
-        
+
         return canCreate;
     }
-    
-    public void populateAndSaveBulkReceivingDocument(BulkReceivingDocument blkRecDoc) 
+
+    public void populateAndSaveBulkReceivingDocument(BulkReceivingDocument blkRecDoc)
     throws WorkflowException {
-        try {            
+        try {
             documentService.saveDocument(blkRecDoc, AttributedContinuePurapEvent.class);
         }
         catch (WorkflowException we) {
@@ -87,119 +87,119 @@ public class BulkReceivingServiceImpl implements BulkReceivingService {
             throw new RuntimeException(errorMsg, we);
         }
     }
-    
+
     public HashMap<String, String> bulkReceivingDuplicateMessages(BulkReceivingDocument blkRecDoc) {
         HashMap<String, String> msgs;
         msgs = new HashMap<String, String>();
         Integer poId = blkRecDoc.getPurchaseOrderIdentifier();
         StringBuffer currentMessage = new StringBuffer("");
         List<String> docNumbers = null;
-        
+
         //check vendor date for duplicates
         if( blkRecDoc.getShipmentReceivedDate() != null ){
             docNumbers = bulkReceivingDao.duplicateVendorDate(poId, blkRecDoc.getShipmentReceivedDate());
             if( hasDuplicateEntry(docNumbers) ){
-                appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_VENDOR_DATE, blkRecDoc.getPurchaseOrderIdentifier());                                
+                appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_VENDOR_DATE, blkRecDoc.getPurchaseOrderIdentifier());
             }
         }
-        
+
         //check packing slip number for duplicates
         if( !StringUtils.isEmpty(blkRecDoc.getShipmentPackingSlipNumber()) ){
             docNumbers = bulkReceivingDao.duplicatePackingSlipNumber(poId, blkRecDoc.getShipmentPackingSlipNumber());
             if( hasDuplicateEntry(docNumbers) ){
-                appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_PACKING_SLIP_NUMBER, blkRecDoc.getPurchaseOrderIdentifier());                                
+                appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_PACKING_SLIP_NUMBER, blkRecDoc.getPurchaseOrderIdentifier());
             }
         }
-        
+
         //check bill of lading number for duplicates
         if( !StringUtils.isEmpty(blkRecDoc.getShipmentBillOfLadingNumber()) ){
             docNumbers = bulkReceivingDao.duplicateBillOfLadingNumber(poId, blkRecDoc.getShipmentBillOfLadingNumber());
             if( hasDuplicateEntry(docNumbers) ){
-                appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_BILL_OF_LADING_NUMBER, blkRecDoc.getPurchaseOrderIdentifier());                
+                appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_BILL_OF_LADING_NUMBER, blkRecDoc.getPurchaseOrderIdentifier());
             }
         }
-        
+
        //add message if one exists
        if(currentMessage.length() > 0){
            //add suffix
            appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_SUFFIX, blkRecDoc.getPurchaseOrderIdentifier() );
-           
+
            //add msg to map
            msgs.put(PurapConstants.BulkReceivingDocumentStrings.DUPLICATE_BULK_RECEIVING_DOCUMENT_QUESTION, currentMessage.toString());
        }
-       
+
        return msgs;
     }
 
     /**
      * Looks at a list of doc numbers, but only considers an entry duplicate
      * if the document is in a Final status.
-     * 
+     *
      * @param docNumbers
      * @return
      */
     protected boolean hasDuplicateEntry(List<String> docNumbers){
-        
+
         boolean isDuplicate = false;
         WorkflowDocument workflowDocument = null;
-        
+
         for (String docNumber : docNumbers) {
-        
+
             try{
                 workflowDocument = workflowDocumentService.loadWorkflowDocument(docNumber, GlobalVariables.getUserSession().getPerson());
             }catch(WorkflowException we){
                 throw new RuntimeException(we);
             }
-            
+
             //if the doc number exists, and is in final status, consider this a dupe and return
             if(workflowDocument.isFinal()){
                 isDuplicate = true;
                 break;
             }
         }
-        
+
         return isDuplicate;
 
     }
-    
-    protected void appendDuplicateMessage(StringBuffer currentMessage, 
-                                        String duplicateMessageKey, 
+
+    protected void appendDuplicateMessage(StringBuffer currentMessage,
+                                        String duplicateMessageKey,
                                         Integer poId){
-        
+
         //append prefix if this is first call
         if(currentMessage.length() == 0){
             String messageText = configurationService.getPropertyValueAsString(PurapKeyConstants.MESSAGE_BULK_RECEIVING_DUPLICATE_PREFIX);
             String prefix = MessageFormat.format(messageText, poId.toString() );
-            
+
             currentMessage.append(prefix);
         }
-        
+
         //append message
-        currentMessage.append( configurationService.getPropertyValueAsString(duplicateMessageKey) );                
+        currentMessage.append( configurationService.getPropertyValueAsString(duplicateMessageKey) );
     }
-    
-    public String getBulkReceivingDocumentNumberInProcessForPurchaseOrder(Integer poId, 
+
+    public String getBulkReceivingDocumentNumberInProcessForPurchaseOrder(Integer poId,
                                                                           String bulkReceivingDocumentNumber){
-        
+
         String docNumberInProcess = StringUtils.EMPTY;
-        
+
         List<String> docNumbers = bulkReceivingDao.getDocumentNumbersByPurchaseOrderId(poId);
         WorkflowDocument workflowDocument = null;
-                
+
         for (String docNumber : docNumbers) {
-        
+
             try{
-                workflowDocument = workflowDocumentService.loadWorkflowDocument(docNumber, 
+                workflowDocument = workflowDocumentService.loadWorkflowDocument(docNumber,
                                                                                   GlobalVariables.getUserSession().getPerson());
             }catch(WorkflowException we){
                 throw new RuntimeException(we);
             }
-            
+
             if(!(workflowDocument.isCanceled() ||
                  workflowDocument.isException() ||
                  workflowDocument.isFinal()) &&
                  !docNumber.equals(bulkReceivingDocumentNumber)){
-                     
+
                 docNumberInProcess = docNumber;
                 break;
             }
@@ -209,18 +209,18 @@ public class BulkReceivingServiceImpl implements BulkReceivingService {
     }
 
     public void populateBulkReceivingFromPurchaseOrder(BulkReceivingDocument blkRecDoc) {
-        
+
         if (blkRecDoc != null){
             PurchaseOrderDocument poDoc = purchaseOrderService.getCurrentPurchaseOrder(blkRecDoc.getPurchaseOrderIdentifier());
             if(poDoc != null){
                 blkRecDoc.populateBulkReceivingFromPurchaseOrder(poDoc);
             }
         }
-        
+
     }
 
     public BulkReceivingDocument getBulkReceivingByDocumentNumber(String documentNumber){
-        
+
         if (ObjectUtils.isNotNull(documentNumber)) {
             try {
                 BulkReceivingDocument doc = (BulkReceivingDocument) documentService.getByDocumentHeaderId(documentNumber);
@@ -238,36 +238,36 @@ public class BulkReceivingServiceImpl implements BulkReceivingService {
         }
         return null;
     }
-    
-    public void performPrintReceivingTicketPDF(String blkDocId, 
+
+    public void performPrintReceivingTicketPDF(String blkDocId,
                                                ByteArrayOutputStream baosPDF){
-        
+
         BulkReceivingDocument blkRecDoc = getBulkReceivingByDocumentNumber(blkDocId);
         Collection<String> generatePDFErrors = printService.generateBulkReceivingPDF(blkRecDoc, baosPDF);
-        
+
         if (!generatePDFErrors.isEmpty()) {
             addStringErrorMessagesToMessageMap(PurapKeyConstants.ERROR_BULK_RECEIVING_PDF, generatePDFErrors);
             throw new ValidationException("printing bulk receiving ticket failed");
         }
-        
+
     }
-    
-    protected void addStringErrorMessagesToMessageMap(String errorKey, 
+
+    protected void addStringErrorMessagesToMessageMap(String errorKey,
                                                   Collection<String> errors) {
-        
+
         if (ObjectUtils.isNotNull(errors)) {
             for (String error : errors) {
                 LOG.error("Adding error message using error key '" + errorKey + "' with text '" + error + "'");
                 GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, errorKey, error);
             }
         }
-        
+
     }
 
     public void setPrintService(PrintService printService) {
         this.printService = printService;
     }
-    
+
     public void setPurchaseOrderService(PurchaseOrderService purchaseOrderService) {
         this.purchaseOrderService = purchaseOrderService;
     }

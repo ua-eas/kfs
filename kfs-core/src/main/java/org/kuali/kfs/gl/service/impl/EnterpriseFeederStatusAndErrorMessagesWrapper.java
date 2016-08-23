@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,7 +46,7 @@ public class EnterpriseFeederStatusAndErrorMessagesWrapper {
 
     /**
      * Gets the errorMessages attribute.
-     * 
+     *
      * @return Returns the errorMessages.
      */
     public List<Message> getErrorMessages() {
@@ -55,7 +55,7 @@ public class EnterpriseFeederStatusAndErrorMessagesWrapper {
 
     /**
      * Sets the errorMessages attribute value.
-     * 
+     *
      * @param errorMessages The errorMessages to set.
      */
     public void setErrorMessages(List<Message> errorMessages) {
@@ -64,7 +64,7 @@ public class EnterpriseFeederStatusAndErrorMessagesWrapper {
 
     /**
      * Gets the status attribute.
-     * 
+     *
      * @return Returns the status.
      */
     public EnterpriseFeederStatus getStatus() {
@@ -73,7 +73,7 @@ public class EnterpriseFeederStatusAndErrorMessagesWrapper {
 
     /**
      * Sets the status attribute value.
-     * 
+     *
      * @param status The status to set.
      */
     public void setStatus(EnterpriseFeederStatus status) {
@@ -93,7 +93,7 @@ public class EnterpriseFeederStatusAndErrorMessagesWrapper {
     }
 
     /**
-     * Gets the doneFileName attribute. 
+     * Gets the doneFileName attribute.
      * @return Returns the doneFileName.
      */
     public String getDoneFileName() {
@@ -101,7 +101,7 @@ public class EnterpriseFeederStatusAndErrorMessagesWrapper {
     }
 
     /**
-     * Gets the reconFileName attribute. 
+     * Gets the reconFileName attribute.
      * @return Returns the reconFileName.
      */
     public String getReconFileName() {
@@ -109,7 +109,7 @@ public class EnterpriseFeederStatusAndErrorMessagesWrapper {
     }
 
     /**
-     * Gets the dataFileName attribute. 
+     * Gets the dataFileName attribute.
      * @return Returns the dataFileName.
      */
     public String getDataFileName() {

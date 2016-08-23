@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,9 +27,9 @@ public class CustomerLoadBatchError {
     private Class<?> propertyClass;
     private String value;
     private String description;
-    
+
     /**
-     * 
+     *
      * Default constructor with all internal fields defaulting to empty-string or null.
      */
     public CustomerLoadBatchError() {
@@ -39,18 +39,18 @@ public class CustomerLoadBatchError {
         this.value = "";
         this.description = "";
     }
-    
+
     /**
-     * 
+     *
      * Constructor to initialize with just the customerName.
      * @param customerName The customer name of the document being imported.
      */
     public CustomerLoadBatchError(String customerName) {
         this.customerName = customerName;
     }
-    
+
     /**
-     * 
+     *
      * Constructs a CustomerLoadBatchError.java.
      * @param customerName The customer name of the document being imported.
      * @param propertyName The name of the property on the Customer BO.
@@ -67,16 +67,16 @@ public class CustomerLoadBatchError {
     }
 
     public String toString() {
-        return "[" + customerName + "] " + 
-                ("class java.lang.Object".equals(propertyClass.toString()) || propertyClass == null ? "" : "(" + propertyClass.toString() + ") ") + 
-                (StringUtils.isBlank(propertyName) ? "" : getPropertyNameLastElement() + ": ") + 
-                (StringUtils.isBlank(value) || "N/A".equalsIgnoreCase(value) ? "" : "'" + value + "' - ") +  
+        return "[" + customerName + "] " +
+                ("class java.lang.Object".equals(propertyClass.toString()) || propertyClass == null ? "" : "(" + propertyClass.toString() + ") ") +
+                (StringUtils.isBlank(propertyName) ? "" : getPropertyNameLastElement() + ": ") +
+                (StringUtils.isBlank(value) || "N/A".equalsIgnoreCase(value) ? "" : "'" + value + "' - ") +
                 description;
     }
-    
+
     public String getPropertyNameLastElement() {
         if (StringUtils.isBlank(propertyName)) return propertyName;
-        
+
         String[] propertyNameElements = propertyName.split("\\.");
         if (propertyNameElements.length <= 0) {
             return propertyName;
@@ -84,9 +84,9 @@ public class CustomerLoadBatchError {
         else {
             return propertyNameElements[propertyNameElements.length - 1];
         }
-        
+
     }
-    
+
     public String getCustomerName() {
         return customerName;
     }
@@ -126,5 +126,5 @@ public class CustomerLoadBatchError {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
 }

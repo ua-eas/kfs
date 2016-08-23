@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,10 +27,10 @@ import org.kuali.kfs.module.cam.businessobject.BarcodeInventoryErrorDetail;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
 public class BarcodeInventoryErrorDocument extends FinancialSystemTransactionalDocumentBase {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BarcodeInventoryErrorDocument.class);
-    
+
 	protected String documentNumber;
 	protected String uploaderUniversalIdentifier;
-	
+
     //global replace	- search fields
     //*** Old values **************
     protected String currentTagNumber;
@@ -49,32 +49,32 @@ public class BarcodeInventoryErrorDocument extends FinancialSystemTransactionalD
     protected String newRoom;
     protected String newSubroom;
     protected String newConditionCode;
-	
+
     protected List<BarcodeInventoryErrorDetail> barcodeInventoryErrorDetail;
-    
+
 	/**
 	 * Default constructor.
 	 */
 	public BarcodeInventoryErrorDocument() {
 	    super();
-	    this.setBarcodeInventoryErrorDetail(new ArrayList<BarcodeInventoryErrorDetail>());	    
+	    this.setBarcodeInventoryErrorDetail(new ArrayList<BarcodeInventoryErrorDetail>());
 	}
 
 	/**
 	 * Gets the documentNumber attribute.
-	 * 
+	 *
 	 * @return Returns the documentNumber
-	 * 
+	 *
 	 */
-	public String getDocumentNumber() { 
+	public String getDocumentNumber() {
 		return documentNumber;
 	}
 
 	/**
 	 * Sets the documentNumber attribute.
-	 * 
+	 *
 	 * @param documentNumber The documentNumber to set.
-	 * 
+	 *
 	 */
 	public void setDocumentNumber(String documentNumber) {
 		this.documentNumber = documentNumber;
@@ -83,19 +83,19 @@ public class BarcodeInventoryErrorDocument extends FinancialSystemTransactionalD
 
 	/**
 	 * Gets the uploaderUniversalIdentifier attribute.
-	 * 
+	 *
 	 * @return Returns the uploaderUniversalIdentifier
-	 * 
+	 *
 	 */
-	public String getUploaderUniversalIdentifier() { 
+	public String getUploaderUniversalIdentifier() {
 		return uploaderUniversalIdentifier;
 	}
 
 	/**
 	 * Sets the uploaderUniversalIdentifier attribute.
-	 * 
+	 *
 	 * @param uploaderUniversalIdentifier The uploaderUniversalIdentifier to set.
-	 * 
+	 *
 	 */
 	public void setUploaderUniversalIdentifier(String uploaderUniversalIdentifier) {
 		this.uploaderUniversalIdentifier = uploaderUniversalIdentifier;
@@ -108,11 +108,11 @@ public class BarcodeInventoryErrorDocument extends FinancialSystemTransactionalD
     public void setBarcodeInventoryErrorDetail(List<BarcodeInventoryErrorDetail> barcodeInventoryErrorDetails) {
         this.barcodeInventoryErrorDetail = barcodeInventoryErrorDetails;
     }
-    
-    
+
+
     /**
      * Determines the document had all its records corrected
-     * 
+     *
      * @return boolean
      */
     public boolean isDocumentCorrected() {
@@ -122,13 +122,13 @@ public class BarcodeInventoryErrorDocument extends FinancialSystemTransactionalD
         }
         return true;
     }
-    
-    
+
+
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-        LinkedHashMap m = new LinkedHashMap();      
+        LinkedHashMap m = new LinkedHashMap();
         m.put("documentNumber", this.documentNumber);
         return m;
     }
@@ -244,7 +244,7 @@ public class BarcodeInventoryErrorDocument extends FinancialSystemTransactionalD
     public void setNewConditionCode(String newConditionCode) {
         this.newConditionCode = newConditionCode;
     }
-    
+
     public void resetSearchFields() {
         currentTagNumber="";
         currentScanCode="";
@@ -259,6 +259,6 @@ public class BarcodeInventoryErrorDocument extends FinancialSystemTransactionalD
         newBuildingNumber="";
         newRoom="";
         newSubroom="";
-        newConditionCode="";        
+        newConditionCode="";
     }
 }

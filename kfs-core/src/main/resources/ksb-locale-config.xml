@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-       xmlns:p="http://www.springframework.org/schema/p" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" default-lazy-init="false">
 
@@ -54,7 +54,7 @@
 			</list>
 		</property>
     </bean>
-    
+
 	<bean id="nonTransactionalDataSource" class="org.kuali.rice.core.database.PrimaryDataSourceFactoryBean">
         <property name="preferredDataSourceParams">
 			<list>
@@ -77,7 +77,7 @@
 			<ref bean="dataDictionaryService" />
 		</property>
 	</bean>
-  
+
   	<bean id="cf.postProcessorService" class="org.kuali.kfs.sys.service.impl.PostProcessorServiceImpl">
 		<property name="documentService">
 			<ref bean ="documentService" />
@@ -128,7 +128,7 @@
 	</bean>
 
 	<bean id="annotationTransactionAttributeSource" class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
-	
+
 	<!-- batch transactional settings -->
     <!--bean id="batchAdvisor" class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
 		<property name="classFilter" ref="batchTransactionAdvisorClassFilter" />
@@ -141,7 +141,7 @@
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="transactionAttributeSource" ref="batchTransactionAttributeSource" />
 	</bean>
-	
+
 	<bean id="batchTransactionAttributeSource" class="org.springframework.transaction.interceptor.MatchAlwaysTransactionAttributeSource">
 		<property name="transactionAttribute">
 		    <bean class="org.springframework.transaction.interceptor.DefaultTransactionAttribute">
@@ -221,26 +221,26 @@
 	<bean id="methodLoggingPointcut" class="org.kuali.rice.core.impl.util.spring.ClassOrMethodAnnotationPointcut">
 		<constructor-arg value="org.kuali.kfs.kns.util.spring.Logged" />
 	</bean>
-	
+
 	<bean id="encryptionService" class="org.kuali.rice.core.impl.encryption.EncryptionServiceImpl">
 		<property name="secretKey">
 			<value>${encryption.key}</value>
 		</property>
-	</bean>	
-	
+	</bean>
+
 	<bean id="enEncryptionService" class="org.kuali.rice.core.impl.encryption.EncryptionServiceImpl" lazy-init="true">
 		<property name="secretKey">
 			<value>${encryption.key}</value>
 		</property>
 	</bean>
-	
+
 	<bean id="ksbJavaSecurityManagementService" class="org.kuali.rice.ksb.security.admin.service.impl.JavaSecurityManagementServiceImpl" lazy-init="true" >
 		<property name="moduleKeyStoreAlias" value="${keystore.alias}" />
 		<property name="moduleKeyStorePassword" value="${keystore.password}" />
-	</bean>	
-	
+	</bean>
+
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.FixedLocaleResolver">
 		<property name="defaultLocale" value="${kfs.locale}" />
 	</bean>
-	
+
 </beans>

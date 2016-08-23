@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-<beans xmlns="http://www.springframework.org/schema/beans" 
+<beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:p="http://www.springframework.org/schema/p"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-    
+
     <bean id="Tem-WorkflowAttributes" class="org.kuali.kfs.module.tem.document.datadictionary.BusinessObjectFillingInWorkflowAttributes" abstract="true" />
 
     <bean id="TravelDocument-workflowAttributes" parent="TravelDocument-workflowAttributes-parentBean" />
@@ -37,7 +37,7 @@
             </map>
         </property>
     </bean>
-    
+
     <bean id="TravelDocument-workflowAttributes-standardSearchingDefinitions" parent="TravelDocument-workflowAttributes-standardSearchingDefinitions-parentBean"/>
     <bean id="TravelDocument-workflowAttributes-standardSearchingDefinitions-parentBean" class="org.springframework.beans.factory.config.ListFactoryBean" abstract="true">
     	<property name="sourceList">
@@ -84,7 +84,7 @@
             </list>
         </property>
     </bean>
-    
+
     <bean id="TravelModule-SearchingTypeDefinition-temProfileName" class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
         <property name="searchingAttribute">
             <bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -97,7 +97,7 @@
             </list>
         </property>
     </bean>
-    
+
     <bean id="TravelModule-SearchingTypeDefinition-hostProfileId" class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
         <property name="searchingAttribute">
             <bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -110,7 +110,7 @@
             </list>
         </property>
     </bean>
-    
+
     <bean id="TravelModule-SearchingTypeDefinition-eventTitle" class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
         <property name="searchingAttribute">
             <bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -123,7 +123,7 @@
             </list>
         </property>
     </bean>
-    
+
     <bean id="TravelModule-SearchingTypeDefinition-spouseIncludedForSearching" class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
         <property name="searchingAttribute">
             <bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -136,7 +136,7 @@
             </list>
         </property>
     </bean>
-    
+
     <bean id="TravelModule-SearchingTypeDefinition-reasonCode" class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
         <property name="searchingAttribute">
             <bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -149,7 +149,7 @@
             </list>
         </property>
     </bean>
-    
+
     <bean id="TravelModule-SearchingTypeDefinition-tripBegin" class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
         <property name="searchingAttribute">
             <bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -256,7 +256,7 @@
             </list>
         </property>
     </bean>
-    
+
     <bean id="TravelModule-SearchingTypeDefinition-traveler.cityName" class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
         <property name="searchingAttribute">
             <bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -284,7 +284,7 @@
             </list>
         </property>
     </bean>
-    
+
     <bean id="TravelModule-SearchingTypeDefinition-traveler.countryCode" class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
         <property name="searchingAttribute">
             <bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -341,7 +341,7 @@
             </list>
         </property>
     </bean>
-    
+
     <bean id="TravelModule-SearchingTypeDefinition-applicationDocumentStatus"
         class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
         <property name="searchingAttribute">
@@ -357,7 +357,7 @@
             </list>
         </property>
     </bean>
-    
+
     <!-- Routing Types -->
     <bean id="RoutingType-TravelAuthorizationDocument-AccountingOrganizationHierarchy" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
         <property name="routingAttributes">
@@ -389,7 +389,7 @@
             </bean>
         </property>
     </bean>
-    
+
     <bean id="RoutingType-TravelReimbursement-ReimbursementOverage" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
             <list>
@@ -428,7 +428,7 @@
             </bean>
         </property>
     </bean>
-    
+
 	<bean id="TravelReimbursable-RoutingType-PaymentMethod" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
@@ -449,7 +449,7 @@
     		</list>
     	</property>
 	</bean>
-	
+
 	<bean id="TravelAuthorization-RoutingType-PaymentMethod" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
@@ -470,7 +470,7 @@
     		</list>
     	</property>
 	</bean>
-	
+
 	<bean id="TravelDocument-WithRoutingAttribute-profilePrincipalId" abstract="true" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
 		<property name="routingAttributes">
     		<list>
@@ -480,7 +480,7 @@
     		</list>
     	</property>
 	</bean>
-	
+
 	<bean id="TravelDocument-RoutingType-Traveler" parent="TravelDocument-WithRoutingAttribute-profilePrincipalId">
     	<property name="documentValuePathGroups">
     		<list>
@@ -494,7 +494,7 @@
     		</list>
     	</property>
 	</bean>
-	
+
 	<bean id="TravelDocument-RoutingType-Account" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
@@ -524,7 +524,7 @@
     		</list>
     	</property>
     </bean>
-    
+
     <bean id="TaxableRamificationDocument-RoutingType-Traveler" parent="TravelDocument-WithRoutingAttribute-profilePrincipalId">
     	<property name="documentValuePathGroups">
     		<list>
@@ -538,7 +538,7 @@
     		</list>
     	</property>
 	</bean>
-	
+
 	<bean id="TravelDocument-RoutingType-Budget"  class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
 		 <property name="routingAttributes">
     		<list>
@@ -557,4 +557,4 @@
     		</list>
     	</property>
 	</bean>
-</beans>    
+</beans>

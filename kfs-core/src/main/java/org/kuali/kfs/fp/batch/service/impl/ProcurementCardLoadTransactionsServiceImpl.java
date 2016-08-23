@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,7 +41,7 @@ import org.kuali.kfs.krad.service.BusinessObjectService;
 /**
  * This is the default implementation of the ProcurementCardLoadTransactionsService interface.
  * Handles loading, parsing, and storing of incoming procurement card batch files.
- * 
+ *
  * @see org.kuali.kfs.fp.batch.service.ProcurementCardCreateDocumentService
  */
 public class ProcurementCardLoadTransactionsServiceImpl extends InitiateDirectoryBase implements ProcurementCardLoadTransactionsService {
@@ -55,10 +55,10 @@ public class ProcurementCardLoadTransactionsServiceImpl extends InitiateDirector
      * @see org.kuali.kfs.fp.batch.service.ProcurementCardLoadTransactionsService#loadProcurementCardFile(java.lang.String, org.kuali.kfs.sys.service.ReportWriterService)
      */
     public boolean loadProcurementCardFile(String fileName, ReportWriterService reportWriterService) {
-        
+
         //add a step to check for directory paths
         prepareDirectories(getRequiredDirectoryNames());
-        
+
         FileInputStream fileContents;
         try {
             fileContents = new FileInputStream(fileName);
@@ -92,7 +92,7 @@ public class ProcurementCardLoadTransactionsServiceImpl extends InitiateDirector
             LOG.info("Total transactions loaded: " + String.valueOf(pcardTransactions.size()));
             reportWriterService.writeFormattedMessageLine("%s is processed. %d transaction(s) loaded. ", fileName, pcardTransactions.size());
         }
-        
+
         return true;
     }
 
@@ -105,7 +105,7 @@ public class ProcurementCardLoadTransactionsServiceImpl extends InitiateDirector
 
     /**
      * Loads all the parsed XML transactions into the temp transaction table.
-     * 
+     *
      * @param transactions List of ProcurementCardTransactions to load.
      */
     protected void loadTransactions(List transactions) {

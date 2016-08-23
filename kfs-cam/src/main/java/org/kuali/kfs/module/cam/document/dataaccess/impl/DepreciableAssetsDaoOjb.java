@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -227,7 +227,7 @@ public class DepreciableAssetsDaoOjb extends PlatformAwareDaoBaseOjb implements 
             columns[0] = "Assets eligible for depreciation";
             columns[1] = data[0].toString();
             reportLine.add(columns.clone());
-            
+
             Set<Long> transferDocPendingAssets = depreciationBatchDao.getTransferDocPendingAssets();
             if (transferDocPendingAssets.size() > 0) {
                 columns[0] = "Assets with pending transfer documents";

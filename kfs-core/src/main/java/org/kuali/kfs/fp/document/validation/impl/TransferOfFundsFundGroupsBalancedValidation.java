@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -45,18 +45,18 @@ public class TransferOfFundsFundGroupsBalancedValidation extends GenericValidati
     private ParameterService parameterService;
 
     /**
-     * This is a helper method that wraps the fund group balancing check. This check can be configured by updating the 
+     * This is a helper method that wraps the fund group balancing check. This check can be configured by updating the
      * application parameter table that is associated with this check. See the document's specification for details.
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
         return isFundGroupSetBalanceValid(accountingDocumentForValidation, TransferOfFundsDocument.class, AccountingDocumentRuleBaseConstants.APPLICATION_PARAMETER.FUND_GROUP_BALANCING_SET);
     }
-    
+
     /**
      * This method will make sure that totals for a specified set of fund groups is valid across the two different accounting line
      * sections.
-     * 
+     *
      * @param tranDoc
      * @param fundGroupCodes An array of the fund group codes that will be considered for balancing.
      * @return True if they balance; false otherwise.
@@ -108,7 +108,7 @@ public class TransferOfFundsFundGroupsBalancedValidation extends GenericValidati
     }
 
     /**
-     * Gets the accountingDocumentForValidation attribute. 
+     * Gets the accountingDocumentForValidation attribute.
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -124,7 +124,7 @@ public class TransferOfFundsFundGroupsBalancedValidation extends GenericValidati
     }
 
     /**
-     * Gets the parameterService attribute. 
+     * Gets the parameterService attribute.
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {

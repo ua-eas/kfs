@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -75,7 +75,7 @@
         <ref bean="PaymentDetail-paymentGroup.combineGroups"/>
         <ref bean="PaymentDetail-invTotOtherCreditAmount"/>
         <ref bean="PaymentDetail-paymentGroup.lastUpdate"/>
-        <ref bean="PaymentDetail-paymentGroup.alternatePayeeIdTypeCd"/>    
+        <ref bean="PaymentDetail-paymentGroup.alternatePayeeIdTypeCd"/>
 		<ref bean="PaymentDetail-paymentGroup.street"/>
 		<ref bean="PaymentDetail-paymentGroup.alternatePayeeId"/>
 		<ref bean="PaymentDetail-paymentGroup.city"/>
@@ -86,7 +86,7 @@
 		<ref bean="PaymentDetail-paymentGroup.taxablePayment"/>
 		<ref bean="PaymentDetail-paymentGroup.zipCd"/>
 		<ref bean="PaymentDetail-paymentGroup.adviceEmailAddress"/>
-		<ref bean="PaymentDetail-paymentGroup.campusAddress"/>	
+		<ref bean="PaymentDetail-paymentGroup.campusAddress"/>
 		<ref bean="PaymentDetail-paymentGroup.bank.bankName"/>
 		<ref bean="PaymentDetail-paymentGroup.achBankRoutingNbr"/>
 		<ref bean="PaymentDetail-paymentGroup.achAccountNumber.achBankAccountNbr"/>
@@ -102,7 +102,7 @@
     <property name="collections">
       <list>
         <bean parent="CollectionDefinition" p:name="accountDetail" p:label="Account Details" p:shortLabel="Account Details" p:elementLabel="Account Details"/>
-        <bean parent="CollectionDefinition" p:name="paymentGroup.paymentGroupHistory" p:label="Payment Group History" p:shortLabel="History" p:elementLabel="History"/>                           
+        <bean parent="CollectionDefinition" p:name="paymentGroup.paymentGroupHistory" p:label="Payment Group History" p:shortLabel="History" p:elementLabel="History"/>
       </list>
     </property>
   </bean>
@@ -115,20 +115,20 @@
     <property name="name" value="paymentGroup.payeeName"/>
     <property name="attributeSecurity">
 	    <bean parent="AttributeSecurity">
- 	        <property name="mask" value="true" /> 
+ 	        <property name="mask" value="true" />
 			<property name="maskFormatter">
-  		        <bean parent="MaskFormatterLiteral" p:literal="Accounting Upload" /> 
+  		        <bean parent="MaskFormatterLiteral" p:literal="Accounting Upload" />
   		    </property>
   	    </bean>
- 	</property>    
+ 	</property>
   </bean>
-  
+
   <bean id="PaymentDetail-paymentGroup.paymentStatusCodeWithHistory" parent="PaymentDetail-paymentGroup.paymentStatusCodeWithHistory-parentBean"/>
 
   <bean id="PaymentDetail-paymentGroup.paymentStatusCodeWithHistory-parentBean" abstract="true" parent="PaymentGroup-paymentStatusCodeWithHistory">
     <property name="name" value="paymentGroup.paymentStatusCodeWithHistory"/>
   </bean>
-  
+
   <bean id="PaymentDetail-paymentGroup.batch.customerProfile.chartCode" parent="PaymentDetail-paymentGroup.batch.customerProfile.chartCode-parentBean"/>
 
   <bean id="PaymentDetail-paymentGroup.batch.customerProfile.chartCode-parentBean" abstract="true" parent="PaymentGroup-batch.customerProfile.chartCode">
@@ -228,7 +228,7 @@
       <bean parent="TextControlDefinition" p:size="32"/>
     </property>
   </bean>
-  
+
   <bean id="PaymentDetail-organizationDocNbr" parent="PaymentDetail-organizationDocNbr-parentBean"/>
 
   <bean id="PaymentDetail-organizationDocNbr-parentBean" abstract="true" parent="AttributeDefinition">
@@ -243,7 +243,7 @@
       <bean parent="TextControlDefinition" p:size="10"/>
     </property>
   </bean>
-    
+
   <bean id="PaymentDetail-paymentGroup.disbursementNbr" parent="PaymentDetail-paymentGroup.disbursementNbr-parentBean"/>
 
   <bean id="PaymentDetail-paymentGroup.disbursementNbr-parentBean" abstract="true" parent="PaymentGroup-disbursementNbr">
@@ -299,7 +299,7 @@
     <property name="validationPattern">
        <ref bean="NumericValidation" />
     </property>
-    <property name="formatterClass" value="org.kuali.kfs.pdp.businessobject.DisbursementNumberFormatter"/> 
+    <property name="formatterClass" value="org.kuali.kfs.pdp.businessobject.DisbursementNumberFormatter"/>
     <property name="control">
       <bean parent="TextControlDefinition" p:size="32"/>
     </property>
@@ -366,7 +366,7 @@
 
   <bean id="PaymentDetail-paymentGroup.batch.submiterUser.principalName-parentBean" abstract="true" parent="PaymentGroup-batch.submiterUser.principalName">
     <property name="name" value="paymentGroup.batch.submiterUser.principalName"/>
-  </bean> 
+  </bean>
   <bean id="PaymentDetail-origInvoiceAmount" parent="PaymentDetail-origInvoiceAmount-parentBean"/>
 
   <bean id="PaymentDetail-origInvoiceAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
@@ -395,7 +395,7 @@
 
   <bean id="PaymentDetail-paymentGroup.combineGroups-parentBean" abstract="true" parent="PaymentGroup-combineGroups">
     <property name="name" value="paymentGroup.combineGroups"/>
-  </bean> 
+  </bean>
   <bean id="PaymentDetail-invTotOtherCreditAmount" parent="PaymentDetail-invTotOtherCreditAmount-parentBean"/>
 
   <bean id="PaymentDetail-invTotOtherCreditAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
@@ -406,26 +406,26 @@
 
   <bean id="PaymentDetail-paymentGroup.lastUpdate-parentBean" abstract="true" parent="PaymentGroup-lastUpdate">
     <property name="name" value="paymentGroup.lastUpdate"/>
-  </bean> 
+  </bean>
   <bean id="PaymentDetail-paymentGroup.alternatePayeeIdTypeCd" parent="PaymentDetail-paymentGroup.alternatePayeeIdTypeCd-parentBean"/>
 
   <bean id="PaymentDetail-paymentGroup.alternatePayeeIdTypeCd-parentBean" abstract="true" parent="PaymentGroup-alternatePayeeIdTypeCd">
     <property name="name" value="paymentGroup.alternatePayeeIdTypeCd"/>
-  </bean> 
+  </bean>
   <bean id="PaymentDetail-paymentGroup.street" parent="PaymentDetail-paymentGroup.street-parentBean"/>
 
   <bean id="PaymentDetail-paymentGroup.street-parentBean" abstract="true" parent="PaymentGroup-street">
     <property name="name" value="paymentGroup.street"/>
     <property name="attributeSecurity">
 	    <bean parent="AttributeSecurity">
-  		    <property name="mask" value="true" /> 
+  		    <property name="mask" value="true" />
 		    <property name="maskFormatter">
-	            <bean parent="MaskFormatterLiteral" p:literal="*****" /> 
+	            <bean parent="MaskFormatterLiteral" p:literal="*****" />
   	        </property>
   		</bean>
-  	</property>    
-  </bean>   
-   
+  	</property>
+  </bean>
+
   <bean id="PaymentDetail-paymentGroup.alternatePayeeId" parent="PaymentDetail-paymentGroup.alternatePayeeId-parentBean"/>
 
   <bean id="PaymentDetail-paymentGroup.alternatePayeeId-parentBean" abstract="true" parent="PaymentGroup-alternatePayeeId">
@@ -437,14 +437,14 @@
     <property name="name" value="paymentGroup.city"/>
     <property name="attributeSecurity">
 	    <bean parent="AttributeSecurity">
-  			<property name="mask" value="true" /> 
+  			<property name="mask" value="true" />
 	        <property name="maskFormatter">
-  			    <bean parent="MaskFormatterLiteral" p:literal="*****" /> 
+  			    <bean parent="MaskFormatterLiteral" p:literal="*****" />
   			</property>
   		</bean>
-  	</property>    
+  	</property>
   </bean>
-  
+
   <bean id="PaymentDetail-paymentGroup.payeeOwnerCd" parent="PaymentDetail-paymentGroup.payeeOwnerCd-parentBean"/>
 
   <bean id="PaymentDetail-paymentGroup.payeeOwnerCd-parentBean" abstract="true" parent="PaymentGroup-payeeOwnerCd">
@@ -456,14 +456,14 @@
     <property name="name" value="paymentGroup.state"/>
     <property name="attributeSecurity">
 	    <bean parent="AttributeSecurity">
-  		    <property name="mask" value="true" /> 
+  		    <property name="mask" value="true" />
 		    <property name="maskFormatter">
-  			    <bean parent="MaskFormatterLiteral" p:literal="*****" /> 
+  			    <bean parent="MaskFormatterLiteral" p:literal="*****" />
   			</property>
   		</bean>
-  	</property>    
+  	</property>
   </bean>
-  
+
   <bean id="PaymentDetail-paymentGroup.employeeIndicator" parent="PaymentDetail-paymentGroup.employeeIndicator-parentBean"/>
 
   <bean id="PaymentDetail-paymentGroup.employeeIndicator-parentBean" abstract="true" parent="PaymentGroup-employeeIndicator">
@@ -485,41 +485,41 @@
     <property name="name" value="paymentGroup.zipCd"/>
     <property name="attributeSecurity">
 	    <bean parent="AttributeSecurity">
-  			<property name="mask" value="true" /> 
+  			<property name="mask" value="true" />
 		    <property name="maskFormatter">
-  		        <bean parent="MaskFormatterLiteral" p:literal="*****" /> 
+  		        <bean parent="MaskFormatterLiteral" p:literal="*****" />
   		    </property>
   		</bean>
-  	</property>    
+  	</property>
   </bean>
-  
+
   <bean id="PaymentDetail-paymentGroup.adviceEmailAddress" parent="PaymentDetail-paymentGroup.adviceEmailAddress-parentBean"/>
 
   <bean id="PaymentDetail-paymentGroup.adviceEmailAddress-parentBean" abstract="true" parent="PaymentGroup-adviceEmailAddress">
     <property name="name" value="paymentGroup.adviceEmailAddress"/>
-  </bean> 
+  </bean>
   <bean id="PaymentDetail-paymentGroup.campusAddress" parent="PaymentDetail-paymentGroup.campusAddress-parentBean"/>
 
   <bean id="PaymentDetail-paymentGroup.campusAddress-parentBean" abstract="true" parent="PaymentGroup-campusAddress">
     <property name="name" value="paymentGroup.campusAddress"/>
-  </bean>         
+  </bean>
   <bean id="PaymentDetail-paymentGroup.bank.bankName" parent="PaymentDetail-paymentGroup.bank.bankName-parentBean"/>
 
   <bean id="PaymentDetail-paymentGroup.bank.bankName-parentBean" abstract="true" parent="PaymentGroup-bank.bankName">
     <property name="name" value="paymentGroup.bank.bankName"/>
     <property name="label" value="Disbursement Bank Code"/>
     <property name="shortLabel" value="Disbursement Bank Code"/>
-  </bean> 
+  </bean>
   <bean id="PaymentDetail-paymentGroup.achBankRoutingNbr" parent="PaymentDetail-paymentGroup.achBankRoutingNbr-parentBean"/>
 
   <bean id="PaymentDetail-paymentGroup.achBankRoutingNbr-parentBean" abstract="true" parent="PaymentGroup-achBankRoutingNbr">
     <property name="name" value="paymentGroup.achBankRoutingNbr"/>
-  </bean> 
+  </bean>
   <bean id="PaymentDetail-paymentGroup.achAccountNumber.achBankAccountNbr" parent="PaymentDetail-paymentGroup.achAccountNumber.achBankAccountNbr-parentBean"/>
 
   <bean id="PaymentDetail-paymentGroup.achAccountNumber.achBankAccountNbr-parentBean" abstract="true" parent="PaymentGroup-achAccountNumber.achBankAccountNbr">
     <property name="name" value="paymentGroup.achAccountNumber.achBankAccountNbr"/>
-  </bean> 
+  </bean>
 
   <bean id="PaymentDetail-paymentGroup.paymentStatus.name" parent="PaymentDetail-paymentGroup.paymentStatus.name-parentBean"/>
 
@@ -531,13 +531,13 @@
   <bean id="PaymentDetail-paymentGroup.payeeIdTypeDesc-parentBean" abstract="true" parent="PaymentGroup-payeeIdTypeDesc">
     <property name="name" value="paymentGroup.payeeIdTypeDesc"/>
   </bean>
-  
+
   <bean id="PaymentDetail-financialSystemOriginCode" parent="PaymentDetail-financialSystemOriginCode-parentBean"/>
 
   <bean id="PaymentDetail-financialSystemOriginCode-parentBean" abstract="true" parent="OriginationCode-financialSystemOriginationCode">
     <property name="name" value="financialSystemOriginCode"/>
   </bean>
-  
+
   <bean id="PaymentDetail-financialDocumentTypeCode" parent="PaymentDetail-financialDocumentTypeCode-parentBean"/>
 
   <bean id="PaymentDetail-financialDocumentTypeCode-parentBean" abstract="true" parent="GenericAttributes-financialSystemDocumentTypeCode">
@@ -546,7 +546,7 @@
     <property name="shortLabel" value="Source Document Type"/>
   </bean>
   <bean id="PaymentDetail-notesText" parent="PaymentDetail-notesText-parentBean"/>
-   
+
   <bean id="PaymentDetail-notesText-parentBean" abstract="true" parent="GenericAttributes-genericBigText">
     <property name="name" value="notesText"/>
     <property name="label" value="Payment Notes"/>
@@ -580,7 +580,7 @@
       <bean parent="TextControlDefinition" p:size="32"/>
     </property>
   </bean>
-  
+
   <bean id="PaymentDetail-paymentGroupId" parent="PaymentDetail-paymentGroupId-parentBean"/>
 
   <bean id="PaymentDetail-paymentGroupId-parentBean" abstract="true" parent="AttributeDefinition">
@@ -591,7 +591,7 @@
     <property name="validationPattern">
        <ref bean="NumericValidation" />
     </property>
-    <property name="formatterClass" value="org.kuali.kfs.pdp.businessobject.DisbursementNumberFormatter"/>   
+    <property name="formatterClass" value="org.kuali.kfs.pdp.businessobject.DisbursementNumberFormatter"/>
     <property name="control">
       <bean parent="TextControlDefinition" p:size="32"/>
     </property>
@@ -623,24 +623,24 @@
     <property name="title" value="Summary"/>
     <property name="inquiryFields">
       <list>
-        <bean parent="FieldDefinition" p:attributeName="nbrOfPaymentsInPaymentGroup"/>  
+        <bean parent="FieldDefinition" p:attributeName="nbrOfPaymentsInPaymentGroup"/>
         <bean parent="FieldDefinition" p:attributeName="paymentGroupId"/>
-        <bean parent="FieldDefinition" p:attributeName="nbrOfPaymentsInDisbursement"/>   
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.batch.customerProfile.customerShortName"/>  
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.payeeName"/>                     
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.disbursementType.name"/>  
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.payeeIdTypeDesc"/> 
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.disbursementNbr"/>   
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.payeeId"/>                       
-        <bean parent="FieldDefinition" p:attributeName="invoiceDate"/>  
-        <bean parent="FieldDefinition" p:attributeName="custPaymentDocNbr" p:noInquiry="true"/>                 
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.paymentDate"/>    
-        <bean parent="FieldDefinition" p:attributeName="purchaseOrderNbr"/>                    
+        <bean parent="FieldDefinition" p:attributeName="nbrOfPaymentsInDisbursement"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.batch.customerProfile.customerShortName"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.payeeName"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.disbursementType.name"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.payeeIdTypeDesc"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.disbursementNbr"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.payeeId"/>
+        <bean parent="FieldDefinition" p:attributeName="invoiceDate"/>
+        <bean parent="FieldDefinition" p:attributeName="custPaymentDocNbr" p:noInquiry="true"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.paymentDate"/>
+        <bean parent="FieldDefinition" p:attributeName="purchaseOrderNbr"/>
         <bean parent="FieldDefinition" p:attributeName="paymentGroup.disbursementDate"/>
-        <bean parent="FieldDefinition" p:attributeName="invoiceNbr"/>                         
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.paymentStatusCodeWithHistory"/>   
-        <bean parent="FieldDefinition" p:attributeName="requisitionNbr"/>                                      
-        <bean parent="FieldDefinition" p:attributeName="customerInstitutionNumber"/>              
+        <bean parent="FieldDefinition" p:attributeName="invoiceNbr"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.paymentStatusCodeWithHistory"/>
+        <bean parent="FieldDefinition" p:attributeName="requisitionNbr"/>
+        <bean parent="FieldDefinition" p:attributeName="customerInstitutionNumber"/>
         <bean parent="FieldDefinition" p:attributeName="financialSystemOriginCode"/>
         <bean parent="FieldDefinition" p:attributeName="financialDocumentTypeCode"/>
       </list>
@@ -651,61 +651,61 @@
   <bean id="PaymentDetail-inquirySectionDefinition-batch-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Batch"/>
     <property name="inquiryFields">
-      <list> 
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.batchId"/>  
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.physCampusProcessCd"/>                     
-        <bean parent="FieldDefinition" p:attributeName="id"/>  
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.processId"/> 
+      <list>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.batchId"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.physCampusProcessCd"/>
+        <bean parent="FieldDefinition" p:attributeName="id"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.processId"/>
         <bean parent="FieldDefinition" p:attributeName="paymentGroup.batch.paymentFileName" p:noInquiry="true"/>
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.process.processUser.principalName"/>  
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.batch.customerFileCreateTimestamp" p:noInquiry="true"/>  
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.process.processTimestamp" p:noInquiry="true"/>                       
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.batch.fileProcessTimestamp" p:noInquiry="true"/>  
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.batch.submiterUser.principalName"/>                                                                                                                            
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.process.processUser.principalName"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.batch.customerFileCreateTimestamp" p:noInquiry="true"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.process.processTimestamp" p:noInquiry="true"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.batch.fileProcessTimestamp" p:noInquiry="true"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.batch.submiterUser.principalName"/>
       </list>
     </property>
   </bean>
-  
+
   <bean id="PaymentDetail-inquirySectionDefinition-payment" parent="PaymentDetail-inquirySectionDefinition-payment-parentBean"/>
   <bean id="PaymentDetail-inquirySectionDefinition-payment-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Payment"/>
     <property name="inquiryFields">
-      <list>               
-        <bean parent="FieldDefinition" p:attributeName="origInvoiceAmount"/>                       
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.processImmediate"/>                    
+      <list>
+        <bean parent="FieldDefinition" p:attributeName="origInvoiceAmount"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.processImmediate"/>
         <bean parent="FieldDefinition" p:attributeName="netPaymentAmount"/>
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.pymtSpecialHandling"/>                     
-        <bean parent="FieldDefinition" p:attributeName="invTotDiscountAmount"/>                    
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.pymtAttachment"/>              
-        <bean parent="FieldDefinition" p:attributeName="invTotShipAmount"/>               
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.lastUpdate"/> 
-        <bean parent="FieldDefinition" p:attributeName="invTotOtherDebitAmount"/>  
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.combineGroups"/>   
-        <bean parent="FieldDefinition" p:attributeName="invTotOtherCreditAmount"/>                                                                                                                                                    
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.pymtSpecialHandling"/>
+        <bean parent="FieldDefinition" p:attributeName="invTotDiscountAmount"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.pymtAttachment"/>
+        <bean parent="FieldDefinition" p:attributeName="invTotShipAmount"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.lastUpdate"/>
+        <bean parent="FieldDefinition" p:attributeName="invTotOtherDebitAmount"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.combineGroups"/>
+        <bean parent="FieldDefinition" p:attributeName="invTotOtherCreditAmount"/>
       </list>
     </property>
   </bean>
-  
+
   <bean id="PaymentDetail-inquirySectionDefinition-payee" parent="PaymentDetail-inquirySectionDefinition-payee-parentBean"/>
   <bean id="PaymentDetail-inquirySectionDefinition-payee-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Payee"/>
     <property name="inquiryFields">
-      <list> 
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.alternatePayeeIdTypeCd"/>  
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.street"/>  
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.alternatePayeeId"/> 
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.city"/> 
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.payeeOwnerCd"/> 
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.state"/>  
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.employeeIndicator"/> 
+      <list>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.alternatePayeeIdTypeCd"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.street"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.alternatePayeeId"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.city"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.payeeOwnerCd"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.state"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.employeeIndicator"/>
         <bean parent="FieldDefinition" p:attributeName="paymentGroup.country"/>
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.taxablePayment"/>    
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.zipCd"/> 
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.adviceEmailAddress"/>   
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.campusAddress"/>                                                                                                                                                                                                                                                                                                                               
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.taxablePayment"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.zipCd"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.adviceEmailAddress"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.campusAddress"/>
       </list>
     </property>
-  </bean>  
+  </bean>
 
   <bean id="PaymentDetail-inquirySectionDefinition-accountDetail" parent="PaymentDetail-inquirySectionDefinition-accountDetail-parentBean"/>
   <bean id="PaymentDetail-inquirySectionDefinition-accountDetail-parentBean" parent="InquirySectionDefinition" abstract="true">
@@ -717,7 +717,7 @@
      </list>
    </property>
   </bean>
- 
+
   <bean id="PaymentDetail-inquiryCollectionDefinition-accountDetail" parent="PaymentDetail-inquiryCollectionDefinition-accountDetail-parentBean"/>
   <bean id="PaymentDetail-inquiryCollectionDefinition-accountDetail-parentBean" parent="InquiryCollectionDefinition" abstract="true">
     <property name="attributeName" value="accountDetail"/>
@@ -726,12 +726,12 @@
       <list>
         <bean parent="FieldDefinition" p:attributeName="finChartCode"/>
         <bean parent="FieldDefinition" p:attributeName="accountNbr"/>
-        <bean parent="FieldDefinition" p:attributeName="subAccountNbr"/>                   		    
-        <bean parent="FieldDefinition" p:attributeName="finObjectCode"/>    
-                    <bean parent="FieldDefinition" p:attributeName="finSubObjectCode"/> 
-  		 <bean parent="FieldDefinition" p:attributeName="orgReferenceId"/> 
-  		 <bean parent="FieldDefinition" p:attributeName="projectCode"/> 
-  		 <bean parent="FieldDefinition" p:attributeName="accountNetAmount"/>                                                   
+        <bean parent="FieldDefinition" p:attributeName="subAccountNbr"/>
+        <bean parent="FieldDefinition" p:attributeName="finObjectCode"/>
+                    <bean parent="FieldDefinition" p:attributeName="finSubObjectCode"/>
+  		 <bean parent="FieldDefinition" p:attributeName="orgReferenceId"/>
+  		 <bean parent="FieldDefinition" p:attributeName="projectCode"/>
+  		 <bean parent="FieldDefinition" p:attributeName="accountNetAmount"/>
       </list>
     </property>
     <property name="inquiryCollections">
@@ -745,11 +745,11 @@
         <bean parent="FieldDefinition" p:attributeName="acctAttributeName"/>
         <bean parent="FieldDefinition" p:attributeName="acctAttributeOrigValue"/>
         <bean parent="FieldDefinition" p:attributeName="acctAttributeNewValue"/>
-        <bean parent="FieldDefinition" p:attributeName="acctChangeDate"/>                          
+        <bean parent="FieldDefinition" p:attributeName="acctChangeDate"/>
       </list>
     </property>
   </bean>
-  
+
   <bean id="PaymentDetail-inquiryCollectionDefinition-accountHistory" parent="PaymentDetail-inquiryCollectionDefinition-accountHistory-parentBean"/>
   <bean id="PaymentDetail-inquiryCollectionDefinition-accountHistory-parentBean" parent="InquiryCollectionDefinition" abstract="true">
   <property name="attributeName" value="accountHistory"/>
@@ -761,24 +761,24 @@
       <bean parent="FieldDefinition" p:attributeName="acctAttributeName"/>
       <bean parent="FieldDefinition" p:attributeName="acctAttributeOrigValue"/>
       <bean parent="FieldDefinition" p:attributeName="acctAttributeNewValue"/>
-      <bean parent="FieldDefinition" p:attributeName="acctChangeDate"/>                                
+      <bean parent="FieldDefinition" p:attributeName="acctChangeDate"/>
     </list>
   </property>
 </bean>
-              
+
   <bean id="PaymentDetail-inquirySectionDefinition-bankInfo" parent="PaymentDetail-inquirySectionDefinition-bankInfo-parentBean"/>
   <bean id="PaymentDetail-inquirySectionDefinition-bankInfo-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Bank Info"/>
     <property name="numberOfColumns" value="1"/>
     <property name="inquiryFields">
-      <list> 
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.bank.bankName"/>                    
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.achBankRoutingNbr"/>  
-        <bean parent="FieldDefinition" p:attributeName="paymentGroup.achAccountNumber.achBankAccountNbr"/>     
+      <list>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.bank.bankName"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.achBankRoutingNbr"/>
+        <bean parent="FieldDefinition" p:attributeName="paymentGroup.achAccountNumber.achBankAccountNbr"/>
       </list>
     </property>
   </bean>
-  
+
   <bean id="PaymentDetail-inquirySectionDefinition-history" parent="PaymentDetail-inquirySectionDefinition-history-parentBean"/>
   <bean id="PaymentDetail-inquirySectionDefinition-history-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="History"/>
@@ -797,21 +797,21 @@
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="changeTime" p:noInquiry="true"/>
-        <bean parent="FieldDefinition" p:attributeName="paymentChange.name"/> 
-        <bean parent="FieldDefinition" p:attributeName="changeUser.principalName"/> 
-        <bean parent="FieldDefinition" p:attributeName="disbursementType.name"/>   
+        <bean parent="FieldDefinition" p:attributeName="paymentChange.name"/>
+        <bean parent="FieldDefinition" p:attributeName="changeUser.principalName"/>
+        <bean parent="FieldDefinition" p:attributeName="disbursementType.name"/>
         <bean parent="FieldDefinition" p:attributeName="origDisburseNbr"/>
-        <bean parent="FieldDefinition" p:attributeName="origDisburseDate"/>  
-        <bean parent="FieldDefinition" p:attributeName="origPaymentStatus.name"/>   
-        <bean parent="FieldDefinition" p:attributeName="origBankCode"/>   
-        <bean parent="FieldDefinition" p:attributeName="origAchBankRouteNbr"/>   
-        <bean parent="FieldDefinition" p:attributeName="pmtCancelExtractStat"/>  
+        <bean parent="FieldDefinition" p:attributeName="origDisburseDate"/>
+        <bean parent="FieldDefinition" p:attributeName="origPaymentStatus.name"/>
+        <bean parent="FieldDefinition" p:attributeName="origBankCode"/>
+        <bean parent="FieldDefinition" p:attributeName="origAchBankRouteNbr"/>
+        <bean parent="FieldDefinition" p:attributeName="pmtCancelExtractStat"/>
         <bean parent="FieldDefinition" p:attributeName="pmtCancelExtractDate"/>
-        <bean parent="FieldDefinition" p:attributeName="changeNoteText"/>                                                                                                                                                                                      
+        <bean parent="FieldDefinition" p:attributeName="changeNoteText"/>
       </list>
     </property>
   </bean>
-        
+
   <bean id="PaymentDetail-inquirySectionDefinition-notes" parent="PaymentDetail-inquirySectionDefinition-notes-parentBean"/>
   <bean id="PaymentDetail-inquirySectionDefinition-notes-parentBean" parent="InquirySectionDefinition" abstract="true">
    <property name="title" value="Notes"/>
@@ -819,11 +819,11 @@
    <property name="defaultOpen" value="false"/>
    <property name="inquiryFields">
      <list>
-       <bean parent="FieldDefinition" p:attributeName="notesText"/>  
+       <bean parent="FieldDefinition" p:attributeName="notesText"/>
      </list>
    </property>
  </bean>
-          
+
 <!-- Business Object Lookup Definition -->
 
 
@@ -833,7 +833,7 @@
     <property name="title" value="Search for Payment"/>
     <property name="lookupableID" value="paymentDetailLookupable"/>
     <property name="numOfColumns" value="2"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
         <property name="attributeNames">
@@ -847,45 +847,45 @@
     <property name="lookupFields">
       <list>
               <bean parent="FieldDefinition" p:attributeName="paymentGroup.payeeName"/>
-              <bean parent="FieldDefinition" p:attributeName="paymentGroup.batch.customerProfile.chartCode"/>     
+              <bean parent="FieldDefinition" p:attributeName="paymentGroup.batch.customerProfile.chartCode"/>
               <bean parent="FieldDefinition" p:attributeName="paymentGroup.payeeIdTypeCd"/>
-              <bean parent="FieldDefinition" p:attributeName="paymentGroup.batch.customerProfile.unitCode" p:noLookup="true"/>                                                                                           
+              <bean parent="FieldDefinition" p:attributeName="paymentGroup.batch.customerProfile.unitCode" p:noLookup="true"/>
               <bean parent="FieldDefinition" p:attributeName="paymentGroup.payeeId"/>
               <bean parent="FieldDefinition" p:attributeName="paymentGroup.batch.customerProfile.subUnitCode" p:noLookup="true"/>
               <bean parent="FieldDefinition" p:attributeName="paymentGroup.disbursementTypeCode"/>
               <bean parent="FieldDefinition" p:attributeName="purchaseOrderNbr"/>
               <bean parent="FieldDefinition" p:attributeName="paymentGroup.disbursementNbr"/>
-              <bean parent="FieldDefinition" p:attributeName="invoiceNbr"/>                    
-              <bean parent="FieldDefinition" p:attributeName="netPaymentAmount"/> 
+              <bean parent="FieldDefinition" p:attributeName="invoiceNbr"/>
+              <bean parent="FieldDefinition" p:attributeName="netPaymentAmount"/>
               <bean parent="FieldDefinition" p:attributeName="requisitionNbr"/>
-              <bean parent="FieldDefinition" p:attributeName="paymentGroup.disbursementDate"/>              
-              <bean parent="FieldDefinition" p:attributeName="paymentGroup.paymentDate"/>                                                                                 
+              <bean parent="FieldDefinition" p:attributeName="paymentGroup.disbursementDate"/>
+              <bean parent="FieldDefinition" p:attributeName="paymentGroup.paymentDate"/>
               <bean parent="FieldDefinition" p:attributeName="paymentGroup.processImmediate"/>
-              <bean parent="FieldDefinition" p:attributeName="customerInstitutionNumber"/>                                   
+              <bean parent="FieldDefinition" p:attributeName="customerInstitutionNumber"/>
               <bean parent="FieldDefinition" p:attributeName="paymentGroup.pymtSpecialHandling"/>
               <bean parent="FieldDefinition" p:attributeName="paymentGroup.processId"/>
               <bean parent="FieldDefinition" p:attributeName="paymentGroup.pymtAttachment"/>
-              <bean parent="FieldDefinition" p:attributeName="id"/> 
-              <bean parent="FieldDefinition" p:attributeName="paymentGroup.paymentStatusCode"/>  
+              <bean parent="FieldDefinition" p:attributeName="id"/>
+              <bean parent="FieldDefinition" p:attributeName="paymentGroup.paymentStatusCode"/>
               <bean parent="FieldDefinition" p:attributeName="paymentGroup.batchId"/>
-              <bean parent="FieldDefinition" p:attributeName="financialDocumentTypeCode"/> 
-              <bean parent="FieldDefinition" p:attributeName="paymentGroupId"/> 
-              <bean parent="FieldDefinition" p:attributeName="custPaymentDocNbr"/>                                       
+              <bean parent="FieldDefinition" p:attributeName="financialDocumentTypeCode"/>
+              <bean parent="FieldDefinition" p:attributeName="paymentGroupId"/>
+              <bean parent="FieldDefinition" p:attributeName="custPaymentDocNbr"/>
       </list>
     </property>
     <property name="resultFields">
-      <list>     
+      <list>
               <bean parent="FieldDefinition" p:attributeName="paymentGroup.batch.customerProfile.customerShortName"/>
-              <bean parent="FieldDefinition" p:attributeName="custPaymentDocNbr"/>                    
+              <bean parent="FieldDefinition" p:attributeName="custPaymentDocNbr"/>
               <bean parent="FieldDefinition" p:attributeName="purchaseOrderNbr"/>
-              <bean parent="FieldDefinition" p:attributeName="invoiceNbr"/>   
+              <bean parent="FieldDefinition" p:attributeName="invoiceNbr"/>
               <bean parent="FieldDefinition" p:attributeName="paymentGroup.payeeName"/>
-              <bean parent="FieldDefinition" p:attributeName="paymentGroup.paymentDate"/>   
-              <bean parent="FieldDefinition" p:attributeName="paymentGroup.disbursementDate"/>  
-              <bean parent="FieldDefinition" p:attributeName="paymentGroup.paymentStatusCodeWithHistory"/>  
-              <bean parent="FieldDefinition" p:attributeName="paymentGroup.disbursementType.name"/>                                                       
-              <bean parent="FieldDefinition" p:attributeName="paymentGroup.disbursementNbr"/>  
-              <bean parent="FieldDefinition" p:attributeName="netPaymentAmount"/>                  
+              <bean parent="FieldDefinition" p:attributeName="paymentGroup.paymentDate"/>
+              <bean parent="FieldDefinition" p:attributeName="paymentGroup.disbursementDate"/>
+              <bean parent="FieldDefinition" p:attributeName="paymentGroup.paymentStatusCodeWithHistory"/>
+              <bean parent="FieldDefinition" p:attributeName="paymentGroup.disbursementType.name"/>
+              <bean parent="FieldDefinition" p:attributeName="paymentGroup.disbursementNbr"/>
+              <bean parent="FieldDefinition" p:attributeName="netPaymentAmount"/>
       </list>
     </property>
   </bean>

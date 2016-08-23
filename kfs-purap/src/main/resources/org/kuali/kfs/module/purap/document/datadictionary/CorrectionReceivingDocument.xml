@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -31,7 +31,7 @@
     <property name="potentiallySensitive" value="true"/>
     <property name="workflowAttributes">
     	<ref bean="ReceivingDocumentForSearching-workflowAttributes"/>
-    </property> 
+    </property>
     <property name="attributes">
       <list>
         <ref bean="CorrectionReceivingDocument-documentNumber"/>
@@ -69,7 +69,7 @@
         <ref bean="CorrectionReceivingDocument-vendorStateCode"/>
         <ref bean="CorrectionReceivingDocument-vendorPostalCode"/>
         <ref bean="CorrectionReceivingDocument-versionNumber"/>
-        <ref bean="CorrectionReceivingDocument-workflowStatusForResult"/> 
+        <ref bean="CorrectionReceivingDocument-workflowStatusForResult"/>
         <ref bean="CorrectionReceivingDocument-purchaseOrderIdentifier"/>
       </list>
     </property>
@@ -87,7 +87,7 @@
              </property>
    		</bean>
       </list>
-    </property>    
+    </property>
   </bean>
 
 <!-- Attribute Definitions -->
@@ -434,7 +434,7 @@
       <bean parent="TextControlDefinition" p:size="47"/>
     </property>
   </bean>
-   	
+
   <bean id="CorrectionReceivingDocument-purchaseOrderIdentifier" parent="CorrectionReceivingDocument-purchaseOrderIdentifier-parentBean"/>
 
   <bean id="CorrectionReceivingDocument-purchaseOrderIdentifier-parentBean" abstract="true" parent="AttributeDefinition">
@@ -450,6 +450,6 @@
       <bean parent="TextControlDefinition" p:size="11"/>
     </property>
   </bean>
-   	
- 
+
+
 </beans>

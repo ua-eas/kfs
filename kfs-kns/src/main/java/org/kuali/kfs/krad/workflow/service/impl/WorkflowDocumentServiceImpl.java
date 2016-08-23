@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -97,7 +97,7 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
         WorkflowDocument document = WorkflowDocumentFactory.createDocument(person.getPrincipalId(), documentTypeName);
         watch.stop();
         if (LOG.isDebugEnabled()) {
-            LOG.debug(watchName + ": " + watch.toString());	
+            LOG.debug(watchName + ": " + watch.toString());
         }
 
         return document;
@@ -118,7 +118,7 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
         if (LOG.isDebugEnabled()) {
             LOG.debug("retrieving document(" + documentId + "," + user.getPrincipalName() + ")");
         }
-        
+
         try {
             return WorkflowDocumentFactory.loadDocument(user.getPrincipalId(), documentId);
         } catch (IllegalArgumentException e) {
@@ -212,7 +212,7 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
     public void sendWorkflowNotification(WorkflowDocument workflowDocument, String annotation, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException {
     	sendWorkflowNotification(workflowDocument, annotation, adHocRecipients, null);
     }
-    
+
     @Override
     public void sendWorkflowNotification(WorkflowDocument workflowDocument, String annotation, List<AdHocRouteRecipient> adHocRecipients, String notificationLabel) throws WorkflowException {
         if (LOG.isDebugEnabled()) {
@@ -273,8 +273,8 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
         WorkflowDocument freshCopyWorkflowDoc = loadWorkflowDocument(workflowDocument.getDocumentId(), GlobalVariables.getUserSession().getPerson());
         return getCurrentRouteNodeNames(freshCopyWorkflowDoc);
     }
-    
-    
+
+
 
     @Override
     public String getCurrentRouteNodeNames(WorkflowDocument workflowDocument) {
@@ -293,7 +293,7 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
     private void handleAdHocRouteRequests(WorkflowDocument workflowDocument, String annotation, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException {
     	handleAdHocRouteRequests(workflowDocument, annotation, adHocRecipients, null);
     }
-    
+
     /**
      * Convenience method for generating ad hoc requests for a given document
      *
@@ -319,10 +319,10 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
             }
             // for now just pick a node and go with it...
             currentNode = currentNodes.iterator().next();
-            
+
             List<AdHocRoutePerson> adHocRoutePersons = new ArrayList<AdHocRoutePerson>();
             List<AdHocRouteWorkgroup> adHocRouteWorkgroups = new ArrayList<AdHocRouteWorkgroup>();
-            
+
             for (AdHocRouteRecipient recipient : adHocRecipients) {
                 if (StringUtils.isNotEmpty(recipient.getId())) {
                 	String newAnnotation = annotation;
@@ -357,7 +357,7 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
                 }
             }
             KRADServiceLocator.getBusinessObjectService().delete(adHocRoutePersons);
-            KRADServiceLocator.getBusinessObjectService().delete(adHocRouteWorkgroups);  
+            KRADServiceLocator.getBusinessObjectService().delete(adHocRouteWorkgroups);
         }
     }
 
@@ -386,7 +386,7 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
 
     /**
      * Completes workflow document
-     * 
+     *
      * @see WorkflowDocumentService#complete(org.kuali.rice.kew.api.WorkflowDocument, String, java.util.List)
      */
     public void complete(WorkflowDocument workflowDocument, String annotation, List adHocRecipients) throws WorkflowException {

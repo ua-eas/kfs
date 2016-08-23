@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -46,7 +46,7 @@
 								</list>
 							</property>
 						</bean>
-						<bean parent="FlatFilePrefixObjectSpecification" 
+						<bean parent="FlatFilePrefixObjectSpecification"
 						    p:businessObjectClass="org.kuali.kfs.sys.businessobject.DetailLine"
 						    p:parentBusinessObjectClass="org.kuali.kfs.sys.businessobject.HeaderLine"
 						    p:parentTargetProperty="detailLine">
@@ -79,7 +79,7 @@
 		<property name="fileTypeIdentifier" value="sampleTestFlatFileInputFileType" />
 		<property name="titleKey" value="message.batchUpload.title.lockboxLoad" />
 	</bean>
-	
+
 	<bean id="sampleTest2FlatFileInputFileType" parent="FlatFileParser">
 		<property name="flatFileSpecification">
 			<bean parent="FixedWidthFlatFileSpecification">
@@ -97,7 +97,7 @@
 								</list>
 							</property>
 						</bean>
-						<bean parent="FlatFilePrefixObjectSpecification" 
+						<bean parent="FlatFilePrefixObjectSpecification"
 						    p:businessObjectClass="org.kuali.kfs.sys.businessobject.DetailLine"
 						    p:parentBusinessObjectClass="org.kuali.kfs.sys.businessobject.HeaderLine"
 						    p:parentTargetProperty="detailLine">
@@ -128,9 +128,9 @@
 		<property name="titleKey" value="message.batchUpload.title.lockboxLoad" />
 		<property name="processor" ref="flatFileProcessor" />
 	</bean>
-	
-	<bean id="flatFileProcessor"	class="org.kuali.kfs.sys.service.impl.FlatFileProcessorImpl"/>		
-	
-	
-	    
+
+	<bean id="flatFileProcessor"	class="org.kuali.kfs.sys.service.impl.FlatFileProcessorImpl"/>
+
+
+
 </beans>

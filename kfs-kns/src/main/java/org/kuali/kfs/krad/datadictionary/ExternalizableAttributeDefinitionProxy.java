@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,8 +21,8 @@ package org.kuali.kfs.krad.datadictionary;
 /**
  * A single attribute definition in the DataDictionary, which contains information relating to the display, validation, and general
  * maintenance of a specific attribute of an entry.
- * 
- * 
+ *
+ *
  */
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -36,8 +36,8 @@ import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
  * A single attribute definition in the DataDictionary, which contains
  * information relating to the display, validation, and general maintenance of a
  * specific attribute of an entry.
- * 
- * 
+ *
+ *
  */
 public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition {
 	private static final long serialVersionUID = -3204870440281417429L;
@@ -103,7 +103,7 @@ public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition 
 			} catch (ClassNotFoundException e) {
 				LOG.error("Unable to get delegate entry for sourceExternalizableBusinessObjectInterface",e);
 			}
-	
+
 			if (delegateEntry == null) {
 				throw new CompletionException(
 						"no BusinessObjectEntry exists for sourceClassName '"
@@ -125,7 +125,7 @@ public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition 
 
 	/**
 	 * Sets the given AttributeDefinition as the delegate for this instance
-	 * 
+	 *
 	 * @param delegate
 	 */
 	void setDelegate(AttributeDefinition delegate) {
@@ -139,7 +139,7 @@ public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition 
 	/**
 	 * If forceUppercase wasn't set on this instance, use the value from its
 	 * delegate.
-	 * 
+	 *
 	 * @see org.kuali.core.datadictionary.AttributeDefinition#getForceUppercase()
 	 */
 	public Boolean getForceUppercase() {
@@ -153,7 +153,7 @@ public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition 
 
 	/**
 	 * If name wasn't set on this instance, use the value from its delegate.
-	 * 
+	 *
 	 * @see org.kuali.core.datadictionary.AttributeDefinition#getName()
 	 */
 	public String getName() {
@@ -167,7 +167,7 @@ public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition 
 
 	/**
 	 * If label wasn't set on this instance, use the value from its delegate.
-	 * 
+	 *
 	 * @see org.kuali.core.datadictionary.AttributeDefinition#getLabel()
 	 */
 	public String getLabel() {
@@ -183,7 +183,7 @@ public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition 
 	/**
 	 * If shortlabel wasn't set on this instance, use the value from its
 	 * delegate.
-	 * 
+	 *
 	 * @see org.kuali.core.datadictionary.AttributeDefinition#getShortLabel()
 	 */
 	public String getShortLabel() {
@@ -198,7 +198,7 @@ public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition 
 	/**
 	 * If maxLength wasn't set on this instance, use the value from its
 	 * delegate.
-	 * 
+	 *
 	 * @see org.kuali.core.datadictionary.AttributeDefinition#getMaxLength()
 	 */
 	public Integer getMaxLength() {
@@ -212,7 +212,7 @@ public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition 
 
 	/**
 	 * @return true if a validationPattern is available, directly or indirectly
-	 * 
+	 *
 	 * @see org.kuali.core.datadictionary.AttributeDefinition#hasValidationPattern()
 	 */
 	public boolean hasValidationPattern() {
@@ -222,7 +222,7 @@ public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition 
 	/**
 	 * If validationPattern wasn't set on this instance, use the value from its
 	 * delegate.
-	 * 
+	 *
 	 * @see org.kuali.core.datadictionary.AttributeDefinition#getValidationPattern()
 	 */
 	public ValidationPattern getValidationPattern() {
@@ -236,7 +236,7 @@ public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition 
 
 	/**
 	 * If required wasn't set on this instance, use the value from its delegate.
-	 * 
+	 *
 	 * @see org.kuali.core.datadictionary.AttributeDefinition#isRequired()
 	 */
 	public Boolean isRequired() {
@@ -250,7 +250,7 @@ public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition 
 
 	/**
 	 * If control wasn't set on this instance, use the value from its delegate.
-	 * 
+	 *
 	 * @see org.kuali.core.datadictionary.AttributeDefinition#getControl()
 	 */
 	public ControlDefinition getControl() {
@@ -264,7 +264,7 @@ public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition 
 
 	/**
 	 * If summary wasn't set on this instance, use the value from its delegate.
-	 * 
+	 *
 	 * @see org.kuali.core.datadictionary.AttributeDefinition#getSummary()
 	 */
 	public String getSummary() {
@@ -279,7 +279,7 @@ public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition 
 	/**
 	 * If description wasn't set on this instance, use the value from its
 	 * delegate.
-	 * 
+	 *
 	 * @see org.kuali.core.datadictionary.AttributeDefinition#getDescription()
 	 */
 	public String getDescription() {
@@ -293,7 +293,7 @@ public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition 
 
 	/**
 	 * @return true if a formatterClass is available, directly or indirectly
-	 * 
+	 *
 	 * @see org.kuali.core.datadictionary.AttributeDefinition#hasFormatterClass()
 	 */
 	public boolean hasFormatterClass() {
@@ -303,7 +303,7 @@ public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition 
 	/**
 	 * If a formatterClass wasn't set for this instance, use the value from its
 	 * delegate.
-	 * 
+	 *
 	 * @see org.kuali.core.datadictionary.AttributeDefinition#getFormatterClass()
 	 */
 	public String getFormatterClass() {
@@ -330,7 +330,7 @@ public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition 
 	/**
 	 * Validate the fields associated with locating the delegate. Other
 	 * validation must be deferred until the delegate class has been assigned.
-	 * 
+	 *
 	 * @see org.kuali.core.datadictionary.DataDictionaryEntry#completeValidation()
 	 */
 	@Override

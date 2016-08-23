@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,7 +44,7 @@ public class LabelRenderer implements Renderer {
     private String labelFor;
 
     /**
-     * Gets the attributeEntryForHelp attribute. 
+     * Gets the attributeEntryForHelp attribute.
      * @return Returns the attributeEntryForHelp.
      */
     public String getAttributeEntryForHelp() {
@@ -60,7 +60,7 @@ public class LabelRenderer implements Renderer {
     }
 
     /**
-     * Gets the fullClassNameForHelp attribute. 
+     * Gets the fullClassNameForHelp attribute.
      * @return Returns the fullClassNameForHelp.
      */
     public String getFullClassNameForHelp() {
@@ -76,7 +76,7 @@ public class LabelRenderer implements Renderer {
     }
 
     /**
-     * Gets the label attribute. 
+     * Gets the label attribute.
      * @return Returns the label.
      */
     public String getLabel() {
@@ -92,7 +92,7 @@ public class LabelRenderer implements Renderer {
     }
 
     /**
-     * Gets the required attribute. 
+     * Gets the required attribute.
      * @return Returns the required.
      */
     public boolean isRequired() {
@@ -108,7 +108,7 @@ public class LabelRenderer implements Renderer {
     }
 
     /**
-     * Gets the readOnly attribute. 
+     * Gets the readOnly attribute.
      * @return Returns the readOnly.
      */
     public boolean isReadOnly() {
@@ -124,7 +124,7 @@ public class LabelRenderer implements Renderer {
     }
 
     /**
-     * Gets the labelFor attribute. 
+     * Gets the labelFor attribute.
      * @return Returns the labelFor.
      */
     public String getLabelFor() {
@@ -140,7 +140,7 @@ public class LabelRenderer implements Renderer {
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
@@ -153,16 +153,16 @@ public class LabelRenderer implements Renderer {
     }
 
     private static String APPLICATION_URL;
-    
+
     protected String getApplicationURL() {
         if ( APPLICATION_URL == null ) {
             APPLICATION_URL = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY);
         }
         return APPLICATION_URL;
     }
-    
+
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag, org.kuali.rice.krad.bo.BusinessObject)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {

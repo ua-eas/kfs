@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,7 +30,7 @@ public enum ElectronicInvoiceRejectItemFixture {
             new BigDecimal(1), // invoiceItemQuantity;
             "BG", // invoiceItemUnitOfMeasureCode;
             "1212", // invoiceItemCatalogNumber;
-            
+
             "USD", // invoiceItemUnitPriceCurrencyCode;
             "USD", // invoiceItemSubTotalCurrencyCode;
             "USD", // invoiceItemSpecialHandlingCurrencyCode;
@@ -41,7 +41,7 @@ public enum ElectronicInvoiceRejectItemFixture {
             "USD", // invoiceItemGrossCurrencyCode;
             "USD", // invoiceItemDiscountCurrencyCode;
             "USD", // invoiceItemNetCurrencyCode;
-            
+
             new BigDecimal(1.00), // invoiceItemUnitPrice;
             new BigDecimal(1.00), // invoiceItemSubTotalAmount;
             new BigDecimal(1.00), // invoiceItemSpecialHandlingAmount;
@@ -50,7 +50,7 @@ public enum ElectronicInvoiceRejectItemFixture {
             new BigDecimal(1.00), // invoiceItemGrossAmount;
             new BigDecimal(1.00), // invoiceItemDiscountAmount;
             new BigDecimal(1.00), // invoiceItemNetAmount;
-            
+
             1, // invoiceReferenceItemLineNumber;
             null, // invoiceReferenceItemSerialNumber;
             null, // invoiceReferenceItemSupplierPartIdentifier;
@@ -66,7 +66,7 @@ public enum ElectronicInvoiceRejectItemFixture {
     private BigDecimal invoiceItemQuantity;
     private String invoiceItemUnitOfMeasureCode;
     private String invoiceItemCatalogNumber;
-    
+
     private String invoiceItemUnitPriceCurrencyCode;
     private String invoiceItemSubTotalCurrencyCode;
     private String invoiceItemSpecialHandlingCurrencyCode;
@@ -77,7 +77,7 @@ public enum ElectronicInvoiceRejectItemFixture {
     private String invoiceItemGrossCurrencyCode;
     private String invoiceItemDiscountCurrencyCode;
     private String invoiceItemNetCurrencyCode;
-    
+
     private BigDecimal invoiceItemUnitPrice;
     private BigDecimal invoiceItemSubTotalAmount;
     private BigDecimal invoiceItemSpecialHandlingAmount;
@@ -86,7 +86,7 @@ public enum ElectronicInvoiceRejectItemFixture {
     private BigDecimal invoiceItemGrossAmount;
     private BigDecimal invoiceItemDiscountAmount;
     private BigDecimal invoiceItemNetAmount;
-    
+
     private Integer invoiceReferenceItemLineNumber;
     private String invoiceReferenceItemSerialNumber;
     private String invoiceReferenceItemSupplierPartIdentifier;
@@ -111,7 +111,7 @@ public enum ElectronicInvoiceRejectItemFixture {
         this.invoiceItemQuantity = invoiceItemQuantity;
         this.invoiceItemUnitOfMeasureCode = invoiceItemUnitOfMeasureCode;
         this.invoiceItemCatalogNumber = invoiceItemCatalogNumber;
-        
+
         this.invoiceItemUnitPriceCurrencyCode = invoiceItemUnitPriceCurrencyCode;
         this.invoiceItemSubTotalCurrencyCode = invoiceItemSubTotalCurrencyCode;
         this.invoiceItemSpecialHandlingCurrencyCode = invoiceItemSpecialHandlingCurrencyCode;
@@ -122,7 +122,7 @@ public enum ElectronicInvoiceRejectItemFixture {
         this.invoiceItemGrossCurrencyCode = invoiceItemGrossCurrencyCode;
         this.invoiceItemDiscountCurrencyCode = invoiceItemDiscountCurrencyCode;
         this.invoiceItemNetCurrencyCode = invoiceItemNetCurrencyCode;
-        
+
         this.invoiceItemUnitPrice = invoiceItemUnitPrice;
         this.invoiceItemSubTotalAmount = invoiceItemSubTotalAmount;
         this.invoiceItemSpecialHandlingAmount = invoiceItemSpecialHandlingAmount;
@@ -131,7 +131,7 @@ public enum ElectronicInvoiceRejectItemFixture {
         this.invoiceItemGrossAmount = invoiceItemGrossAmount;
         this.invoiceItemDiscountAmount = invoiceItemDiscountAmount;
         this.invoiceItemNetAmount = invoiceItemNetAmount;
-        
+
         this.invoiceReferenceItemLineNumber = invoiceReferenceItemLineNumber;
         this.invoiceReferenceItemSerialNumber = invoiceReferenceItemSerialNumber;
         this.invoiceReferenceItemSupplierPartIdentifier = invoiceReferenceItemSupplierPartIdentifier;
@@ -145,7 +145,7 @@ public enum ElectronicInvoiceRejectItemFixture {
 
     /**
      * Creates a Reject Reason from this fixture and adds the item to the specified Document.
-     * 
+     *
      * @param receivingLineDocument the specified Receiving Line Document.
      */
     public void addTo(ElectronicInvoiceRejectDocument rejectDocument) {
@@ -163,7 +163,7 @@ public enum ElectronicInvoiceRejectItemFixture {
         rejectItem.setInvoiceItemQuantity(invoiceItemQuantity);
         rejectItem.setInvoiceItemUnitOfMeasureCode(invoiceItemUnitOfMeasureCode);
         rejectItem.setInvoiceItemCatalogNumber(invoiceItemCatalogNumber);
-        
+
         rejectItem.setInvoiceItemUnitPriceCurrencyCode(invoiceItemUnitPriceCurrencyCode);
         rejectItem.setInvoiceItemSubTotalCurrencyCode(invoiceItemSubTotalCurrencyCode);
         rejectItem.setInvoiceItemSpecialHandlingCurrencyCode(invoiceItemSpecialHandlingCurrencyCode);
@@ -174,7 +174,7 @@ public enum ElectronicInvoiceRejectItemFixture {
         rejectItem.setInvoiceItemGrossCurrencyCode(invoiceItemGrossCurrencyCode);
         rejectItem.setInvoiceItemDiscountCurrencyCode(invoiceItemDiscountCurrencyCode);
         rejectItem.setInvoiceItemNetCurrencyCode(invoiceItemNetCurrencyCode);
-        
+
         rejectItem.setInvoiceItemUnitPrice(invoiceItemUnitPrice);
         rejectItem.setInvoiceItemSubTotalAmount(invoiceItemSubTotalAmount);
         rejectItem.setInvoiceItemSpecialHandlingAmount(invoiceItemSpecialHandlingAmount);
@@ -183,7 +183,7 @@ public enum ElectronicInvoiceRejectItemFixture {
         rejectItem.setInvoiceItemGrossAmount(invoiceItemGrossAmount);
         rejectItem.setInvoiceItemDiscountAmount(invoiceItemDiscountAmount);
         rejectItem.setInvoiceItemNetAmount(invoiceItemNetAmount);
-        
+
         rejectItem.setInvoiceReferenceItemLineNumber(invoiceReferenceItemLineNumber);
         rejectItem.setInvoiceReferenceItemSerialNumber(invoiceReferenceItemSerialNumber);
         rejectItem.setInvoiceReferenceItemSupplierPartIdentifier(invoiceReferenceItemSupplierPartIdentifier);

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -37,7 +37,7 @@
     	</property>
 		<property name="lookupDefinition">
 			<ref bean="CostCategory-lookupDefinition" />
-		</property>	
+		</property>
 	</bean>
 
 	<!-- Attribute Definitions -->
@@ -68,7 +68,7 @@
 			<bean parent="TextControlDefinition" p:size="50" />
 		</property>
 	</bean>
-	
+
 	<bean id="CostCategory-indirectCostIndicator" parent="CostCategory-indirectCostIndicator-parentBean" />
 	<bean id="CostCategory-indirectCostIndicator-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
 		<property name="name" value="indirectCostIndicator" />
@@ -106,9 +106,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- Business Object Inquiry Definition -->
-	
+
 	<bean id="CostCategory-inquiryDefinition" parent="CostCategory-inquiryDefinition-parentBean"/>
 	<bean id="CostCategory-inquiryDefinition-parentBean" abstract="true" parent="InquiryDefinition">
 	  <property name="title" value="Cost Category Inquiry"/>
@@ -122,7 +122,7 @@
 	    </list>
 	  </property>
 	</bean>
-	
+
 	<bean id="CostCategory-inquirySectionDefinition-CostCategory" parent="CostCategory-inquirySectionDefinition-CostCategory-parentBean"/>
 	<bean id="CostCategory-inquirySectionDefinition-CostCategory-parentBean" parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Cost Category"/>
@@ -136,7 +136,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CostCategory-inquirySectionDefinition-objectCodes" parent="CostCategory-inquirySectionDefinition-objectCodes-parentBean" />
 	<bean id="CostCategory-inquirySectionDefinition-objectCodes-parentBean" parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Object Codes" />
@@ -166,7 +166,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CostCategory-inquirySectionDefinition-objectLevels" parent="CostCategory-inquirySectionDefinition-objectLevels-parentBean" />
 	<bean id="CostCategory-inquirySectionDefinition-objectLevels-parentBean" parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Object Levels" />
@@ -196,7 +196,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CostCategory-inquirySectionDefinition-objectConsolidations" parent="CostCategory-inquirySectionDefinition-objectConsolidations-parentBean" />
 	<bean id="CostCategory-inquirySectionDefinition-objectConsolidations-parentBean" parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Object Consolidations" />
@@ -226,5 +226,5 @@
 			</list>
 		</property>
 	</bean>
-  
+
 </beans>

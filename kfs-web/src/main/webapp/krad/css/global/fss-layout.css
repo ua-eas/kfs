@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 /**
  * Copyright 2005-2015 The Kuali Foundation
  *
@@ -32,26 +50,26 @@ Generic containers for columns and layouts
 .fl-container {}
 
 /* Fixed width containers */
-.fl-container-50 {width: 50px;} 
-.fl-container-100 {width: 100px;} 
-.fl-container-150 {width: 150px;} 
-.fl-container-200 {width: 200px;} 
-.fl-container-250 {width: 250px;} 
-.fl-container-300 {width: 300px;} 
-.fl-container-350 {width: 350px;} 
-.fl-container-400 {width: 400px;} 
-.fl-container-450 {width: 450px;} 
-.fl-container-500 {width: 500px;} 
-.fl-container-550 {width: 550px;} 
-.fl-container-600 {width: 600px;} 
-.fl-container-650 {width: 650px;} 
-.fl-container-700 {width: 700px;} 
-.fl-container-750 {width: 750px;} 
-.fl-container-800 {width: 800px;} 
-.fl-container-850 {width: 850px;} 
-.fl-container-900 {width: 900px;} 
-.fl-container-950 {width: 950px;} 
-.fl-container-1000 {width: 1000px;} 
+.fl-container-50 {width: 50px;}
+.fl-container-100 {width: 100px;}
+.fl-container-150 {width: 150px;}
+.fl-container-200 {width: 200px;}
+.fl-container-250 {width: 250px;}
+.fl-container-300 {width: 300px;}
+.fl-container-350 {width: 350px;}
+.fl-container-400 {width: 400px;}
+.fl-container-450 {width: 450px;}
+.fl-container-500 {width: 500px;}
+.fl-container-550 {width: 550px;}
+.fl-container-600 {width: 600px;}
+.fl-container-650 {width: 650px;}
+.fl-container-700 {width: 700px;}
+.fl-container-750 {width: 750px;}
+.fl-container-800 {width: 800px;}
+.fl-container-850 {width: 850px;}
+.fl-container-900 {width: 900px;}
+.fl-container-950 {width: 950px;}
+.fl-container-1000 {width: 1000px;}
 
 /* Flex width containers */
 .fl-container-auto {width: auto;}
@@ -70,10 +88,10 @@ Generic containers for columns and layouts
 /* linearizable containers & columns */
 .fl-layout-linear *,
 .fl-layout-linear .fl-linearEnabled {
-    overflow:visible !important; 
-    clear: both !important; 
+    overflow:visible !important;
+    clear: both !important;
     float:none !important;
-    margin-left:0 !important;  
+    margin-left:0 !important;
     margin-right:0 !important;
 }
 .fl-layout-linear .fl-container,
@@ -85,10 +103,10 @@ Generic containers for columns and layouts
 .fl-layout-linear .fl-container-400,
 .fl-layout-linear .fl-container-750,
 .fl-layout-linear .fl-container-950,
-.fl-layout-linear .fl-container-auto, 
-.fl-layout-linear .fl-container-flex25, 
-.fl-layout-linear .fl-container-flex30, 
-.fl-layout-linear .fl-container-flex33, 
+.fl-layout-linear .fl-container-auto,
+.fl-layout-linear .fl-container-flex25,
+.fl-layout-linear .fl-container-flex30,
+.fl-layout-linear .fl-container-flex33,
 .fl-layout-linear .fl-container-flex50,
 .fl-layout-linear .fl-col,
 .fl-layout-linear .fl-col-side,
@@ -97,7 +115,7 @@ Generic containers for columns and layouts
 .fl-layout-linear .fl-col-fixed,
 .fl-layout-linear .fl-col-justified {width:100% !important; margin:auto; padding:0 !important;}
 
-.fl-layout-linear .fl-force-left, 
+.fl-layout-linear .fl-force-left,
 .fl-layout-linear .fl-force-right,
 .fl-layout-linear li {display:block !important; float:none !important;}
 
@@ -128,7 +146,7 @@ Layout Helpers
 
 /* Old System */
 .fl-col-mixed .fl-col-side {width:200px;}
-.fl-col-mixed .fl-col-side, 
+.fl-col-mixed .fl-col-side,
 .fl-col-mixed .fl-col-main {padding:0 10px;}
 
 .fl-col-mixed2 .fl-col-side {width:200px; padding:0 10px; float:left;}
@@ -173,18 +191,18 @@ Layout Helpers
 .fl-tabs .fl-reorderer-dropMarker {padding:0 3px; background-color:#c00;margin:0 5px 0 -5px; zoom:1;}
 .fl-tabs .fl-tabs-active a {padding:3px 16px; border-bottom:none; color:#000;}
 .fl-tabs-content {padding:5px;}
-/* get webkit to behave perfectly - 
- * unfortunately, Chrome gets caught in this too even though it applied the original padding values fine 
+/* get webkit to behave perfectly -
+ * unfortunately, Chrome gets caught in this too even though it applied the original padding values fine
  */
 @media screen and (-webkit-min-device-pixel-ratio:0){
-    .fl-tabs li a {padding:3px 16px 3px;} 
+    .fl-tabs li a {padding:3px 16px 3px;}
     .fl-tabs .fl-tabs-active a {padding:3px 16px 4px;}
 }
 
 /*
  * Menus: quick horizontal and vertical menu
  * Requires list items with anchors
- */ 
+ */
 .fl-listmenu, /* <=== fl-listmenu is DEPRECATED! */
 .fl-list-menu {padding:0px; margin:0; border-bottom-width:1px; border-bottom-style:solid;}
 
@@ -209,15 +227,15 @@ ul.fl-grid, .fl-grid ul {padding:0; margin:0; overflow:auto;}
  * Icons: quick accessible icon helper
  */
 .fl-icon {
-    text-indent:-5000px; 
-    overflow:hidden; 
-    cursor:pointer; 
-    display:block; 
-    height:16px; 
-    width:16px; 
-    margin-left:5px; 
+    text-indent:-5000px;
+    overflow:hidden;
+    cursor:pointer;
+    display:block;
+    height:16px;
+    width:16px;
+    margin-left:5px;
     margin-right:5px;
-    background-position:center center; 
+    background-position:center center;
     background-repeat:no-repeat;
 }
 input.fl-icon {padding-left:16px;}
@@ -245,7 +263,7 @@ input.fl-icon {padding-left:16px;}
 }
 .fl-widget .fl-widget-controls {margin:-1.3em 0 1.5em 0;}
 .fl-widget .fl-widget-options {margin-top:5px; padding:0px 10px;}
-.fl-widget .fl-widget-options ul {margin:0; padding:0; overflow:hidden; zoom:1;} 
+.fl-widget .fl-widget-options ul {margin:0; padding:0; overflow:hidden; zoom:1;}
 .fl-widget .fl-widget-options li {list-style-type:none; float:left; display:inline; padding:0 5px 0 5px; margin-left:-5px;}
 .fl-widget .fl-widget-options a {margin-right:5px;}
 .fl-widget .fl-widget-content {zoom:1; margin:5px 0 0 0; overflow: auto;}
@@ -262,7 +280,7 @@ input.fl-icon {padding-left:16px;}
 /*
  * Forms and Form Controls
  * Common arrangements for form inputs in a list
- * Alignment requires list of fl-label elements placed before the control 
+ * Alignment requires list of fl-label elements placed before the control
  */
 .fl-controls-left li {list-style-type:none; text-align:left;}
 .fl-controls-left .fl-label {float:left; text-align:left; width:50%; margin-right:5px;}
@@ -287,7 +305,7 @@ input.fl-icon {padding-left:16px;}
 
 /* Progressive Enhancement: JS will reverse the display setup if it is enabled */
 .fl-ProgEnhance-enhanced, /* << syntax breaks conventions and is Deprecated*/
-.fl-progEnhance-enhanced {display:none} 
+.fl-progEnhance-enhanced {display:none}
 
 .fl-ProgEnhance-basic, /* << syntax breaks conventions and is Deprecated*/
 .fl-progEnhance-basic {}

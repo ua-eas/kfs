@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -98,7 +98,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This takes the primary keys for a cash or currency detail record and returns an OJB criteria for it
-     * 
+     *
      * @param documentNumber document number to retrieve
      * @param documentTypeCode type code of the document
      * @param cashieringStatus the cashiering status
@@ -114,7 +114,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This method retrieves a cash detail from the database
-     * 
+     *
      * @param documentNumber the document number to retrieve from
      * @param documentTypeCode the document type of the document the cash detail to look up is associated with
      * @param cashieringStatus the cashiering status to look up from
@@ -137,7 +137,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This method creates a criteria to find the cashiering checks associated with a given deposit
-     * 
+     *
      * @param documentNumber the document number the deposit is associated with
      * @param depositLineNumber the line number of the deposit
      * @return a criteria to find those checks
@@ -150,7 +150,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This method puts the check elements of an iterator into a list
-     * 
+     *
      * @param iter an iterator with checks results in it
      * @return a list of checks
      */
@@ -172,7 +172,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This method creates the criteria to find undeposited cashiering checks
-     * 
+     *
      * @param documentNumber the document number undeposited checks are associated with
      * @return a criteria to find them
      */
@@ -192,7 +192,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This method creates the criteria to find deposited checks
-     * 
+     *
      * @param documentNumber the CM document the checks are associated with
      * @return a criteria to find deposited checks
      */
@@ -204,7 +204,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This method retrieves all currency details associated with a cash management document
-     * 
+     *
      * @param documentNumber the document number of the cash management document to get currency details for
      * @return a list of currency details
      */
@@ -219,7 +219,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This method gets all coin details for a particular document number, irregardless of cashiering record source
-     * 
+     *
      * @param documentNumber the document number to find cash details for
      * @return hopefully, a bunch of coin details
      */
@@ -234,7 +234,7 @@ public class CashManagementDaoOjb extends PlatformAwareDaoBaseOjb implements Cas
 
     /**
      * This method creates details for getting all of a certain cash detail, irregardless of cashiering record source
-     * 
+     *
      * @param documentNumber the document number to get cash details for
      * @return the criteria that will allow the retrieval of the right cash details
      */

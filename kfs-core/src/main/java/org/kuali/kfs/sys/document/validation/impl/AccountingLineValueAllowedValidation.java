@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,14 +53,14 @@ public class AccountingLineValueAllowedValidation extends GenericValidation {
      * @see org.kuali.kfs.sys.document.validation.GenericValidation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
-        
+
         if (!StringUtils.isBlank(propertyPath)) {
             refreshByPath(accountingLineForValidation);
         }
-        
+
         return isAccountingLineValueAllowed(accountingDocumentForValidation.getDocumentClassForAccountingLineValueAllowedValidation(), accountingLineForValidation, parameterToCheckAgainst, propertyPath, (responsibleProperty != null ? responsibleProperty : propertyPath));
     }
-    
+
     /**
      * Checks that a value on an accounting line is valid, based on parameters, for a document of the given class
      * @param documentClass the class of the document to check
@@ -93,7 +93,7 @@ public class AccountingLineValueAllowedValidation extends GenericValidation {
         }
         return isAllowed;
     }
-    
+
     /**
      * Refreshes a value on the accounting line, using the propertyPath to decided what to refresh
      * @param line the accounting line to refresh a property on
@@ -101,7 +101,7 @@ public class AccountingLineValueAllowedValidation extends GenericValidation {
     public void refreshByPath(AccountingLine line) {
         refreshByQueue(line, convertPathToQueue(propertyPath));
     }
-    
+
     /**
      * Creates a Queue which represents a FIFO path of what properties to visit, based on the given property path
      * @param path the path to convert to a Queue
@@ -114,7 +114,7 @@ public class AccountingLineValueAllowedValidation extends GenericValidation {
         }
         return pathQueue;
     }
-    
+
     /**
      * Recursively refreshes a property given by the queue path
      * @param bo the business object to refresh
@@ -125,7 +125,7 @@ public class AccountingLineValueAllowedValidation extends GenericValidation {
             String currentProperty = path.remove();
             bo.refreshReferenceObject(currentProperty);
             PersistableBusinessObject childBO = (PersistableBusinessObject)ObjectUtils.getPropertyValue(bo, currentProperty);
-            if (!ObjectUtils.isNull(childBO)) {       
+            if (!ObjectUtils.isNull(childBO)) {
                 refreshByQueue(childBO, path);
             }
         }
@@ -148,7 +148,7 @@ public class AccountingLineValueAllowedValidation extends GenericValidation {
     }
 
     /**
-     * Gets the parameterService attribute. 
+     * Gets the parameterService attribute.
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -196,7 +196,7 @@ public class AccountingLineValueAllowedValidation extends GenericValidation {
     }
 
     /**
-     * Gets the accountingDocumentForValidation attribute. 
+     * Gets the accountingDocumentForValidation attribute.
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -212,7 +212,7 @@ public class AccountingLineValueAllowedValidation extends GenericValidation {
     }
 
     /**
-     * Gets the accountingLineForValidation attribute. 
+     * Gets the accountingLineForValidation attribute.
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {

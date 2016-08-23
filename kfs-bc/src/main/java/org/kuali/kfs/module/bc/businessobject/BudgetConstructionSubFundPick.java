@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,7 +44,7 @@ public class BudgetConstructionSubFundPick extends PersistableBusinessObjectBase
 
     /**
      * Gets the principalId attribute.
-     * 
+     *
      * @return Returns the principalId
      */
     public String getPrincipalId() {
@@ -53,7 +53,7 @@ public class BudgetConstructionSubFundPick extends PersistableBusinessObjectBase
 
     /**
      * Sets the principalId attribute.
-     * 
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {
@@ -63,7 +63,7 @@ public class BudgetConstructionSubFundPick extends PersistableBusinessObjectBase
 
     /**
      * Gets the subFundGroupCode attribute.
-     * 
+     *
      * @return Returns the subFundGroupCode
      */
     public String getSubFundGroupCode() {
@@ -72,7 +72,7 @@ public class BudgetConstructionSubFundPick extends PersistableBusinessObjectBase
 
     /**
      * Sets the subFundGroupCode attribute.
-     * 
+     *
      * @param subFundGroupCode The subFundGroupCode to set.
      */
     public void setSubFundGroupCode(String subFundGroupCode) {
@@ -82,7 +82,7 @@ public class BudgetConstructionSubFundPick extends PersistableBusinessObjectBase
 
     /**
      * Gets the reportFlag attribute.
-     * 
+     *
      * @return Returns the reportFlag
      */
     public Integer getReportFlag() {
@@ -91,7 +91,7 @@ public class BudgetConstructionSubFundPick extends PersistableBusinessObjectBase
 
     /**
      * Sets the reportFlag attribute.
-     * 
+     *
      * @param reportFlag The reportFlag to set.
      */
     public void setReportFlag(Integer reportFlag) {
@@ -100,7 +100,7 @@ public class BudgetConstructionSubFundPick extends PersistableBusinessObjectBase
 
     /**
      * Gets the subFundGroup attribute.
-     * 
+     *
      * @return Returns the subFundGroup.
      */
     public SubFundGroup getSubFundGroup() {
@@ -109,7 +109,7 @@ public class BudgetConstructionSubFundPick extends PersistableBusinessObjectBase
 
     /**
      * Sets the subFundGroup attribute value.
-     * 
+     *
      * @param subFundGroup The subFundGroup to set.
      * @deprecated
      */

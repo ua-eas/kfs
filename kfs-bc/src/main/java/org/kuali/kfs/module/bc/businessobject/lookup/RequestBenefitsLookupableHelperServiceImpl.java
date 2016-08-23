@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,17 +53,17 @@ public class RequestBenefitsLookupableHelperServiceImpl extends KualiLookupableH
 
     /**
      * Creates <code>RequestBenefits</code> objects based on a BC expenditure line chart, object code and request amount.
-     * 
+     *
      * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#getSearchResults(java.util.Map)
      */
     @Override
     public List<? extends BusinessObject> getSearchResults(Map<String, String> fieldValues) {
-        
+
       List<RequestBenefits> requestBenefits = new ArrayList<RequestBenefits>();
 
       // account number is used in the lookup of the labor benefit rate category code below
       String accountNumber = fieldValues.get(KFSPropertyConstants.ACCOUNT_NUMBER);
-      
+
       // find out if we are running in rate category mode
       Boolean categoryRateCalcMode = false;
       Boolean categoryRateCalcParmExists = SpringContext.getBean(ParameterService.class).parameterExists(KfsParameterConstants.FINANCIAL_SYSTEM_ALL.class, KFSParameterKeyConstants.LdParameterConstants.ENABLE_FRINGE_BENEFIT_CALC_BY_BENEFIT_RATE_CATEGORY_IND);
@@ -74,7 +74,7 @@ public class RequestBenefitsLookupableHelperServiceImpl extends KualiLookupableH
               categoryRateCalcMode = true;
           }
       }
-        
+
       Integer fiscalYear = Integer.valueOf(fieldValues.get(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR));
       String chartOfAccountsCode = fieldValues.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
       String objectCode = fieldValues.get(KFSPropertyConstants.FINANCIAL_OBJECT_CODE);
@@ -116,7 +116,7 @@ public class RequestBenefitsLookupableHelperServiceImpl extends KualiLookupableH
               requestBenefit.setPositionFringeBenefitObjectCode(positionObjectBenefit.getLaborLedgerBenefitsCalculation().getPositionFringeBenefitObjectCode());
               requestBenefit.setPositionFringeBenefitObjectCodeName(positionObjectBenefit.getLaborLedgerBenefitsCalculation().getPositionFringeBenefitObject().getFinancialObjectCodeName());
               requestBenefit.setPositionFringeBenefitPercent(positionObjectBenefit.getLaborLedgerBenefitsCalculation().getPositionFringeBenefitPercent());
-              
+
               BigDecimal requestAmount = new BigDecimal(Integer.valueOf(fieldValues.get(KFSPropertyConstants.ACCOUNT_LINE_ANNUAL_BALANCE_AMOUNT)));
               BigDecimal fringePctDecimal = fringePct.bigDecimalValue().divide(new BigDecimal(100));
               BigDecimal result = requestAmount.multiply(fringePctDecimal).setScale(0, RoundingMode.HALF_UP);
@@ -131,7 +131,7 @@ public class RequestBenefitsLookupableHelperServiceImpl extends KualiLookupableH
 
     /**
      * Sets the laborModuleService attribute value.
-     * 
+     *
      * @param laborModuleService The laborModuleService to set.
      */
     public void setLaborModuleService(LaborModuleService laborModuleService) {
@@ -140,7 +140,7 @@ public class RequestBenefitsLookupableHelperServiceImpl extends KualiLookupableH
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {

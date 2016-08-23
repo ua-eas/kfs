@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -91,7 +91,7 @@ public class Note extends PersistableBusinessObjectBase {
 
         this.setAdHocRouteRecipient(new AdHocRoutePerson());
     }
-    
+
     /**
      * Sets the {@link #setNotePostedTimestamp(Timestamp)} to the current time.
      */
@@ -102,7 +102,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Gets the noteIdentifier attribute.
-     * 
+     *
      * @return Returns the noteIdentifier.
      */
     public Long getNoteIdentifier() {
@@ -111,7 +111,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Sets the noteIdentifier attribute value.
-     * 
+     *
      * @param noteIdentifier The noteIdentifier to set.
      */
     public void setNoteIdentifier(Long noteIdentifier) {
@@ -120,7 +120,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Gets the remoteObjectIdentifier attribute.
-     * 
+     *
      * @return Returns the remoteObjectIdentifier
      */
     public String getRemoteObjectIdentifier() {
@@ -129,7 +129,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Sets the remoteObjectIdentifier attribute.
-     * 
+     *
      * @param remoteObjectIdentifier The remoteObjectIdentifier to set.
      */
     public void setRemoteObjectIdentifier(String remoteObjectIdentifier) {
@@ -139,7 +139,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Gets the authorUniversalIdentifier attribute.
-     * 
+     *
      * @return Returns the authorUniversalIdentifier
      */
     public String getAuthorUniversalIdentifier() {
@@ -148,7 +148,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Sets the authorUniversalIdentifier attribute.
-     * 
+     *
      * @param noteAuthorIdentifier The author ID to be set as the AuthorUniversalIdentifier
      */
     public void setAuthorUniversalIdentifier(String noteAuthorIdentifier) {
@@ -158,7 +158,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Gets the notePostedTimestamp attribute.
-     * 
+     *
      * @return Returns the notePostedTimestamp
      */
     public Timestamp getNotePostedTimestamp() {
@@ -167,7 +167,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Sets the notePostedTimestamp attribute.
-     * 
+     *
      * @param notePostedTimestamp The notePostedTimestamp to set.
      */
     public void setNotePostedTimestamp(Timestamp notePostedTimestamp) {
@@ -177,7 +177,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Gets the noteTypeCode attribute.
-     * 
+     *
      * @return Returns the noteTypeCode
      */
     public String getNoteTypeCode() {
@@ -186,7 +186,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Sets the noteTypeCode attribute.
-     * 
+     *
      * @param noteTypeCode The noteTypeCode to set.
      */
     public void setNoteTypeCode(String noteTypeCode) {
@@ -196,7 +196,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Gets the noteText attribute.
-     * 
+     *
      * @return Returns the noteText
      */
     public String getNoteText() {
@@ -205,7 +205,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Sets the noteText attribute.
-     * 
+     *
      * @param noteText The noteText to set.
      */
     public void setNoteText(String noteText) {
@@ -215,7 +215,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Gets the noteTopicText attribute.
-     * 
+     *
      * @return Returns the noteTopicText.
      */
     public String getNoteTopicText() {
@@ -224,7 +224,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Sets the noteTopicText attribute value.
-     * 
+     *
      * @param noteTopicText The noteTopicText to set.
      */
     public void setNoteTopicText(String noteTopicText) {
@@ -233,7 +233,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Gets the notePurgeCode attribute.
-     * 
+     *
      * @return Returns the notePurgeCode
      */
     public String getNotePurgeCode() {
@@ -242,7 +242,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Sets the notePurgeCode attribute.
-     * 
+     *
      * @param notePurgeCode The notePurgeCode to set.
      */
     public void setNotePurgeCode(String notePurgeCode) {
@@ -251,7 +251,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Gets the noteType attribute.
-     * 
+     *
      * @return Returns the noteType.
      */
     public NoteType getNoteType() {
@@ -260,7 +260,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Sets the noteType attribute value.
-     * 
+     *
      * @param noteType The noteType to set.
      * @deprecated
      */
@@ -270,7 +270,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Gets the authorUniversal attribute.
-     * 
+     *
      * @return Returns the authorUniversal.
      */
     public Person getAuthorUniversal() {
@@ -280,7 +280,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Sets the authorUniversal attribute value.
-     * 
+     *
      * @param authorUniversal The authorUniversal to set.
      * @deprecated
      */
@@ -290,7 +290,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Gets the attachment attribute.
-     * 
+     *
      * @return Returns the attachment.
      */
     public Attachment getAttachment() {
@@ -299,7 +299,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Sets the attachment attribute value.
-     * 
+     *
      * @param attachment The attachment to set.
      */
     public void setAttachment(Attachment attachment) {
@@ -308,7 +308,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Gets the attachmentIdentifier attribute.
-     * 
+     *
      * @return Returns the attachmentIdentifier.
      */
     public String getAttachmentIdentifier() {
@@ -317,7 +317,7 @@ public class Note extends PersistableBusinessObjectBase {
 
     /**
      * Sets the attachmentIdentifier attribute value.
-     * 
+     *
      * @param attachmentIdentifier The attachmentIdentifier to set.
      */
     public void setAttachmentIdentifier(String attachmentIdentifier) {
@@ -327,7 +327,7 @@ public class Note extends PersistableBusinessObjectBase {
     /**
      * Adds the given attachment to this note. More specifically, sets both the attachmentIdentifier and the attachment reference,
      * since they both need to be done separately now that we aren't using anonymous keys.
-     * 
+     *
      * @param attachment
      */
     public void addAttachment(Attachment attachment) {

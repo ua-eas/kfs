@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -30,7 +30,7 @@
     <property name="documentPresentationControllerClass" value="org.kuali.kfs.fp.document.authorization.AuxiliaryVoucherDocumentPresentationController"/>
     <property name="sessionDocument" value="true"/>
     <property name="allowsCopy" value="true"/>
-    
+
     <property name="attributes">
       <list>
         <ref bean="AuxiliaryVoucherDocument-accountingPeriod"/>
@@ -71,8 +71,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="AuxiliaryVoucherDocument-typeCode" parent="AuxiliaryVoucherDocument-typeCode-parentBean"/>
 
@@ -89,8 +89,8 @@
     <property name="control">
       <bean parent="RadioControlDefinition" p:valuesFinderClass="org.kuali.kfs.fp.businessobject.options.AuxiliaryVoucherTypeCodeValuesFinder" p:includeKeyInLabel="false"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="AuxiliaryVoucherDocument-reversalDate" parent="AuxiliaryVoucherDocument-reversalDate-parentBean"/>
 
@@ -99,13 +99,13 @@
     <property name="label" value="Reversal Date"/>
     <property name="shortLabel" value="Reversal Date"/>
     <property name="required" value="false"/>
-    
+
   </bean>
- 
+
   <!-- validations -->
-  
+
   <bean id="AuxiliaryVoucherDocument-validations" parent="AuxiliaryVoucherDocument-validations-parentBean"/>
-  
+
   <bean id="AuxiliaryVoucherDocument-validations-parentBean" abstract="true" class="org.springframework.beans.factory.config.MapFactoryBean">
   	<property name="sourceMap">
 		<map key-type="java.lang.Class">
@@ -144,9 +144,9 @@
     	</map>
     </property>
   </bean>
-  
+
   <bean id="AuxiliaryVoucher-sourceAccountingLineGroup" parent="AuxiliaryVoucher-sourceAccountingLineGroup-parentBean"/>
-  
+
   <bean id="AuxiliaryVoucher-sourceAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
   	<property name="groupLabel" value="" />
   	<property name="accountingLineView" ref="AuxiliaryVoucher-accountingLineView"/>
@@ -156,9 +156,9 @@
 	<property name="totals" ref="AccountingDocument-sourceDebitCerditTotals"/>
 	<property name="errorKey" value="document.sourceAccounting*,sourceAccountingLines,newSourceLine*"/> <!-- note people copying this: AV and JV have extra things that belong here -->
   </bean>
-  
+
   <bean id="AuxiliaryVoucher-accountingLineView" parent="AuxiliaryVoucher-accountingLineView-parent"/>
-  
+
   <bean id="AuxiliaryVoucher-accountingLineView-parent" parent="AccountingLineView" abstract="true">
   	<property name="elements">
 		<list>
@@ -203,14 +203,14 @@
 		</list>
 	</property>
   </bean>
-  
-  
-  
+
+
+
   <!-- workflow attributes for routing -->
 	<bean id="AuxiliaryVoucherDocument-workflowAttributes" parent="AuxiliaryVoucherDocument-workflowAttributes-parentBean"/>
-	
+
 	<bean id="AuxiliaryVoucherDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
-    	
+
     	<property name="routingTypeDefinitions">
     		<map>
     			<entry key="Account" value-ref="RoutingType-AccountingDocument-Account-sourceOnly"/>

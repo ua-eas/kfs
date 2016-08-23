@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,40 +49,40 @@ public class PurchasingAccountsPayableObjectCodeOverrideBranchingValidation exte
     protected AccountingDocument accountingDocumentForValidation;
     protected AccountingLine accountingLineForValidation;
 
-    protected final static String OBJECT_CODE_OVERRIDEN = "ObjectCodeOverriden"; 
+    protected final static String OBJECT_CODE_OVERRIDEN = "ObjectCodeOverriden";
     protected final static String OBJECT_CODE_NOT_OVERRIDEN = "ObjectCodeNotOverriden";
-    
+
     @Override
     protected String determineBranch(AttributedDocumentEvent event) {
         if (!StringUtils.isBlank(propertyPath)) {
             refreshByPath(accountingLineForValidation);
         }
-        
+
         boolean isTaxApproval = false;
-        //if payment request, skip object code check when this is a tax approval, 
+        //if payment request, skip object code check when this is a tax approval,
         // or if this accounting line is from a Tax Charge line.
         if (accountingDocumentForValidation instanceof PaymentRequestDocument) {
             PaymentRequestDocument preq = (PaymentRequestDocument)accountingDocumentForValidation;
             PurApAccountingLine purapAccountingLine = (PurApAccountingLine)accountingLineForValidation;
             PurApItem item = purapAccountingLine.getPurapItem();
-            
-            if (StringUtils.equals(PaymentRequestStatuses.APPDOC_AWAITING_TAX_REVIEW, preq.getApplicationDocumentStatus())){                
+
+            if (StringUtils.equals(PaymentRequestStatuses.APPDOC_AWAITING_TAX_REVIEW, preq.getApplicationDocumentStatus())){
                 isTaxApproval = true;
             }else if(StringUtils.equals(PaymentRequestStatuses.APPDOC_DEPARTMENT_APPROVED, preq.getApplicationDocumentStatus()) &&
                      (ObjectUtils.isNotNull(item) && item.getItemType().getIsTaxCharge()) ){
                 isTaxApproval = true;
             }
         }
-        
+
         if (isTaxApproval) {
             return null;
         } else if (isAccountingLineValueAllowed(accountingDocumentForValidation.getClass(), accountingLineForValidation, parameterToCheckAgainst, propertyPath, (responsibleProperty != null ? responsibleProperty : propertyPath))){
             return OBJECT_CODE_OVERRIDEN;
         } else {
             return OBJECT_CODE_NOT_OVERRIDEN;
-        }                
+        }
     }
-    
+
     /**
      * Checks that a value on an accounting line is valid, based on parameters, for a document of the given class
      * @param documentClass the class of the document to check
@@ -112,7 +112,7 @@ public class PurchasingAccountsPayableObjectCodeOverrideBranchingValidation exte
         }
         return isAllowed;
     }
-    
+
     /**
      * Refreshes a value on the accounting line, using the propertyPath to decided what to refresh
      * @param line the accounting line to refresh a property on
@@ -120,7 +120,7 @@ public class PurchasingAccountsPayableObjectCodeOverrideBranchingValidation exte
     public void refreshByPath(AccountingLine line) {
         refreshByQueue(line, convertPathToQueue(propertyPath));
     }
-    
+
     /**
      * Creates a Queue which represents a FIFO path of what properties to visit, based on the given property path
      * @param path the path to convert to a Queue
@@ -133,7 +133,7 @@ public class PurchasingAccountsPayableObjectCodeOverrideBranchingValidation exte
         }
         return pathQueue;
     }
-    
+
     /**
      * Recursively refreshes a property given by the queue path
      * @param bo the business object to refresh
@@ -144,7 +144,7 @@ public class PurchasingAccountsPayableObjectCodeOverrideBranchingValidation exte
             String currentProperty = path.remove();
             bo.refreshReferenceObject(currentProperty);
             PersistableBusinessObject childBO = (PersistableBusinessObject)ObjectUtils.getPropertyValue(bo, currentProperty);
-            if (!ObjectUtils.isNull(childBO)) {       
+            if (!ObjectUtils.isNull(childBO)) {
                 refreshByQueue(childBO, path);
             }
         }
@@ -167,7 +167,7 @@ public class PurchasingAccountsPayableObjectCodeOverrideBranchingValidation exte
     }
 
     /**
-     * Gets the parameterService attribute. 
+     * Gets the parameterService attribute.
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -215,7 +215,7 @@ public class PurchasingAccountsPayableObjectCodeOverrideBranchingValidation exte
     }
 
     /**
-     * Gets the accountingDocumentForValidation attribute. 
+     * Gets the accountingDocumentForValidation attribute.
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -231,7 +231,7 @@ public class PurchasingAccountsPayableObjectCodeOverrideBranchingValidation exte
     }
 
     /**
-     * Gets the accountingLineForValidation attribute. 
+     * Gets the accountingLineForValidation attribute.
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,51 +44,51 @@ import java.util.List;
  * This class contains all the methods necessary for generating the js required to perform validation client side.
  * The processAndApplyConstraints(InputField field, View view) is the key method of this class used by
  * InputField to setup its client side validation mechanisms.
- * 
- * 
+ *
+ *
  */
 public class ClientValidationUtils {
 	// used to give validation methods unique signatures
 	private static int methodKey = 0;
-	
+
 	// list used to temporarily store mustOccurs field names for the error
 	// message
 	private static List<List<String>> mustOccursPathNames;
-	
+
 	public static final String LABEL_KEY_SPLIT_PATTERN = ",";
-	
-	
+
+
 	public static final String PREREQ_MSG_KEY = "prerequisite";
 	public static final String POSTREQ_MSG_KEY = "postrequisite";
 	public static final String MUSTOCCURS_MSG_KEY = "mustOccurs";
 	public static final String GENERIC_FIELD_MSG_KEY = "general.genericFieldName";
-	
+
 	public static final String ALL_MSG_KEY = "general.all";
 	public static final String ATMOST_MSG_KEY = "general.atMost";
 	public static final String AND_MSG_KEY = "general.and";
 	public static final String OR_MSG_KEY = "general.or";
-	
+
 	private static ConfigurationService configService = KRADServiceLocator.getKualiConfigurationService();
-	
+
 	//Enum representing names of rules provided by the jQuery plugin
 	public static enum ValidationMessageKeys{
-		REQUIRED("required"), 
-		MIN_EXCLUSIVE("minExclusive"), 
+		REQUIRED("required"),
+		MIN_EXCLUSIVE("minExclusive"),
 		MAX_INCLUSIVE("maxInclusive"),
 		MIN_LENGTH("minLengthConditional"),
 		MAX_LENGTH("maxLengthConditional");
-		
+
 		private ValidationMessageKeys(String name) {
 			this.name = name;
 		}
-		
+
 		private final String name;
-		
+
 		@Override
 		public String toString() {
 			return name;
 		}
-		
+
 		public static boolean contains(String name){
             for (ValidationMessageKeys element : EnumSet.allOf(ValidationMessageKeys.class)) {
                 if (element.toString().equalsIgnoreCase(name)) {
@@ -98,7 +98,7 @@ public class ClientValidationUtils {
             return false;
 		}
 	}
-	
+
 	public static String generateMessageFromLabelKey(List<String> params, String labelKey){
 		String message = "NO MESSAGE";
 		if(StringUtils.isNotEmpty(labelKey)){
@@ -126,7 +126,7 @@ public class ClientValidationUtils {
 	/**
 	 * Generates the js object used to override all default messages for validator jquery plugin with custom
 	 * messages derived from the configService.
-	 * 
+	 *
 	 * @return
 	 */
 	public static String generateValidatorMessagesOption(){
@@ -137,29 +137,29 @@ public class ClientValidationUtils {
 			String message = configService.getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + key);
 			if(StringUtils.isNotEmpty(message)){
 				keyValuePairs = keyValuePairs + "\n" + key + ": '"+ message + "',";
-				
+
 			}
-			
+
 		}
 		keyValuePairs = StringUtils.removeEnd(keyValuePairs, ",");
 		if(StringUtils.isNotEmpty(keyValuePairs)){
 			mOption="{" + keyValuePairs + "}";
 		}
-		
+
 		return mOption;
 	}
-	
+
 	/**
 	 * Returns the add method jquery validator call for the regular expression
 	 * stored in validCharactersConstraint.
-	 * 
+	 *
 	 * @param validCharactersConstraint
 	 * @return js validator.addMethod script
 	 */
 	public static String getRegexMethod(InputField field, ValidCharactersConstraint validCharactersConstraint) {
 		String message = generateMessageFromLabelKey(validCharactersConstraint.getValidationMessageParams(), validCharactersConstraint.getLabelKey());
 		String key = "validChar-" + field.getBindingInfo().getBindingPath() + methodKey;
-		
+
 		String regex = validCharactersConstraint.getValue();
 		//replace characters known to cause issues if not escaped
 		if(regex.contains("\\\\")){
@@ -168,25 +168,25 @@ public class ClientValidationUtils {
 		if(regex.contains("/")){
 		    regex = regex.replace("/", "\\/");
 		}
-		
+
         return "\njQuery.validator.addMethod(\"" + ScriptUtils.escapeName(key)
                 + "\", function(value, element) {\n "
                 + "return this.optional(element) || /" + regex + "/.test(value);"
                 + "}, \"" + message + "\");";
 	}
-	
+
 	/**
      * Returns the add method jquery validator call for the regular expression
      * stored in validCharactersConstraint that explicitly checks a boolean.  Needed because one method
      * accepts params and the other doesn't.
-     * 
+     *
      * @param validCharactersConstraint
      * @return js validator.addMethod script
      */
     public static String getRegexMethodWithBooleanCheck(InputField field, ValidCharactersConstraint validCharactersConstraint) {
         String message = generateMessageFromLabelKey(validCharactersConstraint.getValidationMessageParams(), validCharactersConstraint.getLabelKey());
         String key = "validChar-" + field.getBindingInfo().getBindingPath() + methodKey;
-        
+
         String regex = validCharactersConstraint.getValue();
         //replace characters known to cause issues if not escaped
         if(regex.contains("\\\\")){
@@ -195,20 +195,20 @@ public class ClientValidationUtils {
         if(regex.contains("/")){
 		    regex = regex.replace("/", "\\/");
 		}
-        
+
         return "\njQuery.validator.addMethod(\"" + ScriptUtils.escapeName(key)
                 + "\", function(value, element, doCheck) {\n if(doCheck === false){return true;}else{"
                 + "return this.optional(element) || /" + regex + "/.test(value);}"
                 + "}, \"" + message + "\");";
     }
-	
+
 
 	/**
 	 * This method processes a single CaseConstraint. Internally it makes calls
 	 * to processWhenConstraint for each WhenConstraint that exists in this
 	 * constraint. It adds a "dependsOn" css class to this field for the field
 	 * which the CaseConstraint references.
-	 * 
+	 *
 	 * @param view
 	 * @param andedCase
 	 *            the boolean logic to be anded when determining if this case is
@@ -250,7 +250,7 @@ public class ClientValidationUtils {
 			}
 		}
 	}
-	
+
 
 
 	/**
@@ -259,7 +259,7 @@ public class ClientValidationUtils {
 	 * be applied. The necessary rules/methods for applying this constraint are
 	 * created in the createRule call. Note the use of the use of coerceValue js
 	 * function call.
-	 * 
+	 *
 	 * @param view
 	 * @param wc
 	 * @param fieldPath
@@ -313,28 +313,28 @@ public class ClientValidationUtils {
 			addScriptToPage(view, field, ruleString);
 		}
 	}
-	
+
 
 
 	/**
 	 * Adds the script to the view to execute on a jQuery document ready event.
-	 * 
+	 *
 	 * @param view
 	 * @param script
 	 */
 	public static void addScriptToPage(View view, InputField field, String script) {
         String prefixScript = "";
-        
+
         if (field.getOnDocumentReadyScript() != null) {
             prefixScript = field.getOnDocumentReadyScript();
         }
         field.setOnDocumentReadyScript(prefixScript + "\n" + "runValidationScript(function(){" + script + "});");
 	}
-	
+
 	/**
 	 * Determines which fields are being evaluated in a boolean statement, so handlers can be
 	 * attached to them if needed, returns these names in a list.
-	 * 
+	 *
 	 * @param statement
 	 * @return
 	 */
@@ -355,7 +355,7 @@ public class ClientValidationUtils {
 	 * field when the statement passed in evaluates to true during runtime and
 	 * this field is being validated. Note the use of custom methods for min/max
 	 * length/value.
-	 * 
+	 *
 	 * @param field
 	 *            the field to apply the generated methods and rules to
 	 * @param constraint
@@ -378,11 +378,11 @@ public class ClientValidationUtils {
 					//special requiredness indicator handling
 					String showIndicatorScript = "";
 					for(String checkedField: parseOutFields(booleanStatement)){
-					    showIndicatorScript = showIndicatorScript + 
+					    showIndicatorScript = showIndicatorScript +
 					        "setupShowReqIndicatorCheck('"+ checkedField +"', '" + field.getBindingInfo().getBindingPath() + "', " + "function(){\nreturn (" + booleanStatement + ");});\n";
 					}
 					addScriptToPage(view, field, showIndicatorScript);
-					
+
 					constraintCount++;
 				}
 				if (((SimpleConstraint) constraint).getMinLength() != null) {
@@ -452,12 +452,12 @@ public class ClientValidationUtils {
 		}
 		return rule;
 	}
-	
+
 
 
 	/**
 	 * This method is a simpler version of processPrerequisiteConstraint
-	 * 
+	 *
 	 * @see ClientValidationUtils#processPrerequisiteConstraint(InputField, PrerequisiteConstraint, View, String)
 	 * @param constraint
 	 * @param view
@@ -469,7 +469,7 @@ public class ClientValidationUtils {
 	/**
 	 * This method processes a Prerequisite constraint that should be applied
 	 * when the booleanStatement passed in evaluates to true.
-	 * 
+	 *
 	 * @param constraint
 	 *            prerequisiteConstraint
 	 * @param view
@@ -496,7 +496,7 @@ public class ClientValidationUtils {
 	 * prerequisite rule - since it requires a specific set of UI logic. Builds
 	 * an if statement containing an addMethod jquery validator call. Adds a
 	 * "dependsOn" css class to this field for the field specified.
-	 * 
+	 *
 	 * @param constraint
 	 *            prerequisiteConstraint
 	 * @param booleanStatement
@@ -525,14 +525,14 @@ public class ClientValidationUtils {
 				message = MessageFormat.format(message, configService.getPropertyValueAsString(GENERIC_FIELD_MSG_KEY));
 			}
 		}
-		
+
 		// field occurs before case
 		String methodName = "prConstraint-" + ScriptUtils.escapeName(field.getBindingInfo().getBindingPath()) + methodKey;
 		String addClass = "jq('[name=\""+ ScriptUtils.escapeName(field.getBindingInfo().getBindingPath()) + "\"]').addClass('" + methodName + "');\n";
 		String method = "\njQuery.validator.addMethod(\""+ methodName +"\", function(value, element) {\n" +
 			" if(" + booleanStatement + "){ return (this.optional(element) || (coerceValue('" + ScriptUtils.escapeName(constraint.getPropertyName()) + "')));}else{return true;} " +
 			"}, \"" + message + "\");";
-		
+
 		String ifStatement = "if(occursBefore('" + ScriptUtils.escapeName(constraint.getPropertyName()) + "','" + ScriptUtils.escapeName(field.getBindingInfo().getBindingPath()) +
 		"')){" + addClass + method + "}";
 		return ifStatement;
@@ -543,7 +543,7 @@ public class ClientValidationUtils {
 	 * rule in which this field occurs before the field specified in the
 	 * prerequisite rule - since it requires a specific set of UI logic. Builds
 	 * an if statement containing an addMethod jquery validator call.
-	 * 
+	 *
 	 * @param constraint
 	 *            prerequisiteConstraint
 	 * @param booleanStatement
@@ -560,7 +560,7 @@ public class ClientValidationUtils {
 		else{
 			message = generateMessageFromLabelKey(constraint.getValidationMessageParams(), constraint.getLabelKey());
 		}
-		
+
 		if(StringUtils.isEmpty(constraint.getLabelKey())){
 			if(StringUtils.isNotEmpty(field.getLabel())){
 				message = MessageFormat.format(message, field.getLabel());
@@ -568,16 +568,16 @@ public class ClientValidationUtils {
 			else{
 				message = MessageFormat.format(message, configService.getPropertyValueAsString(GENERIC_FIELD_MSG_KEY));
 			}
-			
+
 		}
-		
+
 		String function = "function(element){\n" +
 			"return (coerceValue('"+ ScriptUtils.escapeName(field.getBindingInfo().getBindingPath()) + "') && " + booleanStatement + ");}";
 		String postStatement = "\nelse if(occursBefore('" + ScriptUtils.escapeName(field.getBindingInfo().getBindingPath()) + "','" + ScriptUtils.escapeName(constraint.getPropertyName()) +
 			"')){\njq('[name=\""+ ScriptUtils.escapeName(constraint.getPropertyName()) +
-			"\"]').rules(\"add\", { required: \n" + function 
+			"\"]').rules(\"add\", { required: \n" + function
 			+ ", \nmessages: {\nrequired: \""+ message +"\"}});}\n";
-		
+
 		return postStatement;
 
 	}
@@ -587,7 +587,7 @@ public class ClientValidationUtils {
 	 * applied when the booleanStatement evaluates to true during validation.
 	 * This method creates the addMethod and add rule calls for the jquery
 	 * validation plugin necessary for applying this constraint to this field.
-	 * 
+	 *
 	 * @param view
 	 * @param mc
 	 * @param booleanStatement
@@ -612,7 +612,7 @@ public class ClientValidationUtils {
 	 * field is validated. Note the use of the mustOccurCheck method. Nested
 	 * mustOccurConstraints are ored against the result of the mustOccurCheck by
 	 * calling this method recursively.
-	 * 
+	 *
 	 * @param constraint
 	 * @return
 	 */
@@ -650,7 +650,7 @@ public class ClientValidationUtils {
 			else{
 				attributePaths.add(null);
 			}
-			
+
 			mustOccursPathNames.add(attributePaths);
 			if(StringUtils.isEmpty(statement)){
 				statement = "0";
@@ -669,13 +669,13 @@ public class ClientValidationUtils {
 		return statement;
 	}
 
-	
+
 	/**
-	 * Generates a message for the must occur constraint (if no label key is specified).  
+	 * Generates a message for the must occur constraint (if no label key is specified).
 	 * This message is most accurate when must occurs is a single
 	 * or double level constraint.  Beyond that, the message will still be accurate but may be confusing for
 	 * the user - this auto-generated message however will work in MOST use cases.
-	 * 
+	 *
 	 * @param view
 	 * @return
 	 */
@@ -696,7 +696,7 @@ public class ClientValidationUtils {
 			String statement="";
 			for(int i=0; i< mustOccursPathNames.size(); i++){
 				String andedString = "";
-				
+
 				List<String> paths = mustOccursPathNames.get(i);
 				if(!paths.isEmpty()){
 					//note that the last 2 strings are min and max and rest are attribute paths
@@ -727,7 +727,7 @@ public class ClientValidationUtils {
 						andedString = "<li>" + andedString + "</li>";
 					}
 					andedString="<ul>" + andedString + "</ul>";
-				
+
 					if(StringUtils.isNotEmpty(min) && StringUtils.isNotEmpty(max) && !min.equals(max)){
 						andedString = MessageFormat.format(mustOccursMsg, min + "-" + max) + "<br/>" +andedString;
 					}
@@ -757,7 +757,7 @@ public class ClientValidationUtils {
 				message = statement;
 			}
 		}
-		
+
 		return message;
 	}
 
@@ -766,7 +766,7 @@ public class ClientValidationUtils {
 	 * jQuery and js required (validator's rules, methods, and messages) to the View's onDocumentReady call.
 	 * The result is js that will validate all the constraints contained on an InputField during user interaction
 	 * with the field using the jQuery validation plugin and custom code.
-	 * 
+	 *
 	 * @param field
 	 */
 	@SuppressWarnings("boxing")
@@ -777,7 +777,7 @@ public class ClientValidationUtils {
                 if ((field.getRequired() != null) && (field.getRequired().booleanValue())) {
                     field.getControl().addStyleClass("required");
                 }
-        
+
                 if (field.getExclusiveMin() != null) {
                     if (field.getControl() instanceof TextControl && ((TextControl) field.getControl()).getDatePicker() != null) {
                         ((TextControl) field.getControl()).getDatePicker().getComponentOptions().put("minDate", field.getExclusiveMin());
@@ -787,7 +787,7 @@ public class ClientValidationUtils {
                         addScriptToPage(view, field, rule);
                     }
                 }
-        
+
                 if (field.getInclusiveMax() != null) {
                     if (field.getControl() instanceof TextControl && ((TextControl) field.getControl()).getDatePicker() != null) {
                         ((TextControl) field.getControl()).getDatePicker().getComponentOptions().put("maxDate", field.getInclusiveMax());
@@ -798,7 +798,7 @@ public class ClientValidationUtils {
                     }
                 }
             }
-    
+
             if (field.getValidCharactersConstraint() != null && field.getValidCharactersConstraint().getApplyClientSide()) {
                 if(StringUtils.isNotEmpty(field.getValidCharactersConstraint().getValue())) {
                     // set regex value takes precedence
@@ -813,23 +813,23 @@ public class ClientValidationUtils {
                     }
                 }
             }
-    
+
             if (field.getCaseConstraint() != null && field.getCaseConstraint().getApplyClientSide()) {
                 processCaseConstraint(field, view, field.getCaseConstraint(), null);
             }
-    
+
             if (field.getDependencyConstraints() != null) {
                 for (PrerequisiteConstraint prc : field.getDependencyConstraints()) {
                     processPrerequisiteConstraint(field, prc, view);
                 }
             }
-    
+
             if (field.getMustOccurConstraints() != null) {
                 for (MustOccurConstraint mc : field.getMustOccurConstraints()) {
                     processMustOccurConstraint(field, view, mc, "true");
                 }
             }
-            
+
         }
     }
 }

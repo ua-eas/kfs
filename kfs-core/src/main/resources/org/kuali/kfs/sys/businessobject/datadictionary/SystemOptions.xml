@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -74,8 +74,8 @@
     <property name="label" value="Fiscal Year"/>
     <property name="shortLabel" value="FY"/>
     <property name="required" value="true"/>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-universityFiscalYearName" parent="SystemOptions-universityFiscalYearName-parentBean"/>
 
@@ -92,8 +92,8 @@
     <property name="control">
       <ref bean="TenCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-universityFiscalYearStartYr" parent="SystemOptions-universityFiscalYearStartYr-parentBean"/>
 
@@ -109,8 +109,8 @@
     <property name="control">
       <ref bean="FourCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-universityFiscalYearStartMo" parent="SystemOptions-universityFiscalYearStartMo-parentBean"/>
 
@@ -126,8 +126,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-financialBeginBalanceLoadInd" parent="SystemOptions-financialBeginBalanceLoadInd-parentBean"/>
 
@@ -136,8 +136,8 @@
     <property name="label" value="Beginning Balances Loaded Indicator"/>
     <property name="shortLabel" value="Begin Bal. Loaded Ind"/>
     <property name="required" value="true"/>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-budgetCheckingOptionsCode" parent="SystemOptions-budgetCheckingOptionsCode-parentBean"/>
 
@@ -146,8 +146,8 @@
     <property name="label" value="Budget Checking Options Code"/>
     <property name="shortLabel" value="Budget Option Code"/>
     <property name="required" value="true"/>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-universityFinChartOfAcctCd" parent="SystemOptions-universityFinChartOfAcctCd-parentBean"/>
 
@@ -171,8 +171,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-extrnlEncumFinBalanceTypCd" parent="SystemOptions-extrnlEncumFinBalanceTypCd-parentBean"/>
 
@@ -188,8 +188,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-intrnlEncumFinBalanceTypCd" parent="SystemOptions-intrnlEncumFinBalanceTypCd-parentBean"/>
 
@@ -205,8 +205,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-preencumbranceFinBalTypeCd" parent="SystemOptions-preencumbranceFinBalTypeCd-parentBean"/>
 
@@ -222,8 +222,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-eliminationsFinBalanceTypeCd" parent="SystemOptions-eliminationsFinBalanceTypeCd-parentBean"/>
 
@@ -239,8 +239,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-budgetCheckingBalanceTypeCd" parent="SystemOptions-budgetCheckingBalanceTypeCd-parentBean"/>
 
@@ -256,8 +256,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-finObjTypeExpenditureexpCd" parent="SystemOptions-finObjTypeExpenditureexpCd-parentBean"/>
 
@@ -273,8 +273,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-finObjTypeExpendNotExpCode" parent="SystemOptions-finObjTypeExpendNotExpCode-parentBean"/>
 
@@ -290,8 +290,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-finObjTypeExpNotExpendCode" parent="SystemOptions-finObjTypeExpNotExpendCode-parentBean"/>
 
@@ -307,8 +307,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-finObjectTypeIncomecashCode" parent="SystemOptions-finObjectTypeIncomecashCode-parentBean"/>
 
@@ -324,8 +324,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-finObjTypeIncomeNotCashCd" parent="SystemOptions-finObjTypeIncomeNotCashCd-parentBean"/>
 
@@ -341,8 +341,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-finObjTypeCshNotIncomeCd" parent="SystemOptions-finObjTypeCshNotIncomeCd-parentBean"/>
 
@@ -358,8 +358,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-financialObjectTypeAssetsCd" parent="SystemOptions-financialObjectTypeAssetsCd-parentBean"/>
 
@@ -375,8 +375,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-finObjectTypeLiabilitiesCode" parent="SystemOptions-finObjectTypeLiabilitiesCode-parentBean"/>
 
@@ -392,8 +392,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-finObjectTypeFundBalanceCd" parent="SystemOptions-finObjectTypeFundBalanceCd-parentBean"/>
 
@@ -409,8 +409,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-costShareEncumbranceBalanceTypeCd" parent="SystemOptions-costShareEncumbranceBalanceTypeCd-parentBean"/>
 
@@ -426,8 +426,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-baseBudgetFinancialBalanceTypeCd" parent="SystemOptions-baseBudgetFinancialBalanceTypeCd-parentBean"/>
 
@@ -443,8 +443,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-monthlyBudgetFinancialBalanceTypeCd" parent="SystemOptions-monthlyBudgetFinancialBalanceTypeCd-parentBean"/>
 
@@ -460,8 +460,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-financialObjectTypeTransferIncomeCd" parent="SystemOptions-financialObjectTypeTransferIncomeCd-parentBean"/>
 
@@ -477,8 +477,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-financialObjectTypeTransferExpenseCd" parent="SystemOptions-financialObjectTypeTransferExpenseCd-parentBean"/>
 
@@ -494,8 +494,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="SystemOptions-nominalFinancialBalanceTypeCd" parent="SystemOptions-nominalFinancialBalanceTypeCd-parentBean"/>
 
@@ -511,8 +511,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
 
 <!-- Business Object Inquiry Definition -->
@@ -573,7 +573,7 @@
 
   <bean id="SystemOptions-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="System Options Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
         <property name="attributeNames">

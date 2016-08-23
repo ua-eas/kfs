@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,16 +27,16 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 /**
- * 
+ *
  * Purges old files from the temp directory specified in build.properties
  */
 public class PurgeTempFilesStep extends AbstractStep {
-    
+
     private ConfigurationService kualiConfigurationService;
-    
+
     /**
      * Deletes all files in the temp directory that are over 1 day old
-     * 
+     *
      * @see org.kuali.kfs.sys.batch.Step#execute(String, Date)
      */
     public boolean execute(String jobName, Date jobRunDate) throws InterruptedException {
@@ -48,9 +48,9 @@ public class PurgeTempFilesStep extends AbstractStep {
     }
 
     /**
-     * 
+     *
      * delete files in the specified directory that are older than the modification time
-     * 
+     *
      * @param location the path to temp files
      * @param modificationTime delete if file is older than this
      */
@@ -87,5 +87,5 @@ public class PurgeTempFilesStep extends AbstractStep {
     public void setConfigurationService(ConfigurationService configurationService) {
         this.kualiConfigurationService = configurationService;
     }
-    
+
 }

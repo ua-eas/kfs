@@ -1,28 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function EffortAmountUpdator(){ 
+function EffortAmountUpdator(){
 	totalAmountFiledName ="document.totalOriginalPayrollAmount";
 	editableDetailLineTableId = "editableDetailLineTable";
 	detailLinesPrefix = "document.effortCertificationDetailLines";
 	summarizedDetailLinesPrefix = "document.summarizedDetailLines";
-	
+
 	fiscalYearFieldNameSuffix = ".universityFiscalYear";
 	objectCodeFieldNameSuffix = ".financialObjectCode";
 	chartOfAccountsCodeFieldNameSuffix = ".chartOfAccountsCode";
@@ -30,13 +30,13 @@ function EffortAmountUpdator(){
 	accountNumberSuffix = ".accountNumber";
 	accountNameSuffix = ".account.accountName";
 	chartCodeSuffix = ".chartOfAccountsCode";
-	
+
 	payrollAmountFieldNameSuffix = ".effortCertificationPayrollAmount";
 	effortPercentFieldNameSuffix = ".effortCertificationUpdatedOverallPercent";
 	fringeBenefitFieldNameSuffix = ".fringeBenefitAmount"
-	
+
 	federalIndicatorFieldNameSuffix = ".federalOrFederalPassThroughIndicator";
-	
+
 	spanSuffix = ".span";
 	divSuffix = ".div";
 	readonlySuffix = ".readonly";
@@ -50,34 +50,34 @@ EffortAmountUpdator.prototype.recalculatePayrollAmount = function(effortPercentF
 	var totalPayrollAmount = this.removeDelimator(dwr.util.getValue(totalAmountFiledName), comma);
 	var effortPercent = this.removeDelimator(dwr.util.getValue(effortPercentFieldName), comma);
 	var message = "Must be an integer between 0 and 100";
-	
+
 	if(isNaN(effortPercent) || effortPercent > 100 || effortPercent <0){
 		this.displayMessageAfter(effortPercentFieldName, message);
 		return;
 	}
-		
+
 	if(totalPayrollAmount != '' && effortPercent != ''){
 		this.setValueByElementId(fieldNamePrefix + payrollAmountFieldNameSuffix + divSuffix, "");
 		this.setValueByElementId(effortPercentFieldName + divSuffix, "");
-		
+
 		var updatePayrollAmount = {
 			callback:function(data) {
 				var amount = new Number(data).toFixed(2);
 				var percent = effortPercent + percentageSign;
-				
+
 				var	payrollAmountFieldName = fieldNamePrefix + payrollAmountFieldNameSuffix;
 				effortAmountUpdator.setValueByElementId( payrollAmountFieldName, amount);
-				
-				var payrollAmountSpanReadonly = payrollAmountFieldName + spanSuffix + readonlySuffix;			
+
+				var payrollAmountSpanReadonly = payrollAmountFieldName + spanSuffix + readonlySuffix;
 				effortAmountUpdator.setValueByElementId( payrollAmountSpanReadonly, amount);
-				
-				var effortPercentSpanReadonly = effortPercentFieldName + spanSuffix + readonlySuffix;				
+
+				var effortPercentSpanReadonly = effortPercentFieldName + spanSuffix + readonlySuffix;
 				effortAmountUpdator.setValueByElementId( effortPercentSpanReadonly, percent);
-				
+
 				effortAmountUpdator.recalculateFringeBenefit(fieldNamePrefix, data);
 			}
 		};
-		
+
 		PayrollAmountUtil.recalculatePayrollAmount(totalPayrollAmount, parseInt(effortPercent), updatePayrollAmount);
 	}
 };
@@ -86,39 +86,39 @@ EffortAmountUpdator.prototype.recalculatePayrollAmount = function(effortPercentF
 EffortAmountUpdator.prototype.recalculateEffortPercent = function(payrollAmountFieldName, effortPercentFieldName){
 	var fieldNamePrefix = findElPrefix(payrollAmountFieldName);
 	var totalPayrollAmount = parseFloat(this.removeDelimator(dwr.util.getValue(totalAmountFiledName), comma));
-	var payrollAmount = this.removeDelimator(dwr.util.getValue(payrollAmountFieldName), comma);	
-	
+	var payrollAmount = this.removeDelimator(dwr.util.getValue(payrollAmountFieldName), comma);
+
 	if(isNaN(payrollAmount) || payrollAmount > totalPayrollAmount || payrollAmount <0){
 		this.displayMessageAfter(payrollAmountFieldName, "Must be between 0 and " + totalPayrollAmount);
 		return;
 	}
-	
+
 	if(totalPayrollAmount != '' && payrollAmount != ''){
 		this.setValueByElementId(fieldNamePrefix + effortPercentFieldNameSuffix + divSuffix, "");
 		this.setValueByElementId(payrollAmountFieldName + divSuffix, "");
-		
+
 		var updateEffortPercent = {
 			callback:function(data) {
 				var percent = Math.round(data);
 				var amount = new Number(payrollAmount).toFixed(2);
-				
+
 				var effortPercentFieldName = fieldNamePrefix + effortPercentFieldNameSuffix;
-				effortAmountUpdator.setValueByElementId( effortPercentFieldName, percent);	
-				
-				var effortPercentSpanReadonly = effortPercentFieldName + spanSuffix + readonlySuffix;											
+				effortAmountUpdator.setValueByElementId( effortPercentFieldName, percent);
+
+				var effortPercentSpanReadonly = effortPercentFieldName + spanSuffix + readonlySuffix;
 				effortAmountUpdator.setValueByElementId( effortPercentSpanReadonly, percent + percentageSign);
-								
-				var payrollAmountSpanReadonly = payrollAmountFieldName + spanSuffix + readonlySuffix;										
+
+				var payrollAmountSpanReadonly = payrollAmountFieldName + spanSuffix + readonlySuffix;
 				effortAmountUpdator.setValueByElementId( payrollAmountSpanReadonly, amount);
-				
+
 				effortAmountUpdator.recalculateFringeBenefit(fieldNamePrefix, payrollAmount);
 			}
 		};
-		
-		PayrollAmountUtil.recalculateEffortPercent(totalPayrollAmount, payrollAmount, updateEffortPercent);	
-		
+
+		PayrollAmountUtil.recalculateEffortPercent(totalPayrollAmount, payrollAmount, updateEffortPercent);
+
 		var detailLinesPrefixName = effortAmountUpdator.removeIndex(fieldNamePrefix);
-		effortAmountUpdator.updateTotals(detailLinesPrefixName);			
+		effortAmountUpdator.updateTotals(detailLinesPrefixName);
 	}
 };
 
@@ -126,29 +126,29 @@ EffortAmountUpdator.prototype.recalculateEffortPercent = function(payrollAmountF
 EffortAmountUpdator.prototype.recalculateFringeBenefit = function(fieldNamePrefix, payrollAmount){
 	var detailLinesPrefixName = effortAmountUpdator.removeIndex(fieldNamePrefix);
 	effortAmountUpdator.updateTotals(detailLinesPrefixName);
-	
+
 	try{
 		var fiscalYear = dwr.util.getValue(fieldNamePrefix + fiscalYearFieldNameSuffix);
 		var objectCode = dwr.util.getValue(fieldNamePrefix + objectCodeFieldNameSuffix);
-		var chartOfAccountsCode = dwr.util.getValue(fieldNamePrefix + chartOfAccountsCodeFieldNameSuffix);	
+		var chartOfAccountsCode = dwr.util.getValue(fieldNamePrefix + chartOfAccountsCodeFieldNameSuffix);
 
-		if(fiscalYear != '' && objectCode!='' && chartOfAccountsCode != '') {				
-			var updateFringeBenefit = function(data) {				
+		if(fiscalYear != '' && objectCode!='' && chartOfAccountsCode != '') {
+			var updateFringeBenefit = function(data) {
 				var benefit = new Number(data).toFixed(2);
-												
-				var benefitFieldName = fieldNamePrefix + fringeBenefitFieldNameSuffix;	
+
+				var benefitFieldName = fieldNamePrefix + fringeBenefitFieldNameSuffix;
 				effortAmountUpdator.setValueByElementId( benefitFieldName, benefit);
-				
-				var benefitFieldNameSpan = benefitFieldName + spanSuffix;	
+
+				var benefitFieldNameSpan = benefitFieldName + spanSuffix;
 				effortAmountUpdator.setValueByElementId( benefitFieldNameSpan, benefit);
-				
+
 				var benefitFieldNameReadonly = benefitFieldNameSpan + readonlySuffix;
 				effortAmountUpdator.setValueByElementId( benefitFieldNameReadonly, benefit);
-				
+
 				var detailLinesPrefixName = effortAmountUpdator.removeIndex(fieldNamePrefix);
 				effortAmountUpdator.updateTotals(detailLinesPrefixName);
 			};
-			
+
 			LaborModuleService.calculateFringeBenefit(fiscalYear, chartOfAccountsCode, objectCode, payrollAmount, updateFringeBenefit);
 		}
 	}catch(err){
@@ -173,7 +173,7 @@ EffortAmountUpdator.prototype.loadAccountInfo = function( accountCodeFieldName, 
         setRecipientValue( elPrefix + subObjectCodeSuffix, "" );
         setRecipientValue( elPrefix + subObjectCodeNameSuffix, "" );
     }
-    
+
     if (accountCode=='') {
 		clearRecipients(accountNameFieldName);
 	} else if (coaCode=='') {
@@ -184,14 +184,14 @@ EffortAmountUpdator.prototype.loadAccountInfo = function( accountCodeFieldName, 
 			if ( data != null && data.length >0 ) {
 				setRecipientValue( accountNameFieldName, data );
 			} else {
-				setRecipientValue( accountNameFieldName, wrapError( "account not found" ), true );			
+				setRecipientValue( accountNameFieldName, wrapError( "account not found" ), true );
 			} },
-			errorHandler:function( errorMessage ) { 
+			errorHandler:function( errorMessage ) {
 				setRecipientValue( accountNameFieldName, wrapError( "account not found" ), true );
 			}
 		};
 		EffortCertificationForm.loadAccountInfo( coaCode, accountCode, dwrReply );
-	}	
+	}
 }
 
 /**
@@ -212,12 +212,12 @@ EffortAmountUpdator.prototype.loadChartAccountInfo = function( accountCodeFieldN
         setRecipientValue( elPrefix + subObjectCodeSuffix, "" );
         setRecipientValue( elPrefix + subObjectCodeNameSuffix, "" );
     }
-    
+
     if (accountCode=='') {
 		clearRecipients(accountNameFieldName);
 		clearRecipients(coaCodeFieldName);
-		clearRecipients(coaNameFieldName);    
-		
+		clearRecipients(coaNameFieldName);
+
 	} else {
 		var dwrReply = {
 			callback:function(data) {
@@ -226,19 +226,19 @@ EffortAmountUpdator.prototype.loadChartAccountInfo = function( accountCodeFieldN
 				setRecipientValue( coaCodeFieldName, data.chartOfAccountsCode );
 			    setRecipientValue( coaNameFieldName, data.chartOfAccounts.finChartOfAccountDescription );
 			} else {
-				setRecipientValue( accountNameFieldName, wrapError( "account not found" ), true );	
-				clearRecipients(coaCodeFieldName);  
+				setRecipientValue( accountNameFieldName, wrapError( "account not found" ), true );
+				clearRecipients(coaCodeFieldName);
 				clearRecipients(coaNameFieldName);
 			} },
-			errorHandler:function( errorMessage ) { 
+			errorHandler:function( errorMessage ) {
 				setRecipientValue( accountNameFieldName, wrapError( "account not found" ), true );
-				clearRecipients(coaCodeFieldName);  
+				clearRecipients(coaCodeFieldName);
 				clearRecipients(coaNameFieldName);
 			}
 		};
 		//EffortCertificationForm.loadAccountInfo( coaCode, accountCode, dwrReply );
-		 AccountService.getUniqueAccountForAccountNumber( accountCode, dwrReply ); 
-	}	
+		 AccountService.getUniqueAccountForAccountNumber( accountCode, dwrReply );
+	}
 }
 
 EffortAmountUpdator.prototype.setValueByElementId = function(elementId, value){
@@ -255,7 +255,7 @@ EffortAmountUpdator.prototype.removeDelimator = function(stringObject, delimator
 // remove the specified delimators and leading/trailing blanks from the given string
 EffortAmountUpdator.prototype.removeIndex = function(stringObject){
 	var index = stringObject.lastIndexOf('[');
-	
+
 	return stringObject.substring(0, index).trim();
 };
 
@@ -264,33 +264,33 @@ EffortAmountUpdator.prototype.formatNumberAsCurrency = function(number, currency
 	if(currencySymbol == null){
 		currencySymbol = "";
 	}
-	
+
 	// get the fraction part of the given number
-	var fractionRegex = /\.\d{1,}/;	
+	var fractionRegex = /\.\d{1,}/;
 	var fractionPart = (fractionRegex.test(number)) ? fractionRegex.exec(number) : "";
-	
+
 	// get the integer part of the given number and format it through putting commas
 	var integerPart = parseInt(number,10).toString( );
-	var integerRegex = /(-?\d+)(\d{3})/;	
+	var integerRegex = /(-?\d+)(\d{3})/;
 	while (integerRegex.test(integerPart)) {
 		integerPart = integerPart.replace(integerRegex, "$1,$2");
 	}
-	
+
 	return currencySymbol + integerPart + fractionPart;
 };
 
 EffortAmountUpdator.prototype.displayMessageAfter = function(elementId, message) {
-	var currentNode = document.getElementById(elementId);	
+	var currentNode = document.getElementById(elementId);
 	var elementFieldName = elementId + divSuffix;
-	
+
 	if(document.getElementById(elementFieldName) == null && document.getElementsByName(elementFieldName).length <= 0){
    		var messageElement = document.createElement('div');
 
    		messageElement.setAttribute("id", elementFieldName);
-   		messageElement.setAttribute("name", elementFieldName);   		   	
+   		messageElement.setAttribute("name", elementFieldName);
 		currentNode.parentNode.insertBefore(messageElement, currentNode);
-	}   	
-   	this.setValueByElementId(elementFieldName, wrapError(message));	
+	}
+   	this.setValueByElementId(elementFieldName, wrapError(message));
 };
 
 // update all values in total fields
@@ -306,7 +306,7 @@ EffortAmountUpdator.prototype.updateTotals = function(detailLinesPrefixName){
 	federalTotalFieldId = "document.federalTotalEffortPercent";
 	otherTotalFieldId = "document.otherTotalEffortPercent";
 	this.updateTotalField(editableDetailLineTableId, detailLinesPrefixName, effortPercentFieldNameSuffix, true, totalFieldId, federalTotalFieldId, otherTotalFieldId);
-	
+
 	// update the fringe benefit totals
 	totalFieldId = "document.totalFringeBenefit";
 	federalTotalFieldId = "document.federalTotalFringeBenefit";
@@ -318,28 +318,28 @@ EffortAmountUpdator.prototype.updateTotals = function(detailLinesPrefixName){
 EffortAmountUpdator.prototype.updateTotalField = function(detailLineTableId, detailLinesPrefixName, amountFieldSuffix, isPercent, totalFieldId, federalTotalFieldId, otherTotalFieldId){
 	var federalTotal = 0.0;
 	var otherTotal = 0.0;
-	
-	var numOfTableRows = document.getElementById(detailLineTableId).rows.length;  	
+
+	var numOfTableRows = document.getElementById(detailLineTableId).rows.length;
   	for (var index = 0; index < numOfTableRows; index++) {
   		var indexHolder = "[" + index + "]";
   		var amountFieldId = detailLinesPrefixName + indexHolder + amountFieldSuffix;
   		var fereralIndicatorFieldId = detailLinesPrefixName + indexHolder + federalIndicatorFieldNameSuffix;
-  		
+
   		var nodes = document.getElementsByName(amountFieldId);
   		if(document.getElementById(amountFieldId) == null && nodes.length <= 0){
   			continue;
   		}
-  		
-  		var lineAmount = parseFloat(this.removeDelimator(dwr.util.getValue(amountFieldId), comma));  		
-  		var federalIndicator = dwr.util.getValue(fereralIndicatorFieldId); 		
+
+  		var lineAmount = parseFloat(this.removeDelimator(dwr.util.getValue(amountFieldId), comma));
+  		var federalIndicator = dwr.util.getValue(fereralIndicatorFieldId);
   		if(federalIndicator.toUpperCase() == "YES"){
-  			federalTotal += lineAmount;	
+  			federalTotal += lineAmount;
   		}
   		else{
   			otherTotal += lineAmount;
-  		} 
+  		}
  	}
- 	
+
  	var formattedFederalTotal, formattedOtherTotal, formattedGrandTotal;
  	if(!isPercent){
 	 	formattedFederalTotal = this.formatNumberAsCurrency(new Number(federalTotal).toFixed(2));
@@ -351,11 +351,11 @@ EffortAmountUpdator.prototype.updateTotalField = function(detailLineTableId, det
 	 	formattedOtherTotal = this.formatNumberAsCurrency(Math.round(otherTotal)) + percentageSign;
 	 	formattedGrandTotal = this.formatNumberAsCurrency(Math.round(federalTotal + otherTotal)) + percentageSign;
  	}
- 	
+
  	this.setValueByElementId( federalTotalFieldId, formattedFederalTotal);
  	this.setValueByElementId( otherTotalFieldId, formattedOtherTotal);
  	this.setValueByElementId( totalFieldId, formattedGrandTotal);
- 	
+
  	//this.setValueByElementId( federalTotalFieldId + readonlySuffix, formattedFederalTotal);
  	//this.setValueByElementId( otherTotalFieldId + readonlySuffix, formattedOtherTotal);
  	//this.setValueByElementId( totalFieldId + readonlySuffix, formattedGrandTotal);

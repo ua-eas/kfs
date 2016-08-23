@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -60,7 +60,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the memberId attribute.
-     * 
+     *
      * @return Returns the memberId.
      */
     public String getMemberId() {
@@ -70,7 +70,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the memberId attribute value.
-     * 
+     *
      * @param memberId The memberId to set.
      */
     public void setMemberId(String memberId) {
@@ -80,7 +80,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the memberName attribute.
-     * 
+     *
      * @return Returns the memberName.
      */
     public String getMemberName() {
@@ -90,7 +90,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the memberName attribute value.
-     * 
+     *
      * @param memberName The memberName to set.
      */
     public void setMemberName(String memberName) {
@@ -100,7 +100,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the memberTypeCode attribute.
-     * 
+     *
      * @return Returns the memberTypeCode.
      */
     public String getMemberTypeCode() {
@@ -110,7 +110,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the memberTypeCode attribute value.
-     * 
+     *
      * @param memberTypeCode The memberTypeCode to set.
      */
     public void setMemberTypeCode(String memberTypeCode) {
@@ -120,7 +120,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -130,7 +130,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the active attribute value.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {
@@ -140,7 +140,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the principalId attribute.
-     * 
+     *
      * @return Returns the principalId.
      */
     public String getPrincipalId() {
@@ -150,7 +150,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the principalId attribute value.
-     * 
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {
@@ -160,7 +160,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the principalName attribute.
-     * 
+     *
      * @return Returns the principalName.
      */
     public String getPrincipalName() {
@@ -170,7 +170,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the principalName attribute value.
-     * 
+     *
      * @param principalName The principalName to set.
      */
     public void setPrincipalName(String principalName) {
@@ -180,7 +180,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the entityId attribute.
-     * 
+     *
      * @return Returns the entityId.
      */
     public String getEntityId() {
@@ -190,7 +190,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the entityId attribute value.
-     * 
+     *
      * @param entityId The entityId to set.
      */
     public void setEntityId(String entityId) {
@@ -200,7 +200,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the firstName attribute.
-     * 
+     *
      * @return Returns the firstName.
      */
     public String getFirstName() {
@@ -210,7 +210,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the firstName attribute value.
-     * 
+     *
      * @param firstName The firstName to set.
      */
     public void setFirstName(String firstName) {
@@ -220,7 +220,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the middleName attribute.
-     * 
+     *
      * @return Returns the middleName.
      */
     public String getMiddleName() {
@@ -230,7 +230,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the middleName attribute value.
-     * 
+     *
      * @param middleName The middleName to set.
      */
     public void setMiddleName(String middleName) {
@@ -240,7 +240,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the lastName attribute.
-     * 
+     *
      * @return Returns the lastName.
      */
     public String getLastName() {
@@ -250,7 +250,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the lastName attribute value.
-     * 
+     *
      * @param lastName The lastName to set.
      */
     public void setLastName(String lastName) {
@@ -260,7 +260,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the emailAddress attribute.
-     * 
+     *
      * @return Returns the emailAddress.
      */
     public String getEmailAddress() {
@@ -270,7 +270,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the emailAddress attribute value.
-     * 
+     *
      * @param emailAddress The emailAddress to set.
      */
     public void setEmailAddress(String emailAddress) {
@@ -280,7 +280,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the employeeId attribute.
-     * 
+     *
      * @return Returns the employeeId.
      */
     public String getEmployeeId() {
@@ -290,7 +290,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the employeeId attribute value.
-     * 
+     *
      * @param employeeId The employeeId to set.
      */
     public void setEmployeeId(String employeeId) {
@@ -300,7 +300,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the roleId attribute.
-     * 
+     *
      * @return Returns the roleId.
      */
     public String getRoleId() {
@@ -310,7 +310,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the roleId attribute value.
-     * 
+     *
      * @param roleId The roleId to set.
      */
     public void setRoleId(String roleId) {
@@ -320,7 +320,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the roleName attribute.
-     * 
+     *
      * @return Returns the roleName.
      */
     public String getRoleName() {
@@ -330,7 +330,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the roleName attribute value.
-     * 
+     *
      * @param roleName The roleName to set.
      */
     public void setRoleName(String roleName) {
@@ -340,7 +340,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the namespaceCode attribute.
-     * 
+     *
      * @return Returns the namespaceCode.
      */
     public String getNamespaceCode() {
@@ -350,7 +350,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the namespaceCode attribute value.
-     * 
+     *
      * @param namespaceCode The namespaceCode to set.
      */
     public void setNamespaceCode(String namespaceCode) {
@@ -360,7 +360,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the groupId attribute.
-     * 
+     *
      * @return Returns the groupId.
      */
     public String getGroupId() {
@@ -370,7 +370,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the groupId attribute value.
-     * 
+     *
      * @param groupId The groupId to set.
      */
     public void setGroupId(String groupId) {
@@ -380,7 +380,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the groupName attribute.
-     * 
+     *
      * @return Returns the groupName.
      */
     public String getGroupName() {
@@ -390,7 +390,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the groupName attribute value.
-     * 
+     *
      * @param groupName The groupName to set.
      */
     public void setGroupName(String groupName) {
@@ -401,7 +401,7 @@ public class ModelMember extends PersistableBusinessObjectBase implements Mutabl
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
 

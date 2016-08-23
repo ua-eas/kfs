@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -22,18 +22,18 @@
 	value="${DataDictionary['CreditCardReceiptDocument'].attributes}" />
 <c:set var="readOnly"
 	value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
-	
+
 <kul:documentPage showDocumentInfo="true"
 	htmlFormAction="financialCreditCardReceipt"
 	documentTypeName="CreditCardReceiptDocument"
 	renderMultipart="true" showTabButtons="true">
 	<sys:hiddenDocumentFields />
-	
+
 	<sys:documentOverview editingMode="${KualiForm.editingMode}" includeBankCode="true"
-	  bankProperty="document.creditCardReceiptBankCode" 
+	  bankProperty="document.creditCardReceiptBankCode"
 	  bankObjectProperty="document.bank"
 	  disbursementOnly="true" />
-	
+
 	<SCRIPT type="text/javascript">
 	    <!--
 	        function submitForm() {
@@ -42,23 +42,23 @@
 	    //-->
 	</SCRIPT>
 	<fp:creditCardReceipts editingMode="${KualiForm.editingMode}" />
-			
+
 	<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS},newSourceLine*"
 			 helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
 		<sys-java:accountingLines>
 			<sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source" />
 		</sys-java:accountingLines>
 	</kul:tab>
-	
+
 	<c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
   	<fp:capitalAccountingLines readOnly="${readOnly}"/>
-  	
+
 	<c:if test="${KualiForm.capitalAccountingLine.canCreateAsset}">
 		<fp:capitalAssetCreateTab readOnly="${readOnly}"/>
 	</c:if>
-  	
-	<fp:capitalAssetModifyTab readOnly="${readOnly}"/>  
-	
+
+	<fp:capitalAssetModifyTab readOnly="${readOnly}"/>
+
 	<gl:generalLedgerPendingEntries />
 	<kul:notes />
 	<kul:adHocRecipients />

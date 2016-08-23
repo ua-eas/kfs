@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -31,13 +31,13 @@
 	var popUpurl = 'cabGlLine.do?methodToCall=viewDoc&documentNumber=${KualiForm.currDocNumber}';
 	window.open(popUpurl, "${KualiForm.currDocNumber}");
 </c:if>
-	
+
 </script>
 <kul:page showDocumentInfo="false" htmlFormAction="cabGlLine" renderMultipart="true"
-	showTabButtons="true" docTitle="General Ledger Processing" 
+	showTabButtons="true" docTitle="General Ledger Processing"
 	transactionalDocument="false" headerDispatch="true" headerTabActive="true"
 	sessionDocument="false" headerMenuBar="" feedbackKey="true" defaultMethodToCall="start" >
-	
+
 	<kul:tabTop tabTitle="Financial Document Capital Asset Info" defaultOpen="true">
 		<div class="tab-container">
 			<c:set var="CapitalAssetInformationAttributes" value="${DataDictionary.CapitalAssetInformation.attributes}" />
@@ -146,15 +146,15 @@
 				</table>
 			</c:if>
 		</div>
-		<c:choose> 
+		<c:choose>
 			<c:when test="${KualiForm.generalLedgerEntry.generalLedgerAccountIdentifier == KualiForm.primaryGlAccountId && KualiForm.generalLedgerEntry.active}">
 				<c:set var="allowSubmit" value="true" />
 			</c:when>
 			<c:when test="${!KualiForm.generalLedgerEntry.active}">
-				<a href="cabGlLine.do?methodToCall=viewDoc&documentNumber=${KualiForm.generalLedgerEntry.generalLedgerEntryAssets[0].capitalAssetManagementDocumentNumber}" target="${KualiForm.generalLedgerEntry.generalLedgerEntryAssets[0].capitalAssetManagementDocumentNumber}">						
+				<a href="cabGlLine.do?methodToCall=viewDoc&documentNumber=${KualiForm.generalLedgerEntry.generalLedgerEntryAssets[0].capitalAssetManagementDocumentNumber}" target="${KualiForm.generalLedgerEntry.generalLedgerEntryAssets[0].capitalAssetManagementDocumentNumber}">
 					${KualiForm.generalLedgerEntry.generalLedgerEntryAssets[0].capitalAssetManagementDocumentNumber}</a>
 			</c:when>
-			<c:otherwise> 
+			<c:otherwise>
 				<c:set var="allowSubmit" value="true" />
 			</c:otherwise>
 		</c:choose>
@@ -162,7 +162,7 @@
 
 	<div id="globalbuttons" class="globalbuttons">
         <c:if test="${not readOnly}">
-        	<c:if test="${!empty allowSubmit}">	        
+        	<c:if test="${!empty allowSubmit}">
 	    		<html:submit
 						property="methodToCall.submitAssetGlobal"
 						title="Add Assets"
@@ -188,7 +188,7 @@
 					title="Cancel"
 					alt="Cancel"
 					value="Cancel"/>
-        </c:if>		
+        </c:if>
     </div>
 
 	<kul:stickyGlobalButtons bodySelector="main.content"/>

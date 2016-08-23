@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,7 +39,7 @@ import java.util.Map;
 /**
  * Widget for navigating to a lookup from a field (called a quickfinder)
  *
- * 
+ *
  */
 public class QuickFinder extends WidgetBase {
     private static final long serialVersionUID = 3302390972815386785L;
@@ -327,13 +327,13 @@ public class QuickFinder extends WidgetBase {
 
     /**
      * Full class name the lookup should be provided for
-     * 
+     *
      * <p>
-     * This is passed on to the lookup request for the data object the lookup should be rendered for. This is then 
+     * This is passed on to the lookup request for the data object the lookup should be rendered for. This is then
      * used by the lookup framework to select the lookup view (if more than one lookup view exists for the same
      * data object class name, the {@link #getViewName()} property should be specified to select the view to render).
      * </p>
-     * 
+     *
      * @return String lookup class name
      */
     public String getDataObjectClassName() {
@@ -342,7 +342,7 @@ public class QuickFinder extends WidgetBase {
 
     /**
      * Setter for the class name that lookup should be provided for
-     * 
+     *
      * @param dataObjectClassName
      */
     public void setDataObjectClassName(String dataObjectClassName) {
@@ -351,13 +351,13 @@ public class QuickFinder extends WidgetBase {
 
     /**
      * Specifies the name of the lookup view that should be render when the quickfinder is clicked
-     * 
+     *
      * <p>
      * When more than one lookup exists for the {@link #getDataObjectClassName()}, the view name must be specified
      * to select which one to render. Note when a view name is not specified, it receives a name of 'DEFAULT'.
      * Therefore this name can be sent to select the lookup view without a view name specified.
      * </p>
-     * 
+     *
      * @return String name of lookup view
      */
     public String getViewName() {
@@ -366,7 +366,7 @@ public class QuickFinder extends WidgetBase {
 
     /**
      * Setter for the lookup view name
-     * 
+     *
      * @param viewName
      */
     public void setViewName(String viewName) {

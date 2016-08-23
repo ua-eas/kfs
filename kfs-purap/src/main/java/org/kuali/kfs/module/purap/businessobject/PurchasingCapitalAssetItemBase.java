@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -38,19 +38,19 @@ public abstract class PurchasingCapitalAssetItemBase extends PersistableBusiness
     private Integer itemIdentifier;
     private String capitalAssetTransactionTypeCode;
     private Integer capitalAssetSystemIdentifier;
-    
+
     private CapitalAssetBuilderAssetTransactionType capitalAssetTransactionType;
     private CapitalAssetSystem purchasingCapitalAssetSystem;
     private PurchasingDocument purchasingDocument;
     private PurchasingItem purchasingItem;
     private ItemCapitalAsset newPurchasingItemCapitalAssetLine;
-    
+
     public PurchasingCapitalAssetItemBase(){
-        super();        
+        super();
         this.setNewPurchasingItemCapitalAssetLine(this.setupNewPurchasingItemCapitalAssetLine());
     }
-    
-    public PurchasingCapitalAssetItemBase(PurchasingDocument pd) {        
+
+    public PurchasingCapitalAssetItemBase(PurchasingDocument pd) {
         setPurchasingDocument(pd);
     }
 
@@ -102,17 +102,17 @@ public abstract class PurchasingCapitalAssetItemBase extends PersistableBusiness
         if(ObjectUtils.isNull(this.purchasingDocument)){
             this.refreshReferenceObject("purchasingDocument");
         }
-        
+
         return this.purchasingDocument;
     }
-    
+
     public void setPurchasingDocument(PurchasingDocument pd){
-        this.purchasingDocument = pd;        
+        this.purchasingDocument = pd;
     }
-    
-    public PurchasingItem getPurchasingItem(){       
+
+    public PurchasingItem getPurchasingItem(){
         PurchasingDocument pd = this.getPurchasingDocument();
-        
+
         if(( pd != null) && ( this.getItemIdentifier() != null)) {
             return pd.getPurchasingItem(this.getItemIdentifier());
         }
@@ -120,7 +120,7 @@ public abstract class PurchasingCapitalAssetItemBase extends PersistableBusiness
             return null;
         }
     }
-    
+
     public boolean isEmpty() {
         if (PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL.equals(this.getPurchasingDocument().getCapitalAssetSystemTypeCode())) {
             return !(StringUtils.isNotEmpty(capitalAssetTransactionTypeCode) || ! this.getPurchasingCapitalAssetSystem().isEmpty());
@@ -148,7 +148,7 @@ public abstract class PurchasingCapitalAssetItemBase extends PersistableBusiness
         ItemCapitalAsset asset = null;
         return asset;
     }
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
         m.put("capitalAssetItemIdentifier", this.capitalAssetItemIdentifier);

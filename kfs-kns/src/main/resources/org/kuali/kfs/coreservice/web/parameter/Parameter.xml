@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -90,7 +90,7 @@
 	<bean id="Parameter-componentCode-parentBean" abstract="true" parent="Component-code">
         <property name="name" value="componentCode"/>
 	</bean>
-	
+
 	<bean id="Parameter-applicationId" parent="Parameter-applicationId-parentBean"/>
 	<bean id="Parameter-applicationId-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="applicationId"/>
@@ -108,7 +108,7 @@
 		<property name="summary" value="The application id of the parameter."/>
 		<property name="description" value="This will be used as the identifier to determine which application the parameter is used by."/>
 	</bean>
-	
+
 	<bean id="Parameter-name" parent="Parameter-name-parentBean"/>
 
 	<bean id="Parameter-name-parentBean" abstract="true" parent="AttributeDefinition">
@@ -234,7 +234,7 @@
 	<bean id="Parameter-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
 		<property name="title" value="Financials Parameter Lookup"/>
 		<property name="lookupableID" value="cf.parameterLookupable"/>
-		
+
 		<property name="defaultSort">
 			<bean parent="SortDefinition">
 				<property name="attributeNames">

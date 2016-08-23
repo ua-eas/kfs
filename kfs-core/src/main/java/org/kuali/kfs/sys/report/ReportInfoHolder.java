@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -99,7 +99,7 @@ public class ReportInfoHolder implements ReportInfo {
 
     /**
      * Sets the reportFilename attribute value.
-     * 
+     *
      * @param reportFilename The reportFilename to set.
      */
     public void setReportFileName(String reportFileName) {
@@ -108,7 +108,7 @@ public class ReportInfoHolder implements ReportInfo {
 
     /**
      * Sets the reportsDirectory attribute value.
-     * 
+     *
      * @param reportsDirectory The reportsDirectory to set.
      */
     public void setReportsDirectory(String reportsDirectory) {
@@ -117,7 +117,7 @@ public class ReportInfoHolder implements ReportInfo {
 
     /**
      * Sets the reportTemplateClassPath attribute value.
-     * 
+     *
      * @param reportTemplateClassPath The reportTemplateClassPath to set.
      */
     public void setReportTemplateClassPath(String reportTemplateClassPath) {
@@ -126,7 +126,7 @@ public class ReportInfoHolder implements ReportInfo {
 
     /**
      * Sets the reportTemplateName attribute value.
-     * 
+     *
      * @param reportTemplateName The reportTemplateName to set.
      */
     public void setReportTemplateName(String reportTemplateName) {
@@ -135,7 +135,7 @@ public class ReportInfoHolder implements ReportInfo {
 
     /**
      * Sets the reportTitle attribute value.
-     * 
+     *
      * @param reportTitle The reportTitle to set.
      */
     public void setReportTitle(String reportTitle) {
@@ -144,7 +144,7 @@ public class ReportInfoHolder implements ReportInfo {
 
     /**
      * Sets the resourceBundleBaseName attribute value.
-     * 
+     *
      * @param resourceBundleBaseName The resourceBundleBaseName to set.
      */
     public void setResourceBundleBaseName(String resourceBundleBaseName) {
@@ -153,7 +153,7 @@ public class ReportInfoHolder implements ReportInfo {
 
     /**
      * Sets the subReports attribute value.
-     * 
+     *
      * @param subReports The subReports to set.
      */
     public void setSubReports(Map<String, String> subReports) {
@@ -162,7 +162,7 @@ public class ReportInfoHolder implements ReportInfo {
 
     /**
      * Sets the subReportTemplateClassPath attribute value.
-     * 
+     *
      * @param subReportTemplateClassPath The subReportTemplateClassPath to set.
      */
     public void setSubReportTemplateClassPath(String subReportTemplateClassPath) {

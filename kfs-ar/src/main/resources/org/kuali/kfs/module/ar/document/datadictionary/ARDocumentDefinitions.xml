@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -28,13 +28,13 @@
 		<property name="elementName" value="invoiceItemInformation" />
 		<property name="fields">
 			<list>
-				<bean parent="AccountingLineView-field"	
+				<bean parent="AccountingLineView-field"
 					  p:name="invoiceItemCode"
-					  p:overrideLookupParameters="${accountingLineName}invoiceItemCode:invoiceItemCode" 
-					  p:overrideLookupClass="org.kuali.kfs.module.ar.businessobject.CustomerInvoiceItemCode" 
-					  p:overrideFieldConversions="invoiceItemCode:${accountingLineName}invoiceItemCode,invoiceItemDescription:${accountingLineName}invoiceItemDescription,defaultInvoiceChartOfAccountsCode:${accountingLineName}chartOfAccountsCode,defaultInvoiceAccountNumber:${accountingLineName}accountNumber,defaultInvoiceSubAccountNumber:${accountingLineName}subAccountNumber,defaultInvoiceFinancialObjectCode:${accountingLineName}financialObjectCode,defaultInvoiceFinancialSubObjectCode:${accountingLineName}financialSubObjectCode,defaultInvoiceProjectCode:${accountingLineName}projectCode,defaultInvoiceOrganizationReferenceIdentifier:${accountingLineName}organizationReferenceId"                        
+					  p:overrideLookupParameters="${accountingLineName}invoiceItemCode:invoiceItemCode"
+					  p:overrideLookupClass="org.kuali.kfs.module.ar.businessobject.CustomerInvoiceItemCode"
+					  p:overrideFieldConversions="invoiceItemCode:${accountingLineName}invoiceItemCode,invoiceItemDescription:${accountingLineName}invoiceItemDescription,defaultInvoiceChartOfAccountsCode:${accountingLineName}chartOfAccountsCode,defaultInvoiceAccountNumber:${accountingLineName}accountNumber,defaultInvoiceSubAccountNumber:${accountingLineName}subAccountNumber,defaultInvoiceFinancialObjectCode:${accountingLineName}financialObjectCode,defaultInvoiceFinancialSubObjectCode:${accountingLineName}financialSubObjectCode,defaultInvoiceProjectCode:${accountingLineName}projectCode,defaultInvoiceOrganizationReferenceIdentifier:${accountingLineName}organizationReferenceId"
 					  p:required="false" />
-					  
+
 				<bean parent="AccountingLineView-field"	p:name="invoiceItemQuantity"                   p:required="true" />
 				<bean parent="AccountingLineView-field"	p:name="invoiceItemDescription"	               p:required="false" p:explodable="true" />
 				<bean parent="AccountingLineView-field"	p:name="invoiceItemServiceDate"	               p:required="false" />

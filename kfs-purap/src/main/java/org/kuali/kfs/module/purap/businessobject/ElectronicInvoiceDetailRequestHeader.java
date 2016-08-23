@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,7 +35,7 @@ import org.kuali.kfs.sys.util.KfsDateUtils;
 
 public class ElectronicInvoiceDetailRequestHeader {
   private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicInvoiceDetailRequestHeader.class);
-  
+
   private String invoiceId;
   private String purpose = "standard";
   private String operation = "new";
@@ -51,11 +51,11 @@ public class ElectronicInvoiceDetailRequestHeader {
   private String shippingDateString;
   private java.util.Date shippingDate;
   private String invoiceCustomerNumber;
-  
+
   private List invoicePartnerContacts = new ArrayList();
   private List invoiceShippingContacts = new ArrayList();  // holds the ship to address information
-  private List extrinsics = new ArrayList(); 
-  
+  private List extrinsics = new ArrayList();
+
   /**
    * Newly Added
    */
@@ -63,10 +63,10 @@ public class ElectronicInvoiceDetailRequestHeader {
   private String idReferenceCreator;
   private String idReferenceDescription;
   private String idReferenceDomain;
-  private String idReferenceIdentifier; 
+  private String idReferenceIdentifier;
   private int payInNumberOfDays;
   private String percentageRate;
-  
+
   public ElectronicInvoiceDetailRequestHeader() {
     super();
   }
@@ -88,9 +88,9 @@ public class ElectronicInvoiceDetailRequestHeader {
   /**
    * This method returns the first ElectronicInvoicePostalAddress associated with the ElectronicInvoiceContact
    * that has a roleID matching the given roleID.  If the addressName is given then
-   * the ElectronicInvoicePostalAddress returned must match that... otherwise the first 
+   * the ElectronicInvoicePostalAddress returned must match that... otherwise the first
    * ElectronicInvoicePostalAddress found is returned
-   * 
+   *
    * @param roleID Valid 'Contact' tag attribute value for 'roleID'
    * @param addressName Valid 'PostalAddress' tag attribute value for 'name'
    * @return ElectronicInvoicePostalAddress relating to given info
@@ -113,11 +113,11 @@ public class ElectronicInvoiceDetailRequestHeader {
     }
     return null;
   }
-  
+
   /**
-   * This method returns the first ElectronicInvoiceContact associated with the given 
+   * This method returns the first ElectronicInvoiceContact associated with the given
    * roleID.
-   * 
+   *
    * @param roleID Valid 'Contact' tag attribute value for 'roleID'
    * @return ElectronicInvoiceContact relating to given info
    */
@@ -225,7 +225,7 @@ public class ElectronicInvoiceDetailRequestHeader {
   public String getInvoiceId() {
     return invoiceId;
   }
-  
+
   /**
    * @param invoiceId The invoiceId to set.
    */
@@ -256,7 +256,7 @@ public class ElectronicInvoiceDetailRequestHeader {
   public void setInvoiceShippingContacts(List invoiceShippingContacts) {
     this.invoiceShippingContacts = invoiceShippingContacts;
   }
-  
+
   /**
    * @return Returns the isDiscountInLine.
    */
@@ -368,7 +368,7 @@ public class ElectronicInvoiceDetailRequestHeader {
   public void setShippingDate(Date shippingDate) {
     this.shippingDate = shippingDate;
   }
-  
+
   public boolean isAccountingInLine() {
       return isAccountingInLine;
   }
@@ -376,7 +376,7 @@ public class ElectronicInvoiceDetailRequestHeader {
   public void setAccountingInfoProvidedIndicator(String isAccountingInLine) {
       this.isAccountingInLine = StringUtils.equalsIgnoreCase(StringUtils.defaultString(isAccountingInLine),"yes");;
   }
-  
+
   public String getIdReferenceCreator() {
       return idReferenceCreator;
   }
@@ -408,13 +408,13 @@ public class ElectronicInvoiceDetailRequestHeader {
   public void setIdReferenceIdentifier(String idReferenceIdentifier) {
       this.idReferenceIdentifier = idReferenceIdentifier;
   }
-  
+
   public void addInvoicePartnerContact(ElectronicInvoiceContact electronicInvoiceContact){
       if (electronicInvoiceContact != null){
           invoicePartnerContacts.add(electronicInvoiceContact);
       }
   }
-  
+
   public ElectronicInvoiceContact[] getInvoicePartnerContactsAsArray(){
       if (invoicePartnerContacts.size() > 0){
           ElectronicInvoiceContact[] tempContacts = new ElectronicInvoiceContact[invoicePartnerContacts.size()];
@@ -423,11 +423,11 @@ public class ElectronicInvoiceDetailRequestHeader {
       }
       return null;
   }
-  
+
   public void addInvoiceShippingContacts(ElectronicInvoiceContact electronicInvoiceContact){
       invoiceShippingContacts.add(electronicInvoiceContact);
   }
-  
+
   public ElectronicInvoiceContact[] getInvoiceShippingContactsAsArray(){
       if (invoiceShippingContacts.size() > 0){
           ElectronicInvoiceContact[] tempContacts = new ElectronicInvoiceContact[invoiceShippingContacts.size()];
@@ -436,11 +436,11 @@ public class ElectronicInvoiceDetailRequestHeader {
       }
       return null;
   }
-  
+
   public void addExtrinsic(CxmlExtrinsic extrinsic) {
       this.extrinsics.add(extrinsic);
   }
-  
+
   public CxmlExtrinsic[] getExtrinsicAsArray() {
       if (extrinsics.size() > 0){
           CxmlExtrinsic[] extrinsics = new CxmlExtrinsic[this.extrinsics.size()];
@@ -449,7 +449,7 @@ public class ElectronicInvoiceDetailRequestHeader {
       }
       return null;
   }
-  
+
   public int getPayInNumberOfDays() {
       return payInNumberOfDays;
   }
@@ -457,7 +457,7 @@ public class ElectronicInvoiceDetailRequestHeader {
   public void setPayInNumberOfDays(int payInNumberOfDays) {
       this.payInNumberOfDays = payInNumberOfDays;
   }
-  
+
   public String getPercentageRate() {
       return percentageRate;
   }
@@ -465,16 +465,16 @@ public class ElectronicInvoiceDetailRequestHeader {
   public void setPercentageRate(String percentageRate) {
       this.percentageRate = percentageRate;
   }
-  
+
   public String toString(){
-      
+
       ToStringBuilder toString = new ToStringBuilder(this);
-      
+
       toString.append("invoiceID",getInvoiceId());
       toString.append("purpose",getPurpose());
       toString.append("operation",getOperation());
       toString.append("invoiceDate",getInvoiceDateString());
-      
+
       toString.append("isInformationOnly",isInformationOnly());
       toString.append("isHeaderInvoiceIndicator",isHeaderInvoiceIndicator());
       toString.append("isTaxInLine",isTaxInLine());
@@ -482,22 +482,22 @@ public class ElectronicInvoiceDetailRequestHeader {
       toString.append("isShippingInLine",isShippingInLine());
       toString.append("isDiscountInLine",isDiscountInLine());
       toString.append("isAccountingInLine",isAccountingInLine());
-      
+
       toString.append("idReferenceCreator",getIdReferenceCreator());
       toString.append("idReferenceDescription",getIdReferenceDescription());
       toString.append("idReferenceDomain",getIdReferenceDomain());
       toString.append("idReferenceIdentifier",getIdReferenceIdentifier());
-      
-      
+
+
       toString.append("shippingDate",getShippingDateString());
       toString.append("invoiceCustomerNumber",getInvoiceCustomerNumber());
       toString.append("payInNumberOfDays",getPayInNumberOfDays());
       toString.append("percentageRate",getPercentageRate());
-      
+
       toString.append("invoicePartnerContacts",getInvoicePartnerContacts());
       toString.append("invoiceShippingContacts",getInvoiceShippingContacts());
       toString.append("extrinsics",getExtrinsics());
-      
+
       return toString.toString();
   }
 

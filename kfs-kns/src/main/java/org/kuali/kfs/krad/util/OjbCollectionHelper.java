@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,7 +34,7 @@ public class OjbCollectionHelper {
     /**
      * OJB RemovalAwareLists do not survive through the response/request lifecycle. This method is a work-around to forcibly remove
      * business objects that are found in Collections stored in the database but not in memory.
-     * 
+     *
      * @param orig
      * @param id
      * @param template
@@ -43,7 +43,7 @@ public class OjbCollectionHelper {
         if (copy == null) {
             return;
         }
-        
+
         List<Collection<PersistableBusinessObject>> originalCollections = orig.buildListOfDeletionAwareLists();
 
         if (originalCollections != null && !originalCollections.isEmpty()) {
@@ -71,11 +71,11 @@ public class OjbCollectionHelper {
             }
         }
     }
-    
+
     /**
      * OJB RemovalAwareLists do not survive through the response/request lifecycle. This method is a work-around to forcibly remove
      * business objects that are found in Collections stored in the database but not in memory.
-     * 
+     *
      * @param orig
      * @param id
      * @param template
@@ -85,7 +85,7 @@ public class OjbCollectionHelper {
         if (copy == null) {
             return;
         }
-        
+
         List<Collection<PersistableBusinessObject>> originalCollections = orig.buildListOfDeletionAwareLists();
 
         if (originalCollections != null && !originalCollections.isEmpty()) {
@@ -116,7 +116,7 @@ public class OjbCollectionHelper {
 
     /**
      * This method deletes unwanted objects from the database as well as from the given input List
-     * 
+     *
      * @param origSource - list containing unwanted business objects
      * @param unwantedItems - business objects to be permanently removed
      * @param template
@@ -136,7 +136,7 @@ public class OjbCollectionHelper {
     /**
      * This method identifies items in the first List that are not contained in the second List. It is similar to the (optional)
      * java.util.List retainAll method.
-     * 
+     *
      * @param fromList
      * @param controlList
      * @return true iff one or more items were removed

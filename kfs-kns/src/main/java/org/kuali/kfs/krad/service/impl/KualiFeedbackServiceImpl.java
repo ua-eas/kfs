@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,9 +40,9 @@ import org.kuali.kfs.krad.util.KRADConstants;
  * users.
  */
 public class KualiFeedbackServiceImpl implements KualiFeedbackService {
-	
+
 	private static final Logger LOG = Logger.getLogger(KualiFeedbackServiceImpl.class);
-	
+
 	private static final String FEEDBACK_EMAIL_SUBJECT_PARAM = "feedback.email.subject";
 	private static final String FEEDBACK_EMAIL_BODY_PARAM = "feedback.email.body";
 
@@ -57,7 +57,7 @@ public class KualiFeedbackServiceImpl implements KualiFeedbackService {
 
 	/**
 	 * This mails the report using the mail service from the mail template.
-	 * 
+	 *
 	 * @see KualiExceptionIncidentService#emailReport(String, String)
 	 */
 	@Override
@@ -88,7 +88,7 @@ public class KualiFeedbackServiceImpl implements KualiFeedbackService {
 	public void sendFeedback(String documentId, String componentName, String description) throws Exception {
 		this.emailReport(this.createFeedbackReportSubject(), this.createFeedbackReportMessage(documentId, componentName, description));
 	}
-	
+
 	private String createFeedbackReportSubject() {
 		String env = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KRADConstants.ENVIRONMENT_KEY);
 		String formatString = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(FEEDBACK_EMAIL_SUBJECT_PARAM);
@@ -100,10 +100,10 @@ public class KualiFeedbackServiceImpl implements KualiFeedbackService {
 		documentId = (documentId == null) ? "" : documentId;
 		componentName = (componentName == null) ? "" : componentName;
 		description = (description == null) ? "" : description;
-		
+
 		String principalName = GlobalVariables.getUserSession().getLoggedInUserPrincipalName();
 		principalName = (principalName == null) ? "" : principalName;
-		
+
 		String formatString = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(FEEDBACK_EMAIL_BODY_PARAM);
 		String message = MessageFormat.format(formatString, documentId, principalName, componentName, description);
 		return message;
@@ -128,17 +128,17 @@ public class KualiFeedbackServiceImpl implements KualiFeedbackService {
                     (message==null) ? "null" : message.toString());
             LOG.trace(lm);
         }
-        
+
         MailMessage messageTemplate = this.getMessageTemplate();
         if (messageTemplate == null) {
             throw new IllegalStateException(String.format(
                     "%s.templateMessage is null or not set",
                     this.getClass().getName()));
         }
-        
+
         // Copy input message reference for creating an instance of mail message
         MailMessage msg=new MailMessage();
-        
+
         msg.setFromAddress(this.getFromAddress());
     	msg.setToAddresses(this.getToAddresses());
         msg.setBccAddresses(this.getBccAddresses());
@@ -149,7 +149,7 @@ public class KualiFeedbackServiceImpl implements KualiFeedbackService {
 
         // Set mail message body
         msg.setMessage((message==null) ? "" : message);
-        
+
         if (LOG.isTraceEnabled()) {
             String lm = String.format("EXIT %s", (msg==null) ? "null" : msg.toString());
             LOG.trace(lm);
@@ -158,9 +158,9 @@ public class KualiFeedbackServiceImpl implements KualiFeedbackService {
         return msg;
 	}
 
-	protected String getFromAddress() {    
+	protected String getFromAddress() {
 		Person actualUser = GlobalVariables.getUserSession().getActualPerson();
-        
+
         String fromEmail = actualUser.getEmailAddress();
         if (StringUtils.isNotBlank(fromEmail)) {
         	return fromEmail;
@@ -168,7 +168,7 @@ public class KualiFeedbackServiceImpl implements KualiFeedbackService {
         	return this.getMessageTemplate().getFromAddress();
     	}
 	}
-	
+
 	protected Set<String> getToAddresses() {
 		// First check if message template already define mailing list
         Set<String> emails = this.getMessageTemplate().getToAddresses();
@@ -186,15 +186,15 @@ public class KualiFeedbackServiceImpl implements KualiFeedbackService {
             return emails;
         }
 	}
-	
+
 	protected String getToAddressesPropertyName() {
 		return REPORT_MAIL_LIST;
 	}
-	
+
 	protected Set<String> getCcAddresses() {
 		return this.getMessageTemplate().getCcAddresses();
 	}
-	
+
 	protected Set<String> getBccAddresses() {
 		return this.getMessageTemplate().getBccAddresses();
 	}

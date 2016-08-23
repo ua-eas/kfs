@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,7 +41,7 @@ public class AdvanceDepositAction extends CapitalAccountingLinesActionBase {
 
     /**
      * Adds handling for advance deposit detail amount updates.
-     * 
+     *
      * @see org.apache.struts.action.Action#execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm,
      *      javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
@@ -60,8 +60,8 @@ public class AdvanceDepositAction extends CapitalAccountingLinesActionBase {
     }
 
     /* NOTE
-     * The following method was originally added to fix the NPE caused by the reference to AdvanceDepositDocument inside AdvanceDepositDetail. 
-     * Now it's commented out as we are fixing the NPE in a better way, by removing the nested reference to AdvanceDepositDocument, 
+     * The following method was originally added to fix the NPE caused by the reference to AdvanceDepositDocument inside AdvanceDepositDetail.
+     * Now it's commented out as we are fixing the NPE in a better way, by removing the nested reference to AdvanceDepositDocument,
      * which is not used anymore.
      */
     /**
@@ -73,7 +73,7 @@ public class AdvanceDepositAction extends CapitalAccountingLinesActionBase {
         AdvanceDepositForm adForm = (AdvanceDepositForm) form;
         AdvanceDepositDocument adDoc = adForm.getAdvanceDepositDocument();
         List<AdvanceDepositDetail> advanceDeposits = adDoc.getAdvanceDeposits();
-        
+
         for (AdvanceDepositDetail advanceDeposit: advanceDeposits) {
             /* somehow ObjectUtils.isNull(nestAdDoc) returns false here
             AdvanceDepositDocument nestAdDoc = advanceDeposit.getAdvanceDepositDocument();
@@ -87,10 +87,10 @@ public class AdvanceDepositAction extends CapitalAccountingLinesActionBase {
         return super.copy(mapping, form, request, response);
     }
     */
-    
+
     /**
      * Adds a AdvanceDepositDetail instance created from the current "new advanceDeposit" line to the document
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -122,7 +122,7 @@ public class AdvanceDepositAction extends CapitalAccountingLinesActionBase {
 
     /**
      * Deletes the selected advanceDeposit (line) from the document
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -143,7 +143,7 @@ public class AdvanceDepositAction extends CapitalAccountingLinesActionBase {
 
     /**
      * This method validates a new advance deposit detail record.
-     * 
+     *
      * @param advanceDeposit
      * @return boolean
      */
@@ -156,7 +156,7 @@ public class AdvanceDepositAction extends CapitalAccountingLinesActionBase {
 
     /**
      * Recalculates the advance deposit total since user could have changed it during their update.
-     * 
+     *
      * @param advanceDepositDocument
      */
     protected KualiDecimal calculateAdvanceDepositTotal(AdvanceDepositDocument advanceDepositDocument) {

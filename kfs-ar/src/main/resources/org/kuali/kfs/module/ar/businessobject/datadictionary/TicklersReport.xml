@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -66,7 +66,7 @@
             <list>
               <bean parent="SupportAttributeDefinition" p:sourceName="collector.principalName" p:targetName="principalName"/>
               <bean parent="SupportAttributeDefinition" p:sourceName="userLookupRoleNamespaceCode" p:targetName="lookupRoleNamespaceCode"/>
-              <bean parent="SupportAttributeDefinition" p:sourceName="userLookupRoleName" p:targetName="lookupRoleName"/>                    
+              <bean parent="SupportAttributeDefinition" p:sourceName="userLookupRoleName" p:targetName="lookupRoleName"/>
             </list>
           </property>
         </bean>
@@ -86,11 +86,11 @@
 		</bean>
       </list>
     </property>
-		
+
 	</bean>
 
 	<!-- Attribute Definitions -->
-	
+
   <bean id="TicklersReport-collector.principalName" parent="TicklersReport-collector.principalName-parentBean"/>
 
   <bean id="TicklersReport-collector.principalName-parentBean" abstract="true" parent="PersonImpl-principalName">
@@ -134,7 +134,7 @@
     <property name="label" value="Completed Date" />
     <property name="shortLabel" value="Completed Date" />
   </bean>
-	
+
 	<bean id="TicklersReport-activityDate"
 		parent="TicklersReport-activityDate-parentBean" />
 	<bean
@@ -144,7 +144,7 @@
 		<property name="label" value="Collection Activity Date" />
 		<property name="shortLabel" value="Collection Activity Date" />
 	</bean>
-	
+
 	<bean id="TicklersReport-proposalNumber"
 		parent="TicklersReport-proposalNumber-parentBean" />
 	<bean id="TicklersReport-proposalNumber-parentBean"
@@ -168,7 +168,7 @@
 		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency" p:sourceAttributeName="agencyNumber">
 		<property name="name" value="agencyNumber" />
 	</bean>
-	
+
 	<bean id="TicklersReport-completed" parent="TicklersReport-completed-parentBean" />
 
 	<bean id="TicklersReport-completed-parentBean"
@@ -177,7 +177,7 @@
 		<property name="label" value="Completed" />
 		<property name="shortLabel" value="Completed" />
 	</bean>
-	
+
 	<bean id="TicklersReport-activityCode" parent="TicklersReport-activityCode-parentBean"/>
 
   <bean id="TicklersReport-activityCode-parentBean" abstract="true" parent="AttributeDefinition">
@@ -195,7 +195,7 @@
 			p:includeKeyInLabel="false" />
 	</property>
   </bean>
-  
+
   <bean id="TicklersReport-invoiceNumber" parent="TicklersReport-invoiceNumber-parentBean"/>
 
   <bean id="TicklersReport-invoiceNumber-parentBean" abstract="true" parent="AttributeDefinition">
@@ -264,7 +264,7 @@
       <bean parent="TextControlDefinition" p:size="32"/>
     </property>
   </bean>
-  
+
   <bean id="TicklersReport-user" parent="TicklersReport-user-parentBean"/>
 
   <bean id="TicklersReport-user-parentBean" abstract="true" parent="AttributeDefinition">
@@ -280,7 +280,7 @@
 		<bean parent="TextControlDefinition" p:size="52"/>
 	</property>
   </bean>
-  
+
   	<bean id="TicklersReport-invoiceAmount" parent="TicklersReport-invoiceAmount-parentBean" />
 
 	<bean id="TicklersReport-invoiceAmount-parentBean"
@@ -307,7 +307,7 @@
 		<property name="label" value="Balance Due" />
 		<property name="shortLabel" value="Balance Due" />
 	</bean>
-  
+
 	<!-- Business Object Lookup Definition -->
 	<bean id="TicklersReport-lookupDefinition"
 		parent="TicklersReport-lookupDefinition-parentBean" />
@@ -351,5 +351,5 @@
 			</list>
 		</property>
 	</bean>
-	
+
 </beans>

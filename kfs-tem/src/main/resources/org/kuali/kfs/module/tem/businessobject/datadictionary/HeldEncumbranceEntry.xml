@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -72,33 +72,33 @@
   <bean id="HeldEncumbranceEntry-chartOfAccountsCode" parent="HeldEncumbranceEntry-chartOfAccountsCode-parentBean"/>
 
   <bean id="HeldEncumbranceEntry-chartOfAccountsCode-parentBean" abstract="true" parent="Chart-chartOfAccountsCode">
-    
+
   </bean>
   <bean id="HeldEncumbranceEntry-accountNumber" parent="HeldEncumbranceEntry-accountNumber-parentBean"/>
 
   <bean id="HeldEncumbranceEntry-accountNumber-parentBean" abstract="true" parent="Account-accountNumber">
-    
+
   </bean>
   <bean id="HeldEncumbranceEntry-subAccountNumber" parent="HeldEncumbranceEntry-subAccountNumber-parentBean"/>
 
   <bean id="HeldEncumbranceEntry-subAccountNumber-parentBean" abstract="true" parent="SubAccount-subAccountNumber">
-    
+
   </bean>
   <bean id="HeldEncumbranceEntry-financialObjectCode" parent="HeldEncumbranceEntry-financialObjectCode-parentBean"/>
 
   <bean id="HeldEncumbranceEntry-financialObjectCode-parentBean" abstract="true" parent="ObjectCode-financialObjectCode">
-    
+
   </bean>
   <bean id="HeldEncumbranceEntry-financialSubObjectCode" parent="HeldEncumbranceEntry-financialSubObjectCode-parentBean"/>
 
   <bean id="HeldEncumbranceEntry-financialSubObjectCode-parentBean" abstract="true" parent="SubObjectCode-financialSubObjectCode">
-    
+
   </bean>
   <bean id="HeldEncumbranceEntry-documentNumber" parent="HeldEncumbranceEntry-documentNumber-parentBean"/>
 
   <bean id="HeldEncumbranceEntry-documentNumber-parentBean" abstract="true" parent="DocumentHeader-documentNumber">
   	<property name="forceUppercase" value="true"/>
-    
+
   </bean>
   <bean id="HeldEncumbranceEntry-transactionLedgerEntrySequenceNumber" parent="HeldEncumbranceEntry-transactionLedgerEntrySequenceNumber-parentBean"/>
 
@@ -106,7 +106,7 @@
     <property name="forceUppercase" value="true"/>
     <property name="name" value="transactionLedgerEntrySequenceNumber"/>
   </bean>
-  
+
   <bean id="HeldEncumbranceEntry-travelDocumentIdentifier" parent="HeldEncumbranceEntry-travelDocumentIdentifier-parentBean"/>
   <bean id="HeldEncumbranceEntry-travelDocumentIdentifier-parentBean" abstract="true" parent="TravelAuthorizationDocument-travelDocumentNumber"/>
 
@@ -191,29 +191,29 @@
     <property name="label" value="Transaction Entry Processed"/>
     <property name="shortLabel" value="Entry Processed"/>
   </bean>
-  
+
   <bean id="HeldEncumbranceEntry-financialDocumentTypeCode" parent="HeldEncumbranceEntry-financialDocumentTypeCode-parentBean"/>
 
   <bean id="HeldEncumbranceEntry-financialDocumentTypeCode-parentBean" abstract="true" parent="GenericAttributes-financialSystemDocumentTypeCode">
     <property name="name" value="financialDocumentTypeCode"/>
     <property name="label" value="Ledger Document Type"/>
   </bean>
-  
+
     <bean id="HeldEncumbranceEntry-objectCode.financialObjectLevelCode" parent="HeldEncumbranceEntry-objectCode.financialObjectLevelCode-parentBean"/>
     <bean id="HeldEncumbranceEntry-objectCode.financialObjectLevelCode-parentBean" abstract="true" parent="ObjectLevel-financialObjectLevelCode">
          <property name="name" value="financialObject.financialObjectLevelCode"/>
     </bean>
-        
+
     <bean id="HeldEncumbranceEntry-objectCode.financialObjectLevel.financialConsolidationObjectCode" parent="HeldEncumbranceEntry-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean"/>
     <bean id="HeldEncumbranceEntry-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean" abstract="true" parent="ObjectConsolidation-finConsolidationObjectCode">
          <property name="name" value="financialObject.financialObjectLevel.financialConsolidationObjectCode"/>
     </bean>
-   
+
     <bean id="HeldEncumbranceEntry-account.organizationCode" parent="HeldEncumbranceEntry-account.organizationCode-parentBean"/>
     <bean id="HeldEncumbranceEntry-account.organizationCode-parentBean" abstract="true" parent="Organization-organizationCode">
          <property name="name" value="account.organizationCode"/>
-    </bean>      
-    
+    </bean>
+
 
 <!-- Business Object Inquiry Definition -->
 
@@ -255,7 +255,7 @@
       </list>
     </property>
   </bean>
-        
+
 <!-- Business Object Lookup Definition -->
 
 
@@ -264,7 +264,7 @@
   <bean id="HeldEncumbranceEntry-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="TEM Held Encumbrance Entry Lookup"/>
     <property name="numOfColumns" value="2"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
         <property name="attributeNames">

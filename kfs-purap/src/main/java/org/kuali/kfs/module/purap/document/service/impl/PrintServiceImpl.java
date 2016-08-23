@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -60,9 +60,9 @@ public class PrintServiceImpl implements PrintService {
     private BusinessObjectService businessObjectService;
     private ConfigurationService kualiConfigurationService;
     private PurchaseOrderParameters purchaseOrderParameters;
-    
-    
-   
+
+
+
 
     /**
      * @see org.kuali.kfs.module.purap.document.service.PrintService#generatePurchaseOrderQuoteRequestsListPdf(org.kuali.kfs.module.purap.document.PurchaseOrderDocument, java.io.ByteArrayOutputStream)
@@ -105,7 +105,7 @@ public class PrintServiceImpl implements PrintService {
 
     /**
      * Returns the PurchaseOrderPdfParameters given the PurchaseOrderDocument.
-     * 
+     *
      * @param po  The PurchaseOrderDocument object to be used to obtain the PurchaseOrderPdfParameters.
      * @return    The PurchaseOrderPdfParameters given the PurchaseOrderDocument.
      */
@@ -161,7 +161,7 @@ public class PrintServiceImpl implements PrintService {
 
     /**
      * Returns the PurchaseOrderPdfParameters given the PurchaseOrderDocument.
-     * 
+     *
      * @param po  The PurchaseOrderDocument object to be used to obtain the PurchaseOrderPdfParameters.
      * @return    The PurchaseOrderPdfParameters given the PurchaseOrderDocument.
      */
@@ -196,7 +196,7 @@ public class PrintServiceImpl implements PrintService {
         // Get the contract manager's campus
         ContractManager contractManager = po.getContractManager();
         String contractManagerCampusCode = "";
-        if (contractManager.getContractManagerUserIdentifier() != null) {            
+        if (contractManager.getContractManagerUserIdentifier() != null) {
             Person contractManagerUser = SpringContext.getBean(PersonService.class).getPerson(contractManager.getContractManagerUserIdentifier());
             contractManagerCampusCode = contractManagerUser.getCampusCode();
         }
@@ -285,10 +285,10 @@ public class PrintServiceImpl implements PrintService {
         LOG.debug("savePurchaseOrderQuotePdf() ended");
         return errors;
     }
-    
+
     /**
      * Returns the PurchaseOrderPdfParameters given the PurchaseOrderDocument.
-     * 
+     *
      * @param po  The PurchaseOrderDocument object to be used to obtain the PurchaseOrderPdfParameters.
      * @return    The PurchaseOrderPdfParameters given the PurchaseOrderDocument.
      */
@@ -372,7 +372,7 @@ public class PrintServiceImpl implements PrintService {
 
     /**
      * Creates purchase order pdf document given the input parameters.
-     * 
+     *
      * @param po                     The PurchaseOrderDocument.
      * @param byteArrayOutputStream  ByteArrayOutputStream that the action is using, where the pdf will be printed to.
      * @param isRetransmit           boolean true if this is a retransmit purchase order document.
@@ -412,7 +412,7 @@ public class PrintServiceImpl implements PrintService {
         return generatePurchaseOrderPdf(po, byteArrayOutputStream, TRANSMISSION_IS_NOT_RETRANSMIT, environment, retransmitItems);
     }
 
-  
+
 
     /**
      * @see org.kuali.kfs.module.purap.document.service.PrintService#generatePurchaseOrderPdfForRetransmission(org.kuali.kfs.module.purap.document.PurchaseOrderDocument,
@@ -425,7 +425,7 @@ public class PrintServiceImpl implements PrintService {
 
     /**
      * Saves the purchase order pdf document.
-     * 
+     *
      * @param po            The PurchaseOrderDocument.
      * @param isRetransmit  boolean true if this is a retransmit purchase order document.
      * @param environment   The current environment used (e.g. DEV if it is a development environment).
@@ -483,22 +483,22 @@ public class PrintServiceImpl implements PrintService {
         return savePurchaseOrderPdf(po, TRANSMISSION_IS_RETRANSMIT, environment);
     }
 
-    public Collection generateBulkReceivingPDF(BulkReceivingDocument blkRecDoc, 
+    public Collection generateBulkReceivingPDF(BulkReceivingDocument blkRecDoc,
                                                ByteArrayOutputStream baosPDF) {
-        
+
         LOG.debug("generateBulkReceivingPDF() started");
 
         BulkReceivingPdf recBlkTicketPDF = new BulkReceivingPdf();
         Collection errors = new ArrayList();
-        
+
         String imageTempLocation = StringUtils.EMPTY;
         String logoImage = StringUtils.EMPTY;
-        
-        String key = blkRecDoc.getDocumentNumber().toString(); // key can be any string; 
+
+        String key = blkRecDoc.getDocumentNumber().toString(); // key can be any string;
         String campusCode = blkRecDoc.getDeliveryCampusCode().toLowerCase();
-        
+
         String environment = kualiConfigurationService.getPropertyValueAsString(KFSConstants.ENVIRONMENT_KEY);
-        
+
         boolean useImage = true;
         if (parameterService.parameterExists(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapConstants.PDF_IMAGES_AVAILABLE_INDICATOR)) {
             useImage = parameterService.getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapConstants.PDF_IMAGES_AVAILABLE_INDICATOR);
@@ -513,12 +513,12 @@ public class PrintServiceImpl implements PrintService {
 
             // Get images
             logoImage = imageService.getLogo(key, campusCode, imageTempLocation);
-            
+
             if (StringUtils.isEmpty(logoImage)) {
                 throw new PurapConfigurationException("logoImage is null.");
             }
         }
-        
+
         try {
             recBlkTicketPDF.generatePdf(blkRecDoc,baosPDF,logoImage,environment);
         }catch (PurapConfigurationException pce) {
@@ -529,7 +529,7 @@ public class PrintServiceImpl implements PrintService {
         LOG.debug("generateBulkReceivingPDF() ended");
         return errors;
     }
-    
+
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }
@@ -549,10 +549,10 @@ public class PrintServiceImpl implements PrintService {
     public void setPurchaseOrderParameters(PurchaseOrderParameters purchaseOrderParameters) {
         this.purchaseOrderParameters = purchaseOrderParameters;
     }
-    
+
     public PurchaseOrderParameters getPurchaseOrderParameters() {
         return SpringContext.getBean(PurchaseOrderParameters.class);
     }
-    
+
 }
 

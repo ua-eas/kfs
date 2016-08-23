@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,7 +34,7 @@ public class DataTypeUtil {
 		final Class<?> attributeClass = thieveAttributeClassFromBusinessObjectClass(businessObjectClass, attributeName);
 		return determineDataType(attributeClass);
 	}
-	
+
 	public static String determineDataType(Class<?> attributeClass) {
         if (isStringy(attributeClass)) return org.kuali.kfs.krad.util.KRADConstants.DATA_TYPE_STRING; // our most common case should go first
         if (isDecimaltastic(attributeClass)) return org.kuali.kfs.krad.util.KRADConstants.DATA_TYPE_FLOAT;
@@ -43,7 +43,7 @@ public class DataTypeUtil {
         if (isBooleanable(attributeClass)) return org.kuali.kfs.krad.util.KRADConstants.DATA_TYPE_BOOLEAN;
         return org.kuali.kfs.krad.util.KRADConstants.DATA_TYPE_STRING; // default to String
     }
-	
+
     /**
      * Determines if the given Class is a String
      * @param clazz the class to check for Stringiness
@@ -61,7 +61,7 @@ public class DataTypeUtil {
 	public static boolean isDateLike(Class clazz) {
         return java.util.Date.class.isAssignableFrom(clazz);
     }
-    
+
     /**
      * Determines if the given class is enough like a Float to store values of it as a SearchableAttributeFloatValue
      * @param clazz the class to determine of the type of
@@ -70,7 +70,7 @@ public class DataTypeUtil {
 	public static boolean isDecimaltastic(Class clazz) {
         return java.lang.Double.class.isAssignableFrom(clazz) || java.lang.Float.class.isAssignableFrom(clazz) || clazz.equals(Double.TYPE) || clazz.equals(Float.TYPE) || java.math.BigDecimal.class.isAssignableFrom(clazz) || org.kuali.rice.core.api.util.type.KualiDecimal.class.isAssignableFrom(clazz);
     }
-    
+
     /**
      * Determines if the given class is enough like a "long" to store values of it as a SearchableAttributeLongValue
      * @param clazz the class to determine the type of
@@ -88,7 +88,7 @@ public class DataTypeUtil {
 	public static boolean isBooleanable(Class clazz) {
         return java.lang.Boolean.class.isAssignableFrom(clazz) || clazz.equals(Boolean.TYPE);
     }
-    
+
     /**
      * Given a BusinessObject class and an attribute name, determines the class of that attribute on the BusinessObject class
      * @param boClass a class extending BusinessObject
@@ -103,5 +103,5 @@ public class DataTypeUtil {
         }
         return null;
     }
-	
+
 }

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -30,10 +30,10 @@
     <property name="promptBeforeValidationClass" value="org.kuali.kfs.fp.document.validation.impl.AdvanceDepositDocumentPreRules"/>
     <property name="importedLineParserClass" value="org.kuali.kfs.fp.businessobject.BasicFormatWithLineDescriptionAccountingLineParser" />
     <property name="sessionDocument" value="true"/>
-    
+
     <property name="allowsCopy" value="true"/>
     <property name="allowsErrorCorrection" value="true"/>
-    
+
     <property name="validationMap" ref="AdvanceDepositDocument-validations"/>
      <property name="accountingLineGroups">
     	<map>
@@ -46,17 +46,17 @@
     <property name="workflowAttributes">
     	<ref bean="AdvanceDepositDocument-workflowAttributes"/>
     </property>
-    
+
     <property name="defaultExistenceChecks">
         <bean parent="ReferenceDefinition" p:attributeName="bank" p:collection="advanceDeposits" p:attributeToHighlightOnFail="bank"/>
     </property>
-    
+
   </bean>
-  
+
      <!-- Validations -->
-  
+
   <bean id="AdvanceDepositDocument-validations" parent="AdvanceDepositDocument-validations-parentBean"/>
-  
+
   <bean id="AdvanceDepositDocument-validations-parentBean" abstract="true" class="org.springframework.beans.factory.config.MapFactoryBean">
   	<property name="sourceMap">
 		<map key-type="java.lang.Class">
@@ -92,7 +92,7 @@
                 <key><value>org.kuali.kfs.sys.document.validation.event.AttributedBlanketApproveDocumentEvent</value></key>
                 <value>AdvanceDeposit-blanketApproveDocumentValidation</value>
             </entry>
-            <!-- capital accounting lines object sub type check -->		
+            <!-- capital accounting lines object sub type check -->
 			<entry>
 				<key><value>org.kuali.kfs.fp.document.validation.event.CapitalAccountingLinesSameObjectCodeSubTypeEvent</value></key>
 				<value>AdvanceDeposit-capitalAccountingLinesObjectSubtypeValidations</value>
@@ -102,7 +102,7 @@
   </bean>
       <!-- accounting line groups -->
   <bean id="AdvanceDepositDocument-sourceAccountingLineGroup" parent="AdvanceDepositDocument-sourceAccountingLineGroup-parentBean"/>
-  
+
   <bean id="AdvanceDepositDocument-sourceAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
 	  <property name="accountingLineView" ref="AdvanceDeposit-accountingLineView"/>
 	  <property name="accountingLineClass" value="org.kuali.kfs.sys.businessobject.SourceAccountingLine"/>
@@ -133,8 +133,8 @@
 </bean>
 
 	<bean id="AdvanceDepositDocument-workflowAttributes" parent="AdvanceDepositDocument-workflowAttributes-parentBean"/>
-	
+
 	<bean id="AdvanceDepositDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
-    	
+
 	</bean>
 </beans>

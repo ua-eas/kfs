@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -60,7 +60,7 @@ public class DepreciationReport {
 
     /**
      * This method creates the report file and invokes the methods that write the data
-     * 
+     *
      * @param reportLog
      * @param errorMsg
      */
@@ -105,7 +105,7 @@ public class DepreciationReport {
 
     /**
      * This method adds the log lines into the report
-     * 
+     *
      * @param reportLog
      */
     private void generateReportLogBody(List<String[]> reportLog) {
@@ -161,7 +161,7 @@ public class DepreciationReport {
 
     /**
      * This method adds any error to the report
-     * 
+     *
      * @param errorMsg
      */
     private void generateReportErrorLog(String errorMsg) {
@@ -185,7 +185,7 @@ public class DepreciationReport {
 
     /**
      * This method creates a report group for the error message on the report
-     * 
+     *
      * @throws DocumentException
      */
     private void generateErrorColumnHeaders() throws DocumentException {
@@ -219,7 +219,7 @@ public class DepreciationReport {
 
     /**
      * This method inserts the depreciation date on the report
-     * 
+     *
      * @param sDepreciationDate private void generateDepreciationDateLabel(String sDepreciationDate) { try { int headerwidths[] = {
      *        100 }; Table aTable = new Table(1, 1); // 1 columns, 1 rows. aTable.setAutoFillEmptyCells(true); aTable.setPadding(3);
      *        aTable.setWidths(headerwidths); aTable.setWidth(100); aTable.setBorder(0); Cell cell; Font font =
@@ -278,7 +278,7 @@ public class DepreciationReport {
 
         /**
          * Writes the footer on the last page
-         * 
+         *
          * @see com.lowagie.text.pdf.PdfPageEventHelper#onEndPage(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Document)
          */
         public void onEndPage(PdfWriter writer, Document document) {

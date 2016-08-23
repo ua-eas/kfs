@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,9 +53,9 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
     private boolean current;
 
     /**
-     * 
+     *
      * Constructs a AttributeReferenceDummy.java.
-     * 
+     *
      */
     public AttributeReferenceDummy() {
     }
@@ -90,7 +90,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Gets the percent attribute.
-     * 
+     *
      * @return Returns the percent.
      */
     public KualiPercent getPercent() {
@@ -99,7 +99,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Sets the percent attribute value.
-     * 
+     *
      * @param percent The percent to set.
      */
     public void setPercent(KualiPercent percent) {
@@ -109,7 +109,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Gets the genericSystemId attribute.
-     * 
+     *
      * @return Returns the genericSystemId.
      */
     public String getGenericSystemId() {
@@ -118,7 +118,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Sets the genericSystemId attribute value.
-     * 
+     *
      * @param genericSystemId The genericSystemId to set.
      */
     public void setGenericSystemId(String genericSystemId) {
@@ -127,7 +127,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Gets the oneDigitTextCode attribute.
-     * 
+     *
      * @return Returns the oneDigitTextCode.
      */
     public String getOneDigitTextCode() {
@@ -144,7 +144,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Sets the oneDigitTextCode attribute value.
-     * 
+     *
      * @param oneDigitTextCode The oneDigitTextCode to set.
      */
     public void setOneDigitTextCode(String oneDigitTextCode) {
@@ -153,7 +153,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Gets the twoDigitTextCode attribute.
-     * 
+     *
      * @return Returns the twoDigitTextCode.
      */
     public String getTwoDigitTextCode() {
@@ -162,7 +162,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Sets the twoDigitTextCode attribute value.
-     * 
+     *
      * @param twoDigitTextCode The twoDigitTextCode to set.
      */
     public void setTwoDigitTextCode(String twoDigitTextCode) {
@@ -171,7 +171,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Gets the genericDate attribute.
-     * 
+     *
      * @return Returns the genericDate.
      */
     public Date getGenericDate() {
@@ -180,7 +180,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Sets the genericDate attribute value.
-     * 
+     *
      * @param genericDate The genericDate to set.
      */
     public void setGenericDate(Date genericDate) {
@@ -189,7 +189,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Gets the genericBoolean attribute.
-     * 
+     *
      * @return Returns the genericBoolean.
      */
     public boolean isGenericBoolean() {
@@ -198,7 +198,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Sets the genericBoolean attribute value.
-     * 
+     *
      * @param genericBoolean The genericBoolean to set.
      */
     public void setGenericBoolean(boolean genericBoolean) {
@@ -207,7 +207,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Gets the activeIndicator attribute.
-     * 
+     *
      * @return Returns the activeIndicator.
      */
     public boolean isActiveIndicator() {
@@ -216,7 +216,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Sets the activeIndicator attribute value.
-     * 
+     *
      * @param activeIndicator The activeIndicator to set.
      */
     public void setActiveIndicator(boolean activeIndicator) {
@@ -225,7 +225,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Gets the genericAmount attribute.
-     * 
+     *
      * @return Returns the genericAmount.
      */
     public KualiDecimal getGenericAmount() {
@@ -234,7 +234,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Sets the genericAmount attribute value.
-     * 
+     *
      * @param genericAmount The genericAmount to set.
      */
     public void setGenericAmount(KualiDecimal genericAmount) {
@@ -243,7 +243,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Gets the genericBigText attribute.
-     * 
+     *
      * @return Returns the genericBigText.
      */
     public String getGenericBigText() {
@@ -252,7 +252,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Sets the genericBigText attribute value.
-     * 
+     *
      * @param genericBigText The genericBigText to set.
      */
     public void setGenericBigText(String genericBigText) {
@@ -261,7 +261,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Gets the emailAddress attribute.
-     * 
+     *
      * @return Returns the emailAddress.
      */
     public String getEmailAddress() {
@@ -270,7 +270,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 
     /**
      * Sets the emailAddress attribute value.
-     * 
+     *
      * @param emailAddress The emailAddress to set.
      */
     public void setEmailAddress(String emailAddress) {
@@ -278,7 +278,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
     }
 
     /**
-     * Gets the newCollectionRecord attribute. 
+     * Gets the newCollectionRecord attribute.
      * @return Returns the newCollectionRecord.
      */
     public boolean isNewCollectionRecord() {
@@ -306,7 +306,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
     public void setWorkflowDocumentStatus(String workflowDocumentStatus) {
         this.workflowDocumentStatus = workflowDocumentStatus;
     }
-    
+
     public Date getActiveFromDate() {
 		return this.activeFromDate;
 	}
@@ -330,7 +330,7 @@ public class AttributeReferenceDummy extends PersistableBusinessObjectBase {
 	public void setActiveAsOfDate(Date activeAsOfDate) {
 		this.activeAsOfDate = activeAsOfDate;
 	}
-	
+
 	public boolean isCurrent() {
 		return this.current;
 	}

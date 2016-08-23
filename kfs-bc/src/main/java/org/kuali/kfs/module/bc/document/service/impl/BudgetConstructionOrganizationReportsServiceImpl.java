@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,7 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Implements the getByPrimaryId method defined by BudgetConstructionOrganizationReportsService.
- * 
+ *
  * @param chartOfAccountsCode The FIN_COA_CD that is being searched for
  * @param organizationCode the ORG_CD that is being searched for
  * @return BudgetConstructionOrganizationReports Business Object
@@ -55,15 +55,15 @@ public class BudgetConstructionOrganizationReportsServiceImpl implements BudgetC
         keys.put(KFSPropertyConstants.ORGANIZATION_CODE, organizationCode);
         return (BudgetConstructionOrganizationReports)SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(BudgetConstructionOrganizationReports.class, keys);
     }
-    
+
     public List getBySearchCriteria(Class cls, Map searchCriteria) {
         return (List)budgetConstructionOrganizationReportsDao.getBySearchCriteria(cls, searchCriteria);
     }
-  
+
     public List getBySearchCriteriaOrderByList(Class cls, Map searchCriteria, List<String> orderList) {
         return (List)budgetConstructionOrganizationReportsDao.getBySearchCriteriaWithOrderByList(cls, searchCriteria, orderList);
     }
- 
+
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionOrganizationReportsService#getActiveChildOrgs(java.lang.String,
      *      java.lang.String)
@@ -82,7 +82,7 @@ public class BudgetConstructionOrganizationReportsServiceImpl implements BudgetC
 
     /**
      * Gets the budgetConstructionOrganizationReportsDao attribute.
-     * 
+     *
      * @return Returns the budgetConstructionOrganizationReportsDao.
      */
     public BudgetConstructionOrganizationReportsDao getBudgetConstructionOrganizationReportsDao() {
@@ -91,7 +91,7 @@ public class BudgetConstructionOrganizationReportsServiceImpl implements BudgetC
 
     /**
      * Sets the budgetConstructionOrganizationReportsDao attribute value.
-     * 
+     *
      * @param budgetConstructionOrganizationReportsDao The budgetConstructionOrganizationReportsDao to set.
      */
     public void setBudgetConstructionOrganizationReportsDao(BudgetConstructionOrganizationReportsDao budgetConstructionOrganizationReportsDao) {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -43,7 +43,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * This is the data access object for ledger entry.
- * 
+ *
  * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry
  */
 public class LaborLedgerEntryDaoOjb extends PlatformAwareDaoBaseOjb implements LaborLedgerEntryDao, LedgerEntryBalancingDao {
@@ -168,10 +168,10 @@ public class LaborLedgerEntryDaoOjb extends PlatformAwareDaoBaseOjb implements L
         ReportQueryByCriteria reportQuery = QueryFactory.newReportQuery(this.getEntryClass(), criteria);
         reportQuery.setAttributes(new String[] { "count(*)", ConsolidationUtil.sum(KFSConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT)});
         reportQuery.addGroupBy(new String[] { KFSConstants.UNIVERSITY_FISCAL_YEAR_PROPERTY_NAME, KFSConstants.CHART_OF_ACCOUNTS_CODE_PROPERTY_NAME, KFSConstants.FINANCIAL_OBJECT_CODE_PROPERTY_NAME, KFSConstants.FINANCIAL_BALANCE_TYPE_CODE_PROPERTY_NAME, KFSConstants.UNIVERSITY_FISCAL_PERIOD_CODE_PROPERTY_NAME, KFSConstants.TRANSACTION_DEBIT_CREDIT_CODE});
-        
+
         Iterator<Object[]> iterator = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(reportQuery);
         Object[] returnResult = TransactionalServiceUtils.retrieveFirstAndExhaustIterator(iterator);
-        
+
         if (ObjectUtils.isNull(returnResult)) {
             // Do nothing, we'll return null. Data wasn't found.
         } else if (returnResult[0] instanceof BigDecimal) {
@@ -180,10 +180,10 @@ public class LaborLedgerEntryDaoOjb extends PlatformAwareDaoBaseOjb implements L
         else {
             returnResult[0] = ((Long) returnResult[0]).intValue();
         }
-        
+
         return returnResult;
     }
-    
+
     // build the pay type criteria
     protected Criteria buildPayTypeCriteria(Map<Integer, Set<String>> payPeriods, List<String> balanceTypes, Map<String, Set<String>> earnCodePayGroupMap) {
         Criteria criteria = new Criteria();
@@ -224,12 +224,12 @@ public class LaborLedgerEntryDaoOjb extends PlatformAwareDaoBaseOjb implements L
     public Integer findCountGreaterOrEqualThan(Integer year) {
         Criteria criteria = new Criteria();
         criteria.addGreaterOrEqualThan(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, year);
-        
+
         ReportQueryByCriteria query = QueryFactory.newReportQuery(getEntryClass(), criteria);
-        
+
         return getPersistenceBrokerTemplate().getCount(query);
     }
-    
+
     /**
      * @return the Class type of the business object accessed and managed
      */

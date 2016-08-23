@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,11 +31,11 @@ import org.kuali.kfs.module.purap.fixture.PurapTestConstants.PurCams;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 public enum PurchasingCapitalAssetFixture {
-    
+
     TWO_CAPITAL(ValidationStrings.CAPITAL,ValidationStrings.CAPITAL),
     TWO_EXPENSE(ValidationStrings.EXPENSE,ValidationStrings.EXPENSE),
     CAPITAL_EXPENSE(ValidationStrings.CAPITAL,ValidationStrings.EXPENSE),
-    
+
     POSITIVE_QUANTITY_CAPITAL_PRICE_CAP_OBJECT_CODE(PurCams.POSITIVE_AMOUNT,PurCams.CAPITAL_AMOUNT,PurCams.CAPITAL_OBJECT_CODE),
     POSITIVE_QUANTITY_CAPITAL_PRICE_POSSIBLE_OBJECT_CODE(PurCams.POSITIVE_AMOUNT,PurCams.CAPITAL_AMOUNT,PurCams.POSSIBLE_OBJECT_CODE),
     POSITIVE_QUANTITY_CAPITAL_PRICE_EXPENSE_OBJECT_CODE(PurCams.POSITIVE_AMOUNT,PurCams.CAPITAL_AMOUNT,PurCams.EXPENSE_OBJECT_CODE),
@@ -43,20 +43,20 @@ public enum PurchasingCapitalAssetFixture {
     NEGATIVE_QUANTITY_CAPITAL_PRICE_POSSIBLE_OBJECT_CODE(PurCams.NEGATIVE_AMOUNT,PurCams.CAPITAL_AMOUNT,PurCams.POSSIBLE_OBJECT_CODE),
     NULL_QUANTITY_CAPITAL_PRICE_POSSIBLE_OBJECT_CODE(null,PurCams.CAPITAL_AMOUNT,PurCams.POSSIBLE_OBJECT_CODE),
     POSITIVE_QUANTITY_POSITIVE_PRICE_POSSIBLE_OBJECT_CODE(PurCams.POSITIVE_AMOUNT,PurCams.CAPITAL_POSITIVE_AMOUNT,PurCams.POSSIBLE_OBJECT_CODE),
-    
+
     RECURRING_PAYMENT_TYPE_NONRECURRING_TRAN_TYPE(PurCams.RECURRING_PAYMENT_TYPE, PurCams.NONRECURRING_ASSET_NUMBER_REQUIRING_TRAN_TYPE),
     NO_PAYMENT_TYPE_NONRECURRING_TRAN_TYPE(null, PurCams.NONRECURRING_ASSET_NUMBER_REQUIRING_TRAN_TYPE),
     RECURRING_PAYMENT_TYPE_NO_TRAN_TYPE(PurCams.RECURRING_PAYMENT_TYPE, null),
     RECURRING_PAYMENT_TYPE_RECURRING_TRAN_TYPE(PurCams.RECURRING_PAYMENT_TYPE, PurCams.RECURRING_TRAN_TYPE),
     NO_PAYMENT_TYPE_RECURRING_TRAN_TYPE(null, PurCams.RECURRING_TRAN_TYPE),
-    
+
     ASSET_NUMBER_REQUIRING_TRAN_TYPE_ONE_ASSET(PurCams.NONRECURRING_ASSET_NUMBER_REQUIRING_TRAN_TYPE,PurCams.ASSET_NUMBER_1),
     ASSET_NUMBER_REQUIRING_TRAN_TYPE_NO_ASSETS(PurCams.NONRECURRING_ASSET_NUMBER_REQUIRING_TRAN_TYPE),
     ASSET_NUMBER_REQUIRING_TRAN_TYPE_TWO_ASSETS(PurCams.NONRECURRING_ASSET_NUMBER_REQUIRING_TRAN_TYPE,PurCams.ASSET_NUMBER_1,PurCams.ASSET_NUMBER_2),
     NONASSET_NUMBER_REQUIRING_TRAN_TYPE_NO_ASSETS(PurCams.NONRECURRING_NON_ASSET_NUMBER_REQUIRING_TRAN_TYPE),
     NONASSET_NUMBER_REQUIRING_TRAN_TYPE_ONE_ASSET(PurCams.NONRECURRING_NON_ASSET_NUMBER_REQUIRING_TRAN_TYPE,PurCams.ASSET_NUMBER_1),
     ;
-    
+
     HashSet<String> capitalOrExpenseSet = new HashSet<String>();
     ObjectCode objectCode;
     KualiDecimal quantity;
@@ -64,10 +64,10 @@ public enum PurchasingCapitalAssetFixture {
     CapitalAssetBuilderAssetTransactionType capitalAssetTransactionType = null;
     RecurringPaymentType recurringPaymentType = null;
     List<ItemCapitalAsset> assets = null;
-    
+
     /**
      * Constructor used for tests of PurchasingDocumentRuleBase.validateAccountingLinesNotCapitalAndExpense.
-     * 
+     *
      * @param capOrExp1
      * @param capOrExp2
      * @see PurchasingDocumentRuleBase.validateAccountingLinesNotCapitalAndExpense
@@ -77,10 +77,10 @@ public enum PurchasingCapitalAssetFixture {
         this.capitalOrExpenseSet.add(capOrExp2);
         this.objectCode = PurCams.EXPENSE_OBJECT_CODE; //Used in these tests only for display of errors.
     }
-    
+
     /**
      * Constructor used for tests of PurchasingDocumentRuleBase.validateLevelCapitalAssetIndication.
-     * 
+     *
      * @param quantity
      * @param extendedPrice
      * @param objectCode
@@ -91,10 +91,10 @@ public enum PurchasingCapitalAssetFixture {
         this.itemUnitPrice = itemUnitPrice;
         this.objectCode = objectCode;
     }
-    
+
     /**
      * Constructor used for tests of PurchasingDocumentRuleBase.validateCapitalAssetTransactionTypeVersusRecurrence
-     * 
+     *
      * @param recurringPaymentType
      * @param capitalAssetTransactionTypeCode
      * @see PurchasingDocumentRuleBase.validateCapitalAssetTransactionTypeVersusRecurrence
@@ -103,11 +103,11 @@ public enum PurchasingCapitalAssetFixture {
         this.capitalAssetTransactionType = (CapitalAssetBuilderAssetTransactionType)capitalAssetTransactionType;
         this.recurringPaymentType = recurringPaymentType;
     }
-    
+
     /**
      * Constructor used for tests of PurchasingDocumentRuleBase.validateCapitalAssetNumberRequirements.
      * Note the variable capitalAssetNumbers argument.
-     * 
+     *
      * @param capitalAssetTransactionType       A CapitalAssetBuilderAssetTransactionType
      * @param capitalAssetNumbers               A variable argument of Longs.
      * @see PurchasingDocumentRuleBase.validateCapitalAssetNumberRequirements
@@ -189,6 +189,6 @@ public enum PurchasingCapitalAssetFixture {
         public static final String RECURRING = "Recurring";
         public static final String NON_RECURRING = "Non-recurring";
     }
-    
-    
+
+
 }

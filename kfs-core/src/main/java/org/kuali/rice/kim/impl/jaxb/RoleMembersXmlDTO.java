@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -54,19 +54,19 @@ public abstract class RoleMembersXmlDTO<T extends RoleMemberXmlDTO> implements R
     private static final long serialVersionUID = 1L;
 
     public abstract List<T> getRoleMembers();
-    
+
     public abstract void setRoleMembers(List<T> roleMembers);
-    
+
     void beforeUnmarshal(Unmarshaller unmarshaller, Object parent) throws UnmarshalException {
         setRoleMembers(new RiceXmlImportList<T>(this));
     }
-    
+
     void afterUnmarshal(Unmarshaller unmarshaller, Object parent) throws UnmarshalException {
         setRoleMembers(null);
     }
-    
+
     // =======================================================================================================
-    
+
     /**
      * This class represents a &lt;roleMembers&gt; element that is not a child of a &lt;role&gt; element.
      */
@@ -75,7 +75,7 @@ public abstract class RoleMembersXmlDTO<T extends RoleMemberXmlDTO> implements R
     public static class OutsideOfRole extends RoleMembersXmlDTO<RoleMemberXmlDTO.OutsideOfRole> {
 
         private static final long serialVersionUID = 1L;
-        
+
         @XmlElement(name="roleMember")
         private List<RoleMemberXmlDTO.OutsideOfRole> roleMembers;
 
@@ -107,9 +107,9 @@ public abstract class RoleMembersXmlDTO<T extends RoleMemberXmlDTO> implements R
             }
         }
     }
-    
+
     // =======================================================================================================
-    
+
     /**
      * This class represents a &lt;roleMembers&gt; element that is a child of a &lt;role&gt; element.
      */
@@ -119,22 +119,22 @@ public abstract class RoleMembersXmlDTO<T extends RoleMemberXmlDTO> implements R
             implements RiceXmlListGetterListener<RoleMemberXmlDTO.WithinRole,String> {
 
         private static final long serialVersionUID = 1L;
-        
+
         @XmlElement(name="roleMember")
         private List<RoleMemberXmlDTO.WithinRole> roleMembers;
 
         @XmlTransient
         private String roleId;
-        
+
         @XmlTransient
         private Set<String> existingRoleMemberIds;
-        
+
         public WithinRole() {}
-        
+
         public WithinRole(String roleId) {
             this.roleId = roleId;
         }
-        
+
         /**
          * @see org.kuali.rice.kim.impl.jaxb.RoleMembersXmlDTO#getRoleMembers()
          */
@@ -150,7 +150,7 @@ public abstract class RoleMembersXmlDTO<T extends RoleMemberXmlDTO> implements R
         public void setRoleMembers(List<org.kuali.rice.kim.impl.jaxb.RoleMemberXmlDTO.WithinRole> roleMembers) {
             this.roleMembers = roleMembers;
         }
-        
+
         /**
          * @return the roleId
          */
@@ -177,7 +177,7 @@ public abstract class RoleMembersXmlDTO<T extends RoleMemberXmlDTO> implements R
 
         /**
          * This overridden method ...
-         * 
+         *
          * @see org.kuali.rice.kim.impl.jaxb.RoleMembersXmlDTO#afterUnmarshal(javax.xml.bind.Unmarshaller, java.lang.Object)
          */
         @Override
@@ -201,25 +201,25 @@ public abstract class RoleMembersXmlDTO<T extends RoleMemberXmlDTO> implements R
                 throw new RuntimeException(e);
             }
         }
-        
+
         void beforeMarshal(Marshaller marshaller) {
             List<RoleMember> tempMembers = KimApiServiceLocator.getRoleService().findRoleMembers(
                     QueryByCriteria.Builder.fromPredicates(equal("roleId", roleId))).getResults();
             if (tempMembers != null && !tempMembers.isEmpty()) {
                 List<String> roleMemberIds = new ArrayList<String>();
-                
+
                 for (RoleMemberContract tempMember : tempMembers) {
                     if (tempMember.isActive(null)) {
                         roleMemberIds.add(tempMember.getId());
                     }
                 }
-                
+
                 if (!roleMemberIds.isEmpty()) {
                     setRoleMembers(new RiceXmlExportList<RoleMemberXmlDTO.WithinRole,String>(roleMemberIds, this));
                 }
             }
         }
-        
+
         void afterMarshal(Marshaller marshaller) {
             setRoleMembers(null);
         }

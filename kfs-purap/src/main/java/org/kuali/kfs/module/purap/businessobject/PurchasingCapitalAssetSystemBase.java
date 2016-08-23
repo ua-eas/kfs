@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,7 +42,7 @@ public abstract class PurchasingCapitalAssetSystemBase extends PersistableBusine
     private List<CapitalAssetLocation> capitalAssetLocations;
     private CapitalAssetLocation newPurchasingCapitalAssetLocationLine;
     private Integer capitalAssetCountAssetNumber;
-    
+
     public Integer getCapitalAssetCountAssetNumber() {
 		return capitalAssetCountAssetNumber;
 	}
@@ -141,14 +141,14 @@ public abstract class PurchasingCapitalAssetSystemBase extends PersistableBusine
     public boolean isEmpty() {
         return !(StringUtils.isNotEmpty(capitalAssetNoteText) || StringUtils.isNotEmpty(capitalAssetSystemDescription) || StringUtils.isNotEmpty(capitalAssetManufacturerName) || StringUtils.isNotEmpty(this.capitalAssetModelDescription) || StringUtils.isNotEmpty(capitalAssetTypeCode));
     }
-    
+
     public abstract Class getItemCapitalAssetClass();
-    
+
     public abstract Class getCapitalAssetLocationClass();
- 
-    //CAMS LOCATION   
+
+    //CAMS LOCATION
     public CapitalAssetLocation setupNewPurchasingCapitalAssetLocationLine() {
-        CapitalAssetLocation location = null; 
+        CapitalAssetLocation location = null;
         try{
             location = (CapitalAssetLocation)getCapitalAssetLocationClass().newInstance();
         }
@@ -178,13 +178,13 @@ public abstract class PurchasingCapitalAssetSystemBase extends PersistableBusine
         setNewPurchasingCapitalAssetLocationLine(setupNewPurchasingCapitalAssetLocationLine());
         return asset;
     }
-    
+
     public void resetNewPurchasingCapitalAssetLocationLine(){
         setNewPurchasingCapitalAssetLocationLine(setupNewPurchasingCapitalAssetLocationLine());
     }
 
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-        LinkedHashMap m = new LinkedHashMap();	            
+        LinkedHashMap m = new LinkedHashMap();
         if (this.capitalAssetSystemIdentifier != null) {
             m.put("capitalAssetSystemIdentifier", this.capitalAssetSystemIdentifier.toString());
         }

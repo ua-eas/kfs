@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -35,46 +35,46 @@
     documentTypeName="${KualiForm.docTypeName}"
     htmlFormAction="temTravelAuthorization" renderMultipart="true"
     showTabButtons="true">
-    
-<script language="javascript" src="dwr/interface/TravelDocumentService.js"></script> 
-<script language="javascript" src="dwr/interface/TravelAuthorizationService.js"></script>     
-<script language="javascript" src="dwr/interface/TravelExpenseService.js"></script> 
+
+<script language="javascript" src="dwr/interface/TravelDocumentService.js"></script>
+<script language="javascript" src="dwr/interface/TravelAuthorizationService.js"></script>
+<script language="javascript" src="dwr/interface/TravelExpenseService.js"></script>
 <script language="javascript" src="scripts/module/tem/common.js"></script>
 <script language="javascript" src="scripts/module/tem/objectInfo.js"></script>
 
     <sys:documentOverview editingMode="${KualiForm.editingMode}" includeBankCode="true"
-	  bankProperty="document.financialDocumentBankCode" 
+	  bankProperty="document.financialDocumentBankCode"
 	  bankObjectProperty="document.bank"
 	  disbursementOnly="true" />
-	  
+
 	<script type="text/javascript">
 		function clearSpecialHandlingTab() {
 		var prefix = "document.travelPayment.";
 		var ctrl;
-		
+
 		ctrl = kualiElements[prefix + "specialHandlingCityName"]
 		ctrl.value = "";
-		
+
 		ctrl = kualiElements[prefix + "specialHandlingLine1Addr"];
 		ctrl.value = "";
-		
+
 		ctrl = kualiElements[prefix + "specialHandlingStateCode"];
 		ctrl.value = "";
-		
+
 		ctrl = kualiElements[prefix + "specialHandlingLine2Addr"];
 		ctrl.value = "";
-		
+
 		ctrl = kualiElements[prefix + "specialHandlingZipCode"];
 		ctrl.value = "";
-		
+
 		ctrl = kualiElements[prefix + "specialHandlingCountryCode"];
 		ctrl.value = "";
 	   }
 	</script>
 	<sys:paymentMessages />
- 
+
     <tem-ta:tripOverview/>
-	<c:if test="${KualiForm.docTypeName!=TemConstants.TravelDocTypes.TRAVEL_AUTHORIZATION_CLOSE_DOCUMENT}"> 
+	<c:if test="${KualiForm.docTypeName!=TemConstants.TravelDocTypes.TRAVEL_AUTHORIZATION_CLOSE_DOCUMENT}">
 		<kul:tab tabTitle="Travel Advance" defaultOpen="${KualiForm.defaultTravelAdvanceTab}" tabErrorKey="${TemKeyConstants.TRVL_AUTH_TRVL_ADVANCE_ERRORS}">
 			<div class="tab-container" align="left">
 				<tem-ta:travelAdvance travelAdvanceProperty="document.travelAdvance" />
@@ -95,11 +95,11 @@
     </c:if>
     <tem:specialCircumstances />
     <tem:groupTravel />
-    <c:if test="${not empty KualiForm.document.primaryDestinationName}"> 
+    <c:if test="${not empty KualiForm.document.primaryDestinationName}">
     	<tem:perDiemExpenses />
     </c:if>
     <tem-ta:expenses />
-    <tem-ta:estimateTotal /> 
+    <tem-ta:estimateTotal />
     <c:if test="${KualiForm.displayAccountingLines}">
     	<tem:accountingLines />
     </c:if>
@@ -109,7 +109,7 @@
     <gl:generalLedgerPendingEntries />
 	<tem:relatedDocuments />
 	<tem:agencyLinks/>
-	
+
     <kul:notes attachmentTypesValuesFinderClass="${DataDictionary.TravelEntertainmentDocument.attachmentTypesValuesFinderClass}" />
     <kul:adHocRecipients />
 
@@ -123,5 +123,5 @@
 		getAllStates();
 	});
 </script>
-      
+
 </kul:documentPage>

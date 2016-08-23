@@ -1,26 +1,26 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<%@ attribute name="invPropertyName" required="true" description="The customer invoice detail" %>              
+<%@ attribute name="invPropertyName" required="true" description="The customer invoice detail" %>
 <%@ attribute name="cssClass" required="true" description="The cssClass" %>
-              
+
 <c:set var="customerInvoiceDetailAttributes" value="${DataDictionary.CustomerInvoiceDetail.attributes}" />
 
 <%-- generate unique tab key from invPropertyName --%>
@@ -63,14 +63,14 @@
                 </td>
             </tr>
         </table>
-        
+
         <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
             <div style="display: block;" id="tab-${tabKey}-div" class="accountingInfo">
         </c:if>
         <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}" >
             <div style="display: none;" id="tab-${tabKey}-div" class="accountingInfo">
         </c:if>
-        
+
         <table style="width: 100%;" cellpadding="0" cellspacing="0" class="datatable" >
         	<tr>
         		<kul:htmlAttributeHeaderCell attributeEntry="${customerInvoiceDetailAttributes.chartOfAccountsCode}" />
@@ -89,35 +89,35 @@
 						property="${invPropertyName}.chartOfAccountsCode"
 						readOnly="true"/>
 				</td>
-				<!--  Account -->               
+				<!--  Account -->
 				<td align=left class="${cssClass}">
 					<kul:htmlControlAttribute
 						attributeEntry="${customerInvoiceDetailAttributes.accountNumber }"
 						property="${invPropertyName}.accountNumber"
 						readOnly="true"/>
 				</td>
-				<!--  Sub-Account -->               
+				<!--  Sub-Account -->
 				<td align=left class="${cssClass}">
 					<kul:htmlControlAttribute
 						attributeEntry="${customerInvoiceDetailAttributes.subAccountNumber }"
 						property="${invPropertyName}.subAccountNumber"
 						readOnly="true"/>
 				</td>
-				<!--  Object -->               
+				<!--  Object -->
 				<td align=left class="${cssClass}">
 					<kul:htmlControlAttribute
 						attributeEntry="${customerInvoiceDetailAttributes.financialObjectCode }"
 						property="${invPropertyName}.financialObjectCode"
 						readOnly="true"/>
 				</td>
-				<!--  Sub-Object -->               
+				<!--  Sub-Object -->
 				<td align=left class="${cssClass}">
 			  	    <kul:htmlControlAttribute
 			  	    	attributeEntry="${customerInvoiceDetailAttributes.financialSubObjectCode }"
 			  	    	property="${invPropertyName}.financialSubObjectCode"
 			  	    	readOnly="true"/>
 			    </td>
-			    <!--  Project -->               
+			    <!--  Project -->
 				<td align=left class="${cssClass}">
 			     	<kul:htmlControlAttribute
 			     		attributeEntry="${customerInvoiceDetailAttributes.projectCode }"
@@ -130,8 +130,8 @@
 						attributeEntry="${customerInvoiceDetailAttributes.organizationReferenceId }"
 						property="${invPropertyName}.organizationReferenceId"
 						readOnly="true"/>
-				</td> 
+				</td>
 			</tr>
-         </table>    
+         </table>
     </td>
 </tr>

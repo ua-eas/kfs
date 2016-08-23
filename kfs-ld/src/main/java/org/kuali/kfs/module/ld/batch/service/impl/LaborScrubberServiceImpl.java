@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -78,10 +78,10 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
         // The logic for this was moved into another object because the process was written using
         // many instance variables which shouldn't be used for Spring services
 
-        LaborScrubberProcess sp = new LaborScrubberProcess(flexibleOffsetAccountService, laborAccountingCycleCachingService, laborOriginEntryService, originEntryGroupService, dateTimeService, offsetDefinitionService, objectCodeService, kualiConfigurationService, universityDateDao, persistenceService, scrubberValidator, batchFileDirectoryName, 
+        LaborScrubberProcess sp = new LaborScrubberProcess(flexibleOffsetAccountService, laborAccountingCycleCachingService, laborOriginEntryService, originEntryGroupService, dateTimeService, offsetDefinitionService, objectCodeService, kualiConfigurationService, universityDateDao, persistenceService, scrubberValidator, batchFileDirectoryName,
                 llcpMainReportWriterService, llcpLedgerReportWriterService, laborBadBalanceTypeReportWriterService, laborErrorListingReportWriterService, laborGeneratedTransactionsReportWriterService, laborDemergerReportWriterService, laborPreScrubberService, llcpPreScrubberReportWriterService, parameterService);
         sp.scrubGroupReportOnly(fileName, documentNumber);
-    } 
+    }
 
     /**
      * @see org.kuali.module.labor.service.ScrubberService#scrubEntries()
@@ -92,22 +92,22 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
         // The logic for this was moved into another object because the process was written using
         // many instance variables which shouldn't be used for Spring services
 
-        LaborScrubberProcess sp = new LaborScrubberProcess(flexibleOffsetAccountService, laborAccountingCycleCachingService, laborOriginEntryService, originEntryGroupService, dateTimeService, offsetDefinitionService, objectCodeService, kualiConfigurationService, universityDateDao, persistenceService, scrubberValidator, batchFileDirectoryName, 
+        LaborScrubberProcess sp = new LaborScrubberProcess(flexibleOffsetAccountService, laborAccountingCycleCachingService, laborOriginEntryService, originEntryGroupService, dateTimeService, offsetDefinitionService, objectCodeService, kualiConfigurationService, universityDateDao, persistenceService, scrubberValidator, batchFileDirectoryName,
                 laborMainReportWriterService, laborLedgerReportWriterService, laborBadBalanceTypeReportWriterService, laborErrorListingReportWriterService, laborGeneratedTransactionsReportWriterService, laborDemergerReportWriterService, null, null, parameterService);
         sp.scrubEntries();
     }
-    
+
     public void performDemerger() {
         LOG.debug("performDemerger() started");
-        LaborScrubberProcess sp = new LaborScrubberProcess(flexibleOffsetAccountService, laborAccountingCycleCachingService, laborOriginEntryService, originEntryGroupService, dateTimeService, offsetDefinitionService, objectCodeService, kualiConfigurationService, universityDateDao, persistenceService, scrubberValidator, batchFileDirectoryName, 
+        LaborScrubberProcess sp = new LaborScrubberProcess(flexibleOffsetAccountService, laborAccountingCycleCachingService, laborOriginEntryService, originEntryGroupService, dateTimeService, offsetDefinitionService, objectCodeService, kualiConfigurationService, universityDateDao, persistenceService, scrubberValidator, batchFileDirectoryName,
                 laborMainReportWriterService, laborLedgerReportWriterService, laborBadBalanceTypeReportWriterService, laborErrorListingReportWriterService, laborGeneratedTransactionsReportWriterService, laborDemergerReportWriterService, null, null, parameterService);
         sp.performDemerger();
-                
+
     }
 
     /**
      * Sets the setScrubberValidator attribute value.
-     * 
+     *
      * @param sv The setScrubberValidator to set.
      */
     public void setScrubberValidator(ScrubberValidator sv) {
@@ -116,7 +116,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
 
     /**
      * Sets the laborOriginEntryService attribute value.
-     * 
+     *
      * @param loes The laborOriginEntryService to set.
      */
     public void setLaborOriginEntryService(LaborOriginEntryService loes) {
@@ -125,7 +125,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
 
     /**
      * Sets the originEntryGroupService attribute value.
-     * 
+     *
      * @param groupService The originEntryGroupService to set.
      */
     public void setOriginEntryGroupService(OriginEntryGroupService groupService) {
@@ -134,7 +134,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
 
     /**
      * Sets the dateTimeService attribute value.
-     * 
+     *
      * @param dts The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dts) {
@@ -143,7 +143,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
 
     /**
      * Sets the universityDateDao attribute value.
-     * 
+     *
      * @param universityDateDao The universityDateDao to set.
      */
     public void setUniversityDateDao(UniversityDateDao universityDateDao) {
@@ -152,7 +152,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
 
     /**
      * Sets the persistenceService attribute value.
-     * 
+     *
      * @param ps The persistenceService to set.
      */
     public void setPersistenceService(PersistenceService ps) {
@@ -161,7 +161,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
 
     /**
      * Sets the offsetDefinitionService attribute value.
-     * 
+     *
      * @param offsetDefinitionService The offsetDefinitionService to set.
      */
     public void setOffsetDefinitionService(OffsetDefinitionService offsetDefinitionService) {
@@ -170,7 +170,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
 
     /**
      * Sets the objectCodeService attribute value.
-     * 
+     *
      * @param objectCodeService The objectCodeService to set.
      */
     public void setObjectCodeService(ObjectCodeService objectCodeService) {
@@ -179,7 +179,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
 
     /**
      * Sets the kualiConfigurationService attribute value.
-     * 
+     *
      * @param kualiConfigurationService The kualiConfigurationService to set.
      */
     public void setConfigurationService(ConfigurationService kualiConfigurationService) {
@@ -262,7 +262,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
     }
 
     /**
-     * Gets the laborPreScrubberService attribute. 
+     * Gets the laborPreScrubberService attribute.
      * @return Returns the laborPreScrubberService.
      */
     public PreScrubberService getLaborPreScrubberService() {
@@ -284,7 +284,7 @@ public class LaborScrubberServiceImpl implements LaborScrubberService {
     public void setLlcpPreScrubberReportWriterService(DocumentNumberAwareReportWriterService llcpPreScrubberReportWriterService) {
         this.llcpPreScrubberReportWriterService = llcpPreScrubberReportWriterService;
     }
-    
+
     /**
      * Sets the parameterService attribute value.
      * @param parameterService The parameterService to set.

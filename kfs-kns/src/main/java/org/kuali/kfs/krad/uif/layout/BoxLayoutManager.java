@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * Layout manager that organizes components in a single row (horizontal) or
  * column (vertical)
- * 
+ *
  * <p>
  * Although a table based template could be used, setup is done to also support
  * a CSS based template. The items in the <code>Container</code> instance are
@@ -42,8 +42,8 @@ import java.util.List;
  * vertical orientation, the span style is set to block. Additional styling can
  * be set for the items by using the itemSpanStyle property.
  * </p>
- * 
- * 
+ *
+ *
  */
 public class BoxLayoutManager extends LayoutManagerBase {
 	private static final long serialVersionUID = 4467342272983290044L;
@@ -65,11 +65,11 @@ public class BoxLayoutManager extends LayoutManagerBase {
 
 	/**
 	 * The following initialization is performed:
-	 * 
+	 *
 	 * <ul>
 	 * <li>Set the itemSpanStyle</li>
 	 * </ul>
-	 * 
+	 *
 	 * @see ComponentBase#performInitialization(View,
      * java.lang.Object, Container)
 	 */
@@ -80,7 +80,7 @@ public class BoxLayoutManager extends LayoutManagerBase {
 		if(StringUtils.isBlank(itemStyle)){
 			itemStyle = "";
 		}
-		
+
 		if(StringUtils.isNotEmpty(padding)) {
 			if (orientation.equals(Orientation.VERTICAL)) {
 				// set item to block which will cause a line break and margin
@@ -96,7 +96,7 @@ public class BoxLayoutManager extends LayoutManagerBase {
         //classes to identify this layout in jQuery and to clear the float correctly in all browsers
         this.addStyleClass("fieldLine");
         this.addStyleClass("clearfix");
-        
+
         for (Component c : container.getItems()) {
             if (c != null) {
                 if (orientation.equals(Orientation.HORIZONTAL)) {
@@ -130,7 +130,7 @@ public class BoxLayoutManager extends LayoutManagerBase {
 	/**
 	 * Indicates whether the components should be rendered in a horizontal or
 	 * vertical column
-	 * 
+	 *
 	 * @return Orientation orientation configured for layout
 	 */
 	public Orientation getOrientation() {
@@ -139,7 +139,7 @@ public class BoxLayoutManager extends LayoutManagerBase {
 
 	/**
 	 * Setter for the orientation for layout
-	 * 
+	 *
 	 * @param orientation
 	 */
 	public void setOrientation(Orientation orientation) {
@@ -148,13 +148,13 @@ public class BoxLayoutManager extends LayoutManagerBase {
 
 	/**
 	 * Amount of separation between each item
-	 * 
+	 *
 	 * <p>
 	 * For horizontal orientation, this will be the right padding for each item.
 	 * For vertical, it will be the bottom padding for each item. The value can
 	 * be a fixed length (like px) or percentage
 	 * </p>
-	 * 
+	 *
 	 * @return
 	 */
 	public String getPadding() {
@@ -163,7 +163,7 @@ public class BoxLayoutManager extends LayoutManagerBase {
 
 	/**
 	 * Setter for the item padding
-	 * 
+	 *
 	 * @param padding
 	 */
 	public void setPadding(String padding) {
@@ -174,7 +174,7 @@ public class BoxLayoutManager extends LayoutManagerBase {
 	 * Used by the render to set the style on the span element that wraps the
 	 * item. By using a wrapping span the items can be aligned based on the
 	 * orientation and given the correct padding
-	 * 
+	 *
 	 * @return String css style string
 	 */
 	public String getItemStyle() {
@@ -183,7 +183,7 @@ public class BoxLayoutManager extends LayoutManagerBase {
 
 	/**
 	 * Setter for the span style
-	 * 
+	 *
 	 * @param itemStyle
 	 */
 	public void setItemStyle(String itemStyle) {

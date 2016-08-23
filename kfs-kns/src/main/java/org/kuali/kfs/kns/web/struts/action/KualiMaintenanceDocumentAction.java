@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -95,7 +95,7 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 	}
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {	
+	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setAttribute(KRADConstants.PARAM_MAINTENANCE_VIEW_MODE, KRADConstants.PARAM_MAINTENANCE_VIEW_MODE_MAINTENANCE);
 		return super.execute(mapping, form, request, response);
 	}
@@ -125,7 +125,7 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 	 * Calls setupMaintenance for edit action.
 	 */
 	public ActionForward edit(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-	
+
 		return setupMaintenance(mapping, form, request, response, KRADConstants.MAINTENANCE_EDIT_ACTION);
 	}
 
@@ -136,7 +136,7 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 		KNSGlobalVariables.getMessageList().add(RiceKeyConstants.MESSAGE_DELETE);
 		return setupMaintenance(mapping, form, request, response, KRADConstants.MAINTENANCE_DELETE_ACTION);
 	}
-	
+
 	/**
 	 * Calls setupMaintenance for new object that have existing objects attributes.
 	 */
@@ -213,7 +213,7 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
             }
 			if (oldBusinessObject == null && !document.getOldMaintainableObject().isExternalBusinessObject()) {
                 throw new RuntimeException("Cannot retrieve old record for maintenance document, incorrect parameters passed on maint url: " + requestParameters );
-			} 
+			}
 
 			if(document.getOldMaintainableObject().isExternalBusinessObject()){
             	if ( oldBusinessObject == null ) {
@@ -256,7 +256,7 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 			PersistableBusinessObject newBusinessObject = (PersistableBusinessObject) ObjectUtils.deepCopy(oldBusinessObject);
 
 			// set business object instance for editing
-			Class<? extends PersistableBusinessObject> businessObjectClass = ClassLoaderUtils.getClass(maintenanceForm.getBusinessObjectClassName(), PersistableBusinessObject.class); 
+			Class<? extends PersistableBusinessObject> businessObjectClass = ClassLoaderUtils.getClass(maintenanceForm.getBusinessObjectClassName(), PersistableBusinessObject.class);
 			document.getOldMaintainableObject().setBusinessObject(oldBusinessObject);
 			document.getOldMaintainableObject().setBoClass(businessObjectClass);
 			document.getNewMaintainableObject().setBusinessObject(newBusinessObject);
@@ -301,7 +301,7 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 				if (!allowsDelete) {
 					LOG.error("Document type " + document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName() + " does not allow delete actions.");
 					throw  new DocumentTypeAuthorizationException(GlobalVariables.getUserSession().getPerson().getPrincipalId(), "delete", document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
-				}	
+				}
 				//document.getNewMaintainableObject().processAfterEdit( document, request.getParameterMap() );
 			}
 			// Check for an auto-incrementing PK and set it if needed
@@ -494,7 +494,7 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 
 
 	/**
-	 * 
+	 *
 	 * This method used to replace the attachment
 	 * @param mapping
 	 * @param form
@@ -579,7 +579,7 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 
 	/**
 	 * route the document using the document service
-	 * 
+	 *
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -696,7 +696,7 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 			// (this was running before the objects were added anyway)
 			// getKualiRuleService().applyRules(new SaveDocumentEvent(document));
 			String collectionName = maintenanceForm.getLookedUpCollectionName();
-			//TODO: Cathy remember to delete this block of comments after I've tested.            
+			//TODO: Cathy remember to delete this block of comments after I've tested.
 			//            PersistableBusinessObject bo = document.getNewMaintainableObject().getBusinessObject();
 			//            Collection maintCollection = this.extractCollection(bo, collectionName);
 			//            String docTypeName = ((MaintenanceDocument) maintenanceForm.getDocument()).getDocumentHeader().getWorkflowDocument().getDocumentType();
@@ -854,7 +854,7 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 
 		//KULRICE-4264 - a hook to change the state of the business object, which is the "new line" of a collection, before it is validated
 		newMaintainable.processBeforeAddLine(collectionName, collectionClass, addBO);
-		
+
 		// apply rules to the addBO
 		boolean rulePassed = false;
 		if (LOG.isDebugEnabled()) {
@@ -903,7 +903,7 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 				subCollectionIndex += getSubCollectionIndex(aSubCollection, maintenanceForm.getDocTypeName());
 			}
 			//TODO: Should we keep this logic and continue using currentTabIndex as the key in the tabStates HashMap ?
-			//            
+			//
 			//            String parameter = (String) request.getAttribute(Constants.METHOD_TO_CALL_ATTRIBUTE);
 			//            String indexStr = StringUtils.substringBetween(parameter, Constants.METHOD_TO_CALL_PARM13_LEFT_DEL, Constants.METHOD_TO_CALL_PARM13_RIGHT_DEL);
 			//            // + 1 is for the fact that the first element of a collection is on the next tab
@@ -932,7 +932,7 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 			//            }
 
 
-			// End of whether we should continue to keep this logic and use currentTabIndex as the key            
+			// End of whether we should continue to keep this logic and use currentTabIndex as the key
 		}
 		doProcessingAfterPost( (KualiMaintenanceForm) form, request );
 
@@ -1029,8 +1029,8 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 		//        maintenanceForm.removeTabState(index);
 
 
-		//      TODO: Should we keep this logic and continue using currentTabIndex as the key in the tabStates HashMap ?        
-		//        
+		//      TODO: Should we keep this logic and continue using currentTabIndex as the key in the tabStates HashMap ?
+		//
 		//        String parameter = (String) request.getAttribute(Constants.METHOD_TO_CALL_ATTRIBUTE);
 		//        String indexStr = StringUtils.substringBetween(parameter, Constants.METHOD_TO_CALL_PARM13_LEFT_DEL, Constants.METHOD_TO_CALL_PARM13_RIGHT_DEL);
 		//        // + 1 is for the fact that the first element of a collection is on the next tab
@@ -1056,8 +1056,8 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 		//            i++;
 		//        }
 		//
-		//        
-		//End of whether we should continue to keep this logic and use currentTabIndex as the key            
+		//
+		//End of whether we should continue to keep this logic and use currentTabIndex as the key
 
 		doProcessingAfterPost( (KualiMaintenanceForm) form, request );
 
@@ -1077,7 +1077,7 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 		if (collectionName == null) {
 			LOG.error("Unable to get find collection name in request.");
 			throw new RuntimeException("Unable to get find collection class in request.");
-		}  
+		}
 
 		String parameterName = (String) request.getAttribute(KRADConstants.METHOD_TO_CALL_ATTRIBUTE);
 		boolean showInactive = Boolean.parseBoolean(StringUtils.substringBetween(parameterName, KRADConstants.METHOD_TO_CALL_BOPARM_LEFT_DEL, "."));
@@ -1090,7 +1090,7 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 
 	/**
 	 * This method clears the value of the primary key fields on a Business Object.
-	 * 
+	 *
 	 * @param document - document to clear the pk fields on
 	 */
     protected void clearPrimaryKeyFields(MaintenanceDocument document) {
@@ -1114,7 +1114,7 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 	/**
 	 * This method is used as part of the Copy functionality, to clear any field values that the user making the copy does not have
 	 * permissions to modify. This will prevent authorization errors on a copy.
-	 * 
+	 *
 	 * @param document - document to be adjusted
 	 */
     protected void clearUnauthorizedNewFields(MaintenanceDocument document) {
@@ -1135,7 +1135,7 @@ public class KualiMaintenanceDocumentAction extends KualiDocumentActionBase {
 
 	/**
 	 * This method does all special processing on a document that should happen on each HTTP post (ie, save, route, approve, etc).
-	 * 
+	 *
 	 * @param form
 	 */
 	@SuppressWarnings("unchecked")

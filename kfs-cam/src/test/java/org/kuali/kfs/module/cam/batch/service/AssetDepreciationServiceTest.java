@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -150,7 +150,7 @@ public class AssetDepreciationServiceTest {
         replayMocks();
         camsAssetDepreciationService.runDepreciation();
     }
-    
+
     @Test
     @PrepareForTest(GlobalVariables.class)
     public void testMissingDepreciationDateParameter() throws Exception {
@@ -287,7 +287,7 @@ public class AssetDepreciationServiceTest {
         reportService.generateDepreciationReport(EasyMock.eq(new ArrayList<>()), EasyMock.isA(String.class), EasyMock.isA(String.class));
         EasyMock.expectLastCall();
     }
-    
+
     private void recordMissingDepreciationDateParameterMocks() {
         Calendar depreciationCalendar = Calendar.getInstance();
         depreciationCalendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -306,17 +306,17 @@ public class AssetDepreciationServiceTest {
         EasyMock.expect(schedulerService.cronConditionMet(null)).andReturn(true);
         EasyMock.expect(parameterService.parameterExists(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_DATE_PARAMETER))
             .andReturn(false);
-        
+
         // Expect to see today's date used, since the parameter is absent.  Return null because we've tested what we want
         // to test, and don't want to mock all of depreciation.
         EasyMock.expect(businessObjectService.findBySinglePrimaryKey(UniversityDate.class, new java.sql.Date(date.getTime())))
          .andReturn(null);
-        
+
         EasyMock.expect(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.ERROR_UNIV_DATE_NOT_FOUND)).andReturn("");
         reportService.generateDepreciationReport(EasyMock.eq(new ArrayList<>()), EasyMock.isA(String.class), EasyMock.isA(String.class));
-        EasyMock.expectLastCall();        
+        EasyMock.expectLastCall();
     }
-    
+
     private void replayMocks() {
         EasyMock.replay(dateTimeService, kualiConfigurationService, parameterService, schedulerService, optionsService, businessObjectService);
         EasyMock.replay(depreciableAssetsDao, depreciationBatchDao, objectCodeService, workflowDocumentService, workflowDocument, reportService);

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -59,17 +59,17 @@ public enum LineItemReceivingDocumentFixture {
             "",//deliveryToPhoneNumber,
             new Date(108, 7, 11),//deliveryRequiredDate,
             "",//deliveryInstructionText,
-            null,//deliveryRequiredDateReasonCode,    
+            null,//deliveryRequiredDateReasonCode,
             new Integer(0),//alternateVendorHeaderGeneratedIdentifier,
             new Integer(0),//alternateVendorDetailAssignedIdentifier,
-            "",//alternateVendorName,        
+            "",//alternateVendorName,
             false,//deliveryBuildingOther,
             null,//vendorNumber,
             new Integer(0),//vendorAddressGeneratedIdentifier,
             null,//alternateVendorNumber
             new Integer(0),//purchaseOrderIdentifier
             new LineItemReceivingItemFixture[] {} //lineItemReceivingItemFixtures
-        ),    
+        ),
     REQUIRED_FIELDS(
         null,//carrierCode
         "",//shipmentPackingSlipNumber,
@@ -100,10 +100,10 @@ public enum LineItemReceivingDocumentFixture {
         "",//deliveryToPhoneNumber,
         new Date(108, 7, 11),//deliveryRequiredDate,
         "",//deliveryInstructionText,
-        "",//deliveryRequiredDateReasonCode,    
+        "",//deliveryRequiredDateReasonCode,
         new Integer(0),//alternateVendorHeaderGeneratedIdentifier,
         new Integer(0),//alternateVendorDetailAssignedIdentifier,
-        "",//alternateVendorName,        
+        "",//alternateVendorName,
         false,//deliveryBuildingOther,
         "1000-0",//vendorNumber,
         new Integer(1000),//vendorAddressGeneratedIdentifier,
@@ -112,7 +112,7 @@ public enum LineItemReceivingDocumentFixture {
         new LineItemReceivingItemFixture[] { //lineItemReceivingItemFixtures
             LineItemReceivingItemFixture.NORMAL_ITEM_1 }
     );
-                        
+
     public String carrierCode;
     public String shipmentPackingSlipNumber;
     public String shipmentReferenceNumber;
@@ -144,11 +144,11 @@ public enum LineItemReceivingDocumentFixture {
     public String deliveryInstructionText;
     public String deliveryRequiredDateReasonCode;
     private Integer purchaseOrderIdentifier;
-    
+
     public Integer alternateVendorHeaderGeneratedIdentifier;
     public Integer alternateVendorDetailAssignedIdentifier;
     public String alternateVendorName;
-    
+
     //not persisted in db
     public boolean deliveryBuildingOtherIndicator;
     public String vendorNumber;
@@ -157,14 +157,14 @@ public enum LineItemReceivingDocumentFixture {
 
     private LineItemReceivingItemFixture[] lineItemReceivingItemFixtures;
 
-    private LineItemReceivingDocumentFixture(    
+    private LineItemReceivingDocumentFixture(
             String carrierCode, String shipmentPackingSlipNumber, String shipmentReferenceNumber, String shipmentBillOfLadingNumber, Date shipmentReceivedDate,
             Integer vendorHeaderGeneratedIdentifier, Integer vendorDetailAssignedIdentifier, String vendorName, String vendorLine1Address,
             String vendorLine2Address, String vendorCityName, String vendorStateCode, String vendorPostalCode, String vendorCountryCode,
             String deliveryCampusCode, String deliveryBuildingCode, String deliveryBuildingName, String deliveryBuildingRoomNumber,
             String deliveryBuildingLine1Address, String deliveryBuildingLine2Address, String deliveryCityName, String deliveryStateCode,
             String deliveryPostalCode, String deliveryCountryCode, String deliveryToName, String deliveryToEmailAddress, String deliveryToPhoneNumber,
-            Date deliveryRequiredDate, String deliveryInstructionText, String deliveryRequiredDateReasonCode,       
+            Date deliveryRequiredDate, String deliveryInstructionText, String deliveryRequiredDateReasonCode,
             Integer alternateVendorHeaderGeneratedIdentifier, Integer alternateVendorDetailAssignedIdentifier,
             String alternateVendorName, boolean deliveryBuildingOther, String vendorNumber, Integer vendorAddressGeneratedIdentifier, String alternateVendorNumber,
             Integer purchaseOrderIdentifier, LineItemReceivingItemFixture[] lineItemReceivingItemFixtures) {
@@ -201,19 +201,19 @@ public enum LineItemReceivingDocumentFixture {
         this.deliveryRequiredDateReasonCode = deliveryRequiredDateReasonCode;
         this.alternateVendorHeaderGeneratedIdentifier = alternateVendorHeaderGeneratedIdentifier;
         this.alternateVendorDetailAssignedIdentifier = alternateVendorDetailAssignedIdentifier;
-        this.alternateVendorName = alternateVendorName;                
+        this.alternateVendorName = alternateVendorName;
         this.deliveryBuildingOtherIndicator = deliveryBuildingOtherIndicator;
         this.vendorNumber = vendorNumber;
         this.vendorAddressGeneratedIdentifier = vendorAddressGeneratedIdentifier;
         this.alternateVendorNumber = alternateVendorNumber;
         this.purchaseOrderIdentifier = purchaseOrderIdentifier;
-        
+
         this.lineItemReceivingItemFixtures = lineItemReceivingItemFixtures;
     }
 
     public LineItemReceivingDocument createLineItemReceivingDocument() {
         LineItemReceivingDocument doc = null;
-       
+
         try {
             doc = (LineItemReceivingDocument) DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), LineItemReceivingDocument.class);
         }
@@ -259,12 +259,12 @@ public enum LineItemReceivingDocumentFixture {
         doc.setVendorAddressGeneratedIdentifier(this.vendorAddressGeneratedIdentifier);
         doc.setAlternateVendorNumber(this.alternateVendorNumber);
         doc.setPurchaseOrderIdentifier(this.purchaseOrderIdentifier);
-        
+
         for (LineItemReceivingItemFixture lineItemReceivingItemFixture : lineItemReceivingItemFixtures) {
             lineItemReceivingItemFixture.addTo(doc);
         }
 
         return doc;
     }
-    
+
 }

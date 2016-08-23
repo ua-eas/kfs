@@ -68,7 +68,7 @@ public class AddDocumentHandlerTest {
         mongoTemplate.save(JSON.parse("{ }"), "collection");
         EasyMock.expectLastCall();
         EasyMock.replay(mongoTemplate);
-        
+
         addDocumentHandler.setMongoTemplate(mongoTemplate);
 
         String testJson = "{ \"changeType\": \"addDocument\",\"collectionName\": \"collection\",\"query\": { },\"document\": { } }";

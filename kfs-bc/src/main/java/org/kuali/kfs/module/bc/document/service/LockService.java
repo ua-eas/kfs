@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -48,7 +48,7 @@ public interface LockService {
      * This method attempts to lock the given Account for the passed in uuid. Finding an exising account lock for the uuid returns
      * success without having to relock After setting an accountlock, if any funding locks are found, it releases the accountlock
      * and sets BCLockStatus with LockStatus.FLOCK_FOUND. Accountlocks and Fundinglocks are mutex
-     * 
+     *
      * @param bcHeader
      * @param principalId
      * @return BudgetConstructionLockStatus with lockStatus.SUCCESS, OPTIMISTIC_EX (lost optimistic lock), FLOCK_FOUND (also sets
@@ -58,7 +58,7 @@ public interface LockService {
 
     /**
      * This method checks the database for an accountlock. It assumes a valid bcHeader parameter
-     * 
+     *
      * @param bcHeader
      * @return Returns true if locked, false if not locked or not found in the database
      */
@@ -67,7 +67,7 @@ public interface LockService {
     /**
      * This method checks the database for an accountlock according to the given appointment funding. It assumes a valid
      * appointmentFunding parameter
-     * 
+     *
      * @param appointmentFunding the given appointment funding
      * @return Returns true if locked, false if not locked or not found in the database
      */
@@ -75,7 +75,7 @@ public interface LockService {
 
     /**
      * Checks the given user has an account lock for the given document.
-     * 
+     *
      * @param chartOfAccountsCode - chart code of account lock
      * @param accountNumber - account number of account lock
      * @param subAccountNumber - sub account number of account lock
@@ -87,7 +87,7 @@ public interface LockService {
 
     /**
      * This method attempts to unlock the given BudgetConstructionHeader.
-     * 
+     *
      * @param bcHeader
      * @return LockStatus.SUCCESS, NO_DOOR (not found), OPTIMISTIC_EX (lost optimistic lock)
      */
@@ -95,7 +95,7 @@ public interface LockService {
 
     /**
      * This returns the set of BCFundingLocks associated with a BCHeader. The set is sorted by the Person name
-     * 
+     *
      * @param bcHeader
      * @return SortedSet<BudgetConstructionFundingLock>
      */
@@ -105,7 +105,7 @@ public interface LockService {
      * This method sets a funding lock associated to the header. It tests for an accountlock before/after to ensure there is no
      * locking conflict. Finding an accountlock after setting a fundinglock causes the fundinglock to be released. account locks and
      * funding locks are mutex. Finding a funding lock for the passed in uuid returns success without having to relock
-     * 
+     *
      * @param bcHeader
      * @param principalId
      * @return BudgetConstructionLockStatus with lockStatus.SUCCESS, BY_OTHER (accountlock found)
@@ -114,7 +114,7 @@ public interface LockService {
 
     /**
      * acquire a lock for the given appointment funding
-     * 
+     *
      * @param appointmentFunding the given appointment funding
      * @param person the specified user
      * @return BudgetConstructionLockStatus with lockStatus.SUCCESS, BY_OTHER (accountlock found)
@@ -123,7 +123,7 @@ public interface LockService {
 
     /**
      * This removes the fundinglock for the account and user
-     * 
+     *
      * @param chartOfAccountsCode
      * @param accountNumber
      * @param subAccountNumber
@@ -135,7 +135,7 @@ public interface LockService {
 
     /**
      * release the lock for the given appointment funding if any
-     * 
+     *
      * @param appointmentFunding the given appointment funding that could have lock
      * @param person the user who owns the lock on the given appointment funding
      */
@@ -143,7 +143,7 @@ public interface LockService {
 
     /**
      * release the locks for the given appointment fundings if any
-     * 
+     *
      * @param lockedFundings the given appointment fundings that could have locks
      * @param person the user who owns the locks on the given appointment fundings
      */
@@ -151,7 +151,7 @@ public interface LockService {
 
     /**
      * Checks if the given user has a funding lock for the given accounting key.
-     * 
+     *
      * @param chartOfAccountsCode - chart code of funding lock
      * @param accountNumber - account number of funding lock
      * @param subAccountNumber - sub account number of funding lock
@@ -164,7 +164,7 @@ public interface LockService {
     /**
      * This locks the position, meaning it sets the position lock id field with the puid. Finding the position already locked by the
      * same user simply returns success.
-     * 
+     *
      * @param positionNumber
      * @param fiscalYear
      * @param principalId
@@ -175,7 +175,7 @@ public interface LockService {
 
     /**
      * acquire a lock for the given budget position
-     * 
+     *
      * @param position the given position
      * @param person the specified user
      * @return BudgetConstructionLockStatus with lockStatus.SUCCESS, OPTIMISTIC_EX (lost optimistic lock), BY_OTHER (also sets
@@ -185,7 +185,7 @@ public interface LockService {
 
     /**
      * This checks the database for an existing positionlock
-     * 
+     *
      * @param positionNumber
      * @param fiscalYear
      * @return true or false (not locked or BudgetConstructionPosition not found)
@@ -194,7 +194,7 @@ public interface LockService {
 
     /**
      * Checks the given user has an position lock for the given position number.
-     * 
+     *
      * @param positionNumber - position number of position record
      * @param fiscalYear - fiscal year of position record
      * @param principalId - lock user id
@@ -204,7 +204,7 @@ public interface LockService {
 
     /**
      * Checks the given user has an position/funding lock for the given position number and accounting key.
-     * 
+     *
      * @param positionNumber - position number of position record
      * @param chartOfAccountsCode - chart code of funding lock
      * @param accountNumber - account number of funding lock
@@ -217,7 +217,7 @@ public interface LockService {
 
     /**
      * This removes an existing positionlock
-     * 
+     *
      * @param positionNumber
      * @param fiscalYear
      * @return LockStatus.SUCCESS (success or already unlocked), OPTIMISTIC_EX (lost optimistic lock - unlikely), NO_DOOR
@@ -227,7 +227,7 @@ public interface LockService {
 
     /**
      * release the locks on a positions with the given information
-     * 
+     *
      * @param positionNumber the given position number of a position
      * @param fiscalYear the given fiscal year of a position
      * @param person the specified user who owns the locks on the position
@@ -238,7 +238,7 @@ public interface LockService {
 
     /**
      * release the lock for the given position if any
-     * 
+     *
      * @param position the given budget construction position that could have locks
      * @param person the specified user who owns the lock on the given position
      */
@@ -246,7 +246,7 @@ public interface LockService {
 
     /**
      * release the locks for the given positions if any
-     * 
+     *
      * @param lockedPositions the given budget construction positions that could have locks
      * @param person the specified user who owns the locks on the given positions
      */
@@ -255,7 +255,7 @@ public interface LockService {
     /**
      * This attempts a transactionlock on a BC Edoc for a pUId. It retries based on the setting of
      * BCConstants.maxLockRetry.
-     * 
+     *
      * @param chartOfAccountsCode
      * @param accountNumber
      * @param subAccountNumber
@@ -268,7 +268,7 @@ public interface LockService {
 
     /**
      * attemps to have a transaction lock based on the information provided by the given funding line
-     * 
+     *
      * @param appointmentFunding the given appointment funding
      * @param person the specified user
      */
@@ -276,7 +276,7 @@ public interface LockService {
 
     /**
      * This checks the database for an existing transactionlock for the BC EDoc (account).
-     * 
+     *
      * @param chartOfAccountsCode
      * @param accountNumber
      * @param subAccountNumber
@@ -287,7 +287,7 @@ public interface LockService {
 
     /**
      * Checks the given user has an transaction lock for the given document.
-     * 
+     *
      * @param chartOfAccountsCode - chart code of transaction lock
      * @param accountNumber - account number of transaction lock
      * @param subAccountNumber - sub account number of transaction lock
@@ -299,7 +299,7 @@ public interface LockService {
 
     /**
      * This removes an existing transactionlock for a BC EDoc (account).
-     * 
+     *
      * @param chartOfAccountsCode
      * @param accountNumber
      * @param subAccountNumber
@@ -311,7 +311,7 @@ public interface LockService {
 
     /**
      * attemps to unlock a transaction based on the information provided by the given funding line
-     * 
+     *
      * @param appointmentFunding the given appointment funding
      * @param person the specified user
      */
@@ -319,7 +319,7 @@ public interface LockService {
 
     /**
      * Retrieves all current account locks for the given user (or all locks if user is null/empty).
-     * 
+     *
      * @param lockUnivId - universal id that will be used in lock query
      * @return budget headers that are locked
      */
@@ -327,7 +327,7 @@ public interface LockService {
 
     /**
      * Retrieves all current transaction locks for the given user (or all locks if user is null/empty).
-     * 
+     *
      * @param lockUnivId - universal id that will be used in lock query
      * @return budget headers that are locked
      */
@@ -336,7 +336,7 @@ public interface LockService {
     /**
      * Retrieves all funding locks that do not have a corresponding position lock for the given user (or all locks if user is
      * null/empty).
-     * 
+     *
      * @param lockUnivId - universal id that will be used in lock query
      * @return funding locks records
      */
@@ -344,7 +344,7 @@ public interface LockService {
 
     /**
      * Retrieves all current position/funding locks for the given user (or all locks if user is null/empty).
-     * 
+     *
      * @param lockUnivId - universal id that will be used in lock query
      * @return position/funding records that are locked.
      */
@@ -352,7 +352,7 @@ public interface LockService {
 
     /**
      * Retrieves all current position locks without a funding lock for the given user (or all locks if user is null/empty).
-     * 
+     *
      * @param lockUnivId universal id that will be used in lock query
      * @return positions that are locked.
      */
@@ -360,7 +360,7 @@ public interface LockService {
 
     /**
      * Helper method to check if a lock exists for the given parameters.
-     * 
+     *
      * @param lockSummary - contains information about the record to unlock
      * @return boolean true if lock exists, false otherwise
      */
@@ -368,7 +368,7 @@ public interface LockService {
 
     /**
      * Helper method to check the lock type and do the unlock with the lock summary fields.
-     * 
+     *
      * @param lockSummary - contains information about the record to unlock
      * @return LockStatus.SUCCESS, NO_DOOR (not found), OPTIMISTIC_EX (lost optimistic lock)
      */
@@ -376,7 +376,7 @@ public interface LockService {
 
     /**
      * determine whether the account lock on the given budget document is held by the the specified user
-     * 
+     *
      * @param budgetConstructionHeader the given budget document
      * @param person the specified user
      * @return true if the account lock on the given budget document is held by the the specified user; otherwise, false
@@ -386,7 +386,7 @@ public interface LockService {
     /**
      * Retrieves account locks for funding records, for use in the payrate import process. Throws
      * BudgetConstructionLockUnavailableException if new account lock is unavailable
-     * 
+     *
      * @param fundingRecords
      * @param user
      * @return
@@ -398,7 +398,7 @@ public interface LockService {
      * Retrives an account lock (@see
      * org.kuali.kfs.module.bc.document.service.LockService#lockAccount(org.kuali.kfs.module.bc.businessobject.BudgetConstructionHeader,
      * java.lang.String) and commits the lock. Used by the request import process.
-     * 
+     *
      * @param bcHeader
      * @param principalId
      * @return
@@ -408,17 +408,17 @@ public interface LockService {
     /**
      * Locks the position record for the given key if not already locked. Then retrieves all active funding lines for the position
      * that are not marked as delete and attempts to lock each one.
-     * 
+     *
      * @param universityFiscalYear budget fiscal year, primary key field for position record
      * @param positionNumber position number, primary key field for position record
      * @param principalId current user requesting the lock
      * @return <code>BudgetConstructionLockStatus</code> indicating the status of the lock attempt. Success is returned if all lock attempts were successful, else one of the Failure status codes are returned
      */
     public BudgetConstructionLockStatus lockPositionAndActiveFunding(Integer universityFiscalYear, String positionNumber, String principalId);
-    
+
     /**
      * Unlocks the position and all associated funding lines not marked as delete.
-     * 
+     *
      * @param universityFiscalYear budget fiscal year, primary key field for position record
      * @param positionNumber position number, primary key field for position record
      * @param principalId current user requesting the unlock

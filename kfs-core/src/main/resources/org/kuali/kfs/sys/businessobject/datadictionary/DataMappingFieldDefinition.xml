@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -31,7 +31,7 @@
 		    <value>componentClass</value>
 		    <value>propertyName</value>
 		  </list>
-		</property> 
+		</property>
 		<property name="attributes">
 			<list>
 				<ref bean="DataMappingFieldDefinition-namespaceCode"/>
@@ -190,7 +190,7 @@
 			<bean parent="TextControlDefinition" p:size="30"/>
 		</property>
 	</bean>
-	
+
 	<bean id="DataMappingFieldDefinition-applicationDefinedLength" parent="DataMappingFieldDefinition-applicationDefinedLength-parentBean"/>
 
 	<bean id="DataMappingFieldDefinition-applicationDefinedLength-parentBean" abstract="true" parent="AttributeDefinition">
@@ -201,7 +201,7 @@
 			<bean parent="TextControlDefinition" p:size="30"/>
 		</property>
 	</bean>
-	
+
 	<bean id="DataMappingFieldDefinition-decimalPlaces" parent="DataMappingFieldDefinition-decimalPlaces-parentBean"/>
 
 	<bean id="DataMappingFieldDefinition-decimalPlaces-parentBean" abstract="true" parent="AttributeDefinition">
@@ -266,7 +266,7 @@
 	<bean id="DataMappingFieldDefinition-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
 		<property name="lookupableID" value="dataMappingFieldDefinitionLookupable"/>
 		<property name="title" value="Data Mapping Field Definition Lookup"/>
-		
+
 		<property name="lookupFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="namespaceCode" p:noLookup="true" p:required="true"/>
@@ -290,7 +290,7 @@
 	</bean>
 
 	<!-- Business Object Inquiry Definition -->
-	
+
 	<bean id="DataMappingFieldDefinition-inquiryDefinition" parent="DataMappingFieldDefinition-inquiryDefinition-parentBean"/>
 
 	<bean id="DataMappingFieldDefinition-inquiryDefinition-parentBean" abstract="true" parent="InquiryDefinition">
@@ -302,8 +302,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="DataMappingFieldDefinition-inquirySectionDefinition" parent="DataMappingFieldDefinition-inquirySectionDefinition-parentBean"/>	
+
+	<bean id="DataMappingFieldDefinition-inquirySectionDefinition" parent="DataMappingFieldDefinition-inquirySectionDefinition-parentBean"/>
 	<bean id="DataMappingFieldDefinition-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true">
 		<property name="inquiryFields">
 			<list>

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -63,21 +63,21 @@
         <dd:relationship objectAttribute="organizationRemitToState">
 			<dd:primitiveAttribute source="organizationRemitToCountryCode" target="countryCode" />
             <dd:primitiveAttribute source="organizationRemitToStateCode" target="code"/>
-        </dd:relationship>  
+        </dd:relationship>
         <dd:relationship objectAttribute="orgRemitToZipCode">
 			<dd:primitiveAttribute source="organizationRemitToCountryCode" target="countryCode" />
             <dd:primitiveAttribute source="organizationRemitToZipCode" target="code"/>
-        </dd:relationship>       
+        </dd:relationship>
         <dd:relationship objectAttribute="orgPostalZipCode">
 			<dd:primitiveAttribute source="organizationPostalCountryCode" target="countryCode" />
             <dd:primitiveAttribute source="organizationPostalZipCode" target="code"/>
-        </dd:relationship>    
+        </dd:relationship>
         <dd:relationship objectAttribute="orgPostalCountryCode">
             <dd:primitiveAttribute source="organizationPostalCountryCode" target="code"/>
-        </dd:relationship>   
-   
+        </dd:relationship>
+
       </list>
-    </property>    
+    </property>
   </bean>
 
 <!-- Attribute Definitions -->
@@ -112,9 +112,9 @@
       	<bean parent="TextControlDefinition" p:size="6"/>
     </property>
   </bean>
-  
+
   <bean id="OrganizationOptions-organization.codeAndDescription" parent="OrganizationOptions-organization.codeAndDescription-parentBean"/>
-  
+
   <bean id="OrganizationOptions-organization.codeAndDescription-parentBean" abstract="true" parent="Organization-codeAndDescription-parentBean">
   	<property name="name" value="organization.codeAndDescription"/>
   	<property name="label" value="Billing Organization Code"/>
@@ -122,7 +122,7 @@
       	<bean parent="TextControlDefinition" p:size="47"/>
     </property>
   </bean>
-  
+
   <bean id="OrganizationOptions-processingChartOfAccountCode" parent="OrganizationOptions-processingChartOfAccountCode-parentBean"/>
 
   <bean id="OrganizationOptions-processingChartOfAccountCode-parentBean" abstract="true" parent="Chart-chartOfAccountsCode">
@@ -141,17 +141,17 @@
       	<bean parent="TextControlDefinition" p:size="6"/>
     </property>
   </bean>
-  
+
   <bean id="OrganizationOptions-processingOrganization.codeAndDescription" parent="OrganizationOptions-processingOrganization.codeAndDescription-parentBean"/>
-  
+
   <bean id="OrganizationOptions-processingOrganization.codeAndDescription-parentBean" abstract="true" parent="Organization-codeAndDescription-parentBean">
   	<property name="name" value="processingOrganization.codeAndDescription"/>
   	<property name="label" value="Processing Organization Code"/>
   	<property name="control">
       	<bean parent="TextControlDefinition" p:size="47"/>
     </property>
-  </bean>  
-  
+  </bean>
+
   <bean id="OrganizationOptions-organization800PhoneNumber" parent="OrganizationOptions-organization800PhoneNumber-parentBean"/>
 
   <bean id="OrganizationOptions-organization800PhoneNumber-parentBean" abstract="true" parent="AttributeDefinition">
@@ -338,7 +338,7 @@
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.module.ar.businessobject.options.PrintInvoiceOptionsValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
-  
+
   <bean id="OrganizationOptions-cgBillerIndicator" parent="OrganizationOptions-cgBillerIndicator-parentBean"/>
 
   <bean id="OrganizationOptions-cgBillerIndicator-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
@@ -347,7 +347,7 @@
     <property name="shortLabel" value="Contracts &amp; Grants Biller?"/>
   </bean>
 
-  
+
   <bean id="OrganizationOptions-universityName" parent="OrganizationOptions-universityName-parentBean"/>
 
   <bean id="OrganizationOptions-universityName-parentBean" abstract="true" parent="AttributeDefinition">
@@ -364,7 +364,7 @@
       <bean parent="TextControlDefinition" p:size="42"/>
     </property>
   </bean>
-  
+
   <bean id="OrganizationOptions-organizationPostalZipCode"
 		parent="OrganizationOptions-organizationPostalZipCode-parentBean" />
 
@@ -392,7 +392,7 @@
       		<bean parent="TextControlDefinition" p:size="4"/>
     	</property>
 	</bean>
-  
+
 <!-- Business Object Inquiry Definition -->
 	<bean id="OrganizationOptions-inquiryDefinition" parent="OrganizationOptions-inquiryDefinition-parentBean"/>
 	<bean id="OrganizationOptions-inquiryDefinition-parentBean" abstract="true" parent="InquiryDefinition">
@@ -407,7 +407,7 @@
 					bean="OrganizationOptions-inquirySectionDefinition-organizationRemitToAddress" />
 				<ref
 					bean="OrganizationOptions-inquirySectionDefinition-organizationPhone" />
-			
+
 			</list>
 		</property>
 	</bean>
@@ -492,7 +492,7 @@
 
   <bean id="OrganizationOptions-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Organization Options Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
       </bean>
@@ -511,7 +511,7 @@
         <bean parent="FieldDefinition" p:attributeName="chartOfAccountsCode"/>
         <bean parent="FieldDefinition" p:attributeName="organizationCode"/>
         <bean parent="FieldDefinition" p:attributeName="processingChartOfAccountCode"/>
-        <bean parent="FieldDefinition" p:attributeName="processingOrganizationCode"/>              
+        <bean parent="FieldDefinition" p:attributeName="processingOrganizationCode"/>
       </list>
     </property>
   </bean>

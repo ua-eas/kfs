@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,13 +40,13 @@ import java.util.List;
 @Deprecated
 public class InquiryDefinition extends DataDictionaryDefinitionBase {
     private static final long serialVersionUID = -2506403061297774668L;
-    
+
 	protected String title;
     protected List<InquirySectionDefinition> inquirySections = new ArrayList<InquirySectionDefinition>();
     protected Class<? extends Inquirable> inquirableClass;
     protected Class<? extends InquiryPresentationController> presentationControllerClass;
     protected Class<? extends InquiryAuthorizer> authorizerClass;
-    
+
     protected boolean translateCodes = true;
 
     public InquiryDefinition() {
@@ -77,7 +77,7 @@ public class InquiryDefinition extends DataDictionaryDefinitionBase {
     public List<InquirySectionDefinition> getInquirySections() {
         return inquirySections;
     }
-   
+
     /**
      * Returns the FieldDefinition associated with the field attribute name
      * @param fieldName
@@ -91,13 +91,13 @@ public class InquiryDefinition extends DataDictionaryDefinitionBase {
                 }
             }
         }
-        
+
         return null;
     }
 
     /**
      * Directly validate simple fields, call completeValidation on Definition fields.
-     * 
+     *
      * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Object)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -114,8 +114,8 @@ public class InquiryDefinition extends DataDictionaryDefinitionBase {
         }
         return null;
     }
-    
-    
+
+
     /**
      * @see java.lang.Object#toString()
      */
@@ -181,5 +181,5 @@ public class InquiryDefinition extends DataDictionaryDefinitionBase {
 	public void setTranslateCodes(boolean translateCodes) {
 		this.translateCodes = translateCodes;
 	}
-	
+
 }

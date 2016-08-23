@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,14 +36,14 @@ public class DynamicNameLabelRenderer implements Renderer {
     private String fieldName = null;
     private String fieldValue = null;
     private HiddenTag valuePersistingTag = new HiddenTag();
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
         fieldName = null;
         fieldValue = null;
-        
+
         valuePersistingTag.setPageContext(null);
         valuePersistingTag.setParent(null);
         valuePersistingTag.setProperty(null);
@@ -51,7 +51,7 @@ public class DynamicNameLabelRenderer implements Renderer {
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag, org.kuali.rice.krad.bo.BusinessObject)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -63,7 +63,7 @@ public class DynamicNameLabelRenderer implements Renderer {
                 out.write(fieldValue);
             }
             out.write("</div>");
-            
+
             if (!StringUtils.isBlank(fieldValue)) {
                 renderValuePersistingTag(pageContext, parentTag);
             }
@@ -72,7 +72,7 @@ public class DynamicNameLabelRenderer implements Renderer {
             throw new JspException("Difficulty rendering a dynamic field label", ioe);
         }
     }
-    
+
     /**
      * If the value is present, renders that value in a tag
      * @param pageContext the page context to render to
@@ -83,13 +83,13 @@ public class DynamicNameLabelRenderer implements Renderer {
         valuePersistingTag.setParent(parentTag);
         valuePersistingTag.setProperty(fieldName);
         valuePersistingTag.setValue(fieldValue);
-        
+
         valuePersistingTag.doStartTag();
         valuePersistingTag.doEndTag();
     }
 
     /**
-     * Gets the fieldName attribute. 
+     * Gets the fieldName attribute.
      * @return Returns the fieldName.
      */
     public String getFieldName() {
@@ -105,7 +105,7 @@ public class DynamicNameLabelRenderer implements Renderer {
     }
 
     /**
-     * Gets the fieldValue attribute. 
+     * Gets the fieldValue attribute.
      * @return Returns the fieldValue.
      */
     public String getFieldValue() {

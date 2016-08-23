@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,7 +40,7 @@ public class UpdateAccountingLineEvent extends AttributedDocumentEventBase imple
 
     /**
      * Constructs an UpdateAccountingLineEvent with the given errorPathPrefix, document, and accountingLine.
-     * 
+     *
      * @param errorPathPrefix
      * @param document
      * @param accountingLine
@@ -51,7 +51,7 @@ public class UpdateAccountingLineEvent extends AttributedDocumentEventBase imple
         this.accountingLine = originalAccountingLine;
         this.updatedAccountingLine = updatedAccountingLine;
     }
-    
+
     /**
      * @see org.kuali.rice.krad.rule.event.AccountingLineEvent#getAccountingLine()
      */
@@ -65,7 +65,7 @@ public class UpdateAccountingLineEvent extends AttributedDocumentEventBase imple
     public AccountingLine getUpdatedAccountingLine() {
         return updatedAccountingLine;
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase#invokeRuleMethod(org.kuali.rice.krad.rule.BusinessRule)
      */
@@ -82,7 +82,7 @@ public class UpdateAccountingLineEvent extends AttributedDocumentEventBase imple
     public AccountingLine getAccountingLine() {
         return accountingLine;
     }
-    
+
     /**
      * Logic to replace generic amount error messages, especially those where extraordinarily large amounts caused format errors
      */

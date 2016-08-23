@@ -36,28 +36,28 @@ public abstract class AbstractNodeChangeHandler extends AbstractDocumentStoreCha
 
     protected static final String PATH = "path";
     protected static final String VALUE = "value";
-    
+
     /**
      * Adds a Json node to a given Json array within a document.
-     * 
+     *
      * @param change The Json that holds the change definition.
      * @param documentJson The document to be changed.
      * @param nodeToAdd The Mongo Json node to add.
      * @param pathKey The key within the change Json that will yield a JsonPath expression pointing to the array.
-     * @param beforeNodeKey The key within the change Json that will (optionally) yield key-value criteria, 
+     * @param beforeNodeKey The key within the change Json that will (optionally) yield key-value criteria,
      *        indicating which element in the arry to insert the new node before.
      * @return The Mongo Json representation of the altered document.
      */
     protected DBObject addNode(JsonNode change, String documentJson, DBObject nodeToAdd, String pathKey, String beforeNodeKey) {
         verifyKeyExistence(change,pathKey);
         String revertPath = change.get(pathKey).asText();
-        
-        DocumentContext dc = JsonPath.parse(documentJson);         
+
+        DocumentContext dc = JsonPath.parse(documentJson);
         Object nodeToRestore = findNode(dc, revertPath);
         if (nodeToRestore == null || !(nodeToRestore instanceof JSONArray)) {
             throw new RuntimeException("Revert path must point to an array: " + revertPath);
         }
-        
+
         JSONArray arrayToRestore = (JSONArray) nodeToRestore;
 
         boolean changeApplied = false;
@@ -77,12 +77,12 @@ public abstract class AbstractNodeChangeHandler extends AbstractDocumentStoreCha
             }
         }
         if (!changeApplied) {
-         // Revert before node is optional.  Since it wasn't specified or failed for some other reason 
+         // Revert before node is optional.  Since it wasn't specified or failed for some other reason
          // (perhaps because of an intervening manual change), add the node at the end of the array.
             arrayToRestore.add(nodeToAdd);
         }
-        
-        String newJson = dc.jsonString();      
+
+        String newJson = dc.jsonString();
         DBObject result = (DBObject) JSON.parse(newJson);
         return result;
     }
@@ -98,7 +98,7 @@ public abstract class AbstractNodeChangeHandler extends AbstractDocumentStoreCha
 
     /**
      * Finds a node within o document, using a JsonPath expression.
-     * 
+     *
      * @param dc
      * @param path
      * @return

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -151,7 +151,7 @@ public class PersistenceServiceImpl extends PersistenceServiceImplBase implement
 	 * non-anonymous keys, the value is taken from the parent object. For
 	 * anonymous keys, all other persistableObjects are checked until a value
 	 * for the key is found.
-	 * 
+	 *
 	 * @see PersistenceService#getReferencedObject(java.lang.Object,
 	 *      org.apache.ojb.broker.metadata.ObjectReferenceDescriptor)
 	 */
@@ -160,7 +160,7 @@ public class PersistenceServiceImpl extends PersistenceServiceImplBase implement
 	}
 
 	/**
-	 * 
+	 *
 	 * @see PersistenceService#allForeignKeyValuesPopulatedForReference(org.kuali.rice.krad.bo.BusinessObject,
 	 *      java.lang.String)
 	 */
@@ -169,7 +169,7 @@ public class PersistenceServiceImpl extends PersistenceServiceImplBase implement
 	}
 
 	/**
-	 * 
+	 *
 	 * @see PersistenceService#refreshAllNonUpdatingReferences(org.kuali.rice.krad.bo.BusinessObject)
 	 */
 	public void refreshAllNonUpdatingReferences(PersistableBusinessObject bo) {
@@ -178,7 +178,7 @@ public class PersistenceServiceImpl extends PersistenceServiceImplBase implement
 
 	/**
 	 * Defers to the service for the given class
-	 * 
+	 *
 	 * @see PersistenceService#isProxied(java.lang.Object)
 	 */
 	public boolean isProxied(Object bo) {

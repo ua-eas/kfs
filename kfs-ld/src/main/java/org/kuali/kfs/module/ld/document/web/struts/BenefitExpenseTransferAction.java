@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,7 +41,7 @@ public class BenefitExpenseTransferAction extends ExpenseTransferDocumentActionB
 
     /**
      * Gets the Business object class name
-     * 
+     *
      * @param expenseTransferDocumentFormBase ExpenseTransferDocumentForm type
      * @return String classname
      * @see org.kuali.kfs.module.ld.document.web.struts.ExpenseTransferDocumentActionBase#getLookupResultsBOClassName(org.kuali.kfs.module.ld.document.web.struts.ExpenseTransferDocumentFormBase)
@@ -86,10 +86,10 @@ public class BenefitExpenseTransferAction extends ExpenseTransferDocumentActionB
         path = path.replaceFirst(KFSConstants.LOOKUP_ACTION, LaborConstants.LONG_ROW_TABLE_INRUIRY_ACTION);
         return new ActionForward(path, true);
     }
-    
+
     /**
      * Delete all source accounting lines
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -101,13 +101,13 @@ public class BenefitExpenseTransferAction extends ExpenseTransferDocumentActionB
     public ActionForward deleteAllSourceAccountingLines(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         BenefitExpenseTransferForm financialDocumentForm = (BenefitExpenseTransferForm) form;
         financialDocumentForm.getBenefitExpenseTransferDocument().setNextSourceLineNumber(KFSConstants.ONE.intValue());
-        
+
         return super.deleteAllSourceAccountingLines(mapping, form, request, response);
     }
-    
+
     /**
      * Delete all target accounting lines
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -119,7 +119,7 @@ public class BenefitExpenseTransferAction extends ExpenseTransferDocumentActionB
     public ActionForward deleteAllTargetAccountingLines(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         BenefitExpenseTransferForm financialDocumentForm = (BenefitExpenseTransferForm) form;
         financialDocumentForm.getBenefitExpenseTransferDocument().setNextTargetLineNumber(KFSConstants.ONE.intValue());
-        
+
         return super.deleteAllTargetAccountingLines(mapping, form, request, response);
     }
 
@@ -131,6 +131,6 @@ public class BenefitExpenseTransferAction extends ExpenseTransferDocumentActionB
         super.buildAccountingLineFromLedgerBalance(ledgerBalance, line, amount, periodCode);
         line.setEmplid(LaborConstants.getDashEmplId());
         line.setPositionNumber(LaborConstants.getDashPositionNumber());
-        
+
     }
 }

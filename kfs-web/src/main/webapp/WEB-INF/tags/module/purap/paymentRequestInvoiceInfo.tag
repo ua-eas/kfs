@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -20,7 +20,7 @@
 
 <%@ attribute name="documentAttributes" required="true" type="java.util.Map"
               description="The DataDictionary entry containing attributes for this row's fields." %>
-              
+
 <%@ attribute name="displayPaymentRequestInvoiceInfoFields" required="false"
               description="Boolean to indicate if Invoice Info PREQ specific fields should be displayed" %>
 
@@ -39,30 +39,30 @@
                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceNumber}" /></div>
                 </th>
                 <td align=left valign=middle class="datacell">
-                   <kul:htmlControlAttribute 
-                   		attributeEntry="${documentAttributes.invoiceNumber}" property="document.invoiceNumber" 
+                   <kul:htmlControlAttribute
+                   		attributeEntry="${documentAttributes.invoiceNumber}" property="document.invoiceNumber"
                    		readOnly="${not displayInitTab}" tabindexOverride="${tabindexOverrideBase + 0}"/>
                 </td>
                 <th align=right valign=middle class="bord-l-b">
                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderIdentifier}" /></div>
                 </th>
                 <td align=left valign=middle class="datacell">
-                   <kul:htmlControlAttribute 
+                   <kul:htmlControlAttribute
                    		attributeEntry="${documentAttributes.purchaseOrderIdentifier}" property="document.purchaseOrderIdentifier"
                    		readOnly="true" tabindexOverride="${tabindexOverrideBase + 3}"/>
                 </td>
             </tr>
-            
+
             <tr>
                 <th align=right valign=middle class="bord-l-b">
                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.paymentRequestPayDate}" /></div>
                 </th>
                 <td align=left valign=middle class="datacell">
-                   <kul:htmlControlAttribute 
-                   		attributeEntry="${documentAttributes.paymentRequestPayDate}" property="document.paymentRequestPayDate" datePicker="true" 
+                   <kul:htmlControlAttribute
+                   		attributeEntry="${documentAttributes.paymentRequestPayDate}" property="document.paymentRequestPayDate" datePicker="true"
                    		readOnly="${not (fullEntryMode or editPreExtract)}" tabindexOverride="${tabindexOverrideBase + 0}"/>
-                   &nbsp; &nbsp;<kul:htmlControlAttribute 
-                   					attributeEntry="${documentAttributes.immediatePaymentIndicator}" property="document.immediatePaymentIndicator" 
+                   &nbsp; &nbsp;<kul:htmlControlAttribute
+                   					attributeEntry="${documentAttributes.immediatePaymentIndicator}" property="document.immediatePaymentIndicator"
                    					readOnly="${not (fullEntryMode or editPreExtract)}" tabindexOverride="${tabindexOverrideBase + 0}"/>
                    (Immediate Pay)
                 </td>
@@ -70,31 +70,31 @@
                    <div align="right"><kul:htmlAttributeLabel  attributeEntry="${documentAttributes.purchaseOrderNotes}" /></div>
                 </th>
                 <td align=left valign=middle class="datacell">
-                   <kul:htmlControlAttribute attributeEntry="${documentAttributes.purchaseOrderNotes}" property="document.purchaseOrderNotes" 
+                   <kul:htmlControlAttribute attributeEntry="${documentAttributes.purchaseOrderNotes}" property="document.purchaseOrderNotes"
                    readOnly="true" />
                 </td>
             </tr>
-            
+
             <tr>
                 <th align=right valign=middle class="bord-l-b">
                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceDate}" /></div>
                 </th>
                 <td align=left valign=middle class="datacell">
-                   <kul:htmlControlAttribute 
-                   		attributeEntry="${documentAttributes.invoiceDate}" property="document.invoiceDate" datePicker="true" 
+                   <kul:htmlControlAttribute
+                   		attributeEntry="${documentAttributes.invoiceDate}" property="document.invoiceDate" datePicker="true"
                    		readOnly="${not displayInitTab}" tabindexOverride="${tabindexOverrideBase + 0}"/>
                 </td>
                 <th align=right valign=middle class="bord-l-b">
                    <div align="right"><kul:htmlAttributeLabel  attributeEntry="${documentAttributes.paymentRequestCostSourceCode}" readOnly="${not displayInitTab}" /></div>
                 </th>
                 <td align=left valign=middle class="datacell">
-                   <kul:htmlControlAttribute attributeEntry="${documentAttributes.paymentRequestCostSourceCode}" 
-                   property="document.paymentRequestCostSourceCode" 
+                   <kul:htmlControlAttribute attributeEntry="${documentAttributes.paymentRequestCostSourceCode}"
+                   property="document.paymentRequestCostSourceCode"
                    extraReadOnlyProperty="document.paymentRequestCostSource.purchaseOrderCostSourceDescription"
                    readOnly="true" />
                 </td>
             </tr>
-            
+
             <tr>
                 <th align=right valign=middle class="bord-l-b">
                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderEndDate}" /></div>
@@ -106,20 +106,20 @@
                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.recurringPaymentTypeCode}" /></div>
                 </th>
                 <td align=left valign=middle class="datacell">
-                   <kul:htmlControlAttribute attributeEntry="${documentAttributes.recurringPaymentTypeCode}" 
+                   <kul:htmlControlAttribute attributeEntry="${documentAttributes.recurringPaymentTypeCode}"
                    property="document.recurringPaymentTypeCode"
-                   extraReadOnlyProperty="document.recurringPaymentType.recurringPaymentTypeDescription"  
+                   extraReadOnlyProperty="document.recurringPaymentType.recurringPaymentTypeDescription"
                    readOnly="true"/>
                 </td>
             </tr>
-            
+
             <tr>
                 <th align=right valign=middle class="bord-l-b">
                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.paymentAttachmentIndicator}"  readOnly="${not (fullEntryMode or editPreExtract)}"/></div>
                 </th>
                 <td align=left valign=middle class="datacell">
-                   <kul:htmlControlAttribute 
-                   		attributeEntry="${documentAttributes.paymentAttachmentIndicator}" property="document.paymentAttachmentIndicator"  
+                   <kul:htmlControlAttribute
+                   		attributeEntry="${documentAttributes.paymentAttachmentIndicator}" property="document.paymentAttachmentIndicator"
                    		readOnly="${not (fullEntryMode or editPreExtract)}" tabindexOverride="${tabindexOverrideBase + 0}"/>
                 </td>
                 <th align=right valign=middle class="bord-l-b">
@@ -134,13 +134,13 @@
                 </th>
                 <td align=left valign=middle class="datacell">
                 	<c:choose>
-                	<c:when test="${not fullDocumentEntryCompleted}">                
+                	<c:when test="${not fullDocumentEntryCompleted}">
                 	<kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorInvoiceAmount}" property="document.vendorInvoiceAmount" readOnly="true" />
 					</c:when>
 					<c:otherwise>
 					&nbsp;
 					</c:otherwise>
-					</c:choose>                	
+					</c:choose>
                 </td>
             </tr>
 			<tr>
@@ -150,20 +150,20 @@
                     <td align=left valign=middle class="datacell">
                         <kul:htmlControlAttribute attributeEntry="${documentAttributes.extractedTimestamp}" property="document.extractedTimestamp" readOnly="${true}" />
                         <c:if test="${not empty KualiForm.document.extractedTimestamp}">
-                           <purap:disbursementInfo sourceDocumentNumber="${KualiForm.document.documentNumber}" sourceDocumentType="${KualiForm.document.documentType}" />                        
+                           <purap:disbursementInfo sourceDocumentNumber="${KualiForm.document.documentNumber}" sourceDocumentType="${KualiForm.document.documentType}" />
 						</c:if>
                     </td>
                     <th align=right valign=middle class="bord-l-b">
                         <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.accountsPayableApprovalTimestamp}" /></div>
                     </th>
                     <td align=left valign=middle class="datacell">
-                        <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.accountsPayableApprovalTimestamp}" property="document.accountsPayableApprovalTimestamp" 
+                        <kul:htmlControlAttribute
+                        	attributeEntry="${documentAttributes.accountsPayableApprovalTimestamp}" property="document.accountsPayableApprovalTimestamp"
                         	readOnly="${not displayInitTab}" tabindexOverride="${tabindexOverrideBase + 3}"/>
                     </td>
-                
+
             </tr>
-			
+
 			<tr>
 	                <sys:bankLabel align="right"/>
                     <sys:bankControl property="document.bankCode" objectProperty="document.bank" readOnly="${not (fullEntryMode or editPreExtract)}"/>
@@ -173,12 +173,12 @@
                     <td align=left valign=middle class="datacell">
                         &nbsp;
                     </td>
-                
+
             </tr>
-            
-		</table> 
-		
-		
+
+		</table>
+
+
 
     </div>
 </kul:tab>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -38,19 +38,19 @@ public class ElectronicInvoicePostalAddress {
   private String postalCode;
   private String countryCode;
   private String countryName;
-  
+
   private List names = new ArrayList();
-  
+
   private List<String> street = new ArrayList<String>();
-  
+
   public ElectronicInvoicePostalAddress() {
     super();
   }
-  
+
   public void addName(String name) {
     this.names.add(name);
   }
-  
+
   /**
    * @return first name found in names list
    */
@@ -196,15 +196,15 @@ public class ElectronicInvoicePostalAddress {
   public void setType(String type) {
     this.type = type;
   }
-  
+
   public void addStreet(String street){
       this.street.add(street);
   }
-  
+
   public String toString(){
-      
+
       ToStringBuilder toString = new ToStringBuilder(this);
-      
+
       toString.append("type",getType());
       toString.append("line1",getLine1());
       toString.append("line2",getLine2());
@@ -215,7 +215,7 @@ public class ElectronicInvoicePostalAddress {
       toString.append("countryCode",getCountryCode());
       toString.append("countryName",getCountryName());
       toString.append("Names(DeliverTo)",getNames());
-      
+
       return toString.toString();
   }
 }

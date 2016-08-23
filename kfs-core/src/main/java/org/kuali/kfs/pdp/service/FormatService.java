@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -55,14 +55,14 @@ public interface FormatService {
      * @return FormatSelection
      */
     public FormatSelection getDataForFormat(Person user);
-    
+
     /**
      * This method gets the data for the format process based on the campus code
      * @param campusCode
      * @return FormatSelection
      */
     public FormatSelection getDataForFormat(String campusCode);
-    
+
     /**
      * This method formats the data for check printing.
      * @param procId
@@ -79,7 +79,7 @@ public interface FormatService {
     /**
      * This method marks the process log so a format only happens once per campus. Mark all the
      * payments that will be formatted and return a summary. attachments will be Y, N or null for both.
-     * 
+     *
      * @param user
      * @param campus
      * @param customers
@@ -94,7 +94,7 @@ public interface FormatService {
      * @param campus
      */
     public void endFormatProcess(String campus);
-    
+
     /**
      * If the start format process was run and the user doesn't want to continue,
      * this needs to be run to set all payments back to open.
@@ -102,6 +102,6 @@ public interface FormatService {
      * @param processId
      */
     public void clearUnfinishedFormat(Integer processId) ;
-    
+
 }
 

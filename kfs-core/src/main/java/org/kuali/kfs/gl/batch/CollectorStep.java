@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -45,7 +45,7 @@ public class CollectorStep extends AbstractWrappedBatchStep {
     public List<String> getRequiredDirectoryNames() {
         return collectorService.getRequiredDirectoryNames();
     }
-    
+
     @Override
     protected CustomBatchExecutor getCustomBatchExecutor() {
         return new CustomBatchExecutor() {
@@ -62,7 +62,7 @@ public class CollectorStep extends AbstractWrappedBatchStep {
 
     /**
      * Gets the collectorService attribute.
-     * 
+     *
      * @return Returns the collectorService.
      */
     public CollectorService getCollectorService() {
@@ -71,7 +71,7 @@ public class CollectorStep extends AbstractWrappedBatchStep {
 
     /**
      * Sets the collectorService attribute value.
-     * 
+     *
      * @param collectorService The collectorService to set.
      */
     public void setCollectorService(CollectorService collectorService) {
@@ -80,7 +80,7 @@ public class CollectorStep extends AbstractWrappedBatchStep {
 
     /**
      * Gets the collectorReportService attribute.
-     * 
+     *
      * @return Returns the collectorReportService.
      */
     public CollectorReportService getCollectorReportService() {
@@ -89,7 +89,7 @@ public class CollectorStep extends AbstractWrappedBatchStep {
 
     /**
      * Sets the collectorReportService attribute value.
-     * 
+     *
      * @param collectorReportService The collectorReportService to set.
      */
     public void setCollectorReportService(CollectorReportService collectorReportService) {

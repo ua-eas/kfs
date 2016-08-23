@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,7 +39,7 @@ public class PayrateExportServiceImpl implements PayrateExportService {
     protected int exportCount;
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.module.bc.service.PayrateExportService#buildExportFile()
      */
     @Transactional(propagation=Propagation.REQUIRES_NEW)
@@ -47,11 +47,11 @@ public class PayrateExportServiceImpl implements PayrateExportService {
         this.exportCount = 0;
         Map payRateHoldingPersonUniversalIdentifierKey = new HashMap();
         payRateHoldingPersonUniversalIdentifierKey.put(KFSPropertyConstants.PERSON_UNIVERSAL_IDENTIFIER, principalId);
-        
+
         this.businessObjectService.deleteMatching(BudgetConstructionPayRateHolding.class, payRateHoldingPersonUniversalIdentifierKey);
-        
+
         StringBuilder results = new StringBuilder();
-        
+
         this.payrateExportDao.buildPayRateHoldingRows(budgetYear, positionUnionCode, principalId);
         List<BudgetConstructionPayRateHolding> holdingRecords = (List<BudgetConstructionPayRateHolding>) this.businessObjectService.findMatching(BudgetConstructionPayRateHolding.class, payRateHoldingPersonUniversalIdentifierKey);
         for (BudgetConstructionPayRateHolding record : holdingRecords) {
@@ -63,39 +63,39 @@ public class PayrateExportServiceImpl implements PayrateExportService {
         results.append("Export complete. Export Count: " + exportCount + "\r\n");
         return results;
     }
-    
+
     /**
-     * 
+     *
      * @see org.kuali.kfs.module.bc.document.service.PayrateExportService#isValidPositionUnionCode(java.lang.String)
      */
     @Transactional
     public boolean isValidPositionUnionCode(String positionUnionCode) {
-        
+
         return this.payrateExportDao.isValidPositionUnionCode(positionUnionCode);
     }
 
     /**
-     * 
+     *
      * @param businessObjectService
      */
     @NonTransactional
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;
     }
-    
+
     /**
-     * 
-     * 
+     *
+     *
      * @param payrateExportDao
      */
     @NonTransactional
     public void setPayrateExportDao(PayrateExportDao payrateExportDao) {
         this.payrateExportDao = payrateExportDao;
     }
-    
+
     /**
      * Creates the export line
-     * 
+     *
      * @param holdingRecord
      * @return
      */
@@ -111,7 +111,7 @@ public class PayrateExportServiceImpl implements PayrateExportService {
         String unionCode = padString(holdingRecord.getUnionCode(), 3, true);
         String payRate = padString(String.valueOf(holdingRecord.getAppointmentRequestedPayRate().multiply(new BigDecimal(100)).intValue()), 10, false);
         csfFreezeDate = padString(csfFreezeDate, 8, true);
-        
+
         line.append(emplid);
         line.append(positionNumber);
         line.append(name);
@@ -122,13 +122,13 @@ public class PayrateExportServiceImpl implements PayrateExportService {
         line.append(payRate);
         line.append(csfFreezeDate);
         line.append("\r\n");
-        
+
         return line;
     }
-    
+
     /**
      * Returns a field that is the length of fieldSize, to facilitate formatting payrate export file
-     * 
+     *
      * @param stringToPad
      * @param fieldSize
      * @return
@@ -140,7 +140,7 @@ public class PayrateExportServiceImpl implements PayrateExportService {
             else return StringUtils.leftPad(stringToPad, fieldSize);
         }
         else if (stringToPad.length() > fieldSize) return stringToPad.substring(0, fieldSize - 1);
-        
+
         return stringToPad;
     }
 }

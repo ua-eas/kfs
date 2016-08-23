@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -39,7 +39,7 @@
 	<bean id="ErrorCertification-versionNumber" parent="AttributeReferenceDummy-versionNumber-parentBean" />
 
 	<bean id="ErrorCertification-documentNumber" parent="ErrorCertification-documentNumber-parentBean"/>
-  
+
 	<bean id="ErrorCertification-documentNumber-parentBean" abstract="true" parent="FinancialSystemDocumentHeader-documentNumber">
 	</bean>
 
@@ -70,7 +70,7 @@
 			<bean parent="TextareaControlDefinition" p:rows="3" p:cols="80" />
 		</property>
 	</bean>
-	
+
 	<bean id="ErrorCertification-errorDescription" parent="ErrorCertification-errorDescription-parentBean" />
 
 	<bean id="ErrorCertification-errorDescription-parentBean" abstract="true"
@@ -84,7 +84,7 @@
 			<bean parent="TextareaControlDefinition" p:rows="3" p:cols="80" />
 		</property>
 	</bean>
-	
+
 	<bean id="ErrorCertification-errorCorrectionReason" parent="ErrorCertification-errorCorrectionReason-parentBean" />
 
 	<bean id="ErrorCertification-errorCorrectionReason-parentBean" abstract="true"
@@ -98,4 +98,4 @@
 			<bean parent="TextareaControlDefinition" p:rows="3" p:cols="80" />
 		</property>
 	</bean>
-</beans>	
+</beans>

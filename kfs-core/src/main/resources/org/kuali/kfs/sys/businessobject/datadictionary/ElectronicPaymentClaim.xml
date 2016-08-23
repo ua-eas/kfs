@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -80,8 +80,8 @@
     <property name="name" value="financialDocumentPostingPeriodCode"/>
     <property name="label" value="Financial Document Fiscal Period"/>
     <property name="shortLabel" value="Fiscal Period"/>
-    
-    
+
+
   </bean>
   <bean id="ElectronicPaymentClaim-financialDocumentPostingYear" parent="ElectronicPaymentClaim-financialDocumentPostingYear-parentBean"/>
 
@@ -89,7 +89,7 @@
     <property name="name" value="financialDocumentPostingYear"/>
     <property name="label" value="Financial Document Fiscal Year"/>
     <property name="shortLabel" value="Fiscal Year"/>
-    
+
   </bean>
   <bean id="ElectronicPaymentClaim-paymentClaimStatusCode" parent="ElectronicPaymentClaim-paymentClaimStatusCode-parentBean"/>
 
@@ -101,8 +101,8 @@
     <property name="control">
       <bean parent="RadioControlDefinition" p:valuesFinderClass="org.kuali.kfs.sys.businessobject.options.ElectronicPaymentClaimClaimingStatusValuesFinder" p:includeKeyInLabel="false"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="ElectronicPaymentClaim-paymentClaimStatus" parent="ElectronicPaymentClaim-paymentClaimStatus-parentBean"/>
 
@@ -120,26 +120,26 @@
   <bean id="ElectronicPaymentClaim-generatingAccountingLine.financialDocumentLineDescription-parentBean" abstract="true" parent="SourceAccountingLine-financialDocumentLineDescription">
     <property name="name" value="generatingAccountingLine.financialDocumentLineDescription"/>
   </bean>
-  
+
   <bean id="ElectronicPaymentClaim-generatingAccountingLine.organizationReferenceId" parent="ElectronicPaymentClaim-generatingAccountingLine.organizationReferenceId-parentBean"/>
 
   <bean id="ElectronicPaymentClaim-generatingAccountingLine.organizationReferenceId-parentBean" abstract="true" parent="SourceAccountingLine-organizationReferenceId">
     <property name="name" value="generatingAccountingLine.organizationReferenceId"/>
   </bean>
-  
+
   <bean id="ElectronicPaymentClaim-generatingAccountingLine.amount" parent="ElectronicPaymentClaim-generatingAccountingLine.amount-parentBean"/>
 
   <bean id="ElectronicPaymentClaim-generatingAccountingLine.amount-parentBean" abstract="true" parent="SourceAccountingLine-amount">
     <property name="name" value="generatingAccountingLine.amount"/>
   </bean>
-  
+
   <bean id="ElectronicPaymentClaim-generatingAdvanceDepositDetail.financialDocumentAdvanceDepositDate" parent="ElectronicPaymentClaim-generatingAdvanceDepositDetail.financialDocumentAdvanceDepositDate-parentBean"/>
-  
+
   <bean id="ElectronicPaymentClaim-generatingAdvanceDepositDetail.financialDocumentAdvanceDepositDate-parentBean" abstract="true" parent="AdvanceDepositDetail-financialDocumentAdvanceDepositDate">
   	<property name="name" value="generatingAdvanceDepositDetail.financialDocumentAdvanceDepositDate"/>
   	<property name="label" value="Deposited Date"/>
   </bean>
-  
+
   <bean id="ElectronicPaymentClaim-amountFrom" parent="ElectronicPaymentClaim-amountFrom-parentBean" />
   <bean id="ElectronicPaymentClaim-amountFrom-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="amountFrom"/>
@@ -154,9 +154,9 @@
     <property name="shortLabel" value="Amount To"/>
   </bean>
 
-<!-- RICE20 - we can't be reaching into Rice in the DD   
+<!-- RICE20 - we can't be reaching into Rice in the DD
   <bean id="ElectronicPaymentClaim-generatingDocument.documentHeader.workflowDocument.routeHeader.docRouteStatus" parent="ElectronicPaymentClaim-generatingDocument.documentHeader.workflowDocument.routeHeader.docRouteStatus-parentBean"/>
-  
+
   <bean id="ElectronicPaymentClaim-generatingDocument.documentHeader.workflowDocument.routeHeader.docRouteStatus-parentBean" abstract="true" parent="AttributeDefinition">
   	<property name="name" value="generatingDocument.documentHeader.workflowDocument.routeHeader.docRouteStatus"/>
   	<property name="label" value="Generating Document Route Status"/>
@@ -166,9 +166,9 @@
       <ref bean="TenCharacterTextControl" />
     </property>
   </bean>
- -->  
+ -->
   <bean id="ElectronicPaymentClaim-generatingDocumentHeader.organizationDocumentNumber" parent="ElectronicPaymentClaim-generatingDocumentHeader.organizationDocumentNumber-parentBean"/>
-  
+
   <bean id="ElectronicPaymentClaim-generatingDocumentHeader.organizationDocumentNumber-parentBean" abstract="true" parent="DocumentHeader-organizationDocumentNumber">
   	<property name="name" value="generatingDocumentHeader.organizationDocumentNumber"/>
   </bean>
@@ -203,8 +203,8 @@
       </list>
     </property>
   </bean>
-        
-        
+
+
 <!-- Business Object Lookup Definition -->
 
 
@@ -213,7 +213,7 @@
   <bean id="ElectronicPaymentClaim-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Electronic Payment Claim Lookup"/>
     <property name="lookupableID" value="electronicPaymentClaimLookupable"/>
-    
+
     <property name="lookupFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="financialDocumentPostingPeriodCode"/>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,7 +31,7 @@ import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
- * Validates that an accounting line has a reference number 
+ * Validates that an accounting line has a reference number
  */
 public class NonCheckDisbursementRequiredReferenceFieldValidation extends GenericValidation {
     private DataDictionaryService dataDictionaryService;
@@ -42,12 +42,12 @@ public class NonCheckDisbursementRequiredReferenceFieldValidation extends Generi
      * <strong>Expects an accounting line as the first a parameter</strong>
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(java.lang.Object[])
      */
-    
-    
+
+
     public boolean validate(AttributedDocumentEvent event) {
-        
+
         NonCheckDisbursementDocument document = (NonCheckDisbursementDocument)event.getDocument();
-        
+
         boolean valid = true;
         Class alclass = null;
         BusinessObjectEntry boe;
@@ -60,7 +60,7 @@ public class NonCheckDisbursementRequiredReferenceFieldValidation extends Generi
         }
 
         boe = getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(alclass.getName());
-       
+
         if (StringUtils.isEmpty(accountingLineForValidation.getReferenceNumber())) {
             putRequiredPropertyError(boe, REFERENCE_NUMBER);
             valid = false;
@@ -71,7 +71,7 @@ public class NonCheckDisbursementRequiredReferenceFieldValidation extends Generi
     /**
      * Adds a global error for a missing required property. This is used for properties, such as reference origin code, which cannot
      * be required by the DataDictionary validation because not all documents require them.
-     * 
+     *
      * @param boe
      * @param propertyName
      */
@@ -83,7 +83,7 @@ public class NonCheckDisbursementRequiredReferenceFieldValidation extends Generi
     }
 
     /**
-     * Gets the accountingLineForValidation attribute. 
+     * Gets the accountingLineForValidation attribute.
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {
@@ -99,7 +99,7 @@ public class NonCheckDisbursementRequiredReferenceFieldValidation extends Generi
     }
 
     /**
-     * Gets the dataDictionaryService attribute. 
+     * Gets the dataDictionaryService attribute.
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {

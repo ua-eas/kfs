@@ -1,17 +1,20 @@
 /*
- * Copyright 2005-2015 The Kuali Foundation
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Licensed under the Educational Community License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Copyright 2005-2016 The Kuali Foundation
  *
- * http://www.opensource.org/licenses/ecl2.php
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 // global vars
 var $dialog = null;
@@ -188,10 +191,10 @@ jQuery.fn.dataTableExt.oSort['kuali_currency-asc'] = function(a,b) {
 	/* Parse and return */
 	x = parseFloat( x );
 	y = parseFloat( y );
-	
+
 	x = isNaN(x) ? 0 : x*1;
 	y = isNaN(y) ? 0 : y*1;
-	
+
 	return x - y;
 };
 
@@ -205,10 +208,10 @@ jQuery.fn.dataTableExt.oSort['kuali_currency-desc'] = function(a,b) {
 	/* Parse and return */
 	x = parseFloat( x );
 	y = parseFloat( y );
-	
+
 	x = isNaN(x) ? 0 : x;
 	y = isNaN(y) ? 0 : y;
-	
+
 	return y - x;
 };
 
@@ -218,7 +221,7 @@ jQuery.fn.dataTableExt.afnSortData['dom-text'] = function  ( oSettings, iColumn 
 	jq( 'td:eq('+iColumn+')', oSettings.oApi._fnGetTrNodes(oSettings) ).each( function () {
 		var input = jq(this).find('input:text');
 		if(input.length != 0){
-			aData.push( input.val() );	
+			aData.push( input.val() );
 		}else{
             // match DataField or InputField CSS classes - respectively
 			var input1 = jq(this).find('.uif-field');
@@ -228,7 +231,7 @@ jQuery.fn.dataTableExt.afnSortData['dom-text'] = function  ( oSettings, iColumn 
 				aData.push("");
 			}
 		}
-		
+
 	} );
 	return aData;
 }
@@ -240,7 +243,7 @@ jQuery.fn.dataTableExt.afnSortData['dom-select'] = function  ( oSettings, iColum
 	jq( 'td:eq('+iColumn+')', oSettings.oApi._fnGetTrNodes(oSettings) ).each( function () {
 		var selected = jq(this).find('select option:selected:first');
 		if(selected.length != 0){
-			aData.push( selected.text() );	
+			aData.push( selected.text() );
 		}else{
 			var input1 = jq(this).find('.uif-inputField');
 			if(input1.length != 0){
@@ -249,7 +252,7 @@ jQuery.fn.dataTableExt.afnSortData['dom-select'] = function  ( oSettings, iColum
 				aData.push( "");
 			}
 		}
-		
+
 	} );
 	return aData;
 }
@@ -263,7 +266,7 @@ jQuery.fn.dataTableExt.afnSortData['dom-checkbox'] = function  ( oSettings, iCol
 		if(checkboxes.length != 0){
 			var str = "";
 			for(i=0; i < checkboxes.length; i++){
-				var check = checkboxes[i]; 
+				var check = checkboxes[i];
 				if (check.checked == true && check.value.length > 0){
 					str += check.value + " ";
 				}
@@ -277,10 +280,10 @@ jQuery.fn.dataTableExt.afnSortData['dom-checkbox'] = function  ( oSettings, iCol
 				aData.push( "");
 			}
 		}
-		
+
 	} );
 	return aData;
-	
+
 }
 
 jQuery.fn.dataTableExt.afnSortData['dom-radio'] = function  ( oSettings, iColumn )
@@ -306,10 +309,10 @@ jQuery.fn.dataTableExt.afnSortData['dom-radio'] = function  ( oSettings, iColumn
 				aData.push( "");
 			}
 		}
-		
+
 	} );
 	return aData;
-	
+
 }
 
 // setup window javascript error handler

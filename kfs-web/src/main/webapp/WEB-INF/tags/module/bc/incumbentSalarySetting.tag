@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -35,7 +35,7 @@
 <kul:tab tabTitle="Incumbent Funding" defaultOpen="true" tabErrorKey="${BCConstants.ErrorKey.DETAIL_SALARY_SETTING_TAB_ERRORS}">
 <div class="tab-container" align=center>
 	<c:if test="${not readOnly}">
-		<kul:subtab lookedUpCollectionName="fundingLine" width="${tableWidth}" subTabTitle="Add Funding">      
+		<kul:subtab lookedUpCollectionName="fundingLine" width="${tableWidth}" subTabTitle="Add Funding">
 			<bc:appointmentFundingLineForIncumbent fundingLine="${KualiForm.newBCAFLine}" fundingLineName="newBCAFLine" countOfMajorColumns="11" isKeyFieldsLocked="${isKeyFieldsLocked}" hasBeenAdded="false" accountsCanCrossCharts="${accountsCanCrossCharts}">
 				<html:submit
 						property="methodToCall.addAppointmentFundingLine.anchorsalarynewLineLineAnchor"
@@ -46,7 +46,7 @@
 			</bc:appointmentFundingLineForIncumbent>
 		</kul:subtab>
 	</c:if>
-        		
+
     <c:forEach items="${KualiForm.budgetConstructionIntendedIncumbent.pendingBudgetConstructionAppointmentFunding}" var="fundingLine" varStatus="status">
 		<c:if test="${!fundingLine.purged}">
 			<c:set var="fundingLineName" value="budgetConstructionIntendedIncumbent.pendingBudgetConstructionAppointmentFunding[${status.index}]"/>
@@ -112,8 +112,8 @@
 			</kul:subtab>
 		</c:if>
 	</c:forEach>
-        
-    <kul:subtab lookedUpCollectionName="fundingLine" width="${tableWidth}" subTabTitle="Totals" > 
+
+    <kul:subtab lookedUpCollectionName="fundingLine" width="${tableWidth}" subTabTitle="Totals" >
     	<table style="width: ${tableWidth};" class="standard">
 			<tr>
 				<td class="infoline">
@@ -129,18 +129,18 @@
 
 <c:if test="${!readOnly}" >
 	<kul:tab tabTitle="Purged Appointment Funding" defaultOpen="false">
-	<div class="tab-container" align="center">        		
+	<div class="tab-container" align="center">
 	    <c:forEach items="${KualiForm.budgetConstructionIntendedIncumbent.pendingBudgetConstructionAppointmentFunding}" var="fundingLine" varStatus="status">
-			<c:if test="${fundingLine.purged}">	
-				<c:set var="fundingLineName" value="budgetConstructionIntendedIncumbent.pendingBudgetConstructionAppointmentFunding[${status.index}]"/> 
-				         	
+			<c:if test="${fundingLine.purged}">
+				<c:set var="fundingLineName" value="budgetConstructionIntendedIncumbent.pendingBudgetConstructionAppointmentFunding[${status.index}]"/>
+
 			    <kul:subtab lookedUpCollectionName="fundingLine" width="${tableWidth}" subTabTitle="${fundingLine.appointmentFundingString}">
-			    	<bc:appointmentFundingLineForIncumbent fundingLine="${fundingLine}" fundingLineName="${fundingLineName}"	countOfMajorColumns="9" lineIndex="${status.index}" readOnly="true" hasBeenAdded = "true">    		
+			    	<bc:appointmentFundingLineForIncumbent fundingLine="${fundingLine}" fundingLineName="${fundingLineName}"	countOfMajorColumns="9" lineIndex="${status.index}" readOnly="true" hasBeenAdded = "true">
 						<html:submit property="methodToCall.restorePurgedSalarySettingLine.line${status.index}.anchorsalaryexistingLineLineAnchor${status.index}"
 							value="Restore"
 							title="Restore the purged Salary Setting Line ${status.index}"
 							alt="Restore the purged Salary Setting Line ${status.index}" styleClass="btn btn-default small" />
-					</bc:appointmentFundingLineForIncumbent>	
+					</bc:appointmentFundingLineForIncumbent>
 				</kul:subtab>
 			</c:if>
 		</c:forEach>

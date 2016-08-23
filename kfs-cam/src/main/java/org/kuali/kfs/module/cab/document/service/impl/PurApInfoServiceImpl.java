@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -117,7 +117,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Set CAMS transaction type code the user entered in PurAp
-     * 
+     *
      * @param poId
      */
     public void setCamsTransactionFromPurAp(List<PurchasingAccountsPayableDocument> purApDocs) {
@@ -160,7 +160,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Set Multiple system capital asset transaction type code and asset numbers.
-     * 
+     *
      * @param poId
      * @param purApDocs
      */
@@ -187,7 +187,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Set One System capital asset transaction type code and asset numbers.
-     * 
+     *
      * @param poId
      * @param purApDocs
      */
@@ -208,7 +208,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Update item assets by PurAp Cams Transaction setting
-     * 
+     *
      * @param capitalAssetSystemIdentifier
      * @param capitRalAssetTransactionTypeCode
      * @param purApCapitalAssets
@@ -228,7 +228,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Get capitalAssetTransactionTypeCode for one system from PurAp.
-     * 
+     *
      * @param poId
      * @return
      */
@@ -246,7 +246,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Set Individual system asset transaction type and asset numbers.
-     * 
+     *
      * @param poId
      * @param purApDocs
      */
@@ -272,7 +272,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Get asset number list from ItemCapitalAsset list.
-     * 
+     *
      * @param itemCapitalAssets
      * @return
      */
@@ -289,7 +289,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Check if given capitalAssetNumber is an duplicate number in assetNumbers list.
-     * 
+     *
      * @param capitalAssetNumber
      * @param assetNumbers
      * @return
@@ -305,7 +305,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Finding out the matching PREQ/CM items originating from the same PurchaseOrderItem.
-     * 
+     *
      * @param itemIdentifier
      * @param purApDocs
      * @return
@@ -328,7 +328,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Set CAB line item information from PurAp PaymentRequestItem or CreditMemoItem.
-     * 
+     *
      * @param purchasingAccountsPayableItemAsset
      * @param docTypeCode
      */
@@ -388,7 +388,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
     /**
      * Retreives a purchase order item for a given CreditMemoItem by inspecting the item type to see if its above the line or below
      * the line and returns the appropriate type.
-     * 
+     *
      * @param item
      * @return
      */
@@ -502,7 +502,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Gets the businessObjectService attribute.
-     * 
+     *
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -512,7 +512,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -522,7 +522,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Gets the purchaseOrderService attribute.
-     * 
+     *
      * @return Returns the purchaseOrderService.
      */
     public PurchaseOrderService getPurchaseOrderService() {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -86,14 +86,14 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
 
     /**
      * This method returns the object related to referenceOriginCode
-     * 
+     *
      * @return referenceOrigin
      */
     public OriginationCode getReferenceOrigin();
 
     /**
      * This method sets the referenceOrigin object, this is only to be used by OJB
-     * 
+     *
      * @param referenceOrigin
      * @deprecated
      */
@@ -101,7 +101,7 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
 
     /**
      * Gets the referenceFinancialSystemDocumentTypeCode attribute.
-     *  
+     *
      * @return Returns the referenceFinancialSystemDocumentTypeCode.
      */
     public DocumentTypeEBO getReferenceFinancialSystemDocumentTypeCode();
@@ -181,7 +181,7 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
     /**
      * This method retrieves the debit/credit code for the accounting line. This method will only return a not null value for a
      * Journal Voucher document.
-     * 
+     *
      * @return A String code.
      */
     public String getDebitCreditCode();
@@ -189,7 +189,7 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
     /**
      * This method sets the debit/credit code for the accounting line. This method should only be used for a Journal Voucher
      * document.
-     * 
+     *
      * @param debitCreditCode
      */
     public void setDebitCreditCode(String debitCreditCode);
@@ -197,7 +197,7 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
     /**
      * This method retrieves the encumbrance update code for the accounting line. This method will only return a not null value for
      * a Journal Voucher document.
-     * 
+     *
      * @return A String code.
      */
     public String getEncumbranceUpdateCode();
@@ -205,7 +205,7 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
     /**
      * This method sets the debit/credit code for the accounting line. This method should only be used for a Journal Voucher
      * document.
-     * 
+     *
      * @param encumbranceUpdateCode
      */
     public void setEncumbranceUpdateCode(String encumbranceUpdateCode);
@@ -213,7 +213,7 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
     /**
      * This method retrieves the ObjectType for the accounting line. This method will only return a not null value for a Journal
      * Voucher document.
-     * 
+     *
      * @return An ObjectType instance.
      */
     public ObjectType getObjectType();
@@ -291,14 +291,14 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
 
     /**
      * This method checks to see if sales tax is required for this accounting line or not
-     * 
+     *
      * @return true if it is required, false otherwise
      */
     public boolean isSalesTaxRequired();
 
     /**
      * You can set whether or not sales tax is required for this accounting line or not
-     * 
+     *
      * @param salesTaxRequired - true if required
      */
     public void setSalesTaxRequired(boolean salesTaxRequired);
@@ -323,7 +323,7 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
      * Overwrites the fields of this AccountingLine with the values of the corresponding fields of the given AccountingLine.
      * Reference field values are in this instance are overwritten with deepCopies of the reference fields of the given
      * AccountingLine.
-     * 
+     *
      * @param other
      */
     public void copyFrom(AccountingLine other);
@@ -331,7 +331,7 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
     /**
      * Convenience method to make the primitive account fields from this AccountingLine easier to compare to the account fields of
      * another AccountingLine or of an Account
-     * 
+     *
      * @return String representing the account associated with this AccountingLine
      */
     public String getAccountKey();
@@ -339,7 +339,7 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
     /**
      * This indicates the account expired component of this AccountingLine's overrideCode. It provides a DataDictionary attribute
      * for the UI, but is not persisted itself.
-     * 
+     *
      * @return accountExpiredOverride
      */
     boolean getAccountExpiredOverride();
@@ -353,7 +353,7 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
     /**
      * This indicates the account expired override is needed (because this AccountingLine's Account is expired). It tells the UI to
      * display the accountExpiredOverride attribute, but is not persisted itself.
-     * 
+     *
      * @return accountExpiredOverride
      */
     public boolean getAccountExpiredOverrideNeeded();
@@ -367,7 +367,7 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
     /**
      * This indicates the object budget component of this AccountingLine's overrideCode. It provides a DataDictionary attribute for
      * the UI, but is not persisted itself.
-     * 
+     *
      * @return objectBudgetOverride
      */
     public boolean isObjectBudgetOverride();
@@ -381,7 +381,7 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
     /**
      * This indicates the object budget override is needed (because this AccountingLine's Account is expired). It tells the UI to
      * display the objectBudgetOverride attribute, but is not persisted itself.
-     * 
+     *
      * @return boolean
      */
     public boolean isObjectBudgetOverrideNeeded();
@@ -394,35 +394,35 @@ public interface AccountingLine extends PersistableBusinessObject, GeneralLedger
 
     /**
      * Gets the nonFringeAccountOverride attribute.
-     * 
+     *
      * @return Returns the nonFringeAccountOverride.
      */
     public boolean getNonFringeAccountOverride();
 
     /**
      * Sets the nonFringeAccountOverride attribute value.
-     * 
+     *
      * @param nonFringeAccountOverride The nonFringeAccountOverride to set.
      */
     public void setNonFringeAccountOverride(boolean nonFringeAccountOverride);
 
     /**
      * Gets the nonFringeAccountOverrideNeeded attribute.
-     * 
+     *
      * @return Returns the nonFringeAccountOverrideNeeded.
      */
     public boolean getNonFringeAccountOverrideNeeded();
 
     /**
      * Sets the nonFringeAccountOverrideNeeded attribute value.
-     * 
+     *
      * @param nonFringeAccountOverrideNeeded The nonFringeAccountOverrideNeeded to set.
      */
     public void setNonFringeAccountOverrideNeeded(boolean nonFringeAccountOverrideNeeded);
 
     /**
      * Returns a Map with the accounting line primitive field names as the key of the map and the primitive values as the value.
-     * 
+     *
      * @return Map
      */
     public Map getValuesMap();

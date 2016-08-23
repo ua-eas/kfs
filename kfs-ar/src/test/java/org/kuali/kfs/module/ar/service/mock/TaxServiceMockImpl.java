@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,33 +28,33 @@ import org.kuali.kfs.sys.service.TaxService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 /**
- * 
+ *
  * Mocks the TaxServiceImpl with the minimally needed configuration.
  */
 public class TaxServiceMockImpl implements TaxService {
 
     public static final String TAXABLE_POSTAL_CD = "85705";
-    
+
     public List<TaxDetail> getUseTaxDetails(Date dateOfTransaction, String postalCode, KualiDecimal amount) {
         return new ArrayList<TaxDetail>();
     }
-    
+
     public KualiDecimal getTotalSalesTaxAmount(Date dateOfTransaction, String postalCode, KualiDecimal amount) {
         return new KualiDecimal(0);
     }
-    
+
     public KualiDecimal getPretaxAmount(Date dateOfTransaction, String postalCode, KualiDecimal amountWithTax) {
         return new KualiDecimal(0);
     }
-    
+
     public List<TaxDetail> getSalesTaxDetails(Date dateOfTransaction, String postalCode, KualiDecimal amount) {
         List<TaxDetail> salesTaxDetails = new ArrayList<TaxDetail>();
-        
+
         //  only apply the fake tax to one postal code, the rest get nothing
         if (!TAXABLE_POSTAL_CD.equalsIgnoreCase(postalCode)) {
             return salesTaxDetails;
         }
-        
+
         //  fake state tax
         salesTaxDetails.add(getFakeStateTax(amount));
         salesTaxDetails.add(getFakeCountyTax(amount));
@@ -88,7 +88,7 @@ public class TaxServiceMockImpl implements TaxService {
         taxDetail.setTypeCode("CNTY");
 
         taxDetail.setTaxAmount(taxableAmount.multiply(new KualiDecimal(taxDetail.getTaxRate()), true));
-        
+
         return taxDetail;
     }
 

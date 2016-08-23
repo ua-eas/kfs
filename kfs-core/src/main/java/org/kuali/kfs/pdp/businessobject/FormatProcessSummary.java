@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -55,7 +55,7 @@ public class FormatProcessSummary extends TransientBusinessObjectBase {
 
     /**
      * Add the payment detail info to our summary list
-     * 
+     *
      * @param paymentGroup
      */
     public void add(PaymentGroup paymentGroup) {
@@ -73,7 +73,7 @@ public class FormatProcessSummary extends TransientBusinessObjectBase {
             ps.setProcessTotalCount(KualiInteger.ZERO);
             ps.setSortGroupId(new KualiInteger(SpringContext.getBean(PaymentGroupService.class).getSortGroupId(paymentGroup)));
             processSummaryList.add(ps);
-            
+
             // if first one added set the process id
             if (processId == null) {
                 processId = paymentGroup.getProcessId();
@@ -86,22 +86,22 @@ public class FormatProcessSummary extends TransientBusinessObjectBase {
         totalAmount = totalAmount.add(paymentGroup.getNetPaymentAmount());
         totalCount = totalCount.add(new KualiInteger(paymentGroup.getPaymentDetails().size()));
     }
-    
+
     /**
      * Save all the process summary records
-     * 
+     *
      * @param pdd
      */
     public void save() {
         for (Iterator<ProcessSummary> iter = processSummaryList.iterator(); iter.hasNext();) {
             ProcessSummary ps = (ProcessSummary) iter.next();
-            
+
             SpringContext.getBean(BusinessObjectService.class).save(ps);
         }
     }
 
     /**
-     * This method checks if we already have a summary record. 
+     * This method checks if we already have a summary record.
      * @param paymentGroup
      * @return If we we already have a summary record return it, if not, return null;
      */
@@ -109,7 +109,7 @@ public class FormatProcessSummary extends TransientBusinessObjectBase {
 
         for (Iterator<ProcessSummary> iter = processSummaryList.iterator(); iter.hasNext();) {
             ProcessSummary processSummary = (ProcessSummary) iter.next();
-            
+
             if(ObjectUtils.equals(processSummary.getCustomer(), paymentGroup.getBatch().getCustomerProfile()) && ObjectUtils.equals(processSummary.getDisbursementType(), paymentGroup.getDisbursementType()) && (processSummary.getSortGroupId().intValue()==SpringContext.getBean(PaymentGroupService.class).getSortGroupId(paymentGroup)) && ObjectUtils.equals(processSummary.getProcess(), paymentGroup.getProcess())) {
                 return processSummary;
             }
@@ -138,7 +138,7 @@ public class FormatProcessSummary extends TransientBusinessObjectBase {
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
     @SuppressWarnings("rawtypes")
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap<String, List<ProcessSummary>> m = new LinkedHashMap<String, List<ProcessSummary>>();
 
@@ -181,7 +181,7 @@ public class FormatProcessSummary extends TransientBusinessObjectBase {
 
     /**
      * This method retrieves a specific process summary from the list, by index
-     * 
+     *
      * @param index the index of the results to retrieve the process summary from
      * @return a ProcessSummary
      */
@@ -196,7 +196,7 @@ public class FormatProcessSummary extends TransientBusinessObjectBase {
 
     /**
      * This method sets a process summary value at a given index in the process summary list.
-     * 
+     *
      * @param key the index
      * @param value the new value
      */

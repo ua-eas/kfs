@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -36,7 +36,7 @@
 					<div align="center">
 					<kul:htmlControlAttribute
 						attributeEntry="${importedExpenseAttributes.cardType}"
-						property="${expense}.cardType" 
+						property="${expense}.cardType"
 						readOnly="true" />
 					</div>
 				</td>
@@ -52,10 +52,10 @@
 					<c:choose>
 						<c:when test="${fullEntryMode}">
 							<c:set target="${paramMap}" property="groupTravelCount" value="${fn:length(KualiForm.document.groupTravelers)}" />
-							<html:select property="${expense}.expenseTypeCode" 
+							<html:select property="${expense}.expenseTypeCode"
 								styleId="${expense}.expenseTypeCode"
 								onchange="checkDirectBilled('${expense}');loadExpenseTypeObjectCode(this, '${KualiForm.docTypeName}', '${KualiForm.document.traveler.travelerTypeCode}', '${KualiForm.document.tripTypeCode}')">
-								<c:forEach items="${temfunc:getOptionList('org.kuali.kfs.module.tem.businessobject.options.TravelExpenseTypeValuesFinder', paramMap)}" var="option">						
+								<c:forEach items="${temfunc:getOptionList('org.kuali.kfs.module.tem.businessobject.options.TravelExpenseTypeValuesFinder', paramMap)}" var="option">
 									<c:set var="isSelected" value="${detailObject.expenseTypeCode == option.key}" />
 									<%-- Populate the value that was previously selected before error occurred --%>
 									<option value="${option.key}" ${isSelected?'selected=true':'' }>${option.value}</option>
@@ -70,27 +70,27 @@
 						<c:otherwise>
 							<c:out value="${detailObject.expenseTypeObjectCode.expenseType.name}" />
 						</c:otherwise>
-					</c:choose>	
+					</c:choose>
 				</td>
 				<td valign="top" class="infoline">
-					<kul:htmlControlAttribute 
-						attributeEntry="${importedExpenseAttributes.travelCompanyCodeName}" 
-						property="${expense}.travelCompanyCodeName" 
+					<kul:htmlControlAttribute
+						attributeEntry="${importedExpenseAttributes.travelCompanyCodeName}"
+						property="${expense}.travelCompanyCodeName"
 						readOnly="${!fullEntryMode}"/>
 					<c:if test="${fullEntryMode }">
-			            <kul:lookup 
-			            	boClassName="org.kuali.kfs.fp.businessobject.TravelCompanyCode" 
-			            	fieldConversions="name:${expense}.travelCompanyCodeName,code:${expense}.expenseTypeCode" 
-			            	fieldLabel="${importedExpenseAttributes.travelCompanyCodeName.label}" 
-			            	lookupParameters="${expense}.expenseTypeCode:code,${expense}.travelCompanyCodeName:name" 
-			            	readOnlyFields="expenseTypeObjectCode.expenseType.prepaidExpense"/> 	
+			            <kul:lookup
+			            	boClassName="org.kuali.kfs.fp.businessobject.TravelCompanyCode"
+			            	fieldConversions="name:${expense}.travelCompanyCodeName,code:${expense}.expenseTypeCode"
+			            	fieldLabel="${importedExpenseAttributes.travelCompanyCodeName.label}"
+			            	lookupParameters="${expense}.expenseTypeCode:code,${expense}.travelCompanyCodeName:name"
+			            	readOnlyFields="expenseTypeObjectCode.expenseType.prepaidExpense"/>
 			    	</c:if>
 				</td>
 				<td valign="top" nowrap class="infoline">
 					<div align="center">
 						<kul:htmlControlAttribute
 							attributeEntry="${importedExpenseAttributes.expenseAmount}"
-							property="${expense}.expenseAmount" 
+							property="${expense}.expenseAmount"
 							readOnly="true" />
 						<c:set var="fullPath" value="document.importedExpenses[${lineNumber-1}].expenseAmount" />
 						<c:forEach items="${ErrorPropertyList}" var="key">
@@ -114,7 +114,7 @@
 					<div align="center">
 						<kul:htmlControlAttribute
 							attributeEntry="${importedExpenseAttributes.convertedAmount}"
-							property="${expense}.convertedAmount" 
+							property="${expense}.convertedAmount"
 							readOnly="true" />
 					</div>
 				</td>
@@ -183,7 +183,7 @@
 				<td valign="top" class="infoline" colspan="9">
 					<kul:htmlControlAttribute
 						attributeEntry="${importedExpenseAttributes.description}"
-						property="${expense}.description" 
+						property="${expense}.description"
 						readOnly="${!fullEntryMode }" />
 				</td>
 			</tr>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,7 +33,7 @@ import org.kuali.kfs.sys.service.ReportWriterService;
 @ConfigureContext
 public class ReportWriterServiceTest extends KualiTestBase {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ReportWriterServiceTest.class);
-    
+
     protected ReportWriterService tableReportWriterService;
     protected ReportWriterService colspanTableReportWriterService;
     protected ReportWriterService ledgerReportWriterService;
@@ -54,46 +54,46 @@ public class ReportWriterServiceTest extends KualiTestBase {
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
-        
+
         ((WrappingBatchService) tableReportWriterService).destroy();
         ((WrappingBatchService) colspanTableReportWriterService).destroy();
         ((WrappingBatchService) ledgerReportWriterService).destroy();
     }
-    
-    public void testWriteTable() throws Exception{             
+
+    public void testWriteTable() throws Exception{
         ((WrappingBatchService) tableReportWriterService).initialize();
-        
+
         List<GlSummary> summaryList = this.getTestData(40);
         tableReportWriterService.writeTable(summaryList, true, false);
     }
-    
+
     public void testWriteRowWithColspan() throws Exception{
         ((WrappingBatchService) colspanTableReportWriterService).initialize();
-        
+
         List<GlSummary> summaryList = this.getTestData(20);
         colspanTableReportWriterService.writeTableHeader(summaryList.get(0));
-        
+
         int index = 1;
         for(GlSummary summary : summaryList) {
             colspanTableReportWriterService.writeTableRow(summary);
-            
+
             if(index++ % 5 == 0) {
                 GlSummary subTotal = new GlSummary();
                 subTotal.setFundGroup("Sub Totals (AC):");
-                
-                colspanTableReportWriterService.writeTableRowWithColspan(subTotal);                
+
+                colspanTableReportWriterService.writeTableRowWithColspan(subTotal);
                 colspanTableReportWriterService.writeTableRowSeparationLine(summary);
             }
         }
-        
+
         GlSummary grandTotal = new GlSummary();
         grandTotal.setFundGroup("Grand Totals (AC):");
         colspanTableReportWriterService.writeTableRowWithColspan(grandTotal);
     }
-    
-    public void testLedgerReport() throws Exception{             
+
+    public void testLedgerReport() throws Exception{
         ((WrappingBatchService) ledgerReportWriterService).initialize();
-        
+
         List<LedgerEntryForReporting> ledgerEntries = this.getLedgerEntryTestData(40);
         ledgerReportWriterService.writeTable(ledgerEntries, true, false);
     }
@@ -106,10 +106,10 @@ public class ReportWriterServiceTest extends KualiTestBase {
             entry.setFiscalYear(2000 + i);
             entry.setOriginCode("0" + i);
             entry.setPeriod("P-" + i);
-            
+
             ledgerEntries.add(entry);
         }
-        
+
         return ledgerEntries;
     }
 
@@ -118,10 +118,10 @@ public class ReportWriterServiceTest extends KualiTestBase {
         for(int i = 0; i < countOfData; i++) {
             GlSummary summary = new GlSummary();
             summary.setFundGroup("FG-" + i);
-            
+
             summaryList.add(summary);
         }
-        
+
         return summaryList;
     }
 }

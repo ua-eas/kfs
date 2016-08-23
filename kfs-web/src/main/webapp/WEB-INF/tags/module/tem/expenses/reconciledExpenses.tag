@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -22,7 +22,7 @@
 <c:set var="travelCardTypeAttributes" value="${DataDictionary.TravelCardType.attributes}" />
 <c:set var="expenseTypeAttributes" value="${DataDictionary.ExpenseType.attributes}"/>
 <jsp:useBean id="paramMap" class="java.util.HashMap" />
-  
+
 <div class="tab-container" align="center">
 <h3>Reconciled Expenses</h3>
 <table cellpadding="0" cellspacing="0" class="datatable" summary="Imported Expenses">
@@ -56,7 +56,7 @@
 				<div align="center">
 					<kul:htmlControlAttribute
 						attributeEntry="${historicalTravelExpenseAttributes.reconciled}"
-						property="document.reconciledHistoricalTravelExpenses[${ctr}].reconciled" 
+						property="document.reconciledHistoricalTravelExpenses[${ctr}].reconciled"
 						readOnly="true" />
 				</div>
 			</td>
@@ -74,7 +74,7 @@
 				<div align="center">
 					<kul:htmlControlAttribute
 						attributeEntry="${historicalTravelExpenseAttributes.transactionPostingDate}"
-						property="document.reconciledHistoricalTravelExpenses[${ctr}].transactionPostingDate" 
+						property="document.reconciledHistoricalTravelExpenses[${ctr}].transactionPostingDate"
 						readOnly="true" />
 				</div>
 			</td>
@@ -82,7 +82,7 @@
 				<div align="left">
 					<kul:htmlControlAttribute
 						attributeEntry="${expenseTypeAttributes.name}"
-						property="document.reconciledHistoricalTravelExpenses[${ctr}].expenseType.name" 
+						property="document.reconciledHistoricalTravelExpenses[${ctr}].expenseType.name"
 						readOnly="true" />
 				</div>
 			</td>
@@ -90,16 +90,16 @@
 				<div align="left">
 					<kul:htmlControlAttribute
 						attributeEntry="${historicalTravelExpenseAttributes.travelCompany}"
-						property="document.reconciledHistoricalTravelExpenses[${ctr}].travelCompany" 
+						property="document.reconciledHistoricalTravelExpenses[${ctr}].travelCompany"
 						readOnly="true" />
 				</div>
-			
+
 			</td>
 			<td>
 				<div align="right">
 					<kul:htmlControlAttribute
 						attributeEntry="${historicalTravelExpenseAttributes.convertedAmount}"
-						property="document.reconciledHistoricalTravelExpenses[${ctr}].convertedAmount" 
+						property="document.reconciledHistoricalTravelExpenses[${ctr}].convertedAmount"
 						readOnly="true" />
 				</div>
 			</td>

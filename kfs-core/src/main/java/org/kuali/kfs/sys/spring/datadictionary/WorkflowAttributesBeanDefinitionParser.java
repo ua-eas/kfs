@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -55,30 +55,30 @@ public class WorkflowAttributesBeanDefinitionParser extends KualiBeanDefinitionP
         NodeList children = workflowAttributeElement.getChildNodes();
         List<SearchingTypeDefinition> searchingAttributesMap = parseSearchableAttributes(children);
         bean.addPropertyValue("searchingTypeDefinitions", searchingAttributesMap);
-        
+
         Map<String, RoutingTypeDefinition> routingTypesMap = parseRoutingTypes(children);
         bean.addPropertyValue("routingTypeDefinitions", routingTypesMap);
     }
-    
+
     protected List<SearchingTypeDefinition> parseSearchableAttributes(NodeList workflowAttributesChildren) {
         List<SearchingTypeDefinition> searchingAttributesMap = new ArrayList<SearchingTypeDefinition>();
         for (int i = 0; i < workflowAttributesChildren.getLength(); i++) {
             Node workflowAttributesChild = workflowAttributesChildren.item(i);
             if (workflowAttributesChild.getNodeType() == Node.ELEMENT_NODE) {
                 if (((Element) workflowAttributesChild).getLocalName().equals(SEARCHING_TYPES_ELEMENT)) {
-                    
+
                     SearchingTypeDefinition searchingTypeDefinition = parseSearchingTypes(workflowAttributesChild.getChildNodes());
-                    
+
                     searchingAttributesMap.add(searchingTypeDefinition);
                 }
             }
         }
         return searchingAttributesMap;
     }
-    
+
     protected List<Element> extractWorkflowAttributeElements(NodeList nodes, String attributeElementName) {
         List<Element> results = new ArrayList<Element>();
-        
+
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -89,10 +89,10 @@ public class WorkflowAttributesBeanDefinitionParser extends KualiBeanDefinitionP
         }
         return results;
     }
-    
+
     protected SearchingTypeDefinition parseSearchingTypes(NodeList workflowAttributesChildren) {
         SearchingTypeDefinition  searchingTypeDefinition  = new SearchingTypeDefinition();
-        
+
         for (int i = 0; i < workflowAttributesChildren.getLength(); i++) {
             Node workflowAttributesChild = workflowAttributesChildren.item(i);
             if (workflowAttributesChild.getNodeType() == Node.ELEMENT_NODE) {
@@ -106,7 +106,7 @@ public class WorkflowAttributesBeanDefinitionParser extends KualiBeanDefinitionP
                 }
             }
         }
-        
+
         return searchingTypeDefinition;
     }
     protected WorkflowAttributeMetadata parseAttributeDefinition(Element workflowAttributeDefinitionElement) {
@@ -118,8 +118,8 @@ public class WorkflowAttributesBeanDefinitionParser extends KualiBeanDefinitionP
         }
         return workflowAttributeMetadata;
     }
-    
-    
+
+
     protected WorkflowAttributeMetadata parseSearchingAttribute(Element workflowAttributeDefinitionElement) {
         SearchingAttribute workflowAttributeMetadata = new SearchingAttribute();
 
@@ -137,10 +137,10 @@ public class WorkflowAttributesBeanDefinitionParser extends KualiBeanDefinitionP
         if (StringUtils.isNotBlank(attributeName)) {
             workflowAttributeMetadata.setAttributeName(attributeName);
         }
-        
+
         return workflowAttributeMetadata;
     }
-    
+
     protected WorkflowAttributeMetadata parseRoutingAttribute(Element workflowAttributeDefinitionElement) {
         RoutingAttribute workflowAttributeMetadata = new RoutingAttribute();
 
@@ -148,29 +148,29 @@ public class WorkflowAttributesBeanDefinitionParser extends KualiBeanDefinitionP
         if (StringUtils.isNotBlank(attributeName)) {
             workflowAttributeMetadata.setQualificationAttributeName(attributeName);
         }
-        
+
         return workflowAttributeMetadata;
     }
-    
+
     protected List<String> parseDocumentValueAttributeDefinition(Element workflowAttributeDefinitionElement) {
 
         List<String>paths = new ArrayList<String>();
         paths.add(workflowAttributeDefinitionElement.getAttribute("path"));
-       
+
         return paths;
     }
     protected Map<String, RoutingTypeDefinition> parseRoutingTypes(NodeList workflowAttributesChildren) {
         Map<String, RoutingTypeDefinition> routingTypesMap = new HashMap<String, RoutingTypeDefinition>();
-        
+
         for (int i = 0; i < workflowAttributesChildren.getLength(); i++) {
             Node workflowAttributesChild = workflowAttributesChildren.item(i);
             if (workflowAttributesChild.getNodeType() == Node.ELEMENT_NODE) {
                 if (((Element) workflowAttributesChild).getLocalName().equals(ROUTING_TYPES_ELEMENT)) {
                     RoutingTypeDefinition routingTypeDefinition = new RoutingTypeDefinition();
                     Element routingTypeElement = (Element) workflowAttributesChild;
-                    
+
                     String name = routingTypeElement.getAttribute("nodeName");
-                    
+
                     List<RoutingAttribute> routingAttributes = new ArrayList<RoutingAttribute>();
                     List<DocumentValuePathGroup> documentValuePathGroups = new ArrayList<DocumentValuePathGroup>();
                     List<Element> workflowAttributeList = extractWorkflowAttributeElements(routingTypeElement.getChildNodes(), "");
@@ -192,10 +192,10 @@ public class WorkflowAttributesBeanDefinitionParser extends KualiBeanDefinitionP
                 }
             }
         }
-        
+
         return routingTypesMap;
     }
-    
+
     protected DocumentCollectionPath parseDocumentCollectionPath(Element workflowAttributeDefinitionElement) {
         DocumentCollectionPath documentCollectionPath = new DocumentCollectionPath();
         for(Element element:extractWorkflowAttributeElements(workflowAttributeDefinitionElement.getChildNodes(), "documentCollectionPath")){
@@ -206,15 +206,15 @@ public class WorkflowAttributesBeanDefinitionParser extends KualiBeanDefinitionP
             paths.addAll(parseDocumentValueAttributeDefinition(element));
         }
         documentCollectionPath.setDocumentValues(paths);
-        
+
         String collectionName = workflowAttributeDefinitionElement.getAttribute("path");
         documentCollectionPath.setCollectionPath(collectionName);
-        
+
         return documentCollectionPath;
     }
     protected DocumentValuePathGroup parseDocumentValuesPathGroup(Element workflowAttributeDefinitionElement) {
         DocumentValuePathGroup documentValuePathGroup = new DocumentValuePathGroup();
-        
+
         List<Element> documentCollectionPathElements = extractWorkflowAttributeElements(workflowAttributeDefinitionElement.getChildNodes(), "documentCollectionPath");
         if( documentCollectionPathElements.size() > 0){
             documentValuePathGroup.setDocumentCollectionPath(parseDocumentCollectionPath(documentCollectionPathElements.get(0)));
@@ -227,7 +227,7 @@ public class WorkflowAttributesBeanDefinitionParser extends KualiBeanDefinitionP
 
         return documentValuePathGroup;
     }
-    
+
     @Override
     protected String getBaseBeanTypeParent(Element element) {
         return "WorkflowAttributes";

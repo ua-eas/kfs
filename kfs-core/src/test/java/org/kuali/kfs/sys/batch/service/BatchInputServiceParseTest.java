@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -66,15 +66,15 @@ public class BatchInputServiceParseTest extends KualiTestBase {
         InputStream collectorValidFileStream = BatchInputServiceParseTest.class.getClassLoader().getResourceAsStream(TEST_BATCH_XML_DIRECTORY + "BatchInputValidCollector.xml");
         validCollectorFileContents = IOUtils.toByteArray(collectorValidFileStream);
     }
-    
+
     public final void testDummy() {
-        
+
     }
 
     /**
      * Verifies the correct object graph is being built from the pcdo file contents in the service parse method. The PCDO
      * unmarshalling rules specify the result should be a ArrayList of ProcurementCardTransaction objects.
-     * 
+     *
      * @see org.kuali.kfs.fp.businessobject.ProcurementCardTransaction
      */
     public final void DISABLED_testParse_pcdoValidContents() throws Exception {
@@ -95,7 +95,7 @@ public class BatchInputServiceParseTest extends KualiTestBase {
     /**
      * Verifies the correct object graph is being built from the collector file contents in the service parse method. The Collector
      * unmarshalling rules specify the result should be a populated CollectorBatch object.
-     * 
+     *
      * @see org.kuali.module.gl.collector.xml.CollectorBatch
      */
     public final void DISABLED_testParse_collectorValidContents() throws Exception {

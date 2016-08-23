@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -47,7 +47,7 @@ public class TestUtils {
     private static String periodCodeForTesting;
 
     private static final String PLACEHOLDER_FILENAME = "placeholder.txt";
-    
+
     private static ParameterService parameterService;
 
     public static ParameterService getParameterService() {
@@ -56,7 +56,7 @@ public class TestUtils {
         }
         return parameterService;
     }
-    
+
     /**
      * This sets a given system parameter and clears the method cache for retrieving the parameter.
      */
@@ -87,7 +87,7 @@ public class TestUtils {
                         }
                     } catch ( NoSuchMethodException e ) {
                         // do nothing
-                        
+
                     }
                 }
             } catch ( Exception e ) {
@@ -103,7 +103,7 @@ public class TestUtils {
         newParm.setValue(parameterText);
         getParameterService().updateParameter(newParm.build());
     }
-    
+
     /**
      * Returns an invoked instance for the serviceName passed. This uses SpringContext.getService but doesn't return the proxy. Should only
      * be used for unit testing purposes
@@ -129,7 +129,7 @@ public class TestUtils {
             return service;
         }
     }
-    
+
     /**
      * Writes an array to a file.  Useful for GL / LD poster file handling.
      * @param filePath file and path to write
@@ -138,13 +138,13 @@ public class TestUtils {
      */
     public static void writeFile(String filePath, String[] inputTransactions) {
         File file = new File(filePath);
-        
+
         if (file.exists()) {
             if(!file.delete()) {
                 throw new RuntimeException("Attempt to overwrite " + file.getName() + " failed.");
             }
         }
-        
+
         PrintStream outputFileStream = null;
         try {
             outputFileStream = new PrintStream(file);
@@ -152,13 +152,13 @@ public class TestUtils {
         catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        
+
         for (String line: inputTransactions){
             outputFileStream.printf("%s\n", line);
         }
         outputFileStream.close();
     }
-    
+
     /**
      * Deletes all files from a directory except PLACEHOLDER_FILENAME.
      * @param path of the directory to empty
@@ -169,10 +169,10 @@ public class TestUtils {
                 return (!name.equals(PLACEHOLDER_FILENAME));
             }
         };
-        
+
         File directory = new File(pathname);
         File[] directoryListing = directory.listFiles(filenameFilter);
-        
+
         if (directoryListing == null) {
             throw new IllegalArgumentException("Directory doesn't exist: " + pathname);
         } else {
@@ -184,7 +184,7 @@ public class TestUtils {
             }
         }
     }
-    
+
     /**
      * Returns a fiscal year for testing.  If the fiscalYearForTesting property is not null, it returns that;
      * otherwise, it runs the current fiscal year
@@ -196,7 +196,7 @@ public class TestUtils {
         }
         return fiscalYearForTesting;
     }
-    
+
     /**
      * Returns a period code for testing.  If the periodCodeForTesting property is not null, it returns that;
      * otherwise, it runs the current period code

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,11 +34,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * This class enforces range constraints - that is, constraints that keep a number or a date within a specific range. An attribute 
+ * This class enforces range constraints - that is, constraints that keep a number or a date within a specific range. An attribute
  * that is {@link RangeConstrainable} will expose a minimum and maximum value, and these will be validated against the passed
- * value in the code below. 
- * 
- *  
+ * value in the code below.
+ *
+ *
  */
 public class RangeConstraintProcessor extends MandatoryElementConstraintProcessor<RangeConstraint> {
 
@@ -52,12 +52,12 @@ public class RangeConstraintProcessor extends MandatoryElementConstraintProcesso
 	 */
 	@Override
 	public ProcessorResult process(DictionaryValidationResult result, Object value, RangeConstraint constraint, AttributeValueReader attributeValueReader) throws AttributeValidationException {
-		
+
 		// Since any given definition that is range constrained only expressed a single min and max, it means that there is only a single constraint to impose
 		return new ProcessorResult(processSingleRangeConstraint(result, value, constraint, attributeValueReader));
 	}
-	
-	@Override 
+
+	@Override
 	public String getName() {
 		return CONSTRAINT_NAME;
 	}
@@ -69,16 +69,16 @@ public class RangeConstraintProcessor extends MandatoryElementConstraintProcesso
 	public Class<? extends Constraint> getConstraintType() {
 		return RangeConstraint.class;
 	}
-	
+
 	protected ConstraintValidationResult processSingleRangeConstraint(DictionaryValidationResult result, Object value, RangeConstraint constraint, AttributeValueReader attributeValueReader) throws AttributeValidationException {
 		// Can't process any range constraints on null values
 		if (ValidationUtils.isNullOrEmpty(value) ||
                 (constraint.getExclusiveMin() == null && constraint.getInclusiveMax() ==  null)){
 			return result.addSkipped(attributeValueReader, CONSTRAINT_NAME);
         }
-		
-	
-		// This is necessary because sometimes we'll be getting a string, for example, that represents a date. 
+
+
+		// This is necessary because sometimes we'll be getting a string, for example, that represents a date.
 		DataType dataType = constraint.getDataType();
 		Object typedValue = value;
 
@@ -101,11 +101,11 @@ public class RangeConstraintProcessor extends MandatoryElementConstraintProcesso
 			return validateRange(result, (Date)typedValue, constraint, attributeValueReader);
 		else if (typedValue instanceof Number)
 			return validateRange(result, (Number)typedValue, constraint, attributeValueReader);
-		
+
 		return result.addSkipped(attributeValueReader, CONSTRAINT_NAME);
 	}
-	
-	protected ConstraintValidationResult validateRange(DictionaryValidationResult result, Date value, RangeConstraint constraint, AttributeValueReader attributeValueReader) throws IllegalArgumentException {	
+
+	protected ConstraintValidationResult validateRange(DictionaryValidationResult result, Date value, RangeConstraint constraint, AttributeValueReader attributeValueReader) throws IllegalArgumentException {
 
 		Date date = value != null ? ValidationUtils.getDate(value, dateTimeService) : null;
 
@@ -114,10 +114,10 @@ public class RangeConstraintProcessor extends MandatoryElementConstraintProcesso
 
         Date inclusiveMax = inclusiveMaxText != null ? ValidationUtils.getDate(inclusiveMaxText, dateTimeService) : null;
         Date exclusiveMin = exclusiveMinText != null ? ValidationUtils.getDate(exclusiveMinText, dateTimeService) : null;
-        
+
 		return isInRange(result, date, inclusiveMax, inclusiveMaxText, exclusiveMin, exclusiveMinText, attributeValueReader);
 	}
-	
+
 	protected ConstraintValidationResult validateRange(DictionaryValidationResult result, Number value, RangeConstraint constraint, AttributeValueReader attributeValueReader) throws IllegalArgumentException {
 
 		// TODO: JLR - need a code review of the conversions below to make sure this is the best way to ensure accuracy across all numerics
@@ -126,10 +126,10 @@ public class RangeConstraintProcessor extends MandatoryElementConstraintProcesso
 
         String inclusiveMaxText = constraint.getInclusiveMax();
         String exclusiveMinText = constraint.getExclusiveMin();
-        
+
         BigDecimal inclusiveMax = inclusiveMaxText != null ? new BigDecimal(inclusiveMaxText) : null;
         BigDecimal exclusiveMin = exclusiveMinText != null ? new BigDecimal(exclusiveMinText) : null;
-        
+
 		return isInRange(result, number, inclusiveMax, inclusiveMaxText, exclusiveMin, exclusiveMinText, attributeValueReader);
 	}
 
@@ -138,17 +138,17 @@ public class RangeConstraintProcessor extends MandatoryElementConstraintProcesso
         ValidationUtils.Result lessThanMax = ValidationUtils.isLessThanOrEqual(value, inclusiveMax);
         // On the other hand, since the minimum is exclusive, we just want to make sure it's less than the number (the number can't be equal to the min, i.e. it's 'exclusive')
         ValidationUtils.Result greaterThanMin = ValidationUtils.isGreaterThan(value, exclusiveMin);
-          
-        // It's okay for one end of the range to be undefined - that's not an error. It's only an error if one of them is actually invalid. 
+
+        // It's okay for one end of the range to be undefined - that's not an error. It's only an error if one of them is actually invalid.
         if (lessThanMax != ValidationUtils.Result.INVALID && greaterThanMin != ValidationUtils.Result.INVALID) {
         	// Of course, if they're both undefined then we didn't actually have a real constraint
         	if (lessThanMax == ValidationUtils.Result.UNDEFINED && greaterThanMin == ValidationUtils.Result.UNDEFINED)
         		return result.addNoConstraint(attributeValueReader, CONSTRAINT_NAME);
-        	
+
         	// In this case, we've succeeded
         	return result.addSuccess(attributeValueReader, CONSTRAINT_NAME);
         }
-        
+
         // If both comparisons happened then if either comparison failed we can show the end user the expected range on both sides.
         if (lessThanMax != ValidationUtils.Result.UNDEFINED && greaterThanMin != ValidationUtils.Result.UNDEFINED)
         	return result.addError(RANGE_KEY, attributeValueReader, CONSTRAINT_NAME, RiceKeyConstants.ERROR_OUT_OF_RANGE, exclusiveMinText, inclusiveMaxText);
@@ -156,8 +156,8 @@ public class RangeConstraintProcessor extends MandatoryElementConstraintProcesso
         else if (lessThanMax == ValidationUtils.Result.INVALID)
         	return result.addError(MAX_INCLUSIVE_KEY, attributeValueReader, CONSTRAINT_NAME, RiceKeyConstants.ERROR_INCLUSIVE_MAX, inclusiveMaxText);
         // Otherwise, just tell them what the min can be
-        else 
+        else
         	return result.addError(MIN_EXCLUSIVE_KEY, attributeValueReader, CONSTRAINT_NAME, RiceKeyConstants.ERROR_EXCLUSIVE_MIN, exclusiveMinText);
 	}
-	
+
 }

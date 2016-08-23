@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -224,9 +224,9 @@ public class Job implements StatefulJob, InterruptableJob {
             if (runDateIsEmpty) {
                 return false; // run date param is empty, so run the step
             }
-        
+
             final DateTimeService dTService = SpringContext.getBean(DateTimeService.class);
-    
+
             final Collection<String> runDates = parameterService.getParameterValuesAsString(stepClass, STEP_RUN_ON_DATE_PARM_NM);
             boolean matchedRunDate = false;
             final String[] cutOffTime = parameterService.parameterExists(KfsParameterConstants.FINANCIAL_SYSTEM_BATCH.class, RUN_DATE_CUTOFF_PARM_NM) ?
@@ -254,11 +254,11 @@ public class Job implements StatefulJob, InterruptableJob {
         //run step
         return false;
     }
-    
+
     /**
      * Checks if the current jobRunDate is within the cutoff window for the given run date from the RUN_DATE parameter.
      * The window is defined as midnight of the date specified in the parameter to the RUN_DATE_CUTOFF_TIME of the next day.
-     * 
+     *
      * @param jobRunDate the time the job is attempting to start
      * @param runDateToCheck the current member of the appropriate RUN_DATE to check
      * @param dateTimeService an instance of the DateTimeService
@@ -270,10 +270,10 @@ public class Job implements StatefulJob, InterruptableJob {
         final Calendar endWindow = getCutoffWindowEnding(runDateToCheck, dateTimeService, cutOffWindow);
         return jobRunCalendar.after(beginWindow) && jobRunCalendar.before(endWindow);
     }
-    
+
     /**
      * Defines the beginning of the cut off window
-     * 
+     *
      * @param runDateToCheck the run date which defines the cut off window
      * @param dateTimeService an implementation of the DateTimeService
      * @return the begin date Calendar of the cutoff window
@@ -286,10 +286,10 @@ public class Job implements StatefulJob, InterruptableJob {
         beginWindow.set(Calendar.MILLISECOND, 0);
         return beginWindow;
     }
-    
+
     /**
      * Defines the end of the cut off window
-     * 
+     *
      * @param runDateToCheck the run date which defines the cut off window
      * @param dateTimeService an implementation of the DateTimeService
      * @param cutOffTime an Array in the form of [hour, minute, second] when the cutoff window ends

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -70,7 +70,7 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
      * @param fieldValues a map of keys for the search
      * @return a List of AccountBalance records that match the search criteria
      * @see org.kuali.rice.kns.lookup.Lookupable#getSearchResults(java.util.Map)
-     * 
+     *
      * KRAD Conversion: Lookupable modifies the search results based on the fields consolidated.
      * But all field definitions are in data dictionary.
      */
@@ -87,15 +87,15 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
         // KFSMI-410: added one more node for consolidationOption
         String consolidationOption = (String) fieldValues.get(GeneralLedgerConstants.DummyBusinessObject.CONSOLIDATION_OPTION);
         // test if the consolidation option is selected or not
-        boolean isConsolidated = isConsolidationSelected(fieldValues); 
-        
+        boolean isConsolidated = isConsolidationSelected(fieldValues);
+
         // get the search result collection
         // KFSMI-410: added one more node for consolidationOption
         if (consolidationOption.equals(Constant.EXCLUDE_SUBACCOUNTS)){
             fieldValues.put(Constant.SUB_ACCOUNT_OPTION, KFSConstants.getDashSubAccountNumber());
             isConsolidated = false;
-        } 
-        
+        }
+
         if (isConsolidated) {
             Iterator availableBalanceIterator = accountBalanceService.findConsolidatedAvailableAccountBalance(fieldValues);
             searchResultsCollection = buildConsolidedAvailableBalanceCollection(availableBalanceIterator);
@@ -125,7 +125,7 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
 
     /**
      * This method builds the available account balance collection based on the input iterator
-     * 
+     *
      * @param iterator the iterator of search results of account balance
      * @return the account balance collection
      */
@@ -173,7 +173,7 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
 
     /**
      * This method builds the available account balance collection based on the input collection
-     * 
+     *
      * @param collection a collection of account balance entries
      * @return the account balance collection
      */
@@ -198,7 +198,7 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
 
     /**
      * This method calculates the variance of current budget balance, actuals balance and encumbrance balance
-     * 
+     *
      * @param balance an account balance entry
      */
     private KualiDecimal calculateVariance(AccountBalance balance) {
@@ -239,7 +239,7 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
 
     /**
      * Updates the collection of entries that will be applied to the results of the inquiry
-     * 
+     *
      * @param entryCollection a collection of balance entries
      * @param fieldValues the map containing the search fields and values
      * @param isApproved flag whether the approved entries or all entries will be processed
@@ -289,7 +289,7 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
 
     /**
      * Sets the postAccountBalance attribute value.
-     * 
+     *
      * @param postAccountBalance The postAccountBalance to set.
      */
     public void setPostAccountBalance(AccountBalanceCalculator postAccountBalance) {
@@ -298,7 +298,7 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
 
     /**
      * Sets the accountBalanceService attribute value.
-     * 
+     *
      * @param accountBalanceService The accountBalanceService to set.
      */
     public void setAccountBalanceService(AccountBalanceService accountBalanceService) {
@@ -307,7 +307,7 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
 
     /**
      * Sets the optionsService attribute value
-     * 
+     *
      * @param optionsService The optionsService to set.
      */
     public void setOptionsService(OptionsService optionsService) {
@@ -315,7 +315,7 @@ public class AccountBalanceLookupableHelperServiceImpl extends AbstractGeneralLe
     }
 
     /**
-     * Gets the optionsService attribute. 
+     * Gets the optionsService attribute.
      * @return Returns the optionsService.
      */
     public OptionsService getOptionsService() {

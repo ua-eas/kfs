@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -30,125 +30,125 @@
 			</list>
 		</property>
 	</bean>
-        
+
 	<bean id="BaseFundsLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
 		    	    <ref bean="BaseFundsLookupableHelperService" />
-		        </property>			    
+		        </property>
 		    </bean>
 		</property>
-	</bean>	
-	
+	</bean>
+
 	<bean id="CurrentFundsLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
 		    	    <ref bean="CurrentFundsLookupableHelperService" />
-		        </property>			    
+		        </property>
 		    </bean>
 		</property>
-	</bean>			
+	</bean>
 
 	<bean id="laborCalculatedSalaryFoundationTrackerLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
 		    	    <ref bean="laborCalculatedSalaryFoundationTrackerLookupableHelperService" />
-		        </property>			    
+		        </property>
 		    </bean>
 		</property>
-	</bean>		
-	
+	</bean>
+
 	<bean id="EmployeeFundingLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
 		    	    <ref bean="EmployeeFundingLookupableHelperService" />
-		        </property>			    
+		        </property>
 		    </bean>
 		</property>
-	</bean>	
-	
+	</bean>
+
 	<bean id="july1PositionFundingLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
 		    	    <ref bean="july1PositionFundingLookupableHelperService" />
-		        </property>			    
+		        </property>
 		    </bean>
 		</property>
-	</bean>	
-	
+	</bean>
+
 	<bean id="laborLedgerBalanceLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
 		    	    <ref bean="laborLedgerBalanceLookupableHelperService" />
-		        </property>			    
+		        </property>
 		    </bean>
 		</property>
-	</bean>			
-	
+	</bean>
+
 	<bean id="laborPendingEntryLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
 		    	    <ref bean="laborPendingEntryLookupableHelperService" />
-		        </property>			    
+		        </property>
 		    </bean>
 		</property>
-	</bean>	
-	
+	</bean>
+
 	<bean id="laborLedgerBalanceForBenefitExpenseTransferLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
 		    	    <ref bean="laborLedgerBalanceForBenefitExpenseTransferLookupableHelperService" />
-		        </property>			    
+		        </property>
 		    </bean>
 		</property>
-	</bean>	
-	
+	</bean>
+
 	<bean id="laborLedgerBalanceForEffortCertificationLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
 		    	    <ref bean="laborLedgerBalanceForEffortCertificationLookupableHelperService" />
-		        </property>			    
+		        </property>
 		    </bean>
 		</property>
-	</bean>	
-	
+	</bean>
+
 	<bean id="laborLedgerBalanceForSalaryExpenseTransferLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
 		    	    <ref bean="laborLedgerBalanceForSalaryExpenseTransferLookupableHelperService" />
-		        </property>			    
+		        </property>
 		    </bean>
 		</property>
-	</bean>		
-	
+	</bean>
+
 	<bean id="laborLedgerEntryLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
 		    	    <ref bean="laborLedgerEntryLookupableHelperService" />
-		        </property>			    
+		        </property>
 		    </bean>
 		</property>
-	</bean>		
-	
+	</bean>
+
 	<bean id="laborLedgerEntryForExpenseTransferLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
 		    	    <ref bean="laborLedgerEntryForExpenseTransferLookupableHelperService" />
-		        </property>			    
+		        </property>
 		    </bean>
 		</property>
-	</bean>	
-	
-</beans>	
+	</bean>
+
+</beans>

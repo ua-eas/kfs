@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 /**
  * Copyright 2005-2015 The Kuali Foundation
  *
@@ -15,14 +33,14 @@
  */
 .fl-font-size-70,
 .fl-font-size-70 body,
-.fl-font-size-70 input, 
-.fl-font-size-70 select, 
+.fl-font-size-70 input,
+.fl-font-size-70 select,
 .fl-font-size-70 textarea {font-size:0.7em !important; line-height:1em !important;}
 
 .fl-font-size-80,
-.fl-font-size-80 body, 
-.fl-font-size-80 input, 
-.fl-font-size-80 select, 
+.fl-font-size-80 body,
+.fl-font-size-80 input,
+.fl-font-size-80 select,
 .fl-font-size-80 textarea {font-size:0.8em !important; line-height:1.1em !important;}
 
 .fl-font-size-90,
@@ -31,45 +49,45 @@
 .fl-font-size-90 select,
 .fl-font-size-90 textarea {font-size:0.9em !important; line-height:1.2em !important;}
 
-.fl-font-size-100, 
+.fl-font-size-100,
 .fl-font-size-100 body,
-.fl-font-size-100 input, 
-.fl-font-size-100 select, 
+.fl-font-size-100 input,
+.fl-font-size-100 select,
 .fl-font-size-100 textarea {font-size:1em !important; line-height:1.3em !important;}
 
-.fl-font-size-110, 
-.fl-font-size-110 body, 
-.fl-font-size-110 input, 
-.fl-font-size-110 select, 
+.fl-font-size-110,
+.fl-font-size-110 body,
+.fl-font-size-110 input,
+.fl-font-size-110 select,
 .fl-font-size-110 textarea {font-size:1.1em !important; line-height:1.4em !important;}
 
-.fl-font-size-120, 
-.fl-font-size-120 body, 
-.fl-font-size-120 input, 
-.fl-font-size-120 select, 
+.fl-font-size-120,
+.fl-font-size-120 body,
+.fl-font-size-120 input,
+.fl-font-size-120 select,
 .fl-font-size-120 textarea {font-size:1.2em !important; line-height:1.5em !important;}
 
-.fl-font-size-130, 
-.fl-font-size-130 body, 
-.fl-font-size-130 input, 
-.fl-font-size-130 select, 
+.fl-font-size-130,
+.fl-font-size-130 body,
+.fl-font-size-130 input,
+.fl-font-size-130 select,
 .fl-font-size-130 textarea {font-size:1.3em !important; line-height:1.6em !important;}
 
-.fl-font-size-140, 
-.fl-font-size-140 body, 
-.fl-font-size-140 input, 
-.fl-font-size-140 select, 
+.fl-font-size-140,
+.fl-font-size-140 body,
+.fl-font-size-140 input,
+.fl-font-size-140 select,
 .fl-font-size-140 textarea {font-size:1.4em !important; line-height:1.7em !important;}
 
-.fl-font-size-150, 
+.fl-font-size-150,
 .fl-font-size-150 body,
-.fl-font-size-150 input, 
-.fl-font-size-150 select, 
+.fl-font-size-150 input,
+.fl-font-size-150 select,
 .fl-font-size-150 textarea {font-size:1.5em; line-height:1.8em !important;}     /* removed !important so that font-size can be overridden */
 
 /* fix for Safari 3 ignoring input font size */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-    
+
     [class~='fl-font-size-70'] input[type=submit],
     [class~='fl-font-size-70'] input[type=button] {padding:0 1em}
 
@@ -101,7 +119,7 @@
     [class~='fl-font-size-150'] input[type=submit],
     input[type=submit][class~='fl-font-size-150'],
     [class~='fl-font-size-150'] input[type=button] {background-color:#fff; font-size:1.5em !important; padding:0 1em}
-    
+
     [class~='fl-font-serif'] input[type=submit],
     [class~='fl-font-sans'] input[type=submit],
     [class~='fl-font-monospace'] input[type=submit],
@@ -134,44 +152,44 @@
     text-align:justify;
 }
 
-.fl-font-spacing-0, 
-.fl-font-spacing-0 body, 
+.fl-font-spacing-0,
+.fl-font-spacing-0 body,
 .fl-font-spacing-0 input,
 .fl-font-spacing-0 select,
 .fl-font-spacing-0 textarea {letter-spacing:0em}
 
-.fl-font-spacing-1, 
-.fl-font-spacing-1 body, 
+.fl-font-spacing-1,
+.fl-font-spacing-1 body,
 .fl-font-spacing-1 input,
 .fl-font-spacing-1 select,
 .fl-font-spacing-1 textarea {letter-spacing:0.1em}
 
-.fl-font-spacing-2, 
-.fl-font-spacing-2 body, 
+.fl-font-spacing-2,
+.fl-font-spacing-2 body,
 .fl-font-spacing-2 input,
 .fl-font-spacing-2 select,
 .fl-font-spacing-2 textarea {letter-spacing:0.2em}
 
-.fl-font-spacing-3, 
-.fl-font-spacing-3 body, 
+.fl-font-spacing-3,
+.fl-font-spacing-3 body,
 .fl-font-spacing-3 input,
 .fl-font-spacing-3 select,
 .fl-font-spacing-3 textarea {letter-spacing:0.3em}
 
-.fl-font-spacing-4, 
-.fl-font-spacing-4 body, 
+.fl-font-spacing-4,
+.fl-font-spacing-4 body,
 .fl-font-spacing-4 input,
 .fl-font-spacing-4 select,
 .fl-font-spacing-4 textarea {letter-spacing:0.4em}
 
-.fl-font-spacing-5, 
-.fl-font-spacing-5 body, 
+.fl-font-spacing-5,
+.fl-font-spacing-5 body,
 .fl-font-spacing-5 input,
 .fl-font-spacing-5 select,
 .fl-font-spacing-5 textarea {letter-spacing:0.5em}
 
-.fl-font-spacing-6, 
-.fl-font-spacing-6 body, 
+.fl-font-spacing-6,
+.fl-font-spacing-6 body,
 .fl-font-spacing-6 input,
 .fl-font-spacing-6 select,
 .fl-font-spacing-6 textarea {letter-spacing:0.6em}

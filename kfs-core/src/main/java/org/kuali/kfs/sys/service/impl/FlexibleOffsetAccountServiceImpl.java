@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -50,12 +50,12 @@ public class FlexibleOffsetAccountServiceImpl implements FlexibleOffsetAccountSe
     /**
      * This method uses the parameters provided to retrieve an OffsetAccount instance if the flexible offset account flag is
      * enabled.
-     * 
+     *
      * @param chartOfAccountsCode The chart code used to retrieve the flexible offset account.
      * @param accountNumber The account number of the flexible offset account being retrieved.
      * @param financialOffsetObjectCode The offset object code used to retrieve the offset account.
      * @return A flexible offset account based on the parameters provided, or null if offsets are not enabled.
-     * 
+     *
      * @see FlexibleOffsetAccountService#getByPrimaryIdIfEnabled
      */
     public OffsetAccount getByPrimaryIdIfEnabled(String chartOfAccountsCode, String accountNumber, String financialOffsetObjectCode) {
@@ -73,9 +73,9 @@ public class FlexibleOffsetAccountServiceImpl implements FlexibleOffsetAccountSe
 
     /**
      * This method queries the parameter table to retrieve the value of the flexible offset flag and returns the resulting value.
-     * 
-     * @return True if flexible offsets are enabled, false otherwise. 
-     * 
+     *
+     * @return True if flexible offsets are enabled, false otherwise.
+     *
      * @see FlexibleOffsetAccountService#getEnabled
      */
     public boolean getEnabled() {
@@ -84,12 +84,12 @@ public class FlexibleOffsetAccountServiceImpl implements FlexibleOffsetAccountSe
     }
 
     /**
-     * This method modifies the origin entry provided with values from the associated flexible offset account, which is 
+     * This method modifies the origin entry provided with values from the associated flexible offset account, which is
      * retrieved from the database using values provided by the origin entry.
-     * 
+     *
      * @param originEntry The origin entry to be updated with offset account details.
      * @return False if the flexible offset flag is false, if there is no corresponding flexbile offset account, true otherwise.
-     * 
+     *
      * @see org.kuali.kfs.sys.service.FlexibleOffsetAccountService#updateOffset(org.kuali.kfs.gl.businessobject.OriginEntryFull)
      */
     public boolean updateOffset(FlexibleAccountUpdateable transaction) {
@@ -150,9 +150,9 @@ public class FlexibleOffsetAccountServiceImpl implements FlexibleOffsetAccountSe
     }
 
     /**
-     * This method determines if an account has expired.  An account has expired if the expiration year of the account is 
+     * This method determines if an account has expired.  An account has expired if the expiration year of the account is
      * less than the run date year or if the date of expiration occurred before the run date provided.
-     * 
+     *
      * @param account The account to be examined.
      * @param runCalendar The date the expiration date is tested against.
      * @return True if the account has expired, false otherwise.

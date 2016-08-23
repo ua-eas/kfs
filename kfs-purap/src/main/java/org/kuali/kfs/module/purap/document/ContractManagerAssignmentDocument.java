@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -79,13 +79,13 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
      */
     public void populateDocumentWithRequisitions() {
         LOG.debug("populateDocumentWithRequisitions() Entering method.");
-        
+
         List<RequisitionDocument> unassignedRequisitions = new ArrayList(SpringContext.getBean(RequisitionService.class).getRequisitionsAwaitingContractManagerAssignment());
         List<String>documentHeaderIds = new ArrayList();
         for (RequisitionDocument req : unassignedRequisitions) {
             documentHeaderIds.add(req.getDocumentNumber());
         }
-        
+
         List<Document> requisitionDocumentsFromDocService = new ArrayList();
         try {
             if ( documentHeaderIds.size() > 0 )
@@ -96,14 +96,14 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
             LOG.error(errorMsg, we);
             throw new RuntimeException(errorMsg, we);
         }
-  
+
         for (Document req : requisitionDocumentsFromDocService) {
             contractManagerAssignmentDetails.add(new ContractManagerAssignmentDetail(this, (RequisitionDocument) req));
         }
 
         String[] fieldNames = {PurapPropertyConstants.DELIVERY_CAMPUS_CODE, PurapPropertyConstants.VENDOR_NAME, PurapPropertyConstants.REQUISITION_IDENTIFIER};
         DynamicCollectionComparator.sort(contractManagerAssignmentDetails, fieldNames);
-        LOG.debug("populateDocumentWithRequisitions() Leaving method.");   
+        LOG.debug("populateDocumentWithRequisitions() Leaving method.");
     }
 
     @Override
@@ -139,7 +139,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
     }
 
     /**
-     * 
+     *
      * @param wd
      * @return
      * @throws WorkflowException
@@ -179,7 +179,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
 
     /**
      * Gets the firstObjectCode attribute.
-     * 
+     *
      * @return Returns the firstObjectCode.
      */
     public String getFirstObjectCode() {
@@ -188,7 +188,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
 
     /**
      * Gets the deliveryCampusCode attribute.
-     * 
+     *
      * @return Returns the deliveryCampusCode.
      */
     public String getDeliveryCampusCode() {
@@ -197,7 +197,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
 
     /**
      * Gets the firstItemDescription attribute.
-     * 
+     *
      * @return Returns the firstItemDescription.
      */
     public String getFirstItemDescription() {
@@ -206,7 +206,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
 
    /**
     * Gets the firstItemCommodityCode attribute.
-    * 
+    *
     * @return Returns the firstItemCommodityCode.
     */
     public String getFirstItemCommodityCode() {
@@ -215,7 +215,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
 
     /**
      * Gets the generalDescription attribute.
-     * 
+     *
      * @return Returns the generalDescription.
      */
     public String getGeneralDescription() {
@@ -224,7 +224,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
 
     /**
      * Gets the requisitionCreateDate attribute.
-     * 
+     *
      * @return Returns the requisitionCreateDate.
      */
     public String getRequisitionCreateDate() {
@@ -233,7 +233,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
 
     /**
      * Gets the requisitionNumber attribute.
-     * 
+     *
      * @return Returns the requisitionNumber.
      */
     public String getRequisitionNumber() {
@@ -242,7 +242,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
 
     /**
      * Gets the requisitionTotalAmount attribute.
-     * 
+     *
      * @return Returns the requisitionTotalAmount.
      */
     public String getRequisitionTotalAmount() {
@@ -251,7 +251,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
 
     /**
      * Gets the vendorName attribute.
-     * 
+     *
      * @return Returns the vendorName.
      */
     public String getVendorName() {
@@ -261,5 +261,5 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
     public String getUniversityFiscalYear() {
         return universityFiscalYear;
     }
-    
+
 }

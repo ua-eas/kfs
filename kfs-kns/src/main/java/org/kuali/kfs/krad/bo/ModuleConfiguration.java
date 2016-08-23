@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,7 +36,7 @@ import java.util.Map;
 /**
  * This is a description of what this class does - bhargavp don't forget to fill this in.
  *
- * 
+ *
  *
  */
 public class ModuleConfiguration implements InitializingBean, ApplicationContextAware {
@@ -92,7 +92,7 @@ public class ModuleConfiguration implements InitializingBean, ApplicationContext
 	 */
 	public void setDatabaseRepositoryFilePaths(
 			List<String> databaseRepositoryFilePaths) {
-		this.trimList(databaseRepositoryFilePaths);	
+		this.trimList(databaseRepositoryFilePaths);
 		this.databaseRepositoryFilePaths = databaseRepositoryFilePaths;
 	}
 
@@ -107,10 +107,10 @@ public class ModuleConfiguration implements InitializingBean, ApplicationContext
 	 * @param dataDictionaryPackages the dataDictionaryPackages to set
 	 */
 	public void setDataDictionaryPackages(List<String> dataDictionaryPackages) {
-		this.trimList(dataDictionaryPackages);			
-		this.dataDictionaryPackages = dataDictionaryPackages;		
-	}	
-	
+		this.trimList(dataDictionaryPackages);
+		this.dataDictionaryPackages = dataDictionaryPackages;
+	}
+
 	/**
 	 * @return the externalizableBusinessObjectImplementations
 	 */
@@ -287,22 +287,22 @@ public class ModuleConfiguration implements InitializingBean, ApplicationContext
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-    
+
     /**
-	 * 
+	 *
 	 * This method passes by reference. It will alter the list passed in.
-	 * 
+	 *
 	 * @param stringList
 	 */
 	protected void trimList(List<String> stringList){
 		if(stringList != null){
-			// we need to trim whitespace from the stringList. Because trim() creates a new string 
+			// we need to trim whitespace from the stringList. Because trim() creates a new string
 			// we have to explicitly put the new string back into the list
 			for(int i=0; i<stringList.size(); i++){
-				String elmt = stringList.get(i);				
+				String elmt = stringList.get(i);
 				elmt = elmt.trim();
 				stringList.set(i, elmt);
-			}			
+			}
 		}
 	}
 

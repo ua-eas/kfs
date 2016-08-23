@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,8 +30,8 @@ import org.kuali.kfs.krad.service.impl.InactivationBlockingDetectionServiceImpl;
 
 /**
  * This class is used when the offset definition represents the object that is blocking other records from being inactivated.
- * 
- * Normally, only active BO's with the proper primary key values are allowed to inactivate other business objects.  However, 
+ *
+ * Normally, only active BO's with the proper primary key values are allowed to inactivate other business objects.  However,
  * OffsetDefinitions do not have an active indicator.  An offset definition that references another BO is allowed to block the inactivation
  * of that BO, without regard to active status, because the OD bo does not have an active status on it.
  */
@@ -62,7 +62,7 @@ public class OffsetDefinitionInactivationBlockingDetectionServiceImpl extends In
 
         return blockingRecords;
     }
-    
+
     /**
      * Overriding to say that any record of the same PK is blocking..
      * @see org.kuali.kfs.krad.service.impl.InactivationBlockingDetectionServiceImpl#hasABlockingRecord(org.kuali.rice.krad.bo.BusinessObject, org.kuali.kfs.krad.datadictionary.InactivationBlockingMetadata)

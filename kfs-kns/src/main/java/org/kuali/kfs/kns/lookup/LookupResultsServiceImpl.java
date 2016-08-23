@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,15 +46,15 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
     private PersistedLookupMetadataDao persistedLookupMetadataDao;
     private LookupResultsSupportStrategyService persistableBusinessObjectSupportStrategy;
     private LookupResultsSupportStrategyService dataDictionarySupportStrategy;
-    
+
     /**
      * @see org.kuali.rice.krad.lookup.LookupResultsService#persistResultsTable(java.lang.String, java.util.List, java.lang.String)
      */
     public void persistResultsTable(String lookupResultsSequenceNumber, List<ResultRow> resultTable, String personId) throws Exception {
         String resultTableString = new String(Base64.encodeBase64(ObjectUtils.toByteArray(resultTable)));
-        
+
         Timestamp now = CoreApiServiceLocator.getDateTimeService().getCurrentTimestamp();
-        
+
         LookupResults lookupResults = retrieveLookupResults(lookupResultsSequenceNumber);
         if (lookupResults == null) {
             lookupResults = new LookupResults();
@@ -94,7 +94,7 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
         Map<String, String> queryCriteria = new HashMap<String, String>();
         queryCriteria.put(KRADConstants.LOOKUP_RESULTS_SEQUENCE_NUMBER, lookupResultsSequenceNumber);
         LookupResults lookupResults = (LookupResults) businessObjectService.findByPrimaryKey(LookupResults.class, queryCriteria);
-        
+
         return lookupResults;
     }
 
@@ -108,7 +108,7 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
         Map<String, String> queryCriteria = new HashMap<String, String>();
         queryCriteria.put(KRADConstants.LOOKUP_RESULTS_SEQUENCE_NUMBER, lookupResultsSequenceNumber);
         SelectedObjectIds selectedObjectIds = (SelectedObjectIds) businessObjectService.findByPrimaryKey(SelectedObjectIds.class, queryCriteria);
-        
+
         return selectedObjectIds;
     }
 
@@ -127,7 +127,7 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
 
     /**
      * Returns whether the user ID parameter is allowed to view the results.
-     * 
+     *
      * @param lookupResults
      * @param personId
      * @return
@@ -151,7 +151,7 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
 
     /**
      * Returns whether the user ID parameter is allowed to view the selected object IDs
-     * 
+     *
      * @param selectedObjectIds
      * @param personId
      * @return
@@ -159,7 +159,7 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
     protected boolean isAuthorizedToAccessSelectedObjectIds(SelectedObjectIds selectedObjectIds, String personId) {
         return isAuthorizedToAccessMultipleValueLookupMetadata(selectedObjectIds, personId);
     }
-    
+
 
     /**
      * @see org.kuali.rice.krad.lookup.LookupResultsService#retrieveResultsTable(java.lang.String, java.lang.String)
@@ -176,7 +176,7 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
 
     /**
      * Figures out which support strategy to defer to and uses that service to retrieve the results; if the bo class doesn't qualify with any support strategy, an exception is thrown.  A nasty one, too.
-     * 
+     *
      * @see org.kuali.rice.krad.lookup.LookupResultsService#retrieveSelectedResultBOs(java.lang.String, java.lang.Class, java.lang.String)
      */
     public <T extends BusinessObject> Collection<T> retrieveSelectedResultBOs(String lookupResultsSequenceNumber, Class<T> boClass, String personId) throws Exception {
@@ -184,28 +184,28 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
     	if (supportService == null) {
     		throw new RuntimeException("BusinessObject class "+boClass.getName()+" cannot be used within a multiple value lookup; it either needs to be a PersistableBusinessObject or have both its primary keys and a lookupable defined in its data dictionary entry");
     	}
-    	
+
     	SelectedObjectIds selectedObjectIds = retrieveSelectedObjectIds(lookupResultsSequenceNumber);
-        
+
         if (!isAuthorizedToAccessSelectedObjectIds(selectedObjectIds, personId)) {
             // TODO: use the other identifier
             throw new AuthorizationException(personId, "retrieve lookup results", "lookup sequence number " + lookupResultsSequenceNumber);
         }
-        
+
         Set<String> setOfSelectedObjIds = LookupUtils
                 .convertStringOfObjectIdsToSet(selectedObjectIds.getSelectedObjectIds());
-        
+
         if (setOfSelectedObjIds.isEmpty()) {
             // OJB throws exception if querying on empty set
             return new ArrayList<T>();
         }
-    	
+
     	return supportService.retrieveSelectedResultBOs(boClass, setOfSelectedObjIds);
     }
-    
+
     /**
      * Given the business object class, determines the best qualifying LookupResultsSupportStrategyService to use
-     * 
+     *
      * @param boClass a business object class
      * @return an LookupResultsSupportStrategyService implementation, or null if no qualifying strategies could be found
      */
@@ -217,7 +217,7 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
     	}
     	return null;
     }
-    
+
     /**
      * @see org.kuali.rice.krad.lookup.LookupResultsService#clearPersistedLookupResults(java.lang.String)
      */
@@ -227,7 +227,7 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
             businessObjectService.delete(lookupResults);
         }
     }
-    
+
     /**
      * @see org.kuali.rice.krad.lookup.LookupResultsService#clearPersistedSelectedObjectIds(java.lang.String)
      */
@@ -237,7 +237,7 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
             businessObjectService.delete(selectedObjectIds);
         }
     }
-    
+
     /**
 	 * Figures out which LookupResultsServiceSupportStrategy to defer to, and uses that to get the lookup id
 	 * @see org.kuali.rice.krad.lookup.LookupResultsService#getLookupId(org.kuali.rice.krad.bo.BusinessObject)
@@ -257,7 +257,7 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;
     }
-    
+
     /**
      * Determines whether the passed in user ID is allowed to view the lookup metadata (object IDs or results table)
      * @param mvlm
@@ -268,10 +268,10 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
         return personId.equals(mvlm.getLookupPersonId());
     }
 
-    
+
     public void deleteOldLookupResults(Timestamp expirationDate) {
         persistedLookupMetadataDao.deleteOldLookupResults(expirationDate);
-        
+
     }
 
     public void deleteOldSelectedObjectIds(Timestamp expirationDate) {
@@ -315,6 +315,6 @@ public class LookupResultsServiceImpl implements org.kuali.kfs.kns.lookup.Lookup
 			LookupResultsSupportStrategyService dataDictionarySupportStrategy) {
 		this.dataDictionarySupportStrategy = dataDictionarySupportStrategy;
 	}
-    
+
 }
 

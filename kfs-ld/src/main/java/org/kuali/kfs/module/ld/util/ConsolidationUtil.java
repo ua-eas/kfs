@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -38,7 +38,7 @@ public class ConsolidationUtil {
 
     /**
      * wrap the given field name with SQL function "sum"
-     * 
+     *
      * @param fieldName the given field name
      * @return the wrapped field name with SQL function "sum"
      */
@@ -48,7 +48,7 @@ public class ConsolidationUtil {
 
     /**
      * This method builds the atrribute list used by balance searching
-     * 
+     *
      * @param extendedFields extra fields
      * @return List an attribute list
      */
@@ -58,7 +58,7 @@ public class ConsolidationUtil {
 
     /**
      * This method builds the atrribute list used by balance searching
-     * 
+     *
      * @param extendedFields extra fields
      * @return Collection an attribute list
      */
@@ -76,7 +76,7 @@ public class ConsolidationUtil {
 
     /**
      * Utility class for helping DAOs deal with building queries for the consolidation option
-     * 
+     *
      * @param query Query to make consolidated
      * @param extraFields fields included in the query
      * @param ignoredFields to omit from the query
@@ -102,13 +102,13 @@ public class ConsolidationUtil {
         String[] groupBy = (String[]) groupByList.toArray(new String[attributeList.size()]);
         query.addGroupBy(groupBy);
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Built GroupBy for Query: " + groupByList.toString());    
+            LOG.debug("Built GroupBy for Query: " + groupByList.toString());
         }
     }
 
     /**
      * This method builds group by attribute list used by balance searching
-     * 
+     *
      * @return extraFields
      * @return Collection an group by attribute list
      */
@@ -130,7 +130,7 @@ public class ConsolidationUtil {
 
     /**
      * This method builds group by attribute list used by balance searching
-     * 
+     *
      * @return extraFields
      * @return Collection an group by attribute list
      */
@@ -141,7 +141,7 @@ public class ConsolidationUtil {
     /**
      * Consolidates a collection of actual balances with a collection of A2 balances. The A2 balances are changed to AC, then
      * matched by balance key with balances from the actual collection.
-     * 
+     *
      * @param actualBalances - collection of actual balances (consolidatedBalanceTypeCode)
      * @param effortBalances - collection of effort balances ('A2')
      * @param consolidatedBalanceTypeCode - balance type to change A2 records to
@@ -152,25 +152,25 @@ public class ConsolidationUtil {
         for (LedgerBalance effortBalance : effortBalances) {
             effortBalance.setBalanceTypeCode(consolidatedBalanceTypeCode);
             String consolidationKey = ObjectUtil.buildPropertyMap(effortBalance, consolidationKeyList).toString();
-            
+
             if(consolidatedBalanceMap.containsKey(consolidationKey)) {
                 LedgerBalance ledgerBalance = consolidatedBalanceMap.get(consolidationKey);
                 sumLedgerBalances(ledgerBalance, effortBalance);
             }
-            else {                            
+            else {
                 consolidatedBalanceMap.put(consolidationKey, effortBalance);
             }
         }
-        
+
         for (LedgerBalance actualBalance : actualBalances) {
             actualBalance.setBalanceTypeCode(consolidatedBalanceTypeCode);
             String consolidationKey = ObjectUtil.buildPropertyMap(actualBalance, consolidationKeyList).toString();
-            
+
             if(consolidatedBalanceMap.containsKey(consolidationKey)) {
                 LedgerBalance ledgerBalance = consolidatedBalanceMap.get(consolidationKey);
                 sumLedgerBalances(ledgerBalance, actualBalance);
             }
-            else {              
+            else {
                 consolidatedBalanceMap.put(consolidationKey, actualBalance);
             }
         }
@@ -180,7 +180,7 @@ public class ConsolidationUtil {
 
     /**
      * Adds the amounts fields of the second balance record to the first.
-     * 
+     *
      * @param balance1 - LedgerBalance
      * @param balance2 - LedgerBalance
      */
@@ -205,7 +205,7 @@ public class ConsolidationUtil {
 
     /**
      * wrap the attribute name based on the given flag: isAttributeNameNeeded
-     * 
+     *
      * @param attributeName the given attribute name
      * @param isAttributeNameNeeded the flag that indicates if the attribute name needs to be wrapped with consolidation
      * @return the attribute name as it is if isAttributeNameNeeded is true; otherwise, the attribute name wrapped with

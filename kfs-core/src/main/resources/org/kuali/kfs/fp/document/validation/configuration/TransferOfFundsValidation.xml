@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -70,9 +70,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="TransferOfFunds-saveDocumentValidation" parent="TransferOfFunds-saveDocumentValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="TransferOfFunds-saveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -80,9 +80,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="TransferOfFunds-approveDocumentValidation" parent="TransferOfFunds-approveDocumentValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="TransferOfFunds-approveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -90,9 +90,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="TransferOfFunds-blanketApproveDocumentValidation" parent="TransferOfFunds-blanketApproveDocumentValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="TransferOfFunds-blanketApproveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -100,7 +100,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="TransferOfFunds-accountingLineValuesAllowedValidation" parent="AccountingDocument-defaultAccountingLineValuesAllowedValidation">
 		<property name="objectCodeAllowedValidation">
 			<bean parent="CompositeValidation" scope="prototype">
@@ -116,7 +116,7 @@
 			<bean parent="TransferOfFunds-objectSubTypeValueAllowedValidation" scope="prototype" />
 		</property>
 	</bean>
-	
+
 	<bean id="TransferOfFunds-addAccountingLine-accountingLineGroupedValidation" abstract="true" parent="CompositeValidation" scope="prototype"> <!-- here to get the quit on fail issues correct -->
 		<property name="validations">
 			<list>
@@ -151,17 +151,17 @@
 					<property name="parameterProperties">
 						<list>
 							<bean parent="accountingDocumentFieldConversion" />
-							<bean parent="accountingLineFieldConversion" />							
+							<bean parent="accountingLineFieldConversion" />
 						</list>
 					</property>
-					<property name="quitOnFail" value="true" />						
-				</bean>				
+					<property name="quitOnFail" value="true" />
+				</bean>
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="TransferOfFunds-addAccountingLineValidation" parent="TransferOfFunds-addAccountingLineValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="TransferOfFunds-addAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -173,13 +173,13 @@
 							<bean parent="accountingLineFieldConversion" />
 						</list>
 					</property>
-				</bean>				
+				</bean>
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="TransferOfFunds-deleteAccountingLineValidation" parent="TransferOfFunds-deleteAccountingLineValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="TransferOfFunds-deleteAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -187,9 +187,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="TransferOfFunds-reviewAccountingLineValidation" parent="TransferOfFunds-reviewAccountingLineValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="TransferOfFunds-reviewAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -220,7 +220,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="TransferOfFunds-updateAccountingLine-accountingLineGroupValidation" abstract="true" parent="CompositeValidation" scope="prototype"> <!-- here to get the quit on fail issues correct -->
 		<property name="validations">
 			<list>
@@ -253,9 +253,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="TransferOfFunds-updateAccountingLineValidation" parent="TransferOfFunds-updateAccountingLineValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="TransferOfFunds-updateAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>

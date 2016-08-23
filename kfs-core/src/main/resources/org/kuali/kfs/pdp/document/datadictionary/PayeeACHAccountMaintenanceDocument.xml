@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -25,8 +25,8 @@
     <property name="maintainableClass" value="org.kuali.kfs.pdp.document.PayeeACHAccountMaintainableImpl"/>
     <property name="documentTypeName" value="PAAT"/>
     <property name="businessRulesClass" value="org.kuali.kfs.pdp.document.validation.impl.PayeeAchAccountRule"/>
-    <property name="documentPresentationControllerClass" value="org.kuali.kfs.pdp.document.authorization.PayeeACHAccountMaintenanceDocumentPresentationController"/>        
-    <property name="documentAuthorizerClass" value="org.kuali.kfs.pdp.document.authorization.PayeeACHAccountMaintenanceDocumentAuthorizer"/>        
+    <property name="documentPresentationControllerClass" value="org.kuali.kfs.pdp.document.authorization.PayeeACHAccountMaintenanceDocumentPresentationController"/>
+    <property name="documentAuthorizerClass" value="org.kuali.kfs.pdp.document.authorization.PayeeACHAccountMaintenanceDocumentAuthorizer"/>
     <property name="encryptDocumentDataInPersistentSessionStorage" value="true"/>
     <property name="maintainableSections">
       <list>
@@ -52,7 +52,7 @@
         <value>../scripts/pdp/objectInfo.js</value>
       </list>
     </property>
-    
+
     <property name="workflowAttributes" ref="PayeeACHAccountMaintenanceDocument-workflowAttributes"/>
   </bean>
 
@@ -68,7 +68,7 @@
       <list>
         <bean parent="MaintainableFieldDefinition" p:name="achAccountGeneratedIdentifier" p:unconditionallyReadOnly="true" p:defaultValueFinderClass="org.kuali.kfs.pdp.businessobject.defaultvalue.NextAchAccountIdentifierFinder"/>
         <bean parent="MaintainableFieldDefinition" p:name="payeeIdentifierTypeCode" p:required="true" p:webUILeaveFieldFunction="submit"/>
-        <bean parent="MaintainableFieldDefinition" p:name="payeeIdNumber" p:required="true" p:webUILeaveFieldFunction="submit"/>   
+        <bean parent="MaintainableFieldDefinition" p:name="payeeIdNumber" p:required="true" p:webUILeaveFieldFunction="submit"/>
         <bean parent="MaintainableFieldDefinition">
           <property name="name" value="bankRoutingNumber"/>
           <property name="required" value="true"/>
@@ -90,9 +90,9 @@
 
   <!-- Exported Workflow Properties -->
   <bean id="PayeeACHAccountMaintenanceDocument-workflowAttributes" parent="PayeeACHAccountMaintenanceDocument-workflowAttributes-parentBean"/>
-  
+
   <bean id="PayeeACHAccountMaintenanceDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
-    
+
     <property name="searchingTypeDefinitions">
         <list>
           <bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
@@ -137,5 +137,5 @@
         </list>
       </property>
   </bean>
-  
+
 </beans>

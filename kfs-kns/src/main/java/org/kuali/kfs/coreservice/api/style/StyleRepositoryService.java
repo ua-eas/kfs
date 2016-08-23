@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -43,13 +43,13 @@ public interface StyleRepositoryService {
 	/**
 	 * Returns the style with the given name.  If no style with the given name
 	 * can be found, this method will return null.
-	 * 
+	 *
 	 * @param styleName the name of the style to retrieve, must not be null or
 	 * blank
-	 * 
+	 *
 	 * @return the style with the given name, or null if no style with the given
 	 * name could be found
-	 * 
+	 *
 	 * @throws RiceIllegalArgumentException if the given styleName is null or blank
 	 */
 	@WebMethod(operationName = "getStyle")
@@ -61,26 +61,26 @@ public interface StyleRepositoryService {
 	 * id on the style is not null, then it will update the existing
 	 * style record which has that id.  Otherwise it will create a new style in
 	 * the repository.
-	 * 
+	 *
 	 * <p>When updating an existing style, the caller needs to ensure that the
 	 * id, versionNumber, and objectId values are set on the given Style
 	 * object.
-	 * 
+	 *
 	 * @param style the style data to create or update in the repository
-	 * 
+	 *
 	 * @return the style with the given name, or null if no style with the given
 	 * name could be found
-	 * 
+	 *
 	 * @throws RiceIllegalArgumentException if the given style is null
 	 */
 	@WebMethod(operationName = "saveStyle")
 	void saveStyle(@WebParam(name = "style") Style style) throws RiceIllegalArgumentException;
-	
+
 	/**
 	 * Returns a list of the names for all active styles in the repository. If
 	 * there are no active styles, this list will be empty.  It will never
 	 * return null.
-	 * 
+	 *
 	 * @return the list of names for all active styles
 	 */
 	@WebMethod(operationName="getStyleNames")

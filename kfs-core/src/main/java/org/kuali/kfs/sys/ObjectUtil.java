@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,7 +49,7 @@ public class ObjectUtil {
 
     /**
      * create an object of the specified type
-     * 
+     *
      * @param clazz the specified type of the object
      * @return an object of the specified type
      */
@@ -73,7 +73,7 @@ public class ObjectUtil {
 
     /**
      * Populate the given fields of the target object with the corresponding field values of source object
-     * 
+     *
      * @param targetObject the target object
      * @param sourceObject the source object
      * @param keyFields the given fields of the target object that need to be popluated
@@ -99,7 +99,7 @@ public class ObjectUtil {
 
     /**
      * Populate the given fields of the target object with the values of an array
-     * 
+     *
      * @param targetObject the target object
      * @param sourceObject the given array
      * @param keyFields the given fields of the target object that need to be popluated
@@ -129,7 +129,7 @@ public class ObjectUtil {
             indexOfArray++;
         }
     }
-    
+
     public static String getSimpleTypeName(Object targetObject, String propertyName) {
         String simpleTypeName = StringUtils.EMPTY;
         try {
@@ -138,13 +138,13 @@ public class ObjectUtil {
         catch (Exception e) {
             LOG.debug(e);
         }
-        
+
         return simpleTypeName;
     }
 
     /**
      * Get an object of the given type holding the property value of the specified String.
-     * 
+     *
      * @param type the given type of the returning object
      * @param propertyValue the property value of the specified string
      * @return an object of the given type holding the property value of the specified String
@@ -181,7 +181,7 @@ public class ObjectUtil {
 
     /**
      * determine if the given string can be converted into an Integer
-     * 
+     *
      * @param value the value of the specified string
      * @return true if the string can be converted into an Integer; otherwise, return false
      */
@@ -192,7 +192,7 @@ public class ObjectUtil {
 
     /**
      * determine if the given string can be converted into a decimal
-     * 
+     *
      * @param value the value of the specified string
      * @return true if the string can be converted into a decimal; otherwise, return false
      */
@@ -203,7 +203,7 @@ public class ObjectUtil {
 
     /**
      * convert the given string into a date
-     * 
+     *
      * @param value the given string
      * @return a date converted from the given string
      */
@@ -221,7 +221,7 @@ public class ObjectUtil {
 
     /**
      * convert the given string into a timestamp object if the string is in the valid format of timestamp
-     * 
+     *
      * @param value the given string
      * @return a timestamp converted from the given string
      */
@@ -247,7 +247,7 @@ public class ObjectUtil {
 
     /**
      * Populate the target object with the source object
-     * 
+     *
      * @param targetObject the target object
      * @param sourceObject the source object
      */
@@ -262,7 +262,7 @@ public class ObjectUtil {
 
     /**
      * Populate the target object with the source object
-     * 
+     *
      * @param targetObject the target object
      * @param sourceObject the source object
      */
@@ -277,7 +277,7 @@ public class ObjectUtil {
 
     /**
      * Populate the property of the target object with the counterpart of the source object
-     * 
+     *
      * @param targetObject the target object
      * @param sourceObject the source object
      * @param property the specified propety of the target object
@@ -296,7 +296,7 @@ public class ObjectUtil {
             }
 
             if (PropertyUtils.isReadable(sourceObject, propertyName) && PropertyUtils.isWriteable(targetObject, propertyName)) {
-                Object propertyValue = PropertyUtils.getProperty(sourceObject, propertyName);                        
+                Object propertyValue = PropertyUtils.getProperty(sourceObject, propertyName);
                 PropertyUtils.setProperty(targetObject, propertyName, propertyValue);
             }
         }
@@ -329,7 +329,7 @@ public class ObjectUtil {
 
     /**
      * Determine if they have the same values in the specified fields
-     * 
+     *
      * @param targetObject the target object
      * @param sourceObject the source object
      * @param keyFields the specified fields
@@ -363,7 +363,7 @@ public class ObjectUtil {
 
     /**
      * compute the hash code for the given object from the given fields
-     * 
+     *
      * @param object the given object
      * @param keyFields the specified fields
      * @return the hash code for the given object from the given fields
@@ -389,7 +389,7 @@ public class ObjectUtil {
 
     /**
      * build a map of business object with its specified property names and corresponding values
-     * 
+     *
      * @param businessObject the given business object
      * @param the specified fields that need to be included in the return map
      * @return the map of business object with its property names and values
@@ -420,7 +420,7 @@ public class ObjectUtil {
 
     /**
      * concat the specified properties of the given object as a string
-     * 
+     *
      * @param object the given object
      * @param the specified fields that need to be included in the return string
      * @return the specified properties of the given object as a string
@@ -443,7 +443,7 @@ public class ObjectUtil {
 
     /**
      * Tokenize the input line with the given deliminator and populate the given object with values of the tokens
-     * 
+     *
      * @param targetObject the target object
      * @param line the input line
      * @param delim the deminator that separates the fields in the given line
@@ -456,7 +456,7 @@ public class ObjectUtil {
 
     /**
      * Tokenize the input line with the given deliminator and populate the given object with values of the tokens
-     * 
+     *
      * @param targetObject the target object
      * @param line the input line
      * @param delim the deminator that separates the fields in the given line
@@ -470,7 +470,7 @@ public class ObjectUtil {
 
     /**
      * Tokenize the input line with the given deliminator and store the tokens in a list
-     * 
+     *
      * @param line the input line
      * @param delim the deminator that separates the fields in the given line
      * @return a list of tokens
@@ -497,7 +497,7 @@ public class ObjectUtil {
 
     /**
      * Tokenize the input line with the given deliminator and populate the given object with values of the tokens
-     * 
+     *
      * @param targetObject the target object
      * @param line the input line
      * @param delim the deminator that separates the fields in the given line
@@ -516,7 +516,7 @@ public class ObjectUtil {
 
     /**
      * Populate a business object with the given properities and information
-     * 
+     *
      * @param businessOjbject the business object to be populated
      * @param properties the given properties
      * @param propertyKey the property keys in the properties
@@ -530,7 +530,7 @@ public class ObjectUtil {
 
     /**
      * Populate a business object with the given properities and information
-     * 
+     *
      * @param businessOjbject the business object to be populated
      * @param properties the given properties
      * @param propertyKey the property keys in the properties
@@ -544,7 +544,7 @@ public class ObjectUtil {
 
     /**
      * determine if the source object has a field with null as its value
-     * 
+     *
      * @param sourceObject the source object
      */
     public static boolean hasNullValueField(Object sourceObject) {
@@ -572,7 +572,7 @@ public class ObjectUtil {
 
     /**
      * get the types of the nested attributes starting at the given class
-     * 
+     *
      * @param clazz the given class
      * @param nestedAttribute the nested attributes of the given class
      * @return a map that contains the types of the nested attributes and the attribute names

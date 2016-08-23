@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -92,7 +92,7 @@ function checkCheckAllOrNone() {
 					</c:choose></th>
 				</tr>
 				<tr>
-                    <sys:bankControl property="bankCode" objectProperty="bank" depositOnly="true" readOnly="${readOnly}" style="infoline" />				
+                    <sys:bankControl property="bankCode" objectProperty="bank" depositOnly="true" readOnly="${readOnly}" style="infoline" />
 					<td class="infoline"><kul:htmlControlAttribute
 						property="depositTypeCode"
 						attributeEntry="${depositAttributes.depositTypeCode}"
@@ -170,7 +170,7 @@ function checkCheckAllOrNone() {
 					<c:if test="${rawDepositTypeCode == 'F'}">
 						<kul:htmlAttributeHeaderCell literalLabel="Cash Total" scope="col" />
 					</c:if>
-					
+
 				</tr>
 
       <c:if test="${!empty KualiForm.depositableCashReceipts}">
@@ -222,10 +222,10 @@ function checkCheckAllOrNone() {
 						<td>
 							<div align="center">
 							$&nbsp;<c:out value="${cashReceipt.currencyFormattedGrandTotalConfirmedCashAmount}" /> <html:hidden
-								property="depositableCashReceipt[${ctr}].grandTotalConfirmedCashAmount" /></div> 
+								property="depositableCashReceipt[${ctr}].grandTotalConfirmedCashAmount" /></div>
 							</td>
 						</c:if>
-						
+
 					</tr>
 
 					<c:if test="${cashReceipt.confirmedCheckCount > 0}">
@@ -243,7 +243,7 @@ function checkCheckAllOrNone() {
 							</td>
 							<td class="infoline"><kul:htmlAttributeLabel
 								attributeEntry="${checkAttributes.amount}" readOnly="true" /></td>
-							
+
 						</tr>
 
 						<logic:iterate name="cashReceipt" property="confirmedChecks" id="confirmedCheck"
@@ -270,11 +270,11 @@ function checkCheckAllOrNone() {
 					</c:if>
 				</logic:iterate>
       </c:if>
-        
+
         <%-- check free cash receipts - only show on final deposit, when they are automatically deposited --%>
         <c:if test="${!empty KualiForm.checkFreeCashReceipts && KualiForm.depositFinal}">
         <tr>
-          <td colspan="7"><strong>The following Cash Receipts had no checks associated with them; they are automatically deposited as part of the final deposit.</strong></td> 
+          <td colspan="7"><strong>The following Cash Receipts had no checks associated with them; they are automatically deposited as part of the final deposit.</strong></td>
         </tr>
         <logic:iterate name="KualiForm" id="cashReceipt"
 					property="checkFreeCashReceipts" indexId="ctr">
@@ -331,11 +331,11 @@ function checkCheckAllOrNone() {
 			</table>
 			</div>
       </kul:tab>
-			
+
     </c:if>
-    
+
     <c:if test="${!empty KualiForm.depositableCashieringChecks}">
-    
+
       <kul:tab tabTitle="Cashiering Transaction Checks" defaultOpen="true" tabErrorKey="cashieringCheckErrors">
         <div class="tab-container" align="center">
         <div width="100%" align="left" style="padding-left: 10px; padding-bottom: 10px">
@@ -382,7 +382,7 @@ function checkCheckAllOrNone() {
         </div>
       </kul:tab>
     </c:if>
-    
+
     </div>
 			<div id="globalbuttons" class="globalbuttons"><html:submit
 				property="methodToCall.createDeposit" value="Create"

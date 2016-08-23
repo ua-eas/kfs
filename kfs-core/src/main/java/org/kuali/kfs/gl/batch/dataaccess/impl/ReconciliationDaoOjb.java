@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -48,7 +48,7 @@ public class ReconciliationDaoOjb extends PlatformAwareDaoBaseOjb implements Rec
 
     /**
      * Converts a list of DB column names to a list of java attribute names. The returned list is the same size as arrap parameter
-     * 
+     *
      * @param clazz a class for the OriginEntryFull class
      * @param columnNames an array of database columns
      * @param caseInsensitive whether to do matching
@@ -67,7 +67,7 @@ public class ReconciliationDaoOjb extends PlatformAwareDaoBaseOjb implements Rec
 
     /**
      * Returns the java attribute name corresponding to the column name
-     * 
+     *
      * @param classDescriptor the origin entry class
      * @param columnName the DB column name
      * @param caseInsensitive whether to do case insensitive matching
@@ -88,7 +88,7 @@ public class ReconciliationDaoOjb extends PlatformAwareDaoBaseOjb implements Rec
 
     /**
      * Returns the OJB class descriptor
-     * 
+     *
      * @param <E> an origin entry class
      * @param persistableClass the class
      * @return the class descriptor
@@ -112,7 +112,7 @@ public class ReconciliationDaoOjb extends PlatformAwareDaoBaseOjb implements Rec
 
     /**
      * Gets the descriptorRepository attribute.
-     * 
+     *
      * @return Returns the descriptorRepository.
      */
     protected DescriptorRepository getDescriptorRepository() {
@@ -121,7 +121,7 @@ public class ReconciliationDaoOjb extends PlatformAwareDaoBaseOjb implements Rec
 
     /**
      * Sets the descriptorRepository attribute value.
-     * 
+     *
      * @param descriptorRepository The descriptorRepository to set.
      */
     public void setDescriptorRepository(DescriptorRepository descriptorRepository) {

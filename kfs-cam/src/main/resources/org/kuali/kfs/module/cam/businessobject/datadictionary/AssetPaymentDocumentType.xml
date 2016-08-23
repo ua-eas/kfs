@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
- 
+
  <bean id="AssetPaymentDocumentType" parent="AssetPaymentDocumentType-parentBean"/>
- 
+
   <bean id="AssetPaymentDocumentType-parentBean" abstract="true" parent="BusinessObjectEntry">
     <property name="businessObjectClass" value="org.kuali.kfs.module.cam.businessobject.AssetPaymentDocumentType"/>
     <property name="inquiryDefinition" ref="AssetPaymentDocumentType-inquiryDefinition"/>
@@ -65,27 +65,27 @@
     <property name="name" value="documentTypeId"/>
     <property name="label" value="Id"/>
   </bean>
-	
+
 <bean id="AssetPaymentDocumentType-expenditureFinancialDocumentTypeCode" parent="AssetPaymentDocumentType-expenditureFinancialDocumentTypeCode-parentBean"/>
   <bean id="AssetPaymentDocumentType-expenditureFinancialDocumentTypeCode-parentBean" abstract="true" parent="GenericAttributes-financialSystemDocumentTypeCode">
     <property name="name" value="expenditureFinancialDocumentTypeCode"/>
     <property name="shortLabel" value="Doc. Type"/>
   </bean>
-	
-	  
+
+
   <bean id="AssetPaymentDocumentType-label" parent="AssetPaymentDocumentType-label-parentBean"/>
   <bean id="AssetPaymentDocumentType-label-parentBean" abstract="true" parent="DocumentType-label"/>
-	
+
   <bean id="AssetPaymentDocumentType-active" parent="AssetPaymentDocumentType-active-parentBean"/>
   <bean id="AssetPaymentDocumentType-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="active"/>
   </bean>
-  
- 
-  
+
+
+
   <!-- Business Object Inquiry Definition -->
 
- 
+
   <bean id="AssetPaymentDocumentType-inquiryDefinition" parent="AssetPaymentDocumentType-inquiryDefinition-parentBean"/>
 
   <bean id="AssetPaymentDocumentType-inquiryDefinition-parentBean" abstract="true" parent="InquiryDefinition">
@@ -109,13 +109,13 @@
   </bean>
 
 <!-- Business Object Lookup Definition -->
-	
+
 
   <bean id="AssetPaymentDocumentType-lookupDefinition" parent="AssetPaymentDocumentType-lookupDefinition-parentBean"/>
 
   <bean id="AssetPaymentDocumentType-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Asset Payment Document Type Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
          <property name="attributeNames">

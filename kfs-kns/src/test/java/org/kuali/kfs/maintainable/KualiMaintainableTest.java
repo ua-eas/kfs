@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -47,7 +47,7 @@ public class KualiMaintainableTest {
         boolean displayInactive = maintainable.getShowInactiveRecords("fooCollection");
         assertTrue("display setting returned true for unset collection", displayInactive);
     }
-    
+
     /**
      * Tests method throws an exception when given name is null.
      */
@@ -60,10 +60,10 @@ public class KualiMaintainableTest {
         catch (IllegalArgumentException expected) {
             failedAsExpected = true;
         }
-        
+
         assertTrue("exception not thrown for null collection name", failedAsExpected);
     }
-    
+
     /**
      * Tests setting to display inactive records for a collection.
      */
@@ -72,7 +72,7 @@ public class KualiMaintainableTest {
         maintainable.setShowInactiveRecords("collection1", true);
         assertTrue("state failure on set inactive display to true", maintainable.getShowInactiveRecords("collection1"));
     }
-    
+
     /**
      * Tests setting to not display inactive records for a collection.
      */
@@ -81,7 +81,7 @@ public class KualiMaintainableTest {
         maintainable.setShowInactiveRecords("collection1", false);
         assertFalse("state failure on set inactive display to false", maintainable.getShowInactiveRecords("collection1"));
     }
-    
+
     /**
      * Tests setting to display inactive records for a sub-collection.
      */
@@ -90,7 +90,7 @@ public class KualiMaintainableTest {
         maintainable.setShowInactiveRecords("collection1.subCollection", true);
         assertTrue("state failure on set inactive display to true", maintainable.getShowInactiveRecords("collection1.subCollection"));
     }
-    
+
     /**
      * Tests setting to not display inactive records for a sub-collection.
      */
@@ -99,7 +99,7 @@ public class KualiMaintainableTest {
         maintainable.setShowInactiveRecords("collection1.subCollection", false);
         assertFalse("state failure on set inactive display to false", maintainable.getShowInactiveRecords("collection1.subCollection"));
     }
-    
+
     /**
      * Tests method throws an exception when given name is null.
      */
@@ -112,7 +112,7 @@ public class KualiMaintainableTest {
         catch (IllegalArgumentException expected) {
             failedAsExpected = true;
         }
-        
+
         assertTrue("exception not thrown for null collection name", failedAsExpected);
     }
 }

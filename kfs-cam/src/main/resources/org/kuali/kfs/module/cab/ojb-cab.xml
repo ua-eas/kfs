@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -24,7 +24,7 @@
 	<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
 	<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
     <field-descriptor name="capitalAssetManagementDocumentNumber" column="CM_FDOC_NBR" jdbc-type="VARCHAR"/>
-    
+
     <reference-descriptor name="generalLedgerEntry" class-ref="org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="generalLedgerAccountIdentifier" />
     </reference-descriptor>
@@ -60,7 +60,7 @@
     <field-descriptor name="projectCode" column="PROJECT_CD" jdbc-type="VARCHAR" />
     <field-descriptor name="transactionDateTimeStamp" column="TIMESTAMP" jdbc-type="TIMESTAMP"/>
     <field-descriptor name="activityStatusCode" column="ACTV_IND" jdbc-type="VARCHAR"/>
-    
+
     <reference-descriptor name="account" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="chartOfAccountsCode" />
         <foreignkey field-ref="accountNumber" />
@@ -93,11 +93,11 @@
     <reference-descriptor name="objectType" class-ref="org.kuali.kfs.coa.businessobject.ObjectType" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="financialObjectTypeCode" />
     </reference-descriptor>
-    
+
     <collection-descriptor name="generalLedgerEntryAssets" element-class-ref="org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntryAsset" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-delete="object" auto-update="object" proxy="true">
 		<inverse-foreignkey field-ref="generalLedgerAccountIdentifier" />
 	</collection-descriptor>
-	 
+
 	<collection-descriptor name="purApLineAssetAccounts" element-class-ref="org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableLineAssetAccount" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-delete="false" auto-update="false" proxy="true">
 		<inverse-foreignkey field-ref="generalLedgerAccountIdentifier" />
 	</collection-descriptor>
@@ -128,7 +128,7 @@
 	<field-descriptor name="activityStatusCode" column="ACTV_IND" jdbc-type="VARCHAR"/>
 	<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
 	<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
-	<reference-descriptor name="generalLedgerEntry" class-ref="org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true"> 
+	<reference-descriptor name="generalLedgerEntry" class-ref="org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
 		<foreignkey field-ref="generalLedgerAccountIdentifier"/>
 	</reference-descriptor>
 </class-descriptor>
@@ -204,7 +204,7 @@
 	<reference-descriptor name="capitalAssetType" class-ref="org.kuali.kfs.module.cam.businessobject.AssetType" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
 		<foreignkey field-ref="capitalAssetTypeCode" />
 	</reference-descriptor>
-	
+
 </class-descriptor>
 
 <class-descriptor class="org.kuali.kfs.module.cab.businessobject.PretagDetail" table="CB_PRTG_DTL_T">

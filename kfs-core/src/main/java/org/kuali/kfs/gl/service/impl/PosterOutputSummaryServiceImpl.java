@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,7 +46,7 @@ public class PosterOutputSummaryServiceImpl implements PosterOutputSummaryServic
         final String debitCreditCode = originEntry.getTransactionDebitCreditCode();
         final KualiDecimal amount = originEntry.getTransactionLedgerEntryAmount();
         final String objectTypeCode = originEntry.getFinancialObjectTypeCode();
-        
+
         amountHolder.addAmount(debitCreditCode, objectTypeCode, amount);
     }
 
@@ -67,7 +67,7 @@ public class PosterOutputSummaryServiceImpl implements PosterOutputSummaryServic
      */
     public Comparator<PosterOutputSummaryEntry> getEntryComparator() {
         return new Comparator<PosterOutputSummaryEntry>() {
-            
+
             /**
              * Compares the first PosterOutputSummaryEntry given to the second, based on - in order - balance type code,
              * university fiscal year, fiscal period code, and finally fund group
@@ -88,7 +88,7 @@ public class PosterOutputSummaryServiceImpl implements PosterOutputSummaryServic
                     return 0;
                 }
             }
-            
+
             /**
              * Determines if it's safe to compare two Strings
              * @param s1 the first String we may compare
@@ -98,7 +98,7 @@ public class PosterOutputSummaryServiceImpl implements PosterOutputSummaryServic
             protected boolean shouldCompare(String s1, String s2) {
                 return !StringUtils.isBlank(s1) && !StringUtils.isBlank(s2) && !s1.equalsIgnoreCase(s2);
             }
-            
+
             /**
              * Determine if it's safe to compare two Integers
              * @param i1 the first Integer we may compare
@@ -136,7 +136,7 @@ public class PosterOutputSummaryServiceImpl implements PosterOutputSummaryServic
     protected String buildKey(String balanceTypeCode, Integer universityFiscalYear, String fiscalPeriodCode, String chartOfAccountsCode, String accountNumber) {
         return StringUtils.join(new String[] {balanceTypeCode, universityFiscalYear == null ? "" : universityFiscalYear.toString(), fiscalPeriodCode, getFundGroupCodeForAccount(chartOfAccountsCode, accountNumber)}, ':');
     }
-    
+
     /**
      * Returns the sub fund group for the given origin entry
      * @param originEntry the origin entry to find the sub fund group for, from its account
@@ -180,7 +180,7 @@ public class PosterOutputSummaryServiceImpl implements PosterOutputSummaryServic
     }
 
     /**
-     * Gets the accountingCycleCachingService attribute. 
+     * Gets the accountingCycleCachingService attribute.
      * @return Returns the accountingCycleCachingService.
      */
     public AccountingCycleCachingService getAccountingCycleCachingService() {

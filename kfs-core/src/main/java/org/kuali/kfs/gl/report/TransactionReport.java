@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -50,7 +50,7 @@ import com.lowagie.text.pdf.PdfWriter;
 /**
  * This class represents the functionality related to the generating the Transaction Report. The transaction report
  * shows the primary key from transactions and a list of messages for each one.
- * 
+ *
  */
 public class TransactionReport {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(TransactionReport.class);
@@ -62,7 +62,7 @@ public class TransactionReport {
 
         /**
          * Generates the end page for this transaction report
-         * 
+         *
          * @see com.lowagie.text.pdf.PdfPageEventHelper#onEndPage(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Document)
          */
         public void onEndPage(PdfWriter writer, Document document) {
@@ -100,7 +100,7 @@ public class TransactionReport {
 
     /**
      * Generates transaction report
-     * 
+     *
      * @param reportErrors map containing transactions and the errors associated with each transaction
      * @param reportSummary list of summary objects
      * @param runDate date report is run
@@ -120,7 +120,7 @@ public class TransactionReport {
 
     /**
      * Generates transaction report
-     * 
+     *
      * @param errorSortedList list of error'd transactions
      * @param reportErrors map containing transactions and the errors associated with each transaction
      * @param reportSummary list of summary objects
@@ -144,7 +144,7 @@ public class TransactionReport {
 
         try {
             DateTimeService dateTimeService = SpringContext.getBean(DateTimeService.class);
-            
+
             String filename = destinationDirectory + "/" + fileprefix + "_";
             filename = filename + dateTimeService.toDateTimeStringForFilename(runDate);
             filename = filename + ".pdf";
@@ -171,7 +171,7 @@ public class TransactionReport {
 
     /**
      * Appends the scrubber totals/statistics and error report to the given (iText) document object.
-     * 
+     *
      * @param document the PDF document
      * @param headerFont font for header
      * @param textFont font for report text

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,9 +30,9 @@ import org.kuali.kfs.krad.bo.BusinessObjectBase;
 
 /**
  * <p>Java class for budgetCategoryDTO complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="budgetCategoryDTO">
  *   &lt;complexContent>
@@ -48,8 +48,8 @@ import org.kuali.kfs.krad.bo.BusinessObjectBase;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "budgetCategoryDTO", propOrder = {
@@ -69,11 +69,11 @@ public class BudgetCategoryDTO extends BusinessObjectBase implements ContractsAn
 
     /**
      * Gets the value of the authorPersonName property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getAuthorPersonName() {
         return authorPersonName;
@@ -81,11 +81,11 @@ public class BudgetCategoryDTO extends BusinessObjectBase implements ContractsAn
 
     /**
      * Sets the value of the authorPersonName property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setAuthorPersonName(String value) {
         this.authorPersonName = value;
@@ -93,11 +93,11 @@ public class BudgetCategoryDTO extends BusinessObjectBase implements ContractsAn
 
     /**
      * Gets the value of the budgetCategoryCode property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getBudgetCategoryCode() {
         return budgetCategoryCode;
@@ -105,11 +105,11 @@ public class BudgetCategoryDTO extends BusinessObjectBase implements ContractsAn
 
     /**
      * Sets the value of the budgetCategoryCode property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setBudgetCategoryCode(String value) {
         this.budgetCategoryCode = value;
@@ -117,11 +117,11 @@ public class BudgetCategoryDTO extends BusinessObjectBase implements ContractsAn
 
     /**
      * Gets the value of the budgetCategoryTypeCode property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getBudgetCategoryTypeCode() {
         return budgetCategoryTypeCode;
@@ -129,11 +129,11 @@ public class BudgetCategoryDTO extends BusinessObjectBase implements ContractsAn
 
     /**
      * Sets the value of the budgetCategoryTypeCode property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setBudgetCategoryTypeCode(String value) {
         this.budgetCategoryTypeCode = value;
@@ -141,11 +141,11 @@ public class BudgetCategoryDTO extends BusinessObjectBase implements ContractsAn
 
     /**
      * Gets the value of the budgetCategoryTypeDescription property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getBudgetCategoryTypeDescription() {
         return budgetCategoryTypeDescription;
@@ -153,11 +153,11 @@ public class BudgetCategoryDTO extends BusinessObjectBase implements ContractsAn
 
     /**
      * Sets the value of the budgetCategoryTypeDescription property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setBudgetCategoryTypeDescription(String value) {
         this.budgetCategoryTypeDescription = value;
@@ -165,11 +165,11 @@ public class BudgetCategoryDTO extends BusinessObjectBase implements ContractsAn
 
     /**
      * Gets the value of the description property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDescription() {
         return description;
@@ -177,11 +177,11 @@ public class BudgetCategoryDTO extends BusinessObjectBase implements ContractsAn
 
     /**
      * Sets the value of the description property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDescription(String value) {
         this.description = value;
@@ -189,11 +189,11 @@ public class BudgetCategoryDTO extends BusinessObjectBase implements ContractsAn
 
     public void refresh() {}
 
-    
-    
-        
-        
-        
-    
+
+
+
+
+
+
 
 }

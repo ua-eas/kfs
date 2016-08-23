@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -64,7 +64,7 @@
   <bean id="AssetComponent-capitalAssetNumber" parent="AssetComponent-capitalAssetNumber-parentBean"/>
   <bean id="AssetComponent-capitalAssetNumber-parentBean" abstract="true" parent="Asset-capitalAssetNumber">
   </bean>
-  
+
   <bean id="AssetComponent-componentConditionCode" parent="AssetComponent-componentConditionCode-parentBean"/>
   <bean id="AssetComponent-componentConditionCode-parentBean" abstract="true" parent="AssetCondition-assetConditionCode">
     <property name="name" value="componentConditionCode"/>
@@ -74,7 +74,7 @@
       <bean parent="SelectControlDefinition" p:businessObjectClass="org.kuali.kfs.module.cam.businessobject.AssetCondition" p:valuesFinderClass="org.kuali.kfs.krad.keyvalues.PersistableBusinessObjectValuesFinder" p:includeKeyInLabel="false" p:includeBlankRow="true" p:keyAttribute="assetConditionCode" p:labelAttribute="assetConditionName"/>
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-componentContactPhoneNumber" parent="AssetComponent-componentContactPhoneNumber-parentBean"/>
   <bean id="AssetComponent-componentContactPhoneNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="componentContactPhoneNumber"/>
@@ -89,7 +89,7 @@
       <ref bean="StandardShortNameTextControl" />
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-componentDescription" parent="AssetComponent-componentDescription-parentBean"/>
   <bean id="AssetComponent-componentDescription-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="componentDescription"/>
@@ -104,7 +104,7 @@
       <bean parent="TextareaControlDefinition" p:rows="5" p:cols="80"/>
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-componentEstimatedLifetimeLimit" parent="AssetComponent-componentEstimatedLifetimeLimit-parentBean"/>
   <bean id="AssetComponent-componentEstimatedLifetimeLimit-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="componentEstimatedLifetimeLimit"/>
@@ -119,7 +119,7 @@
       <bean parent="TextControlDefinition" p:size="7"/>
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-componentManufacturerModelNumber" parent="AssetComponent-componentManufacturerModelNumber-parentBean"/>
   <bean id="AssetComponent-componentManufacturerModelNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="componentManufacturerModelNumber"/>
@@ -134,7 +134,7 @@
       <bean parent="TextControlDefinition" p:size="27"/>
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-componentManufacturerName" parent="AssetComponent-componentManufacturerName-parentBean"/>
   <bean id="AssetComponent-componentManufacturerName-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="componentManufacturerName"/>
@@ -149,7 +149,7 @@
       <bean parent="TextControlDefinition" p:size="42"/>
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-componentNumber" parent="AssetComponent-componentNumber-parentBean"/>
   <bean id="AssetComponent-componentNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="componentNumber"/>
@@ -164,7 +164,7 @@
       <bean parent="TextControlDefinition" p:size="7"/>
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-componentOrganizationTagNumber" parent="AssetComponent-componentOrganizationTagNumber-parentBean"/>
   <bean id="AssetComponent-componentOrganizationTagNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="componentOrganizationTagNumber"/>
@@ -179,7 +179,7 @@
       <ref bean="TenCharacterTextControl" />
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-componentOrganizationText" parent="AssetComponent-componentOrganizationText-parentBean"/>
   <bean id="AssetComponent-componentOrganizationText-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="componentOrganizationText"/>
@@ -194,7 +194,7 @@
       <bean parent="TextareaControlDefinition" p:rows="5" p:cols="80"/>
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-componentReplacementAmount" parent="AssetComponent-componentReplacementAmount-parentBean"/>
   <bean id="AssetComponent-componentReplacementAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="componentReplacementAmount"/>
@@ -202,7 +202,7 @@
     <property name="shortLabel" value="Amount"/>
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
-  
+
   <bean id="AssetComponent-componentSerialNumber" parent="AssetComponent-componentSerialNumber-parentBean"/>
   <bean id="AssetComponent-componentSerialNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="componentSerialNumber"/>
@@ -217,7 +217,7 @@
       <bean parent="TextControlDefinition" p:size="27"/>
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-componentVendorName" parent="AssetComponent-componentVendorName-parentBean"/>
   <bean id="AssetComponent-componentVendorName-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="componentVendorName"/>
@@ -232,21 +232,21 @@
       <bean parent="TextControlDefinition" p:size="42"/>
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-componentWarrantyBeginningDate" parent="AssetComponent-componentWarrantyBeginningDate-parentBean"/>
   <bean id="AssetComponent-componentWarrantyBeginningDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
     <property name="name" value="componentWarrantyBeginningDate"/>
     <property name="label" value="Warranty Beginning Date"/>
     <property name="shortLabel" value="Date"/>
   </bean>
-  
+
   <bean id="AssetComponent-componentWarrantyEndingDate" parent="AssetComponent-componentWarrantyEndingDate-parentBean"/>
   <bean id="AssetComponent-componentWarrantyEndingDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
     <property name="name" value="componentWarrantyEndingDate"/>
     <property name="label" value="Warranty Ending Date"/>
     <property name="shortLabel" value="Date"/>
   </bean>
-  
+
   <bean id="AssetComponent-componentWarrantyContactName" parent="AssetComponent-componentWarrantyContactName-parentBean"/>
   <bean id="AssetComponent-componentWarrantyContactName-parentBean" abstract="true" parent="PersonImpl-name">
     <property name="name" value="componentWarrantyContactName"/>
@@ -260,7 +260,7 @@
       <bean parent="TextControlDefinition" p:size="42"/>
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-componentWarrantyNumber" parent="AssetComponent-componentWarrantyNumber-parentBean"/>
   <bean id="AssetComponent-componentWarrantyNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="componentWarrantyNumber"/>
@@ -275,7 +275,7 @@
       <bean parent="TextControlDefinition" p:size="27"/>
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-componentWarrantyPurchaseOrderNumber" parent="AssetComponent-componentWarrantyPurchaseOrderNumber-parentBean"/>
   <bean id="AssetComponent-componentWarrantyPurchaseOrderNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="componentWarrantyPurchaseOrderNumber"/>
@@ -290,7 +290,7 @@
       <bean parent="TextControlDefinition" p:size="11"/>
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-componentWarrantyText" parent="AssetComponent-componentWarrantyText-parentBean"/>
   <bean id="AssetComponent-componentWarrantyText-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="componentWarrantyText"/>
@@ -305,7 +305,7 @@
       <bean parent="TextControlDefinition" p:size="42"/>
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-componentWarrantyPhoneNumber" parent="AssetComponent-componentWarrantyPhoneNumber-parentBean"/>
   <bean id="AssetComponent-componentWarrantyPhoneNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="componentWarrantyPhoneNumber"/>
@@ -320,7 +320,7 @@
       <bean parent="TextControlDefinition" p:size="15"/>
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-governmentTagNumber" parent="AssetComponent-governmentTagNumber-parentBean"/>
   <bean id="AssetComponent-governmentTagNumber-parentBean" abstract="true" parent="Asset-governmentTagNumber-parentBean">
     <property name="name" value="governmentTagNumber"/>
@@ -330,7 +330,7 @@
        </bean>
     </property>
   </bean>
-  
+
   <bean id="AssetComponent-nationalStockNumber" parent="AssetComponent-nationalStockNumber-parentBean"/>
   <bean id="AssetComponent-nationalStockNumber-parentBean" abstract="true" parent="Asset-nationalStockNumber-parentBean">
     <property name="name" value="nationalStockNumber"/>
@@ -344,12 +344,12 @@
   <bean id="AssetComponent-newCollectionRecord" parent="AssetComponent-newCollectionRecord-parentBean"/>
   <bean id="AssetComponent-newCollectionRecord-parentBean" abstract="true" parent="GenericAttributes-newCollectionRecord">
   </bean>
-  
+
   <bean id="AssetComponent-active" parent="AssetComponent-active-parentBean"/>
   <bean id="AssetComponent-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="active"/>
   </bean>
-  
+
 <!-- Business Object Inquiry Definition -->
 
   <bean id="AssetComponent-inquiryDefinition" parent="AssetComponent-inquiryDefinition-parentBean"/>
@@ -396,7 +396,7 @@
   <bean id="AssetComponent-lookupDefinition" parent="AssetComponent-lookupDefinition-parentBean"/>
   <bean id="AssetComponent-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Asset Component Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
       </bean>

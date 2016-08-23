@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,7 +39,7 @@ public class PurchasingAccountsPayableBelowTheLineValuesValidation extends Gener
     private DataDictionaryService dataDictionaryService;
     private ParameterService parameterService;
     private PurApItem itemForValidation;
-    
+
     /**
      * Performs validations for below the line items. If the unit price is zero, and the system parameter indicates that the item
      * should not allow zero, then the validation fails. If the unit price is positive and the system parameter indicates that the
@@ -51,7 +51,7 @@ public class PurchasingAccountsPayableBelowTheLineValuesValidation extends Gener
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
         PurchasingAccountsPayableDocument purapDocument = (PurchasingAccountsPayableDocument) event.getDocument();
-        String documentType = dataDictionaryService.getDocumentTypeNameByClass(purapDocument.getClass());        
+        String documentType = dataDictionaryService.getDocumentTypeNameByClass(purapDocument.getClass());
 
         try {
             if (ObjectUtils.isNotNull(itemForValidation.getItemUnitPrice()) && (new KualiDecimal(itemForValidation.getItemUnitPrice())).isZero()) {
@@ -78,13 +78,13 @@ public class PurchasingAccountsPayableBelowTheLineValuesValidation extends Gener
                     GlobalVariables.getMessageMap().putError(PurapPropertyConstants.ITEM_DESCRIPTION, PurapKeyConstants.ERROR_ITEM_BELOW_THE_LINE, "The item description of " + itemForValidation.getItemType().getItemTypeDescription(), "empty");
                 }
             }
-            
+
             //now check total amount, if positive check if they should really be negative
             if (ObjectUtils.isNotNull(itemForValidation.getTotalAmount()) && itemForValidation.getTotalAmount().isPositive()){
                 if (parameterService.parameterExists(Class.forName(PurapConstants.PURAP_DETAIL_TYPE_CODE_MAP.get(documentType)), PurapConstants.ITEM_ALLOWS_POSITIVE) && !/*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(Class.forName(PurapConstants.PURAP_DETAIL_TYPE_CODE_MAP.get(documentType)), PurapConstants.ITEM_ALLOWS_POSITIVE, itemForValidation.getItemTypeCode()).evaluationSucceeds()) {
                     valid = false;
                     GlobalVariables.getMessageMap().putError(PurapPropertyConstants.TOTAL_AMOUNT, PurapKeyConstants.ERROR_ITEM_BELOW_THE_LINE, itemForValidation.getItemType().getItemTypeDescription() + " Total Amount", "positive");
-                }                
+                }
             }
         }
         catch (ClassNotFoundException e) {

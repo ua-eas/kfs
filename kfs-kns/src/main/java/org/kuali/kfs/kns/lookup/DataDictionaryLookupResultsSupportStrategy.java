@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,12 +37,12 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * LookupResults support strategy which uses the primary keys and lookupable defined in a business object's data dictionary file to support the multivalue lookup 
+ * LookupResults support strategy which uses the primary keys and lookupable defined in a business object's data dictionary file to support the multivalue lookup
  *
  */
 public class DataDictionaryLookupResultsSupportStrategy implements
 		LookupResultsSupportStrategyService {
-	
+
 	private DataDictionaryService dataDictionaryService;
 
 	/**
@@ -71,25 +71,25 @@ public class DataDictionaryLookupResultsSupportStrategy implements
 	 * @see LookupResultsSupportStrategyService#retrieveSelectedResultBOs(java.lang.String, java.lang.Class, java.lang.String, org.kuali.rice.krad.lookup.LookupResultsService)
 	 */
 	public <T extends BusinessObject> Collection<T> retrieveSelectedResultBOs(Class<T> boClass, Set<String> lookupIds) throws Exception {
-        
+
         List<T> retrievedBusinessObjects = new ArrayList<T>();
         final org.kuali.kfs.kns.lookup.Lookupable lookupable = getLookupableForBusinessObject(boClass);
         for (String lookupId : lookupIds) {
         	final Map<String, String> lookupKeys = convertLookupIdToPKFieldMap(lookupId, boClass);
         	List<? extends BusinessObject> bos = lookupable.getSearchResults(lookupKeys);
-        	
+
         	// we should only get one business object...but let's put them all in...
         	for (BusinessObject bo : bos) {
         		retrievedBusinessObjects.add((T)bo);
         	}
         }
-		
+
 		return retrievedBusinessObjects;
 	}
-	
+
 	/**
 	 * Retrieves the Lookupable for the given business object class
-	 * 
+	 *
 	 * @param businessObjectClass the class to find the Lookupable for
 	 * @return the Lookupable, or null if nothing could be found
 	 */
@@ -98,14 +98,14 @@ public class DataDictionaryLookupResultsSupportStrategy implements
 		if (boEntry == null) {
 			return null;
 		}
-		
+
 		final String lookupableId = boEntry.getLookupDefinition().getLookupableID();
 		return KNSServiceLocator.getLookupable(lookupableId);
 	}
-	
+
 	/**
 	 * Returns the data dictionary defined primary keys for the given BusinessObject
-	 * 
+	 *
 	 * @param businessObjectClass the business object to get DataDictionary defined primary keys for
 	 * @return the List of primary key property names, or null if nothing could be found
 	 */
@@ -116,10 +116,10 @@ public class DataDictionaryLookupResultsSupportStrategy implements
 		}
 		return boEntry.getPrimaryKeys();
 	}
-	
+
 	/**
 	 * Converts a lookup id into a PK field map to use to search in a lookupable
-	 * 
+	 *
 	 * @param lookupId the id returned by the lookup
 	 * @param businessObjectClass the class of the business object getting the primary key
 	 * @return a Map of field names and values which can be profitably used to search for matching business objects
@@ -139,7 +139,7 @@ public class DataDictionaryLookupResultsSupportStrategy implements
 		}
 		return pkFields;
 	}
-	
+
 	/**
 	 * Converts a Map of PKFields into a String lookup ID
 	 * @param pkFieldNames the name of the PK fields, which should be converted to the given lookupId
@@ -151,13 +151,13 @@ public class DataDictionaryLookupResultsSupportStrategy implements
 		for (String pkFieldName : pkFieldNames) {
 			try {
 				final Object value = PropertyUtils.getProperty(businessObject, pkFieldName);
-				
+
 				if (value != null) {
 					lookupId.append(pkFieldName);
 					lookupId.append("-");
 					final Formatter formatter = retrieveBestFormatter(pkFieldName, businessObject.getClass());
 					final String formattedValue = (formatter != null) ? formatter.format(value).toString() : value.toString();
-					
+
 					lookupId.append(formattedValue);
 				}
 				lookupId.append(SearchOperator.OR.op());
@@ -171,21 +171,21 @@ public class DataDictionaryLookupResultsSupportStrategy implements
 		}
 		return lookupId.substring(0, lookupId.length() - 1); // kill the last "|"
 	}
-	
+
 	/**
 	 * Like when you're digging through your stuff drawer, you know the one in the kitchen with all the batteries and lint in it, this method
 	 * goes through the stuff drawer of KNS formatters and attempts to return you a good one
-	 * 
+	 *
 	 * @param propertyName the name of the property to retrieve
 	 * @param boClass the class of the BusinessObject the property is on
 	 * @return a Formatter, or null if we were unsuccessful in finding
 	 */
 	protected Formatter retrieveBestFormatter(String propertyName, Class<? extends BusinessObject> boClass) {
 		Formatter formatter = null;
-		
+
 		try {
 			Class<? extends Formatter> formatterClass = null;
-			
+
 			final BusinessObjectEntry boEntry = getBusinessObjectEntry(boClass);
 			if (boEntry != null) {
 				final AttributeDefinition attributeDefinition = boEntry.getAttributeDefinition(propertyName);
@@ -199,7 +199,7 @@ public class DataDictionaryLookupResultsSupportStrategy implements
 					formatterClass = Formatter.findFormatter(propertyField.getType());
 				}
 			}
-			
+
 			if (formatterClass != null) {
 				formatter = formatterClass.newInstance();
 			}
@@ -214,13 +214,13 @@ public class DataDictionaryLookupResultsSupportStrategy implements
 		} catch (InstantiationException ie) {
 			throw new RuntimeException("Could not retrieve good formatter", ie);
 		}
-		
+
 		return formatter;
 	}
-	
+
 	/**
 	 * Looks up the DataDictionary BusinessObjectEntry for the given class
-	 * 
+	 *
 	 * @param boClass the class of the BusinessObject to find a BusinessObjectEntry for
 	 * @return the entry from the data dictionary, or null if nothing was found
 	 */

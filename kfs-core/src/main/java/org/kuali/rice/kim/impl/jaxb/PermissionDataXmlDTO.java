@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,9 +25,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * This class represents the &lt;permissionData&gt; element.
- * 
+ *
  * <p>The expected XML structure is as follows:
- * 
+ *
  * <br>
  * <br>&lt;permissionData&gt;
  * <br>&nbsp;&nbsp;&lt;permissions&gt;
@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlType;
  * <br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/permission&gt;
  * <br>&nbsp;&nbsp;&lt;/permissions&gt;
  * <br>&lt;/permissionData&gt;
- * 
+ *
  * <p>Note the following:
  * <ul>
  *   <li>The &lt;permissions&gt; element is optional, and can contain zero or more &lt;permission&gt; elements.
@@ -61,7 +61,7 @@ import javax.xml.bind.annotation.XmlType;
  *   <li>The same permission can be ingested multiple times in the same file, where subsequent ones will
  *   overwrite previous ones. (TODO: Is this acceptable?)
  * </ul>
- * 
+ *
  * TODO: Verify that the above behavior is correct.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -70,9 +70,9 @@ public class PermissionDataXmlDTO {
 
     @XmlElement(name="permissions")
     private PermissionsXmlDTO permissions;
-    
+
     public PermissionDataXmlDTO() {}
-    
+
     public PermissionDataXmlDTO(PermissionsXmlDTO permissions) {
         this.permissions = permissions;
     }

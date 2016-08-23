@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,16 +36,16 @@ import org.kuali.kfs.krad.util.KRADConstants;
 /**
  * This lookupable helper service is used to support lookups on the Threshold BO because it deals with the vendor number,
  * which isn't really a field, but rather a combination of 2 fields.
- * 
+ *
  * This code mostly copies {@link org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl}, but differs in that this class will
  * not remove search criteria containing values corresponding to hidden fields.
- * 
+ *
  */
 public class ThresholdLookupableHelperService extends AbstractLookupableHelperServiceImpl {
-    
+
     public void validateSearchParameters(Map fieldValues) {
         super.validateSearchParameters(fieldValues);
-        
+
         validateVendorNumber(fieldValues);
     }
 
@@ -53,7 +53,7 @@ public class ThresholdLookupableHelperService extends AbstractLookupableHelperSe
      * Validates that the Vendor Number has no more than one dash in it, and does not consist solely of one dash. Then it calls
      * extractVendorNumberToVendorIds to obtain vendorHeaderGeneratedId and vendorDetailAssignedId and if either one of the ids
      * cannot be converted to integers, it will add error that the vendor number must be numerics or numerics separated by a dash.
-     * 
+     *
      * @param fieldValues a Map containing only those key-value pairs that have been filled in on the lookup
      */
     protected void validateVendorNumber(Map fieldValues) {
@@ -71,14 +71,14 @@ public class ThresholdLookupableHelperService extends AbstractLookupableHelperSe
             extractVendorNumberToVendorIds(fieldValues, vendorNumber);
         }
     }
-    
+
     /**
      * Parses the vendorNumber string into vendorHeaderGeneratedIdentifier and vendorDetailAssignedIdentifier, validates that both
      * fields would be able to be converted into integers, if so it will add both fields into the search criterias map in the
      * fieldValues and remove the vendorNumber from the fieldValues. If the two fields cannot be converted into integers, this
      * method will add error message to the errorMap in GlobalVariables that the vendor number must be numeric or numerics separated
      * by a dash.
-     * 
+     *
      * @param fieldValues a Map containing only those key-value pairs that have been filled in on the lookup
      * @param vendorNumber venodr number String
      */
@@ -108,25 +108,25 @@ public class ThresholdLookupableHelperService extends AbstractLookupableHelperSe
             GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_NUMBER, VendorKeyConstants.ERROR_VENDOR_LOOKUP_VNDR_NUM_NUMERIC_DASH_SEPARATED);
         }
     }
-    
+
     /**
      * Uses Lookup Service to provide a basic search.
-     * 
+     *
      * @param fieldValues - Map containing prop name keys and search values
      *
      * @return List found business objects
      * @see org.kuali.rice.kns.lookup.LookupableHelperService#getSearchResults(java.util.Map)
      */
-    public List<? extends BusinessObject> getSearchResults(Map<String, String> fieldValues) {        
+    public List<? extends BusinessObject> getSearchResults(Map<String, String> fieldValues) {
         return getSearchResultsHelper(LookupUtils.forceUppercase(getBusinessObjectClass(), fieldValues), false);
     }
-    
+
 
     /**
      * Uses Lookup Service to provide a basic unbounded search.
-     * 
+     *
      * @param fieldValues - Map containing prop name keys and search values
-     * 
+     *
      * @return List found business objects
      * @see org.kuali.rice.kns.lookup.LookupableHelperService#getSearchResultsUnbounded(java.util.Map)
      */
@@ -135,16 +135,16 @@ public class ThresholdLookupableHelperService extends AbstractLookupableHelperSe
     }
 
     /**
-     * 
+     *
      * This method does the actual search, with the parameters specified, and returns the result.
-     * 
+     *
      * NOTE that it will not do any upper-casing based on the DD forceUppercase. That is handled through an external call to
      * LookupUtils.forceUppercase().
-     * 
+     *
      * @param fieldValues A Map of the fieldNames and fieldValues to be searched on.
      * @param unbounded Whether the results should be bounded or not to a certain max size.
      * @return A List of search results.
-     * 
+     *
      */
     @SuppressWarnings("unchecked")
     protected List<? extends BusinessObject> getSearchResultsHelper(Map<String, String> fieldValues, boolean unbounded) {

@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -29,7 +29,7 @@
     <property name="attributes" >
       <list>
         <ref bean="Asset-acquisitionTypeCode" />
-        <ref bean="AssetFabrication-agencyNumber" />       
+        <ref bean="AssetFabrication-agencyNumber" />
         <ref bean="Asset-buildingSubRoomNumber" />
         <ref bean="Asset-campusPoliceDepartmentCaseNumber" />
         <ref bean="AssetFabrication-campusTagNumber" />
@@ -81,14 +81,14 @@
         <ref bean="Asset-borrowerLocation.assetLocationContactName" />
 
         <ref bean="AssetFabrication-organizationOwnerChartOfAccountsCode" />
-        <ref bean="AssetFabrication-organizationOwnerAccountNumber" />  
+        <ref bean="AssetFabrication-organizationOwnerAccountNumber" />
         <ref bean="Asset-organizationOwnerAccount.organizationCode" />
         <ref bean="AssetFabrication-capitalAssetTypeCode" />
         <ref bean="Asset-campusCode" />
         <ref bean="Asset-buildingCode" />
         <ref bean="Asset-buildingRoomNumber" />
         <ref bean="Asset-assetOrganization.organizationText" />
-        <ref bean="Asset-assetOrganization.organizationTagNumber" /> 
+        <ref bean="Asset-assetOrganization.organizationTagNumber" />
         <ref bean="Asset-assetOrganization.organizationAssetTypeIdentifier" />
         <ref bean="AssetFabrication-conditionCode" />
         <ref bean="Asset-landCountyName" />
@@ -142,12 +142,12 @@
         <ref bean="Asset-offCampusLocation.assetLocationStateCode" />
         <ref bean="Asset-offCampusLocation.assetLocationZipCode" />
         <ref bean="Asset-offCampusLocation.assetLocationCountryCode" />
-        
+
         <ref bean="Asset-offCampusLocation.assetLocationState.stateCode" />
 	    <ref bean="Asset-offCampusLocation.postalZipCode.postalCode" />
 	    <ref bean="Asset-offCampusLocation.assetLocationCountry.postalCountryName" />
-        
-        <ref bean="Asset-assetStatus.inventoryStatusCode" />        
+
+        <ref bean="Asset-assetStatus.inventoryStatusCode" />
         <ref bean="Asset-assetPrimaryDepreciationMethod.depreciationMethodCode" />
         <ref bean="Asset-inventoryStatus.inventoryStatusCode" />
         <ref bean="Asset-borrowerLocation.assetLocationState.stateCode" />
@@ -159,7 +159,7 @@
         <ref bean="Asset-quantity" />
         <ref bean="Asset-assetPayments.paymentSequenceNumber" />
         <ref bean="Asset-assetPayments.purchaseOrderNumber" />
-        <ref bean="Asset-assetPayments.documentNumber" />      
+        <ref bean="Asset-assetPayments.documentNumber" />
       </list>
     </property>
   </bean>
@@ -172,7 +172,7 @@
         </bean>
     </property>
   </bean>
-  
+
   <bean id="AssetFabrication-organizationOwnerAccountNumber" parent="AssetFabrication-organizationOwnerAccountNumber-parentBean" />
   <bean id="AssetFabrication-organizationOwnerAccountNumber-parentBean" abstract="true" parent="Asset-organizationOwnerAccountNumber">
     <property name="attributeSecurity">
@@ -196,7 +196,7 @@
            <property name="readOnly" value="false" />
        </bean>
     </property>
-  </bean>	
+  </bean>
   <bean id="AssetFabrication-governmentTagNumber" parent="AssetFabrication-governmentTagNumber-parentBean" />
   <bean id="AssetFabrication-governmentTagNumber-parentBean" abstract="true" parent="Asset-governmentTagNumber">
   	<property name="attributeSecurity">
@@ -228,7 +228,7 @@
            <property name="hide" value="false" />
        </bean>
     </property>
-  </bean>  
+  </bean>
   <bean id="AssetFabrication-oldTagNumber" parent="AssetFabrication-oldTagNumber-parentBean" />
   <bean id="AssetFabrication-oldTagNumber-parentBean" abstract="true" parent="Asset-oldTagNumber">
   	<property name="attributeSecurity">
@@ -248,13 +248,13 @@
   </bean>
   <bean id="AssetFabrication-conditionCode" parent="AssetFabrication-conditionCode-parentBean" />
   <bean id="AssetFabrication-conditionCode-parentBean" abstract="true" parent="Asset-conditionCode">
-    <property name="required" value="true"/>    
+    <property name="required" value="true"/>
   	<property name="attributeSecurity">
         <bean parent="AttributeSecurity">
            <property name="hide" value="false" />
        </bean>
     </property>
-  </bean> 
+  </bean>
   <bean id="AssetFabrication-capitalAssetTypeCode" parent="AssetFabrication-capitalAssetTypeCode-parentBean" />
   <bean id="AssetFabrication-capitalAssetTypeCode-parentBean" abstract="true" parent="Asset-capitalAssetTypeCode">
   	<property name="attributeSecurity">
@@ -278,5 +278,5 @@
            <property name="readOnly" value="false" />
        </bean>
     </property>
-  </bean>  
+  </bean>
 </beans>

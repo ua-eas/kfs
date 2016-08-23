@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -114,7 +114,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
         budgetPullupDao.buildSubTree(principalName, bcOrgRpts.getChartOfAccountsCode(), bcOrgRpts.getOrganizationCode(), curLevel);
 //      budgetPullupDao.initPointOfView(principalName, bcOrgRpts.getChartOfAccountsCode(), bcOrgRpts.getOrganizationCode(), curLevel);
 //      budgetPullupDao.insertChildOrgs(principalName, curLevel);
-      
+
         // force OJB to go to DB since it is populated using JDBC
         persistenceServiceOjb.clearCache();
     }
@@ -181,7 +181,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Gets the budgetConstructionOrganizationReportsService attribute.
-     * 
+     *
      * @return Returns the budgetConstructionOrganizationReportsService.
      */
     public BudgetConstructionOrganizationReportsService getBudgetConstructionOrganizationReportsService() {
@@ -190,7 +190,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Sets the budgetConstructionOrganizationReportsService attribute value.
-     * 
+     *
      * @param budgetConstructionOrganizationReportsService The budgetConstructionOrganizationReportsService to set.
      */
     public void setBudgetConstructionOrganizationReportsService(BudgetConstructionOrganizationReportsService budgetConstructionOrganizationReportsService) {
@@ -199,7 +199,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Gets the businessObjectService attribute.
-     * 
+     *
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -208,7 +208,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -217,7 +217,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Gets the budgetConstructionDao attribute.
-     * 
+     *
      * @return Returns the budgetConstructionDao.
      */
     public BudgetConstructionDao getBudgetConstructionDao() {
@@ -226,7 +226,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Sets the budgetConstructionDao attribute value.
-     * 
+     *
      * @param budgetConstructionDao The budgetConstructionDao to set.
      */
     public void setBudgetConstructionDao(BudgetConstructionDao budgetConstructionDao) {
@@ -235,7 +235,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Gets the budgetPullupDao attribute.
-     * 
+     *
      * @return Returns the budgetPullupDao.
      */
     public BudgetPullupDao getBudgetPullupDao() {
@@ -244,7 +244,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Sets the budgetPullupDao attribute value.
-     * 
+     *
      * @param budgetPullupDao The budgetPullupDao to set.
      */
     public void setBudgetPullupDao(BudgetPullupDao budgetPullupDao) {
@@ -253,17 +253,17 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Gets the persistenceServiceOjb attribute.
-     * 
+     *
      * @return Returns the persistenceServiceOjb
      */
-    
+
     public PersistenceService getPersistenceServiceOjb() {
         return persistenceServiceOjb;
     }
 
-    /**	
+    /**
      * Sets the persistenceServiceOjb attribute.
-     * 
+     *
      * @param persistenceServiceOjb The persistenceServiceOjb to set.
      */
     public void setPersistenceServiceOjb(PersistenceService persistenceServiceOjb) {

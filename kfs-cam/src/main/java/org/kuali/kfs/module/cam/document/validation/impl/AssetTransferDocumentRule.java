@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -105,7 +105,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     /**
      * Retrieve asset number need to be locked.
-     * 
+     *
      * @param document
      * @return
      */
@@ -153,7 +153,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     /**
      * Asset Object Code must exist as an active status.
-     * 
+     *
      * @param asset
      * @param assetPayment
      * @return
@@ -174,7 +174,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     /**
      * Check Financial Object Code for GLPE.
-     * 
+     *
      * @param asset
      * @param assetPayment
      * @return
@@ -203,7 +203,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     /**
      * check existence and active status for given financial Object Code BO.
-     * 
+     *
      * @param chartCode
      * @param finObjectCode
      * @param finObject
@@ -256,7 +256,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     /**
      * This method applies business rules
-     * 
+     *
      * @param document Transfer Document
      * @return true if all rules are pass
      */
@@ -288,7 +288,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     /**
      * This method validates location information provided by the user
-     * 
+     *
      * @param assetTransferDocument Transfer Document
      * @return true is location information is valid for the asset type
      */
@@ -305,7 +305,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     /**
      * This method checks if reference objects exist in the database or not
-     * 
+     *
      * @param assetTransferDocument Transfer document
      * @return true if all objects exists in db
      */
@@ -380,13 +380,13 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     /**
      * This method validates the new owner organization and account provided
-     * 
+     *
      * @param assetTransferDocument
      * @return
      */
     protected boolean validateOwnerAccount(AssetTransferDocument assetTransferDocument) {
         boolean valid = true;
-        
+
         Asset asset = assetTransferDocument.getAsset();
         /*
         String finObjectSubTypeCode = asset.getFinancialObjectSubTypeCode();
@@ -400,15 +400,15 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
         }
         boolean assetMovable = getAssetService().isAssetMovableCheckByPayment(finObjectSubTypeCode);
         */
-        
+
         /*
          * Note: The following authorization checking on non-movable asset is already done when Transfer link is generated upon asset lookup.
-         * It is redundant here. Consider removing it. 
-         */        
-        boolean assetMovable = getAssetService().isAssetMovableCheckByPayment(asset);        
+         * It is redundant here. Consider removing it.
+         */
+        boolean assetMovable = getAssetService().isAssetMovableCheckByPayment(asset);
         FinancialSystemTransactionalDocumentAuthorizerBase documentAuthorizer = (FinancialSystemTransactionalDocumentAuthorizerBase) SpringContext.getBean(DocumentDictionaryService.class).getDocumentAuthorizer(assetTransferDocument);
         boolean isAuthorizedTransferMovable = documentAuthorizer.isAuthorized(assetTransferDocument, CamsConstants.CAM_MODULE_CODE, CamsConstants.PermissionNames.TRANSFER_NON_MOVABLE_ASSETS, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        
+
         // KFSMI-6169 - Not check permission for Transfer Non-Movable Assets when user approve the doc.
         if (!assetTransferDocument.getDocumentHeader().getWorkflowDocument().isApprovalRequested()){
             if (!assetMovable && !isAuthorizedTransferMovable) {
@@ -444,7 +444,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
     /**
      * checks that all the asset payments to be transfer has a valid object code in the new Chart of account code and current fiscal
      * year
-     * 
+     *
      * @param assetTransferDocument
      * @return
      */
@@ -475,22 +475,22 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     private boolean isNonCapitalAsset(Asset asset) {
         boolean isNonCapitalAsset = false;
-        
+
         List<String> capitalAssetAquisitionTypeCodes = new ArrayList<String>();
-        
+
         capitalAssetAquisitionTypeCodes.addAll(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(AssetGlobal.class, CamsConstants.AssetGlobal.CAPITAL_OBJECT_ACQUISITION_CODE_PARAM));
         capitalAssetAquisitionTypeCodes.addAll(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(AssetGlobal.class, CamsConstants.AssetGlobal.NON_NEW_ACQUISITION_GROUP_PARAM));
         capitalAssetAquisitionTypeCodes.addAll(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(AssetGlobal.class, CamsConstants.AssetGlobal.NEW_ACQUISITION_CODE_PARAM));
         capitalAssetAquisitionTypeCodes.addAll(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(Asset.class, CamsConstants.AssetGlobal.FABRICATED_ACQUISITION_CODE));
         capitalAssetAquisitionTypeCodes.addAll(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(AssetGlobal.class, CamsConstants.AssetGlobal.PRE_TAGGING_ACQUISITION_CODE));
-        
+
         if( ObjectUtils.isNotNull(asset.getAcquisitionTypeCode()) &&
                 capitalAssetAquisitionTypeCodes.contains(asset.getAcquisitionTypeCode()) ) isNonCapitalAsset = false;
         else isNonCapitalAsset = true;
-        
+
         return isNonCapitalAsset;
     }
-    
+
     public UniversityDateService getUniversityDateService() {
         if (this.universityDateService == null) {
             this.universityDateService = SpringContext.getBean(UniversityDateService.class);

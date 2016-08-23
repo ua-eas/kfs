@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -52,7 +52,7 @@ import java.util.Map;
 
 public class KualiActionServlet extends ActionServlet {
     private static final Logger LOG = Logger.getLogger(KualiActionServlet.class);
-    
+
     // KULRICE-8176: KFS Notes/Attachments Tab Functionality for Note Text Error - Visible/Special characters, spaces, or tabs
     private String parameterEncoding = "";
 
@@ -138,7 +138,7 @@ public class KualiActionServlet extends ActionServlet {
             // loop over the installed modules, adding their struts configuration to the servlet
             // if they have a web interface
 			final Collection<ModuleConfigurer> riceModules = ModuleConfigurer.getCurrentContextConfigurers();
-            
+
             if ( LOG.isInfoEnabled() ) {
             	LOG.info( "Configuring init parameters of the KualiActionServlet from riceModules: " + riceModules );
             }
@@ -187,7 +187,7 @@ public class KualiActionServlet extends ActionServlet {
 
     /**
      *  KULRICE-8176: KFS Notes/Attachments Tab Functionality for Note Text Error - Visible/Special characters, spaces, or tabs
-     * 
+     *
      * @see org.apache.struts.action.ActionServlet#process(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
      @Override
@@ -196,7 +196,7 @@ public class KualiActionServlet extends ActionServlet {
                  request.setCharacterEncoding(parameterEncoding);
                  response.setCharacterEncoding(parameterEncoding);
          }
-    
+
          super.process(request, response);
      }
 }

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,17 +36,17 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 public class B2BParserHelper {
-    
+
     private static Logger log = Logger.getLogger(B2BParserHelper.class);
-    
+
     private DocumentBuilder builder;
     private static B2BParserHelper _this;
-    
+
     private B2BParserHelper(){
-        
+
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
         builderFactory.setValidating(false); // It's not needed to validate here
-        builderFactory.setIgnoringElementContentWhitespace(true); 
+        builderFactory.setIgnoringElementContentWhitespace(true);
 
         try {
             // This is a funky one. Without setting this "load-external-dtd" feature, even though we're
@@ -55,12 +55,12 @@ public class B2BParserHelper {
             //
             // http://xerces.apache.org/xerces2-j/features.html#nonvalidating.load-external-dtd
             builderFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-            
+
             builder = builderFactory.newDocumentBuilder(); // Create the parser
         } catch(ParserConfigurationException e) {
             throw new RuntimeException(e);
-        } 
-        
+        }
+
     }
 
     public static B2BParserHelper getInstance(){
@@ -69,9 +69,9 @@ public class B2BParserHelper {
         }
         return _this;
     }
-    
+
     public synchronized B2BShoppingCart parseShoppingCartXML(String xmlChunk){
-        
+
         Document xmlDoc = null;
         try {
             xmlDoc = builder.parse(new ByteArrayInputStream(xmlChunk.getBytes()));
@@ -79,19 +79,19 @@ public class B2BParserHelper {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        
+
         byte[] xmlDocAsBytes = addXMLNameSpace(xmlDoc,"http://www.kuali.org/kfs/purap/b2bPunchOutOrder");
-        
+
         B2BPunchOutOrderFileType fileType = SpringContext.getBean(B2BPunchOutOrderFileType.class);
-        
+
         B2BShoppingCart cart = (B2BShoppingCart) SpringContext.getBean(BatchInputFileService.class).parse(fileType,xmlDocAsBytes);
-        
+
         return cart;
-        
+
     }
-    
+
     public synchronized PunchOutSetupResponse parsePunchOutSetupResponse(String xmlChunk){
-        
+
         Document xmlDoc = null;
         try {
             xmlDoc = builder.parse(new ByteArrayInputStream(xmlChunk.getBytes()));
@@ -99,19 +99,19 @@ public class B2BParserHelper {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        
+
         byte[] xmlDocAsBytes = addXMLNameSpace(xmlDoc,"http://www.kuali.org/kfs/purap/b2bPunchOutResponse");
-        
+
         PunchOutSetupResponseFileType fileType = SpringContext.getBean(PunchOutSetupResponseFileType.class);
-        
+
         PunchOutSetupResponse response = (PunchOutSetupResponse) SpringContext.getBean(BatchInputFileService.class).parse(fileType,xmlDocAsBytes);
-        
+
         return response;
-        
+
     }
-    
+
     public synchronized PurchaseOrderResponse parsePurchaseOrderResponse(String xmlChunk){
-        
+
         Document xmlDoc = null;
         try {
             xmlDoc = builder.parse(new ByteArrayInputStream(xmlChunk.getBytes()));
@@ -119,28 +119,28 @@ public class B2BParserHelper {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        
+
         byte[] xmlDocAsBytes = addXMLNameSpace(xmlDoc,"http://www.kuali.org/kfs/purap/b2bPOResponse");
-        
+
         B2BPOResponseFileType fileType = SpringContext.getBean(B2BPOResponseFileType.class);
-        
+
         PurchaseOrderResponse response = (PurchaseOrderResponse) SpringContext.getBean(BatchInputFileService.class).parse(fileType,xmlDocAsBytes);
-        
+
         return response;
-        
+
     }
-    
+
     private byte[] addXMLNameSpace(Document xmlDoc,
                                    String nameSpace){
-        
+
         Node node = xmlDoc.getDocumentElement();
         Element element = (Element)node;
-        
+
         element.setAttribute("xmlns", nameSpace);
-        
+
         OutputFormat outputFormat = new OutputFormat(xmlDoc);
         outputFormat.setOmitDocumentType(true);
-        
+
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         XMLSerializer serializer = new XMLSerializer( out,outputFormat );
         try {
@@ -150,7 +150,7 @@ public class B2BParserHelper {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
-        
+
         return out.toByteArray();
     }
 }

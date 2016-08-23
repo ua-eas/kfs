@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -265,7 +265,7 @@ public class AssetGlpeSourceDetail extends PersistableBusinessObjectBase impleme
     }
 
 
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
         map.put("accountNumber", this.accountNumber);
@@ -287,7 +287,7 @@ public class AssetGlpeSourceDetail extends PersistableBusinessObjectBase impleme
 
     /**
      * Gets the payment attribute.
-     * 
+     *
      * @return Returns the payment.
      */
     public boolean isPayment() {
@@ -297,7 +297,7 @@ public class AssetGlpeSourceDetail extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the payment attribute value.
-     * 
+     *
      * @param payment The payment to set.
      */
     public void setPayment(boolean payment) {
@@ -307,7 +307,7 @@ public class AssetGlpeSourceDetail extends PersistableBusinessObjectBase impleme
 
     /**
      * Gets the paymentOffset attribute.
-     * 
+     *
      * @return Returns the paymentOffset.
      */
     public boolean isPaymentOffset() {
@@ -317,7 +317,7 @@ public class AssetGlpeSourceDetail extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the paymentOffset attribute value.
-     * 
+     *
      * @param paymentOffset The paymentOffset to set.
      */
     public void setPaymentOffset(boolean paymentOffset) {
@@ -328,7 +328,7 @@ public class AssetGlpeSourceDetail extends PersistableBusinessObjectBase impleme
     /**
      * We have to return from this method directly since this is not a real persistent class and if we call super, it will run into
      * "Class not found in OJB repository" exception.
-     * 
+     *
      * @see org.kuali.rice.krad.bo.PersistableBusinessObjectBase#refresh()
      */
     @Override
@@ -340,7 +340,7 @@ public class AssetGlpeSourceDetail extends PersistableBusinessObjectBase impleme
     /**
      * We have to return from this method directly since this is not a real persistent class and if we call super, it will run into
      * "Class not found in OJB repository" exception.
-     * 
+     *
      * @see org.kuali.rice.krad.bo.PersistableBusinessObjectBase#refreshNonUpdateableReferences()
      */
     @Override
@@ -352,7 +352,7 @@ public class AssetGlpeSourceDetail extends PersistableBusinessObjectBase impleme
     /**
      * We have to return from this method directly since this is not a real persistent class and if we call super, it will run into
      * "Class not found in OJB repository" exception.
-     * 
+     *
      * @see org.kuali.rice.krad.bo.PersistableBusinessObjectBase#refreshReferenceObject(java.lang.String)
      */
     @Override
@@ -363,7 +363,7 @@ public class AssetGlpeSourceDetail extends PersistableBusinessObjectBase impleme
 
     /**
      * Gets the sequenceNumber attribute.
-     * 
+     *
      * @return Returns the sequenceNumber.
      */
     public int getSequenceNumber() {
@@ -373,7 +373,7 @@ public class AssetGlpeSourceDetail extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the sequenceNumber attribute value.
-     * 
+     *
      * @param sequenceNumber The sequenceNumber to set.
      */
     public void setSequenceNumber(int sequenceNumber) {
@@ -383,7 +383,7 @@ public class AssetGlpeSourceDetail extends PersistableBusinessObjectBase impleme
 
     /**
      * Gets the postingPeriodCode attribute.
-     * 
+     *
      * @return Returns the postingPeriodCode.
      */
     public String getPostingPeriodCode() {
@@ -393,7 +393,7 @@ public class AssetGlpeSourceDetail extends PersistableBusinessObjectBase impleme
 
     /**
      * Sets the postingPeriodCode attribute value.
-     * 
+     *
      * @param postingPeriodCode The postingPeriodCode to set.
      */
     public void setPostingPeriodCode(String postingPeriodCode) {

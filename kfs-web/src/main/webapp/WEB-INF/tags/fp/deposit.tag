@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -52,7 +52,7 @@
   <c:otherwise>
     <c:set var="columnNumbers" value="4"/>
   </c:otherwise>
-</c:choose>	
+</c:choose>
 
     <h3>${depositTitle}</h3>
 
@@ -72,7 +72,7 @@
 
                 <tr>
                     <sys:bankControl property="${depositPropertyBase}.depositBankCode" objectProperty="${depositPropertyBase}.bank" depositOnly="true" readOnly="${readOnly}"/>
-                    
+
                     <td align="left" rowspan="2">
                         <kul:htmlControlAttribute property="${depositPropertyBase}.depositTicketNumber" attributeEntry="${depositAttributes.depositTicketNumber}" readOnly="${readOnly}"/>
                         <br/>
@@ -100,7 +100,7 @@
             </table>
         </td>
     </tr>
-    
+
     <%-- currency/coin details --%>
     <c:if test="${depositType == KFSConstants.DepositConstants.DEPOSIT_TYPE_FINAL && !empty deposit.depositedCurrency && !empty deposit.depositedCoin}">
       <tr>
@@ -114,7 +114,7 @@
         </td>
       </tr>
     </c:if>
-    
+
     <%-- cashReceipts header --%>
     <c:if test="${!empty KualiForm.depositHelpers[depositIndex].cashReceiptSummarys}">
     <tr>
@@ -148,7 +148,7 @@
             <td align="left">
                 <kul:htmlControlAttribute property="${receiptSummaryBase}.createDate" attributeEntry="${dummyAttributes.genericTimestamp}" readOnly="true" />
             </td>
-    
+
             <td align="left">
             <c:choose>
             	<c:when test="${depositType == KFSConstants.DepositConstants.DEPOSIT_TYPE_FINAL}">
@@ -157,7 +157,7 @@
             	<c:otherwise>
             		<kul:htmlControlAttribute property="${receiptSummaryBase}.checkAmount" attributeEntry="${dummyAttributes.genericAmount}" readOnly="true" />
             	</c:otherwise>
-            </c:choose>	           	
+            </c:choose>
             </td>
             <c:if test="${depositType == KFSConstants.DepositConstants.DEPOSIT_TYPE_FINAL}">
             <td>
@@ -167,7 +167,7 @@
         </tr>
     </logic:iterate>
     </c:if>
-    
+
     <%-- cashiering checks --%>
     <c:if test="${!empty KualiForm.depositHelpers[depositIndex].cashieringChecks}">
     <tr>
@@ -203,6 +203,6 @@
             <td colspan="${columnNumbers}" class="subhead" style="text-align: center">
                 <html:submit value="Cancel" styleClass="btn btn-default" property="methodToCall.cancelDeposit.line${depositIndex}" alt="close" title="close"/>
             </td>
-        </tr>         
+        </tr>
     </c:if>
 </table>

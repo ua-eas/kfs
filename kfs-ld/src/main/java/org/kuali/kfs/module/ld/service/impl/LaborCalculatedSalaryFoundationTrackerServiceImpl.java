@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,7 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This class provides its clients with access to CSF tracker entries in the backend data store.
- * 
+ *
  * @see org.kuali.kfs.module.ld.businessobject.LaborCalculatedSalaryFoundationTracker
  */
 @Transactional
@@ -80,7 +80,7 @@ public class LaborCalculatedSalaryFoundationTrackerServiceImpl implements LaborC
 
     /**
      * Check if there is a CSF track in the given set that matches the given object
-     * 
+     *
      * @param csfTrackerCollection the given set of CSF trackers
      * @param anotherObject the object to be searched
      * @return the CSF tracker if there is a CSF track in the given set that matches the given object
@@ -114,7 +114,7 @@ public class LaborCalculatedSalaryFoundationTrackerServiceImpl implements LaborC
 
     /**
      * Sets the laborCalculatedSalaryFoundationTrackerDao attribute value.
-     * 
+     *
      * @param laborCalculatedSalaryFoundationTrackerDao The laborCalculatedSalaryFoundationTrackerDao to set.
      */
     public void setLaborCalculatedSalaryFoundationTrackerDao(LaborCalculatedSalaryFoundationTrackerDao laborCalculatedSalaryFoundationTrackerDao) {
@@ -123,7 +123,7 @@ public class LaborCalculatedSalaryFoundationTrackerServiceImpl implements LaborC
 
     /**
      * Sets the lookupService attribute value.
-     * 
+     *
      * @param lookupService The lookupService to set.
      */
     public void setLookupService(LookupService lookupService) {

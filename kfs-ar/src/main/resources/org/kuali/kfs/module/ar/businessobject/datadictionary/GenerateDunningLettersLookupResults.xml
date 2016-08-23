@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -59,7 +59,7 @@
 		            <list>
 		              <bean parent="SupportAttributeDefinition" p:sourceName="collector.principalName" p:targetName="principalName"/>
 		              <bean parent="SupportAttributeDefinition" p:sourceName="userLookupRoleNamespaceCode" p:targetName="lookupRoleNamespaceCode"/>
-		              <bean parent="SupportAttributeDefinition" p:sourceName="userLookupRoleName" p:targetName="lookupRoleName"/>                    
+		              <bean parent="SupportAttributeDefinition" p:sourceName="userLookupRoleName" p:targetName="lookupRoleName"/>
 		            </list>
 		          </property>
 		        </bean>
@@ -97,7 +97,7 @@
 
 	<!-- Attribute Definitions -->
 	<bean id="GenerateDunningLettersLookupResult-reportOption" parent="GenerateDunningLettersLookupResult-reportOption-parentBean" />
-	
+
 	<bean id="GenerateDunningLettersLookupResult-reportOption-parentBean"
 		abstract="true" parent="AttributeDefinition">
 		<property name="name" value="reportOption" />
@@ -162,9 +162,9 @@
 	<bean id="GenerateDunningLettersLookupResult-proposalNumber-parentBean" abstract="true" parent="ExternalizableAttributeDefinitionProxy"
 		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsAward" p:sourceAttributeName="proposalNumber">
 		<property name="name" value="proposalNumber" />
-		
+
 	</bean>
-	
+
 	<bean id="GenerateDunningLettersLookupResult-accountNumber" parent="GenerateDunningLettersLookupResult-accountNumber-parentBean" />
 
 	<bean id="GenerateDunningLettersLookupResult-accountNumber-parentBean" abstract="true" parent="AccountAttribute">
@@ -178,7 +178,7 @@
 		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsAgency" p:sourceAttributeName="agencyNumber">
 		<property name="name" value="agencyNumber" />
 	</bean>
-	
+
 	<bean id="GenerateDunningLettersLookupResult-invoiceDocumentNumber" parent="GenerateDunningLettersLookupResult-invoiceDocumentNumber-parentBean" />
 	<bean id="GenerateDunningLettersLookupResult-invoiceDocumentNumber-parentBean" abstract="true" parent="DocumentHeader-documentNumber" >
 	<property name="name" value="invoiceDocumentNumber" />
@@ -189,10 +189,10 @@
 	<bean id="GenerateDunningLettersLookupResult-customerNumber" parent="GenerateDunningLettersLookupResult-customerNumber-parentBean" />
 	<bean id="GenerateDunningLettersLookupResult-customerNumber-parentBean" abstract="true" parent="Customer-customerNumber" />
 
-	
+
 	<bean id="GenerateDunningLettersLookupResult-campaignID" parent="GenerateDunningLettersLookupResult-campaignID-parentBean" />
 	<bean id="GenerateDunningLettersLookupResult-campaignID-parentBean" abstract="true" parent="DunningCampaign-campaignID" />
-	
+
 
 	<bean id="GenerateDunningLettersLookupResult-awardTotal" parent="GenerateDunningLettersLookupResult-awardTotal-parentBean" />
 	<bean id="GenerateDunningLettersLookupResult-awardTotal-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
@@ -236,14 +236,14 @@
 		</property>
 
 		<property name="lookupFields">
-			<list>		
-				<bean parent="FieldDefinition" p:noLookup="true" p:attributeName="reportOption" 
+			<list>
+				<bean parent="FieldDefinition" p:noLookup="true" p:attributeName="reportOption"
 					p:defaultValueFinderClass="org.kuali.kfs.module.ar.businessobject.options.ReportOptionValuesFinder" />
 				<bean parent="FieldDefinition" p:required="true" p:attributeName="chartOfAccountsCode"
 					p:defaultValueFinderClass="org.kuali.kfs.module.ar.businessobject.defaultvalue.ChartOrganizationAccountingDefaultValueFinder" />
 				<bean parent="FieldDefinition" p:required="true" p:attributeName="organizationCode" />
 				<bean parent="FieldDefinition" p:required="false" p:attributeName="collector.principalName" />
-				<bean parent="FieldDefinition" p:required="false" p:attributeName="principalId" />		
+				<bean parent="FieldDefinition" p:required="false" p:attributeName="principalId" />
 				<bean parent="FieldDefinition" p:required="false" p:attributeName="agencyNumber" />
 				<bean parent="FieldDefinition" p:required="false" p:attributeName="accountNumber" />
 				<bean parent="FieldDefinition" p:required="false" p:attributeName="customerNumber" />
@@ -251,7 +251,7 @@
 				<bean parent="FieldDefinition" p:required="false" p:attributeName="awardTotal" />
 				<bean parent="FieldDefinition" p:required="false" p:attributeName="campaignID" />
 				<bean parent="FieldDefinition" p:required="false" p:attributeName="agingBucket" />
-				<bean parent="FieldDefinition" p:required="false" p:attributeName="invoiceDocumentNumber" />		
+				<bean parent="FieldDefinition" p:required="false" p:attributeName="invoiceDocumentNumber" />
 			</list>
 		</property>
 		<property name="resultFields">
@@ -260,7 +260,7 @@
 				<bean parent="FieldDefinition" p:required="false" p:attributeName="customerNumber" />
 				<bean parent="FieldDefinition" p:required="false" p:attributeName="proposalNumber" />
 				<bean parent="FieldDefinition" p:required="false" p:attributeName="awardTotal" />
-				<bean parent="FieldDefinition" p:required="false" p:attributeName="campaignID" />								
+				<bean parent="FieldDefinition" p:required="false" p:attributeName="campaignID" />
 			</list>
 		</property>
 	</bean>

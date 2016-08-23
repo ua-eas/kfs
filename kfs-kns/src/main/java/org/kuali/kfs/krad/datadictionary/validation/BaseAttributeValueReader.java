@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,20 +26,20 @@ import java.util.List;
 
 /**
  * A class that implements the required accessors and legacy processing for an attribute value reader. This provides a convenient base class
- * from which other attribute value readers can be derived. 
- * 
- *  
+ * from which other attribute value readers can be derived.
+ *
+ *
  */
 public abstract class BaseAttributeValueReader implements AttributeValueReader {
 
 	protected String entryName;
 	protected String attributeName;
-	
+
 	@Override
 	public List<String> getCleanSearchableValues(String attributeKey) throws AttributeValidationException {
-		Class<?> attributeType = getType(attributeKey);		
+		Class<?> attributeType = getType(attributeKey);
 		Object rawValue = getValue(attributeKey);
-		
+
 		String attributeInValue = rawValue != null ? rawValue.toString() : "";
 		String attributeDataType = DataTypeUtil.determineDataType(attributeType);
 		return SQLUtils.getCleanedSearchableValues(attributeInValue, attributeDataType);

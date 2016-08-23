@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,34 +53,34 @@ import org.kuali.kfs.krad.util.UrlFactory;
 public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelperServiceImpl {
     protected DateTimeService dateTimeService;
     protected BatchFileAdminAuthorizationService batchFileAdminAuthorizationService;
-    
+
     @Override
     public List<? extends BusinessObject> getSearchResults(Map<String, String> fieldValues) {
         List<BatchFile> results = new ArrayList<BatchFile>();
 
         IOFileFilter filter = FileFilterUtils.fileFileFilter();
-        
+
         IOFileFilter pathBasedFilter = getPathBasedFileFilter();
         if (pathBasedFilter != null) {
             filter = FileFilterUtils.andFileFilter(filter, pathBasedFilter);
         }
-        
+
         String fileNamePattern = fieldValues.get("fileName");
         IOFileFilter fileNameBasedFilter = getFileNameBasedFilter(fileNamePattern);
         if (fileNameBasedFilter != null) {
             filter = FileFilterUtils.andFileFilter(filter, fileNameBasedFilter);
         }
-        
+
         String lastModifiedDate = fieldValues.get("lastModifiedDate");
         IOFileFilter lastModifiedDateBasedFilter = getLastModifiedDateBasedFilter(lastModifiedDate);
         if (lastModifiedDateBasedFilter != null) {
             filter = FileFilterUtils.andFileFilter(filter, lastModifiedDateBasedFilter);
         }
-        
+
         BatchFileFinder finder = new BatchFileFinder(results, filter);
         List<File> rootDirectories = BatchFileUtils.retrieveBatchFileLookupRootDirectories();
         finder.find(rootDirectories);
-        
+
         return results;
     }
 
@@ -101,14 +101,14 @@ public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelp
         }
         return fileFilter;
     }
-    
+
     protected IOFileFilter getFileNameBasedFilter(String fileNamePattern) {
         if (StringUtils.isNotBlank(fileNamePattern)) {
             return new WildcardFileFilter(fileNamePattern, IOCase.INSENSITIVE);
         }
         return null;
     }
-    
+
     protected IOFileFilter getLastModifiedDateBasedFilter(String lastModifiedDatePattern) {
         if (StringUtils.isBlank(lastModifiedDatePattern)) {
             return null;
@@ -136,7 +136,7 @@ public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelp
         }
         throw new RuntimeException("Unable to perform search using last modified date " + lastModifiedDatePattern);
     }
-    
+
     protected List<File> getSelectedDirectories(String[] selectedPaths) {
         List<File> directories = new ArrayList<File>();
         if (selectedPaths != null) {
@@ -152,7 +152,7 @@ public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelp
     }
     /**
      * KRAD Conversion: gets rows after customizing the field values
-     * 
+     *
      * No use of data dictionary
      */
     protected String[] getSelectedPaths() {
@@ -170,14 +170,14 @@ public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelp
         }
         return null;
     }
-    
+
     protected class SubDirectoryFileFilter extends AbstractFileFilter {
         private File superDirectory;
-        
+
         public SubDirectoryFileFilter(File superDirectory) {
             this.superDirectory = superDirectory.getAbsoluteFile();
         }
-        
+
         @Override
         public boolean accept(File file) {
             file = file.getAbsoluteFile();
@@ -191,20 +191,20 @@ public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelp
             return false;
         }
     }
-    
+
     protected class LastModifiedDateFileFilter extends AbstractFileFilter {
         private Date fromDate;
         private Date toDate;
-        
+
         public LastModifiedDateFileFilter(Date fromDate, Date toDate) {
             this.fromDate = fromDate;
             this.toDate = toDate;
         }
-        
+
         @Override
         public boolean accept(File file) {
             Date lastModifiedDate = KfsDateUtils.clearTimeFields(new Date(file.lastModified()));
-            
+
             if (fromDate != null && fromDate.after(lastModifiedDate)) {
                 return false;
             }
@@ -214,15 +214,15 @@ public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelp
             return true;
         }
     }
-    
+
     protected class BatchFileFinder extends DirectoryWalker {
         private List<BatchFile> results;
-        
+
         public BatchFileFinder(List<BatchFile> results, IOFileFilter fileFilter) {
             super(null, fileFilter, -1);
             this.results = results;
         }
-        
+
         public void find(Collection<File> rootDirectories) {
             try {
                 for (File rootDirectory : rootDirectories) {
@@ -253,7 +253,7 @@ public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelp
     @Override
     public List<HtmlData> getCustomActionUrls(BusinessObject businessObject, List pkNames) {
         List<HtmlData> links = new ArrayList<HtmlData>();
-        
+
         BatchFile batchFile = (BatchFile) businessObject;
         if (canDownloadFile(batchFile)) {
             links.add(getDownloadUrl(batchFile));
@@ -271,7 +271,7 @@ public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelp
     protected boolean canDeleteFile(BatchFile batchFile) {
         return batchFileAdminAuthorizationService.canDelete(batchFile, GlobalVariables.getUserSession().getPerson());
     }
-    
+
     protected HtmlData getDownloadUrl(BatchFile batchFile) {
         Properties parameters = new Properties();
         parameters.put("filePath", BatchFileUtils.pathRelativeToRootDirectory(batchFile.retrieveFile().getAbsolutePath()));
@@ -279,7 +279,7 @@ public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelp
         String href = UrlFactory.parameterizeUrl("../batchFileAdmin.do", parameters);
         return new AnchorHtmlData(href, "download", "Download");
     }
-    
+
     protected HtmlData getDeleteUrl(BatchFile batchFile) {
         Properties parameters = new Properties();
         parameters.put("filePath", BatchFileUtils.pathRelativeToRootDirectory(batchFile.retrieveFile().getAbsolutePath()));
@@ -294,7 +294,7 @@ public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelp
     @Override
     public void validateSearchParameters(Map fieldValues) {
         super.validateSearchParameters(fieldValues);
-        
+
         String[] selectedPaths = getSelectedPaths();
         if (selectedPaths != null) {
             for (String selectedPath : selectedPaths) {
@@ -313,4 +313,4 @@ public class BatchFileLookupableHelperServiceImpl extends AbstractLookupableHelp
     public void setBatchFileAdminAuthorizationService(BatchFileAdminAuthorizationService batchFileAdminAuthorizationService) {
         this.batchFileAdminAuthorizationService = batchFileAdminAuthorizationService;
     }
-}    
+}

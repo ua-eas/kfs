@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -132,8 +132,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="16"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-sequenceNumber" parent="ProcurementCardSourceAccountingLine-sequenceNumber-parentBean"/>
 
@@ -145,7 +145,7 @@
   <bean id="ProcurementCardSourceAccountingLine-financialObjectCode" parent="ProcurementCardSourceAccountingLine-financialObjectCode-parentBean"/>
 
   <bean id="ProcurementCardSourceAccountingLine-financialObjectCode-parentBean" abstract="true" parent="ObjectCode-financialObjectCode">
-    
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-accountNumber" parent="ProcurementCardSourceAccountingLine-accountNumber-parentBean"/>
 
@@ -165,8 +165,8 @@
     <property name="control">
       <ref bean="TenCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-chartOfAccountsCode" parent="ProcurementCardSourceAccountingLine-chartOfAccountsCode-parentBean"/>
 
@@ -174,7 +174,7 @@
     <property name="control">
       <ref bean="ChartSimpleSelectControl" />
     </property>
-    
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-postingYear" parent="ProcurementCardSourceAccountingLine-postingYear-parentBean"/>
 
@@ -196,19 +196,19 @@
     <property name="control">
       <ref bean="FourCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-overrideCode" parent="ProcurementCardSourceAccountingLine-overrideCode-parentBean"/>
 
   <bean id="ProcurementCardSourceAccountingLine-overrideCode-parentBean" abstract="true" parent="SourceAccountingLine-overrideCode"/>
-   
+
   <bean id="ProcurementCardSourceAccountingLine-amount" parent="ProcurementCardSourceAccountingLine-amount-parentBean"/>
 
   <bean id="ProcurementCardSourceAccountingLine-amount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="amount"/>
     <property name="required" value="true"/>
-    
+
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-subAccountNumber" parent="ProcurementCardSourceAccountingLine-subAccountNumber-parentBean"/>
@@ -216,8 +216,8 @@
   <bean id="ProcurementCardSourceAccountingLine-subAccountNumber-parentBean" abstract="true" parent="SubAccount-subAccountNumber">
     <property name="label" value="Sub-Account Code"/>
     <property name="required" value="false"/>
-    
-    
+
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-referenceTypeCode" parent="ProcurementCardSourceAccountingLine-referenceTypeCode-parentBean"/>
 
@@ -228,14 +228,14 @@
   <bean id="ProcurementCardSourceAccountingLine-projectCode-parentBean" abstract="true" parent="ProjectCode-code">
     <property name="name" value="projectCode"/>
     <property name="required" value="false"/>
-    
-    
+
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-financialSubObjectCode" parent="ProcurementCardSourceAccountingLine-financialSubObjectCode-parentBean"/>
 
   <bean id="ProcurementCardSourceAccountingLine-financialSubObjectCode-parentBean" abstract="true" parent="SubObjectCode-financialSubObjectCode">
     <property name="required" value="false"/>
-    
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-documentNumber" parent="ProcurementCardSourceAccountingLine-documentNumber-parentBean"/>
 
@@ -257,8 +257,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-encumbranceUpdateCode" parent="ProcurementCardSourceAccountingLine-encumbranceUpdateCode-parentBean"/>
 
@@ -274,8 +274,8 @@
     <property name="control">
       <ref bean="TwoCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-accountExpiredOverride" parent="ProcurementCardSourceAccountingLine-accountExpiredOverride-parentBean"/>
 
@@ -288,8 +288,8 @@
     <property name="control">
       <bean parent="CheckboxControlDefinition"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-nonFringeAccountOverride" parent="ProcurementCardSourceAccountingLine-nonFringeAccountOverride-parentBean"/>
 
@@ -302,8 +302,8 @@
     <property name="control">
       <bean parent="CheckboxControlDefinition"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-objectBudgetOverride" parent="ProcurementCardSourceAccountingLine-objectBudgetOverride-parentBean"/>
 
@@ -316,8 +316,8 @@
     <property name="control">
       <bean parent="CheckboxControlDefinition"/>
     </property>
-    
-    
+
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-financialDocumentLineDescription" parent="ProcurementCardSourceAccountingLine-financialDocumentLineDescription-parentBean"/>
 
@@ -330,8 +330,8 @@
     <property name="control">
       <ref bean="StandardNameTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-salesTaxRequired" parent="ProcurementCardSourceAccountingLine-salesTaxRequired-parentBean"/>
 
@@ -344,8 +344,8 @@
     <property name="control">
       <ref bean="HiddenControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-salesTax.chartOfAccountsCode" parent="ProcurementCardSourceAccountingLine-salesTax.chartOfAccountsCode-parentBean"/>
 
@@ -353,8 +353,8 @@
     <property name="name" value="salesTax.chartOfAccountsCode"/>
     <property name="label" value="Sales Tax Chart of Accounts Code"/>
     <property name="shortLabel" value="Sales Tax Chart"/>
-    
-    
+
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-salesTax.accountNumber" parent="ProcurementCardSourceAccountingLine-salesTax.accountNumber-parentBean"/>
 
@@ -362,8 +362,8 @@
     <property name="name" value="salesTax.accountNumber"/>
     <property name="label" value="Sales Tax Account Number"/>
     <property name="shortLabel" value="Sales Tax Account"/>
-    
-    
+
+
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-salesTax.financialDocumentGrossSalesAmount" parent="ProcurementCardSourceAccountingLine-salesTax.financialDocumentGrossSalesAmount-parentBean"/>
 
@@ -371,7 +371,7 @@
     <property name="name" value="salesTax.financialDocumentGrossSalesAmount"/>
     <property name="label" value="Gross Sales Amount"/>
     <property name="shortLabel" value="Gross Sales Amt."/>
-    
+
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-salesTax.financialDocumentTaxableSalesAmount" parent="ProcurementCardSourceAccountingLine-salesTax.financialDocumentTaxableSalesAmount-parentBean"/>
@@ -380,7 +380,7 @@
     <property name="name" value="salesTax.financialDocumentTaxableSalesAmount"/>
     <property name="label" value="Taxable Sales Amount"/>
     <property name="shortLabel" value="Taxable Sales Amt."/>
-    
+
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
   <bean id="ProcurementCardSourceAccountingLine-salesTax.financialDocumentSaleDate" parent="ProcurementCardSourceAccountingLine-salesTax.financialDocumentSaleDate-parentBean"/>
@@ -388,6 +388,6 @@
   <bean id="ProcurementCardSourceAccountingLine-salesTax.financialDocumentSaleDate-parentBean" abstract="true" parent="SalesTax-financialDocumentSaleDate">
     <property name="name" value="salesTax.financialDocumentSaleDate"/>
     <property name="label" value="Sale Date"/>
-    
+
   </bean>
 </beans>

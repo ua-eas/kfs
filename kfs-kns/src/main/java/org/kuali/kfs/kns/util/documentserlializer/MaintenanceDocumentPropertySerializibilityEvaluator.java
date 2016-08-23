@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,7 +44,7 @@ public class MaintenanceDocumentPropertySerializibilityEvaluator
 
     /**
      * Reads the data dictionary to determine which properties of the document should be serialized.
-     * 
+     *
      * @see PropertySerializabilityEvaluator#initializeEvaluator(Document)
      */
 	@Override
@@ -95,9 +95,9 @@ public class MaintenanceDocumentPropertySerializibilityEvaluator
                 serializableProperties.addSerializablePropertyName(getFullItemName(basePath, maintainableItemDefinition.getName()), true);
             } else if(maintainableItemDefinition instanceof MaintainableCollectionDefinition){
             	serializableProperties.addSerializablePropertyName(getFullItemName(basePath, maintainableItemDefinition.getName()), true);
-            	populateSerializablePropertiesWithItems(getFullItemName(basePath, maintainableItemDefinition.getName()), 
+            	populateSerializablePropertiesWithItems(getFullItemName(basePath, maintainableItemDefinition.getName()),
             			getAllMaintainableFieldDefinitionsForSerialization(
-            			(MaintainableCollectionDefinition)maintainableItemDefinition));            	
+            			(MaintainableCollectionDefinition)maintainableItemDefinition));
             } else if(maintainableItemDefinition instanceof MaintainableSubSectionHeaderDefinition){
             	//Ignore
             }
@@ -107,7 +107,7 @@ public class MaintenanceDocumentPropertySerializibilityEvaluator
     private String getFullItemName(String basePath, String itemName){
     	return StringUtils.isEmpty(basePath) ? itemName : basePath+"."+itemName;
     }
-    
+
     public List<MaintainableItemDefinition> getAllMaintainableFieldDefinitionsForSerialization(
     		MaintainableCollectionDefinition maintainableCollectionDefinition){
 		List<MaintainableItemDefinition> allMaintainableItemDefinitions = new ArrayList<MaintainableItemDefinition>();
@@ -135,5 +135,5 @@ public class MaintenanceDocumentPropertySerializibilityEvaluator
 
 		return allMaintainableItemDefinitions;
 	}
-    
+
 }

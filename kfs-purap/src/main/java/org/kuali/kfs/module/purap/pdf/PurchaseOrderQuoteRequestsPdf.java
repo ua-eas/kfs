@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -56,7 +56,7 @@ import com.lowagie.text.pdf.PdfWriter;
 
 /**
  * Base class to handle pdf for purchase order quote request documents.
- * 
+ *
  */
 public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurchaseOrderQuoteRequestsPdf.class);
@@ -78,11 +78,11 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
     /**
      * Overrides the method in PdfPageEventHelper from itext to initialize the template and font for purchase
      * order quote request pdf documents.
-     * 
+     *
      * @param writer    The PdfWriter for this document.
      * @param document  The document.
      * @see com.lowagie.text.pdf.PdfPageEventHelper#onOpenDocument(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Document)
-     */    
+     */
     public void onOpenDocument(PdfWriter writer, Document document) {
         LOG.debug("onOpenDocument() started.");
         try {
@@ -126,7 +126,7 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
 
     /**
      * Overrides the method in the PdfPageEventHelper from itext to put the total number of pages into the template.
-     * 
+     *
      * @param writer    The PdfWriter for this document.
      * @param document  The document.
      * @see com.lowagie.text.pdf.PdfPageEventHelper#onCloseDocument(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Document)
@@ -142,7 +142,7 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
 
     /**
      * Gets a PageEvents object.
-     * 
+     *
      * @return a new PageEvents object
      */
     public PurchaseOrderPdf getPageEvents() {
@@ -152,7 +152,7 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
 
     /**
      * Creates an instance of a new Document and set its margins.
-     * 
+     *
      * @return    The created Document object.
      */
     private Document getDocument() throws DocumentException {
@@ -165,9 +165,9 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
 
     /**
      * Generates the purchase order quote request list pdf document based on the data in the given input parameters
-     * by creating a pdf writer using the given byteArrayOutputStream then calls the createPOQuoteRequestsListPdf to 
+     * by creating a pdf writer using the given byteArrayOutputStream then calls the createPOQuoteRequestsListPdf to
      * write the pdf document into the writer.
-     * 
+     *
      * @param po                     The PurchaseOrderDocument to be used to generate the pdf.
      * @param byteArrayOutputStream  The ByteArrayOutputStream to print the pdf to.
      * @param institutionName        The purchasing institution name.
@@ -193,14 +193,14 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
     }
 
     /**
-     * Invokes the createPOQuoteRequestsListPdf method to create a purchase order quote list request pdf document 
+     * Invokes the createPOQuoteRequestsListPdf method to create a purchase order quote list request pdf document
      * and saves it into a file which name and location are specified in the input parameters.
-     * 
+     *
      * @param po               The PurchaseOrderDocument to be used to generate the pdf.
      * @param pdfFileLocation  The location to save the pdf file.
      * @param pdfFilename      The name for the pdf file.
      * @param institutionName  The purchasing institution name.
-     * @return                 Collection of errors which are made of the messages from DocumentException.    
+     * @return                 Collection of errors which are made of the messages from DocumentException.
      */
     public Collection savePOQuoteRequestsListPdf(PurchaseOrderDocument po, String pdfFileLocation, String pdfFilename, String institutionName) {
         if (LOG.isDebugEnabled()) {
@@ -227,7 +227,7 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
 
     /**
      * Deletes an already created PDF.
-     * 
+     *
      * @param pdfFileLocation  The location to save the pdf file.
      * @param pdfFilename      The name for the pdf file.
      */
@@ -242,7 +242,7 @@ public class PurchaseOrderQuoteRequestsPdf extends PdfPageEventHelper {
 
     /**
      * Creates the pdf using given input parameters.
-     * 
+     *
      * @param po        The PurchaseOrderDocument to be used to create the pdf.
      * @param document  The pdf document whose margins have already been set.
      * @param writer    The PdfWriter to write the pdf document into.

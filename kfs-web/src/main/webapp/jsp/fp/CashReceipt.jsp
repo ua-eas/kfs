@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -26,9 +26,9 @@
 <c:set var="confirmed" value="${KualiForm.document.confirmed}" />
 <c:set var="cashReceiptAttributes" value="${DataDictionary['CashReceiptDocument'].attributes}" />
 
-<%-- 
+<%--
 	We should show both the original and confirmed details after CashManagerment confirmation; only that neither column would be editable.
---%>	
+--%>
 <c:set var="showConfirm" value="${confirmMode || confirmed}" />
 
 <kul:documentPage showDocumentInfo="true"
@@ -57,7 +57,7 @@
         }
     //-->
     </SCRIPT>
-        
+
 	<kul:tab tabTitle="Cash Reconciliation" defaultOpen="true"
 		tabErrorKey="${KFSConstants.EDIT_CASH_RECEIPT_CASH_RECONCILIATION_ERRORS}">
 		<div class="tab-container">
@@ -204,7 +204,7 @@
 			</c:if>
 		</div>
 	</kul:tab>
-	
+
 	<kul:tab tabTitle="Currency and Coin Detail" defaultOpen="true" tabErrorKey="${KFSConstants.EDIT_CASH_RECEIPT_CURRENCY_COIN_ERRORS}">
 		<c:if test="${confirmMode}"> <%-- we only show copy buttons in CashManager Confirm Mode --%>
 			<div class="tab-container center">
@@ -228,15 +228,15 @@
 					confirmed="${confirmed}" />
 		</div>
 	</kul:tab>
-	
+
 	<fp:crCheckLines checkDetailMode="${checkDetailMode}"
 		editingMode="${KualiForm.editingMode}"
 		totalAmount="${KualiForm.cashReceiptDocument.currencyFormattedTotalCheckAmount}"
 		totalConfirmedAmount="${KualiForm.cashReceiptDocument.currencyFormattedTotalConfirmedCheckAmount}"
-		displayHidden="${displayHidden}" 
+		displayHidden="${displayHidden}"
 		confirmMode="${confirmMode}"/>
-		
-	<c:if test="${changeRequestMode}">	
+
+	<c:if test="${changeRequestMode}">
 		<kul:tab tabTitle="Change Request" defaultOpen="${KualiForm.document.changeRequested}" tabErrorKey="${KFSConstants.EDIT_CASH_RECEIPT_CHANGE_REQUEST_ERRORS}">
 			<c:if test="${confirmMode}"> <%-- we only show copy buttons in CashManager Confirm Mode --%>
 				<div class="tab-container">
@@ -246,29 +246,29 @@
 			</c:if>
 			<div class="tab-container" align="center">
 				<h3>Requesting</h3>
-	      		<fp:currencyCoinLine currencyProperty="document.changeCurrencyDetail" coinProperty="document.changeCoinDetail" 
-					confirmedCurrencyProperty="document.confirmedChangeCurrencyDetail" confirmedCoinProperty="document.confirmedChangeCoinDetail" 
+	      		<fp:currencyCoinLine currencyProperty="document.changeCurrencyDetail" coinProperty="document.changeCoinDetail"
+					confirmedCurrencyProperty="document.confirmedChangeCurrencyDetail" confirmedCoinProperty="document.confirmedChangeCoinDetail"
 	      			readOnly="${readOnly}" editingMode="${KualiForm.editingMode}" confirmMode="${confirmMode}" confirmed="${confirmed}" />
 	      	</div>
-		</kul:tab>	
+		</kul:tab>
 	</c:if>
-		
+
 	<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS}"
 			 helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
 		<sys-java:accountingLines>
 			<sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source" />
 		</sys-java:accountingLines>
-	</kul:tab>			
-		 
+	</kul:tab>
+
   	<c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
   	<fp:capitalAccountingLines readOnly="${readOnly}"/>
-  	
+
 	<c:if test="${KualiForm.capitalAccountingLine.canCreateAsset}">
 		<fp:capitalAssetCreateTab readOnly="${readOnly}"/>
 	</c:if>
-  	
-	<fp:capitalAssetModifyTab readOnly="${readOnly}"/>  
-			
+
+	<fp:capitalAssetModifyTab readOnly="${readOnly}"/>
+
 	<gl:generalLedgerPendingEntries />
 	<kul:notes />
 	<kul:adHocRecipients />

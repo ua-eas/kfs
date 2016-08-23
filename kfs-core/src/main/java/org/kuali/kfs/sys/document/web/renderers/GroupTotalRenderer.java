@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,10 +34,10 @@ import java.io.IOException;
 public class GroupTotalRenderer extends TotalRendererBase {
     private String totalProperty;
     private WriteTag writeTag = new WriteTag();
-    
+
     private String totalLabelProperty = "accounting.line.group.total.label";
     private String formName = "KualiForm";
-    
+
     /**
      * Constructs a GroupTotalRenderer, setting permanent values on the writeTag tag
      */
@@ -46,7 +46,7 @@ public class GroupTotalRenderer extends TotalRendererBase {
     }
 
     /**
-     * Gets the totalProperty attribute. 
+     * Gets the totalProperty attribute.
      * @return Returns the totalProperty.
      */
     public String getTotalProperty() {
@@ -62,7 +62,7 @@ public class GroupTotalRenderer extends TotalRendererBase {
     }
 
     /**
-     * Gets the totalLabelProperty attribute. 
+     * Gets the totalLabelProperty attribute.
      * @return Returns the totalLabelProperty.
      */
     public String getTotalLabelProperty() {
@@ -84,7 +84,7 @@ public class GroupTotalRenderer extends TotalRendererBase {
     public void clear() {
         super.clear();
         totalProperty = null;
-        
+
         writeTag.setPageContext(null);
         writeTag.setParent(null);
         writeTag.setProperty(null);
@@ -96,10 +96,10 @@ public class GroupTotalRenderer extends TotalRendererBase {
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
         JspWriter out = pageContext.getOut();
-        
+
         try {
             out.write("<tr class=\"total-line\">");
-            
+
             int emptyCellSpanBefore = this.getColumnNumberOfRepresentedCell() - 2;
             if (emptyCellSpanBefore < 1) {
                 emptyCellSpanBefore = 1;
@@ -114,13 +114,13 @@ public class GroupTotalRenderer extends TotalRendererBase {
             out.write("</td>");
 
             out.write("<td colspan=\"1\" class=\"right\">");
-            
+
             writeTag.setPageContext(pageContext);
             writeTag.setParent(parentTag);
             writeTag.setProperty(getTotalProperty());
             writeTag.doStartTag();
             writeTag.doEndTag();
-            
+
             out.write("</td>");
 
             int emptyCellSpanAfter = this.getCellCount() - this.getColumnNumberOfRepresentedCell();
@@ -132,7 +132,7 @@ public class GroupTotalRenderer extends TotalRendererBase {
                 out.write(Integer.toString(emptyCellSpanAfter));
                 out.write("\">&nbsp;</td>");
             }
-            
+
             out.write("</tr>");
         }
         catch (IOException ioe) {

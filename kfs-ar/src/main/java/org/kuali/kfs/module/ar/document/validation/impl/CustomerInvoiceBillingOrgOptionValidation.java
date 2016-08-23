@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -52,14 +52,14 @@ public class CustomerInvoiceBillingOrgOptionValidation extends GenericValidation
         else {
             if (!(customerInvoiceDocument.getAccountsReceivableDocumentHeader().getProcessingChartOfAccountCode().equalsIgnoreCase(organizationOptions.getProcessingChartOfAccountCode()) &&
                   customerInvoiceDocument.getAccountsReceivableDocumentHeader().getProcessingOrganizationCode().equalsIgnoreCase(organizationOptions.getProcessingOrganizationCode()))) {
-                GlobalVariables.getMessageMap().putError(DOCUMENT_ERROR_PREFIX + ArPropertyConstants.CustomerInvoiceDocumentFields.BILLED_BY_ORGANIZATION_CODE, 
-                        ArKeyConstants.ERROR_CUSTOMER_INVOICE_DOCUMENT_INVALID_BILLING_PROCESSING_ORGANIZATION_IN_ORG_OPTIONS, 
+                GlobalVariables.getMessageMap().putError(DOCUMENT_ERROR_PREFIX + ArPropertyConstants.CustomerInvoiceDocumentFields.BILLED_BY_ORGANIZATION_CODE,
+                        ArKeyConstants.ERROR_CUSTOMER_INVOICE_DOCUMENT_INVALID_BILLING_PROCESSING_ORGANIZATION_IN_ORG_OPTIONS,
                         new String[]{customerInvoiceDocument.getAccountsReceivableDocumentHeader().getProcessingChartOfAccCodeAndOrgCode(),
                         customerInvoiceDocument.getBilledByChartOfAccCodeAndOrgCode()});
                 return false;
             }
         }
-        return true; 
+        return true;
     }
 
     public CustomerInvoiceDocument getCustomerInvoiceDocument() {

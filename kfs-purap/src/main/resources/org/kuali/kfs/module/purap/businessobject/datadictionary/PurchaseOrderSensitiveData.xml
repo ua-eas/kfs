@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -23,13 +23,13 @@
 
 	<bean id="PurchaseOrderSensitiveData-parentBean" abstract="true" parent="BusinessObjectEntry">
 		<property name="businessObjectClass" value="org.kuali.kfs.module.purap.businessobject.PurchaseOrderSensitiveData"/>
-		<!-- 
+		<!--
 		<property name="inquiryDefinition">
 			<ref bean="PurchaseOrderSensitiveData-inquiryDefinition" />
 		</property>
 		<property name="lookupDefinition">
 			<ref bean="PurchaseOrderSensitiveData-lookupDefinition" />
-		</property> 
+		</property>
 		-->
 		<property name="titleAttribute" value="sensitiveDataCode"/>
 		<property name="objectLabel" value="Purchase Order Sensitive Data"/>
@@ -41,9 +41,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 <!-- Attribute Definitions -->
-	
+
 
 	<bean id="PurchaseOrderSensitiveData-purapDocumentIdentifier" parent="PurchaseOrderSensitiveData-purapDocumentIdentifier-parentBean"/>
 	<bean id="PurchaseOrderSensitiveData-purapDocumentIdentifier-parentBean" abstract="true" parent="PurchaseOrderDocument-purapDocumentIdentifier"/>
@@ -55,8 +55,8 @@
 		<property name="control">
       		<bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.module.purap.businessobject.options.SensitiveDataValuesFinder" p:includeKeyInLabel="false"/>
     	</property>
-	</bean>				
-	
+	</bean>
+
 
 	<bean id="PurchaseOrderSensitiveData-requisitionIdentifier" parent="PurchaseOrderSensitiveData-requisitionIdentifier-parentBean"/>
 	<bean id="PurchaseOrderSensitiveData-requisitionIdentifier-parentBean" abstract="true" parent="PurchaseOrderDocument-requisitionIdentifier"/>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -60,7 +60,7 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
 
     /**
      * The dataSource can be an instance of JRDataSource, java.util.Collection or object array.
-     * 
+     *
      * @see org.kuali.kfs.sys.batch.service.ReportGenerationService#generateReportToPdfFile(java.util.Map, java.lang.Object, java.lang.String,
      *      java.lang.String)
      */
@@ -131,7 +131,7 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
 
     /**
      * get a class path resource that references to the given report template
-     * 
+     *
      * @param reportTemplateName the given report template name with its full-qualified package name. It may not include extension.
      *        If an extension is included in the name, it should be prefixed ".jasper" or '.jrxml".
      * @return a class path resource that references to the given report template
@@ -154,7 +154,7 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
 
     /**
      * complie the report template xml file into a Jasper report file if the compiled file does not exist or is out of update
-     * 
+     *
      * @param template the name of the template file, without an extension
      * @return an input stream where the intermediary report was written
      */
@@ -180,7 +180,7 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
 
     /**
      * compile the given sub reports
-     * 
+     *
      * @param subReports the sub report Map that hold the sub report templete names indexed with keys
      * @param subReportDirectory the directory where sub report templates are located
      */
@@ -193,7 +193,7 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
 
     /**
      * Sets the DateTimeService
-     * 
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -202,7 +202,7 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
 
 	/**
 	 * Sets the FileStorageService
-	 * 
+	 *
 	 * @param fileStorageService the fileStorageService to set
 	 */
 	public void setFileStorageService(FileStorageService fileStorageService) {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -90,7 +90,7 @@ public class DisbursementVoucherAccountingLineValidation extends GenericValidati
             valid = false;
         }
 
-        if (valid) {            
+        if (valid) {
             valid = valid & validateAccountNumber(accountingDocumentForValidation, accountingLineForValidation);
             valid = valid & validateObjectCode(accountingDocumentForValidation, accountingLineForValidation);
         }
@@ -100,7 +100,7 @@ public class DisbursementVoucherAccountingLineValidation extends GenericValidati
 
     /**
      * Checks object codes restrictions, including restrictions in parameters table.
-     * 
+     *
      * @param FinancialDocument submitted accounting document
      * @param accountingLine accounting line in accounting document
      * @return true if object code exists, is active, and object level and code exist for a provided payment reason
@@ -142,7 +142,7 @@ public class DisbursementVoucherAccountingLineValidation extends GenericValidati
 
     /**
      * Checks account number restrictions, including restrictions in parameters table.
-     * 
+     *
      * @param FinancialDocument submitted financial document
      * @param accountingLine accounting line in submitted accounting document
      * @return true if account exists, falls within global function code restrictions, and account's sub fund is in permitted list
@@ -182,7 +182,7 @@ public class DisbursementVoucherAccountingLineValidation extends GenericValidati
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
-     * 
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -191,7 +191,7 @@ public class DisbursementVoucherAccountingLineValidation extends GenericValidati
 
     /**
      * Sets the accountingLineForValidation attribute value.
-     * 
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(AccountingLine accountingLineForValidation) {
@@ -207,7 +207,7 @@ public class DisbursementVoucherAccountingLineValidation extends GenericValidati
     }
 
     /**
-     * Gets the accountingDocumentForValidation attribute. 
+     * Gets the accountingDocumentForValidation attribute.
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -215,7 +215,7 @@ public class DisbursementVoucherAccountingLineValidation extends GenericValidati
     }
 
     /**
-     * Gets the accountingLineForValidation attribute. 
+     * Gets the accountingLineForValidation attribute.
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {

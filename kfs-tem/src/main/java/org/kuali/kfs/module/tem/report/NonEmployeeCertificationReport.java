@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -56,210 +56,210 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
     private Date endDate;
     private KualiDecimal totalExpense;
     private String destination;
-    
+
     private String purpose;
     private String tripId;
     private String institution;
     private BufferedImage barcodeImage;
     private String certificationDescription;
     List<NonEmployeeCertificationReport.Detail> expenseDetails;
-    
+
     @Crosstab
     @DetailSection
     @SubReport
     private JRDataSource actualExpenses;
-    
-    
+
+
     public NonEmployeeCertificationReport(){
         setReportTemplateClassPath(TEMPLATE_CLASSPATH);
         setReportFileName("NonEmployeeCertification" + PDF_FILE_EXTENSION);
         setReportTitle("Non-Employee Certification #");
         setReportTemplateName("NonEmployeeCertification");
-        
+
         //default destination to blank
         setDestination("");
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @param argDocumentId
      */
     public void setDocumentId(String argDocumentId){
         documentId = argDocumentId;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @return
      */
     public String getDocumentId(){
         return documentId;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @param argEventId
      */
     public void setEventId(String argEventId){
         eventId = argEventId;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @return
      */
     public String getEventId(){
         return eventId;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @param argEventName
      */
     public void setEventName(String argEventName){
         eventName = argEventName;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @return
      */
     public String getEventName(){
         return eventName;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @param argEventType
      */
     public void setEventType(String argEventType){
         eventType = argEventType;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @return
      */
     public String getEventType(){
         return eventType;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @param argTraveler
      */
     public void setTraveler(String argTraveler){
         traveler = argTraveler;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @return
      */
     public String getTraveler(){
         return traveler;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @param argApprovingDepartment
      */
     public void setApprovingDepartment(String argApprovingDepartment){
         approvingDepartment = argApprovingDepartment;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @return
      */
     public String getApprovingDepartment(){
         return approvingDepartment;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @param argBeginDate
      */
     public void setBeginDate(Date argBeginDate){
         beginDate = argBeginDate;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @return
      */
     public Date getBeginDate(){
         return beginDate;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @param argEndDate
      */
     public void setEndDate(Date argEndDate){
         endDate = argEndDate;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @return
      */
     public Date getEndDate(){
         return endDate;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @param argTotalExpense
      */
     public void setTotalExpense(KualiDecimal argTotalExpense){
         totalExpense = argTotalExpense;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @return
      */
     public KualiDecimal getTotalExpense(){
         return totalExpense;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @param argDestination
      */
     public void setDestination(String argDestination){
         destination = argDestination;
     }
-    
+
     /**
-     * 
+     *
      * This method...
      * @return
      */
     public String getDestination(){
         return destination;
     }
-    
+
     /**
      * Gets the value of TripId
      *
@@ -268,7 +268,7 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
     public String getTripId() {
         return this.tripId;
     }
-    
+
     /**
      * Sets the value of TripId
      *
@@ -286,7 +286,7 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
     public String getPurpose() {
         return this.purpose;
     }
-    
+
     /**
      * Sets the value of Purpose
      *
@@ -304,7 +304,7 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
     public String getInstitution() {
         return this.institution;
     }
-    
+
     /**
      * Sets the value of Institution
      *
@@ -313,7 +313,7 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
     public void setInstitution(final String argInstitution) {
         this.institution = argInstitution;
     }
-    
+
     /**
      * Gets the value of Other
      *
@@ -322,7 +322,7 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
     public JRDataSource getActualExpenses() {
         return this.actualExpenses;
     }
-    
+
     /**
      * Sets the value of Other
      *
@@ -331,14 +331,14 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
     public void setActualExpenses(final Collection<Detail> argOther) {
         this.actualExpenses = convertReportData(argOther);
     }
-    
+
     public static class Detail {
         @ColumnHeader
         private String name;
-        
+
         @RowHeader
         private String date;
-        
+
         @Measure
         private BigDecimal amount;
 
@@ -347,10 +347,10 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
             if (amount != null) {
                 this.amount = amount.bigDecimalValue();
             }
-            
+
             this.date = date;
         }
-        
+
         /**
          * Gets the value of Name
          *
@@ -359,7 +359,7 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
         public String getName() {
             return this.name;
         }
-        
+
         /**
          * Sets the value of Name
          *
@@ -368,7 +368,7 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
         public void setName(final String argName) {
             this.name = argName;
         }
-        
+
         /**
          * Gets the value of Amount
          *
@@ -377,7 +377,7 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
         public BigDecimal getAmount() {
             return this.amount;
         }
-        
+
         /**
          * Sets the value of Amount
          *
@@ -395,7 +395,7 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
         public String getDate() {
             return this.date;
         }
-        
+
         /**
          * Sets the value of Date
          *
@@ -407,7 +407,7 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
     }
 
 	/**
-	 * Gets the barcodeImage attribute. 
+	 * Gets the barcodeImage attribute.
 	 * @return Returns the barcodeImage.
 	 */
 	public BufferedImage getBarcodeImage() {
@@ -423,7 +423,7 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
 	}
 
 	/**
-	 * Gets the certificationDescription attribute. 
+	 * Gets the certificationDescription attribute.
 	 * @return Returns the certificationDescription.
 	 */
 	public String getCertificationDescription() {
@@ -439,7 +439,7 @@ public class NonEmployeeCertificationReport extends ReportInfoHolder{
 	}
 
 	/**
-	 * Gets the expenseDetails attribute. 
+	 * Gets the expenseDetails attribute.
 	 * @return Returns the expenseDetails.
 	 */
 	public List<NonEmployeeCertificationReport.Detail> getExpenseDetails() {

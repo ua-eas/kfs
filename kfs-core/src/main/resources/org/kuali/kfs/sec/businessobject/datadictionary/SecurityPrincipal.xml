@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -52,12 +52,12 @@
           <property name="supportAttributes">
             <list>
               <bean parent="SupportAttributeDefinition" p:sourceName="securityPerson.principalName" p:targetName="principalName" p:identifier="true"/>
-              <bean parent="SupportAttributeDefinition" p:sourceName="securityPerson.name" p:targetName="name"/>                    
+              <bean parent="SupportAttributeDefinition" p:sourceName="securityPerson.name" p:targetName="name"/>
             </list>
-          </property>      
+          </property>
         </bean>
       </list>
-    </property>    
+    </property>
   </bean>
 
 <!-- Attribute Definitions -->
@@ -67,7 +67,7 @@
   <bean id="SecurityPrincipal-principalId-parentBean" abstract="true" parent="PersonImpl-principalId">
     <property name="name" value="principalId"/>
   </bean>
-  
+
   <bean id="SecurityPrincipal-securityPerson.principalName" parent="SecurityPrincipal-securityPerson.principalName-parentBean"/>
 
   <bean id="SecurityPrincipal-securityPerson.principalName-parentBean" abstract="true" parent="PersonImpl-principalName">
@@ -77,14 +77,14 @@
     </property>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="SecurityPrincipal-securityPerson.name" parent="SecurityPrincipal-securityPerson.name-parentBean"/>
 
   <bean id="SecurityPrincipal-securityPerson.name-parentBean" abstract="true" parent="PersonImpl-name">
     <property name="name" value="securityPerson.name"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="SecurityPrincipal-principalDefinitionNames" parent="SecurityPrincipal-principalDefinitionNames-parentBean"/>
 
   <bean id="SecurityPrincipal-principalDefinitionNames-parentBean" abstract="true" parent="SecurityDefinition-name">
@@ -92,7 +92,7 @@
     <property name="required" value="false"/>
     <property name="label" value="Principal Definitions"/>
   </bean>
-  
+
   <bean id="SecurityPrincipal-principalModelNames" parent="SecurityPrincipal-principalModelNames-parentBean"/>
 
   <bean id="SecurityPrincipal-principalModelNames-parentBean" abstract="true" parent="SecurityModel-name">
@@ -100,7 +100,7 @@
     <property name="required" value="false"/>
     <property name="label" value="Principal Models"/>
   </bean>
-     
+
 <!-- Business Object Inquiry Definition -->
 
   <bean id="SecurityPrincipal-inquiryDefinition" parent="SecurityPrincipal-inquiryDefinition-parentBean"/>
@@ -136,7 +136,7 @@
       </list>
     </property>
   </bean>
- 
+
   <bean id="SecurityPrincipal-InquiryCollectionDefinition-principal" parent="SecurityPrincipal-InquiryCollectionDefinition-principal-parentBean"/>
   <bean id="SecurityPrincipal-InquiryCollectionDefinition-principal-parentBean" parent="InquiryCollectionDefinition" abstract="true">
     <property name="businessObjectClass" value="org.kuali.kfs.sec.businessobject.SecurityPrincipalDefinition"/>
@@ -147,11 +147,11 @@
         <bean parent="FieldDefinition" p:attributeName="constraintCode"/>
         <bean parent="FieldDefinition" p:attributeName="operatorCode"/>
         <bean parent="FieldDefinition" p:attributeName="attributeValue"/>
-        <bean parent="FieldDefinition" p:attributeName="active"/>                
+        <bean parent="FieldDefinition" p:attributeName="active"/>
       </list>
    </property>
  </bean>
-        
+
   <bean id="SecurityPrincipal-inquirySectionDefinition-principalModels" parent="SecurityPrincipal-inquirySectionDefinition-principalModels-parentBean"/>
   <bean id="SecurityPrincipal-inquirySectionDefinition-principalModels-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Principal Models"/>
@@ -171,12 +171,12 @@
         <bean parent="FieldDefinition" p:attributeName="securityModel.name"/>
         <bean parent="FieldDefinition" p:attributeName="modelDefinitionSummary"/>
         <bean parent="FieldDefinition" p:attributeName="activeFromDate"/>
-        <bean parent="FieldDefinition" p:attributeName="activeToDate"/>               
+        <bean parent="FieldDefinition" p:attributeName="activeToDate"/>
       </list>
    </property>
  </bean>
- 
-         
+
+
 <!-- Business Object Lookup Definition -->
 
 
@@ -184,7 +184,7 @@
 
   <bean id="SecurityPrincipal-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Security Principal Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
         <property name="attributeNames">

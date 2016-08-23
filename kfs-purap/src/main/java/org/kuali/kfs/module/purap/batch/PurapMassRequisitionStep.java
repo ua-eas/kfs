@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -89,7 +89,7 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
         LOG.debug("Starting execution of PurapMassRequisitionStep");
 
         Parameter runIndicatorParameter = SpringContext.getBean(ParameterService.class).getParameter(PurapMassRequisitionStep.class,Job.STEP_RUN_PARM_NM);
-        
+
         if (runIndicatorParameter == null || "Y".equals(runIndicatorParameter.getValue())) {
             // save runParameter as "N" so that the job won't run until DB has been cleared
             setInitiatedRunParameter();
@@ -241,7 +241,7 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
             reqDoc.setBillingPostalCode("47402");
             reqDoc.setBillingCountryCode("US");
             reqDoc.setBillingPhoneNumber("111-111-1111");
-            reqDoc.setPurchaseOrderAutomaticIndicator(false);            
+            reqDoc.setPurchaseOrderAutomaticIndicator(false);
             reqDoc.setApplicationDocumentStatus(RequisitionStatuses.APPDOC_IN_PROCESS);
             reqDoc.setVendorHeaderGeneratedIdentifier(1002);
             reqDoc.setVendorDetailAssignedIdentifier(0);
@@ -612,7 +612,7 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
 
     /**
      * Used by setInitiatedRunParameter to build a Map of search keys to obtain the exact needed Run parameter from the database.
-     * 
+     *
      * @return A Map<String,Object> where the Objects are the attributes of the Run parameter
      */
     private Map<String, Object> buildRunParameterSearchKeyMap() {
@@ -788,7 +788,7 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
             if (LOG.isDebugEnabled()) {
                 LOG.debug("finished wait loop (" + valueChanged + ")");
             }
-            
+
             return valueChanged;
         }
     }

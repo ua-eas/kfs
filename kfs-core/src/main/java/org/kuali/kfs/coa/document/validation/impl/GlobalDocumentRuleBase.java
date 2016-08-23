@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,7 +41,7 @@ public class GlobalDocumentRuleBase extends KfsMaintenanceDocumentRuleBase {
     /**
      * This method checks whether the set of Account Change Detail records on this document all are under the same Chart of
      * Accounts. It will set the appropriate field error if it did fail, and return the result.
-     * 
+     *
      * @param accountGlobalDetails
      * @return True if the test passed with no errors, False if any errors occurred.
      */
@@ -58,7 +58,7 @@ public class GlobalDocumentRuleBase extends KfsMaintenanceDocumentRuleBase {
      * This method checks whether the set of Account Change Detail records on this document all are under the same Chart of
      * Accounts. It will return a failed CheckOnlyOneChartResult if so. Note that this method doesnt actually set any errors, it
      * just returns whether or not the test succeeded, and where it failed if it failed.
-     * 
+     *
      * @param accountGlobalDetails The popualted accountGlobalDocument to test.
      * @return A populated CheckOnlyOneChartResult object. This will contain whether the test succeeded or failed, and if failed,
      *         what lines the failures occurred on.
@@ -115,7 +115,7 @@ public class GlobalDocumentRuleBase extends KfsMaintenanceDocumentRuleBase {
 
         /**
          * Constructs a CheckOnlyOneChartResult
-         * 
+         *
          * @param success
          */
         public CheckOnlyOneChartResult(boolean success) {
@@ -125,7 +125,7 @@ public class GlobalDocumentRuleBase extends KfsMaintenanceDocumentRuleBase {
 
         /**
          * Constructs a CheckOnlyOneChartResult
-         * 
+         *
          * @param success
          * @param firstLineNumber
          * @param failedLineNumber
@@ -141,7 +141,7 @@ public class GlobalDocumentRuleBase extends KfsMaintenanceDocumentRuleBase {
     /**
      * This method tests whether the line being added has a different Chart of Accounts Code from any of the existing lines. It will
      * set an Error and return false if this is the case.
-     * 
+     *
      * @param newAccountLine
      * @param accountGlobalDetails
      * @return True if the line being added has the exact same chart as all the existing lines, False if not.
@@ -165,7 +165,7 @@ public class GlobalDocumentRuleBase extends KfsMaintenanceDocumentRuleBase {
      * This method tests whether a new line can be added, based on the rule that says all the accounts being used must belong to the
      * same chart. If the line being added differs from any existing line's Chart code, it will return false. Note that this
      * document does not actually set any errors, it just reports success or failure.
-     * 
+     *
      * @param newAccountLine
      * @param accountGlobalDetails
      * @return True if no errors are found, False if the line being added has a different Chart code than any of the existing lines.

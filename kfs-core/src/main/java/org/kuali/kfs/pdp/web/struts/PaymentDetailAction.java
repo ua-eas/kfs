@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -115,7 +115,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method confirms and holds a payment
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -160,7 +160,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method confirms and removes a hold on a payment.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -265,7 +265,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method confirms and cancels a disbursement.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -386,7 +386,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method prompts for a reason to perform an action on a payment detail.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -479,7 +479,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method builds the forward url.
-     * 
+     *
      * @param paymentDetailId the payment detail id
      * @param success action status: true if success, false otherwise
      * @param message the message for the user
@@ -531,7 +531,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method build a string list of error message keys out of the error map in GlobalVariables
-     * 
+     *
      * @return a String representing the list of error message keys
      */
     private String buildErrorMesageKeyList() {

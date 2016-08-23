@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,8 +39,8 @@ import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
 
-/* 
- * 
+/*
+ *
 */
 public class ItemTypeRule extends MaintenanceDocumentRuleBase {
 
@@ -93,12 +93,12 @@ public class ItemTypeRule extends MaintenanceDocumentRuleBase {
         Collection<String> preqRestrictingAccountEdit = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString(PaymentRequestDocument.class, PurapParameterConstants.PURAP_ITEM_TYPES_RESTRICTING_ACCOUNT_EDIT) );
         Collection<String> poRestrictingAccountEdit = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString(PurchaseOrderDocument.class, PurapParameterConstants.PURAP_ITEM_TYPES_RESTRICTING_ACCOUNT_EDIT) );
         Collection<String> reqRestrictingAccountEdit = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getParameterValuesAsString(RequisitionDocument.class, PurapParameterConstants.PURAP_ITEM_TYPES_RESTRICTING_ACCOUNT_EDIT) );
-        
+
         ItemType newBo = (ItemType)getNewBo();
         ItemType oldBo= (ItemType)getOldBo();
-       
+
         if ((!newBo.isActive() && oldBo.isActive()) &&
-             (cmAdditionalCharges.contains(newBo.getItemTypeCode()) || 
+             (cmAdditionalCharges.contains(newBo.getItemTypeCode()) ||
               preqAdditionalCharges.contains(newBo.getItemTypeCode()) ||
               poAdditionalCharges.contains(newBo.getItemTypeCode()) ||
               reqAdditionalCharges.contains(newBo.getItemTypeCode()) ||
@@ -125,24 +125,24 @@ public class ItemTypeRule extends MaintenanceDocumentRuleBase {
               reqRestrictingAccountEdit.contains(newBo.getItemTypeCode()) )
             ) {
             success = false;
-            String documentLabel = SpringContext.getBean(BusinessObjectDictionaryService.class).getMaintainableLabel(newBo.getClass()); 
+            String documentLabel = SpringContext.getBean(BusinessObjectDictionaryService.class).getMaintainableLabel(newBo.getClass());
             putFieldError(KFSPropertyConstants.ACTIVE, KFSKeyConstants.ERROR_CANNOT_INACTIVATE_USED_IN_SYSTEM_PARAMETERS, documentLabel);
         }
-        
+
         return success;
     }
-    
+
     protected boolean checkIndicators() {
-        
+
         boolean checkResult = true;
         ItemType newBo = (ItemType)getNewBo();
-                
+
         // Both Quantity Based General Ledger Indicator and Additional Charge Indicator cannot be Yes at the same time
         if (newBo.isActive() && newBo.isAdditionalChargeIndicator() && newBo.isQuantityBasedGeneralLedgerIndicator()) {
             putFieldError(PurapPropertyConstants.ITEM_TYPE_QUANTITY_BASED, PurapKeyConstants.ERROR_ITEM_TYPE_QUANTITY_BASED_NOT_ALLOWED_WITH_ADDITIONAL_CHARGE);
             checkResult = false;
         }
-        
+
         return checkResult;
     }
 }

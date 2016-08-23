@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -39,7 +39,7 @@
         <ref bean="TravelCompanyCode-code"/>
         <ref bean="TravelCompanyCode-travelExpenseTypeCode.prepaidExpense"/>
         <ref bean="TravelCompanyCode-name"/>
-        <ref bean="TravelCompanyCode-foreignCompany"/>        
+        <ref bean="TravelCompanyCode-foreignCompany"/>
         <ref bean="TravelCompanyCode-active"/>
       </list>
     </property>
@@ -81,9 +81,9 @@
 		parent="GenericAttributes-activeIndicator">
     <property name="name" value="active"/>
   </bean>
-  
+
   <bean id="TravelCompanyCode-foreignCompany" parent="TravelCompanyCode-foreignCompany-parentBean" />
-  <bean id="TravelCompanyCode-foreignCompany-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">		
+  <bean id="TravelCompanyCode-foreignCompany-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
 	<property name="name" value="foreignCompany" />
 	<property name="label" value="Foreign Company" />
 	<property name="shortLabel" value="Foreign Company" />
@@ -116,7 +116,7 @@
             <list>
               <bean parent="FieldDefinition" p:attributeName="code"/>
               <bean parent="FieldDefinition" p:attributeName="name"/>
-              <bean parent="FieldDefinition" p:attributeName="foreignCompany"/>              
+              <bean parent="FieldDefinition" p:attributeName="foreignCompany"/>
 				<bean parent="FieldDefinition" p:attributeName="active" />
 			</list>
 		</property>
@@ -131,7 +131,7 @@
 	<bean id="TravelCompanyCode-lookupDefinition-parentBean" abstract="true"
 		parent="LookupDefinition">
     <property name="title" value="Disbursement Voucher Travel Company Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
         <property name="attributeNames">
@@ -154,7 +154,7 @@
       <list>
         <bean parent="FieldDefinition" p:attributeName="code"/>
         <bean parent="FieldDefinition" p:attributeName="name"/>
-        <bean parent="FieldDefinition" p:attributeName="foreignCompany"/>        
+        <bean parent="FieldDefinition" p:attributeName="foreignCompany"/>
         <bean parent="FieldDefinition" p:attributeName="active"/>
       </list>
     </property>

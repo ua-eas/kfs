@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,10 +23,10 @@ import java.util.List;
 
 /**
  * KRA Audit Cluster; container for related set of audit errors.
- * 
- * 
  *
- */ 
+ *
+ *
+ */
 public class AuditCluster {
 
     private String label;
@@ -45,7 +45,7 @@ public class AuditCluster {
 
     /**
      * Gets the label attribute.
-     * 
+     *
      * @return Returns the label.
      */
     public String getLabel() {
@@ -54,7 +54,7 @@ public class AuditCluster {
 
     /**
      * Sets the label attribute value.
-     * 
+     *
      * @param label The label to set.
      */
     public void setLabel(String label) {
@@ -63,7 +63,7 @@ public class AuditCluster {
 
     /**
      * Gets the auditErrorList attribute.
-     * 
+     *
      * @return Returns the auditErrorList.
      */
     public List getAuditErrorList() {
@@ -72,7 +72,7 @@ public class AuditCluster {
 
     /**
      * Sets the auditErrorList attribute value.
-     * 
+     *
      * @param auditErrorList The auditErrorList to set.
      */
     public void setAuditErrorList(List auditErrorList) {
@@ -81,7 +81,7 @@ public class AuditCluster {
 
     /**
      * Returns the number of audit errors in the cluster.
-     * 
+     *
      * @return int size
      */
     public int getSize() {

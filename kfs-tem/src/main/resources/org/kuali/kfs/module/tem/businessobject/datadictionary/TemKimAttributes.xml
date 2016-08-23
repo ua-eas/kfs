@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -49,27 +49,27 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
       </list>
     </property>
   </bean>
-	
+
 	<bean id="TemKimAttributes-travelerTypeCode" parent="TemKimAttributes-travelerTypeCode-parentBean"/>
 	<bean id="TemKimAttributes-travelerTypeCode-parentBean" parent="TravelerType-code" abstract="true">
 		<property name="name" value="travelerTypeCode"/>
 	</bean>
-	
+
 	<bean id="TemKimAttributes-jobClassificationCode" parent="TemKimAttributes-jobClassificationCode-parentBean"/>
 	<bean id="TemKimAttributes-jobClassificationCode-parentBean" parent="JobClassification-jobClassCode" abstract="true"/>
-	
+
 	<bean id="TemKimAttributes-reimbursementAmount" parent="TemKimAttributes-reimbursementAmount-parentBean"/>
 	<bean id="TemKimAttributes-reimbursementAmount-parentBean" parent="GenericAttributes-genericAmount" abstract="true">
 		<property name="name" value="reimbursementAmount"/>
 		<property name="label" value="Reimbursement Amount"/>
 	</bean>
-	
+
 	<bean id="TemKimAttributes-authorizationAmount" parent="TemKimAttributes-authorizationAmount-parentBean"/>
 	<bean id="TemKimAttributes-authorizationAmount-parentBean" parent="GenericAttributes-genericAmount" abstract="true">
 		<property name="name" value="authorizationAmount"/>
 		<property name="label" value="Authorization Amount"/>
 	</bean>
-	
+
 	<bean id="TemKimAttributes-reimbursementOveragePercentage" parent="TemKimAttributes-reimbursementOveragePercentage-parentBean"/>
 	<bean id="TemKimAttributes-reimbursementOveragePercentage-parentBean" parent="GenericAttributes-genericAmount" abstract="true">
 		<property name="name" value="reimbursementOveragePercentage"/>

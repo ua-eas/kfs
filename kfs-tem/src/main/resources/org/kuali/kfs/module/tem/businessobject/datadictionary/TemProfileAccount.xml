@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -47,7 +47,7 @@
 			<ref bean="TemProfileAccount-profile.defaultChartCode" />
 			<ref bean="TemProfileAccount-profile.account.accountNumber" />
 			<ref bean="TemProfileAccount-profile.active" />
-			
+
 		</list>
 		</property>
 		<property name="relationships">
@@ -159,7 +159,7 @@
 	</bean>
 	<bean id="TemProfileAccount-creditCardOrAgencyCode" parent="TemProfileAccount-creditCardOrAgencyCode-parentBean" />
 	<bean id="TemProfileAccount-creditCardOrAgencyCode-parentBean" abstract="true" parent="CreditCardAgency-creditCardOrAgencyCode" />
-	
+
 	<bean id="TemProfileAccount-profile.principal.principalId" parent="TemProfileAccount-profile.principal.principalId-parentBean" />
 	<bean id="TemProfileAccount-profile.principal.principalId-parentBean" abstract="true" parent="TemProfile-principalId">
 		<property name="name" value="profile.principal.principalId" />
@@ -200,8 +200,8 @@
 		<property name="summary" value="Active (Profile)" />
 		<property name="description" value="Active (Profile)" />
 	</bean>
-	
-	
+
+
 	<bean id="TemProfileAccount-inquiryDefinition" parent="TemProfileAccount-inquiryDefinition-parentBean" />
 	<bean id="TemProfileAccount-inquiryDefinition-parentBean" abstract="true" parent="InquiryDefinition">
 		<property name="title" value="TEM Profile Account Inquiry"/>
@@ -242,9 +242,9 @@
 			<bean parent="FieldDefinition" p:attributeName="profile.lastName" p:noLookup="true" />
 			<bean parent="FieldDefinition" p:attributeName="profile.travelerTypeCode" p:noLookup="true" />
 			<bean parent="FieldDefinition" p:attributeName="profile.homeDepartment" p:noLookup="true" />
-            <bean parent="FieldDefinition" p:attributeName="profile.defaultChartCode" p:noLookup="true" />			
-            <bean parent="FieldDefinition" p:attributeName="profile.account.accountNumber" />		
-            <bean parent="FieldDefinition" p:attributeName="creditCardOrAgencyCode" />		
+            <bean parent="FieldDefinition" p:attributeName="profile.defaultChartCode" p:noLookup="true" />
+            <bean parent="FieldDefinition" p:attributeName="profile.account.accountNumber" />
+            <bean parent="FieldDefinition" p:attributeName="creditCardOrAgencyCode" />
             <bean parent="FieldDefinition" p:attributeName="accountNumber" />
 			<bean parent="FieldDefinition" p:attributeName="active" p:defaultValue="Y" />
 			<bean parent="FieldDefinition" p:attributeName="profile.active" p:defaultValue="Y" p:noLookup="true" />

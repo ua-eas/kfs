@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -30,25 +30,25 @@
       <ref bean="ACHPayee-lookupDefinition" />
     </property>
     <property name="attributes" >
-      <list>  
+      <list>
         <ref bean="DisbursementPayee-payeeIdNumber" />
         <ref bean="ACHPayee-payeeTypeCode" />
         <ref bean="DisbursementPayee-payeeTypeDescription" />
         <ref bean="DisbursementPayee-payeeName" />
-        <ref bean="DisbursementPayee-paymentReasonCode" />        
+        <ref bean="DisbursementPayee-paymentReasonCode" />
         <ref bean="DisbursementPayee-taxNumber" />
         <ref bean="DisbursementPayee-vendorName" />
         <ref bean="DisbursementPayee-employeeId" />
         <ref bean="DisbursementPayee-vendorNumber" />
-        <ref bean="DisbursementPayee-firstName" />   
-        <ref bean="DisbursementPayee-lastName" /> 
+        <ref bean="DisbursementPayee-firstName" />
+        <ref bean="DisbursementPayee-lastName" />
         <ref bean="DisbursementPayee-address" />
-        <ref bean="DisbursementPayee-active" />    
-        <ref bean="ACHPayee-entityId" />    
+        <ref bean="DisbursementPayee-active" />
+        <ref bean="ACHPayee-entityId" />
       </list>
-    </property>          
+    </property>
   </bean>
-  
+
   <bean id="ACHPayee-payeeTypeCode" parent="ACHPayee-payeeTypeCode-parentBean" />
   <bean id="ACHPayee-payeeTypeCode-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="payeeTypeCode" />
@@ -61,11 +61,11 @@
             p:valuesFinderClass="org.kuali.kfs.pdp.businessobject.options.PayeeAchIdTypeValuesFinder"
             p:includeKeyInLabel="false" />
     </property>
-  </bean>  
-  
+  </bean>
+
   <bean id="ACHPayee-entityId" parent="ACHPayee-entityId-parentBean" />
   <bean id="ACHPayee-entityId-parentBean" parent="PersonImpl-entityId" abstract="true"/>
-  
+
   <bean id="ACHPayee-lookupDefinition" parent="ACHPayee-lookupDefinition-parentBean" />
   <bean id="ACHPayee-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Payee Lookup" />
@@ -76,8 +76,8 @@
           <list>
             <value>payeeTypeDescription</value>
             <value>payeeName</value>
-          </list>     
-        </property> 
+          </list>
+        </property>
       </bean>
     </property>
     <property name="lookupFields" >
@@ -85,15 +85,15 @@
         <bean parent="FieldDefinition" p:attributeName="payeeTypeCode"/>
         <bean parent="FieldDefinition" p:attributeName="taxNumber" />
         <bean parent="FieldDefinition" p:attributeName="firstName" />
-        <bean parent="FieldDefinition" p:attributeName="lastName" />          
+        <bean parent="FieldDefinition" p:attributeName="lastName" />
         <bean parent="FieldDefinition" p:attributeName="vendorNumber" />
         <bean parent="FieldDefinition" p:attributeName="vendorName" />
         <bean parent="FieldDefinition" p:attributeName="employeeId" />
-        <bean parent="FieldDefinition" p:attributeName="entityId" />        
-        <bean parent="FieldDefinition" p:attributeName="active"/>  
+        <bean parent="FieldDefinition" p:attributeName="entityId" />
+        <bean parent="FieldDefinition" p:attributeName="active"/>
       </list>
     </property>
-    
+
     <property name="resultFields" >
       <list>
       	<bean parent="FieldDefinition" p:attributeName="payeeName" />
@@ -101,9 +101,9 @@
         <bean parent="FieldDefinition" p:attributeName="address" />
         <bean parent="FieldDefinition" p:attributeName="payeeIdNumber" />
         <bean parent="FieldDefinition" p:attributeName="active" />
-        <bean parent="FieldDefinition" p:attributeName="taxNumber" />             
+        <bean parent="FieldDefinition" p:attributeName="taxNumber" />
       </list>
     </property>
   </bean>
-  
-</beans>  
+
+</beans>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,22 +32,22 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * target accounting lines must have the same amounts as source accounting lines for each object code in the document
- * 
+ *
  * @param document the given document
  * @return true if target accounting lines have the same amounts as source accounting lines for each object code; otherwise, false
  */
-public class LaborExpenseTransferValidAmountTransferredByObjectCodeValidation extends GenericValidation {    
-    private Document documentForValidation;  
-    
+public class LaborExpenseTransferValidAmountTransferredByObjectCodeValidation extends GenericValidation {
+    private Document documentForValidation;
+
     /**
-     * Validates before the document routes 
+     * Validates before the document routes
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
         boolean result = true;
 
         Document documentForValidation = getDocumentForValidation();
-        
+
         LaborExpenseTransferDocumentBase expenseTransferDocument = (LaborExpenseTransferDocumentBase) documentForValidation;
 
         // check to ensure totals of accounting lines in source and target sections match
@@ -56,12 +56,12 @@ public class LaborExpenseTransferValidAmountTransferredByObjectCodeValidation ex
             return false;
         }
 
-        return result;       
+        return result;
     }
 
     /**
      * Determine whether target accounting lines have the same amounts as source accounting lines for each object code
-     * 
+     *
      * @param accountingDocument the given accounting document
      * @return true if target accounting lines have the same amounts as source accounting lines for each object code; otherwise,
      *         false
@@ -80,7 +80,7 @@ public class LaborExpenseTransferValidAmountTransferredByObjectCodeValidation ex
     }
 
     /**
-     * Gets the documentForValidation attribute. 
+     * Gets the documentForValidation attribute.
      * @return Returns the documentForValidation.
      */
     public Document getDocumentForValidation() {
@@ -93,5 +93,5 @@ public class LaborExpenseTransferValidAmountTransferredByObjectCodeValidation ex
      */
     public void setDocumentForValidation(Document documentForValidation) {
         this.documentForValidation = documentForValidation;
-    }    
+    }
 }

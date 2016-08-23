@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,7 +44,7 @@ public enum AccountingPeriodMonth {
 
     /**
      * find an accounting period with the given period code
-     * 
+     *
      * @param periodCode the given period code
      * @return an accounting period with the given period code
      */
@@ -60,7 +60,7 @@ public enum AccountingPeriodMonth {
     /**
      * find all accounting periods between the given begin period and end period. Here, a period can be represented by the
      * combination of year and period code. The begin perid should be no later than the end period.
-     * 
+     *
      * @param beginYear the begin year
      * @param beginPeriodCode the begin period code
      * @param endYear the end year
@@ -96,7 +96,7 @@ public enum AccountingPeriodMonth {
     /**
      * get the period codes between the begin period and the end period. The begin period should not later than the end period;
      * otherwise, IllegalArgumentException occurs.
-     * 
+     *
      * @param beginPeriod the begin period
      * @param endPeriod the end period
      * @return the period codes between the begin period and the end period. The returning codes include The codes of begin and end

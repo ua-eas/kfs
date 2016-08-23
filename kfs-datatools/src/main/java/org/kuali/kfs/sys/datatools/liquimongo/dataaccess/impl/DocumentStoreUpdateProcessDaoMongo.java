@@ -86,7 +86,7 @@ public class DocumentStoreUpdateProcessDaoMongo implements DocumentStoreUpdatePr
         q.addCriteria(Criteria.where("fileName").is(change.getFileName()));
         q.addCriteria(Criteria.where("changeId").is(change.getChangeId()));
         q.addCriteria(Criteria.where("hash").is(change.getHash()));
-        
+
         mongoTemplate.remove(q, CHANGE_SCHEMA);
     }
 

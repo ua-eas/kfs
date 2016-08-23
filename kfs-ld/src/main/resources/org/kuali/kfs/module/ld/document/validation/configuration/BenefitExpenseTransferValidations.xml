@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -22,22 +22,22 @@
     xmlns:p="http://www.springframework.org/schema/p"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-		
-	<bean id="BenefitExpenseTransferDocument-blanketApproveDocumentValidation" parent="BenefitExpenseTransferDocument-blanketApproveDocumentValidation-parentBean" scope="prototype" />        
+
+	<bean id="BenefitExpenseTransferDocument-blanketApproveDocumentValidation" parent="BenefitExpenseTransferDocument-blanketApproveDocumentValidation-parentBean" scope="prototype" />
   	<bean id="BenefitExpenseTransferDocument-blanketApproveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
-  				<bean parent="AccountingDocument-BlanketApproveDocument-DefaultValidation" scope="prototype" /> 
+  				<bean parent="AccountingDocument-BlanketApproveDocument-DefaultValidation" scope="prototype" />
   			</list>
   		</property>
-	</bean>        
+	</bean>
 
-	<bean id="BenefitExpenseTransferDocument-reviewAccountingLineValidation" parent="BenefitExpenseTransferDocument-reviewAccountingLineValidation-parentBean" scope="prototype" /> 
+	<bean id="BenefitExpenseTransferDocument-reviewAccountingLineValidation" parent="BenefitExpenseTransferDocument-reviewAccountingLineValidation-parentBean" scope="prototype" />
 	<bean id="BenefitExpenseTransferDocument-reviewAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<bean parent="AccountingDocument-ReviewAccountingLine-DefaultValidation" scope="prototype" />
   		</property>
-	</bean>	
+	</bean>
 
 	<bean id="BenefitExpenseTransferDocument-approveDocumentValidation" parent="BenefitExpenseTransferDocument-approveDocumentValidation-parentBean" scope="prototype" />
 	<bean id="BenefitExpenseTransferDocument-approveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
@@ -46,8 +46,8 @@
 				<bean parent="AccountingDocument-ApproveDocument-DefaultValidation" scope="prototype" />
 			</list>
 		</property>
-	</bean>	
-		
+	</bean>
+
 	<bean id="BenefitExpenseTransferDocument-routeDocumentValidation" parent="BenefitExpenseTransferDocument-routeDocumentValidation-parentBean" scope="prototype" />
 	<bean id="BenefitExpenseTransferDocument-routeDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
@@ -60,7 +60,7 @@
 								<property name="sourceEventProperty" value="document" />
 								<property name="targetValidationProperty" value="documentForValidation" />
 							</bean>
-						</list>					
+						</list>
 					</property>
 					<property name="quitOnFail" value="true" />
 				</bean>
@@ -71,9 +71,9 @@
 								<property name="sourceEventProperty" value="document" />
 								<property name="targetValidationProperty" value="documentForValidation" />
 							</bean>
-						</list>					
+						</list>
 					</property>
-					<property name="quitOnFail" value="true" />				
+					<property name="quitOnFail" value="true" />
 				</bean>
 				<bean parent="LaborExpenseTransferDocument-negtiveAmountBeTransferredValidation" scope="prototype">
 					<property name="parameterProperties">
@@ -82,9 +82,9 @@
 								<property name="sourceEventProperty" value="document" />
 								<property name="targetValidationProperty" value="documentForValidation" />
 							</bean>
-						</list>					
+						</list>
 					</property>
-					<property name="quitOnFail" value="true" />				
+					<property name="quitOnFail" value="true" />
 				</bean>
 				<bean parent="LaborExpenseTransferDocument-validAmountTransferredByObjectCodeValidationForRouting" scope="prototype">
 					<property name="parameterProperties">
@@ -93,9 +93,9 @@
 								<property name="sourceEventProperty" value="document" />
 								<property name="targetValidationProperty" value="documentForValidation" />
 							</bean>
-						</list>					
+						</list>
 					</property>
-					<property name="quitOnFail" value="true" />				
+					<property name="quitOnFail" value="true" />
 				</bean>
 				<bean parent="LaborExpenseTransferDocument-validTransferAmountValidation" scope="prototype">
 					<property name="parameterProperties">
@@ -104,11 +104,11 @@
 								<property name="sourceEventProperty" value="document" />
 								<property name="targetValidationProperty" value="documentForValidation" />
 							</bean>
-						</list>					
+						</list>
 					</property>
-					<property name="quitOnFail" value="true" />				
-				</bean>		
-			
+					<property name="quitOnFail" value="true" />
+				</bean>
+
 				<bean parent="BenefitExpenseTransferDocument-sameFringeBenefitObjectCodeValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
@@ -132,10 +132,10 @@
 					<property name="quitOnFail" value="true" />
 				</bean>
 			</list>
-		</property>	
-	</bean>	
-	
-	<bean id="BenefitExpenseTransferDocument-addAccountingLineValidation" parent="BenefitExpenseTransferDocument-addAccountingLineValidation-parentBean" scope="prototype" />	
+		</property>
+	</bean>
+
+	<bean id="BenefitExpenseTransferDocument-addAccountingLineValidation" parent="BenefitExpenseTransferDocument-addAccountingLineValidation-parentBean" scope="prototype" />
 	<bean id="BenefitExpenseTransferDocument-addAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -167,8 +167,8 @@
 						</list>
 					</property>
 					<property name="quitOnFail" value="true" />
-				</bean>				
-			
+				</bean>
+
 				<bean parent="BenefitExpenseTransferDocument-fringeBenefitObjectCodeValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
@@ -183,16 +183,16 @@
 							<bean parent="validationFieldConversion">
 								<property name="sourceEventProperty" value="document" />
 								<property name="targetValidationProperty" value="documentForValidation" />
-							</bean>						
+							</bean>
 							<bean parent="accountingLineFieldConversion" />
 						</list>
 					</property>
 					<property name="quitOnFail" value="true" />
-				</bean>				
+				</bean>
 			</list>
-		</property>	
+		</property>
 	</bean>
-	
+
 	<bean id="BenefitExpenseTransferDocument-updateAccountingLineValidation" parent="BenefitExpenseTransferDocument-updateAccountingLineValidation-parentBean" scope="prototype" />
 	<bean id="BenefitExpenseTransferDocument-updateAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
@@ -227,6 +227,6 @@
 					<property name="quitOnFail" value="true" />
 				</bean>
 			</list>
-		</property>	
-	</bean>		
+		</property>
+	</bean>
 </beans>

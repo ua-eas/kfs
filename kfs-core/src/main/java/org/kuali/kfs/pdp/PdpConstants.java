@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -85,13 +85,13 @@ public class PdpConstants {
         public static final String HELD_TAX_NRA_CD = "HTXN";
         public static final String HELD_TAX_NRA_EMPL_CD = "HTXB";
     }
-    
+
     public static class Actions{
         public static final String BATCH_SEARCH_DETAIL_ACTION = "batchDetail.do";
         public static final String PAYMENT_DETAIL_ACTION = "pdp/paymentdetail.do";
         public static final String FORMAT_PROCESS_ACTION = "pdp/format.do";
     }
-    
+
     public static class ActionMethods{
         public static final String CONFIRM_CANCEL_ACTION = "confirmAndCancel";
         public static final String CONFIRM_REMOVE_HOLD_ACTION = "confirmAndRemoveHold";
@@ -103,7 +103,7 @@ public class PdpConstants {
         public static final String CONFIRM_REISSUE_CANCEL_ACTION = "confirmAndReIssueCancel";
         public static final String CLEAR_FORMAT_PROCESS_ACTION = "clearUnfinishedFormat";
     }
-    
+
     public static class AccountChangeCodes {
         public static final String INVALID_ACCOUNT = "ACCT";
         public static final String INVALID_SUB_ACCOUNT = "SA";
@@ -111,7 +111,7 @@ public class PdpConstants {
         public static final String INVALID_SUB_OBJECT = "SO";
         public static final String INVALID_PROJECT = "PROJ";
     }
-    
+
     public static class PaymentTypes {
         public static final String ALL = "all";
         public static final String DISBURSEMENTS_WITH_ATTACHMENTS = "pymtAttachment";
@@ -120,27 +120,27 @@ public class PdpConstants {
         public static final String DISBURSEMENTS_NO_SPECIAL_HANDLING = "pymtSpecialHandlingFalse";
         public static final String PROCESS_IMMEDIATE = "immediate";
     }
-    
+
     public static final String MAPPING_SELECTION = "selection";
     public static final String MAPPING_CONTINUE = "continue";
     public static final String MAPPING_RUNNING = "running";
     public static final String MAPPING_FINISHED = "finished";
-    
+
     public static class PDPEditMode {
         public static final String ENTRY = "entry";
     }
-    
+
     public static class AchBankOfficeCodes {
         public static final String AchBankOfficeCode_O = "O";
         public static final String AchBankOfficeCode_B = "B";
     }
-    
+
     public static class AchBankTypeCodes {
         public static final String AchBankTypeCode_0 = "0";
         public static final String AchBankTypeCode_1 = "1";
         public static final String AchBankTypeCode_2 = "2";
     }
-    
+
     public static class PermissionNames{
         public static final String CANCEL_PAYMENT = "Cancel Payment";
         public static final String FORMAT = "Format";
@@ -149,7 +149,7 @@ public class PdpConstants {
         public static final String REMOVE_PAYMENT_TAX_HOLD = "Remove Payment Tax Hold";
         public static final String SET_AS_IMMEDIATE_PAY = "Set as Immmediate Pay";
     }
-    
+
     public static class MethodToCallNames {
         public static final String START = "start";
 

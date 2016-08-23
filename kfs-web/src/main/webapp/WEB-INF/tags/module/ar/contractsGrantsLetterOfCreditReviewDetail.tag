@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -28,7 +28,7 @@
 
 <c:set var="hideRecalculateButton"
 	value="${KualiForm.editingMode['hideRecalculateButton']}" scope="request" />
-	
+
 <c:set var="disableAmountToDraw"
 	value="${KualiForm.editingMode['disableAmountToDraw']}" scope="request" />
 
@@ -161,10 +161,10 @@
 		hideRequiredAsterisk="true" align="center" />
 	<kul:htmlAttributeHeaderCell attributeEntry="${contractsGrantsLetterOfCreditReviewDetailAttributes.claimOnCashBalance}" useShortLabel="false"
 		hideRequiredAsterisk="true" align="center" />
-		
+
 	<kul:htmlAttributeHeaderCell attributeEntry="${contractsGrantsLetterOfCreditReviewDetailAttributes.amountToDraw}" useShortLabel="false"
-		hideRequiredAsterisk="true" align="center" />		
-	
+		hideRequiredAsterisk="true" align="center" />
+
 	<kul:htmlAttributeHeaderCell attributeEntry="${contractsGrantsLetterOfCreditReviewDetailAttributes.fundsNotDrawn}" useShortLabel="false"
 		hideRequiredAsterisk="true" align="center" />
 
@@ -187,7 +187,7 @@
 						property="document.accountReviewDetails[${ctr}].awardBudgetAmount" readOnly="true" /></td>
 				<td class="datacell"><kul:htmlControlAttribute attributeEntry="${contractsGrantsLetterOfCreditReviewDetailAttributes.claimOnCashBalance}"
 						property="document.accountReviewDetails[${ctr}].claimOnCashBalance" readOnly="true" /></td>
-						
+
 				<c:choose>
 					<c:when test="${disableAmountToDraw}">
 						<td class="datacell"><kul:htmlControlAttribute attributeEntry="${contractsGrantsLetterOfCreditReviewDetailAttributes.amountToDraw}"

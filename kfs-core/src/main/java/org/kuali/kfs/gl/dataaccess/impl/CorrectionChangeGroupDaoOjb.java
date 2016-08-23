@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,7 +36,7 @@ public class CorrectionChangeGroupDaoOjb extends PlatformAwareDaoBaseOjb impleme
 
     /**
      * Deletes an unlucky correction change group
-     * 
+     *
      * @param group the group to delete
      * @see org.kuali.kfs.gl.dataaccess.CorrectionChangeGroupDao#delete(org.kuali.kfs.gl.businessobject.CorrectionChangeGroup)
      */
@@ -48,7 +48,7 @@ public class CorrectionChangeGroupDaoOjb extends PlatformAwareDaoBaseOjb impleme
 
     /**
      * Finds all of the correction change groups associated with a document.
-     * 
+     *
      * @param documentNumber the document number of a GLCP document
      * @return a Collection of CorrectionChangeGroup records
      * @see org.kuali.kfs.gl.dataaccess.CorrectionChangeGroupDao#findByDocumentNumber(java.lang.String)
@@ -64,7 +64,7 @@ public class CorrectionChangeGroupDaoOjb extends PlatformAwareDaoBaseOjb impleme
 
     /**
      * Finds the specific group associated with the given document with the given group number
-     * 
+     *
      * @param documentNumber the document number of the correction change group to retrieve
      * @param CorrectionChangeGroupNumber the number of the group to retrieve
      * @return the found CorrectionChangeGroup, or null if not found

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -1632,7 +1632,7 @@ public class DisbursementVoucherDocument extends AccountingDocumentBase implemen
  	List<String> indicatorsArr = new ArrayList<String>();
         indicatorsArr.add(payee.isEmployee() ? AdHocPaymentIndicator.EMPLOYEE_PAYEE : AdHocPaymentIndicator.OTHER);
         indicatorsArr.add(payee.isDisbVchrAlienPaymentCode() ? AdHocPaymentIndicator.ALIEN_PAYEE : AdHocPaymentIndicator.OTHER);
- 
+
 	if (addPayeeTaxRevToTitle) {
         	String taxControlCode = this.getDisbVchrPayeeTaxControlCode();
         	if (StringUtils.equals(taxControlCode, DisbursementVoucherDocument.TAX_CONTROL_BACKUP_HOLDING) || StringUtils.equals(taxControlCode,DisbursementVoucherDocument.TAX_CONTROL_HOLD_PAYMENTS)) {
@@ -1640,8 +1640,8 @@ public class DisbursementVoucherDocument extends AccountingDocumentBase implemen
         	}else{
             		indicatorsArr.add(AdHocPaymentIndicator.OTHER);
                 }
-        }             	
-	
+        }
+
 	if (addPaymentReasonTaxRevToTitle) {
         	boolean isTaxReviewRequired = paymentReasonService.isTaxReviewRequired(payee.getDisbVchrPaymentReasonCode());
         	indicatorsArr.add( isTaxReviewRequired ? AdHocPaymentIndicator.PAYMENT_REASON_REQUIRING_TAX_REVIEW : AdHocPaymentIndicator.OTHER);
@@ -1657,10 +1657,10 @@ public class DisbursementVoucherDocument extends AccountingDocumentBase implemen
             }
         }
 	if(needIndicators){
- 	   titleWithIndicators.replace(titleWithIndicators.length()-1, titleWithIndicators.length(), "]"); 
+ 	   titleWithIndicators.replace(titleWithIndicators.length()-1, titleWithIndicators.length(), "]");
            return titleWithIndicators.toString();
         }
-  
+
         return title;
     }
 

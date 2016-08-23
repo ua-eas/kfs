@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,27 +28,27 @@ import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 /**
  * Yes, we need to test our test utilities since they seem to be misbehaving in some areas.
- * 
+ *
  */
 @ConfigureContext
 public class TestUtilsTest extends KualiTestBase {
 
     public static final String TEST_PARAM_NAME = "FUND_GROUP_DENOTES_CG_IND";
     public static final Class TEST_PARAM_COMPONENT = Account.class;
-    
+
     public void testSetSystemParameter1() throws Exception {
         String dbValue = SpringContext.getBean(ParameterService.class).getParameterValueAsString(TEST_PARAM_COMPONENT, TEST_PARAM_NAME);
         assertEquals( "indicator must be true", "Y", dbValue );
         TestUtils.setSystemParameter(TEST_PARAM_COMPONENT, TEST_PARAM_NAME, "N");
         String cachedValue = SpringContext.getBean(ParameterService.class).getParameterValueAsString(TEST_PARAM_COMPONENT, TEST_PARAM_NAME);
-        assertEquals( "indicator must be false when pulled after the set", "N", cachedValue );        
+        assertEquals( "indicator must be false when pulled after the set", "N", cachedValue );
     }
 
     public void testSetSystemParameter2() throws Exception {
         String dbValue = SpringContext.getBean(ParameterService.class).getParameterValueAsString(TEST_PARAM_COMPONENT, TEST_PARAM_NAME);
         assertEquals( "indicator must be true", "Y", dbValue );
     }
-    
+
     @ConfigureContext(shouldCommitTransactions=true)
     public void testSetSystemParameterFailsWhenNonRollback() throws Exception {
         try {

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -36,7 +36,7 @@
 				<ref bean="CollectionActivityInvoiceLookup-agencyName" />
 				<ref bean="CollectionActivityInvoiceLookup-customerNumber" />
 				<ref bean="CollectionActivityInvoiceLookup-customerName" />
-				
+
 				<ref bean="CollectionActivityInvoiceLookup-invoiceNumber" />
 				<ref bean="CollectionActivityInvoiceLookup-accountNumber" />
 				<ref bean="CollectionActivityInvoiceLookup-invoiceDate" />
@@ -72,13 +72,13 @@
 		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsAgency" p:sourceAttributeName="fullName">
 		<property name="name" value="agencyName" />
 	</bean>
-	
+
 	<bean id="CollectionActivityInvoiceLookup-customerName" parent="CollectionActivityInvoiceLookup-customerName-parentBean" />
 	<bean id="CollectionActivityInvoiceLookup-customerName-parentBean" abstract="true" parent="Customer-customerName" />
 
 	<bean id="CollectionActivityInvoiceLookup-customerNumber" parent="CollectionActivityInvoiceLookup-customerNumber-parentBean" />
 	<bean id="CollectionActivityInvoiceLookup-customerNumber-parentBean" abstract="true" parent="Customer-customerNumber" />
-	
+
 	<bean id="CollectionActivityInvoiceLookup-invoiceNumber" parent="CollectionActivityInvoiceLookup-invoiceNumber-parentBean" />
 	<bean id="CollectionActivityInvoiceLookup-invoiceNumber-parentBean" abstract="true" parent="DocumentHeader-documentNumber" >
 		<property name="maxLength" value="14"/>
@@ -86,14 +86,14 @@
 		<property name="label" value="Invoice Number" />
 		<property name="shortLabel" value="Invoice Number" />
 	</bean>
-	
+
 	<bean id="CollectionActivityInvoiceLookup-accountNumber" parent="CollectionActivityInvoiceLookup-accountNumber-parentBean" />
 	<bean id="CollectionActivityInvoiceLookup-accountNumber-parentBean" abstract="true" parent="AccountAttribute">
 		<property name="control">
       		<bean parent="TextControlDefinition" p:size="9"/>
     	</property>
 	</bean>
-	
+
 	<bean id="CollectionActivityInvoiceLookup-invoiceDate" parent="CollectionActivityInvoiceLookup-invoiceDate-parentBean" />
 	<bean id="CollectionActivityInvoiceLookup-invoiceDate-parentBean"
 		abstract="true" parent="GenericAttributes-genericDate">
@@ -102,8 +102,8 @@
 		<property name="shortLabel" value="Invoice Date" />
 		<property name="required" value="false" />
 	</bean>
-	
-	
+
+
 	<bean id="CollectionActivityInvoiceLookup-billingPeriod" parent="CollectionActivityInvoiceLookup-billingPeriod-parentBean" />
 	<bean id="CollectionActivityInvoiceLookup-billingPeriod-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="billingPeriod" />
@@ -115,7 +115,7 @@
 			<bean parent="TextControlDefinition" p:size="52" />
 		</property>
 	</bean>
-	
+
 	<bean id="CollectionActivityInvoiceLookup-invoiceAmount" parent="CollectionActivityInvoiceLookup-invoiceAmount-parentBean" />
 	<bean id="CollectionActivityInvoiceLookup-invoiceAmount-parentBean"
 		abstract="true" parent="GenericAttributes-genericAmount">
@@ -123,7 +123,7 @@
 		<property name="label" value="Invoice Amount" />
 		<property name="shortLabel" value="Invoice Amount" />
 	</bean>
-	
+
 	<bean id="CollectionActivityInvoiceLookup-billingFrequency" parent="CollectionActivityInvoiceLookup-billingFrequency-parentBean" />
 	<bean id="CollectionActivityInvoiceLookup-billingFrequency-parentBean" abstract="true" parent="InvoiceGeneralDetail-billingFrequencyCode">
 		<property name="name" value="billingFrequency" />
@@ -136,7 +136,7 @@
 				p:includeKeyInLabel="false" />
 		</property>
 	</bean>
-	
+
 	<bean id="CollectionActivityInvoiceLookup-paymentAmount" parent="CollectionActivityInvoiceLookup-paymentAmount-parentBean" />
 	<bean id="CollectionActivityInvoiceLookup-paymentAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
 		<property name="name" value="paymentAmount" />
@@ -151,7 +151,7 @@
 		<property name="label" value="Last Payment Date"/>
 		<property name="shortLabel" value="pay Date"/>
 	</bean>
-	
+
 	<bean id="CollectionActivityInvoiceLookup-balanceDue" parent="CollectionActivityInvoiceLookup-balanceDue-parentBean" />
 	<bean id="CollectionActivityInvoiceLookup-balanceDue-parentBean"
 		abstract="true" parent="GenericAttributes-genericAmount">
@@ -159,7 +159,7 @@
 		<property name="label" value="Balance Due" />
 		<property name="shortLabel" value="Balance Due" />
 	</bean>
-	
+
 	<bean id="CollectionActivityInvoiceLookup-age" parent="CollectionActivityInvoiceLookup-age-parentBean" />
 	<bean id="CollectionActivityInvoiceLookup-age-parentBean" abstract="true"
 		parent="AttributeDefinition">

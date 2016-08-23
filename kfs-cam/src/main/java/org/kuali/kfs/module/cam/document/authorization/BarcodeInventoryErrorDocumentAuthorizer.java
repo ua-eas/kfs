@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,7 +36,7 @@ public class BarcodeInventoryErrorDocumentAuthorizer extends FinancialSystemTran
 
     /**
      * Overridden to check if document error correction can be allowed here.
-     * 
+     *
      * @see org.kuali.kfs.krad.document.authorization.DocumentAuthorizerBase#getDocumentActions(org.kuali.kfs.krad.document.Document,
      *      org.kuali.rice.kim.api.identity.Person, java.util.Set)
      */
@@ -46,14 +46,14 @@ public class BarcodeInventoryErrorDocumentAuthorizer extends FinancialSystemTran
 
         String documentId = document.getDocumentHeader().getWorkflowDocument().getDocumentId();
         String principalId = GlobalVariables.getUserSession().getPrincipalId();
-        
+
         if (document.getDocumentHeader().getWorkflowDocument().isEnroute()) {
             List<String> approvalPrincipalIds = KEWServiceLocator.getActionRequestService().getPrincipalIdsWithPendingActionRequestByActionRequestedAndDocId(KewApiConstants.ACTION_REQUEST_APPROVE_REQ, documentId);
             if (approvalPrincipalIds.contains(principalId)) {
                 documentActionsToReturn.add(KRADConstants.KUALI_ACTION_CAN_EDIT);
             }
         }
-            
+
         return documentActionsToReturn;
     }
 

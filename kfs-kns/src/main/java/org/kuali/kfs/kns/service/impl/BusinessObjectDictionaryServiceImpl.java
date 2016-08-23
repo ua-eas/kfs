@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -154,14 +154,14 @@ public class BusinessObjectDictionaryServiceImpl implements BusinessObjectDictio
 
         return isMaintainable;
     }
-    
+
 
     /**
 	 * @see BusinessObjectDictionaryService#isExportable(java.lang.Class)
 	 */
 	public Boolean isExportable(Class businessObjectClass) {
 		Boolean isExportable = Boolean.FALSE;
-		
+
 		BusinessObjectEntry entry = getBusinessObjectEntry(businessObjectClass);
         if (entry != null) {
             isExportable = entry.getExporterClass() != null;
@@ -248,7 +248,7 @@ public class BusinessObjectDictionaryServiceImpl implements BusinessObjectDictio
         return buttonParams;
     }
 
-    
+
     /**
      * @see BusinessObjectDictionaryService#getSearchIconOverride(java.lang.Class)
      */
@@ -265,7 +265,7 @@ public class BusinessObjectDictionaryServiceImpl implements BusinessObjectDictio
         return iconUrl;
     }
 
-    
+
     /**
      * @see BusinessObjectDictionaryService#getLookupDefaultSortFieldName(java.lang.Class)
      */
@@ -331,14 +331,14 @@ public class BusinessObjectDictionaryServiceImpl implements BusinessObjectDictio
             return null;
         }
     }
-    
+
     /**
      * @see BusinessObjectDictionaryService#getMultipleValueLookupResultSetLimit(java.lang.Class)
      */
     public Integer getMultipleValueLookupResultSetLimit(Class businessObjectClass) {
         LookupDefinition lookupDefinition = getLookupDefinition(businessObjectClass);
         if ( lookupDefinition != null ) {
-            return lookupDefinition.getMultipleValuesResultSetLimit();                                          
+            return lookupDefinition.getMultipleValuesResultSetLimit();
         } else {
             return null;
         }
@@ -496,7 +496,7 @@ public class BusinessObjectDictionaryServiceImpl implements BusinessObjectDictio
     public void performForceUppercase(BusinessObject bo) {
     	performForceUppercaseCycleSafe(bo, new HashSet<BusinessObject>());
     }
-    
+
     /**
      * Handles recursion for performForceUppercase in a cycle-safe manner,
      * keeping track of visited BusinessObjects to prevent infinite recursion.
@@ -988,7 +988,7 @@ public class BusinessObjectDictionaryServiceImpl implements BusinessObjectDictio
 		FieldDefinition lookupFieldDefinition = getLookupFieldDefinition(businessObjectClass, attributeName);
 		return lookupFieldDefinition != null && lookupFieldDefinition.isTreatWildcardsAndOperatorsAsLiteral();
 	}
-	
+
 	/**
 	 * @see BusinessObjectDictionaryService#getInquiryFieldAdditionalDisplayAttributeName(java.lang.Class,
 	 *      java.lang.String)
@@ -1048,7 +1048,7 @@ public class BusinessObjectDictionaryServiceImpl implements BusinessObjectDictio
 
 		return alternateDisplayAttributeName;
 	}
-	
+
 	/**
 	 * @see BusinessObjectDictionaryService#tranlateCodesInLookup(java.lang.Class)
 	 */
@@ -1102,5 +1102,5 @@ public class BusinessObjectDictionaryServiceImpl implements BusinessObjectDictio
 	}
 
 
-	
+
 }

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -76,8 +76,8 @@ public class AssetMaintainableImpl extends FinancialSystemMaintainable {
     private boolean fabricationOn;
     protected static volatile IdentityService identityService;
     protected static volatile DocumentService documentService;
-    
-    
+
+
     private static final Map<String, String> FINANCIAL_DOC_NAME_MAP = new HashMap<String, String>();
     static {
         FINANCIAL_DOC_NAME_MAP.put(KFSConstants.FinancialDocumentTypeCodes.CASH_RECEIPT, KFSConstants.FinancialDocumentTypeNames.CASH_RECEIPT);
@@ -226,7 +226,7 @@ public class AssetMaintainableImpl extends FinancialSystemMaintainable {
         if (customAction != null && customAction.length > 0 && StringUtils.equals(CamsPropertyConstants.Asset.LAST_INVENTORY_DATE_UPDATE_BUTTON,customAction[0])) {
             WorkflowDocument workflowDoc = document.getDocumentHeader().getWorkflowDocument();
             if(workflowDoc != null && workflowDoc.isInitiated()) {
-                asset.setLastInventoryDate(new Timestamp(SpringContext.getBean(DateTimeService.class).getCurrentSqlDate().getTime()));            
+                asset.setLastInventoryDate(new Timestamp(SpringContext.getBean(DateTimeService.class).getCurrentSqlDate().getTime()));
                 String userPrincipalName= GlobalVariables.getUserSession().getPrincipalName();
                 final String noteTextPattern = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(CamsKeyConstants.Asset.LAST_INVENTORY_DATE_UPDATE_NOTE_TEXT);
                 Object[] arguments = { userPrincipalName, asset.getCapitalAssetNumber().toString() };

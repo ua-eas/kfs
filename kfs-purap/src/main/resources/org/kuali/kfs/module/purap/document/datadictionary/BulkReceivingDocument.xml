@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -32,16 +32,16 @@
     <property name="potentiallySensitive" value="true"/>
     <property name="workflowAttributes">
     	<ref bean="ReceivingDocumentForSearching-workflowAttributes"/>
-    </property>  
+    </property>
     <property name="attributes">
       <list>
-        
+
         <ref bean="BulkReceivingDocument-documentNumber"/>
 		<ref bean="BulkReceivingDocument-versionNumber"/>
-		
+
         <ref bean="BulkReceivingDocument-purchaseOrderIdentifier"/>
         <ref bean="BulkReceivingDocument-carrierCode"/>
-        
+
         <ref bean="BulkReceivingDocument-shipmentReceivedDate"/>
         <ref bean="BulkReceivingDocument-shipmentPackingSlipNumber"/>
         <ref bean="BulkReceivingDocument-shipmentBillOfLadingNumber"/>
@@ -49,7 +49,7 @@
         <ref bean="BulkReceivingDocument-trackingNumber"/>
         <ref bean="BulkReceivingDocument-shipmentWeight"/>
         <ref bean="BulkReceivingDocument-noOfCartons"/>
-        
+
         <ref bean="BulkReceivingDocument-vendorHeaderGeneratedIdentifier"/>
         <ref bean="BulkReceivingDocument-vendorDetailAssignedIdentifier"/>
         <ref bean="BulkReceivingDocument-vendorNumber"/>
@@ -61,23 +61,23 @@
         <ref bean="BulkReceivingDocument-vendorStateCode"/>
         <ref bean="BulkReceivingDocument-vendorPostalCode"/>
         <ref bean="BulkReceivingDocument-vendorAddressInternationalProvinceName"/>
-        
+
         <ref bean="BulkReceivingDocument-alternateVendorHeaderGeneratedIdentifier"/>
         <ref bean="BulkReceivingDocument-alternateVendorDetailAssignedIdentifier"/>
-        <ref bean="BulkReceivingDocument-alternateVendorNumber"/> 
-        <ref bean="BulkReceivingDocument-alternateVendorName"/> 
-        
+        <ref bean="BulkReceivingDocument-alternateVendorNumber"/>
+        <ref bean="BulkReceivingDocument-alternateVendorName"/>
+
         <ref bean="BulkReceivingDocument-goodsDeliveredVendorHeaderGeneratedIdentifier"/>
         <ref bean="BulkReceivingDocument-goodsDeliveredVendorDetailAssignedIdentifier"/>
         <ref bean="BulkReceivingDocument-goodsDeliveredVendorName"/>
-        
+
         <ref bean="BulkReceivingDocument-vendorContact"/>
-        
+
         <ref bean="BulkReceivingDocument-requestorPersonName"/>
         <ref bean="BulkReceivingDocument-requestorPersonPhoneNumber"/>
         <ref bean="BulkReceivingDocument-preparerPersonName"/>
         <ref bean="BulkReceivingDocument-preparerPersonPhoneNumber"/>
-        
+
         <ref bean="BulkReceivingDocument-deliveryBuildingName"/>
         <ref bean="BulkReceivingDocument-deliveryBuildingOtherIndicator"/>
         <ref bean="BulkReceivingDocument-deliveryBuildingRoomNumber"/>
@@ -98,13 +98,13 @@
         <ref bean="BulkReceivingDocument-institutionContactName"/>
         <ref bean="BulkReceivingDocument-institutionContactPhoneNumber"/>
         <ref bean="BulkReceivingDocument-institutionContactEmailAddress"/>
-        
-        <ref bean="BulkReceivingDocument-workflowStatusForResult"/> 
+
+        <ref bean="BulkReceivingDocument-workflowStatusForResult"/>
       </list>
     </property>
-    
-    <property name="validationMap" ref="BulkReceivingDocument-validations"/>   
-    
+
+    <property name="validationMap" ref="BulkReceivingDocument-validations"/>
+
     <property name="relationships">
       <list>
         <dd:relationship objectAttribute="vendorCountry">
@@ -121,7 +121,7 @@
                </list>
              </property>
    		</bean>
-      </list>       
+      </list>
     </property>
   </bean>
 
@@ -157,7 +157,7 @@
       <bean parent="TextControlDefinition" p:size="11"/>
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-carrierCode" parent="BulkReceivingDocument-carrierCode-parentBean"/>
 
   <bean id="BulkReceivingDocument-carrierCode-parentBean" abstract="true" parent="AttributeDefinition">
@@ -173,7 +173,7 @@
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.module.purap.businessobject.options.CarrierValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-deliveryBuildingLine1Address" parent="BulkReceivingDocument-deliveryBuildingLine1Address-parentBean"/>
 
   <bean id="BulkReceivingDocument-deliveryBuildingLine1Address-parentBean" abstract="true" parent="VendorGenericAttributes-line1Address">
@@ -203,7 +203,7 @@
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.sys.businessobject.options.BuildingValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
- 
+
   <bean id="BulkReceivingDocument-deliveryBuildingOtherIndicator" parent="BulkReceivingDocument-deliveryBuildingOtherIndicator-parentBean"/>
 
   <bean id="BulkReceivingDocument-deliveryBuildingOtherIndicator-parentBean" abstract="true" parent="AttributeDefinition">
@@ -216,7 +216,7 @@
       <bean parent="CheckboxControlDefinition"/>
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-deliveryBuildingRoomNumber" parent="BulkReceivingDocument-deliveryBuildingRoomNumber-parentBean"/>
 
   <bean id="BulkReceivingDocument-deliveryBuildingRoomNumber-parentBean" abstract="true" parent="AttributeDefinition">
@@ -233,7 +233,7 @@
       <ref bean="TenCharacterTextControl" />
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-deliveryCampusName" parent="BulkReceivingDocument-deliveryCampusName-parentBean"/>
 
   <bean id="BulkReceivingDocument-deliveryCampusName-parentBean" abstract="true" parent="Campus-name">
@@ -241,7 +241,7 @@
     <property name="label" value="Campus"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-deliveryCampusCode" parent="BulkReceivingDocument-deliveryCampusCode-parentBean"/>
 
   <bean id="BulkReceivingDocument-deliveryCampusCode-parentBean" abstract="true" parent="VendorGenericAttributes-campusCode">
@@ -253,23 +253,23 @@
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.vnd.businessobject.options.CampusNoBlankValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-deliveryCityName" parent="BulkReceivingDocument-deliveryCityName-parentBean"/>
-  
+
   <bean id="BulkReceivingDocument-deliveryCityName-parentBean" abstract="true" parent="VendorGenericAttributes-cityName">
     <property name="name" value="deliveryCityName"/>
     <property name="required" value="true"/>
   </bean>
 
   <bean id="BulkReceivingDocument-deliveryCountryCode" parent="BulkReceivingDocument-deliveryCountryCode-parentBean"/>
-  
+
   <bean id="BulkReceivingDocument-deliveryCountryCode-parentBean" abstract="true" parent="VendorGenericAttributes-countryCode">
     <property name="name" value="deliveryCountryCode"/>
     <property name="required" value="true"/>
   </bean>
 
   <bean id="BulkReceivingDocument-deliveryInstructionText" parent="BulkReceivingDocument-deliveryInstructionText-parentBean"/>
-  
+
   <bean id="BulkReceivingDocument-deliveryInstructionText-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="deliveryInstructionText"/>
     <property name="forceUppercase" value="false"/>
@@ -283,9 +283,9 @@
       <bean parent="TextareaControlDefinition" p:rows="3" p:cols="50"/>
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-deliveryAdditionalInstructionText" parent="BulkReceivingDocument-deliveryAdditionalInstructionText-parentBean"/>
-  
+
   <bean id="BulkReceivingDocument-deliveryAdditionalInstructionText-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="deliveryAdditionalInstructionText"/>
     <property name="forceUppercase" value="false"/>
@@ -299,26 +299,26 @@
       <bean parent="TextareaControlDefinition" p:rows="3" p:cols="50"/>
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-deliveryPostalCode" parent="BulkReceivingDocument-deliveryPostalCode-parentBean"/>
 
   <bean id="BulkReceivingDocument-deliveryPostalCode-parentBean" abstract="true" parent="VendorGenericAttributes-zipCode">
     <property name="name" value="deliveryPostalCode"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-deliveryStateCode" parent="BulkReceivingDocument-deliveryStateCode-parentBean"/>
 
   <bean id="BulkReceivingDocument-deliveryStateCode-parentBean" abstract="true" parent="VendorGenericAttributes-stateCode">
     <property name="name" value="deliveryStateCode"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-deliveryToEmailAddress" parent="BulkReceivingDocument-deliveryToEmailAddress-parentBean"/>
 
   <bean id="BulkReceivingDocument-deliveryToEmailAddress-parentBean" abstract="true" parent="GenericAttributes-emailAddress">
     <property name="name" value="deliveryToEmailAddress"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-deliveryToName" parent="BulkReceivingDocument-deliveryToName-parentBean"/>
 
   <bean id="BulkReceivingDocument-deliveryToName-parentBean" abstract="true" parent="VendorGenericAttributes-attentionName">
@@ -327,13 +327,13 @@
     <property name="shortLabel" value="To"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-deliveryToPhoneNumber" parent="BulkReceivingDocument-deliveryToPhoneNumber-parentBean"/>
 
   <bean id="BulkReceivingDocument-deliveryToPhoneNumber-parentBean" abstract="true" parent="GenericAttributes-phoneNumberWithValidation">
     <property name="name" value="deliveryToPhoneNumber"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-shipmentBillOfLadingNumber" parent="BulkReceivingDocument-shipmentBillOfLadingNumber-parentBean"/>
 
   <bean id="BulkReceivingDocument-shipmentBillOfLadingNumber-parentBean" abstract="true" parent="AttributeDefinition">
@@ -349,7 +349,7 @@
       <bean parent="TextControlDefinition" p:size="47"/>
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-goodsDeliveredVendorName" parent="BulkReceivingDocument-goodsDeliveredVendorName-parentBean"/>
 
   <bean id="BulkReceivingDocument-goodsDeliveredVendorName-parentBean" abstract="true" parent="VendorDetail-vendorName">
@@ -357,7 +357,7 @@
     <property name="label" value="Goods Delivered By"/>
     <property name="shortLabel" value="Delivered By"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-shipmentPackingSlipNumber" parent="BulkReceivingDocument-shipmentPackingSlipNumber-parentBean"/>
 
   <bean id="BulkReceivingDocument-shipmentPackingSlipNumber-parentBean" abstract="true" parent="AttributeDefinition">
@@ -374,7 +374,7 @@
       <bean parent="TextControlDefinition" p:size="47"/>
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-shipmentReceivedDate" parent="BulkReceivingDocument-shipmentReceivedDate-parentBean"/>
 
   <bean id="BulkReceivingDocument-shipmentReceivedDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
@@ -383,7 +383,7 @@
     <property name="shortLabel" value="Date Received"/>
     <property name="required" value="true"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-shipmentReferenceNumber" parent="BulkReceivingDocument-shipmentReferenceNumber-parentBean"/>
 
   <bean id="BulkReceivingDocument-shipmentReferenceNumber-parentBean" abstract="true" parent="AttributeDefinition">
@@ -399,7 +399,7 @@
       <bean parent="TextControlDefinition" p:size="47"/>
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-trackingNumber" parent="BulkReceivingDocument-trackingNumber-parentBean"/>
 
   <bean id="BulkReceivingDocument-trackingNumber-parentBean" abstract="true" parent="AttributeDefinition">
@@ -415,13 +415,13 @@
       <bean parent="TextControlDefinition" p:size="47"/>
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-vendorHeaderGeneratedIdentifier" parent="BulkReceivingDocument-vendorHeaderGeneratedIdentifier-parentBean"/>
 
   <bean id="BulkReceivingDocument-vendorHeaderGeneratedIdentifier-parentBean" abstract="true" parent="VendorDetail-vendorHeaderGeneratedIdentifier">
     <property name="name" value="vendorHeaderGeneratedIdentifier"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-vendorName" parent="BulkReceivingDocument-vendorName-parentBean"/>
 
   <bean id="BulkReceivingDocument-vendorName-parentBean" abstract="true" parent="VendorDetail-vendorName">
@@ -432,72 +432,72 @@
 
   <bean id="BulkReceivingDocument-vendorNumber-parentBean" abstract="true" parent="VendorDetail-vendorNumber">
   </bean>
-  
+
   <bean id="BulkReceivingDocument-alternateVendorNumber" parent="BulkReceivingDocument-alternateVendorNumber-parentBean"/>
 
   <bean id="BulkReceivingDocument-alternateVendorNumber-parentBean" abstract="true" parent="VendorDetail-vendorNumber">
 	  <property name="name" value="alternateVendorNumber"/>
       <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-alternateVendorName" parent="BulkReceivingDocument-alternateVendorName-parentBean"/>
 
   <bean id="BulkReceivingDocument-alternateVendorName-parentBean" abstract="true" parent="VendorDetail-vendorName">
     <property name="name" value="alternateVendorName"/>
     <property name="label" value="Alternate Vendor"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-vendorDetailAssignedIdentifier" parent="BulkReceivingDocument-vendorDetailAssignedIdentifier-parentBean"/>
 
   <bean id="BulkReceivingDocument-vendorDetailAssignedIdentifier-parentBean" abstract="true" parent="VendorDetail-vendorDetailAssignedIdentifier">
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-vendorCityName" parent="BulkReceivingDocument-vendorCityName-parentBean"/>
 
   <bean id="BulkReceivingDocument-vendorCityName-parentBean" abstract="true" parent="VendorGenericAttributes-cityName">
     <property name="name" value="vendorCityName"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-vendorCountryCode" parent="BulkReceivingDocument-vendorCountryCode-parentBean"/>
 
   <bean id="BulkReceivingDocument-vendorCountryCode-parentBean" abstract="true" parent="VendorGenericAttributes-countryCode">
     <property name="name" value="vendorCountryCode"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-vendorLine1Address" parent="BulkReceivingDocument-vendorLine1Address-parentBean"/>
 
   <bean id="BulkReceivingDocument-vendorLine1Address-parentBean" abstract="true" parent="VendorGenericAttributes-line1Address">
     <property name="name" value="vendorLine1Address"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-vendorLine2Address" parent="BulkReceivingDocument-vendorLine2Address-parentBean"/>
 
   <bean id="BulkReceivingDocument-vendorLine2Address-parentBean" abstract="true" parent="VendorGenericAttributes-line2Address">
     <property name="name" value="vendorLine2Address"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-vendorStateCode" parent="BulkReceivingDocument-vendorStateCode-parentBean"/>
 
   <bean id="BulkReceivingDocument-vendorStateCode-parentBean" abstract="true" parent="VendorGenericAttributes-stateCode">
     <property name="name" value="vendorStateCode"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-vendorPostalCode" parent="BulkReceivingDocument-vendorPostalCode-parentBean"/>
 
   <bean id="BulkReceivingDocument-vendorPostalCode-parentBean" abstract="true" parent="VendorGenericAttributes-zipCode">
     <property name="name" value="vendorPostalCode"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-vendorAddressInternationalProvinceName" parent="BulkReceivingDocument-vendorAddressInternationalProvinceName-parentBean"/>
 
   <bean id="BulkReceivingDocument-vendorAddressInternationalProvinceName-parentBean" abstract="true" parent="VendorGenericAttributes-internationalProvinceName">
     <property name="name" value="vendorAddressInternationalProvinceName"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-alternateVendorHeaderGeneratedIdentifier" parent="BulkReceivingDocument-alternateVendorHeaderGeneratedIdentifier-parentBean"/>
 
   <bean id="BulkReceivingDocument-alternateVendorHeaderGeneratedIdentifier-parentBean" abstract="true" parent="VendorDetail-vendorHeaderGeneratedIdentifier">
@@ -505,7 +505,7 @@
     <property name="label" value="Alternate Vendor Header Generated Identifier"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-alternateVendorDetailAssignedIdentifier" parent="BulkReceivingDocument-alternateVendorDetailAssignedIdentifier-parentBean"/>
 
   <bean id="BulkReceivingDocument-alternateVendorDetailAssignedIdentifier-parentBean" abstract="true" parent="VendorDetail-vendorDetailAssignedIdentifier">
@@ -513,7 +513,7 @@
     <property name="label" value="Alternate Vendor Detail Assigned Identifier"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-goodsDeliveredVendorHeaderGeneratedIdentifier" parent="BulkReceivingDocument-goodsDeliveredVendorHeaderGeneratedIdentifier-parentBean"/>
 
   <bean id="BulkReceivingDocument-goodsDeliveredVendorHeaderGeneratedIdentifier-parentBean" abstract="true" parent="VendorDetail-vendorHeaderGeneratedIdentifier">
@@ -521,7 +521,7 @@
     <property name="label" value="goodsDelivered Vendor Header Generated Identifier"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-goodsDeliveredVendorDetailAssignedIdentifier" parent="BulkReceivingDocument-goodsDeliveredVendorDetailAssignedIdentifier-parentBean"/>
 
   <bean id="BulkReceivingDocument-goodsDeliveredVendorDetailAssignedIdentifier-parentBean" abstract="true" parent="VendorDetail-vendorDetailAssignedIdentifier">
@@ -529,12 +529,12 @@
     <property name="label" value="Goods Delivered Vendor Detail Assigned Identifier"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-versionNumber" parent="BulkReceivingDocument-versionNumber-parentBean"/>
 
   <bean id="BulkReceivingDocument-versionNumber-parentBean" abstract="true" parent="GenericAttributes-versionNumber">
   </bean>
-  
+
   <bean id="BulkReceivingDocument-vendorContact" parent="BulkReceivingDocument-vendorContact-parentBean"/>
 
   <bean id="BulkReceivingDocument-vendorContact-parentBean" abstract="true" parent="AttributeDefinition">
@@ -547,9 +547,9 @@
       <ref bean="StandardShortNameTextControl" />
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-noOfCartons" parent="BulkReceivingDocument-noOfCartons-parentBean"/>
-  
+
   <bean id="BulkReceivingDocument-noOfCartons-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="noOfCartons"/>
     <property name="required" value="true"/>
@@ -564,9 +564,9 @@
       <ref bean="StandardShortNameTextControl" />
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-shipmentWeight" parent="BulkReceivingDocument-shipmentWeight-parentBean"/>
-  
+
   <bean id="BulkReceivingDocument-shipmentWeight-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="shipmentWeight"/>
     <property name="forceUppercase" value="false"/>
@@ -580,7 +580,7 @@
       <ref bean="StandardShortNameTextControl" />
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-requestorPersonName" parent="BulkReceivingDocument-requestorPersonName-parentBean"/>
 
   <bean id="BulkReceivingDocument-requestorPersonName-parentBean" abstract="true" parent="AttributeDefinition">
@@ -596,7 +596,7 @@
       <bean parent="TextControlDefinition" p:size="47"/>
     </property>
   </bean>
-  
+
    <bean id="BulkReceivingDocument-requestorPersonPhoneNumber" parent="BulkReceivingDocument-requestorPersonPhoneNumber-parentBean"/>
 
   <bean id="BulkReceivingDocument-requestorPersonPhoneNumber-parentBean" abstract="true" parent="AttributeDefinition">
@@ -611,7 +611,7 @@
       <bean parent="TextControlDefinition" p:size="47"/>
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-preparerPersonName" parent="BulkReceivingDocument-preparerPersonName-parentBean"/>
 
   <bean id="BulkReceivingDocument-preparerPersonName-parentBean" abstract="true" parent="PersonImpl-name">
@@ -627,7 +627,7 @@
       <bean parent="TextControlDefinition" p:size="47"/>
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-preparerPersonPhoneNumber" parent="BulkReceivingDocument-preparerPersonPhoneNumber-parentBean"/>
 
   <bean id="BulkReceivingDocument-preparerPersonPhoneNumber-parentBean" abstract="true" parent="AttributeDefinition">
@@ -642,7 +642,7 @@
       <bean parent="TextControlDefinition" p:size="47"/>
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-institutionContactEmailAddress" parent="BulkReceivingDocument-institutionContactEmailAddress-parentBean"/>
 
   <bean id="BulkReceivingDocument-institutionContactEmailAddress-parentBean" abstract="true" parent="GenericAttributes-emailAddress">
@@ -665,7 +665,7 @@
       <bean parent="TextControlDefinition" p:size="47"/>
     </property>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-institutionContactPhoneNumber" parent="BulkReceivingDocument-institutionContactPhoneNumber-parentBean"/>
 
   <bean id="BulkReceivingDocument-institutionContactPhoneNumber-parentBean" abstract="true" parent="GenericAttributes-phoneNumberWithValidation">
@@ -673,7 +673,7 @@
     <property name="label" value="Contact Phone"/>
     <property name="shortLabel" value="Number"/>
   </bean>
-  
+
   <bean id="BulkReceivingDocument-workflowStatusForResult" parent="BulkReceivingDocument-workflowStatusForResult-parentBean"/>
 
   <bean id="BulkReceivingDocument-workflowStatusForResult-parentBean" abstract="true" parent="AttributeDefinition">
@@ -688,10 +688,10 @@
       <bean parent="TextControlDefinition" p:size="47"/>
     </property>
   </bean>
-  
+
   <!-- Validation -->
   <bean id="BulkReceivingDocument-validations" parent="BulkReceivingDocument-validations-parentBean"/>
- 
+
   <bean id="BulkReceivingDocument-validations-parentBean" abstract="true"  class="org.springframework.beans.factory.config.MapFactoryBean">
  		<property name="sourceMap">
 			<map key-type="java.lang.Class">
@@ -701,15 +701,15 @@
 				</entry>
 				<entry>
 					<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedContinuePurapEvent</value></key>
-					<value>BulkReceivingDocument-continuePurapValidation</value>				
+					<value>BulkReceivingDocument-continuePurapValidation</value>
 				</entry>
 			</map>
 		</property>
   </bean>
-		
+
   <!-- workflow attributes -->
   <bean id="BulkReceivingDocument-workflowAttributes" parent="BulkReceivingDocument-workflowAttributes-parentBean"/>
-  
+
   <bean id="BulkReceivingDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true">
       <property name="searchingTypeDefinitions">
           <list>
@@ -734,7 +734,7 @@
                           <property name="businessObjectClassName" value="org.kuali.kfs.module.purap.document.BulkReceivingDocument"/>
     					  <property name="attributeName" value="vendorName"/>
     					  <property name="showAttributeInSearchCriteria" value="false"/>
-                          <property name="showAttributeInResultSet" value="true"/>     					  
+                          <property name="showAttributeInResultSet" value="true"/>
     				  </bean>
     			  </property>
     			  <property name="documentValues">
@@ -764,7 +764,7 @@
                           <property name="businessObjectClassName" value="org.kuali.kfs.module.purap.document.BulkReceivingDocument"/>
     					  <property name="attributeName" value="purchaseOrderIdentifier"/>
     					  <property name="showAttributeInSearchCriteria" value="true"/>
-                          <property name="showAttributeInResultSet" value="true"/>     				  
+                          <property name="showAttributeInResultSet" value="true"/>
     				  </bean>
     			  </property>
     			  <property name="documentValues">
@@ -831,7 +831,7 @@
     					  <value>carrierCode</value>
     				  </list>
     			  </property>
-    		  </bean>           
+    		  </bean>
     			<bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
     		      <property name="searchingAttribute">
     			      <bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -846,9 +846,9 @@
     					  <value>workflowStatusForResult</value>
     				  </list>
     			  </property>
-    		  </bean>              
-          </list>  
+    		  </bean>
+          </list>
       </property>
   </bean>
-  
+
 </beans>

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -29,28 +29,28 @@
 			<list></list>
 		</property>
 	</bean>
-  
+
   	<bean id="PaymentApplication-approveDocumentValidation" parent="PaymentApplication-approveDocumentValidation-parentBean" scope="prototype" />
   	<bean id="PaymentApplication-approveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list></list>
   		</property>
   	</bean>
-  
+
 	<bean id="PaymentApplication-blanketApproveDocumentValidation" parent="PaymentApplication-blanketApproveDocumentValidation-parentBean" scope="prototype" />
   	<bean id="PaymentApplication-blanketApproveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list></list>
   		</property>
-	</bean>        
-   	
+	</bean>
+
 	<bean id="PaymentApplication-continuePaymentApplicationDocumentValidation" parent="PaymentApplication-continuePaymentApplicationDocumentValidation-parentBean" scope="prototype" />
 	<bean id="PaymentApplication-continuePaymentApplicationDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list></list>
 		</property>
 	</bean>
-	
+
 	<bean id="PaymentApplication-routeDocumentValidation" parent="PaymentApplication-routeDocumentValidation-parentBean" scope="prototype" />
 	<bean id="PaymentApplication-routeDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
@@ -68,6 +68,6 @@
 				</bean>
 			</list>
   		</property>
-	</bean>	
-	        
+	</bean>
+
 </beans>

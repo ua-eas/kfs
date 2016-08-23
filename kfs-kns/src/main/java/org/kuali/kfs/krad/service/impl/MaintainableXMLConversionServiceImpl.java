@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.krad.service.impl;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -59,7 +77,7 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
     protected static final String CLASS_ATTRIBUTE = "class";
     protected static final String DEFINED_IN_ATTRIBUTE = "defined-in";
     protected static final String MAINTENANCE_ACTION_ELEMENT_NAME = "maintenanceAction";
-    
+
 
     protected Map<String, String> classNameRuleMap;
     protected Map<String, Map<String, String>> classPropertyRuleMap;
@@ -126,7 +144,7 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
         	return;
         }
         Class<?> dataObjectClass = Class.forName(className);
-        
+
         if(classPropertyRuleMap.containsKey(className)) {
             transformNode(document, node, dataObjectClass, classPropertyRuleMap.get(className));
         }
@@ -207,7 +225,7 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
                         } else if (classNameRuleMap.containsKey(classAttribute.getNodeValue())) {
                             classAttribute.setNodeValue(classNameRuleMap.get(classAttribute.getNodeValue()));
                         }
-                    } else {                   
+                    } else {
 	                    Node definedInAttribute = childNode.getAttributes().getNamedItem(DEFINED_IN_ATTRIBUTE);
 	                    if (definedInAttribute != null) {
 	                    	if (classRemovals.contains(definedInAttribute.getNodeValue())) {
@@ -246,16 +264,16 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
                         if (propertyClass != null && classPropertyRuleMap.containsKey(propertyClass.getName())) {
                             transformNode(document, childNode, propertyClass, classPropertyRuleMap.get(propertyClass.getName()));
                         }
-                        
+
                         // Convert java.sql.Date to java.sql.Timestamp or java.util.Date
                         if (propertyClass == Timestamp.class || propertyClass == Date.class) {
                         	Node firstChild = childNode.getFirstChild();
                         	String value = firstChild.getNodeValue();
-                        	if (value != null && value.length() == 10) {                        		
+                        	if (value != null && value.length() == 10) {
                         		firstChild.setNodeValue(value + " 00:00:00" + (propertyClass == Date.class ? "AM" : ""));
                         	}
                         }
-                        
+
                         transformNode(document, childNode, propertyClass, classPropertyRuleMap.get("*"));
                     } catch (InstantiationException | NoSuchMethodException e) {
                         LOG.warn("Could not instantiate an instance of " + currentClass.getName() + " and therefore, not transforming children");  // let's just move on now...
@@ -267,7 +285,7 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
             childNode = nextChild;
         }
     }
-    
+
     protected void setRuleMaps() {
     	setupConfigurationMaps();
     	try {
@@ -326,7 +344,7 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
             }
             classPropertyRuleMap.put(classText, propertyRuleMap);
         }
-        
+
         /* Get the class node removal rules
            Note:  Class node removals should only be used for reference objects that can be materialized from
            a reference ID, anyway.  A good example is PersonImpl, whose structure has changed so much that it
@@ -372,7 +390,7 @@ public class MaintainableXMLConversionServiceImpl implements MaintainableXMLConv
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		setRuleMaps();		
+		setRuleMaps();
 	}
 
     public KualiModuleService getKualiModuleService() {

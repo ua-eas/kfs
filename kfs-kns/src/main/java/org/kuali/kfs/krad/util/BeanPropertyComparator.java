@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,8 +33,8 @@ import java.util.List;
 
 /**
  * This class compares the two beans using multiple property names.
- * 
- * 
+ *
+ *
  */
 public class BeanPropertyComparator implements Comparator, Serializable {
     private static final long serialVersionUID = -2675700473766186018L;
@@ -48,7 +48,7 @@ public class BeanPropertyComparator implements Comparator, Serializable {
      * Constructs a PropertyComparator for comparing beans using the properties named in the given List; if the List is null, the
      * beans will be compared directly (by Properties will be compared in the order in which they are listed. Case will be ignored
      * in String comparisons.
-     * 
+     *
      * @param propertyNames List of property names (as Strings) used to compare beans
      */
     public BeanPropertyComparator(List propertyNames) {
@@ -58,7 +58,7 @@ public class BeanPropertyComparator implements Comparator, Serializable {
     /**
      * Constructs a PropertyComparator for comparing beans using the properties named in the given List. Properties will be compared
      * in the order in which they are listed. Case will be ignored if ignoreCase is true.
-     * 
+     *
      * @param propertyNames List of property names (as Strings) used to compare beans
      * @param ignoreCase if true, case will be ignored during String comparisons
      */
@@ -104,7 +104,7 @@ public class BeanPropertyComparator implements Comparator, Serializable {
 
     /**
      * Compare two JavaBeans by the properties given to the constructor. If no propertues
-     * 
+     *
      * @param o1 Object The first bean to get data from to compare against
      * @param o2 Object The second bean to get data from to compare
      * @return int negative or positive based on order
@@ -161,7 +161,7 @@ public class BeanPropertyComparator implements Comparator, Serializable {
 
         return compared;
     }
-    
+
     public static class BeanComparisonException extends KualiException {
         private static final long serialVersionUID = 2622379680100640029L;
 

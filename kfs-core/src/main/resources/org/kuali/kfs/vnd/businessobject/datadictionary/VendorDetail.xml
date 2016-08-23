@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -132,7 +132,7 @@
 				<bean parent="CollectionDefinition" p:name="vendorAliases"
 					p:label="Search Alias" p:shortLabel="Search Alias" p:elementLabel="Search Alias" />
 				<bean parent="CollectionDefinition" p:name="boNotes" p:label="Notes"
-					p:shortLabel="Notes" p:elementLabel="Notes" />		 
+					p:shortLabel="Notes" p:elementLabel="Notes" />
 				<bean parent="CollectionDefinition" p:name="vendorCommodities"
 					p:label="Commodity Codes" p:shortLabel="Commodity Codes" />
 			</list>
@@ -165,9 +165,9 @@
 								p:targetName="code" />
 						</list>
 					</property>
-					
+
 				</bean>
-				
+
 			</list>
 		</property>
 	</bean>
@@ -471,7 +471,7 @@
 		parent="VendorGenericAttributes-stateCode">
 		<property name="name" value="vendorStateForLookup" />
 	</bean>
-	
+
 	<bean id="VendorDetail-vendorCorpCitizenCodeForLookup" parent="VendorDetail-vendorCorpCitizenCodeForLookup-parentBean" />
 
 	<bean id="VendorDetail-vendorCorpCitizenCodeForLookup-parentBean" abstract="true"
@@ -479,9 +479,9 @@
 		<property name="name" value="vendorHeader.vendorCountry.name" />
     	<property name="label" value="Country of Incorporation/Citizenship" />
 	</bean>
-	
-	
-	
+
+
+
 	<bean id="VendorDetail-vendorCreditCardIndicator" parent="VendorDetail-vendorCreditCardIndicator-parentBean" />
 
 	<bean id="VendorDetail-vendorCreditCardIndicator-parentBean"
@@ -559,7 +559,7 @@
 	<bean id="VendorDetail-defaultAddressCountryCode-parentBean" abstract="true" parent="VendorAddress-vendorCountryCode">
 		<property name="name" value="defaultAddressCountryCode" />
 	</bean>
-	
+
 	<bean id="VendorDetail-vendorAddresses.vendorStateCode" parent="VendorDetail-vendorAddresses.vendorStateCode-parentBean" />
 
 	<bean id="VendorDetail-vendorAddresses.vendorStateCode-parentBean"
@@ -603,7 +603,7 @@
 		abstract="true" parent="VendorHeader-vendorOwnershipCategoryCode">
 		<property name="name" value="vendorHeader.vendorOwnershipCategoryCode" />
 	</bean>
-	
+
 	<bean id="VendorDetail-vendorHeader.vendorW9ReceivedIndicator"
 		parent="VendorDetail-vendorHeader.vendorW9ReceivedIndicator-parentBean" />
 
@@ -611,7 +611,7 @@
 		abstract="true" parent="VendorHeader-vendorW9ReceivedIndicator">
 		<property name="name" value="vendorHeader.vendorW9ReceivedIndicator" />
 	</bean>
-	
+
 	<bean id="VendorDetail-vendorHeader.vendorW9SignedDate"
 		parent="VendorDetail-vendorHeader.vendorW9SignedDate-parentBean" />
 
@@ -619,7 +619,7 @@
 		abstract="true" parent="VendorHeader-vendorW9SignedDate">
 		<property name="name" value="vendorHeader.vendorW9SignedDate" />
 	</bean>
-	
+
 	<bean id="VendorDetail-vendorHeader.vendorW8ReceivedIndicator"
 		parent="VendorDetail-vendorHeader.vendorW8ReceivedIndicator-parentBean" />
 
@@ -635,7 +635,7 @@
 		abstract="true" parent="VendorHeader-vendorW8SignedDate">
 		<property name="name" value="vendorHeader.vendorW8SignedDate" />
 	</bean>
-	
+
 	<bean id="VendorDetail-vendorHeader.vendorW8TypeCode"
 		parent="VendorDetail-vendorHeader.vendorW8TypeCode-parentBean" />
 
@@ -643,7 +643,7 @@
 		abstract="true" parent="VendorHeader-vendorW8TypeCode">
 		<property name="name" value="vendorHeader.vendorW8TypeCode" />
 	</bean>
-	
+
 	<bean id="VendorDetail-vendorHeader.vendorCorpCitizenCode"
 		parent="VendorDetail-vendorHeader.vendorCorpCitizenCode-parentBean" />
 
@@ -651,7 +651,7 @@
 		abstract="true" parent="VendorHeader-vendorCorpCitizenCode">
 		<property name="name" value="vendorHeader.vendorCorpCitizenCode" />
 	</bean>
-	
+
 	<bean id="VendorDetail-vendorHeader.vendorGIIN"
 		parent="VendorDetail-vendorHeader.vendorGIIN-parentBean" />
 
@@ -659,7 +659,7 @@
 		abstract="true" parent="VendorHeader-vendorGIIN">
 		<property name="name" value="vendorHeader.vendorGIIN" />
 	</bean>
-	
+
 	<bean id="VendorDetail-vendorHeader.vendorForeignTaxId"
 		parent="VendorDetail-vendorHeader.vendorForeignTaxId-parentBean" />
 
@@ -667,7 +667,7 @@
 		abstract="true" parent="VendorHeader-vendorForeignTaxId">
 		<property name="name" value="vendorHeader.vendorForeignTaxId" />
 	</bean>
-	
+
 	<bean id="VendorDetail-vendorHeader.vendorDOB"
 		parent="VendorDetail-vendorHeader.vendorDOB-parentBean" />
 
@@ -675,7 +675,7 @@
 		abstract="true" parent="VendorHeader-vendorDOB">
 		<property name="name" value="vendorHeader.vendorDOB" />
 	</bean>
-	
+
 	<bean id="VendorDetail-vendorHeader.vendorChapter3StatusCode"
 		parent="VendorDetail-vendorHeader.vendorChapter3StatusCode-parentBean" />
 
@@ -683,7 +683,7 @@
 		abstract="true" parent="VendorHeader-vendorChapter3StatusCode">
 		<property name="name" value="vendorHeader.vendorChapter3StatusCode" />
 	</bean>
-	
+
 	<bean id="VendorDetail-vendorHeader.vendorChapter4StatusCode"
 		parent="VendorDetail-vendorHeader.vendorChapter4StatusCode-parentBean" />
 
@@ -691,7 +691,7 @@
 		abstract="true" parent="VendorHeader-vendorChapter4StatusCode">
 		<property name="name" value="vendorHeader.vendorChapter4StatusCode" />
 	</bean>
-	
+
 	<bean id="VendorDetail-vendorHeader.vendorFederalWithholdingTaxEndDate"
 		parent="VendorDetail-vendorHeader.vendorFederalWithholdingTaxEndDate-parentBean" />
 
@@ -766,7 +766,7 @@
       		<bean parent="TextControlDefinition" p:size="45"/>
     	</property>
 	</bean>
-	
+
 	<bean id="VendorDetail-vendorAliases.vendorAliasName" parent="VendorDetail-vendorAliases.vendorAliasName-parentBean" />
 
 	<bean id="VendorDetail-vendorAliases.vendorAliasName-parentBean"
@@ -877,12 +877,12 @@
     <bean id="VendorDetail-vendorContracts.vendorContractGeneratedIdentifier" parent="VendorContract-vendorContractGeneratedIdentifier-parentBean" >
       <property name="name" value="vendorContracts.vendorContractGeneratedIdentifier"/>
   	</bean>
-  	  
+
     <bean id="VendorDetail-vendorContracts.vendorContractGeneratedIdentifier-parentBean"  abstract="true" parent="VendorContract-vendorContractGeneratedIdentifier" />
-  	  
-    
-    
-  
+
+
+
+
 	<!-- Business Object Inquiry Definition -->
 
 
@@ -947,7 +947,7 @@
 				<bean parent="FieldDefinition" p:attributeName="vendorHeader.vendorFederalWithholdingTaxBeginningDate" />
 				<bean parent="FieldDefinition" p:attributeName="vendorHeader.vendorFederalWithholdingTaxEndDate" />
 				<bean parent="FieldDefinition" p:attributeName="vendorHeader.vendorDebarredIndicator" />
-				
+
 				<bean parent="InquirySubSectionHeaderDefinition"
 					p:attributeName="Detail Information" />
 				<bean parent="FieldDefinition" p:attributeName="vendorPaymentTermsCode" />
@@ -1460,7 +1460,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- Business Object Lookup Definition -->
 
 
@@ -1493,7 +1493,7 @@
 				<bean parent="FieldDefinition" p:attributeName="vendorCommodities.purchasingCommodityCode" />
 				<bean parent="FieldDefinition"
 					p:attributeName="vendorHeader.vendorSupplierDiversities.vendorSupplierDiversityCode" />
-                <bean parent="FieldDefinition" p:attributeName="vendorContracts.vendorContractGeneratedIdentifier"/>					
+                <bean parent="FieldDefinition" p:attributeName="vendorContracts.vendorContractGeneratedIdentifier"/>
 			</list>
 		</property>
 		<property name="resultFields">

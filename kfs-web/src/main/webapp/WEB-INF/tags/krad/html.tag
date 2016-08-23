@@ -1,21 +1,24 @@
 <%--
- Copyright 2005-2007 The Kuali Foundation
-
- Licensed under the Educational Community License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.opensource.org/licenses/ecl2.php
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 <%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
 
-<%@ attribute name="view" required="true" 
+<%@ attribute name="view" required="true"
               description="The view instance the html page is being rendered for."
               type="org.kuali.kfs.krad.uif.view.View"%>
 
@@ -32,7 +35,7 @@
       // -->
       </script>
     </c:if>
-    
+
     <krad:scriptingVariables/>
 
     <title>
@@ -46,7 +49,7 @@
       </c:if>
       <link href="${cssFile}" rel="stylesheet" type="text/css" />
     </c:forEach>
-    
+
     <c:forEach items="${view.additionalCssFiles}" var="cssFile" >
       <c:if test="${fn:startsWith(cssFile, '/')}">
         <c:set var="cssFile" value="${pageContext.request.contextPath}/${fn:substringAfter(cssFile,'/')}"/>
@@ -59,7 +62,7 @@
         <script language="JavaScript" type="text/javascript" src="${pageContext.request.contextPath}/${javascriptFile}"></script>
       </c:if>
     </c:forEach>
-    
+
     <c:forEach items="${view.additionalScriptFiles}" var="scriptFile" >
       <c:if test="${fn:startsWith(scriptFile, '/')}">
         <c:set var="scriptFile" value="${pageContext.request.contextPath}/${fn:substringAfter(scriptFile,'/')}"/>
@@ -71,13 +74,13 @@
     <script type="text/javascript">
         ${view.preLoadScript}
     </script>
-    
+
     <!-- custom script for the view -->
     <script type="text/javascript">
       jq(document).ready(function() {
         ${view.onLoadScript}
       })
-    </script>    
+    </script>
   </head>
 
   <!----------------------------------- #BEGIN BODY --------------------------------------->
@@ -96,8 +99,8 @@
         <c:if test="${empty postUrl}">
           <c:set var="postUrl" value="${KualiForm.formPostUrl}"/>
         </c:if>
-        
-        <form:form 
+
+        <form:form
            id="kualiForm"
            action="${postUrl}"
            method="post"
@@ -107,18 +110,18 @@
            cssStyle="form_format topLabel page">
 
            <a name="topOfForm"></a>
-      
+
            <jsp:doBody/>
 
            <span id="formComplete"></span>
         </form:form>
         <!----------------------------------- End Form --------------------------------------->
-      </c:if>  
-   
-      <c:if test="${!view.renderForm}"> 
+      </c:if>
+
+      <c:if test="${!view.renderForm}">
          <jsp:doBody/>
-      </c:if>  
-    
+      </c:if>
+
      </krad:div>
     </div>
   </body>

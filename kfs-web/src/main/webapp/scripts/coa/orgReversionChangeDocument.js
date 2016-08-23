@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -50,7 +50,7 @@ function updateObjectNames( objField ) {
     orgCount += 1;
     chartElementName = elPrefix + ".organizationReversionGlobalOrganizations["+orgCount+"].chartOfAccountsCode";
   }
-  
+
 	var objectCode = getElementValue( objField.name );
 	var nameFieldName = detailElPrefix + ".objectCodeNames";
 	if ( fiscalYear != "" && chartCodes.length > 0 && objectCode != "" ) {
@@ -59,9 +59,9 @@ function updateObjectNames( objField ) {
 			if ( data != null && typeof data == 'string' ) {
 				setRecipientValue( nameFieldName, data );
 			} else {
-				setRecipientValue( nameFieldName, wrapError( "object not found" ), true );			
+				setRecipientValue( nameFieldName, wrapError( "object not found" ), true );
 			} },
-			errorHandler:function( errorMessage ) { 
+			errorHandler:function( errorMessage ) {
 				window.status = errorMessage;
 				setRecipientValue( nameFieldName, wrapError( "object not found" ), true );
 			}
@@ -72,6 +72,6 @@ function updateObjectNames( objField ) {
 	} else if ( chartCodes.length == 0 ) {
 		setRecipientValue(nameFieldName, 'there are no chart codes currently', true );
 	} else if ( fiscalYear == "" ) {
-		setRecipientValue(nameFieldName, 'fiscal year is missing', true );	
+		setRecipientValue(nameFieldName, 'fiscal year is missing', true );
 	}
 }

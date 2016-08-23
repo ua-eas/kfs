@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -121,14 +121,14 @@ public interface LookupableHelperService extends Serializable{
 
     /**
      * This method builds the return url
-     * 
+     *
      * @param businessObject
      * @param lookupForm
      * @param returnKeys
      * @return
      */
     public HtmlData getReturnUrl(BusinessObject businessObject, LookupForm lookupForm, List returnKeys, BusinessObjectRestrictions businessObjectRestrictions);
-    
+
     /**
      * Builds string of action urls that can take place for a result row
      *
@@ -139,9 +139,9 @@ public interface LookupableHelperService extends Serializable{
     public String getActionUrls(BusinessObject businessObject, List pkNames, BusinessObjectRestrictions businessObjectRestrictions);
 
     /**
-     * 
+     *
      * This method is a template method that allows child classes to return their own custom action html data.
-     * 
+     *
      * @param businessObject
      * @param pkNames
      * @return
@@ -193,9 +193,9 @@ public interface LookupableHelperService extends Serializable{
     public void setDocNum(String docNum);
 
     /**
-     * 
+     *
      * This method builds a maintenance url.
-     * 
+     *
      * @param businessObject
      * @param htmlData
      * @param pkNames
@@ -291,47 +291,47 @@ public interface LookupableHelperService extends Serializable{
      * @return
      */
     public boolean isResultReturnable(BusinessObject object);
-    
+
     /**
-     * 
+     *
      * This method allows for overriding the clear behavior
      *
      */
     public void performClear(LookupForm lookupForm);
-    
+
     public boolean shouldDisplayHeaderNonMaintActions();
-    
+
     public boolean shouldDisplayLookupCriteria();
 
 	/**
 	 * This method gets the supplemental lookup menu if any
-	 * 
+	 *
 	 * @return supplemental menu bar
 	 */
 	public String getSupplementalMenuBar();
-    
+
     /**
      * @return String displayed as title for the lookup
      */
     public String getTitle();
-    
+
     /**
-     * 
+     *
      * performs custom actions.  return true to reperform search
-     * 
+     *
      * @param ignoreErrors
      * @return boolean to reperform search
      */
     public boolean performCustomAction(boolean ignoreErrors);
-    
+
     /**
      * get an extra field
      * @return
      */
     public Field getExtraField();
-    
+
     public void applyFieldAuthorizationsFromNestedLookups(Field field);
-    
+
     /**
      * Performs conditional logic (based on current search values or other parameters) to
      * override field hidden, read-only, and required attributes previously set.

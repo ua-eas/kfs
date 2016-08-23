@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -47,7 +47,7 @@ public class AccountingLineViewLinesDefinition extends DataDictionaryDefinitionB
     }
 
     /**
-     * Gets the lines attribute. 
+     * Gets the lines attribute.
      * @return Returns the lines.
      */
     public List<AccountingLineViewLineFillingDefinition> getLines() {
@@ -63,7 +63,7 @@ public class AccountingLineViewLinesDefinition extends DataDictionaryDefinitionB
     }
 
     /**
-     * Gets the elementName attribute. 
+     * Gets the elementName attribute.
      * @return Returns the elementName.
      */
     public String getElementName() {
@@ -87,10 +87,10 @@ public class AccountingLineViewLinesDefinition extends DataDictionaryDefinitionB
         layoutElement.setElements(getLayoutElementsForLines(accountingLineClass));
         return layoutElement;
     }
-    
+
     /**
      * Generates layout elements for all the child lines of this lines definition
-     * @return a List with the line elements for all child lines of this element definition 
+     * @return a List with the line elements for all child lines of this element definition
      */
     protected List<AccountingLineViewLineFillingElement> getLayoutElementsForLines(Class<? extends AccountingLine> accountingLineClass) {
         List<AccountingLineViewLineFillingElement> elements = new ArrayList<AccountingLineViewLineFillingElement>();

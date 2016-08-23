@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,12 +35,12 @@ public class WorkflowPropertiesBeanDefinitionParser extends KualiBeanDefinitionP
     protected String getBaseBeanTypeParent(Element element) {
         return "WorkflowProperties";
     }
-    
+
     @Override
     protected void doParse(Element element, ParserContext context, BeanDefinitionBuilder bean) {
         // get all attributes
         handleAbstractAttribute(element, bean);
-        
+
         // parse groups
         NodeList children = element.getChildNodes();
         ArrayList<WorkflowPropertyGroup> groups = new ArrayList<WorkflowPropertyGroup>();
@@ -48,7 +48,7 @@ public class WorkflowPropertiesBeanDefinitionParser extends KualiBeanDefinitionP
             Node child = children.item(i);
             if ( child.getLocalName() != null && child.getLocalName().equals("group") ) {
                 WorkflowPropertyGroup group = new WorkflowPropertyGroup();
-                Element groupElement = (Element)child;                
+                Element groupElement = (Element)child;
                 String basePath = groupElement.getAttribute("basePath");
                 if ( StringUtils.hasText(basePath) ) {
                     group.setBasePath(basePath);
@@ -59,7 +59,7 @@ public class WorkflowPropertiesBeanDefinitionParser extends KualiBeanDefinitionP
                 for ( int j = 0 ; j < groupChildren.getLength(); j++ ) {
                     Node groupChild = groupChildren.item(j);
                     if ( groupChild.getLocalName() != null && groupChild.getLocalName().equals("path") ) {
-                        Element pathElement = (Element)groupChild;                
+                        Element pathElement = (Element)groupChild;
                         String path = pathElement.getAttribute("path");
                         if ( StringUtils.hasText( path ) ) {
                             WorkflowProperty prop = new WorkflowProperty();
@@ -67,12 +67,12 @@ public class WorkflowPropertiesBeanDefinitionParser extends KualiBeanDefinitionP
                             group.getWorkflowProperties().add( prop );
                         }
                     }
-                    
+
                 }
             }
-        }        
+        }
         bean.addPropertyValue("workflowPropertyGroups", groups);
     }
 
-    
+
 }

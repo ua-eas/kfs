@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,7 +34,7 @@ public class AccountingLineViewDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * Checks that this accounting line view has at least one child renderable element.  Also checks
-     * that none of its direct children elements are "line" elements 
+     * that none of its direct children elements are "line" elements
      * @see org.kuali.rice.krad.datadictionary.DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -50,7 +50,7 @@ public class AccountingLineViewDefinition extends DataDictionaryDefinitionBase {
     }
 
     /**
-     * Gets the elements attribute. 
+     * Gets the elements attribute.
      * @return Returns the elements.
      */
     public List<AccountingLineViewRenderableElementDefinition> getElements() {
@@ -64,7 +64,7 @@ public class AccountingLineViewDefinition extends DataDictionaryDefinitionBase {
     public void setElements(List<AccountingLineViewRenderableElementDefinition> elements) {
         this.elements = elements;
     }
-    
+
     /**
      * Creates a list of layout elements for this accounting line view
      * @param accountingLineClass the class of the accounting line to be rendered by this view

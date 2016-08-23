@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -54,7 +54,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the capitalAssetNumber attribute.
-     * 
+     *
      * @return Returns the capitalAssetNumber.
      */
     public Long getCapitalAssetNumber() {
@@ -63,7 +63,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the capitalAssetNumber attribute value.
-     * 
+     *
      * @param capitalAssetNumber The capitalAssetNumber to set.
      */
     public void setCapitalAssetNumber(Long capitalAssetNumber) {
@@ -72,7 +72,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the paymentSequenceNumber attribute.
-     * 
+     *
      * @return Returns the paymentSequenceNumber.
      */
     public Integer getPaymentSequenceNumber() {
@@ -81,7 +81,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the paymentSequenceNumber attribute value.
-     * 
+     *
      * @param paymentSequenceNumber The paymentSequenceNumber to set.
      */
     public void setPaymentSequenceNumber(Integer paymentSequenceNumber) {
@@ -90,7 +90,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the depreciationDate attribute.
-     * 
+     *
      * @return Returns the depreciationDate.
      */
     public Date getDepreciationDate() {
@@ -99,7 +99,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the depreciationDate attribute value.
-     * 
+     *
      * @param depreciationDate The depreciationDate to set.
      */
     public void setDepreciationDate(Date depreciationDate) {
@@ -108,7 +108,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the depreciableLifeLimit attribute.
-     * 
+     *
      * @return Returns the depreciableLifeLimit.
      */
     public Integer getDepreciableLifeLimit() {
@@ -117,7 +117,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the depreciableLifeLimit attribute value.
-     * 
+     *
      * @param depreciableLifeLimit The depreciableLifeLimit to set.
      */
     public void setDepreciableLifeLimit(Integer depreciableLifeLimit) {
@@ -126,7 +126,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the organizationPlantAccountNumber attribute.
-     * 
+     *
      * @return Returns the organizationPlantAccountNumber.
      */
     public String getOrganizationPlantAccountNumber() {
@@ -135,7 +135,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the organizationPlantAccountNumber attribute value.
-     * 
+     *
      * @param organizationPlantAccountNumber The organizationPlantAccountNumber to set.
      */
     public void setOrganizationPlantAccountNumber(String organizationPlantAccountNumber) {
@@ -144,7 +144,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the organizationPlantChartCode attribute.
-     * 
+     *
      * @return Returns the organizationPlantChartCode.
      */
     public String getOrganizationPlantChartCode() {
@@ -153,7 +153,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the organizationPlantChartCode attribute value.
-     * 
+     *
      * @param organizationPlantChartCode The organizationPlantChartCode to set.
      */
     public void setOrganizationPlantChartCode(String organizationPlantChartCode) {
@@ -162,7 +162,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the primaryDepreciationMethodCode attribute.
-     * 
+     *
      * @return Returns the primaryDepreciationMethodCode.
      */
     public String getPrimaryDepreciationMethodCode() {
@@ -171,7 +171,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the primaryDepreciationMethodCode attribute value.
-     * 
+     *
      * @param primaryDepreciationMethodCode The primaryDepreciationMethodCode to set.
      */
     public void setPrimaryDepreciationMethodCode(String primaryDepreciationMethodCode) {
@@ -180,7 +180,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the salvageAmount attribute.
-     * 
+     *
      * @return Returns the salvageAmount.
      */
     public KualiDecimal getSalvageAmount() {
@@ -189,7 +189,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the salvageAmount attribute value.
-     * 
+     *
      * @param salvageAmount The salvageAmount to set.
      */
     public void setSalvageAmount(KualiDecimal salvageAmount) {
@@ -198,7 +198,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the campusPlantChartCode attribute.
-     * 
+     *
      * @return Returns the campusPlantChartCode.
      */
     public String getCampusPlantChartCode() {
@@ -207,7 +207,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the campusPlantChartCode attribute value.
-     * 
+     *
      * @param campusPlantChartCode The campusPlantChartCode to set.
      */
     public void setCampusPlantChartCode(String campusPlantChartCode) {
@@ -216,7 +216,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the campusPlantAccountNumber attribute.
-     * 
+     *
      * @return Returns the campusPlantAccountNumber.
      */
     public String getCampusPlantAccountNumber() {
@@ -225,7 +225,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the campusPlantAccountNumber attribute value.
-     * 
+     *
      * @param campusPlantAccountNumber The campusPlantAccountNumber to set.
      */
     public void setCampusPlantAccountNumber(String campusPlantAccountNumber) {
@@ -234,7 +234,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the financialObjectSubTypeCode attribute.
-     * 
+     *
      * @return Returns the financialObjectSubTypeCode.
      */
     public String getFinancialObjectSubTypeCode() {
@@ -243,7 +243,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the financialObjectSubTypeCode attribute value.
-     * 
+     *
      * @param financialObjectSubTypeCode The financialObjectSubTypeCode to set.
      */
     public void setFinancialObjectSubTypeCode(String financialObjectSubTypeCode) {
@@ -252,7 +252,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the financialObjectTypeCode attribute.
-     * 
+     *
      * @return Returns the financialObjectTypeCode.
      */
     public String getFinancialObjectTypeCode() {
@@ -261,7 +261,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the financialObjectTypeCode attribute value.
-     * 
+     *
      * @param financialObjectTypeCode The financialObjectTypeCode to set.
      */
     public void setFinancialObjectTypeCode(String financialObjectTypeCode) {
@@ -270,7 +270,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the primaryDepreciationBaseAmount attribute.
-     * 
+     *
      * @return Returns the primaryDepreciationBaseAmount.
      */
     public KualiDecimal getPrimaryDepreciationBaseAmount() {
@@ -279,7 +279,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the primaryDepreciationBaseAmount attribute value.
-     * 
+     *
      * @param primaryDepreciationBaseAmount The primaryDepreciationBaseAmount to set.
      */
     public void setPrimaryDepreciationBaseAmount(KualiDecimal primaryDepreciationBaseAmount) {
@@ -288,7 +288,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the financialObjectCode attribute.
-     * 
+     *
      * @return Returns the financialObjectCode.
      */
     public String getFinancialObjectCode() {
@@ -297,7 +297,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the financialObjectCode attribute value.
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -306,7 +306,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the accumulatedPrimaryDepreciationAmount attribute.
-     * 
+     *
      * @return Returns the accumulatedPrimaryDepreciationAmount.
      */
     public KualiDecimal getAccumulatedPrimaryDepreciationAmount() {
@@ -315,7 +315,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the accumulatedPrimaryDepreciationAmount attribute value.
-     * 
+     *
      * @param accumulatedPrimaryDepreciationAmount The accumulatedPrimaryDepreciationAmount to set.
      */
     public void setAccumulatedPrimaryDepreciationAmount(KualiDecimal accumulatedPrimaryDepreciationAmount) {
@@ -324,7 +324,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber.
      */
     public String getSubAccountNumber() {
@@ -333,7 +333,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the subAccountNumber attribute value.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -342,7 +342,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the financialSubObjectCode attribute.
-     * 
+     *
      * @return Returns the financialSubObjectCode.
      */
     public String getFinancialSubObjectCode() {
@@ -351,7 +351,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the financialSubObjectCode attribute value.
-     * 
+     *
      * @param financialSubObjectCode The financialSubObjectCode to set.
      */
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
@@ -360,7 +360,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the projectCode attribute.
-     * 
+     *
      * @return Returns the projectCode.
      */
     public String getProjectCode() {
@@ -369,7 +369,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the projectCode attribute value.
-     * 
+     *
      * @param projectCode The projectCode to set.
      */
     public void setProjectCode(String projectCode) {
@@ -378,7 +378,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the transactionAmount attribute.
-     * 
+     *
      * @return Returns the transactionAmount.
      */
     public KualiDecimal getTransactionAmount() {
@@ -387,7 +387,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the transactionAmount attribute value.
-     * 
+     *
      * @param transactionAmount The transactionAmount to set.
      */
     public void setTransactionAmount(KualiDecimal transactionAmount) {
@@ -396,7 +396,7 @@ public class AssetPaymentInfo {
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -405,7 +405,7 @@ public class AssetPaymentInfo {
 
     /**
      * Sets the chartOfAccountsCode attribute value.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {

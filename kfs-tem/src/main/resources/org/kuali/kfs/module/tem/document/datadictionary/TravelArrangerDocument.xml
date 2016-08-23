@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -28,7 +28,7 @@
 		<property name="documentTypeName" value="TTA" />
 		<property name="documentClass"
 			value="org.kuali.kfs.module.tem.document.TravelArrangerDocument" />
-			
+
         <property name="businessRulesClass" value="org.kuali.kfs.sys.document.validation.impl.AccountingRuleEngineRuleBase"/>
 		<property name="documentAuthorizerClass"
 			value="org.kuali.kfs.module.tem.document.authorization.TravelArrangerAuthorizer" />
@@ -175,7 +175,7 @@
 	<bean id="TravelArrangerDocument-validations" parent="TravelArrangerDocument-validations-parentBean" />
 	<bean id="TravelArrangerDocument-validations-parentBean" abstract="true" class="org.springframework.beans.factory.config.MapFactoryBean">
 		<property name="sourceMap">
-			<map key-type="java.lang.Class"> 
+			<map key-type="java.lang.Class">
 				<entry>
 					<key><value>org.kuali.kfs.sys.document.validation.event.AttributedRouteDocumentEvent</value></key>
 					<value>TravelArranger-routeDocumentValidation</value>
@@ -188,7 +188,7 @@
 	<bean id="TravelArrangerDocument-workflowAttributes" parent="TravelArrangerDocument-workflowAttributes-parentBean" />
 
 	<bean id="TravelArrangerDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true">
-	
+
 		<property name="routingTypeDefinitions">
 			<map>
 				<entry key="Traveler" value-ref="TravelArrangerDocument-RoutingType-Traveler" />

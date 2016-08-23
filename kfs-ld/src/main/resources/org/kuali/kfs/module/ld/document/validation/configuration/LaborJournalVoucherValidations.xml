@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -26,7 +26,7 @@
 	<bean id="LaborJournalVoucherDocument-routeDocumentValidation" parent="LaborJournalVoucherDocument-routeDocumentValidation-parent" scope="prototype" />
 	<bean id="LaborJournalVoucherDocument-routeDocumentValidation-parent" parent="CompositeValidation" abstract="true" scope="prototype">
 		<property name="validations">
-			<list>		
+			<list>
 				<bean parent="AccountingDocument-oneSidedRequiredAccountingLinesCountValidation" scope="prototype">
 					<property name="requiredMinimumCount" value="1" />
 					<property name="parameterProperties">
@@ -52,7 +52,7 @@
 		</property>
 	</bean>
 
-	<bean id="LaborJournalVoucherDocument-saveDocumentValidation" parent="LaborJournalVoucherDocument-saveDocumentValidation-parent" scope="prototype" />	
+	<bean id="LaborJournalVoucherDocument-saveDocumentValidation" parent="LaborJournalVoucherDocument-saveDocumentValidation-parent" scope="prototype" />
 	<bean id="LaborJournalVoucherDocument-saveDocumentValidation-parent" parent="CompositeValidation" abstract="true" scope="prototype">
 		<property name="validations">
 			<list>
@@ -74,7 +74,7 @@
 		</property>
 	</bean>
 
-	<bean id="LaborJournalVoucherDocument-approveDocumentValidation" parent="LaborJournalVoucherDocument-approveDocumentValidation-parent" scope="prototype" />	
+	<bean id="LaborJournalVoucherDocument-approveDocumentValidation" parent="LaborJournalVoucherDocument-approveDocumentValidation-parent" scope="prototype" />
 	<bean id="LaborJournalVoucherDocument-approveDocumentValidation-parent" parent="CompositeValidation" abstract="true" scope="prototype">
 		<property name="validations">
 			<list>
@@ -93,7 +93,7 @@
 		</property>
 	</bean>
 
-	<bean id="LaborJournalVoucherDocument-blanketApproveDocumentValidation" parent="LaborJournalVoucherDocument-blanketApproveDocumentValidation-parent" scope="prototype" />	
+	<bean id="LaborJournalVoucherDocument-blanketApproveDocumentValidation" parent="LaborJournalVoucherDocument-blanketApproveDocumentValidation-parent" scope="prototype" />
 	<bean id="LaborJournalVoucherDocument-blanketApproveDocumentValidation-parent" parent="CompositeValidation" abstract="true" scope="prototype">
 		<property name="validations">
 			<list>
@@ -112,12 +112,12 @@
 		</property>
 	</bean>
 
-	<bean id="LaborJournalVoucherDocument-addAccountingLineValidation" parent="LaborJournalVoucherDocument-addAccountingLineValidation-parentBean" scope="prototype" />		
+	<bean id="LaborJournalVoucherDocument-addAccountingLineValidation" parent="LaborJournalVoucherDocument-addAccountingLineValidation-parentBean" scope="prototype" />
 	<bean id="LaborJournalVoucherDocument-addAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
 				<bean parent="LaborJournalVoucher-accountingLineValidations" scope="prototype"/> <!-- here to get the quit on fail issues correct -->
-					
+
 				<bean parent="AccountingDocument-accountingLineAccessibleValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
@@ -141,7 +141,7 @@
 						</list>
 					</property>
 				</bean>
-			
+
 				<bean parent="LaborJournalVoucherDocument-laborJournalVoucherEmployeeIDExistenceCheckValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
@@ -157,12 +157,12 @@
 						</list>
 					</property>
 					<property name="quitOnFail" value="false" />
-				</bean>							
+				</bean>
 			</list>
-		</property>	
+		</property>
 	</bean>
 
-	<bean id="LaborJournalVoucherDocument-deleteAccountingLineValidation" parent="LaborJournalVoucherDocument-deleteAccountingLineValidation-parent" scope="prototype" />	
+	<bean id="LaborJournalVoucherDocument-deleteAccountingLineValidation" parent="LaborJournalVoucherDocument-deleteAccountingLineValidation-parent" scope="prototype" />
 	<bean id="LaborJournalVoucherDocument-deleteAccountingLineValidation-parent" parent="CompositeValidation" abstract="true" scope="prototype">
 		<property name="validations">
 			<list>
@@ -171,12 +171,12 @@
 		</property>
 	</bean>
 
-	<bean id="LaborJournalVoucherDocument-updateAccountingLineValidation" parent="LaborJournalVoucherDocument-updateAccountingLineValidation-parentBean" scope="prototype" />		
+	<bean id="LaborJournalVoucherDocument-updateAccountingLineValidation" parent="LaborJournalVoucherDocument-updateAccountingLineValidation-parentBean" scope="prototype" />
 	<bean id="LaborJournalVoucherDocument-updateAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
-			<list>			
+			<list>
 				<bean parent="LaborJournalVoucher-updatedAccountingLineValidations" scope="prototype"/> <!-- here to get the quit on fail issues correct -->
-					
+
 				<bean parent="AccountingDocument-accountingLineAccessibleValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
@@ -206,7 +206,7 @@
 						</list>
 					</property>
 				</bean>
-			
+
 				<bean parent="LaborJournalVoucherDocument-laborJournalVoucherEmployeeIDExistenceCheckValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
@@ -224,8 +224,8 @@
 					<property name="quitOnFail" value="false" />
 				</bean>
 			</list>
-		</property>	
-	</bean>	
+		</property>
+	</bean>
 
 	<bean id="LaborJournalVoucher-accountingLineValidations" abstract="true" parent="CompositeValidation" scope="prototype"> <!-- here to get the quit on fail issues correct -->
 		<property name="validations">
@@ -317,11 +317,11 @@
 		</property>
 	</bean>
 
-	<bean id="LaborJournalVoucherDocument-reviewAccountingLineValidation" parent="LaborJournalVoucherDocument-reviewAccountingLineValidation-parentBean" scope="prototype" />		
+	<bean id="LaborJournalVoucherDocument-reviewAccountingLineValidation" parent="LaborJournalVoucherDocument-reviewAccountingLineValidation-parentBean" scope="prototype" />
 	<bean id="LaborJournalVoucherDocument-reviewAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
-				<bean parent="AccountingDocument-ReviewAccountingLine-DefaultValidation" scope="prototype" />				
+				<bean parent="AccountingDocument-ReviewAccountingLine-DefaultValidation" scope="prototype" />
 				<bean parent="LaborJournalVoucherDocument-laborJournalVoucherEmployeeIDExistenceCheckValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
@@ -339,6 +339,6 @@
 					<property name="quitOnFail" value="false" />
 				</bean>
 			</list>
-		</property>	
+		</property>
 	</bean>
 </beans>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -45,7 +45,7 @@ public class DynamicCollectionComparator<T> implements Comparator<T>, Serializab
 
     /**
      * private constructs a DynamicCollectionComparator.java.
-     * 
+     *
      * @param list the given collection that needs to be sorted
      * @param fieldName the field name ordered by
      * @param sortOrder the given sort order, either ascending or descending
@@ -64,7 +64,7 @@ public class DynamicCollectionComparator<T> implements Comparator<T>, Serializab
 
     /**
      * sort the given collection ordered by the given field name. Ascending order is used.
-     * 
+     *
      * @param list the given collection that needs to be sorted
      * @param fieldName the field name ordered by
      */
@@ -74,7 +74,7 @@ public class DynamicCollectionComparator<T> implements Comparator<T>, Serializab
 
     /**
      * sort the given collection ordered by the given field name
-     * 
+     *
      * @param list the given collection that needs to be sorted
      * @param fieldName the field name ordered by
      * @param sortOrder the given sort order, either ascending or descending
@@ -110,7 +110,7 @@ public class DynamicCollectionComparator<T> implements Comparator<T>, Serializab
      */
     public int compare(T object0, T object1, String fieldName) {
         int comparisonResult = 0;
-        
+
         try {
             Object propery0 = PropertyUtils.getProperty(object0, fieldName);
             Object propery1 = PropertyUtils.getProperty(object1, fieldName);
@@ -123,7 +123,7 @@ public class DynamicCollectionComparator<T> implements Comparator<T>, Serializab
             }
             else if(propery1 == null) {
                 comparisonResult = 1;
-            }            
+            }
             else if (propery0 instanceof Comparable) {
                 Comparable comparable0 = (Comparable) propery0;
                 Comparable comparable1 = (Comparable) propery1;
@@ -152,7 +152,7 @@ public class DynamicCollectionComparator<T> implements Comparator<T>, Serializab
 
     /**
      * convert the sort order as an interger. If the sort order is "DESC" (descending order), reutrn -1; otherwise, return 1.
-     * 
+     *
      * @return -1 if the sort order is "DESC" (descending order); otherwise, return 1.
      */
     public int getSortOrderAsNumber() {

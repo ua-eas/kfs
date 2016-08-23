@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -72,7 +72,7 @@ public class SubFundGroupServiceImpl implements SubFundGroupService {
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.coa.service.SubFundGroupService#getContractsAndGrantsDenotingValue(org.kuali.kfs.coa.businessobject.SubFundGroup)
      */
     public String getContractsAndGrantsDenotingValue(SubFundGroup subFundGroup) {
@@ -91,8 +91,8 @@ public class SubFundGroupServiceImpl implements SubFundGroupService {
     public Collection<String> getContractsAndGrantsDenotingValues() {
         return parameterService.getParameterValuesAsString(Account.class, KFSConstants.ChartApcParms.ACCOUNT_CG_DENOTING_VALUE);
     }
-    
-    
+
+
     /**
      * @see org.kuali.kfs.coa.service.SubFundGroupService#getContractsAndGrantsDenotingValueForMessage()
      */
@@ -101,7 +101,7 @@ public class SubFundGroupServiceImpl implements SubFundGroupService {
     }
 
     /**
-     * 
+     *
      * This checks to see if there is a value for checking if a Fund Group denotes Contracts and Grants
      * @return false if there is no value
      */
@@ -124,7 +124,7 @@ public class SubFundGroupServiceImpl implements SubFundGroupService {
     }
 
     /**
-     * 
+     *
      * This method injects the ParameterService
      * @param parameterService
      */
@@ -134,7 +134,7 @@ public class SubFundGroupServiceImpl implements SubFundGroupService {
 
     /**
      * Sets the subFundGroupDao attribute values.
-     * 
+     *
      * @param subFundGroupDao The subFundGroupDao to set.
      */
     public void setSubFundGroupDao(SubFundGroupDao subFundGroupDao) {
@@ -143,7 +143,7 @@ public class SubFundGroupServiceImpl implements SubFundGroupService {
 
     /**
      * Sets the dataDictionarySerivce
-     * 
+     *
      * @param dataDictionaryService The dataDictionaryService implementation to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {

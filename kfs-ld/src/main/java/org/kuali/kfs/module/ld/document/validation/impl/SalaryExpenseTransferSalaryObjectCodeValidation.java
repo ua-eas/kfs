@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,7 +30,7 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
- * Validates that an accounting line has salary object code 
+ * Validates that an accounting line has salary object code
  */
 public class SalaryExpenseTransferSalaryObjectCodeValidation extends GenericValidation {
     private AccountingLine accountingLineForValidation;
@@ -43,7 +43,7 @@ public class SalaryExpenseTransferSalaryObjectCodeValidation extends GenericVali
     public boolean validate(AttributedDocumentEvent event) {
         boolean result = true;
         AccountingLine accountingLine = getAccountingLineForValidation();
-        
+
         if (!isSalaryObjectCode(accountingLine)) {
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.OBJECT_CODE, LaborKeyConstants.INVALID_SALARY_OBJECT_CODE_ERROR );
             result = false;
@@ -53,31 +53,31 @@ public class SalaryExpenseTransferSalaryObjectCodeValidation extends GenericVali
 
     /**
      * Checks whether the given AccountingLine's Object Code is a salary object code.
-     * 
+     *
      * @param accountingLine The accounting line the salary object code will be retrieved from.
      * @return True if the given accounting line's object code is a salary object code, false otherwise.
-     */ 
+     */
     protected boolean isSalaryObjectCode(AccountingLine accountingLine) {
         boolean salaryObjectCode = true;
-        
+
         ExpenseTransferAccountingLine expenseTransferAccountingLine = (ExpenseTransferAccountingLine) accountingLine;
-        expenseTransferAccountingLine.refreshReferenceObject(KFSPropertyConstants.LABOR_OBJECT);   
-        
+        expenseTransferAccountingLine.refreshReferenceObject(KFSPropertyConstants.LABOR_OBJECT);
+
         LaborObject laborObject = expenseTransferAccountingLine.getLaborObject();
         if (ObjectUtils.isNull(laborObject)) {
             return false;
         }
-        
+
         boolean isItSalaryObjectCode = LaborConstants.SalaryExpenseTransfer.LABOR_LEDGER_SALARY_CODE.equals(laborObject.getFinancialObjectFringeOrSalaryCode());
         if (!isItSalaryObjectCode) {
             salaryObjectCode = false ;
         }
-        
+
         return salaryObjectCode ;
     }
 
     /**
-     * Gets the accountingLineForValidation attribute. 
+     * Gets the accountingLineForValidation attribute.
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {

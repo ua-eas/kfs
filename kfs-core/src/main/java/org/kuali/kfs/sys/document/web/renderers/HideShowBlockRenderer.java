@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,9 +36,9 @@ public class HideShowBlockRenderer implements Renderer {
     private HideShowBlock hideShowBlock;
     private HiddenTag tabStateTag = new HiddenTag();
     private KFSButtonTag showHideButton = new KFSButtonTag();
-    
+
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
@@ -46,7 +46,7 @@ public class HideShowBlockRenderer implements Renderer {
         cleanTabStateTag();
         cleanShowHideButton();
     }
-    
+
     /**
      * Cleans the tab state hidden tag
      */
@@ -56,7 +56,7 @@ public class HideShowBlockRenderer implements Renderer {
         tabStateTag.setProperty(null);
         tabStateTag.setValue(null);
     }
-    
+
     /**
      * Cleans the show/hide button up
      */
@@ -79,7 +79,7 @@ public class HideShowBlockRenderer implements Renderer {
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
         JspWriter out = pageContext.getOut();
-        
+
         try {
             out.write(buildLabelButtonTableOpening());
             renderTabStateTag(pageContext, parentTag);
@@ -95,14 +95,14 @@ public class HideShowBlockRenderer implements Renderer {
             throw new JspException("Difficulty rendering Hide/Show block", ioe);
         }
     }
-    
+
     /**
      * @return the HTML for the opening of the button table
      */
     protected String buildLabelButtonTableOpening() {
         return "<table class=\"datatable\" style=\"padding: 0px;\"><tr><td class=\"tab-subhead\">";
     }
-    
+
     /**
      * Renders a hidden tag which holds the current tab state
      * @param pageContext the pageContext to render to
@@ -114,18 +114,18 @@ public class HideShowBlockRenderer implements Renderer {
         tabStateTag.setParent(parentTag);
         tabStateTag.setProperty("tabStates("+hideShowBlock.getTabKey()+")");
         tabStateTag.setValue(hideShowBlock.getTabState());
-        
+
         tabStateTag.doStartTag();
         tabStateTag.doEndTag();
     }
-    
+
     /**
      * @return the HTML for the closing of the label button table
      */
     protected String buildLabelButtonTableClosing() {
         return "</td></tr></table>";
     }
-    
+
     /**
      * Renders the hide/show image button
      * @param pageContext the pageContext to render to
@@ -139,7 +139,7 @@ public class HideShowBlockRenderer implements Renderer {
         showHideButton.setStyleClass("btn btn-default small");
         showHideButton.setStyleId("tab-"+hideShowBlock.getTabKey()+"-imageToggle");
         showHideButton.setOnclick("javascript: return toggleTab(document, '"+hideShowBlock.getTabKey()+"');");
-        
+
         if (hideShowBlock.isShowing()) {
             showHideButton.setAlt("Hide "+hideShowBlock.getFullLabel());
             showHideButton.setTitle("Hide "+hideShowBlock.getFullLabel());
@@ -151,11 +151,11 @@ public class HideShowBlockRenderer implements Renderer {
             showHideButton.setValue("Show");
             showHideButton.setInnerHTML("Show");
         }
-        
+
         showHideButton.doStartTag();
         showHideButton.doEndTag();
     }
-    
+
     /**
      * Creates the HTML for the hiding/showing div and inner table to display children in
      * @return the HTML for the opening of the inner table
@@ -165,12 +165,12 @@ public class HideShowBlockRenderer implements Renderer {
         opening.append("<div id=\"tab-"+hideShowBlock.getTabKey()+"-div\" style=\"display: ");
         opening.append(hideShowBlock.isShowing() ? "block" : "none");
         opening.append("\">");
-        
+
         opening.append("<table class=\"standard\" style=\"width: 100%;\">");
-        
+
         return opening.toString();
     }
-    
+
     /**
      * Creates the HTML to close the inner table and hide/show div
      * @return the HTML for the closing of the inner table
@@ -178,10 +178,10 @@ public class HideShowBlockRenderer implements Renderer {
     protected String buildInnerTableClosing() {
         return "</table></div>";
     }
-    
+
 
     /**
-     * Gets the hideShowBlock attribute. 
+     * Gets the hideShowBlock attribute.
      * @return Returns the hideShowBlock.
      */
     public HideShowBlock getHideShowBlock() {

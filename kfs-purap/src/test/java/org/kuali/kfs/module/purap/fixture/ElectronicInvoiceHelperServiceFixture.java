@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,15 +29,15 @@ public class ElectronicInvoiceHelperServiceFixture {
     private static String vendorDUNSNumber;
     private static String poNumber;
     private static String invoiceDate;
-    private static String itemQty; 
-    
+    private static String itemQty;
+
     public static String getCorruptedCXML(String vendorDUNS,String poNbr){
         vendorDUNSNumber = vendorDUNS;
         poNumber = poNbr;
         //Adding some text at the end of a valid cxml
         return getXMLChunk().concat("TestForCorruptedXML");
     }
-    
+
     public static String getCXMLForPaymentDocCreation(String vendorDuns,String poNbr){
         vendorDUNSNumber = vendorDuns;
         poNumber = poNbr;
@@ -51,9 +51,9 @@ public class ElectronicInvoiceHelperServiceFixture {
         itemQty = "100";
         return getXMLChunk();
     }
-    
+
     private static String getXMLChunk(){
-        
+
         StringBuffer xmlChunk = new StringBuffer();
 
         xmlChunk.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
@@ -61,33 +61,33 @@ public class ElectronicInvoiceHelperServiceFixture {
         xmlChunk.append("<cXML payloadID=\"irrelevant\" xml:lang=\"en-US\" timestamp=").
                         append(getCXMLDate(true)).append("\n").
                         append(" version=\"1.2.014\">");
-        
+
         xmlChunk.append(getHeaderXMLChunk());
         xmlChunk.append(getRequestXMLChunk());
-        
+
         xmlChunk.append("</cXML>");
-        
+
         return xmlChunk.toString();
     }
-    
+
     private static StringBuffer getHeaderXMLChunk(){
-        
+
         StringBuffer header = new StringBuffer();
-        
+
         header.append("<Header>");
-        
+
         header.append("<From>");
         header.append("<Credential domain=\"DUNS\">");
         header.append("<Identity>" + vendorDUNSNumber + "</Identity>");
         header.append("</Credential>");
         header.append("</From>");
-        
+
         header.append("<To>");
         header.append("<Credential domain=\"DUNS\">");
         header.append("<Identity>IU</Identity>");
         header.append("</Credential>");
         header.append("</To>");
-        
+
         header.append("<Sender>");
         header.append("<Credential domain=\"DUNS\">");
         header.append("<Identity>" + vendorDUNSNumber + "</Identity>");
@@ -95,16 +95,16 @@ public class ElectronicInvoiceHelperServiceFixture {
         header.append("</Credential>");
         header.append("<UserAgent/>");
         header.append("</Sender>");
-        
+
         header.append("</Header>");
-        
+
         return header;
     }
-    
+
     private static StringBuffer getRequestXMLChunk(){
-        
+
         StringBuffer request = new StringBuffer();
-        
+
         request.append("<Request deploymentMode=\"production\">");
         request.append("<InvoiceDetailRequest>");
         request.append("<InvoiceDetailRequestHeader invoiceID=\"LDR3496\" purpose=\"standard\" invoiceDate=" + getCXMLDate(true) +">");
@@ -131,7 +131,7 @@ public class ElectronicInvoiceHelperServiceFixture {
         request.append("<PostalAddress>");
         request.append("<DeliverTo/><Street>230 North Milwaukee Avenue</Street><City>Vernon Hills</City><State>IL</State><PostalCode>60061</PostalCode>");
         request.append("<Country isoCountryCode=\"US\">US</Country>");
-        
+
         request.append("</PostalAddress></Contact>");
         request.append("<Contact role=\"shipTo\">");
         request.append("<Name xml:lang=\"en\">INDIANA UNIVERSITY SOUTH BEND</Name>");
@@ -139,25 +139,25 @@ public class ElectronicInvoiceHelperServiceFixture {
         request.append("<DeliverTo/>");
         request.append("<Street>1825 NORTHSIDE BLVD RM #NS075A</Street><City>SOUTH BEND</City><State>IN</State><PostalCode>466151501</PostalCode>");
         request.append("<Country isoCountryCode=\"US\">US</Country>");
-        
+
         request.append("</PostalAddress></Contact></InvoiceDetailShipping>");
         request.append("<InvoiceDetailPaymentTerm payInNumberOfDays=\"30\" percentageRate=\"0\"/>");
         request.append("</InvoiceDetailRequestHeader>");
-        
+
         request.append(getInvoiceOrderXMLChunk());
         request.append(getInvoiceSummaryXMLChunk());
-        
+
         request.append("</InvoiceDetailRequest>");
         request.append("</Request>");
 
         return request;
-        
+
     }
-    
+
     public static StringBuffer getInvoiceOrderXMLChunk(){
-        
+
         StringBuffer order = new StringBuffer();
-        
+
         order.append("<InvoiceDetailOrder>");
         order.append("<InvoiceDetailOrderInfo>");
         order.append("<OrderReference orderID=\"" + poNumber + "\" orderDate=" + getCXMLDate(false) + "/>");
@@ -171,14 +171,14 @@ public class ElectronicInvoiceHelperServiceFixture {
         order.append("<SubtotalAmount><Money currency=\"USD\">10.00</Money></SubtotalAmount>");
         order.append("</InvoiceDetailItem>");
         order.append("</InvoiceDetailOrder>");
-        
+
         return order;
     }
-    
+
     public static StringBuffer getInvoiceSummaryXMLChunk(){
-        
+
         StringBuffer summary = new StringBuffer();
-        
+
         summary.append("<InvoiceDetailSummary>");
         summary.append("<SubtotalAmount><Money currency=\"USD\">10</Money></SubtotalAmount>");
         summary.append("<Tax>");
@@ -196,26 +196,26 @@ public class ElectronicInvoiceHelperServiceFixture {
         summary.append("<DepositAmount><Money currency=\"USD\">2.00</Money></DepositAmount>");
         summary.append("<DueAmount><Money currency=\"USD\">10.00</Money></DueAmount>");
         summary.append("</InvoiceDetailSummary>");
-        
+
         return summary;
     }
-    
+
     private static String getCXMLDate(boolean includeTime){
-        
+
         StringBuffer dateString = new StringBuffer();
-        
+
         Date d = new Date();
         SimpleDateFormat date = PurApDateFormatUtils.getSimpleDateFormat(PurapConstants.NamedDateFormats.CXML_SIMPLE_DATE_FORMAT);
         SimpleDateFormat time = PurApDateFormatUtils.getSimpleDateFormat(PurapConstants.NamedDateFormats.CXML_SIMPLE_TIME_FORMAT);
-        
+
         dateString.append("\"" + date.format(d)).append("T");
         if (includeTime){
             dateString.append(time.format(d)).append("-05:00");
         }
-        
+
         dateString.append("\"");
-                
+
         return dateString.toString();
-        
+
     }
 }

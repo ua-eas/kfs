@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -64,7 +64,7 @@ import org.kuali.kfs.krad.util.UrlFactory;
  * <code>{@link org.kuali.kfs.module.ld.document.SalaryExpenseTransferDocument}</code> which creates source lines from a labor
  * ledger balance inquiry screen.<br/> <br/> This is a <code>{@link KualiMultipleValueLookupAction}</code> which required some
  * customization because requirements were not possible with displaytag.
- * 
+ *
  * @see org.kuali.kfs.module.ld.document.SalaryExpenseTransferDocument
  * @see org.kuali.kfs.module.ld.document.web.struts.SalaryExpenseTransferAction;
  * @see org.kuali.kfs.module.ld.document.web.struts.SalaryExpenseTransferForm;
@@ -76,7 +76,7 @@ public class BalanceInquiryLookupAction extends KualiMultipleValueLookupAction {
 
     /**
      * If there is no app param defined for the # rows/page, then this value will be used for the default
-     * 
+     *
      * @see KualiMultipleValueLookupAction#getMaxRowsPerPage(MultipleValueLookupForm)
      */
     public static final int DEFAULT_MAX_ROWS_PER_PAGE = 50;
@@ -112,11 +112,11 @@ public class BalanceInquiryLookupAction extends KualiMultipleValueLookupAction {
 
     /**
      * search - sets the values of the data entered on the form on the jsp into a map and then searches for the results.
-     * 
-     * KRAD Conversion: Lookupable performs customization of the results if 
-     * balance inquiry. The result rows are added to a collection 
+     *
+     * KRAD Conversion: Lookupable performs customization of the results if
+     * balance inquiry. The result rows are added to a collection
      * based on field's actual size if truncated is > 7.
-     * 
+     *
      * Fields are in data dictionary for bo Balance.
      */
     public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -203,7 +203,7 @@ public class BalanceInquiryLookupAction extends KualiMultipleValueLookupAction {
 
     /**
      * This method returns none of the selected results and redirects back to the lookup caller.
-     * 
+     *
      * @param mapping
      * @param form must be an instance of MultipleValueLookupForm
      * @param request
@@ -230,7 +230,7 @@ public class BalanceInquiryLookupAction extends KualiMultipleValueLookupAction {
 
     /**
      * This method does the processing necessary to return selected results and sends a redirect back to the lookup caller
-     * 
+     *
      * @param mapping
      * @param form must be an instance of MultipleValueLookupForm
      * @param request
@@ -304,16 +304,16 @@ public class BalanceInquiryLookupAction extends KualiMultipleValueLookupAction {
     /**
      * This method performs the lookup and returns a collection of lookup items. Also initializes values in the form that will allow
      * the multiple value lookup page to render
-     * 
+     *
      * @param multipleValueLookupForm
      * @param resultTable a list of result rows (used to generate what's shown in the UI). This list will be modified by this method
      * @param maxRowsPerPage
      * @param bounded whether the results will be bounded
      * @return the list of result BOs, possibly bounded by size
-     * 
-     * KRAD Conversion: Lookupable performs customization of the results if 
+     *
+     * KRAD Conversion: Lookupable performs customization of the results if
      * balance inquiry. The multiple value results are sorted.
-     * 
+     *
      * Fields are in data dictionary for bo Balance.
      */
     protected Collection performMultipleValueLookup(MultipleValueLookupForm multipleValueLookupForm, List<ResultRow> resultTable, int maxRowsPerPage, boolean bounded) {
@@ -366,9 +366,9 @@ public class BalanceInquiryLookupAction extends KualiMultipleValueLookupAction {
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiMultipleValueLookupAction#selectAll(org.kuali.rice.kns.web.struts.form.MultipleValueLookupForm,
      *      int)
-     * 
+     *
      * KRAD Conversion: Lookupable performs customization of the results.
-     * 
+     *
      * Fields are in data dictionary for bo Balance.
      */
     @Override
@@ -396,13 +396,13 @@ public class BalanceInquiryLookupAction extends KualiMultipleValueLookupAction {
 
     /**
      * put all enties into select object map. This implmentation only deals with the money amount objects.
-     * 
+     *
      * @param multipleValueLookupForm the given struts form
      * @param resultTable the given result table that holds all data being presented
      * @return the map containing all entries available for selection
-     * 
+     *
      * KRAD Conversion: Performs customization of the results. Prepares
-     * 
+     *
      * There is no use of data dictionary for fields.
      */
     private Map<String, String> getSelectedObjectIds(MultipleValueLookupForm multipleValueLookupForm, List<ResultRow> resultTable) {

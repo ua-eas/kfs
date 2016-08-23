@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -92,7 +92,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
      * Overrides the parent to call super.populate and then to call the two methods that are specific to loading the two select
      * lists on the page. In addition, this also makes sure that the credit and debit amounts are filled in for situations where
      * validation errors occur and the page reposts.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.pojo.PojoForm#populate(javax.servlet.http.HttpServletRequest)
      */
     @Override
@@ -117,7 +117,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * util method to get postingYear out of selectedAccountingPeriod
-     * 
+     *
      * @return Integer
      */
 
@@ -131,7 +131,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * util method to get posting period code out of selectedAccountingPeriod
-     * 
+     *
      * @return String
      */
     protected String getSelectedPostingPeriodCode() {
@@ -145,7 +145,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * Helper method to make casting easier
-     * 
+     *
      * @return VoucherDocument
      */
     public VoucherDocument getVoucherDocument() {
@@ -156,7 +156,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
      * Override the parent, to push the chosen accounting period and balance type down into the source accounting line object. In
      * addition, check the balance type to see if it's the "External Encumbrance" balance and alter the encumbrance update code on
      * the accounting line appropriately.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.form.KualiTransactionalDocumentFormBase#populateSourceAccountingLine(org.kuali.rice.krad.bo.SourceAccountingLine)
      */
     @Override
@@ -185,7 +185,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * This method retrieves the list of valid accounting periods to display.
-     * 
+     *
      * @return List
      */
     public List getAccountingPeriods() {
@@ -194,7 +194,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * This method sets the list of valid accounting periods to display.
-     * 
+     *
      * @param accountingPeriods
      */
     public void setAccountingPeriods(List accountingPeriods) {
@@ -203,7 +203,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * This method returns the reversal date in the format MMM d, yyyy.
-     * 
+     *
      * @return String
      */
     public String getFormattedReversalDate() {
@@ -212,7 +212,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * This method retrieves the selectedAccountingPeriod.
-     * 
+     *
      * @return String
      */
     public String getSelectedAccountingPeriod() {
@@ -234,7 +234,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * This method sets the selectedAccountingPeriod.
-     * 
+     *
      * @param selectedAccountingPeriod
      */
     public void setSelectedAccountingPeriod(String selectedAccountingPeriod) {
@@ -244,7 +244,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
     /**
      * Accessor to the list of <code>{@link VoucherAccountingLineHelper}</code> instances. This method retrieves the list of
      * helper line objects for the form.
-     * 
+     *
      * @return List
      */
     public List getVoucherLineHelpers() {
@@ -254,7 +254,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
     /**
      * This method retrieves the proper voucher helper line data structure at the passed in list index so that it matches up with
      * the correct accounting line at that index.
-     * 
+     *
      * @param index
      * @return VoucherAccountingLineHelper
      */
@@ -267,7 +267,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * This method sets the list of helper lines for the form.
-     * 
+     *
      * @param voucherLineHelpers
      */
     public void setVoucherLineHelpers(List voucherLineHelpers) {
@@ -276,7 +276,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * This method retrieves the credit amount of the new accounting line that was added.
-     * 
+     *
      * @return KualiDecimal
      */
     public KualiDecimal getNewSourceLineCredit() {
@@ -285,7 +285,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * This method sets the credit amount of the new accounting line that was added.
-     * 
+     *
      * @param newSourceLineCredit
      */
     public void setNewSourceLineCredit(KualiDecimal newSourceLineCredit) {
@@ -294,7 +294,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * This method retrieves the debit amount of the new accounting line that was added.
-     * 
+     *
      * @return KualiDecimal
      */
     public KualiDecimal getNewSourceLineDebit() {
@@ -303,7 +303,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * This method sets the debit amount of the new accounting line that was added.
-     * 
+     *
      * @param newSourceLineDebit
      */
     public void setNewSourceLineDebit(KualiDecimal newSourceLineDebit) {
@@ -312,7 +312,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * This method retrieves the voucher's debit total formatted as currency.
-     * 
+     *
      * @return String
      */
     public String getCurrencyFormattedDebitTotal() {
@@ -321,7 +321,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * This method retrieves the voucher's credit total formatted as currency.
-     * 
+     *
      * @return String
      */
     public String getCurrencyFormattedCreditTotal() {
@@ -330,7 +330,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * This method retrieves the voucher's total formatted as currency.
-     * 
+     *
      * @return String
      */
     public String getCurrencyFormattedTotal() {
@@ -377,7 +377,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
     /**
      * This method uses the newly entered debit and credit amounts to populate the new source line that is to be added to the
      * voucher document.
-     * 
+     *
      * @return boolean True if the processing was successful, false otherwise.
      */
     protected boolean processDebitAndCreditForNewSourceLine() {
@@ -392,7 +392,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
      * to the credit and debit amounts, populate the source lines' amount and debit/credit code fields appropriately, so that they
      * can be persisted accurately. This accounts for the fact that users may change the amounts and/or flip-flop the credit debit
      * amounts on any accounting line after the initial add of the accounting line.
-     * 
+     *
      * @return boolean
      */
     protected boolean processDebitAndCreditForAllSourceLines() {
@@ -420,7 +420,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
      * it's a debit entry, otherwise it's a credit entry. If a user enters a value into both fields, it will assume the debit value,
      * then when the br eval framework applies the "add" rule, it will bomb out. If first checks to make sure that there isn't a
      * value in both the credit and debit columns.
-     * 
+     *
      * @param sourceLine
      * @param debitAmount
      * @param creditAmount
@@ -457,7 +457,7 @@ public class VoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * This method checks to make sure that there isn't a value in both the credit and debit columns for a given accounting line.
-     * 
+     *
      * @param creditAmount
      * @param debitAmount
      * @param index if -1, it's a new line, if not -1, then its an existing line

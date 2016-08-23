@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -98,12 +98,12 @@ public class SponsorServiceImpl implements ExternalizableLookupableBusinessObjec
     public void setConfigurationService(ConfigurationService configurationService) {
         this.configurationService = configurationService;
     }
-    
+
     protected synchronized SponsorWebService getWebService() {
         if (sponsorWebService == null) {
             // first attempt to get the service from the KSB - works when KFS & KC share a Rice instance
             sponsorWebService = (SponsorWebService) GlobalResourceLoader.getService(KcConstants.Sponsor.SERVICE);
-    
+
             // if we couldn't get the service from the KSB, get as web service - for when KFS & KC have separate Rice instances
             if (sponsorWebService == null) {
                 LOG.warn("Couldn't get SponsorWebService from KSB, setting it up as SOAP web service - expected behavior for bundled Rice, but not when KFS & KC share a standalone Rice instance.");
@@ -120,7 +120,7 @@ public class SponsorServiceImpl implements ExternalizableLookupableBusinessObjec
         }
         return sponsorWebService;
     }
-    
+
     public void setWebService(SponsorWebService webService) {
         sponsorWebService = webService;
     }

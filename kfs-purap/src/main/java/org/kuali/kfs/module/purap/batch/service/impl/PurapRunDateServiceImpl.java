@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,7 +32,7 @@ public class PurapRunDateServiceImpl implements PurapRunDateService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurapRunDateServiceImpl.class);
 
     private ParameterService parameterService;
-    
+
     /**
      * Determines the date to assume when running the batch processes
      */
@@ -50,13 +50,13 @@ public class PurapRunDateServiceImpl implements PurapRunDateService {
         else {
             adjustTimeOfDay(currentCal, false);
         }
-        
+
         return currentCal.getTime();
     }
 
     /**
      * Adjusts the time of day if necessary, possibly depending on whether the execution time was before or after cutoff time
-     * 
+     *
      * @param calendar
      * @param appliedCutoff true if the execution time was before the cutoff
      */
@@ -68,7 +68,7 @@ public class PurapRunDateServiceImpl implements PurapRunDateService {
     }
     /**
      * Determines if the given calendar time is before the given cutoff time
-     * 
+     *
      * @param currentCal the current time
      * @param cutoffTime the "start of the day" cut off time
      * @return true if the current time is before the cutoff, false otherwise
@@ -128,7 +128,7 @@ public class PurapRunDateServiceImpl implements PurapRunDateService {
 
     /**
      * Parses a String representation of the cutoff time
-     * 
+     *
      * @param cutoffTime the cutoff time String to parse
      * @return a record holding the cutoff time
      */
@@ -165,7 +165,7 @@ public class PurapRunDateServiceImpl implements PurapRunDateService {
 
     /**
      * Retrieves the cutoff time from a repository.
-     * 
+     *
      * @return a time of day in the format "HH:mm:ss", where HH, mm, ss are defined in the java.text.SimpleDateFormat class. In
      *         particular, 0 <= hour <= 23, 0 <= minute <= 59, and 0 <= second <= 59
      */

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,15 +27,15 @@ function checkPersonal(line) {
     var miles = document.getElementById(baseElement + ".miles");
     var mileageRate = document.getElementById(baseElement + ".mileageRateId");
     var dailyTotal = document.getElementById(baseElement + ".total");
-    var mileageTotal = document.getElementById(baseElement + ".mileageTotal");   
+    var mileageTotal = document.getElementById(baseElement + ".mileageTotal");
     var breakfast = document.getElementById(baseElement + '.breakfast');
     var lunch = document.getElementById(baseElement + '.lunch');
-    var dinner = document.getElementById(baseElement + '.dinner');   
+    var dinner = document.getElementById(baseElement + '.dinner');
     var breakfastValue = document.getElementById(baseElement + '.breakfastValue');
     var lunchValue = document.getElementById(baseElement + '.lunchValue');
     var dinnerValue = document.getElementById(baseElement + '.dinnerValue');
-    var incidentalsValue = document.getElementById(baseElement + '.incidentalsValue'); 
-    
+    var incidentalsValue = document.getElementById(baseElement + '.incidentalsValue');
+
     //original values
     var perDiemOrig = document.getElementById(baseElement + '.mealsAndIncidentals.holder');
     var lodgingOrig = document.getElementById(baseElement + '.lodging.holder');
@@ -46,67 +46,67 @@ function checkPersonal(line) {
     var breakfastValueOrig = document.getElementById(baseElement + '.breakfastValue.holder');
     var lunchValueOrig = document.getElementById(baseElement + '.lunchValue.holder');
     var dinnerValueOrig = document.getElementById(baseElement + '.dinnerValue.holder');
-    var incidentalsValueOrig = document.getElementById(baseElement + '.incidentalsValue.holder');     
-    
+    var incidentalsValueOrig = document.getElementById(baseElement + '.incidentalsValue.holder');
+
     try{
 	    if(personal.checked) {
 	        dailyTotal.innerHTML = "0.00";
 	        mileageTotal.innerHTML = "0.00";
-	        
+
 	    	if(perDiem != null) {
 	    		perDiem.innerHTML = "0.00";
 	    	}
-	    	
+
 	    	if(lodging != null) {
 	    		lodging.value = "0.00";
 	    		lodging.disabled = true;
 	    	}
-	    	
+
 	    	if(miles != null) {
 	    		miles.value = "0";
 	    		miles.disabled = true;
 	    		mileageRate.disabled = true;
 	    	}
-	    	
+
 	        if(breakfast && lunch && dinner) {
 		        breakfast.disabled = true;
 		        lunch.disabled = true;
 		        dinner.disabled = true;
 	    	}
-	        
+
 	    	if(breakfastValue != null) {
 	    		breakfastValue.value = "0.00";
 	    		breakfastValue.disabled = true;
 	    	}
-	    	
+
 	    	if(lunchValue != null) {
 	    		lunchValue.value = "0.00";
 	    		lunchValue.disabled = true;
 	    	}
-	    	
+
 	    	if(dinnerValue != null) {
 	    		dinnerValue.value = "0.00";
 	    		dinnerValue.disabled = true;
 	    	}
-	    	
+
 	    	if(incidentalsValue != null) {
 	    		incidentalsValue.value = "0.00";
 	    		incidentalsValue.disabled = true;
 	    	}
-	    	       
-	    } else {    	
+
+	    } else {
 	        dailyTotal.innerHTML = dailyTotalOrig.value;
 	        mileageTotal.innerHTML = mileageTotalOrig.value;
-	        
+
 	    	if(perDiem != null) {
 	    		perDiem.innerHTML = perDiemOrig.value.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 	    	}
-	    	
+
 	    	if(lodging != null) {
 	    		lodging.value = lodgingOrig.value;
 	    		lodging.disabled = false;
 	    	}
-	    	
+
 	    	if(miles != null) {
 	    		miles.value = milesOrig.value;
 	    		if(mileageRateOrig.value != ''){
@@ -115,38 +115,38 @@ function checkPersonal(line) {
 	    			try{
 	    				mileageRate.selectedIndex = 0;
 	    			}catch(err){console.log(err)};
-	    		}	    		
+	    		}
 	    		miles.disabled = false;
 	    		mileageRate.disabled = false;
-	    	}	    	
-	        	        
+	    	}
+
 	        if(breakfast && lunch && dinner) {
 		        breakfast.disabled = false;
 		        lunch.disabled = false;
 		        dinner.disabled = false;
 	        }
-	        
+
 	    	if(breakfastValue != null) {
 	    		breakfastValue.value = breakfastValueOrig.value;
 	    		breakfastValue.disabled = false;
 	    	}
-	    	
+
 	    	if(lunchValue != null) {
 	    		lunchValue.value = lunchValueOrig.value;
 	    		lunchValue.disabled = false;
 	    	}
-	    	
+
 	    	if(dinnerValue != null) {
 	    		dinnerValue.value = dinnerValueOrig.value;
 	    		dinnerValue.disabled = false;
 	    	}
-	    	
+
 	    	if(incidentalsValue != null) {
 	    		incidentalsValue.value = incidentalsValueOrig.value;
 	    		incidentalsValue.disabled = false;
-	    	}	        
+	    	}
 	    }
-    }catch(err){console.log(err)};   
+    }catch(err){console.log(err)};
 }
 
 function checkDirectBilled(expenseType){
@@ -166,14 +166,14 @@ function getAllStates () {
 	if (document.getElementById("document.traveler.countryCode") != null){
 		var countryCode = document.getElementById("document.traveler.countryCode").value;
 		var dwrReply = {
-			    callback:function(data) {		    	
+			    callback:function(data) {
 			    	var stateCodes=data.split(";");
 			    	var stateObj = document.getElementById("document.traveler.stateCode");
 			    	var selected = stateObj.options[stateObj.selectedIndex].value;
 			    	stateObj.length = 0;
 			    	for(i=0;i<stateCodes.length-1; i++){
 			    		stateObj.options[i] = new Option(stateCodes[i], stateCodes[i]);
-			    	}		    	
+			    	}
 			    	stateObj.value = selected;
 			    },
 			    errorHandler:function( errorMessage ) {
@@ -182,7 +182,7 @@ function getAllStates () {
 			};
 		TravelDocumentService.getAllStates(countryCode, dwrReply);
 	}
-	
+
 }
 
 function update_travelerTypeCode () {
@@ -281,11 +281,11 @@ function updateMileage(mileageObjectID){
 			miles = parseInt(miles);
 		}
 		//alert("miles:" + miles + "\n" + "mileageRate:" + mileageRate + "\n" + "rate:" + rate + "\n");
-		
+
 		total = miles*mileageRate
 		document.getElementById("div_" + id + ".expenseAmount").innerHTML = padZeros(roundNumber(total, 2));
 		document.getElementById("div_" + id + ".convertedAmount").innerHTML = padZeros(roundNumber(total, 2));
-		
+
 		var counter = 0;
 		var detailTotal = 0;
 		var obj = document.getElementById("div_document.actualExpenses["+ lineNumber + "].expenseDetails[" + counter + "].expenseAmount");
@@ -295,7 +295,7 @@ function updateMileage(mileageObjectID){
 			counter++;
 			obj = document.getElementById("div_document.actualExpenses["+ lineNumber + "].expenseDetails[" + counter + "].expenseAmount");
 		}
-		
+
 		if (id.indexOf("document") == -1){
 			document.getElementById("div_document.actualExpenses[" + lineNumber + "].expenseAmount").innerHTML = padZeros(roundNumber(total + detailTotal, 2));
 			document.getElementById("div_document.actualExpenses[" + lineNumber + "].convertedAmount").innerHTML = padZeros(roundNumber((total + detailTotal), 2));
@@ -342,7 +342,7 @@ var recalculateDistributionRemainingAmount = function() {
 			distributedTotal += (subTotal - remainingAmount);
 		}
 	}
-	
+
 	var selectedDistributionAmount = total;
 	var expenseLimit = parseFloat(document.getElementById("document.expenseLimit").value);
 	if (expenseLimit && expenseLimit > 0) {
@@ -352,10 +352,10 @@ var recalculateDistributionRemainingAmount = function() {
 			selectedDistributionAmount = expenseLimit - distributedTotal;
 		}
 	}
-	
+
 	var selectedDistributionAmountControl = document.getElementById("selectedDistributionAmount");
 	selectedDistributionAmountControl.value = selectedDistributionAmount;
-	
+
 	// now loop through the assign account accounting lines and update their amounts
 	var newDistributionLineAmount = kualiElements["accountDistributionnewSourceLine.amount"];
 	if (newDistributionLineAmount) {

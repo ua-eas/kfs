@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -27,7 +27,7 @@
       	<!-- CSU 6702 BEGIN
       		<ref bean="AssetGlobalMaintenanceDocument-AccountingPeriod"/>
       	CSU 6702 END -->
-      
+
         <ref bean="AssetGlobalMaintenanceDocument-UniversityFiscalPeriodName"/>
         <ref bean="AssetGlobalMaintenanceDocument-AssetAcquisitionInformation"/>
         <ref bean="AssetGlobalMaintenanceDocument-AssetDetailInformation"/>
@@ -37,7 +37,7 @@
         <ref bean="AssetGlobalMaintenanceDocument-RecalculateSourceAmount"/>
       </list>
     </property>
-    
+
     <property name="defaultExistenceChecks">
       <list>
         <bean parent="ReferenceDefinition" p:attributeName="organizationOwnerChartOfAccounts" p:attributeToHighlightOnFail="organizationOwnerChartOfAccountsCode"/>
@@ -53,15 +53,15 @@
         <value>documentNumber</value>
       </list>
     </property>
-    
+
     <property name="documentTypeName" value="AA"/>
     <property name="businessRulesClass" value="org.kuali.kfs.module.cam.document.validation.impl.AssetGlobalRule"/>
     <property name="documentAuthorizerClass" value="org.kuali.kfs.module.cam.document.authorization.AssetGlobalAuthorizer"/>
-    <property name="promptBeforeValidationClass" value="org.kuali.kfs.module.cam.document.validation.impl.AssetGlobalPreRules"/>        
+    <property name="promptBeforeValidationClass" value="org.kuali.kfs.module.cam.document.validation.impl.AssetGlobalPreRules"/>
     <property name="documentPresentationControllerClass" value="org.kuali.kfs.module.cam.document.authorization.AssetGlobalPresentationController"/>
     <property name="workflowAttributes">
       <ref bean="AssetGlobalMaintenanceDocument-workflowAttributes"/>
-    </property> 
+    </property>
     <property name="webScriptFiles">
       <list>
         <value>../dwr/interface/AccountService.js</value>
@@ -84,7 +84,7 @@
       		</list>
     	</property>
   	</bean>
-  	
+
 	<!-- CSU 6702 BEGIN -->
   	<bean id="AssetGlobalMaintenanceDocument-AccountingPeriod" parent="AssetGlobalMaintenanceDocument-AccountingPeriod-parentBean"/>
   	<bean id="AssetGlobalMaintenanceDocument-AccountingPeriod-parentBean" abstract="true" parent="MaintainableSectionDefinition">
@@ -96,8 +96,8 @@
       		</list>
     	</property>
   	</bean>
-	<!-- CSU 6702 END -->  
-  
+	<!-- CSU 6702 END -->
+
   <bean id="AssetGlobalMaintenanceDocument-AssetAcquisitionInformation" parent="AssetGlobalMaintenanceDocument-AssetAcquisitionInformation-parentBean"/>
   <bean id="AssetGlobalMaintenanceDocument-AssetAcquisitionInformation-parentBean" abstract="true" parent="MaintainableSectionDefinition">
     <property name="id" value="assetAcquisitionType"/>
@@ -140,7 +140,7 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="AssetGlobalMaintenanceDocument-CampusLocation" parent="AssetGlobalMaintenanceDocument-CampusLocation-parentBean"/>
   <bean id="AssetGlobalMaintenanceDocument-CampusLocation-parentBean" abstract="true" parent="MaintainableSectionDefinition">
     <property name="id" value="Location Information"/>
@@ -166,7 +166,7 @@
             </list>
           </property>
           <property name="maintainableFields">
-            <list>  
+            <list>
               <bean parent="MaintainableFieldDefinition" p:name="campusCode" p:readOnlyAfterAdd="false" p:required="true"/>
               <bean parent="MaintainableFieldDefinition" p:name="buildingCode" p:readOnlyAfterAdd="false" p:required="false"/>
               <bean parent="MaintainableFieldDefinition" p:name="buildingRoomNumber" p:readOnlyAfterAdd="false" p:required="false"/>
@@ -201,18 +201,18 @@
                     <bean parent="MaintainableFieldDefinition" p:name="governmentTagNumber" p:readOnlyAfterAdd="false"/>
                     <bean parent="MaintainableFieldDefinition" p:name="campusTagNumber" p:readOnlyAfterAdd="false"/>
                     <bean parent="MaintainableFieldDefinition" p:name="nationalStockNumber" p:readOnlyAfterAdd="false"/>
-					<bean parent="MaintainableFieldDefinition" p:name="newCollectionRecord" p:defaultValue="true"/>	  
+					<bean parent="MaintainableFieldDefinition" p:name="newCollectionRecord" p:defaultValue="true"/>
                    	<!-- Asset Separate - START -->
-			       	<bean parent="MaintainableFieldDefinition" p:name="representativeUniversalIdentifier" p:readOnlyAfterAdd="false"/> 
+			       	<bean parent="MaintainableFieldDefinition" p:name="representativeUniversalIdentifier" p:readOnlyAfterAdd="false"/>
 			        <bean parent="MaintainableFieldDefinition" p:name="assetRepresentative.principalName"/>
 			        <bean parent="MaintainableFieldDefinition" p:name="assetRepresentative.name" p:unconditionallyReadOnly="true"/>
-                    <bean parent="MaintainableFieldDefinition" p:name="capitalAssetTypeCode" p:readOnlyAfterAdd="false"/> 
-                   	<bean parent="MaintainableFieldDefinition" p:name="capitalAssetDescription" p:readOnlyAfterAdd="false"/> 
+                    <bean parent="MaintainableFieldDefinition" p:name="capitalAssetTypeCode" p:readOnlyAfterAdd="false"/>
+                   	<bean parent="MaintainableFieldDefinition" p:name="capitalAssetDescription" p:readOnlyAfterAdd="false"/>
                    	<bean parent="MaintainableFieldDefinition" p:name="manufacturerName" p:readOnlyAfterAdd="false"/>
-                   	<bean parent="MaintainableFieldDefinition" p:name="organizationText" p:readOnlyAfterAdd="false"/>  
+                   	<bean parent="MaintainableFieldDefinition" p:name="organizationText" p:readOnlyAfterAdd="false"/>
 					<bean parent="MaintainableFieldDefinition" p:name="manufacturerModelNumber" p:readOnlyAfterAdd="false"/>
-                   	<bean parent="MaintainableFieldDefinition" p:name="separateSourceAmount" p:defaultValue="0.00" p:readOnlyAfterAdd="false"/> 
-                    <!-- Asset Separate - END -->                   
+                   	<bean parent="MaintainableFieldDefinition" p:name="separateSourceAmount" p:defaultValue="0.00" p:readOnlyAfterAdd="false"/>
+                    <!-- Asset Separate - END -->
                   </list>
                 </property>
               </bean>
@@ -222,13 +222,13 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="AssetGlobalMaintenanceDocument-AddPayments" parent="AssetGlobalMaintenanceDocument-AddPayments-parentBean"/>
   <bean id="AssetGlobalMaintenanceDocument-AddPayments-parentBean" abstract="true" parent="MaintainableSectionDefinition">
     <property name="id" value="Add Payments"/>
     <property name="title" value="Add Payments"/>
     <property name="maintainableItems">
-      <list>      	
+      <list>
         <bean parent="AssetGlobalMaintenanceDocument-AddPayments-MaintainableCollectionDefinition"/>
         <bean parent="MaintainableSubSectionHeaderDefinition" p:name="Total Payment Amount"/>
         <bean parent="MaintainableFieldDefinition" p:name="totalAssetPaymentAmount" p:unconditionallyReadOnly="true"/>
@@ -252,11 +252,11 @@
            <bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode" p:readOnlyAfterAdd="true" p:required="true"/>
            <bean parent="MaintainableFieldDefinition" p:name="accountNumber" p:readOnlyAfterAdd="true" p:required="true" p:webUILeaveFieldFunction="onblur_accountNumber_pay"/>
            <bean parent="MaintainableFieldDefinition" p:name="subAccountNumber" p:readOnlyAfterAdd="true"/>
-           <bean parent="MaintainableFieldDefinition" p:name="financialObjectCode" p:readOnlyAfterAdd="true" p:required="true" p:overrideLookupClass="org.kuali.kfs.coa.businessobject.ObjectCode" p:overrideFieldConversions="chartOfAccountsCode:chartOfAccountsCode,financialObjectCode:financialObjectCode"/>             
+           <bean parent="MaintainableFieldDefinition" p:name="financialObjectCode" p:readOnlyAfterAdd="true" p:required="true" p:overrideLookupClass="org.kuali.kfs.coa.businessobject.ObjectCode" p:overrideFieldConversions="chartOfAccountsCode:chartOfAccountsCode,financialObjectCode:financialObjectCode"/>
            <bean parent="MaintainableFieldDefinition" p:name="financialSubObjectCode" p:readOnlyAfterAdd="true" p:overrideLookupClass="org.kuali.kfs.coa.businessobject.SubObjectCode" p:overrideFieldConversions="financialSubObjectCode:financialSubObjectCode,chartOfAccountsCode:chartOfAccountsCode,accountNumber:accountNumber,financialObjectCode:financialObjectCode"/>
            <bean parent="MaintainableFieldDefinition" p:name="projectCode" p:readOnlyAfterAdd="true"/>
            <bean parent="MaintainableFieldDefinition" p:name="organizationReferenceId" p:readOnlyAfterAdd="true"/>
-           <bean parent="MaintainableFieldDefinition" p:name="expenditureFinancialSystemOriginationCode" p:readOnlyAfterAdd="true"/>                    
+           <bean parent="MaintainableFieldDefinition" p:name="expenditureFinancialSystemOriginationCode" p:readOnlyAfterAdd="true"/>
            <bean parent="MaintainableFieldDefinition" p:name="expenditureFinancialDocumentNumber" p:readOnlyAfterAdd="true" p:required="false"/>
            <bean parent="MaintainableFieldDefinition" p:name="expenditureFinancialDocumentTypeCode" p:overrideLookupClass="org.kuali.kfs.module.cam.businessobject.AssetPaymentDocumentType" p:overrideFieldConversions="expenditureFinancialDocumentTypeCode:expenditureFinancialDocumentTypeCode" p:readOnlyAfterAdd="true" p:required="false"/>
            <bean parent="MaintainableFieldDefinition" p:name="purchaseOrderNumber" p:readOnlyAfterAdd="true"/>
@@ -319,7 +319,7 @@
 	    		</list>
 	    	</property>
 	    </bean>
-    
+
 	    <bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
 	    	<property name="searchingAttribute">
 	    		<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -333,7 +333,7 @@
 	    		</list>
 	    	</property>
 	    </bean>
-    
+
 	    <bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
 	    	<property name="searchingAttribute">
 	    		<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -347,7 +347,7 @@
 	    		</list>
 	    	</property>
 	    </bean>
-    
+
 	    <bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
 	    	<property name="searchingAttribute">
 	    		<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -369,5 +369,5 @@
     		<entry key="OrganizationHierarchy" value-ref="RoutingType-CapitalAssetManagementComplexMaintenanceDocument-OrganizationHierarchy"/>
     	</map>
     </property>
-  </bean>  
+  </bean>
 </beans>

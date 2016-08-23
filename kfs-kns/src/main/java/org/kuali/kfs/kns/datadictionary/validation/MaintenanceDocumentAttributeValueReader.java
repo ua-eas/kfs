@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,8 +42,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class provides legacy processing for maintenance documents in the dictionary validation service implementation. 
- * 
+ * This class provides legacy processing for maintenance documents in the dictionary validation service implementation.
+ *
  * @deprecated As of release 2.0
  */
 @Deprecated
@@ -52,31 +52,31 @@ public class MaintenanceDocumentAttributeValueReader extends DictionaryObjectAtt
 	protected Map<String, Class<?>> attributeTypeMap;
 	protected Map<String, Object> attributeValueMap;
 	//protected Map<String, PropertyDescriptor> beanInfo;
-	
+
 	private final static Logger LOG = Logger.getLogger(MaintenanceDocumentAttributeValueReader.class);
-	
+
 	private List<Constrainable> attributeDefinitions;
 	private Map<String, AttributeDefinition> attributeDefinitionMap;
-	
+
 	public MaintenanceDocumentAttributeValueReader(Object object, String entryName, MaintenanceDocumentEntry entry, PersistenceStructureService persistenceStructureService) {
 		super(object, entryName, entry);
-		
+
 		//if (object != null)
 		//	this.beanInfo = getBeanInfo(object.getClass());
-		
+
 		this.attributeTypeMap = new HashMap<String, Class<?>>();
-		this.attributeValueMap = new HashMap<String, Object>();		
-		
+		this.attributeValueMap = new HashMap<String, Object>();
+
 		this.attributeDefinitions = new LinkedList<Constrainable>();
 		this.attributeDefinitionMap = new HashMap<String, AttributeDefinition>();
 		for (MaintainableSectionDefinition sectionDefinition : entry.getMaintainableSections()) {
 			List<? extends MaintainableItemDefinition> itemDefinitions = sectionDefinition.getMaintainableItems();
-			
+
 			for (MaintainableItemDefinition itemDefinition : itemDefinitions) {
 				if (itemDefinition instanceof MaintainableFieldDefinition) {
 					String itemDefinitionName = itemDefinition.getName();
 					AttributeDefinition attributeDefinition = KRADServiceLocatorWeb.getDataDictionaryService().getAttributeDefinition(object.getClass().getName(), itemDefinitionName);
-						
+
 						//entry.getAttributeDefinition(attributeName);
 					boolean isAttributeDefined = attributeDefinition != null;
 						//getDataDictionaryService().isAttributeDefined(businessObject.getClass(), itemDefinition.getName());
@@ -106,17 +106,17 @@ public class MaintenanceDocumentAttributeValueReader extends DictionaryObjectAtt
 						} catch (IllegalAccessException e) {
 							LOG.warn("Failed to invoke read method on object when looking for " + itemDefinitionName + " as a field of " + entry.getDocumentTypeName(), e);
 						} catch (InvocationTargetException e) {
-							LOG.warn("Failed to invoke read method on object when looking for " + itemDefinitionName + " as a field of " + entry.getDocumentTypeName(), e);						
+							LOG.warn("Failed to invoke read method on object when looking for " + itemDefinitionName + " as a field of " + entry.getDocumentTypeName(), e);
 			        	} catch (NoSuchMethodException e) {
                             LOG.warn("Failed to find property description on object when looking for " + itemDefinitionName + " as a field of " + entry.getDocumentTypeName(), e);
                         }
-			    		
+
 			        }
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * @see AttributeValueReader#getDefinition(java.lang.String)
 	 */
@@ -138,7 +138,7 @@ public class MaintenanceDocumentAttributeValueReader extends DictionaryObjectAtt
 		AttributeDefinition attributeDefinition = attributeDefinitionMap != null ? attributeDefinitionMap.get(attributeName) : null;
 		return attributeDefinition != null ? attributeDefinition.getLabel()  : attributeName;
 	}
-	
+
 	/**
 	 * @see AttributeValueReader#getType(java.lang.String)
 	 */
@@ -162,5 +162,5 @@ public class MaintenanceDocumentAttributeValueReader extends DictionaryObjectAtt
 	//	}
 	//	return properties;
 	//}
-	
+
 }

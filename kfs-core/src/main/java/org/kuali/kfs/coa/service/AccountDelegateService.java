@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,33 +31,33 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObject;
  * An interface of services to support account delegate logic
  */
 public interface AccountDelegateService {
-    
+
     /**
-     * 
+     *
      * This method checks for any MaintenanceLocks that would block the creation of this document
      * @param global The AccountDelegateGlobalMaintainableImpl to check against.
      * @param docNumber The document number of the AccountDelegateGlobalMaintainableImpl in question.
      * @return the documentNumber of the locking record or null if none.
      */
-    
+
     public String getLockingDocumentId(AccountDelegateGlobalMaintainableImpl global, String docNumber);
-    
+
     /**
-     * 
+     *
      * This method checks for any MaintenanceLocks that would block the creation of this document
      * @param delegate The AccountDelegateMaintainableImpl to check against.
      * @param docNumber The document number of the AccountDelegateMaintainableImpl in question.
      * @return the documentNumber of the locking record or null if none.
      */
     public String getLockingDocumentId(AccountDelegateMaintainableImpl delegate, String docNumber);
-    
+
     /**
      * Builds an appropriate maintainable with the given account delegate as the business object
      * @param delegate the account delegate to wrap in a maintainable
      * @return an appropriate maintainable
      */
     public abstract FinancialSystemMaintainable buildMaintainableForAccountDelegate(AccountDelegate delegate);
-    
+
     /**
      * Retrieves all active account delegations which delegate to the given Person
      * @param principalId a principal id of the person to find account delegations for
@@ -72,36 +72,36 @@ public interface AccountDelegateService {
      * @return true if the principal is a primary account delegate, false otherwise
      */
     public abstract boolean isPrincipalInAnyWayShapeOrFormPrimaryAccountDelegate(String principalId);
-    
+
     /**
-     * 
+     *
      * Determines if the given principal is an active delegate for any non-closed account
      * @param principalId the principal ID to check secondary account delegations for
      * @return true if the principal is a secondary account delegate, false otherwise
      */
     public abstract boolean isPrincipalInAnyWayShapeOrFormSecondaryAccountDelegate(String principalId);
-    
+
     /**
      * Saves the given account delegate to the persistence store
      * @param accountDelegate the account delegate to save
      */
     public abstract void saveForMaintenanceDocument(AccountDelegate accountDelegate);
-    
+
     /**
      * Persists the given account delegate global maintenance document inactivations
      * @param delegatesToInactivate the List of delegates to inactivate
      */
     public abstract void saveInactivationsForGlobalMaintenanceDocument(List<PersistableBusinessObject> delegatesToInactivate);
-    
+
     /**
      * Persists the given account delegate global maintenance document changes
      * @param delegatesToChange the List of delegates to change
      */
     public abstract void saveChangesForGlobalMaintenanceDocument(List<PersistableBusinessObject> delegatesToChange);
-    
+
     /**
      * Updates the role that this delegate is part of, to account for the changes in this delegate
      */
     public abstract void updateDelegationRole();
-    
+
 }

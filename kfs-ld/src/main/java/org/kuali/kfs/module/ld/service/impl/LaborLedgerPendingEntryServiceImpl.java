@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -82,7 +82,7 @@ public class LaborLedgerPendingEntryServiceImpl implements LaborLedgerPendingEnt
 
     /**
      * Invokes generateEntries method on the salary expense transfer document.
-     * 
+     *
      * @param document - document whose pending entries need generated
      * @return whether the business rules succeeded
      */
@@ -164,7 +164,7 @@ public class LaborLedgerPendingEntryServiceImpl implements LaborLedgerPendingEnt
 
     /**
      * Sets the laborLedgerPendingEntryDao attribute value.
-     * 
+     *
      * @param laborLedgerPendingEntryDao The laborLedgerPendingEntryDao to set.
      */
     public void setLaborLedgerPendingEntryDao(LaborLedgerPendingEntryDao laborLedgerPendingEntryDao) {
@@ -173,7 +173,7 @@ public class LaborLedgerPendingEntryServiceImpl implements LaborLedgerPendingEnt
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -182,7 +182,7 @@ public class LaborLedgerPendingEntryServiceImpl implements LaborLedgerPendingEnt
 
     /**
      * Sets the universityDateService.
-     * 
+     *
      * @param universityDateService
      */
     public void setUniversityDateService(UniversityDateService universityDateService) {
@@ -191,7 +191,7 @@ public class LaborLedgerPendingEntryServiceImpl implements LaborLedgerPendingEnt
 
     /**
      * Sets the generalLedgerPendingEntryService.
-     * 
+     *
      * @param generalLedgerPendingEntryService
      */
     public void setGeneralLedgerPendingEntryService(GeneralLedgerPendingEntryService generalLedgerPendingEntryService) {

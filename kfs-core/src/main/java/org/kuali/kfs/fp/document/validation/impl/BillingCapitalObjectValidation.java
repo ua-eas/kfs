@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,7 +32,7 @@ import org.kuali.kfs.kns.service.DictionaryValidationService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
- * Validates that an accounting line does not have a capital object object code 
+ * Validates that an accounting line does not have a capital object object code
  */
 public class BillingCapitalObjectValidation extends GenericValidation {
     private ParameterService parameterService;
@@ -45,10 +45,10 @@ public class BillingCapitalObjectValidation extends GenericValidation {
      */
     public boolean validate(AttributedDocumentEvent event) {
         boolean result = true;
-        
+
         // validate accounting line business object
         SpringContext.getBean(DictionaryValidationService.class).validateBusinessObject(accountingLineForValidation);
-        
+
         // Don't bother running other validations if the accounting line isn't valid
         if(GlobalVariables.getMessageMap().getNumberOfPropertiesWithErrors() < 1) {
             if (accountingLineForValidation.isSourceAccountingLine() && isCapitalObject(accountingLineForValidation)) {
@@ -56,7 +56,7 @@ public class BillingCapitalObjectValidation extends GenericValidation {
                 result = false;
             }
             // TODO phase II
-            // int pendPurchaseCount = 0; 
+            // int pendPurchaseCount = 0;
             // TODO need to do something with this but I have no idea what
             // if (!SUB_FUND_GROUP_CODE.CODE_EXTAGY.equals(subFundGroupCode) && restrictedCapitalObjectCodes.contains(objectSubTypeCode)
             // && (pendPurchaseCount <= 0))
@@ -66,7 +66,7 @@ public class BillingCapitalObjectValidation extends GenericValidation {
 
     /**
      * Checks whether the given AccountingLine's ObjectCode is a capital one.
-     * 
+     *
      * @param accountingLine The accounting line the object code will be retrieved from.
      * @return True if the given accounting line's object code is a capital code, false otherwise.
      */
@@ -76,7 +76,7 @@ public class BillingCapitalObjectValidation extends GenericValidation {
     }
 
     /**
-     * Gets the parameterService attribute. 
+     * Gets the parameterService attribute.
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -92,7 +92,7 @@ public class BillingCapitalObjectValidation extends GenericValidation {
     }
 
     /**
-     * Gets the accountingLineForValidation attribute. 
+     * Gets the accountingLineForValidation attribute.
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {

@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -23,11 +23,11 @@
 
 <%@ attribute name="capitalAssetInfoDetails" required="true" type="java.lang.Object"
 	description="The capital asset info object containing the data being displayed"%>
-<%@ attribute name="capitalAssetInfoDetailsName" required="true" description="The name of the capital asset info object"%>	
-<%@ attribute name="readOnly" required="false" description="Whether the capital asset information should be read only" %>	
-<%@ attribute name="capitalAssetInfoIndex" required="true" description="Gives the capital asset information index" %>	
-	
-<c:set var="attributes" value="${DataDictionary.CapitalAssetInformationDetail.attributes}" />		
+<%@ attribute name="capitalAssetInfoDetailsName" required="true" description="The name of the capital asset info object"%>
+<%@ attribute name="readOnly" required="false" description="Whether the capital asset information should be read only" %>
+<%@ attribute name="capitalAssetInfoIndex" required="true" description="Gives the capital asset information index" %>
+
+<c:set var="attributes" value="${DataDictionary.CapitalAssetInformationDetail.attributes}" />
 <c:set var="dataCellCssClass" value="datacell"/>
 
 <c:if test="${not empty capitalAssetInfoDetails}">
@@ -44,7 +44,7 @@
                 <kul:htmlAttributeHeaderCell literalLabel="Action"/>
             </c:if>
         </tr>
-	   
+
         <c:forEach items="${capitalAssetInfoDetails}" var="detailLine" varStatus="status">
             <tr class="${status.index % 2 == 0 ? "highlight" : ""}">
                 <c:set var="lineNumber" value="${status.index + 1}"/>

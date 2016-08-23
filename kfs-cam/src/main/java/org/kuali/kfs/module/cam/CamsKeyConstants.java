@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -241,10 +241,10 @@ public class CamsKeyConstants {
     public static class Asset {
         public static final String ERROR_INVALID_SALVAGE_AMOUNT = "error.asset.salvage.amount.not.valid";
         public static final String ERROR_INVALID_BOOKVALUE_AMOUNT = "error.asset.bookValue.amount.not.valid";
-        
+
         // for use with Asset Edit
         public static final String LAST_INVENTORY_DATE_UPDATE_NOTE_TEXT= "note.last.inventory.date.updated";
-        
+
         public static final String ERROR_OWNER_INVALID = "error.owner.invalid";
         public static final String ERROR_ACQUISITION_TYPE_CODE_INVALID = "error.acquisition.type.code.invalid";
         public static final String ERROR_ASSET_STATUS_INVALID = "error.asset.status.invalid";
@@ -252,7 +252,7 @@ public class CamsKeyConstants {
         public static final String ERROR_TYPE_CODE_INVALID = "error.type.code.invalid";
         public static final String ERROR_FINANCIAL_OBJECT_SUBTYPE_CODE_INVALID = "error.financial.object.subtype.code.invalid";
         public static final String ERROR_DEPRECATION_METHOD_CODE_INVALID = "error.deprecation.method.code.invalid";
-        
+
         public static final String ERROR_OWNER_INACTIVE = "error.owner.inactive";
         public static final String ERROR_ACQUISITION_TYPE_CODE_INACTIVE = "error.acquisition.type.code.inactive";
         public static final String ERROR_ASSET_STATUS_INACTIVE = "error.asset.status.inactive";
@@ -270,13 +270,13 @@ public class CamsKeyConstants {
         public static final String ERROR_ASSET_LOCKED = "error.asset.locked";
         public static final String ERROR_ASSET_MAINTENANCE_LOCKED = "error.asset.maintenance.locked";
     }
-    
+
     public static class PreTag {
         public static final String ERROR_PRE_TAG_INVALID_REPRESENTATIVE_ID = "error.invalid.representative.id";
         public static final String ERROR_PRE_TAG_NUMBER = "error.invalid.pre.tag.number";
         public static final String ERROR_PRE_TAG_DETAIL_EXCESS = "error.pre.tag.detail.excess";
     }
-    
+
 	public static class AssetPaymentAllocation {
 		public static final String ERROR_PERCENT_NOT_100 = "error.asset.payment.allocation.percent";
 		public static final String ERROR_AMOUNT_NOT_EQUAL = "error.asset.payment.allocation.not.equal";

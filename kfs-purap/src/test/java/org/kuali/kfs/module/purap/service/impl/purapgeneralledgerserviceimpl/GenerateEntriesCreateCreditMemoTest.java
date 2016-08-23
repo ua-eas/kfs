@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.module.purap.service.impl.purapgeneralledgerserviceimpl;
 
 import java.math.BigDecimal;
@@ -41,11 +59,11 @@ public class GenerateEntriesCreateCreditMemoTest {
     private BusinessObjectService businessObjectService;
     private PurchaseOrderService purchaseOrderService;
     private PurapAccountRevisionService purapAccountRevisionService;
-    
+
     private List<CreditMemoItem> cmItems;
     private List<PurchaseOrderItem> poItems;
     private List<Object> dynamicMocks;
-    
+
     @Before
     public void setUp() {
         purapGeneralLedgerService = new PurapGeneralLedgerServiceImpl();
@@ -64,19 +82,19 @@ public class GenerateEntriesCreateCreditMemoTest {
         cm = EasyMock.createMock(VendorCreditMemoDocument.class);
         po = EasyMock.createMock(PurchaseOrderDocument.class);
         preq = EasyMock.createMock(PaymentRequestDocument.class);
-        
+
         cmItems = new ArrayList<>();
         poItems = new ArrayList<>();
         dynamicMocks = new ArrayList<>();
     }
-    
+
     private void execute() {
         EasyMock.replay(cm, po, preq, purapAccountingService, purchaseOrderService,
                 generalLedgerPendingEntryService, businessObjectService, purapAccountRevisionService);
         for (Object mock : dynamicMocks) {
             EasyMock.replay(mock);
         }
-        
+
         purapGeneralLedgerService.generateEntriesCreateCreditMemo(cm);
         EasyMock.verify(cm, po, preq, purapAccountingService, purchaseOrderService,
                 generalLedgerPendingEntryService, businessObjectService, purapAccountRevisionService);
@@ -84,7 +102,7 @@ public class GenerateEntriesCreateCreditMemoTest {
             EasyMock.verify(mock);
         }
     }
-    
+
     private void prepareCreditMemo(boolean poSource, boolean preqSource) {
         cm.setGeneralLedgerPendingEntries(new ArrayList<>());
         EasyMock.expectLastCall();
@@ -97,28 +115,28 @@ public class GenerateEntriesCreateCreditMemoTest {
         EasyMock.expect(cm.getPostingYearFromPendingGLEntries()).andReturn(2015).anyTimes();
         EasyMock.expect(cm.getPostingPeriodCodeFromPendingGLEntries()).andReturn("01").anyTimes();
     }
-    
+
     private void prepareBusinessObjectService() {
         Map<String, String> fieldValues = new HashMap<>();
         fieldValues.put("financialSystemOriginationCode", PurapConstants.PURAP_ORIGIN_CODE);
         fieldValues.put("documentNumber", "1");
-        EasyMock.expect(businessObjectService.countMatching(GeneralLedgerPendingEntry.class, fieldValues)).andReturn(2); 
+        EasyMock.expect(businessObjectService.countMatching(GeneralLedgerPendingEntry.class, fieldValues)).andReturn(2);
         EasyMock.expect(businessObjectService.save(new ArrayList<>())).andReturn(null);
     }
-    
+
     private void baseExpectations(boolean poSource, boolean preqSource, List<SummaryAccount> summaryAccounts) {
         prepareCreditMemo(poSource, preqSource);
         prepareBusinessObjectService();
-        EasyMock.expect(purapAccountingService.generateSummaryAccountsWithNoZeroTotalsNoUseTax(cm)).andReturn(summaryAccounts);                
+        EasyMock.expect(purapAccountingService.generateSummaryAccountsWithNoZeroTotalsNoUseTax(cm)).andReturn(summaryAccounts);
     }
-    
+
     private void preparePO(String status) {
         EasyMock.expect(purchaseOrderService.getCurrentPurchaseOrder(1234)).andReturn(po);
         EasyMock.expect(businessObjectService.save(po)).andReturn(po);
         EasyMock.expect(po.getApplicationDocumentStatus()).andReturn(status);
         EasyMock.expect(po.getItems()).andReturn(poItems).anyTimes();
     }
-    
+
     private CreditMemoItem createCmItem(int lineNumber, double totalAmount, double quantity, ItemType type) {
         CreditMemoItem item = EasyMock.createMock(CreditMemoItem.class);
         EasyMock.expect(item.getItemLineNumber()).andReturn(lineNumber).anyTimes();
@@ -129,9 +147,9 @@ public class GenerateEntriesCreateCreditMemoTest {
         dynamicMocks.add(item);
         return item;
     }
-    
+
     private PurchaseOrderItem createPoItem(int lineNumber, double quantity, double amount, double invoicedQuantity, double newInvoicedQuantity, double invoicedAmount, double newInvoicedAmount,
-            double outstandingQuantity, double newOutstandingQuantity, double outstandingAmount, double newOutstandingAmount, 
+            double outstandingQuantity, double newOutstandingQuantity, double outstandingAmount, double newOutstandingAmount,
             double unitPrice, double taxAmount, ItemType type, List<PurApAccountingLine> sourceAccountingLines) {
         List<PurApAccountingLine> sourceAccountingLinesCopy = new ArrayList<>();
         sourceAccountingLinesCopy.addAll(sourceAccountingLines);
@@ -158,36 +176,36 @@ public class GenerateEntriesCreateCreditMemoTest {
         EasyMock.expectLastCall();
         item.setItemInvoicedTotalAmount(new KualiDecimal(newInvoicedAmount));
         EasyMock.expectLastCall();
-        
+
         dynamicMocks.add(item);
         return item;
     }
-    
-    private PurchaseOrderAccount createPoAccountingLine(double percent, double outstandingAmount, double newOutstandingAmount, Double altAmount, 
+
+    private PurchaseOrderAccount createPoAccountingLine(double percent, double outstandingAmount, double newOutstandingAmount, Double altAmount,
             String objectCode) {
         SourceAccountingLine acctString = new SourceAccountingLine();
         acctString.setFinancialObjectCode(objectCode);
-        
+
         PurchaseOrderAccount account = EasyMock.mock(PurchaseOrderAccount.class);
         EasyMock.expect(account.isEmpty()).andReturn(false).anyTimes();
         EasyMock.expect(account.getAccountLinePercent()).andReturn(new BigDecimal(percent)).anyTimes();
         EasyMock.expect(account.getItemAccountOutstandingEncumbranceAmount()).andReturn(new KualiDecimal(outstandingAmount));
         EasyMock.expect(account.generateSourceAccountingLine()).andReturn(acctString).anyTimes();
         EasyMock.expect(account.compareTo(EasyMock.isA(PurchaseOrderAccount.class))).andReturn(0).anyTimes();
-        
+
         account.setItemAccountOutstandingEncumbranceAmount(new KualiDecimal(newOutstandingAmount));
         EasyMock.expectLastCall();
-        
+
         if (altAmount != null) {
             EasyMock.expect(account.getItemAccountOutstandingEncumbranceAmount()).andReturn(new KualiDecimal(newOutstandingAmount));
             account.setItemAccountOutstandingEncumbranceAmount(new KualiDecimal(altAmount));
             EasyMock.expectLastCall();
         }
-        
+
         dynamicMocks.add(account);
         return account;
     }
-    
+
     private ItemType createItemType(String code, boolean lineItem, boolean quantityBased) {
         ItemType itemType = new ItemType();
         itemType.setItemTypeCode(code);
@@ -195,57 +213,57 @@ public class GenerateEntriesCreateCreditMemoTest {
         itemType.setAdditionalChargeIndicator(!lineItem);
         return itemType;
     }
-    
-    private void prepareItem(int lineNumber, double cmAmount, double cmQuantity, double poAmount, double poQuantity, 
+
+    private void prepareItem(int lineNumber, double cmAmount, double cmQuantity, double poAmount, double poQuantity,
             double invoicedQuantity, double newInvoicedQuantity, double invoicedAmount, double newInvoicedAmount,
             double outstandingQuantity, double newOutstandingQuantity, double outstandingAmount, double newOutstandingAmount,
             double unitPrice, double taxAmount, ItemType type, List<PurApAccountingLine> sourceAccountingLines) {
         cmItems.add(createCmItem(lineNumber, cmAmount, cmQuantity, type));
-        poItems.add(createPoItem(lineNumber, poQuantity, poAmount, invoicedQuantity, newInvoicedQuantity, invoicedAmount, newInvoicedAmount, 
+        poItems.add(createPoItem(lineNumber, poQuantity, poAmount, invoicedQuantity, newInvoicedQuantity, invoicedAmount, newInvoicedAmount,
                 outstandingQuantity, newOutstandingQuantity, outstandingAmount, newOutstandingAmount, unitPrice, taxAmount, type, sourceAccountingLines));
     }
-    
+
     private void prepareItemsNoAccountingLines() {
         ItemType lineItemQty = createItemType("LINEQ", true, true);
         ItemType lineItemAmt = createItemType("LINEA", true, false);
         ItemType addlItem = createItemType("ADDL", false, false);
-        
+
         // "Normal" quantity based item, no tax
         // PO: 4 @ $2.5 = $10.00
         // Previously invoiced: 1 @ $2.5 = $2.5
         // CM: 1 @ $2.5 = $2.5
         // Result: 4 @ $2.5 = $10.00 outstanding
         prepareItem(1, 2.5, 1, 10.0, 4, 1, 0, 2.5, 0.0, 3, 4, 7.5, 10.0, 2.5, 0, lineItemQty, new ArrayList<>());
-        
+
         // "Normal" amount based item, no tax
         // PO: $10.00
         // Previously invoiced: $4.00
         // CM: $2.00
         // Result: $8.00 outstanding
         prepareItem(2, 2.0, 0, 10.0, 0, 0, 0, 4.0, 2.0, 0, 0, 6.0, 8.0, 0, 0, lineItemAmt, new ArrayList<>());
-        
+
         // Below-the-line item, no tax
         // PO: $10
         // Previously invoiced: $3.00
         // CM: $1.00
         // Result: $8.00 outstanding
         prepareItem(3, 1.0, 0, 10.0, 0, 0, 0, 3.0, 2.0, 0, 0, 7.0, 8.0, 0, 0, addlItem, new ArrayList<>());
-        
+
         // Amount-based item, tax = $5.00 (tax is ignored in amount-based calculation)
         // PO: $10.00
         // Previously invoiced: $4.00
         // CM: $2.00
         // Result: $8.00 outstanding
         prepareItem(4, 2.0, 0, 10.0, 0, 0, 0, 4.0, 2.0, 0, 0, 6.0, 8.0, 0, 5.0, lineItemAmt, new ArrayList<>());
-        
+
         // Quantity based item, $0.40 tax (Tax should be prorated by quantity)
         // PO: 4 @ $2.5 = $10.00
         // Previously invoiced: 1 @ $2.5 = $2.5 (and $0.10 tax)
         // CM: 1 @ $2.5 = $2.5 (and $0.10 tax)
         // Result: 4 @ $2.5 + tax = $10.40 outstanding
         prepareItem(5, 2.5, 1, 10.0, 4, 1, 0, 2.5, 0.0, 3, 4, 7.80, 10.40, 2.5, 0.4, lineItemQty, new ArrayList<>());
-    }  
-    
+    }
+
     private void prepareItemsAccountingLines(boolean encumbranceOpen) {
         // All items in this set of scenarios have the following in common:
         // Amount-based item, no tax
@@ -255,42 +273,42 @@ public class GenerateEntriesCreateCreditMemoTest {
         // Result: $8000.00 outstanding
         ItemType lineItemAmt = createItemType("LINEA", true, false);
         List<PurApAccountingLine> sourceAccountingLines;
-        
+
         // All one accounting line
         sourceAccountingLines = new ArrayList<>();
         sourceAccountingLines.add(createPoAccountingLine(100, 7000.0, 8000.0, 8000.0, "A"));
         prepareItem(1, 1000.0, 0, 10000.0, 0, 0, 0, 3000.0, 2000.0, 0, 0, 7000.0, 8000.0, 0, 0, lineItemAmt, sourceAccountingLines);
-        
+
         // 50/50
         sourceAccountingLines = new ArrayList<>();
         sourceAccountingLines.add(createPoAccountingLine(50, 3500.0, 4000.0, null, "B"));
         sourceAccountingLines.add(createPoAccountingLine(50, 3500.0, 4000.0, 4000.0, "C"));
         prepareItem(2, 1000.0, 0, 10000.0, 0, 0, 0, 3000.0, 2000.0, 0, 0, 7000.0, 8000.0, 0, 0, lineItemAmt, sourceAccountingLines);
-        
+
         // Rounding error to fix
         sourceAccountingLines = new ArrayList<>();
         sourceAccountingLines.add(createPoAccountingLine(66.66, 4666.2, 5332.8, null, "C"));
         sourceAccountingLines.add(createPoAccountingLine(33.33, 2333.8, 2667.1, 2667.2, "D"));
         prepareItem(3, 1000.0, 0, 10000.0, 0, 0, 0, 3000.0, 2000.0, 0, 0, 7000.0, 8000.0, 0, 0, lineItemAmt, sourceAccountingLines);
-        
+
         // Check that amounts combine correctly
         if (encumbranceOpen) {
             SourceAccountingLine acctString1 = new SourceAccountingLine();
             acctString1.setFinancialObjectCode("A");
             acctString1.setAmount(new KualiDecimal(1000));
-            
+
             SourceAccountingLine acctString2 = new SourceAccountingLine();
             acctString2.setFinancialObjectCode("B");
             acctString2.setAmount(new KualiDecimal(500));
-            
+
             SourceAccountingLine acctString3 = new SourceAccountingLine();
             acctString3.setFinancialObjectCode("C");
             acctString3.setAmount(new KualiDecimal(1166.6));
-            
+
             SourceAccountingLine acctString4 = new SourceAccountingLine();
             acctString4.setFinancialObjectCode("D");
             acctString4.setAmount(new KualiDecimal(333.4));
-            
+
             EasyMock.expect(cm.generateGeneralLedgerPendingEntries(EasyMock.eq(acctString1), EasyMock.anyObject())).andReturn(true);
             EasyMock.expect(cm.generateGeneralLedgerPendingEntries(EasyMock.eq(acctString2), EasyMock.anyObject())).andReturn(true);
             EasyMock.expect(cm.generateGeneralLedgerPendingEntries(EasyMock.eq(acctString3), EasyMock.anyObject())).andReturn(true);
@@ -303,38 +321,38 @@ public class GenerateEntriesCreateCreditMemoTest {
         baseExpectations(false, false, null);
         execute();
     }
-    
+
     @Test
     public void testClosedPONoItems() {
         baseExpectations(true, false, null);
-        preparePO(PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED);      
+        preparePO(PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED);
         EasyMock.expect(cm.getPurchaseOrderIdentifier()).andReturn(1234);
         execute();
     }
-    
+
     @Test
     public void testClosedPOFromPreqNoItems() {
         baseExpectations(false, true, null);
-        preparePO(PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED);       
+        preparePO(PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED);
         EasyMock.expect(cm.getPaymentRequestDocument()).andReturn(preq);
         EasyMock.expect(preq.getPurchaseOrderIdentifier()).andReturn(1234);
         execute();
     }
-    
+
     @Test
     public void testClosedPOWithItemsNoAccountingLines() {
         prepareItemsNoAccountingLines();
         baseExpectations(true, false, null);
-        preparePO(PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED);       
+        preparePO(PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED);
         EasyMock.expect(cm.getPurchaseOrderIdentifier()).andReturn(1234);
         execute();
     }
-    
+
     @Test
     public void testOpenPOWithItemsNoAccountingLines() {
         prepareItemsNoAccountingLines();
         baseExpectations(true, false, null);
-        preparePO(PurapConstants.PurchaseOrderStatuses.APPDOC_OPEN);      
+        preparePO(PurapConstants.PurchaseOrderStatuses.APPDOC_OPEN);
         EasyMock.expect(cm.getPurchaseOrderIdentifier()).andReturn(1234);
         cm.setGenerateEncumbranceEntries(true);
         EasyMock.expectLastCall();
@@ -342,21 +360,21 @@ public class GenerateEntriesCreateCreditMemoTest {
         EasyMock.expectLastCall();
         execute();
     }
-    
+
     @Test
     public void testClosedPOAccountingLines() {
         prepareItemsAccountingLines(false);
         baseExpectations(true, false, null);
-        preparePO(PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED);       
+        preparePO(PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED);
         EasyMock.expect(cm.getPurchaseOrderIdentifier()).andReturn(1234);
         execute();
     }
-    
+
     @Test
     public void testOpenPOAccountingLines() {
         prepareItemsAccountingLines(true);
         baseExpectations(true, false, null);
-        preparePO(PurapConstants.PurchaseOrderStatuses.APPDOC_OPEN);       
+        preparePO(PurapConstants.PurchaseOrderStatuses.APPDOC_OPEN);
         EasyMock.expect(cm.getPurchaseOrderIdentifier()).andReturn(1234);
         cm.setGenerateEncumbranceEntries(true);
         EasyMock.expectLastCall();
@@ -364,7 +382,7 @@ public class GenerateEntriesCreateCreditMemoTest {
         EasyMock.expectLastCall();
         execute();
     }
-    
+
     @Test
     public void testSummaryAccountHandling() {
         List<SummaryAccount> summaryAccounts = new ArrayList<>();

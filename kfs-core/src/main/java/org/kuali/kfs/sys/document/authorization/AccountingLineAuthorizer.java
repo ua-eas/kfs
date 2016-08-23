@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,7 +34,7 @@ public interface AccountingLineAuthorizer {
 
     /**
      * Determines which, if any, blocks whose children elements should not in any fashion be rendered
-     * 
+     *
      * @param accountingDocument the accounting document the line to authorize is owned by
      * @param accountingLine the accounting line that is being authorized against
      * @param newLine whether the line is a new line or not
@@ -44,7 +44,7 @@ public interface AccountingLineAuthorizer {
 
     /**
      * Determines what actions are available to act upon the given accounting line
-     * 
+     *
      * @param accountingDocument the accounting document the line to authorize is owned by
      * @param accountingLineRenderingContext a renderable context wrapping the accounting line that is being authorized against
      * @param accountingLinePropertyName the name of the property that represents the accounting line
@@ -57,7 +57,7 @@ public interface AccountingLineAuthorizer {
 
     /**
      * Determines if new lines should be rendered for the given accounting line group (identified by its property name)
-     * 
+     *
      * @param accountingDocument the document that has accounting lines being authorized
      * @param accountingGroupProperty the property of this accounting group
      * @return true if new lines should be displayed, false otherwise
@@ -66,7 +66,7 @@ public interface AccountingLineAuthorizer {
 
     /**
      * Determines if any entire group is rendered as editable, which means that a new line will appear
-     * 
+     *
      * @param accountingDocument the accounting document which the collection of line are on
      * @param accountingLineRenderingContexts the accounting lines of the group, wrapped in AccountingLineRenderingContext implementations
      * @param currentUser the current user
@@ -76,7 +76,7 @@ public interface AccountingLineAuthorizer {
 
     /**
      * determine whether the current user has permission to edit the given field in the given accounting line
-     * 
+     *
      * @param accountingDocument the given accounting document
      * @param accountingLine the given accounting line in the document
      * @param accountingLineCollectionProperty the property of the collection the given accounting line is in
@@ -88,10 +88,10 @@ public interface AccountingLineAuthorizer {
      * @return true if the the current user has permission to edit the given field in the given accounting line; otherwsie, false
      */
     public abstract boolean hasEditPermissionOnField(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editableLine, boolean editablePage, Person currentUser, Set<String> currentNodes);
-    
+
     /**
      * determine whether the current user has permission to edit the given accounting line as a whole
-     * 
+     *
      * @param accountingDocument the given accounting document
      * @param accountingLine the given accounting line in the document
      * @param accountingLineCollectionProperty the property of the group that holds these accounting lines

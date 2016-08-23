@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -112,7 +112,7 @@
         </dd:relationship>
         <dd:relationship objectAttribute="accountState">
             <dd:primitiveAttribute source="accountStateCode" target="code"/>
-        </dd:relationship> 
+        </dd:relationship>
 	<bean parent="RelationshipDefinition" p:objectAttributeName="laborBenefitRateCategory">
 		<property name="primitiveAttributes">
 			<list>
@@ -121,7 +121,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
       </list>
     </property>
   </bean>
@@ -135,7 +135,7 @@
       <ref bean="HiddenControl" />
     </property>
   </bean>
-  
+
   <bean id="AccountGlobal-accountExpirationDate" parent="AccountGlobal-accountExpirationDate-parentBean"/>
   <bean id="AccountGlobal-accountExpirationDate-parentBean" abstract="true" parent="Account-accountExpirationDate">
     <property name="required" value="false"/>
@@ -191,7 +191,7 @@
 		<property name="name" value="accountCfdaNumber" />
 		<property name="required" value="false" />
 	</bean>
-	
+
 	<bean id="AccountGlobal-continuationAccountNumber" parent="AccountGlobal-continuationAccountNumber-parentBean" />
 	<bean id="AccountGlobal-continuationAccountNumber-parentBean"
 		abstract="true" parent="Account-continuationAccountNumber">
@@ -281,13 +281,13 @@
 		abstract="true" parent="Account-accountManagerUser.principalName">
 		<property name="required" value="false" />
 	</bean>
- 
+
 	<bean id="AccountGlobal-laborBenefitRateCategoryCode" parent="AccountGlobal-laborBenefitRateCategoryCode-parentBean" />
 	<bean id="AccountGlobal-laborBenefitRateCategoryCode-parentBean"
 			abstract="true" parent="ExternalizableAttributeDefinitionProxy"
 		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.ld.LaborBenefitRateCategory"
-		p:sourceAttributeName="laborBenefitRateCategoryCode">	
-		<property name="name" value="laborBenefitRateCategoryCode"></property>		
+		p:sourceAttributeName="laborBenefitRateCategoryCode">
+		<property name="name" value="laborBenefitRateCategoryCode"></property>
 		<property name="required" value="false" />
 	</bean>
 

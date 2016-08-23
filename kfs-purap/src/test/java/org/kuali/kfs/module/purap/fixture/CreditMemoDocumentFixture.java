@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,7 +27,7 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 public enum CreditMemoDocumentFixture {
-    
+
     CM_ONLY_REQUIRED_PO_FIELDS(null, // paymentRequestIdentifier
             null,                   // creditMemoNumber
             null,                   // creditMemoDate
@@ -55,9 +55,9 @@ public enum CreditMemoDocumentFixture {
             PurchasingAccountsPayableDocumentFixture.CM_ONLY_REQUIRED_FIELDS,  // purapDocumentFixture
             AccountsPayableDocumentFixture.CM_ONLY_REQUIRED_FIELDS,             // apDocumentFixture
             new CreditMemoItemFixture[] {CreditMemoItemFixture.CM_QTY_UNRESTRICTED_ITEM_1} // creditMemoItemMultiFixtures
-            );            
-            
-  
+            );
+
+
     public final Integer paymentRequestIdentifier;
     public final String creditMemoNumber;
     public final Date creditMemoDate;
@@ -68,12 +68,12 @@ public enum CreditMemoDocumentFixture {
     public final String itemMiscellaneousCreditDescription;
     public final Date purchaseOrderEndDate;
     public final String accountsPayableProcessorIdentifier;
-    
+
     private PurchasingAccountsPayableDocumentFixture purapDocumentFixture;
     private AccountsPayableDocumentFixture apDocumentFixture;
     private CreditMemoItemFixture[] creditMemoItemFixtures;
-    
-    
+
+
     private CreditMemoDocumentFixture(
             Integer paymentRequestIdentifier,
             String creditMemoNumber,
@@ -88,7 +88,7 @@ public enum CreditMemoDocumentFixture {
             PurchasingAccountsPayableDocumentFixture purapDocumentFixture,
             AccountsPayableDocumentFixture apDocumentFixture,
             CreditMemoItemFixture[] creditMemoItemFixtures) {
-        
+
         this.paymentRequestIdentifier = paymentRequestIdentifier;
         this.creditMemoNumber = creditMemoNumber;
         this.creditMemoDate = creditMemoDate;
@@ -103,7 +103,7 @@ public enum CreditMemoDocumentFixture {
         this.creditMemoItemFixtures = creditMemoItemFixtures;
         this.accountsPayableProcessorIdentifier = accountsPayableProcessorIdentifier;
     }
-    
+
     public VendorCreditMemoDocument createCreditMemoDocument() {
         VendorCreditMemoDocument doc = apDocumentFixture.createCreditMemoDocument(purapDocumentFixture);
         doc.setPaymentRequestIdentifier(this.paymentRequestIdentifier);
@@ -117,13 +117,13 @@ public enum CreditMemoDocumentFixture {
         doc.setPurchaseOrderEndDate(this.purchaseOrderEndDate);
         doc.setAccountsPayableProcessorIdentifier(this.accountsPayableProcessorIdentifier);
         //manually set bank for now
-        doc.setBankCode("TEST");   
-        
-        for (CreditMemoItemFixture creditMemoItemFixture : creditMemoItemFixtures) { 
+        doc.setBankCode("TEST");
+
+        for (CreditMemoItemFixture creditMemoItemFixture : creditMemoItemFixtures) {
             creditMemoItemFixture.addTo(doc);
         }
-        
+
         return doc;
     }
-    
+
 }

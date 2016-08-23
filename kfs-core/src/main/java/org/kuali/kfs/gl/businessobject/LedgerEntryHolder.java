@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,7 +46,7 @@ public class LedgerEntryHolder {
     /**
      * add a given ledger entry into the holder. If there exists a ledger entry with the same key, then update the amount and count
      * fields of the ledger entry; otherwise, insert it into the holder.
-     * 
+     *
      * @param newLedgerEntry the given ledger entry
      * @param calculateTotals indicate if the subtotals and grand total need to be calculated
      */
@@ -76,7 +76,7 @@ public class LedgerEntryHolder {
 
     /**
      * update the subtotal using the given ledger entry
-     * 
+     *
      * @param newLedgerEntry a new ledger entry to add to the holder
      */
     private void updateSubtotal(LedgerEntryForReporting newLedgerEntry) {
@@ -99,7 +99,7 @@ public class LedgerEntryHolder {
 
     /**
      * update the grand total with the given ledger entry
-     * 
+     *
      * @param newLedgerEntry entry to help update the grand total
      */
     private void updateGrandTotal(LedgerEntryForReporting newLedgerEntry) {
@@ -108,7 +108,7 @@ public class LedgerEntryHolder {
 
     /**
      * Gets the grandTotal attribute.
-     * 
+     *
      * @return Returns the grandTotal.
      */
     public LedgerEntryForReporting getGrandTotal() {
@@ -117,7 +117,7 @@ public class LedgerEntryHolder {
 
     /**
      * Gets the ledgerEntries attribute.
-     * 
+     *
      * @return Returns the ledgerEntries.
      */
     public Map getLedgerEntries() {
@@ -126,7 +126,7 @@ public class LedgerEntryHolder {
 
     /**
      * Gets the subtotals attribute.
-     * 
+     *
      * @return Returns the subtotals.
      */
     public Map getSubtotals() {

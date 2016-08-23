@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -85,7 +85,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
         assertGlobalMessageMapContains(KFSPropertyConstants.ACCOUNT_NUMBER, RiceKeyConstants.ERROR_DOCUMENT_INVALID_VALUE_DENIED_VALUES_PARAMETER, new String[] { null, "PFIP", null, "PFRI, PFIP", null });
         assertEquals(false, actual);
     }
-    
+
     /**
      * Tests if a given sub fund group is allowed for an internal billing document
      * @param ibDoc the internal billing document to check
@@ -103,7 +103,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for a positive income
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_source_income_positveAmount() throws Exception {
@@ -115,7 +115,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a negative income
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_source_income_negativeAmount() throws Exception {
@@ -127,7 +127,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero income
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_source_income_zeroAmount() throws Exception {
@@ -140,7 +140,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for a positive expense
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_source_expense_positveAmount() throws Exception {
@@ -151,7 +151,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a negative expense
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_source_expense_negativeAmount() throws Exception {
@@ -163,7 +163,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero expense
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_source_expense_zeroAmount() throws Exception {
@@ -175,7 +175,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for a positive asset
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_source_asset_positveAmount() throws Exception {
@@ -187,7 +187,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a negative asset
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_source_asset_negativeAmount() throws Exception {
@@ -199,7 +199,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero asset
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_source_asset_zeroAmount() throws Exception {
@@ -211,7 +211,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for a positive liability
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_source_liability_positveAmount() throws Exception {
@@ -223,7 +223,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a negative liability
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_source_liability_negativeAmount() throws Exception {
@@ -235,7 +235,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero liability
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_source_liability_zeroAmount() throws Exception {
@@ -247,7 +247,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a positive income
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_target_income_positveAmount() throws Exception {
@@ -259,7 +259,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for a negative income
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_target_income_negativeAmount() throws Exception {
@@ -271,7 +271,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero income
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_target_income_zeroAmount() throws Exception {
@@ -284,7 +284,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a positive expense
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_target_expense_positveAmount() throws Exception {
@@ -296,7 +296,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false ir returned for a negative expense
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_target_expense_negativeAmount() throws Exception {
@@ -308,7 +308,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero expense
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_target_expense_zeroAmount() throws Exception {
@@ -320,7 +320,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a positive asset
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_target_asset_positveAmount() throws Exception {
@@ -332,7 +332,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for a negative asset
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_target_asset_negativeAmount() throws Exception {
@@ -344,7 +344,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero asset
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_target_asset_zeroAmount() throws Exception {
@@ -356,7 +356,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a positive liability
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_target_liability_positveAmount() throws Exception {
@@ -368,7 +368,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for a negative liability
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_target_liability_negativeAmount() throws Exception {
@@ -380,7 +380,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero liability
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_target_liability_zeroAmount() throws Exception {
@@ -392,7 +392,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for a positive income
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_source_income_positveAmount() throws Exception {
@@ -404,7 +404,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a negative income
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_source_income_negativeAmount() throws Exception {
@@ -416,7 +416,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero income
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_source_income_zeroAmount() throws Exception {
@@ -429,7 +429,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for positive expense
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_source_expense_positveAmount() throws Exception {
@@ -441,7 +441,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a negative expense
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_source_expense_negativeAmount() throws Exception {
@@ -453,7 +453,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero expense
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_source_expense_zeroAmount() throws Exception {
@@ -465,7 +465,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for a positive asset
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_source_asset_positveAmount() throws Exception {
@@ -477,7 +477,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a negative asset
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_source_asset_negativeAmount() throws Exception {
@@ -489,7 +489,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero asset
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_source_asset_zeroAmount() throws Exception {
@@ -501,7 +501,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for a positive liability
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_source_liability_positveAmount() throws Exception {
@@ -513,7 +513,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a negative liability
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_source_liability_negativeAmount() throws Exception {
@@ -525,7 +525,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero liability
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_source_liability_zeroAmount() throws Exception {
@@ -537,7 +537,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a positive income
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_target_income_positveAmount() throws Exception {
@@ -549,7 +549,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for a negative income
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_target_income_negativeAmount() throws Exception {
@@ -561,7 +561,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero income
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_target_income_zeroAmount() throws Exception {
@@ -574,7 +574,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a positive expense
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_target_expense_positveAmount() throws Exception {
@@ -586,7 +586,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for a negative expense
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_target_expense_negativeAmount() throws Exception {
@@ -598,7 +598,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero expense
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_target_expense_zeroAmount() throws Exception {
@@ -610,7 +610,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a positive asset
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_target_asset_positveAmount() throws Exception {
@@ -622,7 +622,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests false is returned for a negative asset
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_target_asset_negativeAmount() throws Exception {
@@ -634,7 +634,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero asset
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_target_asset_zeroAmount() throws Exception {
@@ -646,7 +646,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests true is returned for a positive liability
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_target_liability_positveAmount() throws Exception {
@@ -658,7 +658,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests afalse is returned for a negative liability
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_target_liability_negativeAmount() throws Exception {
@@ -670,7 +670,7 @@ public class InternalBillingDocumentRuleTest extends KualiTestBase {
 
     /**
      * tests an <code>IllegalStateException</code> is thrown for a zero liability
-     * 
+     *
      * @throws Exception
      */
     public void testIsDebit_errorCorrection_target_liability_zeroAmount() throws Exception {

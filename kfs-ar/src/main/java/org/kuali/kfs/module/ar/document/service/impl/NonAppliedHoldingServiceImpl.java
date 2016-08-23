@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,7 +35,7 @@ public class NonAppliedHoldingServiceImpl implements NonAppliedHoldingService {
 
     private BusinessObjectService businessObjectService;
     private NonAppliedHoldingDao nonAppliedHoldingDao;
-    
+
     /**
      * @see org.kuali.kfs.module.ar.document.service.NonAppliedHoldingService#getNonAppliedHoldingsForCustomer(org.kuali.kfs.module.ar.businessobject.Customer)
      */
@@ -51,8 +51,8 @@ public class NonAppliedHoldingServiceImpl implements NonAppliedHoldingService {
             throw new IllegalArgumentException("The parameter [customerNumber] passed in was blank or null.");
         }
         List<NonAppliedHolding> nonAppliedHoldings = new ArrayList<NonAppliedHolding>();
-        //TODO WARNING this is going to degrade badly performance wise as the db fills up, 
-        //     this needs to be solved properly with a flag in the NonAppliedHolding 
+        //TODO WARNING this is going to degrade badly performance wise as the db fills up,
+        //     this needs to be solved properly with a flag in the NonAppliedHolding
         Collection<NonAppliedHolding> tempList = nonAppliedHoldingDao.getNonAppliedHoldingsForCustomer(customerNumber);
         for (NonAppliedHolding nonAppliedHolding : tempList) {
             if (nonAppliedHolding.getAvailableUnappliedAmount().isPositive()) {
@@ -69,7 +69,7 @@ public class NonAppliedHoldingServiceImpl implements NonAppliedHoldingService {
         if (docNumbers.isEmpty()) {
             return new ArrayList<NonAppliedHolding>();
         }
-        
+
         return nonAppliedHoldingDao.getNonAppliedHoldingsByListOfDocumentNumbers(docNumbers);
     }
 

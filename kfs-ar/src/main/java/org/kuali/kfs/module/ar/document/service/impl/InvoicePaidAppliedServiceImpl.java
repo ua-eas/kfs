@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,18 +49,18 @@ public class InvoicePaidAppliedServiceImpl implements InvoicePaidAppliedService<
         Map<String, Object> criteria = new HashMap<String, Object>();
         criteria.put("financialDocumentReferenceInvoiceNumber", financialDocumentReferenceInvoiceNumber);
         criteria.put("invoiceItemNumber", invoiceItemNumber);
-        
+
         return businessObjectService.countMatching(InvoicePaidApplied.class, criteria);
     }
-    
+
     public Collection<InvoicePaidApplied> getInvoicePaidAppliedsFromSpecificDocument(String documentNumber, String referenceCustomerInvoiceDocumentNumber) {
         Map criteria = new HashMap();
         criteria.put("financialDocumentReferenceInvoiceNumber", referenceCustomerInvoiceDocumentNumber);
         criteria.put("documentNumber", documentNumber);
         return businessObjectService.findMatching(InvoicePaidApplied.class, criteria);
-    }    
-            
-        
+    }
+
+
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.InvoicePaidAppliedService#doesInvoiceHaveAppliedAmounts(org.kuali.kfs.module.ar.document.CustomerInvoiceDocument)
@@ -69,7 +69,7 @@ public class InvoicePaidAppliedServiceImpl implements InvoicePaidAppliedService<
 
         HashMap<String, String> criteria = new HashMap<String, String>();
         criteria.put("financialDocumentReferenceInvoiceNumber", document.getDocumentNumber());
-        
+
         Collection<InvoicePaidApplied> results = businessObjectService.findMatching(InvoicePaidApplied.class, criteria);
         for( InvoicePaidApplied invoicePaidApplied : results ){
             //don't include discount (the doc num and the ref num are the same document number)
@@ -78,7 +78,7 @@ public class InvoicePaidAppliedServiceImpl implements InvoicePaidAppliedService<
             }
         }
         return false;
-    }    
+    }
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.InvoicePaidAppliedService#getInvoicePaidAppliedsForInvoice(java.lang.String)

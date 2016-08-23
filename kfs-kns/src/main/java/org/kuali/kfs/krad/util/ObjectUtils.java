@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -1099,7 +1099,7 @@ public final class ObjectUtils {
     		return isWriteableHelper(object, property, persistenceStructureService);
     	}
     }
-    
+
     /**
      * This method handles the cases where PropertyUtils.isWriteable is not
      * sufficient.  It handles cases where the parameter in question is a
@@ -1139,10 +1139,10 @@ public final class ObjectUtils {
         }
     	return false;
     }
-    
+
     /**
      * Helper method for creating a new instance of the given class
-     * 
+     *
      * @param clazz
      *            - class of object to create
      * @return T object of type given by the clazz parameter

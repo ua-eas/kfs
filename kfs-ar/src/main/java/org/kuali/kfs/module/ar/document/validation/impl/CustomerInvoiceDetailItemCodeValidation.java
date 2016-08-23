@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,13 +33,13 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class CustomerInvoiceDetailItemCodeValidation extends GenericValidation {
-    
+
     private CustomerInvoiceDocument customerInvoiceDocument;
     private CustomerInvoiceDetail customerInvoiceDetail;
     private BusinessObjectService businessObjectService;
-    
+
     public boolean validate(AttributedDocumentEvent event) {
-        
+
         Map<String, String> criteria = new HashMap<String, String>();
         criteria.put("invoiceItemCode", customerInvoiceDetail.getInvoiceItemCode());
         criteria.put("chartOfAccountsCode", customerInvoiceDocument.getBillByChartOfAccountCode());
@@ -52,7 +52,7 @@ public class CustomerInvoiceDetailItemCodeValidation extends GenericValidation {
         }
 
         return true;
-    }    
+    }
 
     public CustomerInvoiceDocument getCustomerInvoiceDocument() {
         return customerInvoiceDocument;

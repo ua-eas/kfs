@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -95,7 +95,7 @@ public class LaborOriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Get field display name.
-     * 
+     *
      * @param fieldName
      * @return Returns the label
      */
@@ -112,7 +112,7 @@ public class LaborOriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Get field name
-     * 
+     *
      * @param fieldDisplayName
      * @return Returns the key
      */
@@ -129,7 +129,7 @@ public class LaborOriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Check each field for valid value.
-     * 
+     *
      * @param fieldName
      * @param value
      * @return Returns a boolean
@@ -158,7 +158,7 @@ public class LaborOriginEntryFieldFinder extends KeyValuesBase {
             catch (NumberFormatException nfe) {
                 return false;
             }
-        } 
+        }
         if ("KualiDecimal".equals(fieldType)) {
             try {
                 KualiDecimal d = new KualiDecimal(value);
@@ -193,7 +193,7 @@ public class LaborOriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Get field type.
-     * 
+     *
      * @param fieldName
      * @return Returns the fieldType
      */
@@ -239,7 +239,7 @@ public class LaborOriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Check if field allows null value
-     * 
+     *
      * @param fieldName
      * @return Returns a boolean
      */
@@ -252,7 +252,7 @@ public class LaborOriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Get length of field from fieldName
-     * 
+     *
      * @param fieldName
      * @return Returns an int
      */

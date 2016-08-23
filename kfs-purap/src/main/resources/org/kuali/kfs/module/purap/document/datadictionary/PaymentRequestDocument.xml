@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -30,15 +30,15 @@
     <property name="promptBeforeValidationClass" value="org.kuali.kfs.module.purap.document.validation.impl.PaymentRequestDocumentPreRules"/>
     <property name="allowsNoteAttachments" value="true" />
     <property name="attachmentTypesValuesFinderClass" value="org.kuali.kfs.module.purap.businessobject.options.PaymentRequestAttachmentTypeValuesFinder"/>
-    <property name="importedLineParserClass" value="org.kuali.kfs.module.purap.businessobject.PurApAccountingLineParser" />    
+    <property name="importedLineParserClass" value="org.kuali.kfs.module.purap.businessobject.PurApAccountingLineParser" />
     <property name="sessionDocument" value="true"/>
     <property name="potentiallySensitive" value="true"/>
-    
+
 
     <property name="workflowAttributes">
     	<ref bean="PaymentRequestDocument-workflowAttributes"/>
     </property>
-    
+
     <property name="accountingLineGroups">
     	<map>
     		<entry>
@@ -46,8 +46,8 @@
 	    		<ref bean="PaymentRequestDocument-sourceAccountingLineGroup" parent="AccountingLineGroup"/>
 	    	</entry>
     	</map>
-    </property>    
-    
+    </property>
+
     <property name="attributes">
       <list>
         <ref bean="PaymentRequestDocument-applicationDocumentStatus"/>
@@ -67,7 +67,7 @@
         <ref bean="PaymentRequestDocument-vendorLine1Address"/>
         <ref bean="PaymentRequestDocument-vendorCityName"/>
         <ref bean="PaymentRequestDocument-vendorCountryCode"/>
-        <ref bean="PaymentRequestDocument-vendorAttentionName"/>        
+        <ref bean="PaymentRequestDocument-vendorAttentionName"/>
         <ref bean="PaymentRequestDocument-accountsPayableApprovalTimestamp"/>
         <ref bean="PaymentRequestDocument-accountsPayableApprovalDateForSearching"/>
         <ref bean="PaymentRequestDocument-holdIndicator"/>
@@ -77,7 +77,7 @@
         <ref bean="PaymentRequestDocument-noteLine2Text"/>
         <ref bean="PaymentRequestDocument-noteLine3Text"/>
         <ref bean="PaymentRequestDocument-purapDocumentIdentifier"/>
-        <ref bean="PaymentRequestDocument-purchaseOrderIdentifier"/>        
+        <ref bean="PaymentRequestDocument-purchaseOrderIdentifier"/>
         <ref bean="PaymentRequestDocument-invoiceDate"/>
         <ref bean="PaymentRequestDocument-receivingDocumentRequiredIndicator"/>
         <ref bean="PaymentRequestDocument-paymentRequestPositiveApprovalIndicator"/>
@@ -118,8 +118,8 @@
         <ref bean="PaymentRequestDocument-useTaxIndicator"/>
         <ref bean="PaymentRequestDocument-bankCode"/>
     	<ref bean="PaymentRequestDocument-taxClassificationCode"/>
-    	<ref bean="PaymentRequestDocument-taxFederalPercent"/>      
-    	<ref bean="PaymentRequestDocument-taxStatePercent"/>         
+    	<ref bean="PaymentRequestDocument-taxFederalPercent"/>
+    	<ref bean="PaymentRequestDocument-taxStatePercent"/>
     	<ref bean="PaymentRequestDocument-taxCountryCode"/>
     	<ref bean="PaymentRequestDocument-taxGrossUpIndicator"/>
     	<ref bean="PaymentRequestDocument-taxExemptTreatyIndicator"/>
@@ -127,27 +127,27 @@
     	<ref bean="PaymentRequestDocument-taxSpecialW4Amount"/>
     	<ref bean="PaymentRequestDocument-taxUSAIDPerDiemIndicator"/>
     	<ref bean="PaymentRequestDocument-taxOtherExemptIndicator"/>
-    	<ref bean="PaymentRequestDocument-taxNQIId"/> 		
+    	<ref bean="PaymentRequestDocument-taxNQIId"/>
  		<ref bean="PaymentRequestDocument-extractedIndicatorForSearching"/>
  		<ref bean="PaymentRequestDocument-holdIndicatorForSearching"/>
- 		<ref bean="PaymentRequestDocument-paymentRequestedCancelIndicatorForSearching"/>    
+ 		<ref bean="PaymentRequestDocument-paymentRequestedCancelIndicatorForSearching"/>
  		<ref bean="PaymentRequestDocument-receivingDocumentRequiredIndicatorForSearching"/>
-        <ref bean="PaymentRequestDocument-paymentRequestPositiveApprovalIndicatorForSearching"/>   
+        <ref bean="PaymentRequestDocument-paymentRequestPositiveApprovalIndicatorForSearching"/>
         <ref bean="PaymentRequestDocument-requestCancelIndicatorForResult"/>
         <ref bean="PaymentRequestDocument-holdIndicatorForResult"/>
         <ref bean="PaymentRequestDocument-paidIndicatorForResult"/>
         <ref bean="PaymentRequestDocument-documentChartOfAccountsCodeForSearching"/>
-        <ref bean="PaymentRequestDocument-documentOrganizationCodeForSearching"/> 
+        <ref bean="PaymentRequestDocument-documentOrganizationCodeForSearching"/>
         <ref bean="PaymentRequestDocument-processingCampusCodeForSearch"/>
         <ref bean="PaymentRequestDocument-sensitive"/>
 		<ref bean="PaymentRequestDocument-accountDistributionMethod"/>
         <ref bean="PaymentRequestDocument-justification"/>
         <ref bean="PaymentRequestDocument-autoApprovedIndicator"/>
         <ref bean="PaymentRequestDocument-achSignUpStatusFlag"/>
-        
+
       </list>
     </property>
-    <property name="validationMap" ref="PaymentRequestDocument-validations"/>    
+    <property name="validationMap" ref="PaymentRequestDocument-validations"/>
 	<property name="relationships">
     	<list>
 			<bean parent="RelationshipDefinition">
@@ -289,13 +289,13 @@
     <property name="name" value="vendorCountryCode"/>
     <property name="required" value="true"/>
   </bean>
-    
+
   <bean id="PaymentRequestDocument-vendorAttentionName" parent="PaymentRequestDocument-vendorAttentionName-parentBean"/>
 
   <bean id="PaymentRequestDocument-vendorAttentionName-parentBean" abstract="true" parent="VendorGenericAttributes-attentionName">
     <property name="name" value="vendorAttentionName"/>
   </bean>
-  
+
   <bean id="PaymentRequestDocument-accountsPayableApprovalTimestamp" parent="PaymentRequestDocument-accountsPayableApprovalTimestamp-parentBean"/>
 
   <bean id="PaymentRequestDocument-accountsPayableApprovalTimestamp-parentBean" abstract="true" parent="GenericAttributes-genericDate">
@@ -313,11 +313,11 @@
     <property name="shortLabel" value="Date"/>
   </bean>
 
-  
+
   <bean id="PaymentRequestDocument-holdIndicator" parent="PaymentRequestDocument-holdIndicator-parentBean">
   	<property name="name" value="holdIndicator"/>
   </bean>
-  
+
   <bean id="PaymentRequestDocument-holdIndicator-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="forceUppercase" value="true"/>
     <property name="label" value="Hold Indicator"/>
@@ -329,15 +329,15 @@
   </bean>
 
   <bean id="PaymentRequestDocument-holdIndicatorForSearching" parent="PaymentRequestDocument-holdIndicatorForSearching-parentBean"/>
-  
+
   <bean id="PaymentRequestDocument-holdIndicatorForSearching-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
   	<property name="name" value="holdIndicatorForSearching"/>
   	<property name="label" value="Hold"/>
    	<property name="control">
       <bean parent="RadioControlDefinition" p:valuesFinderClass="org.kuali.kfs.krad.keyvalues.IndicatorValuesFinder" p:includeKeyInLabel="false"/>
-    </property> 	
+    </property>
   </bean>
-  
+
   <bean id="PaymentRequestDocument-extractedTimestamp" parent="PaymentRequestDocument-extractedTimestamp-parentBean"/>
 
   <bean id="PaymentRequestDocument-extractedTimestamp-parentBean" abstract="true" parent="GenericAttributes-genericDate">
@@ -355,7 +355,7 @@
       <bean parent="RadioControlDefinition" p:valuesFinderClass="org.kuali.kfs.krad.keyvalues.IndicatorValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
- 
+
   <bean id="PaymentRequestDocument-processingCampusCode" parent="PaymentRequestDocument-processingCampusCode-parentBean"/>
 
   <bean id="PaymentRequestDocument-processingCampusCode-parentBean" abstract="true" parent="VendorGenericAttributes-campusCode">
@@ -364,7 +364,7 @@
     <property name="shortLabel" value="Process Campus"/>
     <property name="required" value="true"/>
   </bean>
-  
+
   <bean id="PaymentRequestDocument-processingCampusCodeForSearch" parent="PaymentRequestDocument-processingCampusCodeForSearch-parentBean"/>
 
   <bean id="PaymentRequestDocument-processingCampusCodeForSearch-parentBean" abstract="true" parent="AttributeDefinition">
@@ -380,7 +380,7 @@
       <ref bean="FourCharacterTextControl" />
     </property>
   </bean>
-  
+
   <bean id="PaymentRequestDocument-noteLine1Text" parent="PaymentRequestDocument-noteLine1Text-parentBean"/>
 
   <bean id="PaymentRequestDocument-noteLine1Text-parentBean" abstract="true" parent="AttributeDefinition">
@@ -455,7 +455,7 @@
     <property name="label" value="Receiving Required"/>
     <property name="shortLabel" value="Receiving Required"/>
   </bean>
-  
+
   <bean id="PaymentRequestDocument-receivingDocumentRequiredIndicatorForSearching" parent="PaymentRequestDocument-receivingDocumentRequiredIndicatorForSearching-parentBean"/>
 
   <bean id="PaymentRequestDocument-receivingDocumentRequiredIndicatorForSearching-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
@@ -466,7 +466,7 @@
       <bean parent="RadioControlDefinition" p:valuesFinderClass="org.kuali.kfs.krad.keyvalues.IndicatorValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
-  
+
   <bean id="PaymentRequestDocument-paymentRequestPositiveApprovalIndicatorForSearching" parent="PaymentRequestDocument-paymentRequestPositiveApprovalIndicatorForSearching-parentBean"/>
 
   <bean id="PaymentRequestDocument-paymentRequestPositiveApprovalIndicator" parent="PaymentRequestDocument-paymentRequestPositiveApprovalIndicator-parentBean"/>
@@ -476,7 +476,7 @@
     <property name="label" value="Payment Request Positive Approval Required"/>
     <property name="shortLabel" value="Payment Request Positive Approval Required"/>
   </bean>
-  
+
   <bean id="PaymentRequestDocument-requestCancelIndicatorForResult" parent="PaymentRequestDocument-requestCancelIndicatorForResult-parentBean"/>
 
   <bean id="PaymentRequestDocument-requestCancelIndicatorForResult-parentBean" abstract="true" parent="AttributeDefinition">
@@ -491,7 +491,7 @@
       <ref bean="TenCharacterTextControl" />
     </property>
   </bean>
-  
+
   <bean id="PaymentRequestDocument-holdIndicatorForResult" parent="PaymentRequestDocument-holdIndicatorForResult-parentBean"/>
 
   <bean id="PaymentRequestDocument-holdIndicatorForResult-parentBean" abstract="true" parent="AttributeDefinition">
@@ -506,7 +506,7 @@
       <ref bean="TenCharacterTextControl" />
     </property>
   </bean>
-  
+
   <bean id="PaymentRequestDocument-paidIndicatorForResult" parent="PaymentRequestDocument-paidIndicatorForResult-parentBean"/>
 
   <bean id="PaymentRequestDocument-paidIndicatorForResult-parentBean" abstract="true" parent="AttributeDefinition">
@@ -521,7 +521,7 @@
       <ref bean="TenCharacterTextControl" />
     </property>
   </bean>
-  
+
   <bean id="PaymentRequestDocument-paymentRequestPositiveApprovalIndicatorForSearching-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
     <property name="name" value="paymentRequestPositiveApprovalIndicatorForSearching"/>
     <property name="label" value="Payment Request Positive Approval Required"/>
@@ -530,7 +530,7 @@
       <bean parent="RadioControlDefinition" p:valuesFinderClass="org.kuali.kfs.krad.keyvalues.IndicatorValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
-  
+
   <bean id="PaymentRequestDocument-invoiceNumber" parent="PaymentRequestDocument-invoiceNumber-parentBean"/>
 
   <bean id="PaymentRequestDocument-invoiceNumber-parentBean" abstract="true" parent="AttributeDefinition">
@@ -705,7 +705,7 @@
   </bean>
 
   <bean id="PaymentRequestDocument-paymentRequestedCancelIndicatorForSearching" parent="PaymentRequestDocument-paymentRequestedCancelIndicatorForSearching-parentBean"/>
-  
+
   <bean id="PaymentRequestDocument-paymentRequestedCancelIndicatorForSearching-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
   	<property name="name" value="paymentRequestedCancelIndicatorForSearching"/>
   	<property name="label" value="Request Cancel"/>
@@ -713,8 +713,8 @@
       <bean parent="RadioControlDefinition" p:valuesFinderClass="org.kuali.kfs.krad.keyvalues.IndicatorValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
-  
-  
+
+
   <bean id="PaymentRequestDocument-purchaseOrderNotes" parent="PaymentRequestDocument-purchaseOrderNotes-parentBean"/>
 
   <bean id="PaymentRequestDocument-purchaseOrderNotes-parentBean" abstract="true" parent="AttributeDefinition">
@@ -866,27 +866,27 @@
   </bean>
 
   <bean id="PaymentRequestDocument-useTaxIndicator" parent="PaymentRequestDocument-useTaxIndicator-parentBean"/>
-  
+
   <bean id="PaymentRequestDocument-useTaxIndicator-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
   	<property name="name" value="useTaxIndicator"/>
   	<property name="label" value="Use Tax Indicator"/>
   	<property name="shortLabel" value="Use Tax"/>
   </bean>
-  
+
   <bean id="PaymentRequestDocument-bankCode" parent="PaymentRequestDocument-bankCode-parentBean"/>
-  
+
   <bean id="PaymentRequestDocument-bankCode-parentBean" abstract="true" parent="Bank-bankCode">
     <property name="name" value="bankCode"/>
     <property name="label" value="Bank Code"/>
     <property name="shortLabel" value="Bank Code"/>
     <property name="required" value="false"/>
-  
+
   </bean>
 
 <!--  tax related properties -->
 
   <bean id="PaymentRequestDocument-taxClassificationCode" parent="PaymentRequestDocument-taxClassificationCode-parentBean"/>
-  
+
   <bean id="PaymentRequestDocument-taxClassificationCode-parentBean" abstract="true" parent="TaxIncomeClassCode-code">
   	<property name="name" value="taxClassificationCode"/>
     <property name="label" value="Income Class"/>
@@ -896,14 +896,14 @@
     </property>
   </bean>
   <bean id="PaymentRequestDocument-taxFederalPercent" parent="PaymentRequestDocument-taxFederalPercent-parentBean"/>
-  
+
   <bean id="PaymentRequestDocument-taxFederalPercent-parentBean" abstract="true" parent="NonResidentAlienTaxPercent-incomeTaxPercent">
     <property name="name" value="taxFederalPercent"/>
     <property name="label" value="Federal Tax Percent"/>
     <property name="shortLabel" value="Federal Percent"/>
   </bean>
   <bean id="PaymentRequestDocument-taxStatePercent" parent="PaymentRequestDocument-taxStatePercent-parentBean"/>
-  
+
   <bean id="PaymentRequestDocument-taxStatePercent-parentBean" abstract="true" parent="NonResidentAlienTaxPercent-incomeTaxPercent">
     <property name="name" value="taxStatePercent"/>
     <property name="label" value="State Tax Percent"/>
@@ -926,21 +926,21 @@
     </property>
   </bean>
   <bean id="PaymentRequestDocument-taxGrossUpIndicator" parent="PaymentRequestDocument-taxGrossUpIndicator-parentBean"/>
-       
+
   <bean id="PaymentRequestDocument-taxGrossUpIndicator-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
   	<property name="name" value="taxGrossUpIndicator"/>
   	<property name="label" value="Gross Up Payment"/>
   	<property name="shortLabel" value="Gross Up"/>
   </bean>
   <bean id="PaymentRequestDocument-taxExemptTreatyIndicator" parent="PaymentRequestDocument-taxExemptTreatyIndicator-parentBean"/>
-       
+
   <bean id="PaymentRequestDocument-taxExemptTreatyIndicator-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
   	<property name="name" value="taxExemptTreatyIndicator"/>
   	<property name="label" value="Treaty Exempt"/>
   	<property name="shortLabel" value="Treaty Exempt"/>
   </bean>
   <bean id="PaymentRequestDocument-taxForeignSourceIndicator" parent="PaymentRequestDocument-taxForeignSourceIndicator-parentBean"/>
-       
+
   <bean id="PaymentRequestDocument-taxForeignSourceIndicator-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
   	<property name="name" value="taxForeignSourceIndicator"/>
   	<property name="label" value="Foreign Source"/>
@@ -952,16 +952,16 @@
     <property name="name" value="taxSpecialW4Amount"/>
     <property name="label" value="Special W-4 Amount"/>
     <property name="shortLabel" value="W4 Amount"/>
-  </bean>  
+  </bean>
   <bean id="PaymentRequestDocument-taxUSAIDPerDiemIndicator" parent="PaymentRequestDocument-taxUSAIDPerDiemIndicator-parentBean"/>
-       
+
   <bean id="PaymentRequestDocument-taxUSAIDPerDiemIndicator-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
   	<property name="name" value="taxUSAIDPerDiemIndicator"/>
   	<property name="label" value="USAID Per Diem"/>
   	<property name="shortLabel" value="USAID Per Diem"/>
   </bean>
   <bean id="PaymentRequestDocument-taxOtherExemptIndicator" parent="PaymentRequestDocument-taxOtherExemptIndicator-parentBean"/>
-       
+
   <bean id="PaymentRequestDocument-taxOtherExemptIndicator-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
   	<property name="name" value="taxOtherExemptIndicator"/>
   	<property name="label" value="Exempt Under Other Code"/>
@@ -988,7 +988,7 @@
     <property name="label" value="PO Chart Code"/>
     <property name="shortLabel" value="Chart Code"/>
   </bean>
-  
+
   <bean id="PaymentRequestDocument-documentOrganizationCodeForSearching" parent="PaymentRequestDocument-documentOrganizationCodeForSearching-parentBean"/>
 
   <bean id="PaymentRequestDocument-documentOrganizationCodeForSearching-parentBean" abstract="true" parent="PurApGenericAttributes-organizationCode">
@@ -1020,9 +1020,9 @@
       <ref bean="HiddenControl" />
     </property>
   </bean>
-  
+
 	<bean id="PaymentRequestDocument-achSignUpStatusFlag" parent="PaymentRequestDocument-achSignUpStatusFlag-parentBean" />
-	
+
 	<bean id="PaymentRequestDocument-achSignUpStatusFlag-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="achSignUpStatusFlag" />
 		<property name="forceUppercase" value="true" />
@@ -1032,9 +1032,9 @@
 		<property name="control">
 			<bean parent="CheckboxControlDefinition" />
 		</property>
-	</bean>	
-  
-  
+	</bean>
+
+
   <!--Payment Request accountingInformation -->
     <bean id="paymentRequestAccountingInformation" parent="paymentRequestAccountingInformation-parent"/>
 
@@ -1064,22 +1064,22 @@
 				<bean parent="AccountingLineView-field" p:name="organizationReferenceId" p:useShortLabel="true"/>
 			</list>
 		</property>
-	</bean>  
-	
+	</bean>
+
     <!-- accounting line groups -->
-    <bean id="PaymentRequestDocument-sourceAccountingLineGroup" parent="PaymentRequestDocument-sourceAccountingLineGroup-parentBean"/>  
+    <bean id="PaymentRequestDocument-sourceAccountingLineGroup" parent="PaymentRequestDocument-sourceAccountingLineGroup-parentBean"/>
     <bean id="PaymentRequestDocument-sourceAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
 	    <property name="accountingLineView" ref="PaymentRequestDocument-accountingLineView"/>
 	    <property name="accountingLineClass" value="org.kuali.kfs.sys.businessobject.SourceAccountingLine"/>
 	    <property name="groupLabel" value="Source"/>
 	    <property name="accountingLineAuthorizerClass" value="org.kuali.kfs.module.purap.document.authorization.PaymentRequestAccountingLineAuthorizer"/>
 	    <property name="importedLinePropertyPrefix" value="source"/>
-	    <property name="errorKey" value="document.item*,*sourceAccountingLines*,newSourceLine*"/> 
+	    <property name="errorKey" value="document.item*,*sourceAccountingLines*,newSourceLine*"/>
 	    <property name="importingAllowed" value="false"/>
 	    <property name="accountingLineGroupClass" value="org.kuali.kfs.sys.document.web.CollectionAccountingLineGroupImpl"/>
-        <property name="accountingLineComparatorClass" value="org.kuali.kfs.module.purap.util.PurapAccountingLineComparator"/>      
+        <property name="accountingLineComparatorClass" value="org.kuali.kfs.module.purap.util.PurapAccountingLineComparator"/>
     </bean>
-  
+
     <bean id="PaymentRequestDocument-accountingLineView" parent="PaymentRequestDocument-accountingLineView-parent"/>
 
     <bean id="PaymentRequestDocument-accountingLineView-parent" parent="AccountingLineView" abstract="true">
@@ -1097,13 +1097,13 @@
 				  <bean parent="AccountingLineView-actions"/>
 			  </list>
 		  </property>
-    </bean> 
+    </bean>
 
 	<bean id="PaymentRequestDocument-validations" parent="PaymentRequestDocument-validations-parentBean"/>
- 
+
 	<bean id="PaymentRequestDocument-validations-parentBean" abstract="true"  class="org.springframework.beans.factory.config.MapFactoryBean">
  		<property name="sourceMap">
-		<map key-type="java.lang.Class">			
+		<map key-type="java.lang.Class">
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.AttributedRouteDocumentEvent</value></key>
 				<value>PaymentRequest-routeDocumentValidation</value>
@@ -1111,7 +1111,7 @@
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.AttributedApproveDocumentEvent</value></key>
 				<value>PaymentRequest-approveDocumentValidation</value>
-			</entry>		
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.AttributedBlanketApproveDocumentEvent</value></key>
 				<value>PaymentRequest-blanketApproveDocumentValidation</value>
@@ -1123,62 +1123,62 @@
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.UpdateAccountingLineEvent</value></key>
 				<value>PaymentRequest-updateAccountingLineValidation</value>
-			</entry>	
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.ReviewAccountingLineEvent</value></key>
 				<value>PaymentRequest-reviewAccountingLineValidation</value>
 			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedContinuePurapEvent</value></key>
-				<value>PaymentRequest-continuePurapValidation</value>				
-			</entry>				
+				<value>PaymentRequest-continuePurapValidation</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedPreCalculateAccountsPayableEvent</value></key>
-				<value>PaymentRequest-preCalculateAccountsPayableValidation</value>				
-			</entry>				
+				<value>PaymentRequest-preCalculateAccountsPayableValidation</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedCalculateAccountsPayableEvent</value></key>
-				<value>PaymentRequest-calculateAccountsPayableValidation</value>				
-			</entry>				
+				<value>PaymentRequest-calculateAccountsPayableValidation</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedCancelAccountsPayableEvent</value></key>
-				<value>PaymentRequest-cancelAccountsPayableValidation</value>				
+				<value>PaymentRequest-cancelAccountsPayableValidation</value>
 			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedAddPurchasingAccountsPayableItemEvent</value></key>
-				<value>PaymentRequest-addPurchasingAccountsPayableItemValidation</value>				
+				<value>PaymentRequest-addPurchasingAccountsPayableItemValidation</value>
 			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedImportPurchasingAccountsPayableItemEvent</value></key>
-				<value>PaymentRequest-importPurchasingAccountsPayableItemValidation</value>				
-			</entry>			
+				<value>PaymentRequest-importPurchasingAccountsPayableItemValidation</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.AttributedSaveDocumentEvent</value></key>
-				<value>PaymentRequest-saveDocumentValidation</value>				
-			</entry>																												
+				<value>PaymentRequest-saveDocumentValidation</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedPaymentRequestForEInvoiceEvent</value></key>
-				<value>PaymentRequest-eInvoiceValidation</value>				
-			</entry>																																	
+				<value>PaymentRequest-eInvoiceValidation</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedExpiredAccountWarningEvent</value></key>
-				<value>PaymentRequest-expiredAccountWarningEvent</value>				
-			</entry>																																	
+				<value>PaymentRequest-expiredAccountWarningEvent</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedPayDateNotOverThresholdDaysAwayEvent</value></key>
-				<value>PaymentRequest-payDateNotOverThresholdDaysAwayEvent</value>				
-			</entry>																																	
+				<value>PaymentRequest-payDateNotOverThresholdDaysAwayEvent</value>
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedTradeInWarningEvent</value></key>
 				<value>PaymentRequest-tradeInWarningEvent</value>
-			</entry>																																	
+			</entry>
 			<entry>
 				<key><value>org.kuali.kfs.module.purap.document.validation.event.PurchasingAccountsPayableItemPreCalculateEvent</value></key>
 				<value>PaymentRequest-purchasingAccountsPayablesItemPreCalculateValidations</value>
 			</entry>
 	   	</map>
 		</property>
-	</bean>  
+	</bean>
 
     <bean id="PaymentRequestDocument-sensitive" parent="PaymentRequestDocument-sensitive-parentBean"/>
 
@@ -1187,7 +1187,7 @@
   		<property name="label" value="Sensitive"/>
     </bean>
 	<bean id="PaymentRequestDocument-accountDistributionMethod" parent="PaymentRequestDocument-accountDistributionMethod-parentBean"/>
-	
+
 	<bean id="PaymentRequestDocument-accountDistributionMethod-parentBean" abstract="true" parent="AttributeDefinition">
 	    <property name="name" value="accountDistributionMethod"/>
 	    <property name="forceUppercase" value="false"/>
@@ -1199,7 +1199,7 @@
 	      <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.module.purap.businessobject.options.AccountDistributionMethodValuesFinder" p:includeKeyInLabel="false"/>
 	    </property>
 	</bean>
-      
+
     <!-- workflow attributes for routing -->
     <bean id="PaymentRequestDocument-workflowAttributes" parent="PaymentRequestDocument-workflowAttributes-parentBean"/>
 
@@ -1359,7 +1359,7 @@
     						<value>vendorNumber</value>
     					</list>
     				</property>
-    			</bean>   
+    			</bean>
     			<bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
     	      		<property name="searchingAttribute">
     	      			<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -1387,7 +1387,7 @@
     	      				<value>documentOrganizationCodeForSearching</value>
     	      			</list>
     	      		</property>
-    	      	</bean>			
+    	      	</bean>
      			<bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
   					<property name="searchingAttribute">
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -1406,7 +1406,7 @@
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
     						<property name="businessObjectClassName" value="org.kuali.kfs.module.purap.document.PaymentRequestDocument"/>
     						<property name="attributeName" value="vendorCustomerNumber"/>
-    						<property name="showAttributeInResultSet" value="true"/>	
+    						<property name="showAttributeInResultSet" value="true"/>
     					</bean>
     				</property>
     				<property name="documentValues">
@@ -1433,7 +1433,7 @@
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
     						<property name="businessObjectClassName" value="org.kuali.kfs.module.purap.document.PaymentRequestDocument"/>
     						<property name="attributeName" value="paymentRequestPayDate"/>
-    						<property name="showAttributeInResultSet" value="true"/>	
+    						<property name="showAttributeInResultSet" value="true"/>
     					</bean>
     				</property>
     				<property name="documentValues">
@@ -1448,7 +1448,7 @@
     						<property name="businessObjectClassName" value="org.kuali.kfs.module.purap.document.PaymentRequestDocument"/>
     						<property name="attributeName" value="extractedTimestamp"/>
     						<property name="showAttributeInSearchCriteria" value="false"/>
-    						<property name="showAttributeInResultSet" value="true"/>	
+    						<property name="showAttributeInResultSet" value="true"/>
     					</bean>
     				</property>
     				<property name="documentValues">
@@ -1502,8 +1502,8 @@
     				<property name="searchingAttribute">
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
     						<property name="businessObjectClassName" value="org.kuali.kfs.module.purap.document.PaymentRequestDocument"/>
-    						<property name="attributeName" value="holdIndicatorForSearching"/>		
-    					</bean>  					
+    						<property name="attributeName" value="holdIndicatorForSearching"/>
+    					</bean>
     				</property>
     				<property name="documentValues">
     					<list>
@@ -1537,7 +1537,7 @@
     						<value>receivingDocumentRequiredIndicatorForSearching</value>
     					</list>
     				</property>
-    			</bean>   			
+    			</bean>
               	<bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
     				<property name="searchingAttribute">
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">

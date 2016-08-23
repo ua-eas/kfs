@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -147,7 +147,7 @@ public class KualiMaintainableImpl extends MaintainableImpl implements Maintaina
 	 * the those parameters in the map, whose value gives us the property name
 	 * that has an encrypted value. We then need to decrypt the value in the Map
 	 * before the business object is populated.
-	 * 
+	 *
 	 * @param fieldValues
 	 *            - possibly with encrypted values
 	 * @return Map fieldValues - with no encrypted values
@@ -195,7 +195,7 @@ public class KualiMaintainableImpl extends MaintainableImpl implements Maintaina
 	/**
 	 * Determines whether the field in a request should be encrypted. This base
 	 * implementation does not work for properties of collection elements.
-	 * 
+	 *
 	 * This base implementation will only return true if the maintenance
 	 * document is being refreshed after a lookup (i.e. methodToCall is
 	 * "refresh") and the data dictionary-based attribute security definition
@@ -204,7 +204,7 @@ public class KualiMaintainableImpl extends MaintainableImpl implements Maintaina
 	 * encrypted in a request. If the user otherwise has no permissions to
 	 * view/edit the field, then a request parameter will not be sent back to
 	 * the server for population.
-	 * 
+	 *
 	 * @param maintenanceDocument
 	 * @param fieldName
 	 * @param auths
@@ -230,7 +230,7 @@ public class KualiMaintainableImpl extends MaintainableImpl implements Maintaina
 	 * Calls method to get all the core sections for the business object defined
 	 * in the data dictionary. Then determines if the bo has custom attributes,
 	 * if so builds a custom attribute section and adds to the section list.
-	 * 
+	 *
 	 * @return List of org.kuali.ui.Section objects
 	 */
 	public List getSections(MaintenanceDocument document, Maintainable oldMaintainable) {
@@ -246,7 +246,7 @@ public class KualiMaintainableImpl extends MaintainableImpl implements Maintaina
 	 * place under Section UI. If section contains a maintenance collection,
 	 * call method to build a Section UI which contains rows of Container
 	 * Fields.
-	 * 
+	 *
 	 * @return List of org.kuali.ui.Section objects
 	 */
 	public List<Section> getCoreSections(MaintenanceDocument document, Maintainable oldMaintainable) {
@@ -305,7 +305,7 @@ public class KualiMaintainableImpl extends MaintainableImpl implements Maintaina
 
 
     /**
-	 * 
+	 *
 	 * @see Maintainable#saveBusinessObject()
 	 */
 	public void saveBusinessObject() {
@@ -548,7 +548,7 @@ public class KualiMaintainableImpl extends MaintainableImpl implements Maintaina
 	 * duplicateIdentificationFields. This List is used to determine whether the
 	 * new entry being added to the collection is a duplicate entry and if so,
 	 * we should not add the new entry to the existing collection
-	 * 
+	 *
 	 * @param docTypeName
 	 * @param collectionName
 	 */
@@ -600,7 +600,7 @@ public class KualiMaintainableImpl extends MaintainableImpl implements Maintaina
 	/**
 	 * Set the new collection records back to true so they can be deleted (copy
 	 * should act like new)
-	 * 
+	 *
 	 * @see KualiMaintainableImpl#processAfterCopy()
 	 */
 	public void processAfterCopy(MaintenanceDocument document, Map<String, String[]> parameters) {
@@ -631,7 +631,7 @@ public class KualiMaintainableImpl extends MaintainableImpl implements Maintaina
     @Override
     public void setDataObject(Object object) {
         super.setDataObject(object);
-        
+
         if(object instanceof PersistableBusinessObject) {
             this.businessObject = (PersistableBusinessObject)object;
         }
@@ -675,7 +675,7 @@ public class KualiMaintainableImpl extends MaintainableImpl implements Maintaina
 	}
 
 	/**
-	 * 
+	 *
 	 * @see Maintainable#setGenerateDefaultValues()
 	 */
 	public void setGenerateDefaultValues(String docTypeName) {
@@ -726,7 +726,7 @@ public class KualiMaintainableImpl extends MaintainableImpl implements Maintaina
 	}
 
 	/**
-	 * 
+	 *
 	 * @see Maintainable#setGenerateBlankRequiredValues()
 	 */
 	public void setGenerateBlankRequiredValues(String docTypeName) {
@@ -873,7 +873,7 @@ public class KualiMaintainableImpl extends MaintainableImpl implements Maintaina
 	}
 
 	/**
-	 * 
+	 *
 	 * @see Maintainable#populateNewCollectionLines(java.util.Map)
 	 */
 	public Map<String, String> populateNewCollectionLines(Map<String, String> fieldValues,
@@ -1414,7 +1414,7 @@ public class KualiMaintainableImpl extends MaintainableImpl implements Maintaina
 
 	/**
 	 * By default a maintainable is not external
-	 * 
+	 *
 	 * @see Maintainable#isExternalBusinessObject()
 	 */
 	public boolean isExternalBusinessObject() {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -55,11 +55,11 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
     protected NoteService noteService;
     protected ConfigurationService kualiConfigurationService;
     protected DocumentHeaderService documentHeaderService;
-    
+
     /**
      * Will generate Maintenance Locks for all (active or not) sub-accounts in the system related to the inactivated account using the sub-account
      * maintainable registered for the sub-account maintenance document
-     * 
+     *
      * This version of the method assumes that the sub-account maintainable only requires that the SubAccount BOClass, document number, and SubAccount
      * instance only needs to be passed into it
      * @see org.kuali.kfs.gl.service.SubAccountTrickleDownInactivationService#generateTrickleDownMaintenanceLocks(org.kuali.kfs.coa.businessobject.Account, java.lang.String)
@@ -67,7 +67,7 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
     public List<MaintenanceLock> generateTrickleDownMaintenanceLocks(Account inactivatedAccount, String documentNumber) {
         inactivatedAccount.refreshReferenceObject(KFSPropertyConstants.SUB_ACCOUNTS);
         List<MaintenanceLock> maintenanceLocks = new ArrayList<MaintenanceLock>();
-        
+
         Maintainable subAccountMaintainable;
         try {
             subAccountMaintainable = (Maintainable) maintenanceDocumentDictionaryService.getMaintainableClass(SubAccount.class.getName()).newInstance();
@@ -78,23 +78,23 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
             LOG.error("Unable to instantiate SubAccount Maintainable" , e);
             throw new RuntimeException("Unable to instantiate SubAccount Maintainable" , e);
         }
-        
+
         if (ObjectUtils.isNotNull(inactivatedAccount.getSubAccounts()) && !inactivatedAccount.getSubAccounts().isEmpty()) {
             for (Iterator<SubAccount> i = inactivatedAccount.getSubAccounts().iterator(); i.hasNext(); ) {
                 SubAccount subAccount = i.next();
-                
+
                 subAccountMaintainable.setBusinessObject(subAccount);
                 maintenanceLocks.addAll(subAccountMaintainable.generateMaintenanceLocks());
             }
         }
         return maintenanceLocks;
     }
-    
+
     public void trickleDownInactivateSubAccounts(Account inactivatedAccount, String documentNumber) {
         List<SubAccount> inactivatedSubAccounts = new ArrayList<SubAccount>();
         Map<SubAccount, String> alreadyLockedSubAccounts = new HashMap<SubAccount, String>();
         List<SubAccount> errorPersistingSubAccounts = new ArrayList<SubAccount>();
-        
+
         Maintainable subAccountMaintainable;
         try {
             subAccountMaintainable = (Maintainable) maintenanceDocumentDictionaryService.getMaintainableClass(SubAccount.class.getName()).newInstance();
@@ -105,7 +105,7 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
             LOG.error("Unable to instantiate SubAccount Maintainable" , e);
             throw new RuntimeException("Unable to instantiate SubAccount Maintainable" , e);
         }
-        
+
         inactivatedAccount.refreshReferenceObject(KFSPropertyConstants.SUB_ACCOUNTS);
         if (ObjectUtils.isNotNull(inactivatedAccount.getSubAccounts()) && !inactivatedAccount.getSubAccounts().isEmpty()) {
             for (Iterator<SubAccount> i = inactivatedAccount.getSubAccounts().iterator(); i.hasNext(); ) {
@@ -113,7 +113,7 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
                 if (subAccount.isActive()) {
                     subAccountMaintainable.setBusinessObject(subAccount);
                     List<MaintenanceLock> subAccountLocks = subAccountMaintainable.generateMaintenanceLocks();
-                    
+
                     MaintenanceLock failedLock = verifyAllLocksFromThisDocument(subAccountLocks, documentNumber);
                     if (failedLock != null) {
                         // another document has locked this sub account, so we don't try to inactivate the account
@@ -122,7 +122,7 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
                     else {
                         // no locks other than our own (but there may have been no locks at all), just go ahead and try to update
                         subAccount.setActive(false);
-                        
+
                         try {
                             subAccountMaintainable.saveBusinessObject();
                             inactivatedSubAccounts.add(subAccount);
@@ -134,7 +134,7 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
                     }
                 }
             }
-            
+
             addNotesToDocument(documentNumber, inactivatedSubAccounts, alreadyLockedSubAccounts, errorPersistingSubAccounts);
         }
     }
@@ -146,12 +146,12 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
         }
         DocumentHeader noteParent = documentHeaderService.getDocumentHeaderById(documentNumber);
         Note newNote = new Note();
-        
+
         addNotes(documentNumber, inactivatedSubAccounts, KFSKeyConstants.SUB_ACCOUNT_TRICKLE_DOWN_INACTIVATION, noteParent, newNote);
         addNotes(documentNumber, errorPersistingSubAccounts, KFSKeyConstants.SUB_ACCOUNT_TRICKLE_DOWN_INACTIVATION_ERROR_DURING_PERSISTENCE, noteParent, newNote);
         addMaintenanceLockedNotes(documentNumber, alreadyLockedSubAccounts, KFSKeyConstants.SUB_ACCOUNT_TRICKLE_DOWN_INACTIVATION_RECORD_ALREADY_MAINTENANCE_LOCKED, noteParent, newNote);
     }
-    
+
     protected void addMaintenanceLockedNotes(String documentNumber, Map<SubAccount, String> lockedSubAccounts, String messageKey, PersistableBusinessObject noteParent, Note noteTemplate) {
         for (Map.Entry<SubAccount, String> entry : lockedSubAccounts.entrySet()) {
             try {
@@ -191,9 +191,9 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
             }
         }
     }
-    
+
     protected String createSubAccountChunk(List<SubAccount> listOfSubAccounts, int startIndex, int endIndex) {
-        StringBuilder buf = new StringBuilder(); 
+        StringBuilder buf = new StringBuilder();
         for (int i = startIndex; i < endIndex && i < listOfSubAccounts.size(); i++) {
             SubAccount subAccount = listOfSubAccounts.get(i);
             buf.append(subAccount.getChartOfAccountsCode()).append(" - ").append(subAccount.getAccountNumber()).append(" - ")
@@ -204,11 +204,11 @@ public class SubAccountTrickleDownInactivationServiceImpl implements SubAccountT
         }
         return buf.toString();
     }
-    
+
     protected int getNumSubAccountsPerNote() {
         return 20;
     }
-    
+
     protected MaintenanceLock verifyAllLocksFromThisDocument(List<MaintenanceLock> maintenanceLocks, String documentNumber) {
         for (MaintenanceLock maintenanceLock : maintenanceLocks) {
             String lockingDocNumber = maintenanceDocumentDao.getLockingDocumentNumber(maintenanceLock.getLockingRepresentation(), documentNumber);

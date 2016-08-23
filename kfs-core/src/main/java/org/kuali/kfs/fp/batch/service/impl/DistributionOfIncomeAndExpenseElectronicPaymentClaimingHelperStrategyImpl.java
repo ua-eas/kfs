@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -38,7 +38,7 @@ import org.kuali.kfs.krad.service.DocumentService;
 
 public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrategyImpl implements ElectronicPaymentClaimingDocumentGenerationStrategy {
     private static final Logger LOG = Logger.getLogger(DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrategyImpl.class);
-    
+
     protected DocumentService documentService;
     protected ElectronicPaymentClaimingService electronicPaymentClaimingService;
     protected ParameterService parameterService;
@@ -75,7 +75,7 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
 
     /**
      * Builds the URL that can be used to redirect to the correct document
-     * 
+     *
      * @param doc the document to build the URL for
      * @return the relative URL to redirect to
      */
@@ -92,7 +92,7 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
 
     /**
      * Creates notes for the claims (using the ElectronicPaymentClaimingService) and then adds them to the document
-     * 
+     *
      * @param claimingDoc the claiming document
      * @param claims the electronic payments being claimed
      * @param user the user doing the claiming
@@ -111,7 +111,7 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
 
     /**
      * Adds an accounting line to the document for each ElectronicPaymentClaim record that is being added
-     * 
+     *
      * @param document the claiming Distribution of Income and Expense document
      * @param electronicPayments the list of ElectronicPaymentClaim records that are being claimed
      */
@@ -124,7 +124,7 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
 
     /**
      * Adds the parameterized description to the document, so the doc can be saved
-     * 
+     *
      * @param document the document to add a description to
      */
     protected void addDescriptionToDocument(DistributionOfIncomeAndExpenseDocument document) {
@@ -139,7 +139,7 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
 
     /**
      * Creates a new accounting line, based on what the source accounting line class for the document is
-     * 
+     *
      * @param document the document that is claiming these payments
      * @return a new, ready-to-be-filled in accounting line of the class that the given document uses for Source Accounting Lines
      */
@@ -155,7 +155,7 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
 
     /**
      * Copies an original accounting line to a new accounting line
-     * 
+     *
      * @param line the original accounting line
      * @return an accounting line that copies that accounting line
      */
@@ -179,7 +179,7 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
     public String getClaimingDocumentWorkflowDocumentType() {
         return KFSConstants.FinancialDocumentTypeCodes.DISTRIBUTION_OF_INCOME_AND_EXPENSE;
     }
-    
+
     /**
      * @return the class of the document which claims these electronic payments
      */
@@ -189,7 +189,7 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
 
     /**
      * Uses the data dictionary to find the label for this document
-     * 
+     *
      * @see org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy#getDocumentLabel()
      */
     public String getDocumentLabel() {
@@ -203,15 +203,15 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
 
     /**
      * This always returns true if the given user in the claiming workgroup.
-     * 
+     *
      * @see org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy#userMayUseToClaim(org.kuali.rice.kim.api.identity.Person)
      */
     public boolean userMayUseToClaim(Person claimingUser) {
         final String documentTypeName = getClaimingDocumentWorkflowDocumentType();
 
-        final boolean canClaim = electronicPaymentClaimingService.isAuthorizedForClaimingElectronicPayment(claimingUser, documentTypeName) 
-                || electronicPaymentClaimingService.isAuthorizedForClaimingElectronicPayment(claimingUser, null);       
-        
+        final boolean canClaim = electronicPaymentClaimingService.isAuthorizedForClaimingElectronicPayment(claimingUser, documentTypeName)
+                || electronicPaymentClaimingService.isAuthorizedForClaimingElectronicPayment(claimingUser, null);
+
         return canClaim;
     }
 
@@ -235,7 +235,7 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
 
     /**
      * Sets the documentService attribute value.
-     * 
+     *
      * @param documentService The documentService to set.
      */
     public void setDocumentService(DocumentService documentService) {
@@ -244,7 +244,7 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
 
     /**
      * Sets the electronicPaymentClaimingService attribute value.
-     * 
+     *
      * @param electronicPaymentClaimingService The electronicPaymentClaimingService to set.
      */
     public void setElectronicPaymentClaimingService(ElectronicPaymentClaimingService electronicPaymentClaimingService) {
@@ -253,12 +253,12 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
 
     /**
      * Sets the parameterService attribute value.
-     * 
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }
-    
-    
+
+
 }

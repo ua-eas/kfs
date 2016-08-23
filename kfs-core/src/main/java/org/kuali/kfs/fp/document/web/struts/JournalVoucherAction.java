@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -67,7 +67,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * Overrides the parent and then calls the super method after building the array lists for valid accounting periods and balance
      * types.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#execute(ActionMapping mapping, ActionForm form, HttpServletRequest
      *      request, HttpServletResponse response)
      */
@@ -97,7 +97,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * Overrides the parent to first prompt the user appropriately to make sure that they want to submit and out of balance
      * document, then calls super's route method.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#route(org.apache.struts.action.ActionMapping,
      *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
@@ -124,7 +124,7 @@ public class JournalVoucherAction extends VoucherAction {
 
     /**
      * This method handles grabbing the values from the form and pushing them into the document appropriately.
-     * 
+     *
      * @param journalVoucherForm
      */
     protected void populateBalanceTypeOneDocument(JournalVoucherForm journalVoucherForm) {
@@ -141,7 +141,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * Overrides to call super, and then to repopulate the credit/debit amounts b/c the credit/debit code might change during a JV
      * error correction.
-     * 
+     *
      * @see org.kuali.kfs.fp.document.web.struts.VoucherAction#correct(org.apache.struts.action.ActionMapping,
      *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
@@ -164,7 +164,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * This method processes a change in the balance type for a Journal Voucher document - from either a offset generation balance
      * type to a non-offset generation balance type or visa-versa.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -211,7 +211,7 @@ public class JournalVoucherAction extends VoucherAction {
      * This method will determine which balance type amount mode to switch to. A change in the balance type selection will
      * eventually invoke this mechanism, which looks at the old balance type value, and the new balance type value to determine what
      * the next mode is.
-     * 
+     *
      * @param journalVoucherForm
      * @throws Exception
      */
@@ -237,7 +237,7 @@ public class JournalVoucherAction extends VoucherAction {
      * This method will determine which balance type encumbrance mode to switch to. A change in the balance type selection will
      * eventually invoke this mechanism, which looks at the old balance type value, and the new balance type value to determine what
      * the next mode is.
-     * 
+     *
      * @param journalVoucherForm
      * @throws Exception
      */
@@ -262,7 +262,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * This method takes control from the changeBalanceType action method in order to present a question prompt to the user so that
      * they can confirm the change in balance type.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -305,7 +305,7 @@ public class JournalVoucherAction extends VoucherAction {
      * This method will setup the message that will get displayed to the user when they are asked to confirm the balance type
      * change. The message is tuned to the particular context, the value chosen, and also the previous value. It also combines with
      * the core part of the message which is part of the ApplicationResources.properties file.
-     * 
+     *
      * @param jvForm
      * @param kualiConfiguration
      * @return The message to display to the user in the question prompt window.
@@ -367,7 +367,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * This method will fully populate a balance type given the passed in code, by calling the business object service that
      * retrieves the rest of the instances' information.
-     * 
+     *
      * @param balanceTypeCode
      * @return BalanceTyp
      */
@@ -378,7 +378,7 @@ public class JournalVoucherAction extends VoucherAction {
 
     /**
      * This method will clear out the source line values that aren't needed for the "Single Amount" mode.
-     * 
+     *
      * @param journalVoucherForm
      */
     protected void switchFromSingleAmountModeToCreditDebitMode(JournalVoucherForm journalVoucherForm) {
@@ -404,7 +404,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * This method will clear out the extra "reference" fields that the external encumbrance balance type uses, but will leave the
      * amounts since we aren't changing the offset generation code stuff.
-     * 
+     *
      * @param journalVoucherForm
      */
     protected void switchFromExternalEncumbranceModeToNonExternalEncumbrance(JournalVoucherForm journalVoucherForm) {
@@ -423,7 +423,7 @@ public class JournalVoucherAction extends VoucherAction {
 
     /**
      * This method will clear out the source line values that aren't needed for the "Credit/Debit" mode.
-     * 
+     *
      * @param journalVoucherForm
      */
     protected void switchFromCreditDebitModeToSingleAmountMode(JournalVoucherForm journalVoucherForm) {
@@ -448,7 +448,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * Overrides the parent to make sure that the JV specific accounting line helper forms are properly populated when the document
      * is first loaded. This first calls super, then populates the helper objects.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#loadDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
      */
     @Override
@@ -476,7 +476,7 @@ public class JournalVoucherAction extends VoucherAction {
 
     /**
      * This method grabs the value from the document bo and sets the selected balance type appropriately.
-     * 
+     *
      * @param journalVoucherDocument
      * @param journalVoucherForm
      */
@@ -495,7 +495,7 @@ public class JournalVoucherAction extends VoucherAction {
      * stating that they chose that value and return an ActionForward of a MAPPING_BASIC which keeps them at the same page that they
      * were on. If they choose "Yes", then we return a null ActionForward, which the calling action method recognizes as a "Yes" and
      * continues on processing the "Route."
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -541,7 +541,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * This action executes a call to upload CSV accounting line values as SourceAccountingLines for a given transactional document.
      * The "uploadAccountingLines()" method handles the multi-part request.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -561,7 +561,7 @@ public class JournalVoucherAction extends VoucherAction {
     /**
      * This method determines whether we are uploading source or target lines, and then calls uploadAccountingLines directly on the
      * document object. This method handles retrieving the actual upload file as an input stream into the document.
-     * 
+     *
      * @param isSource
      * @param form
      * @throws FileNotFoundException

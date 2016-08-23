@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -73,7 +73,7 @@ public class AssetPaymentAction extends KualiAccountingDocumentActionBase {
 		super.createDocument(kualiDocumentFormBase);
 		((AssetPaymentDocument) kualiDocumentFormBase.getDocument()).setAssetPaymentAllocationTypeCode(CamsPropertyConstants.AssetPaymentAllocation.ASSET_DISTRIBUTION_DEFAULT_CODE);
 	}
-	
+
 	@Override
 	public ActionForward docHandler(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward actionForward = super.docHandler(mapping, form, request, response);
@@ -222,7 +222,7 @@ public class AssetPaymentAction extends KualiAccountingDocumentActionBase {
 
 	/**
 	 * Inserts a new asset into the document
-	 * 
+	 *
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -279,7 +279,7 @@ public class AssetPaymentAction extends KualiAccountingDocumentActionBase {
 
 	/**
 	 * Deletes an asset from the document
-	 * 
+	 *
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -305,7 +305,7 @@ public class AssetPaymentAction extends KualiAccountingDocumentActionBase {
 
 	/**
 	 * Update allocations made to assets
-	 * 
+	 *
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -320,7 +320,7 @@ public class AssetPaymentAction extends KualiAccountingDocumentActionBase {
 
 	/**
 	 * Validate allocations
-	 * 
+	 *
 	 * @param form
 	 */
 	private boolean validateAllocations(ActionForm form) {
@@ -378,7 +378,7 @@ public class AssetPaymentAction extends KualiAccountingDocumentActionBase {
 	/**
 	 * Called when the user selects a distribution (asset payment allocation)
 	 * type.
-	 * 
+	 *
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -394,7 +394,7 @@ public class AssetPaymentAction extends KualiAccountingDocumentActionBase {
 
 	/**
 	 * Get the payment service
-	 * 
+	 *
 	 * @return
 	 */
 	protected AssetPaymentService getAssetPaymentService() {
@@ -403,7 +403,7 @@ public class AssetPaymentAction extends KualiAccountingDocumentActionBase {
 
 	/**
 	 * Get the rule service
-	 * 
+	 *
 	 * @return
 	 */
 	protected KualiRuleService getRuleService() {

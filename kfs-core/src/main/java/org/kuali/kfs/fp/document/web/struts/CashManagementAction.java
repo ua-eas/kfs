@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -75,14 +75,14 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
 
     /**
      * Overrides to call super, but also make sure the helpers are populated.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#execute(org.apache.struts.action.ActionMapping,
      *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ActionForward dest = null;
-        
+
         try {
             dest = super.execute(mapping, form, request, response);
 
@@ -102,7 +102,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
         } catch (CashDrawerStateException cdse) {
             dest = new ActionForward(UrlFactory.parameterizeUrl(CASH_MANAGEMENT_STATUS_PAGE, cdse.toProperties()), true);
         }
-        
+
         return dest;
     }
 
@@ -110,7 +110,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
      * Overrides the default document-creation code to auto-save new documents upon creation: since creating a CMDoc changes the
      * CashDrawer's state as a side-effect, we need all CMDocs to be docsearchable so that someone can relocate and use or cancel
      * whatever the current CMDoc is.
-     * 
+     *
      * @param kualiDocumentFormBase
      * @throws WorkflowException
      */
@@ -170,7 +170,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
     /**
      * Throws a DocumentAuthorizationException if the current user is not authorized to add a deposit of the given type to the given
      * document.
-     * 
+     *
      * @param cmDoc
      * @param cmForm
      */
@@ -179,7 +179,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
         if (!cmDoc.getCashDrawerStatus().equals(CashDrawerConstants.STATUS_OPEN)) {
             throw new IllegalStateException("CashDrawer '" + cmDoc.getCampusCode() + "' must be open for deposits to be made");
         }
-        
+
         //verify user's ability to add a deposit
         Map<String, String> documentActions = cmForm.getEditingMode();
         if (!documentActions.containsKey(KfsAuthorizationConstants.CashManagementEditMode.ALLOW_ADDITIONAL_DEPOSITS)) {
@@ -234,7 +234,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
 
         // display status message
         KNSGlobalVariables.getMessageList().add(CashManagement.STATUS_DEPOSIT_CANCELED);
-        
+
         ((CashManagementForm) form).getCashDrawerSummary().resummarize(cmDoc);
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
@@ -273,7 +273,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
     public ActionForward refreshSummary(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         CashManagementForm cmForm = (CashManagementForm) form;
         CashManagementDocument cmDoc = cmForm.getCashManagementDocument();
-        
+
         if (cmForm.getCashDrawerSummary() != null) {
             cmForm.getCashDrawerSummary().resummarize(cmDoc);
         }
@@ -284,7 +284,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
 
     /**
      * Saves the document, then opens the cash drawer
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -325,7 +325,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
 
     /**
      * This action makes the last interim deposit a final deposit
-     * 
+     *
      * @param mapping the mapping of the actions
      * @param form the Struts form populated on the post
      * @param request the servlet request
@@ -356,7 +356,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
 
     /**
      * This action applies the current cashiering transaction to the cash drawer
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -367,7 +367,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
     public ActionForward applyCashieringTransaction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         CashManagementDocument cmDoc = ((CashManagementForm) form).getCashManagementDocument();
         CashManagementService cmService = SpringContext.getBean(CashManagementService.class);
-        
+
         final boolean valid = SpringContext.getBean(KualiRuleService.class).applyRules(new CashieringTransactionApplicationEventBase("Cashiering Transaction Application Event", "", cmDoc, SpringContext.getBean(CashDrawerService.class).getByCampusCode(cmDoc.getCampusCode()), cmDoc.getCurrentTransaction()));
 
         if (valid) {
@@ -381,7 +381,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
 
     /**
      * This action allows the user to go to the cash drawer correction screen
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -408,7 +408,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
 
     /**
      * Adds Check instance created from the current "new check" line to the document
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -438,7 +438,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
 
     /**
      * Deletes the selected check (line) from the document
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -474,7 +474,7 @@ public class CashManagementAction extends KualiTransactionalDocumentActionBase {
 
     /**
      * Overridden to clear the CashDrawerSummary info
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#route(org.apache.struts.action.ActionMapping,
      *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */

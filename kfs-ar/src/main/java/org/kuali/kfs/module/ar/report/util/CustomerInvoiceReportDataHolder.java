@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,31 +33,31 @@ public class CustomerInvoiceReportDataHolder {
     private Map<String, String> customer;
     private Map<String, String> sysinfo;
     private List<CustomerInvoiceDetail> details;
-    
-    
+
+
     private Map<String, Object> reportData;
-    
+
     public final static String KEY_OF_INVOICE_ENTRY = "invoice";
     public final static String KEY_OF_CUSTOMER_ENTRY = "customer";
     public final static String KEY_OF_SYSINFO_ENTRY = "sysinfo";
     public final static String KEY_OF_DETAILS_ENTRY = "details";
-    
+
     /**
      * Constructs a CustomerInvoiceReportDataHolder.java.
      */
     public CustomerInvoiceReportDataHolder() {
-        
+
         this.invoice = new HashMap<String, String>();
         this.customer = new HashMap<String, String>();
-        this.sysinfo = new HashMap<String, String>(); 
+        this.sysinfo = new HashMap<String, String>();
         this.details = new ArrayList<CustomerInvoiceDetail>();
- 
+
         this.reportData = new HashMap<String, Object>();
     }
 
 
     /**
-     * Gets the invoice attribute. 
+     * Gets the invoice attribute.
      * @return Returns the invoice.
      */
     public Map<String, String> getInvoice() {
@@ -73,7 +73,7 @@ public class CustomerInvoiceReportDataHolder {
     }
 
     /**
-     * Gets the customer attribute. 
+     * Gets the customer attribute.
      * @return Returns the customer.
      */
     public Map<String, String> getCustomer() {
@@ -89,7 +89,7 @@ public class CustomerInvoiceReportDataHolder {
     }
 
     /**
-     * Gets the sysinfo attribute. 
+     * Gets the sysinfo attribute.
      * @return Returns the sysinfo.
      */
     public Map<String, String> getSysinfo() {
@@ -105,7 +105,7 @@ public class CustomerInvoiceReportDataHolder {
     }
 
     /**
-     * Gets the details attribute. 
+     * Gets the details attribute.
      * @return Returns the details.
      */
     public List<CustomerInvoiceDetail> getDetails() {
@@ -120,23 +120,23 @@ public class CustomerInvoiceReportDataHolder {
         this.details = details;
     }
 
-    
-    
+
+
     /**
-     * Gets the reportData attribute. 
+     * Gets the reportData attribute.
      * @return Returns the reportData.
      */
-    public Map<String, Object> getReportData() {        
-        
+    public Map<String, Object> getReportData() {
+
         reportData.put(KEY_OF_INVOICE_ENTRY, invoice);
         reportData.put(KEY_OF_CUSTOMER_ENTRY, customer);
         reportData.put(KEY_OF_SYSINFO_ENTRY, sysinfo);
         reportData.put(KEY_OF_DETAILS_ENTRY, details);
-        
+
         return reportData;
     }
-    
-   
+
+
     /**
      * Sets the reportData attribute value.
      * @param reportData The reportData to set.

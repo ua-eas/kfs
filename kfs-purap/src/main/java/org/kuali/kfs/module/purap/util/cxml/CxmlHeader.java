@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,7 +35,7 @@ public class CxmlHeader {
   private String senderDomain;
   private String senderType;
   private String senderUserAgent;
-  
+
   /**
    * Newly Added
    */
@@ -197,7 +197,7 @@ public class CxmlHeader {
   public void setToType(String toType) {
     this.toType = toType;
   }
-  
+
   public String getSenderSharedSecret() {
       return senderSharedSecret;
   }
@@ -205,7 +205,7 @@ public class CxmlHeader {
   public void setSenderSharedSecret(String senderSharedSecret) {
       this.senderSharedSecret = senderSharedSecret;
   }
-  
+
   public String getFromSharedSecret() {
       return fromSharedSecret;
   }
@@ -221,27 +221,27 @@ public class CxmlHeader {
   public void setToSharedSecret(String toSharedSecret) {
       this.toSharedSecret = toSharedSecret;
   }
-  
+
   public String toString(){
-      
+
       ToStringBuilder toString = new ToStringBuilder(this);
-      
+
       toString.append("FromDomain",getFromDomain());
       toString.append("FromIdentity",getFromIdentity());
       toString.append("FromSharedSecret",getFromSharedSecret());
       toString.append("FromType",getFromType());
-      
+
       toString.append("ToDomain",getToDomain());
       toString.append("ToIdentity",getToIdentity());
       toString.append("ToSharedSecret",getToSharedSecret());
       toString.append("ToType",getToType());
-      
+
       toString.append("SenderDomain",getSenderDomain());
       toString.append("SenderIdentity",getSenderIdentity());
       toString.append("SenderType",getSenderType());
       toString.append("SenderSharedSecret",getSenderSharedSecret());
       toString.append("SenderUserAgent",getSenderUserAgent());
-      
+
       return toString.toString();
   }
 

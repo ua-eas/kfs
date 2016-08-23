@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -114,7 +114,7 @@
     			<simple name="NoOp" nextNode="JoinRequireChangeRequestReview"/>
   			</branch>
   			<join name="JoinRequireChangeRequestReview"/>
-		  </split>	
+		  </split>
         </routePath>
       </routePaths>
       <routeNodes>
@@ -128,21 +128,21 @@
           <type>
             org.kuali.kfs.sys.document.workflow.SimpleBooleanSplitNode
           </type>
-        </split>     
+        </split>
         <role name="ChangeRequest">
           <qualifierResolverClass>
             org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>
-            P				
-          </activationType>                  
-        </role>	
+            P
+          </activationType>
+        </role>
         <simple name="NoOp">
           <type>
             org.kuali.rice.kew.engine.node.NoOpNode
           </type>
         </simple>
-		<join name="JoinRequireChangeRequestReview"/>                           
+		<join name="JoinRequireChangeRequestReview"/>
       </routeNodes>
     </documentType>
     <documentType>
@@ -1252,8 +1252,8 @@
       <name>IAA</name>
       <label>Intra-Account Adjustment</label>
        <helpDefinitionURL>default.htm?turl=WordDocuments%2Fintraaccountadjustme.htm</helpDefinitionURL>
-      <parent>FP</parent>      
-      <docHandler>${kfs.url}/financialIntraAccountAdjustment.do?methodToCall=docHandler</docHandler>      
+      <parent>FP</parent>
+      <docHandler>${kfs.url}/financialIntraAccountAdjustment.do?methodToCall=docHandler</docHandler>
       <active>
         true
       </active>
@@ -1268,7 +1268,7 @@
         <role name="Account">
           <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
           <activationType>P</activationType>
-        </role>               
+        </role>
       </routeNodes>
     </documentType>
   </documentTypes>

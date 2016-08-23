@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -65,7 +65,7 @@ public class AccountingLineViewCurrentBaseAmount implements TableJoiningWithHead
             }
         }
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.ReadOnlyable#isReadOnly()
      */
@@ -96,7 +96,7 @@ public class AccountingLineViewCurrentBaseAmount implements TableJoiningWithHead
      * Checks if the given field is named as a readOnlyBlock; if so, makes it read only
      * @param field the field to check
      * @param readOnlyBlocks the names of all read only blocks
-     * 
+     *
      * KRAD Conversion: Customization of the fields by setting them to read only - No use of data dictionary
      */
     protected void readOnlyizeField(Field field, Set<String> readOnlyBlocks) {
@@ -134,22 +134,22 @@ public class AccountingLineViewCurrentBaseAmount implements TableJoiningWithHead
      */
     public void joinTable(List<AccountingLineTableRow> rows) {
         final int remainingRowCount = rows.size() - 1;
-        
+
         if (currentAmountField != null) {
             rows.get(0).addCell(createHeaderCellForField(currentAmountField));
-            
+
             AccountingLineTableCell currentCell = createCellForField(currentAmountField, currentAmountFieldDefinition);
             currentCell.setRowSpan(remainingRowCount);
             rows.get(1).addCell(currentCell);
         }
         if (baseAmountField != null) {
             rows.get(0).addCell(createHeaderCellForField(baseAmountField));
-            
+
             AccountingLineTableCell baseCell = createCellForField(baseAmountField, baseAmountFieldDefinition);
             baseCell.setRowSpan(remainingRowCount);
             rows.get(1).addCell(baseCell);
         }
-        
+
     }
 
     /**
@@ -170,7 +170,7 @@ public class AccountingLineViewCurrentBaseAmount implements TableJoiningWithHead
             baseAmountField = null;
         }
     }
-    
+
     /**
      * Determines if the given field is among the blocks which should not be viewable
      * @param field the field to check for unviewability
@@ -180,12 +180,12 @@ public class AccountingLineViewCurrentBaseAmount implements TableJoiningWithHead
     protected boolean isFieldUnviewable(Field field, Set<String> unviewableBlocks) {
         return field != null && unviewableBlocks.contains(field.getPropertyName());
     }
-    
+
     /**
      * Creates a table cell with a renderable field inside
      * @param field the field to create a cell for
-     * @return a cell that wraps the given field 
-     * 
+     * @return a cell that wraps the given field
+     *
      * KRAD Conversion: Performs setting up the field for the cell
      */
     protected AccountingLineTableCell createCellForField(Field field, AccountingLineViewFieldDefinition definition) {
@@ -196,14 +196,14 @@ public class AccountingLineViewCurrentBaseAmount implements TableJoiningWithHead
         cell.addRenderableElement(renderableField);
         return cell;
     }
-    
+
     /**
      * Creates a header cell for the given field
      * @param field the field to create a header cell for
      * @return a header cell
-     * 
+     *
      * KRAD Conversion: Customization of the header cell with label from fields - No use of data dictionary
-     * 
+     *
      */
     protected AccountingLineTableCell createHeaderCellForField(Field field) {
         AccountingLineTableCell headerCell = new AccountingLineTableCell();
@@ -239,9 +239,9 @@ public class AccountingLineViewCurrentBaseAmount implements TableJoiningWithHead
     }
 
     /**
-     * Gets the baseAmountField attribute. 
+     * Gets the baseAmountField attribute.
      * @return Returns the baseAmountField.
-     * 
+     *
      * KRAD Conversion: Retrieving the field
      */
     public Field getBaseAmountField() {
@@ -251,7 +251,7 @@ public class AccountingLineViewCurrentBaseAmount implements TableJoiningWithHead
     /**
      * Sets the baseAmountField attribute value.
      * @param baseAmountField The baseAmountField to set.
-     * 
+     *
      * KRAD Conversion: Setting up field's amount
      */
     public void setBaseAmountField(Field baseAmountField) {
@@ -259,7 +259,7 @@ public class AccountingLineViewCurrentBaseAmount implements TableJoiningWithHead
     }
 
     /**
-     * Gets the currentAmountField attribute. 
+     * Gets the currentAmountField attribute.
      * @return Returns the currentAmountField.
      */
     public Field getCurrentAmountField() {
@@ -275,7 +275,7 @@ public class AccountingLineViewCurrentBaseAmount implements TableJoiningWithHead
     }
 
     /**
-     * Gets the definition attribute. 
+     * Gets the definition attribute.
      * @return Returns the definition.
      */
     public AccountingLineViewCurrentBaseAmountFieldDefinition getDefinition() {
@@ -291,7 +291,7 @@ public class AccountingLineViewCurrentBaseAmount implements TableJoiningWithHead
     }
 
     /**
-     * Gets the baseAmountFieldDefinition attribute. 
+     * Gets the baseAmountFieldDefinition attribute.
      * @return Returns the baseAmountFieldDefinition.
      */
     public AccountingLineViewFieldDefinition getBaseAmountFieldDefinition() {
@@ -307,7 +307,7 @@ public class AccountingLineViewCurrentBaseAmount implements TableJoiningWithHead
     }
 
     /**
-     * Gets the currentAmountFieldDefinition attribute. 
+     * Gets the currentAmountFieldDefinition attribute.
      * @return Returns the currentAmountFieldDefinition.
      */
     public AccountingLineViewFieldDefinition getCurrentAmountFieldDefinition() {
@@ -332,11 +332,11 @@ public class AccountingLineViewCurrentBaseAmount implements TableJoiningWithHead
         if (baseAmountField != null) {
             setEditableField(baseAmountField, editableBlocks);
         }
-        
+
         if (baseAmountField != null && currentAmountField != null) {
             if (baseAmountField.isReadOnly() && !currentAmountField.isReadOnly()) {
                 currentAmountField.setReadOnly(false);
-            } 
+            }
             else if (currentAmountField.isReadOnly() && !baseAmountField.isReadOnly()) {
                 baseAmountField.setReadOnly(false);
             }
@@ -350,22 +350,22 @@ public class AccountingLineViewCurrentBaseAmount implements TableJoiningWithHead
         if (currentAmountField != null) {
             currentAmountField.setReadOnly(false);
         }
-        
+
         if (baseAmountField != null) {
             baseAmountField.setReadOnly(false);
         }
     }
-    
+
     /**
      * Checks if the given field is named as an editableBlocks; if so, makes it editable
      * @param field the field to check
      * @param editableBlocks the names of all editable blocks
-     * 
+     *
      * KRAD Conversion: Customization of the fields - No use of data dictionary
      */
     protected void setEditableField(Field field, Set<String> editableBlocks) {
         if (field != null && editableBlocks.contains(field.getPropertyName())) {
             field.setReadOnly(false);
         }
-    }    
+    }
 }

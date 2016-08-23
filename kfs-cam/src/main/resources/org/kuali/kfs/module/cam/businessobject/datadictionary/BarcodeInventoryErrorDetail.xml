@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -84,53 +84,53 @@
     <property name="shortLabel" value="Cond. Code"/>
     <property name="required" value="true"/>
   </bean>
-  
+
   <bean id="BarcodeInventoryErrorDetail-assetTagNumber" parent="BarcodeInventoryErrorDetail-assetTagNumber-parentBean"/>
   <bean id="BarcodeInventoryErrorDetail-assetTagNumber-parentBean" abstract="true" parent="Asset-campusTagNumber">
     <property name="name" value="assetTagNumber"/>
     <property name="shortLabel" value="Tag#"/>
-    <property name="required" value="true"/>  
+    <property name="required" value="true"/>
     <property name="attributeSecurity">
         <bean parent="AttributeSecurity">
            <property name="readOnly" value="false"/>
        </bean>
 	</property>
   </bean>
-  
+
   <!-- building code and room number shall be not required -->
-  
+
   <bean id="BarcodeInventoryErrorDetail-buildingCode" parent="BarcodeInventoryErrorDetail-buildingCode-parentBean"/>
   <bean id="BarcodeInventoryErrorDetail-buildingCode-parentBean" abstract="true" parent="Asset-buildingCode">
   </bean>
-  
+
   <bean id="BarcodeInventoryErrorDetail-buildingRoomNumber" parent="BarcodeInventoryErrorDetail-buildingRoomNumber-parentBean"/>
   <bean id="BarcodeInventoryErrorDetail-buildingRoomNumber-parentBean" abstract="true" parent="Asset-buildingRoomNumber">
     <property name="shortLabel" value="Room#"/>
   </bean>
-  
+
   <bean id="BarcodeInventoryErrorDetail-buildingSubRoomNumber" parent="BarcodeInventoryErrorDetail-buildingSubRoomNumber-parentBean"/>
   <bean id="BarcodeInventoryErrorDetail-buildingSubRoomNumber-parentBean" abstract="true" parent="Asset-buildingSubRoomNumber">
     <property name="shortLabel" value="Sub Room#"/>
   </bean>
-  
+
   <bean id="BarcodeInventoryErrorDetail-campusCode" parent="BarcodeInventoryErrorDetail-campusCode-parentBean"/>
   <bean id="BarcodeInventoryErrorDetail-campusCode-parentBean" abstract="true" parent="Campus-code">
     <property name="name" value="campusCode"/>
     <property name="shortLabel" value="Campus"/>
   </bean>
-  
+
   <bean id="BarcodeInventoryErrorDetail-correctorUniversalIdentifier" parent="BarcodeInventoryErrorDetail-correctorUniversalIdentifier-parentBean"/>
   <bean id="BarcodeInventoryErrorDetail-correctorUniversalIdentifier-parentBean" abstract="true" parent="PersonImpl-principalId">
     <property name="name" value="correctorUniversalIdentifier"/>
     <property name="label" value="Corrector Universal Identifier"/>
     <property name="shortLabel" value="Identifier"/>
   </bean>
-  
+
   <bean id="BarcodeInventoryErrorDetail-documentNumber" parent="BarcodeInventoryErrorDetail-documentNumber-parentBean"/>
   <bean id="BarcodeInventoryErrorDetail-documentNumber-parentBean" abstract="true" parent="FinancialSystemDocumentHeader-documentNumber">
     <property name="shortLabel" value="Doc. #"/>
   </bean>
-  
+
   <bean id="BarcodeInventoryErrorDetail-errorCorrectionStatusCode" parent="BarcodeInventoryErrorDetail-errorCorrectionStatusCode-parentBean"/>
   <bean id="BarcodeInventoryErrorDetail-errorCorrectionStatusCode-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="errorCorrectionStatusCode"/>
@@ -145,14 +145,14 @@
       <bean parent="TextControlDefinition" p:size="3"/>
     </property>
   </bean>
-  
+
   <bean id="BarcodeInventoryErrorDetail-inventoryCorrectionTimestamp" parent="BarcodeInventoryErrorDetail-inventoryCorrectionTimestamp-parentBean"/>
   <bean id="BarcodeInventoryErrorDetail-inventoryCorrectionTimestamp-parentBean" abstract="true" parent="GenericAttributes-genericDate">
     <property name="name" value="inventoryCorrectionTimestamp"/>
     <property name="label" value="Inventory Correction Timestamp"/>
     <property name="shortLabel" value="Timestamp"/>
   </bean>
-  
+
   <bean id="BarcodeInventoryErrorDetail-uploadRowNumber" parent="BarcodeInventoryErrorDetail-uploadRowNumber-parentBean"/>
   <bean id="BarcodeInventoryErrorDetail-uploadRowNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="uploadRowNumber"/>
@@ -167,7 +167,7 @@
       <bean parent="TextControlDefinition" p:size="14"/>
     </property>
   </bean>
-  
+
   <bean id="BarcodeInventoryErrorDetail-uploadScanIndicator" parent="BarcodeInventoryErrorDetail-uploadScanIndicator-parentBean"/>
   <bean id="BarcodeInventoryErrorDetail-uploadScanIndicator-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="uploadScanIndicator"/>
@@ -179,7 +179,7 @@
       <bean parent="TextControlDefinition" p:size="1"/>
     </property>
   </bean>
-  
+
   <bean id="BarcodeInventoryErrorDetail-uploadScanTimestamp" parent="BarcodeInventoryErrorDetail-uploadScanTimestamp-parentBean"/>
   <bean id="BarcodeInventoryErrorDetail-uploadScanTimestamp-parentBean" abstract="true" parent="GenericAttributes-genericTimestamp">
     <property name="name" value="uploadScanTimestamp"/>
@@ -187,7 +187,7 @@
     <property name="shortLabel" value="Inventory Date"/>
     <property name="validationPattern">
       <bean parent="TimestampValidationPattern"/>
-    </property>    
+    </property>
     <property name="control">
       <bean parent="TextControlDefinition" p:size="16"/>
     </property>
@@ -229,7 +229,7 @@
   <bean id="BarcodeInventoryErrorDetail-lookupDefinition" parent="BarcodeInventoryErrorDetail-lookupDefinition-parentBean"/>
   <bean id="BarcodeInventoryErrorDetail-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Inventory Upload Error Detail Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
       </bean>

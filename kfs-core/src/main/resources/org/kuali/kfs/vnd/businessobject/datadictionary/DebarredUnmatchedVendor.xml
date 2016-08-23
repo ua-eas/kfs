@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -58,7 +58,7 @@
 				<bean parent="CollectionDefinition" p:name="vendorAliases"
 					p:label="Search Alias" p:shortLabel="Search Alias" p:elementLabel="Search Alias" />
 				<bean parent="CollectionDefinition" p:name="boNotes" p:label="Notes"
-					p:shortLabel="Notes" p:elementLabel="Notes" />		 
+					p:shortLabel="Notes" p:elementLabel="Notes" />
 				<bean parent="CollectionDefinition" p:name="vendorCommodities"
 					p:label="Commodity Codes" p:shortLabel="Commodity Codes" />
 			</list>
@@ -86,33 +86,33 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="DebarredVendorUnmatched-vendorHeaderGeneratedIdentifier" parent="DebarredVendorUnmatched-vendorHeaderGeneratedIdentifier-parentBean"/>
 	<bean id="DebarredVendorUnmatched-vendorHeaderGeneratedIdentifier-parentBean" abstract="true" parent="VendorDetail-vendorHeaderGeneratedIdentifier"/>
-	
+
 	<bean id="DebarredVendorUnmatched-vendorDetailAssignedIdentifier" parent="DebarredVendorUnmatched-vendorDetailAssignedIdentifier-parentBean"/>
 	<bean id="DebarredVendorUnmatched-vendorDetailAssignedIdentifier-parentBean" abstract="true" parent="VendorDetail-vendorDetailAssignedIdentifier"/>
-	
+
 	<bean id="DebarredVendorUnmatched-defaultAddressCity" parent="DebarredVendorUnmatched-defaultAddressCity-parentBean" />
 
 	<bean id="DebarredVendorUnmatched-defaultAddressCity-parentBean" abstract="true" parent="VendorAddress-vendorCityName">
 		<property name="name" value="defaultAddressCity" />
 	</bean>
-	
+
 	<bean id="DebarredVendorUnmatched-defaultAddressStateCode" parent="DebarredVendorUnmatched-defaultAddressStateCode-parentBean" />
 
 	<bean id="DebarredVendorUnmatched-defaultAddressStateCode-parentBean" abstract="true" parent="VendorAddress-vendorStateCode">
 		<property name="name" value="defaultAddressStateCode" />
 	</bean>
-	
+
 	<bean id="DebarredVendorUnmatched-defaultAddressCountryCode" parent="DebarredVendorUnmatched-defaultAddressCountryCode-parentBean" />
 
 	<bean id="DebarredVendorUnmatched-defaultAddressCountryCode-parentBean" abstract="true" parent="VendorAddress-vendorCountryCode">
 		<property name="name" value="defaultAddressCountryCode" />
 	</bean>
-  
+
   <bean id="DebarredVendorUnmatched-vendorTypeCode" parent="DebarredVendorUnmatched-vendorTypeCode-parentBean"/>
-  
+
   <bean id="DebarredVendorUnmatched-vendorTypeCode-parentBean" abstract="true" parent="VendorHeader-vendorTypeCode">
  	 <property name="name" value="vendorTypeCode"/>
      <property name="control">

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -95,7 +95,7 @@
       <ref bean="FourCharacterTextControl" />
     </property>
   </bean>
-  
+
   <bean id="BudgetAdjustmentSourceAccountingLine-currentBudgetAdjustmentAmount" parent="BudgetAdjustmentSourceAccountingLine-currentBudgetAdjustmentAmount-parentBean"/>
   <bean id="BudgetAdjustmentSourceAccountingLine-currentBudgetAdjustmentAmount-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="currentBudgetAdjustmentAmount"/>
@@ -110,7 +110,7 @@
     </property>
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
-  
+
   <bean id="BudgetAdjustmentSourceAccountingLine-baseBudgetAdjustmentAmount" parent="BudgetAdjustmentSourceAccountingLine-baseBudgetAdjustmentAmount-parentBean"/>
   <bean id="BudgetAdjustmentSourceAccountingLine-baseBudgetAdjustmentAmount-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="baseBudgetAdjustmentAmount"/>
@@ -125,7 +125,7 @@
     </property>
     <property name="formatterClass" value="org.kuali.rice.core.web.format.KualiIntegerCurrencyFormatter"/>
   </bean>
-  
+
   <bean id="BudgetAdjustmentSourceAccountingLine-financialDocumentMonth1LineAmount" parent="BudgetAdjustmentSourceAccountingLine-financialDocumentMonth1LineAmount-parentBean"/>
   <bean id="BudgetAdjustmentSourceAccountingLine-financialDocumentMonth1LineAmount-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="financialDocumentMonth1LineAmount"/>
@@ -140,7 +140,7 @@
     </property>
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
-  
+
   <bean id="BudgetAdjustmentSourceAccountingLine-financialDocumentMonth2LineAmount" parent="BudgetAdjustmentSourceAccountingLine-financialDocumentMonth2LineAmount-parentBean"/>
   <bean id="BudgetAdjustmentSourceAccountingLine-financialDocumentMonth2LineAmount-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="financialDocumentMonth2LineAmount"/>
@@ -364,10 +364,10 @@
 
   <bean id="BudgetAdjustmentSourceAccountingLine-accountExpiredOverride" parent="BudgetAdjustmentSourceAccountingLine-accountExpiredOverride-parentBean"/>
   <bean id="BudgetAdjustmentSourceAccountingLine-accountExpiredOverride-parentBean" abstract="true" parent="SourceAccountingLine-accountExpiredOverride" />
-  
+
   <bean id="BudgetAdjustmentSourceAccountingLine-nonFringeAccountOverride" parent="BudgetAdjustmentSourceAccountingLine-nonFringeAccountOverride-parentBean"/>
   <bean id="BudgetAdjustmentSourceAccountingLine-nonFringeAccountOverride-parentBean" abstract="true" parent="SourceAccountingLine-nonFringeAccountOverride" />
-  
+
   <bean id="BudgetAdjustmentSourceAccountingLine-objectBudgetOverride" parent="BudgetAdjustmentSourceAccountingLine-objectBudgetOverride-parentBean"/>
   <bean id="BudgetAdjustmentSourceAccountingLine-objectBudgetOverride-parentBean" abstract="true" parent="SourceAccountingLine-objectBudgetOverride" />
 
@@ -400,10 +400,10 @@
 
     <bean id="BudgetAdjustmentSourceAccountingLine-objectCode.financialObjectLevelCode" parent="BudgetAdjustmentSourceAccountingLine-objectCode.financialObjectLevelCode-parentBean"/>
     <bean id="BudgetAdjustmentSourceAccountingLine-objectCode.financialObjectLevelCode-parentBean" abstract="true" parent="SourceAccountingLine-objectCode.financialObjectLevelCode" />
-        
+
     <bean id="BudgetAdjustmentSourceAccountingLine-objectCode.financialObjectLevel.financialConsolidationObjectCode" parent="BudgetAdjustmentSourceAccountingLine-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean"/>
     <bean id="BudgetAdjustmentSourceAccountingLine-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean" abstract="true" parent="SourceAccountingLine-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean" />
-   
+
     <bean id="BudgetAdjustmentSourceAccountingLine-account.organizationCode" parent="BudgetAdjustmentSourceAccountingLine-account.organizationCode-parentBean"/>
     <bean id="BudgetAdjustmentSourceAccountingLine-account.organizationCode-parentBean" abstract="true" parent="SourceAccountingLine-account.organizationCode" />
 

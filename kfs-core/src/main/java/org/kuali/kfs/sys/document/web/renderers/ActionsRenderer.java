@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -43,17 +43,17 @@ public class ActionsRenderer implements Renderer {
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
         actions = null;
-        
+
         resetButton();
         actionButton.setPageContext(null);
         actionButton.setParent(null);
     }
-    
+
     /**
      * Clears out changing values the action button tag
      */
@@ -68,14 +68,14 @@ public class ActionsRenderer implements Renderer {
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
         actionButton.setPageContext(pageContext);
         actionButton.setParent(parentTag);
         JspWriter out = pageContext.getOut();
-        
+
         try {
             if (actions != null && actions.size() > 0) {
                 out.write("<div class=\"actions\">");
@@ -92,11 +92,11 @@ public class ActionsRenderer implements Renderer {
             throw new JspException("Difficulty rendering actions block", ioe);
         }
     }
-    
+
     /**
      * Renders a single action, using the action button
      * @param action the action to render
-     * @throws JspException thrown if the actionButton cannot uphold its duties to render the 
+     * @throws JspException thrown if the actionButton cannot uphold its duties to render the
      */
     protected void renderAction(AccountingLineViewAction action) throws JspException {
         actionButton.setProperty(KFSConstants.DISPATCH_REQUEST_PARAMETER+"."+action.getActionMethod());
@@ -120,7 +120,7 @@ public class ActionsRenderer implements Renderer {
     }
 
     /**
-     * Gets the action attribute. 
+     * Gets the action attribute.
      * @return Returns the action.
      */
     public List<AccountingLineViewAction> getActions() {
@@ -140,18 +140,18 @@ public class ActionsRenderer implements Renderer {
      * @param tabIndex the tab index to set
      */
     public void setTabIndex(int tabIndex) {
-        this.tabIndex = tabIndex;   
+        this.tabIndex = tabIndex;
     }
-    
+
     /**
      * Retrieves the set tab index as a String, or, if the tabIndex was never set, returns a null
      * @return the tab index as a String or null
      */
     protected String getTabIndex() {
-        if (tabIndex > -1) return Integer.toString(tabIndex); 
+        if (tabIndex > -1) return Integer.toString(tabIndex);
         return null;
     }
-    
+
     /**
      * @return the HTML for a non-breaking space, so the box isn't all empty
      */

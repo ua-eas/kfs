@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,7 +36,7 @@ public class AccountingLineTable implements RenderableElement {
     private AccountingLineRenderingContext renderingContext;
 
     /**
-     * Gets the rows attribute. 
+     * Gets the rows attribute.
      * @return Returns the rows.
      */
     public List<AccountingLineTableRow> getRows() {
@@ -70,7 +70,7 @@ public class AccountingLineTable implements RenderableElement {
     public boolean isActionBlock() {
         return false;
     }
-    
+
     /**
      * Determines if this table is empty of any renderable elements
      * @return true if this is empty, false otherwise
@@ -95,7 +95,7 @@ public class AccountingLineTable implements RenderableElement {
         renderer.clear();
         this.renderingContext = null;
     }
-    
+
     /**
      * Requests that this table render all of its children rows
      * @param pageContext the page context to render to
@@ -112,7 +112,7 @@ public class AccountingLineTable implements RenderableElement {
 
     /**
      * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFieldNames(java.util.List)
-     * 
+     *
      * KRAD Conversion: Customization of the fields - No use of data dictionary
      */
     public void appendFields(List<Field> fields) {
@@ -129,7 +129,7 @@ public class AccountingLineTable implements RenderableElement {
             row.populateWithTabIndexIfRequested(reallyHighIndex);
         }
     }
-    
+
     /**
      * Adds a row to the bottom of this table's list of rows
      * @param row the row to add

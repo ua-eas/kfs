@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -28,7 +28,7 @@
     <property name="businessRulesClass" value="org.kuali.kfs.module.ec.document.validation.impl.EffortCertificationDocumentRules"/>
     <property name="documentAuthorizerClass" value="org.kuali.kfs.module.ec.document.authorization.EffortCertificationDocumentAuthorizer"/>
     <property name="documentPresentationControllerClass" value="org.kuali.kfs.module.ec.document.authorization.EffortDocumentPresentationController"/>
-    <property name="allowsCopy" value="true"/>    
+    <property name="allowsCopy" value="true"/>
     <property name="sessionDocument" value="true"/>
     <property name="allowsErrorCorrection" value="false"/>
     <property name="attributes">
@@ -79,8 +79,8 @@
     <property name="control">
       <ref bean="FourCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="EffortCertificationDocument-emplid" parent="EffortCertificationDocument-emplid-parentBean"/>
 
@@ -131,19 +131,19 @@
 
   <bean id="EffortCertificationDocument-versionNumber-parentBean" abstract="true" parent="GenericAttributes-versionNumber">
   </bean>
-  
-  
+
+
   <!-- Exported Workflow Attributes -->
- 
+
   <bean id="EffortCertificationDocument-workflowAttributes" parent="EffortCertificationDocument-workflowAttributes-parentBean"/>
   <bean id="EffortCertificationDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
 	  <property name="searchingTypeDefinitions">
-	  		<list>  		
+	  		<list>
   				<bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
     				<property name="searchingAttribute">
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
     						<property name="businessObjectClassName" value="org.kuali.kfs.sys.businessobject.SourceAccountingLine"/>
-    						<property name="attributeName" value="chartOfAccountsCode"/>					        
+    						<property name="attributeName" value="chartOfAccountsCode"/>
     						<property name="showAttributeInSearchCriteria" value="true"/>
 					        <property name="showAttributeInResultSet" value="true"/>
                         </bean>
@@ -224,10 +224,10 @@
   	  			<entry key="AccountingOrganizationHierarchy" value-ref="RoutingType-EffortCertificationDocument-OrganizationHierarchy"/>
   	  			<!-- no qualifiers for Management node -->
   	  		</map>
-  	  </property>	
+  	  </property>
   </bean>
-  
-  <!-- define the routing types -->  
+
+  <!-- define the routing types -->
   <bean id="RoutingType-EffortCertificationDocument-ProjectManagement" parent="RoutingType-EffortCertificationDocument-ProjectManagement-parentBean"/>
   <bean id="RoutingType-EffortCertificationDocument-ProjectManagement-parentBean" abstract="true" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
         <property name="routingAttributes">
@@ -236,23 +236,23 @@
                 <ref bean="RoutingAttribute-chartOfAccountsCode"/>
                 <ref bean="RoutingAttribute-accountNumber"/>
             </list>
-        </property>     
+        </property>
         <property name="documentValuePathGroups">
             <list>
                 <ref bean="DocumentValuePathGroup-EffortCertificationDocument-Project-detailLines"/>
             </list>
-        </property>     
+        </property>
   </bean>
-  
-  <bean id="DocumentValuePathGroup-EffortCertificationDocument-Project-detailLines" parent="DocumentValuePathGroup-EffortCertificationDocument-Project-detailLines-parentBean"/>  
+
+  <bean id="DocumentValuePathGroup-EffortCertificationDocument-Project-detailLines" parent="DocumentValuePathGroup-EffortCertificationDocument-Project-detailLines-parentBean"/>
   <bean id="DocumentValuePathGroup-EffortCertificationDocument-Project-detailLines-parentBean" parent="DocumentValuePathGroup-AccountingDocument-financialDocumentTotalAmount" abstract="true">
     	<property name="documentCollectionPath">
     		<bean parent="DocumentCollectionPath-AccountingLine-chartAndAccountNumber">
     			<property name="collectionPath" value="detailLinesForPDRouting"/>
     		</bean>
     	</property>
-  </bean>	
-    
+  </bean>
+
   <bean id="RoutingType-EffortCertificationDocument-Account" parent="RoutingType-EffortCertificationDocument-Account-parentBean"/>
   <bean id="RoutingType-EffortCertificationDocument-Account-parentBean" abstract="true" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
@@ -261,24 +261,24 @@
 		        <ref bean="RoutingAttribute-chartOfAccountsCode"/>
 		        <ref bean="RoutingAttribute-accountNumber"/>
     		</list>
-    	</property>    	
+    	</property>
     	<property name="documentValuePathGroups">
     		<list>
     			<ref bean="DocumentValuePathGroup-EffortCertificationDocument-Account-detailLines"/>
     		</list>
-    	</property>    	
+    	</property>
   </bean>
-  
-  <bean id="DocumentValuePathGroup-EffortCertificationDocument-Account-detailLines" parent="DocumentValuePathGroup-EffortCertificationDocument-Account-detailLines-parentBean"/>  
+
+  <bean id="DocumentValuePathGroup-EffortCertificationDocument-Account-detailLines" parent="DocumentValuePathGroup-EffortCertificationDocument-Account-detailLines-parentBean"/>
   <bean id="DocumentValuePathGroup-EffortCertificationDocument-Account-detailLines-parentBean" parent="DocumentValuePathGroup-AccountingDocument-financialDocumentTotalAmount" abstract="true">
     	<property name="documentCollectionPath">
     		<bean parent="DocumentCollectionPath-AccountingLine-chartAndAccountNumber">
     			<property name="collectionPath" value="effortCertificationDetailLines"/>
     		</bean>
     	</property>
-  </bean>	
+  </bean>
 
-  <bean id="RoutingType-EffortCertificationDocument-OrganizationHierarchy" parent="RoutingType-EffortCertificationDocument-OrganizationHierarchy-parentBean"/>  
+  <bean id="RoutingType-EffortCertificationDocument-OrganizationHierarchy" parent="RoutingType-EffortCertificationDocument-OrganizationHierarchy-parentBean"/>
   <bean id="RoutingType-EffortCertificationDocument-OrganizationHierarchy-parentBean" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition" abstract="true">
     	<property name="routingAttributes">
     		<list>
@@ -293,8 +293,8 @@
     			<ref bean="DocumentValuePathGroup-EffortCertificationDocument-OrganizationHierarchy-detailLines"/>
     		</list>
     	</property>
-  </bean>  
-    
+  </bean>
+
   <bean id="DocumentValuePathGroup-EffortCertificationDocument-OrganizationHierarchy-detailLines" parent="DocumentValuePathGroup-EffortCertificationDocument-OrganizationHierarchy-detailLines-parentBean"/>
   <bean id="DocumentValuePathGroup-EffortCertificationDocument-OrganizationHierarchy-detailLines-parentBean" parent="DocumentValuePathGroup-AccountingDocument-financialDocumentTotalAmount" abstract="true">
     	<property name="documentCollectionPath">
@@ -303,7 +303,7 @@
     		</bean>
     	</property>
   </bean>
-  
+
   <bean id="DocumentCollectionPath-detailLine-chartOrganizationAndOverrideCode" class="org.kuali.kfs.krad.datadictionary.DocumentCollectionPath" abstract="true">
    		<property name="documentValues">
 	   		<list>
@@ -312,8 +312,8 @@
 	            <value>overrideCode</value>
 	   		</list>
    		</property>
-   	</bean>  
-  
+   	</bean>
+
   <bean id="RoutingType-EffortCertificationDocument-Award" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
@@ -325,14 +325,14 @@
     			<ref bean="DocumentValuePathGroup-EffortCertificationDocument-Award-detailLines"/>
     		</list>
     	</property>
-  </bean> 
-  
-  <bean id="DocumentValuePathGroup-EffortCertificationDocument-Award-detailLines" parent="DocumentValuePathGroup-EffortCertificationDocument-Award-detailLines-parentBean"/>  
+  </bean>
+
+  <bean id="DocumentValuePathGroup-EffortCertificationDocument-Award-detailLines" parent="DocumentValuePathGroup-EffortCertificationDocument-Award-detailLines-parentBean"/>
   <bean id="DocumentValuePathGroup-EffortCertificationDocument-Award-detailLines-parentBean" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup" abstract="true">
     	<property name="documentCollectionPath">
     		<bean parent="DocumentCollectionPath-AccountingLine-contractsAndGrantsAccountResponsibilityId">
     			<property name="collectionPath" value="effortCertificationDetailLines"/>
     		</bean>
     	</property>
-  </bean>   	
+  </bean>
 </beans>

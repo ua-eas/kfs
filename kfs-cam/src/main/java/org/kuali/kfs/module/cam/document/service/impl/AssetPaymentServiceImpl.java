@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -149,7 +149,7 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
 
     /**
      * Creates a new asset payment record for each new asset payment detail record and then save them
-     * 
+     *
      * @param document
      */
     protected void processPayments(AssetPaymentDocument document) {
@@ -160,7 +160,7 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
 
         //instantiate asset payment distributor
         AssetDistribution paymentDistributor = document.getAssetPaymentDistributor();
-        
+
         // Calculating the asset payments distributions for each individual asset on the list
         Map<String, Map<AssetPaymentAssetDetail, KualiDecimal>> assetPaymentDistributionMap = paymentDistributor.getAssetPaymentDistributions();
 
@@ -210,11 +210,11 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
                 keys.put(CamsPropertyConstants.Asset.CAPITAL_ASSET_NUMBER, assetPaymentAssetDetail.getCapitalAssetNumber());
                 Asset asset = (Asset) getBusinessObjectService().findByPrimaryKey(Asset.class, keys);
 
-                // Set previous total cost 
+                // Set previous total cost
                 if (assetPaymentAssetDetail.getPreviousTotalCostAmount() == null) {
                     assetPaymentAssetDetail.setPreviousTotalCostAmount(new KualiDecimal(0));
                 }
-                
+
                 // Setting the asset's new cost.
                 asset.setTotalCostAmount(assetPaymentAssetDetail.getPreviousTotalCostAmount().add(totalAmount));
 
@@ -234,7 +234,7 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
         this.getBusinessObjectService().save(assetPayments);
     }
 
-    
+
     /**
      * @see org.kuali.kfs.module.cam.document.service.AssetPaymentService#adjustPaymentAmounts(org.kuali.kfs.module.cam.businessobject.AssetPayment,
      *      boolean, boolean)
@@ -280,7 +280,7 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
 
     /**
      * Checks if object sub type is a non-depreciable federally owned object sub type
-     * 
+     *
      * @param string objectSubType2
      * @return true if is NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES
      */
@@ -344,7 +344,7 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
 
     /**
      * This method determines whether or not an asset has different object sub type codes in its documents.
-     * 
+     *
      * @return true when the asset has payments with object codes that point to different object sub type codes
      */
     public boolean hasDifferentObjectSubTypes(AssetPaymentDocument document) {
@@ -477,5 +477,5 @@ public class AssetPaymentServiceImpl implements AssetPaymentService {
 		AssetPaymentAllocationType d = (AssetPaymentAllocationType) getBusinessObjectService().findByPrimaryKey(AssetPaymentAllocationType.class, keys);
 		return d;
 	}
-	
+
 }

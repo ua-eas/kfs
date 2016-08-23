@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,7 +33,7 @@ public class LedgerSummaryDetailLine extends LedgerBalanceTypeSummaryTotalLine {
 
     /**
      * Constructs a LedgerSummaryDetailLine
-     * 
+     *
      * @param balanceTypeCode
      * @param financialSystemOriginationCode
      * @param universityFiscalYear
@@ -48,7 +48,7 @@ public class LedgerSummaryDetailLine extends LedgerBalanceTypeSummaryTotalLine {
 
     /**
      * Gets the financialSystemOriginationCode attribute.
-     * 
+     *
      * @return Returns the financialSystemOriginationCode.
      */
     public String getFinancialSystemOriginationCode() {
@@ -57,7 +57,7 @@ public class LedgerSummaryDetailLine extends LedgerBalanceTypeSummaryTotalLine {
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear.
      */
     public Integer getUniversityFiscalYear() {
@@ -66,7 +66,7 @@ public class LedgerSummaryDetailLine extends LedgerBalanceTypeSummaryTotalLine {
 
     /**
      * Gets the universityAccountPeriodCode attribute.
-     * 
+     *
      * @return Returns the universityAccountPeriodCode.
      */
     public String getUniversityAccountPeriodCode() {
@@ -82,7 +82,7 @@ public class LedgerSummaryDetailLine extends LedgerBalanceTypeSummaryTotalLine {
 
     /**
      * Generates a Map key in a consistent format with the rest of the uses of this class for a given OriginEntryInformation
-     * 
+     *
      * @param entry the entry to build a key for
      * @return the "key" for a summary line which would include totals from entries like the given origin entry
      */
@@ -92,7 +92,7 @@ public class LedgerSummaryDetailLine extends LedgerBalanceTypeSummaryTotalLine {
 
     /**
      * Given the various values, puts together a convenient Map key
-     * 
+     *
      * @param balanceTypeCode a balance type code
      * @param financialSystemOriginationCode an origination code
      * @param universityFiscalYear a fiscal year, smothered in mustard
@@ -111,7 +111,7 @@ public class LedgerSummaryDetailLine extends LedgerBalanceTypeSummaryTotalLine {
 
             /**
              * Compares two NightlyOutPendingEntryLedgerSummaryDetailLine objects
-             * 
+             *
              * @param detail1 the first NightlyOutPendingEntryLedgerSummaryDetailLine object
              * @param detail2 the second NightlyOutPendingEntryLedgerSummaryDetailLine other
              * @return the standard 0 for equals, greater than 0 for greater than, less than 0 for less than
@@ -138,7 +138,7 @@ public class LedgerSummaryDetailLine extends LedgerBalanceTypeSummaryTotalLine {
             /**
              * Checks for nulls in the two comparables before calling the compare. If one is null and not the other, the null is
              * considered less. If both are null they are considered equal.
-             * 
+             *
              * @param o1 object to compare
              * @param o2 object to compare o1 to
              * @return -1 for less, 0 for equal, 1 for greater

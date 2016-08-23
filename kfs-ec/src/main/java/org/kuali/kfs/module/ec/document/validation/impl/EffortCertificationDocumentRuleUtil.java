@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,15 +49,15 @@ public class EffortCertificationDocumentRuleUtil {
 
     /**
      * reset the attribute with the blank value to the default values
-     * 
+     *
      * @param detailLine the given detail line
      */
-    public static void applyDefaultValues(EffortCertificationDetail detailLine) {        
-      
+    public static void applyDefaultValues(EffortCertificationDetail detailLine) {
+
        if (StringUtils.isBlank(detailLine.getSubAccountNumber())) {
            detailLine.setSubAccountNumber(KFSConstants.getDashSubAccountNumber());
        }
-        
+
         if (StringUtils.isBlank(detailLine.getCostShareSourceSubAccountNumber())) {
            detailLine.setCostShareSourceSubAccountNumber(KFSConstants.getDashSubAccountNumber());
         }
@@ -96,7 +96,7 @@ public class EffortCertificationDocumentRuleUtil {
 
     /**
      * determine whether the expired account in the detail line can be used.
-     * 
+     *
      * @param detailLine the given detail line
      * @return true if the expired account in the detail line can be used; otherwise, false
      */
@@ -113,7 +113,7 @@ public class EffortCertificationDocumentRuleUtil {
 
     /**
      * determine if the sub account associated with the given detail line is a valid A21 sub account
-     * 
+     *
      * @param detailLine the given detail line
      * @return true if the sub account associated with the given detail line is a valid A21 sub account; otherwise, false
      */
@@ -127,7 +127,7 @@ public class EffortCertificationDocumentRuleUtil {
 
     /**
      * determine if the given detail line is associated with a closed account
-     * 
+     *
      * @param detailLine the given detail line
      * @return true if the given detail line is associated with a closed account; otherwise, false
      */
@@ -137,7 +137,7 @@ public class EffortCertificationDocumentRuleUtil {
 
     /**
      * determine if the given detail line is associated with a contract grant account
-     * 
+     *
      * @param detailLine the given detail line
      * @return true if the given detail line is associated with a contract grant account; otherwise, false
      */
@@ -147,7 +147,7 @@ public class EffortCertificationDocumentRuleUtil {
 
     /**
      * determine if the given detail line is associated with a sub account whose type code is in the given list
-     * 
+     *
      * @param detailLine the given detail line
      * @param designatedCostShareSubAccountTypeCode the designated cost share sub account type codes
      * @return true if the given detail line is associated with a sub account whose type code is in the given list; otherwise, false
@@ -163,20 +163,20 @@ public class EffortCertificationDocumentRuleUtil {
 
     /**
      * determine if the payroll amount of the given detail line is not negative
-     * 
+     *
      * @param detailLine the given detail line
      * @return true if the payroll amount of the given detail line is not negative; otherwise, false
      */
     public static boolean hasNonnegativePayrollAmount(EffortCertificationDetail detailLine) {
         KualiDecimal payrollAmount = detailLine.getEffortCertificationPayrollAmount();
-        
+
         return ObjectUtils.isNotNull(payrollAmount) && isPayrollAmountNonnegative(payrollAmount);
     }
 
     /**
      * determine if there is a line in the given document that has the same values for the comparable fields as the given detail
      * line
-     * 
+     *
      * @param document the given effort certification document
      * @param detailLine the given detail line
      * @param comparableFields the comparable fields
@@ -190,25 +190,25 @@ public class EffortCertificationDocumentRuleUtil {
             if(detailLine != line && ObjectUtil.equals(line, detailLine, comparableFields)) {
                 return true;
             }
-        }        
+        }
         return false;
     }
 
     /**
      * determine if the given detail line has a valid effort percentage. The percentage should be between 0 and 100.
-     * 
+     *
      * @param detailLine the given detail line
      * @return true if the given detail line has a valid effort percentage; otherwise, false
      */
     public static boolean hasValidEffortPercent(EffortCertificationDetail detailLine) {
         Integer effortPercent = detailLine.getEffortCertificationUpdatedOverallPercent();
-        
+
         return ObjectUtils.isNotNull(effortPercent) && isValidPercent(effortPercent);
     }
 
     /**
      * determine if the fields in the detail line are in the correct formats defined in the data dictionary
-     * 
+     *
      * @param detailLine the given detail line
      * @return true if the fields in the detail line are in the correct formats defined in the data dictionary; otherwise, false
      */
@@ -222,7 +222,7 @@ public class EffortCertificationDocumentRuleUtil {
 
     /**
      * determine if there is a change on the payroll amount of the given detail line comparing to its original payroll amount
-     * 
+     *
      * @param detailLine the given effort certification detail line
      * @return true if there is a change on the payroll amount of the given detail line comparing to its original payroll amount
      */
@@ -236,7 +236,7 @@ public class EffortCertificationDocumentRuleUtil {
 
     /**
      * determine if there is a change on the payroll amount of the given document
-     * 
+     *
      * @param document the given effort certification document
      * @return true if there is the change on the payroll amount of any detail line in the given document
      */
@@ -254,7 +254,7 @@ public class EffortCertificationDocumentRuleUtil {
 
     /**
      * determine if there is a change on the payroll amount of the given detail line comparing to its persisted payroll amount
-     * 
+     *
      * @param detailLine the given effort certification detail line
      * @return true if there is a change on the payroll amount of the given detail line comparing to its persisted payroll amount
      */
@@ -269,10 +269,10 @@ public class EffortCertificationDocumentRuleUtil {
 
         return difference.isNonZero();
     }
-    
+
     /**
      * determine if there is a change on the payroll amount of the given document
-     * 
+     *
      * @param document the given effort certification document
      * @return true if there is the change on the payroll amount of any detail line in the given document
      */
@@ -287,10 +287,10 @@ public class EffortCertificationDocumentRuleUtil {
 
         return false;
     }
-    
+
     /**
      * determine if there is a change on the payroll amount of the given detail line comparing to its persisted payroll amount
-     * 
+     *
      * @param detailLine the given effort certification detail line
      * @return true if there is a change on the payroll amount of the given detail line comparing to its persisted payroll amount
      */
@@ -300,10 +300,10 @@ public class EffortCertificationDocumentRuleUtil {
 
         return !persistedAmount.equals(effortPercent);
     }
-    
+
     /**
      * determine if there is a change on the payroll amount of the given document
-     * 
+     *
      * @param document the given effort certification document
      * @return true if there is the change on the payroll amount of any detail line in the given document
      */
@@ -321,7 +321,7 @@ public class EffortCertificationDocumentRuleUtil {
 
     /**
      * determine if the given payroll amount is greater than and equal to 0
-     * 
+     *
      * @param payrollAmount the given payroll amount
      * @return true if the given payroll amount is greater than and equal to 0; otherwise, false
      */
@@ -334,38 +334,38 @@ public class EffortCertificationDocumentRuleUtil {
      * @param detailLine the given effort certification detail line
      * @return true if original effort percent same as current effort percent
      */
-    
+
     public static boolean isOriginalEffortPercentSameAsCurrentEffortPercent(Integer originalEffortPercent, Integer effortPercent) {
         return originalEffortPercent.equals(effortPercent);
     }
-    
+
     /**
      * determine if the change on the payroll amount of the given detail line exceeds the specified limit
-     * 
+     *
      * @param detailLine the given effort certification detail line
      * @param limitOfLinePayrollAmountChange the specified upper bound limit
      * @return true if the change on the payroll amount of the given detail line exceeds the specified limit; otherwise, false
      */
-    public static boolean isPayrollAmountOverChanged(EffortCertificationDetail detailLine, KualiDecimal originalTotalAmount, double limitOfLinePayrollAmountChange) {        
+    public static boolean isPayrollAmountOverChanged(EffortCertificationDetail detailLine, KualiDecimal originalTotalAmount, double limitOfLinePayrollAmountChange) {
         KualiDecimal payrollAmount = detailLine.getEffortCertificationPayrollAmount();
         KualiDecimal originalPayrollAmount = detailLine.getEffortCertificationOriginalPayrollAmount();
-        
+
         KualiDecimal difference = KualiDecimal.ZERO;
-        
+
         Integer originalEffortPercent = detailLine.getEffortCertificationCalculatedOverallPercent();
-        Integer effortPercent = detailLine.getEffortCertificationUpdatedOverallPercent();       
+        Integer effortPercent = detailLine.getEffortCertificationUpdatedOverallPercent();
         if (isOriginalEffortPercentSameAsCurrentEffortPercent(originalEffortPercent, effortPercent)) {
             difference = originalPayrollAmount.subtract(payrollAmount).multiply(HUNDRED_DOLLAR_AMOUNT).abs();
-            
+
             return difference.divide(originalTotalAmount).doubleValue() > limitOfLinePayrollAmountChange * HUNDRED_DOLLAR_AMOUNT.intValue();
         }
-        
+
         return false;
     }
 
     /**
      * determine if there is a change on the payroll amount of a detail line that exceeds the specified limit
-     * 
+     *
      * @param document the given effort certification document
      * @param limitOfLinePayrollAmountChange the specified upper bound limit
      * @return true if the change on the payroll amount of any detail line exceeds the specified limit; otherwise, false
@@ -385,7 +385,7 @@ public class EffortCertificationDocumentRuleUtil {
 
     /**
      * detrmine if the total effort percent of the given document is 100
-     * 
+     *
      * @param document the given effort certification document
      * @return true if the total effort percent of the given document is 100
      */
@@ -395,7 +395,7 @@ public class EffortCertificationDocumentRuleUtil {
 
     /**
      * determine if the change on the total payroll amount exceeds the specified limit
-     * 
+     *
      * @param document the given effort certification document
      * @param limitOfTotalPayrollAmountChange the specified upper bound limit
      * @return true if the change on the total payroll amount exceeds the specified limit; otherwise, false
@@ -410,7 +410,7 @@ public class EffortCertificationDocumentRuleUtil {
 
     /**
      * determine if the given percent is between 0 and 100.
-     * 
+     *
      * @param percent the given percent
      * @return true if the given percent is between 0 and 100; otherwise, false
      */
@@ -420,7 +420,7 @@ public class EffortCertificationDocumentRuleUtil {
 
     /**
      * update the information of the source attributes for the given detail line
-     * 
+     *
      * @param detailLine the given detail line
      */
     public static void updateSourceAccountInformation(EffortCertificationDetail detailLine) {
@@ -432,10 +432,10 @@ public class EffortCertificationDocumentRuleUtil {
             detailLine.setCostShareSourceSubAccountNumber(a21SubAccount.getCostShareSourceSubAccountNumber());
         }
     }
-    
+
     /**
      * determine if there is a line associated with the given document
-     * 
+     *
      * @param document the given effort certification document
      * @return true if there is a line associated with the given document; otherwise, false
      */

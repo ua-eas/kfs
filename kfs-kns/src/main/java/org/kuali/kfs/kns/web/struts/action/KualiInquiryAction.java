@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -80,7 +80,7 @@ public class KualiInquiryAction extends KualiAction {
                             KRADUtils.getNamespaceAndComponentSimpleName(businessObjectClass),
                             Collections.<String, String>emptyMap())) {
 
-            			throw new AuthorizationException(GlobalVariables.getUserSession().getPerson().getPrincipalName(), 
+            			throw new AuthorizationException(GlobalVariables.getUserSession().getPerson().getPrincipalName(),
                     		"inquire",
                     		businessObjectClass.getSimpleName());
             		}
@@ -103,7 +103,7 @@ public class KualiInquiryAction extends KualiAction {
 					.getInquiryPrimaryKeys();
 			if (primaryKeys != null) {
 				for (String keyName : primaryKeys.keySet()) {
-					roleQualification.put(keyName, primaryKeys.get(keyName));					
+					roleQualification.put(keyName, primaryKeys.get(keyName));
 				}
 			}
 		}
@@ -126,7 +126,7 @@ public class KualiInquiryAction extends KualiAction {
             LOG.error("Business object name not given.");
             throw new RuntimeException("Business object name not given.");
         }
-        
+
         Class boClass = Class.forName(inquiryForm.getBusinessObjectClassName());
         ModuleService responsibleModuleService = KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(boClass);
 		if(responsibleModuleService!=null && responsibleModuleService.isExternalizable(boClass)){
@@ -191,13 +191,13 @@ public class KualiInquiryAction extends KualiAction {
     			&& fileContentBoField != null) {
     		//make sure user has authorization to download attachment
     		checkAuthorization(form, findMethodToCall(form, request));
-    		
+
     		fileName = StringUtils.replace(fileName, " ", "_");
-    		
+
     		InquiryForm inquiryForm = (InquiryForm) form;
         	BusinessObject bo = retrieveBOFromInquirable(inquiryForm);
     		checkBO(bo);
-    		
+
     		Class clazz = (bo.getClass());
     		Method method = clazz.getMethod("get"+StringUtils.capitalize(fileContentBoField));
     		byte[] fileContents = (byte[]) method.invoke(bo);
@@ -215,8 +215,8 @@ public class KualiInquiryAction extends KualiAction {
     	}
     	return null;
     }
-    
-    
+
+
     /**
      * Downloads the selected attachment to the user's browser
      *
@@ -240,26 +240,26 @@ public class KualiInquiryAction extends KualiAction {
         	}
         	return null;
         }
-        
+
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }
-    
+
     public ActionForward continueWithInquiry(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
     	InquiryForm inquiryForm = (InquiryForm) form;
-    	
+
     	if (inquiryForm.getBusinessObjectClassName() == null) {
     		LOG.error("Business object name not given.");
     		throw new RuntimeException("Business object name not given.");
     	}
-    	
+
         BusinessObject bo = retrieveBOFromInquirable(inquiryForm);
         checkBO(bo);
-        
+
         populateSections(mapping, request, inquiryForm, bo);
-        
+
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }
-    
+
     /**
      * Turns on (or off) the inactive record display for a maintenance collection.
      */
@@ -269,29 +269,29 @@ public class KualiInquiryAction extends KualiAction {
             LOG.error("Business object name not given.");
             throw new RuntimeException("Business object name not given.");
         }
-        
+
         BusinessObject bo = retrieveBOFromInquirable(inquiryForm);
         checkBO(bo);
-        
+
         Inquirable kualiInquirable = inquiryForm.getInquirable();
         //////////////////////////////
         String collectionName = extractCollectionName(request, KRADConstants.TOGGLE_INACTIVE_METHOD);
         if (collectionName == null) {
             LOG.error("Unable to get find collection name in request.");
             throw new RuntimeException("Unable to get find collection class in request.");
-        }  
+        }
         String parameterName = (String) request.getAttribute(KRADConstants.METHOD_TO_CALL_ATTRIBUTE);
         boolean showInactive = Boolean.parseBoolean(StringUtils.substringBetween(parameterName, KRADConstants.METHOD_TO_CALL_BOPARM_LEFT_DEL, "."));
         kualiInquirable.setShowInactiveRecords(collectionName, showInactive);
         //////////////////////////////
-        
+
         populateSections(mapping, request, inquiryForm, bo);
 
         // toggling the display to be visible again, re-open any previously closed inactive records
         if (showInactive) {
         	WebUtils.reopenInactiveRecords(inquiryForm.getSections(), inquiryForm.getTabStates(), collectionName);
         }
-        
+
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }
 
@@ -302,19 +302,19 @@ public class KualiInquiryAction extends KualiAction {
             LOG.error("Business object name not given.");
             throw new RuntimeException("Business object name not given.");
         }
-        
+
         BusinessObject bo = retrieveBOFromInquirable(inquiryForm);
         checkBO(bo);
-        
+
         populateSections(mapping, request, inquiryForm, bo);
-        
+
         Inquirable kualiInquirable = inquiryForm.getInquirable();
-        
+
         return super.toggleTab(mapping, form, request, response);
     }
-    
-    
-    
+
+
+
     /**
 	 * @see org.kuali.rice.krad.web.struts.action.KualiAction#hideAllTabs(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -326,12 +326,12 @@ public class KualiInquiryAction extends KualiAction {
             LOG.error("Business object name not given.");
             throw new RuntimeException("Business object name not given.");
         }
-        
+
         BusinessObject bo = retrieveBOFromInquirable(inquiryForm);
         checkBO(bo);
-        
+
         populateSections(mapping, request, inquiryForm, bo);
-		
+
 		return super.hideAllTabs(mapping, form, request, response);
 	}
 
@@ -346,12 +346,12 @@ public class KualiInquiryAction extends KualiAction {
             LOG.error("Business object name not given.");
             throw new RuntimeException("Business object name not given.");
         }
-        
+
         BusinessObject bo = retrieveBOFromInquirable(inquiryForm);
         checkBO(bo);
-        
+
         populateSections(mapping, request, inquiryForm, bo);
-		
+
 		return super.showAllTabs(mapping, form, request, response);
 	}
 
@@ -375,10 +375,10 @@ public class KualiInquiryAction extends KualiAction {
     		} else {
     			//show the empty section with error
     			populateSections(mapping, request, inquiryForm, bo);
-    			return mapping.findForward(RiceConstants.MAPPING_BASIC); 
+    			return mapping.findForward(RiceConstants.MAPPING_BASIC);
     		}
         }
-        
+
         return null;
     }
 
@@ -396,7 +396,7 @@ public class KualiInquiryAction extends KualiAction {
         }
         return collectionName;
     }
-    
+
     protected BusinessObject retrieveBOFromInquirable(InquiryForm inquiryForm) {
     	Inquirable kualiInquirable = inquiryForm.getInquirable();
         // retrieve the business object
@@ -407,10 +407,10 @@ public class KualiInquiryAction extends KualiAction {
         }
         return bo;
     }
-    
+
     protected void populateSections(ActionMapping mapping, HttpServletRequest request, InquiryForm inquiryForm, BusinessObject bo) {
     	Inquirable kualiInquirable = inquiryForm.getInquirable();
-    	
+
     	if (bo != null) {
     		// get list of populated sections for display
     		List<Section> sections = kualiInquirable.getSections(bo);
@@ -422,7 +422,7 @@ public class KualiInquiryAction extends KualiAction {
 
         request.setAttribute(KRADConstants.INQUIRABLE_ATTRIBUTE_NAME, kualiInquirable);
     }
-    
+
     /**
     *
     * Handy method to stream the byte array to response object
@@ -450,20 +450,20 @@ public class KualiInquiryAction extends KualiAction {
    }
     /**
      * Returns a section list with one empty section and one row.
-     * 
+     *
      * @return list of sections
      */
     private List<Section> getEmptySections(String title) {
     	final Row row = new Row(Collections.<Field>emptyList());
-    	
+
     	final Section section = new Section(Collections.singletonList(row));
 		section.setErrorKey("*");
 		section.setSectionTitle(title != null ? title : "");
 		section.setNumberOfColumns(0);
-		
+
 		return Collections.singletonList(section);
     }
-    
+
     /**
      * throws an exception if BO fails the check.
      * @param bo the BusinessObject to check.
@@ -474,7 +474,7 @@ public class KualiInquiryAction extends KualiAction {
         	throw new UnsupportedOperationException("The record you have inquired on does not exist.");
         }
     }
-    
+
     protected NoteService getNoteService() {
 		if ( noteService == null ) {
 			noteService = KRADServiceLocator.getNoteService();

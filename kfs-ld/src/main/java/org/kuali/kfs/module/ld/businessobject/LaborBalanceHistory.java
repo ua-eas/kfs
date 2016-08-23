@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,7 +39,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
 
     /**
      * Constructs a LedgerBalance.java.
-     * 
+     *
      * @param transaction
      */
     public LaborBalanceHistory(LaborOriginEntry laborOriginEntry) {
@@ -55,10 +55,10 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
         this.setUniversityFiscalYear(laborOriginEntry.getUniversityFiscalYear());
         this.setSubAccountNumber(laborOriginEntry.getSubAccountNumber());
     }
-    
+
     /**
      * Compare amounts
-     * 
+     *
      * @param balance
      * @see org.kuali.kfs.gl.businessobject.Balance#addAmount(java.lang.String, org.kuali.rice.core.api.util.type.KualiDecimal)
      */
@@ -66,9 +66,9 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
         if (!(balance instanceof LedgerBalance)) {
             throw new IllegalArgumentException("balance needs to be of type LedgerBalance");
         }
-        
+
         LedgerBalance ledgerBalance = (LedgerBalance) balance;
-        
+
         if (ObjectUtils.isNotNull(ledgerBalance)
                 && ledgerBalance.getAccountLineAnnualBalanceAmount().equals(this.getAccountLineAnnualBalanceAmount())
                 && ledgerBalance.getFinancialBeginningBalanceLineAmount().equals(this.getFinancialBeginningBalanceLineAmount())
@@ -88,10 +88,10 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
                 && ledgerBalance.getMonth13Amount().equals(this.getMonth13Amount())) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * It's called financialObjectCode
      * @see org.kuali.kfs.gl.businessobject.Balance#getObjectCode()
@@ -100,7 +100,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
     public String getObjectCode() {
         return this.getFinancialObjectCode();
     }
-    
+
     /**
      * It's called financialObjectCode
      * @see org.kuali.kfs.gl.businessobject.Balance#setObjectCode(java.lang.String)
@@ -127,7 +127,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
     public void setSubObjectCode(String subObjectCode) {
         this.setFinancialSubObjectCode(subObjectCode);
     }
-    
+
     /**
      * It's called financialObjectTypeCode
      * @see org.kuali.kfs.gl.businessobject.Balance#getObjectTypeCode()
@@ -136,7 +136,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
     public String getObjectTypeCode() {
         return this.getFinancialObjectTypeCode();
     }
-    
+
     /**
      * It's called financialObjectTypeCode
      * @see org.kuali.kfs.gl.businessobject.Balance#setObjectTypeCode(java.lang.String)
@@ -145,7 +145,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
     public void setObjectTypeCode(String objectTypeCode) {
         this.setFinancialObjectTypeCode(objectTypeCode);
     }
-    
+
     /**
      * It's called financialBalanceTypeCode
      * @see org.kuali.kfs.module.ld.businessobject.LedgerBalance#getBalanceTypeCode()
@@ -163,7 +163,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
     public void setBalanceTypeCode(String balanceTypeCode) {
         this.setFinancialBalanceTypeCode(balanceTypeCode);
     }
-    
+
     /**
      * History does not track this field.
      * @see org.kuali.kfs.gl.businessobject.Balance#getTimestamp()
@@ -181,7 +181,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
     public void setTimestamp(Date timestamp) {
         throw new UnsupportedOperationException();
     }
-    
+
     /**
      * History does not track this field.
      * @see org.kuali.kfs.module.ld.businessobject.LedgerBalance#getTransactionDateTimeStamp()
@@ -190,7 +190,7 @@ public class LaborBalanceHistory extends LedgerBalance implements LedgerBalanceH
     public Timestamp getTransactionDateTimeStamp() {
         throw new UnsupportedOperationException();
     }
-    
+
     /**
      * History does not track this field.
      * @see org.kuali.kfs.module.ld.businessobject.LedgerBalance#setTransactionDateTimeStamp(java.sql.Timestamp)

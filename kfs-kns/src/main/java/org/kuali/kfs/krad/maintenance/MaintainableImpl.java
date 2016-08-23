@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,7 +53,7 @@ import java.util.Map;
 /**
  * Default implementation of the <code>Maintainable</code> interface
  *
- * 
+ *
  */
 public class MaintainableImpl extends ViewHelperServiceImpl implements Maintainable {
     private static final long serialVersionUID = 9125271369161634992L;
@@ -422,7 +422,7 @@ public class MaintainableImpl extends ViewHelperServiceImpl implements Maintaina
     @Override
     protected void processAfterAddLine(View view, CollectionGroup collectionGroup, Object model, Object addLine) {
         super.processAfterAddLine(view, collectionGroup, model, addLine);
-        
+
         // Check for maintenance documents in edit but exclude notes
         if (model instanceof MaintenanceForm && KRADConstants.MAINTENANCE_EDIT_ACTION.equals(((MaintenanceForm)model).getMaintenanceAction()) && !(addLine instanceof Note)) {
             MaintenanceForm maintenanceForm = (MaintenanceForm) model;
@@ -448,7 +448,7 @@ public class MaintainableImpl extends ViewHelperServiceImpl implements Maintaina
             }
         }
     }
-    
+
     /**
      * In the case of edit maintenance deleted the item on the old side
      *
@@ -459,9 +459,9 @@ public class MaintainableImpl extends ViewHelperServiceImpl implements Maintaina
     @Override
     protected void processAfterDeleteLine(View view, CollectionGroup collectionGroup, Object model, int lineIndex) {
         super.processAfterDeleteLine(view, collectionGroup, model, lineIndex);
-        
+
         // Check for maintenance documents in edit but exclude notes
-        if (model instanceof MaintenanceForm && KRADConstants.MAINTENANCE_EDIT_ACTION.equals(((MaintenanceForm)model).getMaintenanceAction()) 
+        if (model instanceof MaintenanceForm && KRADConstants.MAINTENANCE_EDIT_ACTION.equals(((MaintenanceForm)model).getMaintenanceAction())
                 && !collectionGroup.getCollectionObjectClass().getName().equals(Note.class.getName())) {
             MaintenanceForm maintenanceForm = (MaintenanceForm) model;
             MaintenanceDocument document = maintenanceForm.getDocument();
@@ -477,7 +477,7 @@ public class MaintainableImpl extends ViewHelperServiceImpl implements Maintaina
                 throw new RuntimeException("Unable to delete line instance for old maintenance object", e);
             }
         }
-    }    
+    }
 
     /**
      * Retrieves the document number configured on this maintainable

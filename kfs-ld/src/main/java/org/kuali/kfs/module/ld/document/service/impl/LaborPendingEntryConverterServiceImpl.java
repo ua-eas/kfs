@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -118,7 +118,7 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
 
         return pendingEntry;
     }
-    
+
     /**
      * Updates the given LLPE for year end documents
      * @param document the document to check if it is YearEnd
@@ -169,7 +169,7 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
         LaborLedgerPendingEntry pendingEntry = getDefaultPendingEntry(document);
 
         pendingEntry.setUniversityFiscalYear(accountingLine.getPostingYear());
-        
+
         pendingEntry.setChartOfAccountsCode(accountingLine.getChartOfAccountsCode());
         pendingEntry.setAccountNumber(accountingLine.getAccountNumber());
         pendingEntry.setFinancialObjectCode(accountingLine.getFinancialObjectCode());
@@ -284,10 +284,10 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
 
         return pendingEntry;
     }
-    
+
     /**
      * Pick one from target and backup values based on the availability of target value
-     * 
+     *
      * @param targetValue the given target value
      * @param backupValue the backup value of the target value
      * @return target value if it is not null; otherwise, return its backup
@@ -298,7 +298,7 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
 
     /**
      * This method gets the next sequence number and increments.
-     * 
+     *
      * @param sequenceHelper the given sequence helper
      * @return the next sequence number and increments
      */

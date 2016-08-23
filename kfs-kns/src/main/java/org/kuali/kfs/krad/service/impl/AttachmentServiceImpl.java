@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -51,7 +51,7 @@ public class AttachmentServiceImpl implements AttachmentService {
     private AttachmentDao attachmentDao;
     /**
      * Retrieves an Attachment by note identifier.
-     * 
+     *
      * @see AttachmentService#getAttachmentByNoteId(java.lang.Long)
      */
     public Attachment getAttachmentByNoteId(Long noteId) {
@@ -94,7 +94,7 @@ public class AttachmentServiceImpl implements AttachmentService {
         attachment.setAttachmentFileSize(new Long(fileSize));
         attachment.setAttachmentMimeTypeCode(mimeType);
         attachment.setAttachmentTypeCode(attachmentTypeCode);
-        
+
         LOG.debug("finished creating attachment for document: " + parent.getObjectId());
         return attachment;
     }
@@ -116,7 +116,7 @@ public class AttachmentServiceImpl implements AttachmentService {
             streamOut.close();
         }
     }
-    
+
     public void moveAttachmentWherePending(Note note) {
     	if (note == null) {
     		throw new IllegalArgumentException("Note must be non-null");
@@ -130,16 +130,16 @@ public class AttachmentServiceImpl implements AttachmentService {
     			moveAttachmentFromPending(attachment, note.getRemoteObjectIdentifier());
     		}
     		catch (IOException e) {
-    			throw new RuntimeException("Problem moving pending attachment to final directory");    
+    			throw new RuntimeException("Problem moving pending attachment to final directory");
     		}
     	}
     }
-    
+
     private void moveAttachmentFromPending(Attachment attachment, String objectId) throws IOException {
         //This method would probably be more efficient if attachments had a pending flag
         String fullPendingFileName = getPendingDirectory() + File.separator + attachment.getAttachmentIdentifier();
         File pendingFile = new File(fullPendingFileName);
-        
+
         if(pendingFile.exists()) {
             BufferedInputStream bufferedStream = null;
             FileInputStream oldFileStream = null;
@@ -155,10 +155,10 @@ public class AttachmentServiceImpl implements AttachmentService {
                 oldFileStream.close();
                 //this has to come after the close
                 pendingFile.delete();
-                
+
             }
         }
-        
+
     }
 
     public void deleteAttachmentContents(Attachment attachment) {
@@ -193,12 +193,12 @@ public class AttachmentServiceImpl implements AttachmentService {
         if(attachment.getNoteIdentifier()!=null) {
             attachment.refreshNonUpdateableReferences();
         }
-        
+
         String parentDirectory = "";
         if(attachment.getNote()!=null && attachment.getNote().getRemoteObjectIdentifier() != null) {
             parentDirectory = attachment.getNote().getRemoteObjectIdentifier();
         }
-         
+
         return new BufferedInputStream(new FileInputStream(getDocumentDirectory(parentDirectory) + File.separator + attachment.getAttachmentIdentifier()));
     }
 
@@ -207,20 +207,20 @@ public class AttachmentServiceImpl implements AttachmentService {
         if(StringUtils.isEmpty(objectId)) {
             location = kualiConfigurationService.getPropertyValueAsString(
                     KRADConstants.ATTACHMENTS_PENDING_DIRECTORY_KEY);
-        } else {    
-        	/* 
+        } else {
+        	/*
         	 * We need to create a hierarchical directory structure to store
         	 * attachment directories, as most file systems max out at 16k
         	 * or 32k entries.  If we use 6 levels of hierarchy, it allows
         	 * hundreds of billions of attachment directories.
         	 */
-            char[] chars = objectId.toUpperCase().replace(" ", "").toCharArray();            
+            char[] chars = objectId.toUpperCase().replace(" ", "").toCharArray();
             int count = chars.length < MAX_DIR_LEVELS ? chars.length : MAX_DIR_LEVELS;
 
-            StringBuffer prefix = new StringBuffer();            
+            StringBuffer prefix = new StringBuffer();
             for ( int i = 0; i < count; i++ )
                 prefix.append(File.separator + chars[i]);
-            
+
             location = kualiConfigurationService.getPropertyValueAsString(KRADConstants.ATTACHMENTS_DIRECTORY_KEY) + prefix + File.separator + objectId;
         }
         return  location;
@@ -241,7 +241,7 @@ public class AttachmentServiceImpl implements AttachmentService {
         if (!pendingAttachmentDir.isDirectory()) {
             throw new RuntimeException("Pending attachment directory is not a directory! " + pendingAttachmentDir.getAbsolutePath());
         }
-        
+
         File[] files = pendingAttachmentDir.listFiles();
         for (File file : files) {
             if (!file.getName().equals("placeholder.txt")) {
@@ -250,13 +250,13 @@ public class AttachmentServiceImpl implements AttachmentService {
                 }
             }
         }
-        
+
     }
-    
+
     // needed for Spring injection
     /**
      * Sets the data access object
-     * 
+     *
      * @param d
      */
     public void setAttachmentDao(AttachmentDao d) {
@@ -271,7 +271,7 @@ public class AttachmentServiceImpl implements AttachmentService {
     }
 
     /**
-     * Gets the configService attribute. 
+     * Gets the configService attribute.
      * @return Returns the configService.
      */
     public ConfigurationService getKualiConfigurationService() {

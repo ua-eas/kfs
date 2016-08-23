@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -76,7 +76,7 @@ public class LookupForm extends KualiForm {
 	private boolean headerBarEnabled = true;
 	private boolean disableSearchButtons = false;
     private String isAdvancedSearch;
-    
+
     /**
      * @see KualiForm#addRequiredNonEditableProperties()
      */
@@ -100,7 +100,7 @@ public class LookupForm extends KualiForm {
     	registerRequiredNonEditableProperty(KRADConstants.MULTIPLE_VALUE_LOOKUP_PREVIOUSLY_SELECTED_OBJ_IDS_PARAM);
     	registerRequiredNonEditableProperty(KRADConstants.TableRenderConstants.VIEWED_PAGE_NUMBER);
     }
-    
+
     /**
 	 * @return the htmlDataType
 	 */
@@ -133,11 +133,11 @@ public class LookupForm extends KualiForm {
      * Whether the results contain at least one row that is returnable.
      */
     private boolean hasReturnableRow;
-    
-    
+
+
     // used for internal purposes in populate
     private Map requestParameters;
-    
+
     /**
      * Stores the incoming request parameters so that they can be passed to the Lookupable implementation.
      */
@@ -178,7 +178,7 @@ public class LookupForm extends KualiForm {
 
                 setLookupableImplServiceName(lookupImplID);
             }
-            
+
             localLookupable = this.getLookupable(getLookupableImplServiceName());
 
             if (localLookupable == null) {
@@ -192,7 +192,7 @@ public class LookupForm extends KualiForm {
             parameters.put(KRADConstants.ADVANCED_SEARCH_FIELD, new String[]{isAdvancedSearch});
             localLookupable.setParameters(parameters);
             requestParameters = null;
-            
+
             if (getParameter(request, KRADConstants.LOOKUPABLE_IMPL_ATTRIBUTE_NAME) != null) {
                 setLookupableImplServiceName(getParameter(request, KRADConstants.LOOKUPABLE_IMPL_ATTRIBUTE_NAME));
             }
@@ -208,7 +208,7 @@ public class LookupForm extends KualiForm {
             else if (getParameter(request, KRADConstants.DOC_FORM_KEY) != null && StringUtils.isBlank(this.getFormKey())) {
                 setFormKey(getParameter(request, KRADConstants.DOC_FORM_KEY));
             }
-            
+
             if (getParameter(request, KRADConstants.DOC_NUM) != null) {
                 setDocNum(getParameter(request, KRADConstants.DOC_NUM));
            }
@@ -317,7 +317,7 @@ public class LookupForm extends KualiForm {
                         fieldValues.put(field.getPropertyName(), field.getPropertyValue());
                     }
                 }
-               
+
             }
             fieldValues.put(KRADConstants.DOC_FORM_KEY, this.getFormKey());
             fieldValues.put(KRADConstants.BACK_LOCATION, this.getBackLocation());
@@ -627,7 +627,7 @@ public class LookupForm extends KualiForm {
 
     /**
      * Returns whether the results contain at least one row that is returnable
-     * 
+     *
      * @return
      */
     public boolean isHasReturnableRow() {
@@ -636,7 +636,7 @@ public class LookupForm extends KualiForm {
 
     /**
      * Sets whether the results contain at least one row that is returnable
-     * 
+     *
      * @param hasReturnableRow
      */
     public void setHasReturnableRow(boolean hasReturnableRow) {
@@ -720,7 +720,7 @@ public class LookupForm extends KualiForm {
 
 	public void setHeaderBarEnabled(boolean headerBarEnabled) {
 		this.headerBarEnabled = headerBarEnabled;
-	}	
+	}
 
 	public boolean isDisableSearchButtons() {
 		return this.disableSearchButtons;
@@ -757,7 +757,7 @@ public class LookupForm extends KualiForm {
 	/**
 	 * Determines whether the search/clear buttons should be rendering based on the form property
 	 * and what is configured in the data dictionary for the lookup
-	 * 
+	 *
 	 * @return boolean true if the buttons should be rendered, false if they should not be
 	 */
 	public boolean getRenderSearchButtons() {

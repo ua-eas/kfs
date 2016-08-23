@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -57,7 +57,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * This method returns the limit for record count functionality
-     * 
+     *
      * @return limit for record count functionality
      */
     public static int getRecordCountFunctionalityLimit() {
@@ -71,7 +71,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * This method returns the number of records per page
-     * 
+     *
      * @return number of records per page
      */
     public static int getRecordsPerPage() {
@@ -84,7 +84,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * This method returns true if input group size is greater than or equal to record count functionality limit
-     * 
+     *
      * @param inputGroupSize size of input groups
      * @param recordCountFunctionalityLimit limit for record count functionality
      * @return true if input group size is greater than or equal to record count functionality limit
@@ -96,7 +96,7 @@ public class CorrectionDocumentUtils {
     /**
      * When a correction criterion is about to be added to a group, this will check if it is valid, meaning that the field name is
      * not blank
-     * 
+     *
      * @param correctionCriteria validated correction criteria
      * @return true if correction criteria is valid for adding
      */
@@ -110,7 +110,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * When a document is about to be saved, this will check if it is valid, meaning that the field name and value are both blank
-     * 
+     *
      * @param correctionCriteria validated correction criteria
      * @return true if correction criteria is valid for saving
      */
@@ -121,7 +121,7 @@ public class CorrectionDocumentUtils {
     /**
      * When a correction change is about to be added to a group, this will check if it is valid, meaning that the field name is not
      * blank
-     * 
+     *
      * @param correctionChange validated correction change
      * @return true is correction change is valid for adding
      */
@@ -135,7 +135,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * When a document is about to be saved, this will check if it is valid, meaning that the field name and value are both blank
-     * 
+     *
      * @param correctionCriteria validated correction criteria
      * @return true if correction change is valid for saving (i.e. correction change is null or correction field name and field
      *         value are blank)
@@ -146,7 +146,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * Sets all origin entries' entry IDs to null within the collection.
-     * 
+     *
      * @param originEntries collection of origin entries
      */
     public static void setAllEntryIdsToNull(Collection<OriginEntryFull> originEntries) {
@@ -157,7 +157,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * Sets all origin entries' entry IDs to be sequential starting from 0 in the collection
-     * 
+     *
      * @param originEntries collection of origin entries
      */
     public static void setSequentialEntryIds(Collection<OriginEntryFull> originEntries) {
@@ -171,7 +171,7 @@ public class CorrectionDocumentUtils {
     /**
      * Returns whether an origin entry matches the passed in criteria. If both the criteria and actual value are both String types
      * and are empty, null, or whitespace only, then they will match.
-     * 
+     *
      * @param cc correction criteria to test against origin entry
      * @param oe origin entry to test
      * @return true if origin entry matches the passed in criteria
@@ -217,7 +217,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * Compares string data
-     * 
+     *
      * @param cc criteria
      * @param fieldTestValue test value
      * @param fieldActualValueString actual value
@@ -256,7 +256,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * Returns true is compared indicator matches
-     * 
+     *
      * @param compareTo
      * @param operatorCode
      * @return
@@ -285,7 +285,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * Converts the value into a string, with the appropriate formatting
-     * 
+     *
      * @param fieldActualValue actual field value
      * @param fieldType field type (i.e. "String", "Integer", "Date")
      * @return String object value as a string
@@ -320,7 +320,7 @@ public class CorrectionDocumentUtils {
     /**
      * Applies a list of change criteria groups to an origin entry. Note that the returned value, if not null, is a reference to the
      * same instance as the origin entry passed in (i.e. intentional side effect)
-     * 
+     *
      * @param entry origin entry
      * @param matchCriteriaOnly if true and no criteria match, then this method will return null
      * @param changeCriteriaGroups list of change criteria groups to apply
@@ -352,7 +352,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * Returns whether the entry matches any of the criteria groups
-     * 
+     *
      * @param entry origin entry
      * @param groups collection of correction change group
      * @return true if origin entry matches any of the criteria groups
@@ -378,7 +378,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * Computes the statistics (credit amount, debit amount, row count) of a collection of origin entries.
-     * 
+     *
      * @param entries list of orgin entry entries
      * @return {@link OriginEntryStatistics} statistics (credit amount, debit amount, row count) of a collection of origin entries.
      */
@@ -393,7 +393,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * Returns whether the origin entry represents a debit
-     * 
+     *
      * @param oe origin entry
      * @return true if origin entry represents a debit
      */
@@ -403,7 +403,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * Returns whether the origin entry represents a budget
-     * 
+     *
      * @param oe origin entry
      * @return true if origin entry represents a budget
      */
@@ -413,7 +413,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * Returns whether the origin entry represents a credit
-     * 
+     *
      * @param oe origin entry
      * @return true if origin entry represents a credit
      */
@@ -423,7 +423,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * Given an instance of statistics, it adds information from the passed in entry to the statistics
-     * 
+     *
      * @param entry origin entry
      * @param statistics adds statistics from the passed in origin entry to the passed in statistics
      */
@@ -442,7 +442,7 @@ public class CorrectionDocumentUtils {
 
     /**
      * Sets document with the statistics data
-     * 
+     *
      * @param statistics origin entry statistics that are being used to set document
      * @param document document with statistic information being set
      */

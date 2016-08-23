@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,7 +23,7 @@ if ( args.length < 1 ) {
     println "Furthermore, a number of the conversions are based on conventions used"
     println "by the KFS developers.  YMMV"
     println "But, due to the package changes, without this script, virtually all "
-    println "of the code which references Rice will fail to compile." 
+    println "of the code which references Rice will fail to compile."
     return 0
 }
 testRules = false;
@@ -44,7 +44,7 @@ class ReplacementInfo {
     String fileType
     String importChange
     String importChangeReplacement
-    
+
     String toString() {
         return "(" + fileType + ") " + regex + " ==> " + replacement
     }
@@ -55,13 +55,13 @@ replacementList = []
 referencesToLog = []
 
 def loadMappings( dir ) {
-	println "Looking for pattern files in: " + new File(dir).getAbsolutePath() 
+	println "Looking for pattern files in: " + new File(dir).getAbsolutePath()
     def files = new File(dir).list()
 	files.each {
 		String fileName ->
 		File file = new File(dir, fileName)
 	    if ( !file.isDirectory() && fileName.endsWith(patternFileSuffix)) {
-            println "Parsing File: " + file.getAbsolutePath() 
+            println "Parsing File: " + file.getAbsolutePath()
             parser = new XmlParser()
             parser.setTrimWhitespace( false );
             roots.add( parser.parseText(file.getText()) );
@@ -72,15 +72,15 @@ def loadMappings( dir ) {
 def loadRules( ruleName ) {
 	println "Loading Rule Set: " + ruleName
     // get the rule node with the given name
-    
+
     roots.each {
         root ->
             def rules = root.rule.findAll {
                 rule ->
                 if(rule.'@name'.contains(ruleName)) node = rule
-            }    
+            }
     }
-    
+
     // get all the patterns from the given rule set
     def numPatterns = 0;
 	node.pattern.findAll{
@@ -90,7 +90,7 @@ def loadRules( ruleName ) {
 		replacement = pattern.replacement.text()
         fileType = "ALL";
         if ( pattern.'@fileType' ) {
-            fileType = pattern.'@fileType'; 
+            fileType = pattern.'@fileType';
         }
         ReplacementInfo ri = new ReplacementInfo()
         ri.regex = strToMatch
@@ -121,18 +121,18 @@ def loadRules( ruleName ) {
 }
 
 def convertDir( dir ) {
-    def files = new File(dir).list()    
+    def files = new File(dir).list()
     files.each {
         String fileName ->
         File file = new File(dir, fileName)
         if ( file.isDirectory()  && !excludeDirs.contains(fileName)) {
         	convertDir( file.getAbsolutePath() )
         } else {
-            if ( (fileName.endsWith( ".java" ) 
-                    || fileName.endsWith( ".xml" ) 
-                    || fileName.endsWith( ".jrxml" ) 
-                    || fileName.endsWith( ".jsp" ) 
-                    || fileName.endsWith( ".tag" ) 
+            if ( (fileName.endsWith( ".java" )
+                    || fileName.endsWith( ".xml" )
+                    || fileName.endsWith( ".jrxml" )
+                    || fileName.endsWith( ".jsp" )
+                    || fileName.endsWith( ".tag" )
                     || fileName.endsWith( ".properties" ))
                     && !fileName.endsWith( patternFileSuffix )
                     && !excludeFiles.contains( fileName ) ) {
@@ -180,7 +180,7 @@ if ( testRules ) {
 for ( e in replacementList ) {
     println e;
     def matcher = ( "" =~ e.regex ) // This will test each expression as it is displayed (for troubleshooting purposes)
-} 
+}
 
 println "Starting Conversion"
 convertDir(conversionRootDir)

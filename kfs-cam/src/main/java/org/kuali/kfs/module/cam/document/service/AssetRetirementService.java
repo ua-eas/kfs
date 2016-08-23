@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,7 +46,7 @@ public interface AssetRetirementService {
 
     /**
      * This method generates offset payments for each sourceAsset.
-     * 
+     *
      * @param sourceAsset
      * @param persistables
      * @param documentNumber
@@ -55,7 +55,7 @@ public interface AssetRetirementService {
 
     /**
      * This method generates new payments from sourceAsset for targetAsset.
-     * 
+     *
      * @param targetAsset
      * @param sourceAsset
      * @param persistables
@@ -67,7 +67,7 @@ public interface AssetRetirementService {
 
     /**
      * Check if reasonCode is in reasonCodeGroup
-     * 
+     *
      * @param reasonCodeGroup
      * @param reasonCode
      * @return
@@ -76,7 +76,7 @@ public interface AssetRetirementService {
 
     /**
      * Check if the retirement reason code allows to retire multiple assets
-     * 
+     *
      * @param assetDetails
      * @return
      */
@@ -89,7 +89,7 @@ public interface AssetRetirementService {
 
     /**
      * Get the offset Object Code
-     * 
+     *
      * @param asset
      * @return
      */
@@ -97,7 +97,7 @@ public interface AssetRetirementService {
 
     /**
      * This method generates the calculatedTotal amount based on salePrice + handlingFeeAmount + preventiveMaintenanceAmount.
-     * 
+     *
      * @param salePrice
      * @param handlingFeeAmount
      * @param preventiveMaintenanceAmount
@@ -105,5 +105,5 @@ public interface AssetRetirementService {
      */
 //    String generateCalculatedTotal(KualiDecimal salePrice, KualiDecimal handlingFeeAmount, KualiDecimal preventiveMaintenanceAmount);
     String generateCalculatedTotal(String salePrice, String handlingFeeAmount, String preventiveMaintenanceAmount);
-    
+
 }

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,13 +35,13 @@ public class ParameterEvaluatorImpl implements ParameterEvaluator {
 	private List<String> values;
 
 	private static DataDictionaryService dataDictionaryService;
-	
+
 	/**
 	 * If the constraint is allow and the constrainedValue is in the list of
 	 * allowed values specified by the parameter this will return true, and if
 	 * the constraint is deny and the constrainedValue is not in the list of
 	 * denied values specified by the parameter this method will return true.
-	 * 
+	 *
 	 * @return boolean indicating whether the constrained value adheres to the
 	 *         restriction specified by the combination of the parameter
 	 *         constraint and the parameter value
@@ -64,7 +64,7 @@ public class ParameterEvaluatorImpl implements ParameterEvaluator {
 	 * GlobalVariables.getMessageMap(). The businessObjectOrDocumentClass,
 	 * nameOfConstrainedProperty and userEditablePropertyName are used to
 	 * retrieve the appropriate labels from the DataDictionary.
-	 * 
+	 *
 	 * @param businessObjectOrDocumentClass
 	 * @return boolean indicating whether evaluation succeeded (see
 	 *         evaluationSucceeds)
@@ -80,7 +80,7 @@ public class ParameterEvaluatorImpl implements ParameterEvaluator {
 							constrainedValue,
 							toStringForMessage(),
 							getParameterValuesForMessage(),
-							getDataDictionaryService().getAttributeLabel( businessObjectOrDocumentClass, userEditablePropertyName) 
+							getDataDictionaryService().getAttributeLabel( businessObjectOrDocumentClass, userEditablePropertyName)
 							} );
 			return false;
 		}
@@ -93,7 +93,7 @@ public class ParameterEvaluatorImpl implements ParameterEvaluator {
 
 	/**
 	 * This method uses the List toString method and eliminates the [].
-	 * 
+	 *
 	 * @return user-friendly String representation of Parameter values
 	 */
 	public String getParameterValuesForMessage() {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,25 +40,25 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
     private String currentAmountPropertyName;
     private String baseAmountPropertyName;
     private boolean useShortLabels = false;
-    
+
     /**
      * Creates a property initiated AccountingLineViewCurrentBaseAmount element
      * @see org.kuali.kfs.sys.document.datadictionary.AccountingLineViewRenderableElementDefinition#createLayoutElement(java.lang.Class)
      */
     public TableJoining createLayoutElement(Class<? extends AccountingLine> accountingLineClass) {
         AccountingLineViewCurrentBaseAmount layoutElement = new AccountingLineViewCurrentBaseAmount();
-        
+
         layoutElement.setBaseAmountField(createFieldForPropertyName(baseAmountPropertyName, accountingLineClass));
         layoutElement.setBaseAmountFieldDefinition(createFieldDefinitionForProperty(baseAmountPropertyName));
-        
+
         layoutElement.setCurrentAmountField(createFieldForPropertyName(currentAmountPropertyName, accountingLineClass));
         layoutElement.setCurrentAmountFieldDefinition(createFieldDefinitionForProperty(currentAmountPropertyName));
-        
+
         layoutElement.setDefinition(this);
-        
+
         return layoutElement;
     }
-    
+
     /**
      * Creates a field for the given AccountingLine class and property name
      * @param propertyName the name of the property to create a Field for
@@ -74,7 +74,7 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
         }
         return realField;
     }
-    
+
     /**
      * Creates an AccountingLineViewFieldDefinition for the given property name
      * @param propertyName the name of the field property that we're creating a definition for
@@ -85,7 +85,7 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
         fieldDefinition.setName(propertyName);
         return fieldDefinition;
     }
-    
+
     /**
      * @see org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition#completeValidation(java.lang.Class, java.lang.Class)
      */
@@ -94,15 +94,15 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
         if (StringUtils.isBlank(currentAmountPropertyName)) {
             throw new AttributeValidationException("The currentAmountPropertyName property must be specified on the AccountingLineView-CurentBaseAmountField definition for "+rootBusinessObjectClass.getName());
         }
-        
+
         if (StringUtils.isBlank(baseAmountPropertyName)) {
             throw new AttributeValidationException("The baseAmountPropertyName property must be specified on the AccountingLineView-CurentBaseAmountField definition for "+rootBusinessObjectClass.getName());
         }
-        
+
         if (!StringUtils.isBlank(getName())) {
             throw new AttributeValidationException("please do not specify name on the AccountingLineView-CurentBaseAmountField definition for "+rootBusinessObjectClass.getName());
         }
-        
+
         if (!DataDictionary.isPropertyOf(rootBusinessObjectClass, getCurrentAmountPropertyName())) {
             throw new AttributeValidationException("unable to find attribute or collection named '" + getCurrentAmountPropertyName() + "' in rootBusinessObjectClass '" + rootBusinessObjectClass.getName() + "' (" + "" + ")");
         }
@@ -110,14 +110,14 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
         if (!DataDictionary.isPropertyOf(rootBusinessObjectClass, getBaseAmountPropertyName())) {
             throw new AttributeValidationException("unable to find attribute or collection named '" + getBaseAmountPropertyName() + "' in rootBusinessObjectClass '" + rootBusinessObjectClass.getName() + "' (" + "" + ")");
         }
-        
+
         if (defaultValueFinderClass != null && defaultValue != null) {
             throw new AttributeValidationException("Both defaultValue and defaultValueFinderClass can not be specified on attribute " + getName() + " in rootBusinessObjectClass " + rootBusinessObjectClass.getName());
         }
     }
 
     /**
-     * Gets the baseAmountPropertyName attribute. 
+     * Gets the baseAmountPropertyName attribute.
      * @return Returns the baseAmountPropertyName.
      */
     public String getBaseAmountPropertyName() {
@@ -133,7 +133,7 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
     }
 
     /**
-     * Gets the currentAmountPropertyName attribute. 
+     * Gets the currentAmountPropertyName attribute.
      * @return Returns the currentAmountPropertyName.
      */
     public String getCurrentAmountPropertyName() {
@@ -149,7 +149,7 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
     }
 
     /**
-     * Gets the useShortLabels attribute. 
+     * Gets the useShortLabels attribute.
      * @return Returns the useShortLabels.
      */
     public boolean isUseShortLabels() {
@@ -163,5 +163,5 @@ public class AccountingLineViewCurrentBaseAmountFieldDefinition extends Maintain
     public void setUseShortLabels(boolean useShortLabels) {
         this.useShortLabels = useShortLabels;
     }
-    
+
 }

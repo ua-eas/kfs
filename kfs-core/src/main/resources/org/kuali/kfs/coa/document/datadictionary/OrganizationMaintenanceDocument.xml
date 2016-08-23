@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -51,7 +51,7 @@
     <property name="businessRulesClass" value="org.kuali.kfs.coa.document.validation.impl.OrgRule"/>
     <property name="documentAuthorizerClass" value="org.kuali.kfs.coa.document.authorization.OrganizationDocumentAuthorizer"/>
     <property name="documentPresentationControllerClass" value="org.kuali.kfs.coa.document.authorization.OrganizationtMaintenanceDocumentPresentationController"/>
-    
+
     <property name="promptBeforeValidationClass" value="org.kuali.kfs.coa.document.validation.impl.OrgPreRules"/>
     <property name="webScriptFiles">
       <list>
@@ -114,16 +114,16 @@
 				<list>
 					<value>organizationPlantChartCode</value>
 				</list>
-			</property> 
-		</bean>        
+			</property>
+		</bean>
         <bean parent="MaintainableFieldDefinition" p:name="campusPlantChartCode"/>
         <bean parent="MaintainableFieldDefinition" p:name="campusPlantAccountNumber" p:webUILeaveFieldFunction="onblur_accountNumber">
 			<property name="webUILeaveFieldFunctionParameters">
 				<list>
 					<value>campusPlantChartCode</value>
 				</list>
-			</property> 
-		</bean>        
+			</property>
+		</bean>
       </list>
     </property>
   </bean>
@@ -155,18 +155,18 @@
     </property>
   </bean>
 
-	
+
 	<!-- workflow attributes -->
   	<bean id="OrganizationMaintenanceDocument-workflowAttributes" parent="OrganizationMaintenanceDocument-workflowAttributes-parentBean"/>
-  
+
 	<bean id="OrganizationMaintenanceDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
 	<property name="routingTypeDefinitions">
-    		
+
     		<map>
     			<entry key="Chart" value-ref="RoutingType-MaintenanceDocument-Chart"/>
     			<entry key="OrganizationHierarchy" value-ref="RoutingType-MaintenanceDocument-OrganizationHierarchy-OrgFromMaint"/>
     		</map>
-    	
+
 		</property>
 			<property name="searchingTypeDefinitions">
     		<list>
@@ -199,5 +199,5 @@
     		</list>
     	</property>
 	</bean>
-	
+
 </beans>

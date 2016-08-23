@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,9 +53,9 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 
     private OriginEntryGroupService originEntryGroupService;
     private DateTimeService dateTimeService;
-    
+
     private String batchFileDirectoryName;
-    
+
     public OriginEntryStatistics getStatistics(String fileName) {
         LOG.debug("getStatistics() started");
         OriginEntryStatistics oes = new OriginEntryStatistics();
@@ -326,7 +326,7 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 //            return new ArrayList<LaborOriginEntry>(searchResultAsCollection);
 //        }
 //    }
-    
+
     public  Map getEntriesByGroupIdWithPath(String fileNameWithPath, List<LaborOriginEntry> originEntryList) {
 
         FileReader INPUT_GLE_FILE = null;
@@ -337,7 +337,7 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
             throw new RuntimeException(e);
         }
         INPUT_GLE_FILE_br = new BufferedReader(INPUT_GLE_FILE);
-        
+
         boolean loadError = false;
         //returnErrorList is list of List<Message>
         Map returnMessageMap = getEntriesByBufferedReader(INPUT_GLE_FILE_br, originEntryList);
@@ -348,17 +348,17 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        
-        
+
+
         return returnMessageMap;
     }
-    
+
     public Map getEntriesByBufferedReader(BufferedReader inputBufferedReader, List<LaborOriginEntry> originEntryList) {
         String line;
         int lineNumber = 0;
         Map returnMessageMap = new HashMap();
         try {
-            List<Message> tmperrors = new ArrayList();    
+            List<Message> tmperrors = new ArrayList();
             while ((line = inputBufferedReader.readLine()) != null) {
                 lineNumber++;
                 LaborOriginEntry laborOriginEntry = new LaborOriginEntry();
@@ -373,7 +373,7 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-            
+
         return returnMessageMap;
     }
 
@@ -554,7 +554,7 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 
     /**
      * Returns all labor origin entry groups created on the given date to back them up
-     * 
+     *
      * @param backupDate the date to find labor origin entry groups created on
      * @see org.kuali.kfs.module.ld.service.LaborOriginEntryService#getLaborBackupGroups(java.sql.Date)
      * @see org.kuali.kfs.module.ld.dataaccess.LaborOriginEntryDao#getLaborBackupGroups(java.sql.Date)
@@ -571,12 +571,12 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 //    public Integer getGroupCount(Integer groupId) {
 //        return laborOriginEntryDao.getGroupCount(groupId);
 //    }
-    
+
     public Integer getGroupCount(String fileNameWithPath){
         File file = new File(fileNameWithPath);
         Iterator<LaborOriginEntry> fileIterator = new LaborOriginEntryFileIterator(file);
         int count = 0;
-        
+
         while(fileIterator.hasNext()){
             count++;
             fileIterator.next();
@@ -586,7 +586,7 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 
     /**
      * Sets the dateTimeService attribute value.
-     * 
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -595,7 +595,7 @@ public class LaborOriginEntryServiceImpl extends OriginEntryGroupServiceImpl imp
 
     /**
      * Sets the originEntryGroupService attribute value.
-     * 
+     *
      * @param originEntryGroupService The originEntryGroupService to set.
      */
     public void setOriginEntryGroupService(OriginEntryGroupService originEntryGroupService) {

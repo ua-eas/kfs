@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -59,7 +59,7 @@ public class LockServiceTest extends KualiTestBase {
     private SortedSet<BudgetConstructionFundingLock> fundingLocks;
     Iterator<BudgetConstructionFundingLock> fundingIter;
     private BudgetConstructionFundingLock fundingLock;
-    
+
     /*
      *   these values are filled in from the database, taking the first row that comes along.
      *   these fields are also static, so we don't have to return to the database for each of the tests.
@@ -77,28 +77,28 @@ public class LockServiceTest extends KualiTestBase {
     private String positionNumber;
     private  String pUIdOne = "3670600494"; // MCGUIRE
     private  String pUIdTwo = "6162502038"; // khuntley
-    
+
     // set up some data for the tests.
     // we will run everything in one test method, so this only needs to be done once
     @Override
     public void setUp() throws Exception
     {
-      super.setUp();  
-      // get the services we need 
+      super.setUp();
+      // get the services we need
       lockService = SpringContext.getBean(LockService.class);
       bcHeaderDao = SpringContext.getBean(BudgetConstructionDao.class);
       if (!runTests())
           return;
-      // find a test fiscal year 
-      universityFiscalYear = setTestFiscalYear(); 
+      // find a test fiscal year
+      universityFiscalYear = setTestFiscalYear();
       assertTrue("Unable to obtain fiscal year",universityFiscalYear != 0);
       System.err.println( "Testing Fiscal Year: " + universityFiscalYear );
-      // find a test funding row for this fiscal year. 
+      // find a test funding row for this fiscal year.
       assertTrue( "Unable to set test funding", setTestFunding() );
       // finally, get the parent document for this funding and position
       assertTrue( "Unable to set test document number", setTestDocumentNumber() );
-    } 
-    
+    }
+
     @Override
     public void tearDown() throws Exception
     {
@@ -116,9 +116,9 @@ public class LockServiceTest extends KualiTestBase {
             return;
 
         //
-        // (the tests below will check that the unlock activity here took effect). 
+        // (the tests below will check that the unlock activity here took effect).
         clearTestRowLocks();
-        
+
         // trivial account lock/unlock
         assertFalse("test header was unlocked on initialization", lockService.isAccountLocked(bcHeader));
         bcLockStatus = lockService.lockAccount(bcHeader, pUIdOne);
@@ -279,7 +279,7 @@ public class LockServiceTest extends KualiTestBase {
         }
         return returnValue;
     }
-    
+
     private Integer setTestFiscalYear()
     {
         Integer fiscalYear = new Integer(0);
@@ -301,7 +301,7 @@ public class LockServiceTest extends KualiTestBase {
         }
         return fiscalYear;
     }
-    
+
     private boolean setTestFunding()
     {
         boolean returnValue = false;
@@ -339,7 +339,7 @@ public class LockServiceTest extends KualiTestBase {
         }
         return returnValue;
     }
-    
+
     @ConfigureContext(shouldCommitTransactions = true)
     private void clearTestRowLocks()
     {
@@ -353,7 +353,7 @@ public class LockServiceTest extends KualiTestBase {
         lockService.unlockFunding(chartOfAccountsCode, accountNumber, subAccountNumber, universityFiscalYear, pUIdOne);
         lockService.unlockFunding(chartOfAccountsCode, accountNumber, subAccountNumber, universityFiscalYear, pUIdTwo);
     }
-    
+
 }
 
 

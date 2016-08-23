@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -47,10 +47,10 @@ import org.kuali.kfs.krad.service.impl.DataObjectMetaDataServiceImpl;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
- * 
+ *
  * Implementation of the <code>BusinessObjectMetaDataService</code> which uses
  * the following services to gather its meta data:
- * 
+ *
  * @see BusinessObjectDictionaryService
  * @see DataDictionaryService
  * @see PersistenceStructureService
@@ -319,7 +319,7 @@ public class BusinessObjectMetaDataServiceImpl extends DataObjectMetaDataService
 
 	/**
 	 * Gets the businessObjectDictionaryService attribute.
-	 * 
+	 *
 	 * @return Returns the businessObjectDictionaryService.
 	 */
 	public BusinessObjectDictionaryService getBusinessObjectDictionaryService() {
@@ -328,7 +328,7 @@ public class BusinessObjectMetaDataServiceImpl extends DataObjectMetaDataService
 
 	/**
 	 * Sets the businessObjectDictionaryService attribute value.
-	 * 
+	 *
 	 * @param businessObjectDictionaryService
 	 *            The BusinessObjectDictionaryService to set.
 	 */
@@ -337,9 +337,9 @@ public class BusinessObjectMetaDataServiceImpl extends DataObjectMetaDataService
 	}
 
 	/**
-	 * 
+	 *
 	 * This method retrieves the business object class for a specific attribute
-	 * 
+	 *
 	 * @param bo
 	 * @param attributeName
 	 * @return a business object class for a specific attribute

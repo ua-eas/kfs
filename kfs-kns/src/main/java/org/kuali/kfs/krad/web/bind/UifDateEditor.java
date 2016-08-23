@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,8 +32,8 @@ import java.util.Calendar;
 
 /**
  * PropertyEditor converts between date display strings and <code>java.sql.Date</code> objects
- * 
- * 
+ *
+ *
  */
 public class UifDateEditor extends PropertyEditorSupport implements Serializable {
     private static final long serialVersionUID = 8122469337264797008L;
@@ -45,7 +45,7 @@ public class UifDateEditor extends PropertyEditorSupport implements Serializable
      * This overridden method uses the
      * <code>org.kuali.rice.core.api.datetime.DateTimeService</code> to convert
      * the date object to the display string.
-     * 
+     *
      * @see java.beans.PropertyEditorSupport#getAsText()
      */
     @Override
@@ -61,7 +61,7 @@ public class UifDateEditor extends PropertyEditorSupport implements Serializable
 
     /**
      * Gets the date time service.
-     * 
+     *
      * @return the date time service
      */
     protected DateTimeService getDateTimeService() {
@@ -75,7 +75,7 @@ public class UifDateEditor extends PropertyEditorSupport implements Serializable
      * This overridden method converts the display string to a
      * <code>java.sql.Date</code> object using the
      * <code>org.kuali.rice.core.api.datetime.DateTimeService</code>.
-     * 
+     *
      * @see java.beans.PropertyEditorSupport#setAsText(java.lang.String)
      */
     @Override
@@ -86,7 +86,7 @@ public class UifDateEditor extends PropertyEditorSupport implements Serializable
     /**
      * Convert display text to <code>java.sql.Date</code> object using the
      * <code>org.kuali.rice.core.api.datetime.DateTimeService</code>.
-     * 
+     *
      * @param text
      *            the display text
      * @return the <code>java.sql.Date</code> object
@@ -111,7 +111,7 @@ public class UifDateEditor extends PropertyEditorSupport implements Serializable
      * For a given user input date, this method returns the exact string the
      * user entered after the last slash. This allows the formatter to
      * distinguish between ambiguous values such as "/06" "/6" and "/0006"
-     * 
+     *
      * @param date
      * @return
      */

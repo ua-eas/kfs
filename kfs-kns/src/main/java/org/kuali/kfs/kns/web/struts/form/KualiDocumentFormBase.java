@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -90,42 +90,42 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
     private AdHocRouteWorkgroup newAdHocRouteWorkgroup;
 
     private Note newNote;
-    
+
     //TODO: is this still needed? I think it's obsolete now
     private List boNotes;
-    
+
     protected FormFile attachmentFile = new BlankFormFile();
 
     protected Map editingMode;
     protected Map documentActions;
     protected boolean suppressAllButtons;
-    
+
     protected Map adHocActionRequestCodes;
     private boolean returnToActionList;
 
     // for session enhancement
     private String formKey;
     private String docNum;
-    
+
     private List<ActionRequest> actionRequests;
     private List<String> selectedActionRequests;
     private String superUserAnnotation;
 
     private String lastActionTaken;
-    
-    
+
+
     /**
      * Stores the error map from previous requests, so that we can continue to display error messages displayed during a previous request
      */
     private MessageMap errorMapFromPreviousRequest;
-    
+
     // private fields for superuser checks
  	private DocumentType documentType;
  	private boolean superuserForDocumentType;
  	private String documentStatus;
  	private List<RouteNodeInstance> routeNodeInstances;
  	private boolean superUserFieldsInitialized;
-    
+
 	/***
      * @see KualiForm#addRequiredNonEditableProperties()
      */
@@ -151,14 +151,14 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
 	public void setDocNum(String docNum) {
 		this.docNum = docNum;
 	}
-    
+
     /**
      * no args constructor that just initializes things for us
      */
     @SuppressWarnings("unchecked")
 	public KualiDocumentFormBase() {
         super();
-        
+
         instantiateDocument();
         newNote = new Note();
         this.editingMode = new HashMap();
@@ -184,7 +184,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
 
         setDocumentActions(new HashMap());
         suppressAllButtons = false;
-        
+
         initializeHeaderNavigationTabs();
     }
 
@@ -194,7 +194,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
     @Override
     public void populate(HttpServletRequest request) {
         super.populate(request);
-        
+
         clearFieldsForSuperUserChecks();
         WorkflowDocument workflowDocument = null;
 
@@ -228,16 +228,16 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
                 LOG.warn("Error while instantiating workflowDoc", e);
                 throw new RuntimeException("error populating documentHeader.workflowDocument", e);
             }
-        } 
+        }
         if (workflowDocument != null) {
 	        //Populate Document Header attributes
 	        populateHeaderFields(workflowDocument);
         }
     }
-    
+
     protected String getPersonInquiryUrlLink(Person user, String linkBody) {
         StringBuffer urlBuffer = new StringBuffer();
-        
+
         if(user != null && StringUtils.isNotEmpty(linkBody) ) {
         	ModuleService moduleService = KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(Person.class);
         	Map<String, String[]> parameters = new HashMap<String, String[]>();
@@ -255,10 +255,10 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
             	urlBuffer.append(linkBody);
             }
         }
-        
+
         return urlBuffer.toString();
     }
-    
+
     protected String getDocumentHandlerUrl(String documentId) {
         Properties parameters = new Properties();
         parameters.put(KRADConstants.PARAMETER_DOC_ID, documentId);
@@ -267,21 +267,21 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
                 KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
                         KRADConstants.WORKFLOW_URL_KEY) + "/" + KRADConstants.DOC_HANDLER_ACTION, parameters);
     }
-    
+
     protected String buildHtmlLink(String url, String linkBody) {
         StringBuffer urlBuffer = new StringBuffer();
-        
+
         if(StringUtils.isNotEmpty(url) && StringUtils.isNotEmpty(linkBody) ) {
             urlBuffer.append("<a href='").append(url).append("'>").append(linkBody).append("</a>");
         }
-        
+
         return urlBuffer.toString();
     }
-    
+
     /**
 	 * This method is used to populate the list of header field objects (see {@link KualiForm#getDocInfo()}) displayed on
 	 * the Kuali document form display pages.
-	 * 
+	 *
 	 * @param workflowDocument - the workflow document of the document being displayed (null is allowed)
 	 */
 	public void populateHeaderFields(WorkflowDocument workflowDocument) {
@@ -293,7 +293,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
 	 * This method returns a list of {@link HeaderField} objects that are used by default on Kuali document display pages. To
 	 * use this list and override an individual {@link HeaderField} object the id constants from
 	 * {@link KRADConstants.DocumentFormHeaderFieldIds} can be used to identify items from the list.
-	 * 
+	 *
 	 * @param workflowDocument - the workflow document of the document being displayed (null is allowed)
 	 * @return a list of the standard fields displayed by default for all Kuali documents
 	 */
@@ -307,7 +307,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
 			docTemplateNumber = new HeaderField(KRADConstants.DocumentFormHeaderFieldIds.DOCUMENT_TEMPLATE_NUMBER, "DataDictionary.DocumentHeader.attributes.documentTemplateNumber",
 					templateDocumentNumber,	buildHtmlLink(getDocumentHandlerUrl(templateDocumentNumber), templateDocumentNumber));
 		}
-        //Document Number    	
+        //Document Number
         HeaderField docNumber = new HeaderField("DataDictionary.DocumentHeader.attributes.documentNumber", workflowDocument != null? getDocument().getDocumentNumber() : null);
         docNumber.setId(KRADConstants.DocumentFormHeaderFieldIds.DOCUMENT_NUMBER);
         HeaderField docStatus = new HeaderField("DataDictionary.AttributeReferenceDummy.attributes.workflowDocumentStatus", workflowDocument != null? workflowDocument.getStatus().getLabel() : null);
@@ -326,18 +326,18 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
 
         HeaderField docInitiator = new HeaderField(KRADConstants.DocumentFormHeaderFieldIds.DOCUMENT_INITIATOR, "DataDictionary.AttributeReferenceDummy.attributes.initiatorNetworkId",
         workflowDocument != null? initiatorNetworkId : null, workflowDocument != null? inquiryUrl : null);
-        
+
         String createDateStr = null;
         if(workflowDocument != null && workflowDocument.getDateCreated() != null) {
             createDateStr = CoreApiServiceLocator.getDateTimeService().toString(workflowDocument.getDateCreated().toDate(), "hh:mm a MM/dd/yyyy");
         }
-        
+
         HeaderField docCreateDate = new HeaderField("DataDictionary.AttributeReferenceDummy.attributes.createDate", createDateStr);
         docCreateDate.setId(KRADConstants.DocumentFormHeaderFieldIds.DOCUMENT_CREATE_DATE);
         if (ObjectUtils.isNotNull(docTemplateNumber)) {
         	setNumColumns(3);
         }
-        
+
         headerFields.add(docNumber);
         headerFields.add(docStatus);
         if (ObjectUtils.isNotNull(docTemplateNumber)) {
@@ -350,7 +350,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
         	headerFields.add(HeaderField.EMPTY_FIELD);
         }
     	return headerFields;
-    }    
+    }
 
     /**
      * @see org.apache.struts.action.ActionForm#validate(org.apache.struts.action.ActionMapping,
@@ -399,7 +399,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
 	public void setEditingMode(Map editingMode) {
         this.editingMode = editingMode;
     }
-    
+
     /**
 	 * @return the documentActions
 	 */
@@ -415,8 +415,8 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
 	public void setDocumentActions(Map documentActions) {
 		this.documentActions = documentActions;
 	}
-	
-	
+
+
 
 	/**
 	 * @param adHocActionRequestCodes the adHocActionRequestCodes to set
@@ -582,7 +582,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
     public WorkflowDocument getWorkflowDocument() {
         return getDocument().getDocumentHeader().getWorkflowDocument();
     }
-    
+
     /**
 	 *  Null-safe check to see if the workflow document object exists before attempting to retrieve it.
      *  (Which, if called, will throw an exception.)
@@ -764,7 +764,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
     }
 
     /**
-     * Gets the boNotes attribute. 
+     * Gets the boNotes attribute.
      * @return Returns the boNotes.
      */
     @SuppressWarnings("unchecked")
@@ -804,10 +804,10 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
         this.setSelectedActionRequests(new ArrayList<String>());
     }
 
-    
+
     /**
      * Adds the attachment file size to the list of max file sizes.
-     * 
+     *
      * @see org.kuali.rice.krad.web.struts.pojo.PojoFormBase#customInitMaxUploadSizes()
      */
     @Override
@@ -819,12 +819,12 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
         }
     }
 
-    
-    
+
+
 	/**
 	 * This overridden method ...
-	 * IMPORTANT: any overrides of this method must ensure that nothing in the HTTP request will be used to determine whether document is in session 
-	 * 
+	 * IMPORTANT: any overrides of this method must ensure that nothing in the HTTP request will be used to determine whether document is in session
+	 *
 	 * @see org.kuali.rice.krad.web.struts.pojo.PojoFormBase#shouldPropertyBePopulatedInForm(java.lang.String, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
@@ -846,7 +846,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
 
 	/**
 	 * This overridden method ...
-	 * 
+	 *
 	 * @see KualiForm#shouldMethodToCallParameterBeUsed(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
@@ -860,15 +860,15 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
 		return super.shouldMethodToCallParameterBeUsed(methodToCallParameterName,
 				methodToCallParameterValue, request);
 	}
-	
+
 	public MessageMap getMessageMapFromPreviousRequest() {
 		return this.errorMapFromPreviousRequest;
 	}
-	
+
 	public void setMessageMapFromPreviousRequest(MessageMap errorMapFromPreviousRequest) {
 		this.errorMapFromPreviousRequest = errorMapFromPreviousRequest;
 	}
-	
+
 	@Override
 	public void setDerivedValuesOnForm(HttpServletRequest request) {
 		super.setDerivedValuesOnForm(request);
@@ -895,11 +895,11 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
 			}
 		}
 	}
-	
+
 	protected String getDefaultDocumentTypeName() {
 		return "";
 	}
-	
+
 	/** will instatiate a new document setting it on the form if {@link KualiDocumentFormBase#getDefaultDocumentTypeName()} is overriden to return a valid value. */
 	protected void instantiateDocument() {
 		if (document == null && StringUtils.isNotBlank(getDefaultDocumentTypeName())) {
@@ -913,12 +913,12 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
 			}
 		}
 	}
-	
+
 	/** gets the document class from the datadictionary if {@link KualiDocumentFormBase#getDefaultDocumentTypeName()} is overriden to return a valid value otherwise behavior is nondeterministic. */
 	private Class<? extends Document> getDocumentClass() {
 		return KRADServiceLocatorWeb.getDataDictionaryService().getDocumentClassByTypeName(getDefaultDocumentTypeName());
 	}
-	
+
 	/**initializes the header tabs from what is defined in the datadictionary if {@link KualiDocumentFormBase#getDefaultDocumentTypeName()} is overriden to return a valid value. */
     protected void initializeHeaderNavigationTabs() {
     	if (StringUtils.isNotBlank(getDefaultDocumentTypeName())) {
@@ -928,7 +928,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
     		super.setHeaderNavigationTabs(navList.toArray(list));
     	}
     }
-    
+
     public List<ActionRequest> getActionRequests() {
 		return actionRequests;
 	}
@@ -989,7 +989,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
     	if (!superUserFieldsInitialized) {
     		String principalId =  GlobalVariables.getUserSession().getPrincipalId();
     		String docId = this.getDocId();
-    		
+
     		documentType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(docTypeName);
     		String docTypeId = null;
     		if (documentType != null) {
@@ -998,14 +998,14 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
     		}
 
    			routeNodeInstances = KewApiServiceLocator.getWorkflowDocumentService().getRouteNodeInstances(docId);
-    		
+
     		documentStatus = this.getDocument().getDocumentHeader().getWorkflowDocument().getStatus().getCode();
     		superuserForDocumentType = KewApiServiceLocator.getDocumentTypeService().isSuperUserForDocumentTypeId(principalId, docTypeId);
-    		
+
     		superUserFieldsInitialized = true;
     	}
     }
-    
+
     private void clearFieldsForSuperUserChecks() {
     	documentType = null;
     	routeNodeInstances = null;
@@ -1014,34 +1014,34 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
     	superUserFieldsInitialized = false;
     }
 
-    public boolean isSuperUserApproveSingleActionRequestAuthorized() {      
+    public boolean isSuperUserApproveSingleActionRequestAuthorized() {
         initializeFieldsForSuperUserChecks();
         if ( superuserForDocumentType ) {
             return true;
         }
-        
+
         String principalId =  GlobalVariables.getUserSession().getPrincipalId();
         return KewApiServiceLocator.getDocumentTypeService().canSuperUserApproveSingleActionRequest(
                 principalId, getDocTypeName(), routeNodeInstances, documentStatus);
     }
-	
+
 	public boolean isSuperUserApproveDocumentAuthorized() {
 		initializeFieldsForSuperUserChecks();
         if ( superuserForDocumentType ) {
             return true;
         }
-        
+
         String principalId =  GlobalVariables.getUserSession().getPrincipalId();
         return KewApiServiceLocator.getDocumentTypeService().canSuperUserApproveDocument(
                     principalId, this.getDocTypeName(), routeNodeInstances, documentStatus);
 	}
-	
+
 	public boolean isSuperUserDisapproveDocumentAuthorized() {
 		initializeFieldsForSuperUserChecks();
         if ( superuserForDocumentType ) {
             return true;
         }
-        
+
         String principalId =  GlobalVariables.getUserSession().getPrincipalId();
         return KewApiServiceLocator.getDocumentTypeService().canSuperUserDisapproveDocument(
             principalId, this.getDocTypeName(), routeNodeInstances, documentStatus);
@@ -1052,7 +1052,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
         if ( superuserForDocumentType ) {
             return true;
         }
-        
+
         String principalId =  GlobalVariables.getUserSession().getPrincipalId();
         return ((KewApiServiceLocator.getDocumentTypeService().canSuperUserApproveSingleActionRequest(
                     principalId, this.getDocTypeName(), routeNodeInstances, documentStatus)) ||
@@ -1061,7 +1061,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
                 (KewApiServiceLocator.getDocumentTypeService().canSuperUserDisapproveDocument (
                     principalId, this.getDocTypeName(), routeNodeInstances, documentStatus))) ;
     }
-	
+
     public boolean isStateAllowsApproveOrDisapprove() {
         if(this.getDocument().getDocumentHeader().hasWorkflowDocument()) {
             DocumentStatus status = this.getDocument().getDocumentHeader().getWorkflowDocument().getStatus();

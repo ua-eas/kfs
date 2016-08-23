@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,7 +37,7 @@ public class ElectronicFundTransferForm extends KualiForm {
     private List<ElectronicPaymentClaimClaimedHelper> claimedByCheckboxHelpers;
     private String chosenElectronicPaymentClaimingDocumentCode;
     private String hasDocumentation;
-    
+
     /**
      * Constructs a ElectronicFundTransferForm
      */
@@ -45,9 +45,9 @@ public class ElectronicFundTransferForm extends KualiForm {
         claims = new ArrayList<ElectronicPaymentClaim>();
         claimedByCheckboxHelpers = new ArrayList<ElectronicPaymentClaimClaimedHelper>();
     }
-    
+
     /**
-     * Gets the availableClaimingDocumentStrategies attribute. 
+     * Gets the availableClaimingDocumentStrategies attribute.
      * @return Returns the availableClaimingDocumentStrategies.
      */
     public List<ElectronicPaymentClaimingDocumentGenerationStrategy> getAvailableClaimingDocumentStrategies() {
@@ -60,12 +60,12 @@ public class ElectronicFundTransferForm extends KualiForm {
     public void setAvailableClaimingDocumentStrategies(List<ElectronicPaymentClaimingDocumentGenerationStrategy> availableClaimingDocuments) {
         this.availableClaimingDocumentStrategies = availableClaimingDocuments;
     }
-    
+
     public boolean hasAvailableClaimingDocumentStrategies() {
         return availableClaimingDocumentStrategies !=null && !availableClaimingDocumentStrategies.isEmpty();
     }
     /**
-     * Gets the chosenElectronicPaymentClaimingDocumentCode attribute. 
+     * Gets the chosenElectronicPaymentClaimingDocumentCode attribute.
      * @return Returns the chosenElectronicPaymentClaimingDocumentCode.
      */
     public String getChosenElectronicPaymentClaimingDocumentCode() {
@@ -79,7 +79,7 @@ public class ElectronicFundTransferForm extends KualiForm {
         this.chosenElectronicPaymentClaimingDocumentCode = chosenElectronicPaymentClaimingDocumentCode;
     }
     /**
-     * Gets the claims attribute. 
+     * Gets the claims attribute.
      * @return Returns the claims.
      */
     public List<ElectronicPaymentClaim> getClaims() {
@@ -116,7 +116,7 @@ public class ElectronicFundTransferForm extends KualiForm {
     }
 
     /**
-     * Gets the hasDocumentation attribute. 
+     * Gets the hasDocumentation attribute.
      * @return Returns the hasDocumentation.
      */
     public String getHasDocumentation() {
@@ -130,7 +130,7 @@ public class ElectronicFundTransferForm extends KualiForm {
     public void setHasDocumentation(String hasDocumentation) {
         this.hasDocumentation = hasDocumentation;
     }
-    
+
     /**
      * Returns a boolean whether the user has stated that documentation exists for the claims about to be made or not
      * @return true if has documentation, false otherwise
@@ -138,38 +138,38 @@ public class ElectronicFundTransferForm extends KualiForm {
     public boolean isProperlyDocumented() {
         return StringUtils.isNotBlank(this.hasDocumentation) && this.hasDocumentation.equals("Yep");
     }
-    
+
     /**
      * Returns whether the current user has administrative powers for Electronic Funds Transfer or not
      * @return true if administrative powers exist, false otherwise
      */
     public boolean isAllowElectronicFundsTransferAdministration() {
-        Person currentUser = GlobalVariables.getUserSession().getPerson();        
-        
+        Person currentUser = GlobalVariables.getUserSession().getPerson();
+
         return SpringContext.getBean(ElectronicPaymentClaimingService.class).isAuthorizedForClaimingElectronicPayment(currentUser, null);
     }
-    
+
     /**
      * @return the key to the EFT documentation message
      */
     public String getDocumentationMessageKey() {
         return KFSKeyConstants.ElectronicPaymentClaim.MESSAGE_EFT_CLAIMING_DOCUMENTATION;
     }
-    
+
     /**
      * @return the key to the EFT document choice message
      */
     public String getDocumentChoiceMessageKey() {
         return KFSKeyConstants.ElectronicPaymentClaim.MESSAGE_EFT_DOCUMENT_CHOICE;
     }
-    
+
     /**
      * @return the key to the EFT "previously claimed" message for the table header
      */
     public String getPreviouslyClaimedHeaderKey() {
         return KFSKeyConstants.ElectronicPaymentClaim.MESSAGE_EFT_PREVIOUSLY_CLAIMED_HEADER;
     }
-    
+
     /**
      * @return the key to the EFT "claiming document number" message for the table header
      */
@@ -178,7 +178,7 @@ public class ElectronicFundTransferForm extends KualiForm {
     }
 
     /**
-     * Gets the claimedByCheckboxHelpers attribute. 
+     * Gets the claimedByCheckboxHelpers attribute.
      * @return Returns the claimedByCheckboxHelpers.
      */
     public List<ElectronicPaymentClaimClaimedHelper> getClaimedByCheckboxHelpers() {
@@ -192,7 +192,7 @@ public class ElectronicFundTransferForm extends KualiForm {
     public void setClaimedByCheckboxHelpers(List<ElectronicPaymentClaimClaimedHelper> claimedByCheckboxHelpers) {
         this.claimedByCheckboxHelpers = claimedByCheckboxHelpers;
     }
-    
+
     /**
      * Sets the claimedHelper at the given index
      * @param claimedHelper the claimedCheckboxHelper to set
@@ -204,7 +204,7 @@ public class ElectronicFundTransferForm extends KualiForm {
         }
         claimedByCheckboxHelpers.set(index, claimedHelper);
     }
-    
+
     /**
      * @param index location in the list of ElectronicPaymentClaimClaimedHelpers to return the helper at
      * @return the ElectronicPaymentClaimClaimedHelper at the given location

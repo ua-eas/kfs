@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.module.purap.document.authorization;
 
 import static org.junit.Assert.*;
@@ -44,13 +62,13 @@ public class PaymentRequestDocumentPresentationControllerTest {
 
 	@TestSubject
 	PaymentRequestDocumentPresentationController preqDocPresentationController = new PaymentRequestDocumentPresentationController();
-	
+
 	@Mock
 	private static PaymentRequestDocument preq;
 
 	@Mock
 	private static DocumentHeader docHeader;
-	
+
 	@BeforeClass
 	public static void setUp() throws Exception {
 		preq = EasyMock.createMock(PaymentRequestDocument.class);
@@ -60,64 +78,64 @@ public class PaymentRequestDocumentPresentationControllerTest {
 	@Test
 	public void testAddACHSignupInfoModeWhenPREQInFinalState() {
 		createPREQMock(DocumentStatus.FINAL);
-		
+
 		Set<String> editModes = new HashSet<String>();
 		preqDocPresentationController.addACHSignUpInfoMode(preq, editModes);
-		
+
 		// final state should not allow ach flag to be seen
 		assertFalse(editModes.contains(PaymentRequestEditMode.ACH_ACCOUNT_INFO_DISPLAYED));
 	}
-	
+
 	@Test
 	public void testAddACHSignupInfoModeWhenPREQInProcessedState() throws Exception {
 		createPREQMock(DocumentStatus.PROCESSED);
-		
+
 		Set<String> editModes = new HashSet<String>();
 		preqDocPresentationController.addACHSignUpInfoMode(preq, editModes);
-		
+
 		// processed state should not allow ach flag to be seen
 		assertFalse(editModes.contains(PaymentRequestEditMode.ACH_ACCOUNT_INFO_DISPLAYED));
 	}
-	
+
 	@Test
 	public void testAddACHSignupInfoModeWhenPREQInDisapprovedState() throws Exception {
 		createPREQMock(DocumentStatus.DISAPPROVED);
-		
+
 		Set<String> editModes = new HashSet<String>();
 		preqDocPresentationController.addACHSignUpInfoMode(preq, editModes);
-		
+
 		// disapproved state should not allow ach flag to be seen
 		assertFalse(editModes.contains(PaymentRequestEditMode.ACH_ACCOUNT_INFO_DISPLAYED));
 	}
-	
+
 	@Test
 	public void testAddACHSignupInfoModeWhenPREQInEnrouteState() throws Exception {
 		createPREQMock(DocumentStatus.ENROUTE);
-		
+
 		Set<String> editModes = new HashSet<String>();
 		preqDocPresentationController.addACHSignUpInfoMode(preq, editModes);
-		
+
 		// enroute state should allow ach flag to be seen
 		assertTrue(editModes.contains(PaymentRequestEditMode.ACH_ACCOUNT_INFO_DISPLAYED));
-		
+
 	}
 
 
 	private void createPREQMock(DocumentStatus status) {
 		StubWorkflowDocument workflowDocument = new StubWorkflowDocument();
 		workflowDocument.setDocumentStatus(status);
-		
+
 		EasyMock.expect(docHeader.getWorkflowDocument()).andReturn(workflowDocument);
 		EasyMock.replay(docHeader);
-		
+
 		EasyMock.expect(preq.getDocumentHeader()).andReturn(docHeader);
 		EasyMock.replay(preq);
 	}
-	
+
 	public final class StubWorkflowDocument implements WorkflowDocument{
-		
+
 		private DocumentStatus documentStatus;
-		
+
 		public void setDocumentStatus(DocumentStatus status){
 			this.documentStatus = status;
 		}
@@ -226,7 +244,7 @@ public class PaymentRequestDocumentPresentationControllerTest {
 		@Override
 		public void switchPrincipal(String principalId) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -250,38 +268,38 @@ public class PaymentRequestDocumentPresentationControllerTest {
 		@Override
 		public void setTitle(String title) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void setApplicationDocumentId(String applicationDocumentId) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void setApplicationDocumentStatus(
 				String applicationDocumentStatus) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void setApplicationContent(String applicationContent) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void setAttributeContent(String attributeContent) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void clearAttributeContent() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -294,20 +312,20 @@ public class PaymentRequestDocumentPresentationControllerTest {
 		public void addAttributeDefinition(
 				WorkflowAttributeDefinition attributeDefinition) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void removeAttributeDefinition(
 				WorkflowAttributeDefinition attributeDefinition) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void clearAttributeDefinitions() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -319,33 +337,33 @@ public class PaymentRequestDocumentPresentationControllerTest {
 		@Override
 		public void setSearchableContent(String searchableContent) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void addSearchableDefinition(
 				WorkflowAttributeDefinition searchableDefinition) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void removeSearchableDefinition(
 				WorkflowAttributeDefinition searchableDefinition) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void clearSearchableDefinitions() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void clearSearchableContent() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -357,7 +375,7 @@ public class PaymentRequestDocumentPresentationControllerTest {
 		@Override
 		public void setVariable(String name, String value) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -369,19 +387,19 @@ public class PaymentRequestDocumentPresentationControllerTest {
 		@Override
 		public void setReceiveFutureRequests() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void setDoNotReceiveFutureRequests() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void setClearFutureRequests() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -436,91 +454,91 @@ public class PaymentRequestDocumentPresentationControllerTest {
 		@Override
 		public void saveDocument(String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void route(String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void complete(String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void disapprove(String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void approve(String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void cancel(String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void recall(String annotation, boolean cancel) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void blanketApprove(String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void blanketApprove(String annotation, String... nodeNames) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void saveDocumentData() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void acknowledge(String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void fyi(String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void fyi() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void delete() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void refresh() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -528,7 +546,7 @@ public class PaymentRequestDocumentPresentationControllerTest {
 				String annotation, String targetPrincipalId,
 				String responsibilityDescription, boolean forceAction) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -536,7 +554,7 @@ public class PaymentRequestDocumentPresentationControllerTest {
 				String nodeName, String annotation, String targetPrincipalId,
 				String responsibilityDescription, boolean forceAction) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -545,14 +563,14 @@ public class PaymentRequestDocumentPresentationControllerTest {
 				String responsibilityDescription, boolean forceAction,
 				String requestLabel) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void adHocToPrincipal(AdHocToPrincipal adHocToPrincipal,
 				String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -560,7 +578,7 @@ public class PaymentRequestDocumentPresentationControllerTest {
 				String annotation, String targetGroupId,
 				String responsibilityDescription, boolean forceAction) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -568,7 +586,7 @@ public class PaymentRequestDocumentPresentationControllerTest {
 				String nodeName, String annotation, String targetGroupId,
 				String responsibilityDescription, boolean forceAction) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -577,113 +595,113 @@ public class PaymentRequestDocumentPresentationControllerTest {
 				String responsibilityDescription, boolean forceAction,
 				String requestLabel) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void adHocToGroup(AdHocToGroup adHocToGroup, String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void revokeAdHocRequestById(String actionRequestId,
 				String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void revokeAdHocRequests(AdHocRevoke revoke, String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void revokeAllAdHocRequests(String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void returnToPreviousNode(String annotation, String nodeName) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void returnToPreviousNode(String annotation,
 				ReturnPoint returnPoint) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void move(MovePoint movePoint, String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void takeGroupAuthority(String annotation, String groupId) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void releaseGroupAuthority(String annotation, String groupId) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void placeInExceptionRouting(String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void superUserBlanketApprove(String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void superUserNodeApprove(String nodeName, String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void superUserTakeRequestedAction(String actionRequestId,
 				String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void superUserDisapprove(String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void superUserCancel(String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void superUserReturnToPreviousNode(ReturnPoint returnPoint,
 				String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void logAnnotation(String annotation) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -770,7 +788,7 @@ public class PaymentRequestDocumentPresentationControllerTest {
 
 		@Override
 		public boolean isApproved() {
-			
+
 	        return isProcessed() || isFinal();
 		}
 
@@ -830,9 +848,9 @@ public class PaymentRequestDocumentPresentationControllerTest {
 		public void updateDocumentContent(
 				DocumentContentUpdate documentContentUpdate) {
 			// TODO Auto-generated method stub
-			
+
 		}
-		
+
 	}
-	
+
 }

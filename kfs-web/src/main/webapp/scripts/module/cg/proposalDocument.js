@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,7 +46,7 @@ function onblur_subcontractorNumber( subcontractorNumberField ) {
 function onblur_agencyNumber( agencyNumberField ) {
     singleKeyLookup( AgencyService.getByPrimaryId, agencyNumberField, "agency", "fullName" );
     singleKeyLookup( AgencyService.getByPrimaryId, agencyNumberField, "agency", "dunningCampaign" );
-    
+
 }
 
 function onblur_federalPassThroughAgencyNumber( federalPassThroughAgencyNumberField ) {
@@ -97,7 +97,7 @@ function proposalDirectorIDLookup( userIdField ) {
     var elPrefix = findElPrefix( userIdFieldName );
 	var userNameFieldName = elPrefix + ".name";
 	var universalIdFieldName = findElPrefix( elPrefix ) + ".principalId";
-	
+
 	loadDirectorInfo( userIdFieldName, universalIdFieldName, userNameFieldName );
 }
 
@@ -183,8 +183,8 @@ function onblur_awardIndirectCostAmount( indirectAmountField ) {
 function onblur_chartCode( chartCodeField ) {
     var accountNumberFieldName = findAccountNumberFieldName(chartCodeField.name);
     var accountNameFieldName = findAccountNameFieldName(chartCodeField.name);
-    var chartCode = getElementValue(chartCodeField.name);   
-    var accountNumber = getElementValue(accountNumberFieldName);    
+    var chartCode = getElementValue(chartCodeField.name);
+    var accountNumber = getElementValue(accountNumberFieldName);
 
     // no need to check accounts_can_cross_charts since if that's false the onblur function won't be called
     //alert ("accountNumberFieldName = " + accountNumberFieldName + ", accountNameFieldName = " + accountNameFieldName + ",\n chartCode = " + chartCode + ", accountNumber = " + accountNumber);
@@ -194,52 +194,52 @@ function onblur_chartCode( chartCodeField ) {
 function onblur_accountNumber( accountNumberField ) {
     var chartCodeFieldName = findChartCodeFieldName(accountNumberField.name);
     var accountNameFieldName = findAccountNameFieldName(accountNumberField.name);
-    var accountNumber = getElementValue(accountNumberField.name);    
+    var accountNumber = getElementValue(accountNumberField.name);
 	//alert ("chartCodeFieldName = " + chartCodeFieldName + ", accountNameFieldName = " + accountNameFieldName);
 
 	var dwrReply = {
 		callback: function (param) {
-			if ( typeof param == 'boolean' && param == true) {	
+			if ( typeof param == 'boolean' && param == true) {
 			    var chartCode = getElementValue(chartCodeFieldName);
 				lookupAccountName(chartCode, accountNumber, accountNameFieldName);
 			}
 			else {
 				loadChartAccount(accountNumber, chartCodeFieldName, accountNumberField.name, accountNameFieldName);
 			}
-		},	
-		errorHandler:function( errorMessage ) { 
+		},
+		errorHandler:function( errorMessage ) {
 			window.status = errorMessage;
 		}
 	};
-	AccountService.accountsCanCrossCharts(dwrReply);	
+	AccountService.accountsCanCrossCharts(dwrReply);
 }
 
 function loadChartAccount( accountNumber, chartCodeFieldName, accountNumberFieldName, accountNameFieldName ) {
 	if (accountNumber == "") {
-		clearRecipients(chartCodeFieldName);    
+		clearRecipients(chartCodeFieldName);
 		clearRecipients(accountNameFieldName);
 	}
 	else {
 		var dwrReply = {
 			callback: function (data) {
 				//alert ("chartCode = " + data.chartOfAccountsCode + ", accountNumber = " + accountNumber + ", accountName = " + data.accountName);
-				if ( data != null && typeof data == 'object' ) {   
+				if ( data != null && typeof data == 'object' ) {
 					var chart = data.chartOfAccountsCode + " - " + data.chartOfAccounts.finChartOfAccountDescription;
 					setRecipientValue(chartCodeFieldName, chart);
 					setRecipientValue(accountNameFieldName, data.accountName);
 				}
 				else {
-					clearRecipients(chartCodeFieldName); 
+					clearRecipients(chartCodeFieldName);
 					setRecipientValue(accountNameFieldName, wrapError( "account not found" ), true);
 				}
 			},
 			errorHandler:function( errorMessage ) {
-				clearRecipients(chartCodeFieldName); 
+				clearRecipients(chartCodeFieldName);
 	            setRecipientValue(accountNameFieldName, wrapError( "account not found" ), true);
 				window.status = errorMessage;
 			}
 		};
-		AccountService.getUniqueAccountForAccountNumber(accountNumber, dwrReply);	    
+		AccountService.getUniqueAccountForAccountNumber(accountNumber, dwrReply);
 	}
 }
 
@@ -253,22 +253,22 @@ function lookupAccountName( chartCode, accountNumber, accountNameFieldName ) {
 }
 
 function findChartCodeFieldName( accountNumberFieldName ) {
-    var elPrefix = findElPrefix(accountNumberFieldName);  
+    var elPrefix = findElPrefix(accountNumberFieldName);
 	var chartCodeFieldName = elPrefix + ".chartOfAccountsCode";
 	return chartCodeFieldName;
-}    
+}
 
 function findAccountNumberFieldName( chartCodeFieldName ) {
-	var elPrefix = findElPrefix(chartCodeFieldName);     
+	var elPrefix = findElPrefix(chartCodeFieldName);
 	var accountNumberFieldName = elPrefix + ".accountNumber";
 	return accountNumberFieldName;
-}    
+}
 
 function findAccountNameFieldName( accountFieldName ) {
     var elPrefix = findElPrefix(accountFieldName);
 	var accountNameFieldName = elPrefix + ".account.accountName";
 	return accountNameFieldName;
-}    
+}
 
 /*
 function accountNameLookup( anyFieldOnAwardAccount ) {

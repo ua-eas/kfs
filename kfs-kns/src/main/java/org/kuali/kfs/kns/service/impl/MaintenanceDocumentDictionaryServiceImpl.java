@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -54,7 +54,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
 
     /**
      * Gets the workflow document type for the given documentTypeName
-     * 
+     *
      * @param documentTypeName
      * @return
      */
@@ -501,7 +501,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
 
     /**
      * generates error message if a field is marked as required but is not filled in
-     * 
+     *
      * @param maintainableFieldDefinition
      * @param businessObject
      * @param fieldName
@@ -527,7 +527,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
                     // the main principalId property on the main object would be null at this point
                     // but it is also unconditionally read only and not tested - checking that would
                     // require checking the relationships and be more complex than we want to get here
-                    String personProperty = ObjectUtils.getNestedAttributePrefix(fieldName); 
+                    String personProperty = ObjectUtils.getNestedAttributePrefix(fieldName);
                     if ( StringUtils.isNotBlank(personProperty) ) {
                         if ( StringUtils.isBlank( (String)ObjectUtils.getNestedValue(businessObject, personProperty+".entityId") ) ) {
                             String attributeLabel = dataDictionaryService.getAttributeLabel(businessObject.getClass(), fieldName);
@@ -541,7 +541,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
         }
     }
 
-    
+
     private MaintainableCollectionDefinition getCollectionDefinition( String docTypeName, String collectionName ) {
         String currentCollection = collectionName;
         String nestedCollections = "";
@@ -550,7 +550,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
             currentCollection = StringUtils.substringBefore( collectionName, "[" );
             nestedCollections = StringUtils.substringAfter( collectionName, "." );
     	}
-    	
+
         // loop over all sections to find this collection
         List<MaintainableSectionDefinition> maintainableSectionDefinitions = getMaintainableSections( docTypeName );
         for (MaintainableSectionDefinition maintainableSectionDefinition : maintainableSectionDefinitions) {
@@ -558,13 +558,13 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
                 if (maintainableItemDefinition instanceof MaintainableCollectionDefinition && maintainableItemDefinition.getName().equals( currentCollection ) ) {
                     if ( StringUtils.isBlank( nestedCollections ) ) {
                         return (MaintainableCollectionDefinition) maintainableItemDefinition;
-                    } 
-                    
+                    }
+
                     return getCollectionDefinition( (MaintainableCollectionDefinition)maintainableItemDefinition, nestedCollections );
                 }
             }
         }
-        
+
         return null;
     }
 
@@ -576,20 +576,20 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
             currentCollection = StringUtils.substringBefore( collectionName, "[" );
             nestedCollections = StringUtils.substringAfter( collectionName, "." );
     	}
-        
+
         // loop over all nested collections
         for (MaintainableCollectionDefinition maintainableCollectionDefinition : collectionDef.getMaintainableCollections()) {
             if ( maintainableCollectionDefinition.getName().equals( currentCollection ) ) {
                 if ( StringUtils.isBlank( nestedCollections ) ) {
                     return maintainableCollectionDefinition;
-                } 
+                }
                 return getCollectionDefinition( maintainableCollectionDefinition, nestedCollections );
             }
         }
-        
+
         return null;
     }
-    
+
     public void validateMaintainableCollectionsAddLineRequiredFields(MaintenanceDocument document, PersistableBusinessObject businessObject, String collectionName ) {
         MaintainableCollectionDefinition def = getCollectionDefinition( getDocumentTypeName(businessObject.getClass()), collectionName );
         if ( def != null ) {
@@ -598,7 +598,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
     }
     /**
      * calls code to generate error messages if maintainableFields within any collections or sub-collections are marked as required
-     * 
+     *
      * @param document
      * @param businessObject
      * @param collectionName
@@ -615,7 +615,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
         for (MaintainableFieldDefinition maintainableFieldDefinition : maintainableCollectionDefinition.getMaintainableFields()) {
             final String fieldName = maintainableFieldDefinition.getName();
             validateMaintainableFieldRequiredFields(maintainableFieldDefinition, element, fieldName);
-            
+
         }
 
         GlobalVariables.getMessageMap().removeFromErrorPath(collectionName);
@@ -626,7 +626,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
 
     /**
      * calls code to generate error messages if maintainableFields within any collections or sub-collections are marked as required
-     * 
+     *
      * @param businessObject
      * @param maintainableCollectionDefinition
      */
@@ -657,10 +657,10 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
             GlobalVariables.getMessageMap().removeFromErrorPath(collectionName);
         }
     }
-    
+
     /**
      * default implementation checks for duplicats based on keys of objects only
-     * 
+     *
      * @see MaintenanceDocumentDictionaryService#validateMaintainableCollectionsForDuplicateEntries(org.kuali.kfs.krad.maintenance.MaintenanceDocument)
      */
     public void validateMaintainableCollectionsForDuplicateEntries(MaintenanceDocument document) {
@@ -683,7 +683,7 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
 
     /**
      * recursivly checks collections for duplicate entries based on key valuse
-     * 
+     *
      * @param businessObject
      * @param maintainableCollectionDefinition
      */
@@ -721,10 +721,10 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
             }
         }
     }
-       
+
 	/**
 	 * for issue KULRice 3072
-	 * 
+	 *
 	 * @see MaintenanceDocumentDictionaryService#getgetPreserveLockingKeysOnCopy(java.lang.Class)
 	 */
 	public boolean getPreserveLockingKeysOnCopy(Class businessObjectClass) {
@@ -732,35 +732,35 @@ public class MaintenanceDocumentDictionaryServiceImpl implements MaintenanceDocu
 		boolean preserveLockingKeysOnCopy = false;
 
 		MaintenanceDocumentEntry docEntry = getMaintenanceDocumentEntry(businessObjectClass);
-		
+
 		if (docEntry != null) {
 			preserveLockingKeysOnCopy = docEntry.getPreserveLockingKeysOnCopy();
 		}
-		
+
 		return preserveLockingKeysOnCopy;
 	}
 
 	/**
 	 * for isue KULRice 3070
-	 * 
+	 *
 	 * @see MaintenanceDocumentDictionaryService#getAllowsRecordDeletion(java.lang.Class)
 	 */
 	public Boolean getAllowsRecordDeletion(Class businessObjectClass) {
-		
+
 		Boolean allowsRecordDeletion = Boolean.FALSE;
 
 		MaintenanceDocumentEntry docEntry = getMaintenanceDocumentEntry(businessObjectClass);
-		
+
 		if (docEntry != null) {
 			allowsRecordDeletion = Boolean.valueOf(docEntry.getAllowsRecordDeletion());
 		}
-		
+
 		return allowsRecordDeletion;
 	}
 
 	/**
 	 *  for issue KULRice3070, see if need delete button
-	 * 
+	 *
 	 * @see MaintenanceDocumentDictionaryService#getAllowsRecordDeletion(org.kuali.kfs.krad.maintenance.MaintenanceDocument)
 	 */
 	public Boolean getAllowsRecordDeletion(MaintenanceDocument document) {

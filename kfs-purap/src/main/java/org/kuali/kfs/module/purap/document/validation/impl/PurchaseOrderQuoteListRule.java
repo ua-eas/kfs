@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -72,13 +72,13 @@ public class PurchaseOrderQuoteListRule extends MaintenanceDocumentRuleBase impl
 
     /**
      * Check to see if data duplicates existing data
-     * 
+     *
      * @return boolean indicating if validation succeeded
      */
     protected boolean validateVendor() {
         LOG.info("validateVendor called");
         boolean success = true;
-        
+
         PurchaseOrderQuoteList newBo = (PurchaseOrderQuoteList)super.getNewBo();
         if (newBo.getQuoteListVendors() == null || newBo.getQuoteListVendors().size() == 0) {
             success = false;
@@ -86,14 +86,14 @@ public class PurchaseOrderQuoteListRule extends MaintenanceDocumentRuleBase impl
         }
         return success;
     }
-    
+
     /**
      * Overrides the superclass method to check whether the vendor existed in the
      * database if the user typed in the vendor name instead of selecting from the
      * lookup, and if there are more than one vendors match the name entered,
      * return error to inform the user about it so that they would select from
      * the lookup.
-     * 
+     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument, java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override

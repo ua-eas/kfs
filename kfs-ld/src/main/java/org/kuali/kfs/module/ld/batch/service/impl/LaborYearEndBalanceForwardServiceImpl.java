@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -81,7 +81,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
     private String batchFileDirectoryName;
 
     private ReportWriterService laborBalanceForwardReportWriterService;
-    
+
     protected static String PROCESSED_BALANCE_TYPES_LABEL = "PROCESSED BALANCE TYPES";
     protected static String PROCESSED_OBJECT_TYPES_LABEL = "PROCESSED OBJECT TYPES";
 
@@ -170,7 +170,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * post the qualified balances into origin entry table for the further labor ledger processing
-     * 
+     *
      * @param balanceIterator the given ledger balances that will be carried forward
      * @param newFiscalYear the new fiscal year
      * @param validGroup the group that the posted transaction belongs to
@@ -218,7 +218,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * determine if the given balance is qualified to be carried forward to new fiscal year
-     * 
+     *
      * @param balance the given ledger balance that could be carried forward
      * @param errors the error list that is updated if the given balacne is not qualified for carry forward
      * @return true if the balance is qualified; otherwise, false
@@ -230,7 +230,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * post the qualified balance into origin entry table for the further labor ledger processing
-     * 
+     *
      * @param balance the given ledger balance that will be carried forward
      * @param newFiscalYear the new fiscal year
      * @param validGroup the group that the posted transaction belongs to
@@ -277,7 +277,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * get the fund group codes that are acceptable by year-end process
-     * 
+     *
      * @return the fund group codes that are acceptable by year-end process
      */
     protected Collection<String> getFundGroupProcessed() {
@@ -286,7 +286,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * get the fund group codes that are acceptable by year-end process
-     * 
+     *
      * @return the fund group codes that are acceptable by year-end process
      */
     protected Collection<String> getSubFundGroupProcessed() {
@@ -295,7 +295,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * get the balance type codes that are acceptable by year-end process
-     * 
+     *
      * @return the balance type codes that are acceptable by year-end process
      */
     protected List<String> getProcessableBalanceTypeCode(SystemOptions options) {
@@ -306,7 +306,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * get the object type codes that are acceptable by year-end process
-     * 
+     *
      * @param options the given system options
      * @return the object type codes that are acceptable by year-end process
      */
@@ -337,7 +337,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
         laborBalanceForwardReportWriterService.writeStatisticLine("NUMBER OF RECORDS IN ERROR          %,9d", glEntryReportSummary.get(LEDGER_BALANCE + "," + KFSConstants.OperationType.REPORT_ERROR));
         laborBalanceForwardReportWriterService.writeStatisticLine("NUMBER OF RECORDS INSERTED          %,9d", glEntryReportSummary.get(ORIGN_ENTRY + "," + KFSConstants.OperationType.INSERT));
     }
-    
+
     /**
      * Report out which significant parameters were used in this report.
      * @param runDate the date when this job was run
@@ -376,7 +376,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * get the document type code of the transaction posted by year-end process
-     * 
+     *
      * @return the document type code of the transaction posted by year-end process
      */
     protected String getDocumentTypeCode() {
@@ -385,7 +385,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * get the origination code of the transaction posted by year-end process
-     * 
+     *
      * @return the origination code of the transaction posted by year-end process
      */
     protected String getOriginationCode() {
@@ -394,7 +394,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * get the description of the transaction posted by year-end process
-     * 
+     *
      * @return the description of the transaction posted by year-end process
      */
     protected String getDescription() {
@@ -403,7 +403,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -412,7 +412,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * Sets the dateTimeService attribute value.
-     * 
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -421,7 +421,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * Sets the parameterService attribute value.
-     * 
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -430,7 +430,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * Sets the laborLedgerBalanceService attribute value.
-     * 
+     *
      * @param laborLedgerBalanceService The laborLedgerBalanceService to set.
      */
     public void setLaborLedgerBalanceService(LaborLedgerBalanceService laborLedgerBalanceService) {
@@ -439,7 +439,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * Sets the optionsService attribute value.
-     * 
+     *
      * @param optionsService The optionsService to set.
      */
     public void setOptionsService(OptionsService optionsService) {
@@ -448,7 +448,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * Sets the batchFileDirectoryName attribute value.
-     * 
+     *
      * @param batchFileDirectoryName The batchFileDirectoryName to set.
      */
     public void setBatchFileDirectoryName(String batchFileDirectoryName) {
@@ -457,7 +457,7 @@ public class LaborYearEndBalanceForwardServiceImpl implements LaborYearEndBalanc
 
     /**
      * Sets the laborOutputSummaryReportWriterService attribute value.
-     * 
+     *
      * @param laborOutputSummaryReportWriterService The laborOutputSummaryReportWriterService to set.
      */
     public void setLaborBalanceForwardReportWriterService(ReportWriterService laborBalanceForwardReportWriterService) {

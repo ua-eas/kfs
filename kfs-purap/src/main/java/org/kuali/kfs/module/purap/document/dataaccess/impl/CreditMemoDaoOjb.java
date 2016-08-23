@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -57,7 +57,7 @@ public class CreditMemoDaoOjb extends PlatformAwareDaoBaseOjb implements CreditM
 
         return (List<VendorCreditMemoDocument>)getPersistenceBrokerTemplate().getCollectionByQuery(new QueryByCriteria(VendorCreditMemoDocument.class, criteria));
     }
-    
+
     /**
      * @see org.kuali.kfs.module.purap.document.dataaccess.CreditMemoDao#getCreditMemosToExtractByVendor(java.lang.String, java.lang.Integer, java.lang.Integer)
      */
@@ -138,7 +138,7 @@ public class CreditMemoDaoOjb extends PlatformAwareDaoBaseOjb implements CreditM
 
     /**
      * Retrieves a document number for a credit memo by user defined criteria.
-     * 
+     *
      * @param criteria - holds field and value pairs defined by the calling method
      * @return - document number
      */
@@ -149,7 +149,7 @@ public class CreditMemoDaoOjb extends PlatformAwareDaoBaseOjb implements CreditM
         if (returnList.isEmpty()) {
             return null;
         }
-        
+
         if (returnList.size() > 1) {
             String errorMsg = "Expected single document number for given criteria but multiple (at least 2) were returned";
             LOG.error(errorMsg);
@@ -162,7 +162,7 @@ public class CreditMemoDaoOjb extends PlatformAwareDaoBaseOjb implements CreditM
     /**
      * Retrieves a document number for a credit memo by user defined criteria and sorts the values ascending if orderByAscending
      * parameter is true, descending otherwise.
-     * 
+     *
      * @param criteria - list of criteria to use in the retrieve
      * @param orderByAscending - boolean indicating results should be sorted ascending, descending otherwise
      * @return - Iterator of document numbers
@@ -176,11 +176,11 @@ public class CreditMemoDaoOjb extends PlatformAwareDaoBaseOjb implements CreditM
         else {
             rqbc.addOrderByDescending(KFSPropertyConstants.DOCUMENT_NUMBER);
         }
-        
+
         List<VendorCreditMemoDocument> vcmds = (List<VendorCreditMemoDocument>) getPersistenceBrokerTemplate().getCollectionByQuery(rqbc);
-        
+
         List<String> returnList = new ArrayList<String>();
-        
+
         for (VendorCreditMemoDocument vcmd : vcmds) {
             returnList.add(vcmd.getDocumentNumber());
         }
@@ -189,14 +189,14 @@ public class CreditMemoDaoOjb extends PlatformAwareDaoBaseOjb implements CreditM
 
     public List<String> getActiveCreditMemoDocumentNumbersForPurchaseOrder(Integer purchaseOrderId){
         LOG.debug("getActiveCreditmemoDocumentNumbersForPurchaseOrder() started");
-                
+
         List<String> returnList = new ArrayList<String>();
         Criteria criteria = new Criteria();
-        
+
         criteria.addEqualTo(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, purchaseOrderId);
         //criteria.addIn(PurapPropertyConstants.STATUS_CODE, Arrays.asList(CreditMemoStatuses.STATUSES_POTENTIALLY_ACTIVE));
         QueryByCriteria qbc = new QueryByCriteria(PaymentRequestDocument.class, criteria);
-        
+
         returnList = getDocumentNumbersOfCreditMemoByCriteria(criteria, false);
         return returnList;
     }

@@ -72,49 +72,49 @@ import java.util.Map;
 @Produces(MediaType.APPLICATION_JSON)
 public class BusinessObjectResource {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BusinessObjectResource.class);
-    
+
     protected static volatile KualiModuleService kualiModuleService;
     protected static volatile BusinessObjectService businessObjectService;
     protected static volatile ConfigurationService configurationService;
     protected static volatile PermissionService permissionService;
     protected static volatile AccessSecurityService accessSecurityService;
     protected static volatile DataDictionaryService dataDictionaryService;
-    
+
     @Context
     protected HttpServletRequest servletRequest;
-    
+
     @GET
     @Path("/{objectId}")
     public Response getSingleObject(@PathParam("moduleName")String moduleName, @PathParam("businessObjectName")String businessObjectName, @PathParam("objectId")String objectId) {
         LOG.debug("processV1Request() started");
-        
+
         Class<PersistableBusinessObject> boClass = determineClass(moduleName, businessObjectName);
         if (boClass == null) {
             return Response.status(Status.NOT_FOUND).build();
         }
-        
+
         if (!isAuthorized(KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS, boClass)) {
             return Response.status(Status.FORBIDDEN).build();
         }
-        
+
         PersistableBusinessObject businessObject = findBusinessObject(boClass, objectId);
         if (businessObject == null) {
             return Response.status(Status.NOT_FOUND).build();
         }
-        
+
         if (!isAuthorizedByAccessSecurity(businessObject)) {
             return Response.status(Status.FORBIDDEN).build();
         }
-        
+
         ObjectUtils.materializeSubObjectsToDepth(businessObject, 3);
-        
+
         Map<String, Object> jsonObject = new LinkedHashMap<String, Object>();
-        try {           
+        try {
             for (PropertyDescriptor propertyDescriptor : PropertyUtils.getPropertyDescriptors(businessObject)) {
                 Method readMethod = propertyDescriptor.getReadMethod();
                 if (readMethod != null && readMethod.getParameterCount() == 0 && Modifier.isPublic(readMethod.getModifiers())) {
                     Object jsonValue = getJsonValue(businessObject, propertyDescriptor);
-                   
+
                     if (jsonValue != null) {
                         final Object possiblyMaskedJsonValue = maskJsonValueIfNecessary(boClass.getSimpleName(), propertyDescriptor.getName(), jsonValue);
                         jsonObject.put(propertyDescriptor.getName(), possiblyMaskedJsonValue);
@@ -126,8 +126,8 @@ public class BusinessObjectResource {
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
         // TODO: Check authorization
-        
-        return Response.ok(jsonObject).build();        
+
+        return Response.ok(jsonObject).build();
     }
 
     /**
@@ -154,11 +154,11 @@ public class BusinessObjectResource {
             return null;
         }
         Class<?> propertyClass = propertyDescriptor.getPropertyType();
-        
+
         if (BusinessObject.class.isAssignableFrom(propertyClass)) {
             return convertBoToUrl((BusinessObject)value);
         }
-        
+
         if (Collection.class.isAssignableFrom(propertyClass)) {
             Collection<?> collection = (Collection<?>) value;
             Iterator<?> it = collection.iterator();
@@ -173,15 +173,15 @@ public class BusinessObjectResource {
                 }
                 else {
                     newList.add(item);
-                }                
+                }
             }
             return newList;
         }
-        
+
         if (Date.class.isAssignableFrom(propertyClass)) {
             return ((Date)value).getTime();
         }
-        
+
         return value;
     }
 
@@ -205,12 +205,12 @@ public class BusinessObjectResource {
         // Search for class in module.
         if (!getDataDictionaryService().containsDictionaryObject(boClassName)) {
             return null;
-        }        
+        }
         Object ddObject = getDataDictionaryService().getDictionaryObject(boClassName);
         if (!(ddObject instanceof BusinessObjectEntry)) {
             return null;
         }
-        
+
         BusinessObjectEntry boEntry = (BusinessObjectEntry) ddObject;
         Class<? extends BusinessObject> boClass = boEntry.getBusinessObjectClass();
         if (!(PersistableBusinessObject.class.isAssignableFrom(boClass))) {
@@ -234,7 +234,7 @@ public class BusinessObjectResource {
         // Remove plural "s" from end of name.
         return StringUtils.chop(camelCaseName);
     }
-    
+
     protected String convertClassToUrlBoName(Class clazz, ModuleService moduleService) {
         DataDictionary dd = getDataDictionaryService().getDataDictionary();
         BusinessObjectEntry boEntry = dd.getBusinessObjectEntryForConcreteClass(clazz.getName());
@@ -244,73 +244,73 @@ public class BusinessObjectResource {
         String beanName = boEntry.getJstlKey();
         return CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, beanName) + "s";
     }
-    
+
     protected Map<String, Object> convertBoToUrl(BusinessObject businessObject) {
         if (!(businessObject instanceof PersistableBusinessObject)) {
             return null;
         }
-        
+
         PersistableBusinessObject persistableBo = (PersistableBusinessObject) businessObject;
         String objectID = persistableBo.getObjectId();
         if (objectID == null) {
             return null;
         }
-        
+
         ModuleService moduleService = kualiModuleService.getResponsibleModuleService(businessObject.getClass());
         if (moduleService == null) {
             return null;
         }
-        
+
         String moduleName = getModuleName(moduleService);
         if (moduleName == null) {
             return null;
         }
-        
+
         String urlBoName = convertClassToUrlBoName(persistableBo.getClass(), moduleService);
         if (urlBoName == null) {
             return null;
         }
-        
-        Map<String, Object> result = new LinkedHashMap<>();        
-        String url = getBaseUrl() 
-                + "/api/v1/" 
+
+        Map<String, Object> result = new LinkedHashMap<>();
+        String url = getBaseUrl()
+                + "/api/v1/"
                 + "business-object/"
-                + moduleName 
+                + moduleName
                 + "/"
                 + urlBoName
                 + "/"
                 + persistableBo.getObjectId();
         result.put(KFSPropertyConstants.LINK, url);
-        
+
         return result;
-    } 
+    }
 
     protected String getBaseUrl() {
         return getConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY);
     }
-    
-    protected String getModuleName(ModuleService moduleService) {      
+
+    protected String getModuleName(ModuleService moduleService) {
         String moduleServiceName = moduleService.getModuleConfiguration().getNamespaceCode().toLowerCase();
         if (moduleServiceName.contains("-")) {
             moduleServiceName = StringUtils.substringAfter(moduleServiceName, "-");
         }
         return moduleServiceName;
     }
-    
+
     protected boolean isAuthorized(String inquireIntoRecords, Class<PersistableBusinessObject> boClass) {
         return getPermissionService().isAuthorizedByTemplate(getPrincipalId(),KRADConstants.KNS_NAMESPACE,
                 KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS,
                 KRADUtils.getNamespaceAndComponentSimpleName(boClass),
                 Collections.<String, String>emptyMap());
     }
-    
+
     protected boolean isAuthorizedByAccessSecurity(PersistableBusinessObject businessObject) {
         List<PersistableBusinessObject> list = new ArrayList<>();
         list.add(businessObject);
         applySecurityRestrictionsForInquiry(businessObject.getClass(), list);
         return (!list.isEmpty());
     }
-    
+
     protected void applySecurityRestrictionsForInquiry(Class<? extends PersistableBusinessObject> boClass, List<PersistableBusinessObject> results) {
         final AccessSecurityService accessSecurityService = getAccessSecurityService();
         if (accessSecurityService != null) {
@@ -320,7 +320,7 @@ public class BusinessObjectResource {
                     Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, KRADUtils.getNamespaceCode(boClass)));
         }
     }
-    
+
     protected String getPrincipalId() {
         return getPerson().getPrincipalId();
     }
@@ -328,7 +328,7 @@ public class BusinessObjectResource {
     protected Person getPerson() {
         return KRADUtils.getUserSessionFromRequest(servletRequest).getPerson();
     }
-    
+
     protected KualiModuleService getKualiModuleService() {
         if (kualiModuleService == null) {
             kualiModuleService = SpringContext.getBean(KualiModuleService.class);
@@ -342,14 +342,14 @@ public class BusinessObjectResource {
         }
         return businessObjectService;
     }
-    
+
     protected ConfigurationService getConfigurationService() {
         if (configurationService == null) {
             configurationService = SpringContext.getBean(ConfigurationService.class);
         }
         return configurationService;
     }
-    
+
     protected PermissionService getPermissionService() {
         if (permissionService == null) {
             permissionService = SpringContext.getBean(PermissionService.class);

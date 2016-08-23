@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -23,70 +23,70 @@
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
 >
 
-    <bean id="BusinessObjectEntry" class="org.kuali.kfs.sys.businessobject.datadictionary.FinancialSystemBusinessObjectEntry" abstract="true"/>   
+    <bean id="BusinessObjectEntry" class="org.kuali.kfs.sys.businessobject.datadictionary.FinancialSystemBusinessObjectEntry" abstract="true"/>
 
-    <bean id="RelationshipDefinition" class="org.kuali.kfs.sys.businessobject.datadictionary.KfsRelationshipDefinition" abstract="true"/>   
+    <bean id="RelationshipDefinition" class="org.kuali.kfs.sys.businessobject.datadictionary.KfsRelationshipDefinition" abstract="true"/>
 
     <bean id="MaintenanceDocumentEntry" class="org.kuali.kfs.sys.document.datadictionary.FinancialSystemMaintenanceDocumentEntry" abstract="true">
         <property name="documentPresentationControllerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentPresentationControllerBase" />
         <property name="businessRulesClass" value="org.kuali.kfs.sys.document.validation.impl.KfsMaintenanceDocumentRuleBase"/>
-        <property name="allowsNoteFYI" value="true"/>  
+        <property name="allowsNoteFYI" value="true"/>
     </bean>
-          	
+
     <bean id="TransactionalDocumentEntry" class="org.kuali.kfs.sys.document.datadictionary.FinancialSystemTransactionalDocumentEntry" abstract="true">
         <property name="webScriptFiles" >
 			<ref bean="commonWebScriptFiles"/>
-    	</property> 
+    	</property>
     	<property name="documentPresentationControllerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase" />
-    	<property name="allowsNoteFYI" value="true"/>        	
+    	<property name="allowsNoteFYI" value="true"/>
     </bean>
-    
+
     <bean id="AccountingDocumentEntry" class="org.kuali.kfs.sys.document.datadictionary.FinancialSystemTransactionalDocumentEntry" abstract="true">
         <property name="webScriptFiles" >
 			<ref bean="commonWebScriptFiles"/>
-    	</property> 
+    	</property>
     	<property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.AccountingDocumentAuthorizerBase" />
     	<property name="documentPresentationControllerClass" value="org.kuali.kfs.sys.document.authorization.AccountingDocumentPresentationControllerBase" />
-    	<property name="allowsNoteFYI" value="true"/>    
+    	<property name="allowsNoteFYI" value="true"/>
     </bean>
-    
+
     <bean id="AccountingLineView" abstract="true" class="org.kuali.kfs.sys.document.datadictionary.AccountingLineViewDefinition" />
-    
+
     <bean id="AccountingLineView-lines" abstract="true" class="org.kuali.kfs.sys.document.datadictionary.AccountingLineViewLinesDefinition" />
-    
+
     <bean id="AccountingLineView-line" abstract="true" class="org.kuali.kfs.sys.document.datadictionary.AccountingLineViewLineDefinition" />
-    
+
     <bean id="AccountingLineView-field" abstract="true" class="org.kuali.kfs.sys.document.datadictionary.AccountingLineViewFieldDefinition" />
-    
+
     <bean id="AccountingLineView-overrideField" abstract="true" class="org.kuali.kfs.sys.document.datadictionary.AccountingLineViewOverrideFieldDefinition" />
-    
+
     <bean id="AccountingLineView-sequenceNumber" abstract="true" class="org.kuali.kfs.sys.document.datadictionary.AccountingLineViewSequenceNumberFieldDefinition" />
-    
+
     <bean id="AccountingLineView-countedSequenceNumber" abstract="true" class="org.kuali.kfs.sys.document.datadictionary.AccountingLineViewCountedSequenceNumberFieldDefinition" />
-    
+
     <bean id="AccountingLineView-actions" abstract="true" class="org.kuali.kfs.sys.document.datadictionary.AccountingLineViewActionsDefinition" />
-    
+
     <bean id="AccountingLineView-action" abstract="true" class="org.kuali.kfs.sys.document.datadictionary.AccountingLineViewActionDefinition" />
-    
+
     <bean id="AccountingLineGroup" abstract="true" class="org.kuali.kfs.sys.document.datadictionary.AccountingLineGroupDefinition">
 		<property name="accountingLineAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase" />
     </bean>
-    
+
     <bean id="AccountingLineView-groupTotal" abstract="true" class="org.kuali.kfs.sys.document.datadictionary.AccountingLineGroupTotalDefinition" />
-    
+
     <bean id="AccountingLineView-currentBaseAmountField" abstract="true" class="org.kuali.kfs.sys.document.datadictionary.AccountingLineViewCurrentBaseAmountFieldDefinition">
     	<property name="currentAmountPropertyName" value="currentBudgetAdjustmentAmount" />
     	<property name="baseAmountPropertyName" value="baseBudgetAdjustmentAmount" />
     </bean>
-    
+
     <bean id="AccountingLineView-debitCreditTotal" abstract="true" class="org.kuali.kfs.sys.document.datadictionary.DebitCreditTotalDefinition" />
-    
+
     <bean id="AccountingLineView-debitCreditAmountField" abstract="true" class="org.kuali.kfs.sys.document.datadictionary.AccountingLineViewDebitCreditAmountFieldDefinition" />
-    
+
     <bean id="AccountingLineView-showHideLines" abstract="true" class="org.kuali.kfs.sys.document.datadictionary.AccountingLineViewHideShowLinesDefinition" />
-    
+
     <bean id="AccountingLineView-columns" abstract="true" class="org.kuali.kfs.sys.document.datadictionary.AccountingLineViewColumnsDefinition" />
-    
+
 	<bean id="AccountingLineView-lineDescription" parent="AccountingLineView-line">
 		<property name="elementName" value="lineDescription" />
 		<property name="fields">
@@ -95,10 +95,10 @@
 			</list>
 		</property>
 	</bean>
-	    
-    
-    
-    
+
+
+
+
     <bean id="accountingInformation" parent="accountingInformation-parent" />
 
 	<bean id="accountingInformation-parent" parent="AccountingLineView-line" abstract="true">
@@ -167,7 +167,7 @@
 			</list>
 		</property>
 	</bean>
-    
+
     <bean id="SearchingAttribute-chartOfAccountsCode" class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
     	<property name="businessObjectClassName" value="org.kuali.kfs.sys.businessobject.SourceAccountingLine" />
     	<property name="attributeName" value="chartOfAccountsCode" />
@@ -177,21 +177,21 @@
     <alias name="RoutingAttribute-Account" alias="RoutingAttribute-accountNumber" />
     <alias name="RoutingAttribute-Organization" alias="RoutingAttribute-organizationCode" />
     <alias name="RoutingAttribute-SubFund" alias="RoutingAttribute-subFundGroupCode" />
-   
+
     <bean id="SearchingAttribute-accountNumber" class="org.kuali.kfs.krad.datadictionary.SearchingAttribute" >
    		<property name="businessObjectClassName" value="org.kuali.kfs.sys.businessobject.SourceAccountingLine" />
     	<property name="attributeName" value="accountNumber" />
     </bean>
-    
+
     <bean id="RoutingAttribute-financialDocumentTotalAmount"  class="org.kuali.kfs.krad.datadictionary.RoutingAttribute" >
   	  <property name="qualificationAttributeName" value="financialDocumentTotalAmount" />
     </bean>
-    
+
     <bean id="SearchingAttribute-organizationCode" class="org.kuali.kfs.krad.datadictionary.SearchingAttribute" >
     	<property name="businessObjectClassName" value="org.kuali.kfs.coa.businessobject.Organization" />
     	<property name="attributeName" value="organizationCode" />
     </bean>
-  
+
     <bean id="SearchingAttribute-overrideCode" class="org.kuali.kfs.krad.datadictionary.SearchingAttribute" >
     	<property name="businessObjectClassName" value="org.kuali.kfs.sys.businessobject.AccountingLine" />
     	<property name="attributeName" value="overrideCode" />
@@ -199,12 +199,12 @@
     <bean id="RoutingAttribute-overrideCode" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute" >
     	<property name="qualificationAttributeName" value="accountingLineOverrideCode" />
     </bean>
-   
+
     <bean id="SearchingAttribute-subFundGroupCode" class="org.kuali.kfs.krad.datadictionary.SearchingAttribute" >
   		<property name="businessObjectClassName" value="org.kuali.kfs.coa.businessobject.SubFundGroup" />
    		<property name="attributeName" value="subFundGroupCode" />
     </bean>
-    
+
     <bean id="SearchingAttribute-contractsAndGrantsAccountResponsibilityId" class="org.kuali.kfs.krad.datadictionary.SearchingAttribute" >
         <property name="businessObjectClassName" value="org.kuali.kfs.coa.businessobject.Account" />
     	<property name="attributeName" value="contractsAndGrantsAccountResponsibilityId" />
@@ -212,7 +212,7 @@
     <bean id="RoutingAttribute-contractsAndGrantsAccountResponsibilityId" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute" >
     	<property name="qualificationAttributeName" value="contractsAndGrantsAccountResponsibilityId" />
     </bean>
-   
+
     <bean id="SearchingAttribute-campusCode" class="org.kuali.kfs.krad.datadictionary.SearchingAttribute" >
     	<property name="businessObjectClassName" value="org.kuali.rice.location.impl.campus.CampusBo" />
     	<property name="attributeName" value="campusCode" />
@@ -235,7 +235,7 @@
 	   			<value>accountNumber</value>
 	   		</list>
    		</property>
-   	</bean> 
+   	</bean>
     <bean id="DocumentValuePathGroup-AccountingDocument-Account-sourceAccountingLines" parent="DocumentValuePathGroup-AccountingDocument-financialDocumentTotalAmount">
     	<property name="documentCollectionPath">
     		<bean parent="DocumentCollectionPath-AccountingLine-chartAndAccountNumber">
@@ -250,8 +250,8 @@
     		</bean>
     	</property>
     </bean>
-    
-    
+
+
     <bean id="RoutingType-AccountingDocument-Account" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
@@ -372,7 +372,7 @@
 	   			<value>account.subFundGroupCode</value>
 	   		</list>
    		</property>
-   	</bean>    
+   	</bean>
     <bean id="DocumentValuePathGroup-AccountingDocument-SubFund-sourceAccountingLines" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
     	<property name="documentCollectionPath">
     		<bean parent="DocumentCollectionPath-AccountingLine-subFundGroupCode">
@@ -431,7 +431,7 @@
 	   			<value>account.contractsAndGrantsAccountResponsibilityId</value>
 	   		</list>
    		</property>
-   	</bean>    
+   	</bean>
     <bean id="DocumentValuePathGroup-AccountingDocument-Award-sourceAccountingLines" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
     	<property name="documentCollectionPath">
     		<bean parent="DocumentCollectionPath-AccountingLine-contractsAndGrantsAccountResponsibilityId">
@@ -471,7 +471,7 @@
     		</list>
     	</property>
     </bean>
-    
+
     <bean id="DocumentCollectionPath-SimpleOrganization" class="org.kuali.kfs.krad.datadictionary.DocumentCollectionPath" abstract="true">
    		<property name="documentValues">
 	   		<list>
@@ -480,10 +480,10 @@
 	   		</list>
    		</property>
    	</bean>
-   	
+
    	<bean id="RoutingAttribute-financialObjectCode" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 		<property name="qualificationAttributeName" value="financialObjectCode" />
 	</bean>
-   	
-  
+
+
 </beans>

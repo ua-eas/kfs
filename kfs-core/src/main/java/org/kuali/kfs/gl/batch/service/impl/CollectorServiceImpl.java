@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -59,19 +59,19 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
     private CollectorScrubberService collectorScrubberService;
     private RunDateService runDateService;
     private String batchFileDirectoryName;
-    
+
     private ReportWriterService collectorReportWriterService;
 
     /**
      * performs collection
-     * 
+     *
      * @return status information related to the collection execution
      */
     public CollectorReportData performCollection() {
-        
+
         //add a step to check for directory paths
         prepareDirectories(getRequiredDirectoryNames());
-        
+
         List<String> processedFiles = new ArrayList<String>();
         Date executionDate = dateTimeService.getCurrentSqlDate();
 
@@ -80,12 +80,12 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
         List<CollectorScrubberStatus> collectorScrubberStatuses = new ArrayList<CollectorScrubberStatus>();
 
         String collectorFinalOutputFileName = batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.COLLECTOR_OUTPUT + GeneralLedgerConstants.BatchFileSystem.EXTENSION;
-      
+
         PrintStream collectorFinalOutputFilePs = null;
         BufferedReader inputFileReader = null;
         try {
             collectorFinalOutputFilePs = new PrintStream(collectorFinalOutputFileName);
-                
+
         } catch (FileNotFoundException e) {
             throw new RuntimeException("writing all collector result files to output file process Stopped: " + e.getMessage(), e);
         }
@@ -94,7 +94,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
             List<String> fileNamesToLoad = batchInputFileService.listInputFileNamesWithDoneFile(collectorInputFileType);
             for (String inputFileName : fileNamesToLoad) {
                 boolean processSuccess = false;
-                
+
                 LOG.info("Collecting file: " + inputFileName);
                 processSuccess = collectorHelperService.loadCollectorFile(inputFileName, collectorReportData, collectorScrubberStatuses, collectorInputFileType, collectorFinalOutputFilePs);
                 processedFiles.add(inputFileName);
@@ -102,14 +102,14 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
                     renameCollectorScrubberFiles();
                 }
                 collectorReportData.getLoadedfileNames().add(inputFileName);
-                
+
             }
             updateCollectorReportDataWithExecutionStatistics(collectorReportData, collectorScrubberStatuses);
         }
 
         collectorScrubberService.removeTempGroups(collectorScrubberStatuses);
         collectorFinalOutputFilePs.close();
-            
+
         return collectorReportData;
     }
 
@@ -125,7 +125,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
             }
         }
     }
-    
+
     protected void renameCollectorScrubberFiles() {
         String filePath = batchFileDirectoryName + File.separator;
         List<String> fileNameList = new ArrayList<String>();
@@ -137,7 +137,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
         fileNameList.add(GeneralLedgerConstants.BatchFileSystem.COLLECTOR_SCRUBBER_ERROR_SORTED_FILE);
         fileNameList.add(GeneralLedgerConstants.BatchFileSystem.COLLECTOR_DEMERGER_VAILD_OUTPUT_FILE);
         fileNameList.add(GeneralLedgerConstants.BatchFileSystem.COLLECTOR_DEMERGER_ERROR_OUTPUT_FILE);
-        
+
         for (String fileName : fileNameList){
             File file = new File(filePath + fileName + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
             if (file.exists()) {
@@ -146,11 +146,11 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
             }
         }
     }
-    
+
     public void finalizeCollector(CollectorReportData collectorReportData){
         // remove all done files for processed files
         removeDoneFiles( (List) collectorReportData.getLoadedfileNames());
-        
+
         // create a done file for collector gl output
         String collectorFinalOutputDoneFileName = batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.COLLECTOR_OUTPUT + GeneralLedgerConstants.BatchFileSystem.DONE_FILE_EXTENSION;
         File doneFile = new File (collectorFinalOutputDoneFileName);
@@ -162,7 +162,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
             }
         }
     }
-    
+
 
     public void setCollectorHelperService(CollectorHelperService collectorHelperService) {
         this.collectorHelperService = collectorHelperService;
@@ -178,7 +178,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
 
     /**
      * Gets the originEntryGroupService attribute.
-     * 
+     *
      * @return Returns the originEntryGroupService.
      */
     public OriginEntryGroupService getOriginEntryGroupService() {
@@ -187,7 +187,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
 
     /**
      * Sets the originEntryGroupService attribute value.
-     * 
+     *
      * @param originEntryGroupService The originEntryGroupService to set.
      */
     public void setOriginEntryGroupService(OriginEntryGroupService originEntryGroupService) {
@@ -196,7 +196,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
 
     /**
      * Gets the dateTimeService attribute.
-     * 
+     *
      * @return Returns the dateTimeService.
      */
     public DateTimeService getDateTimeService() {
@@ -205,7 +205,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
 
     /**
      * Sets the dateTimeService attribute value.
-     * 
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -214,7 +214,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
 
     /**
      * Gets the collectorScrubberService attribute.
-     * 
+     *
      * @return Returns the collectorScrubberService.
      */
     public CollectorScrubberService getCollectorScrubberService() {
@@ -223,7 +223,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
 
     /**
      * Sets the collectorScrubberService attribute value.
-     * 
+     *
      * @param collectorScrubberService The collectorScrubberService to set.
      */
     public void setCollectorScrubberService(CollectorScrubberService collectorScrubberService) {
@@ -232,7 +232,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
 
     /**
      * Adds execution statistics to the Collector run
-     * 
+     *
      * @param collectorReportData data gathered from the run of the Collector
      * @param collectorScrubberStatuses a List of CollectorScrubberStatus records
      */

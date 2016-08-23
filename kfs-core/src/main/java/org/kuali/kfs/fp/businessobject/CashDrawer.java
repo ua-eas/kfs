@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,8 +34,8 @@ import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.campus.CampusEbo;
 
 /**
- * This class represents a cash drawer used in cash management document. It contains amounts for 
- * different types of denominations for currency and coin. 
+ * This class represents a cash drawer used in cash management document. It contains amounts for
+ * different types of denominations for currency and coin.
  */
 public class CashDrawer extends PersistableBusinessObjectBase {
     private String campusCode;
@@ -74,7 +74,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This method returns true if the cash drawer is open.
-     * 
+     *
      * @return boolean
      */
     public boolean isOpen() {
@@ -83,7 +83,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This method returns true if the cash drawer is closed.
-     * 
+     *
      * @return boolean
      */
     public boolean isClosed() {
@@ -92,7 +92,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This method returns true if the cash drawer is locked.
-     * 
+     *
      * @return boolean
      */
     public boolean isLocked() {
@@ -102,7 +102,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the campusCode attribute.
-     * 
+     *
      * @return Returns the campusCode
      */
     public String getCampusCode() {
@@ -111,7 +111,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the campusCode attribute.
-     * 
+     *
      * @param campusCode The campusCode to set.
      */
     public void setCampusCode(String campusCode) {
@@ -121,7 +121,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the statusCode attribute.
-     * 
+     *
      * @return Returns the statusCode
      */
     public String getStatusCode() {
@@ -130,7 +130,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the statusCode attribute.
-     * 
+     *
      * @param financialDocumentOpenDepositCode The statusCode to set.
      */
     public void setStatusCode(String financialDocumentOpenDepositCode) {
@@ -140,7 +140,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the cashDrawerTotalAmount attribute.
-     * 
+     *
      * @return Returns the cashDrawerTotalAmount
      */
     public KualiDecimal getCashDrawerTotalAmount() {
@@ -149,7 +149,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the cashDrawerTotalAmount attribute.
-     * 
+     *
      * @param cashDrawerTotalAmount The cashDrawerTotalAmount to set.
      */
     public void setCashDrawerTotalAmount(KualiDecimal cashDrawerTotalAmount) {
@@ -159,7 +159,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentHundredDollarAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentHundredDollarAmount
      */
     public KualiDecimal getFinancialDocumentHundredDollarAmount() {
@@ -168,7 +168,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentHundredDollarAmount attribute.
-     * 
+     *
      * @param financialDocumentHundredDollarAmount The financialDocumentHundredDollarAmount to set.
      */
     public void setFinancialDocumentHundredDollarAmount(KualiDecimal financialDocumentHundredDollarAmount) {
@@ -177,7 +177,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Returns the actual count of hundred dollar bills
-     * 
+     *
      * @return the number of hundred dollar bills present in the drawer
      */
     public Integer getHundredDollarCount() {
@@ -186,7 +186,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This sets the count of hundred dollar bills present in the drawer
-     * 
+     *
      * @param count the number of hundred dollar bills present in the drawer
      */
     public void setHundredDollarCount(Integer count) {
@@ -197,7 +197,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentFiftyDollarAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentFiftyDollarAmount
      */
     public KualiDecimal getFinancialDocumentFiftyDollarAmount() {
@@ -206,7 +206,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentFiftyDollarAmount attribute.
-     * 
+     *
      * @param financialDocumentFiftyDollarAmount The financialDocumentFiftyDollarAmount to set.
      */
     public void setFinancialDocumentFiftyDollarAmount(KualiDecimal financialDocumentFiftyDollarAmount) {
@@ -215,7 +215,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Returns the actual count of fifty dollar bills
-     * 
+     *
      * @return the number of fifty dollar bills present in the drawer
      */
     public Integer getFiftyDollarCount() {
@@ -224,7 +224,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This sets the count of hundred dollar bills present in the drawer
-     * 
+     *
      * @param count the number of hundred dollar bills present in the drawer
      */
     public void setFiftyDollarCount(Integer count) {
@@ -235,7 +235,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentTwentyDollarAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentTwentyDollarAmount
      */
     public KualiDecimal getFinancialDocumentTwentyDollarAmount() {
@@ -244,7 +244,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentTwentyDollarAmount attribute.
-     * 
+     *
      * @param financialDocumentTwentyDollarAmount The financialDocumentTwentyDollarAmount to set.
      */
     public void setFinancialDocumentTwentyDollarAmount(KualiDecimal financialDocumentTwentyDollarAmount) {
@@ -253,7 +253,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Returns the actual count of twenty dollar bills
-     * 
+     *
      * @return the number of twenty dollar bills present in the drawer
      */
     public Integer getTwentyDollarCount() {
@@ -262,7 +262,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This sets the count of twenty dollar bills present in the drawer
-     * 
+     *
      * @param count the number of twenty dollar bills present in the drawer
      */
     public void setTwentyDollarCount(Integer count) {
@@ -273,7 +273,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentTenDollarAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentTenDollarAmount
      */
     public KualiDecimal getFinancialDocumentTenDollarAmount() {
@@ -282,7 +282,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentTenDollarAmount attribute.
-     * 
+     *
      * @param financialDocumentTenDollarAmount The financialDocumentTenDollarAmount to set.
      */
     public void setFinancialDocumentTenDollarAmount(KualiDecimal financialDocumentTenDollarAmount) {
@@ -291,7 +291,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Returns the actual count of ten dollar bills
-     * 
+     *
      * @return the number of ten dollar bills present in the drawer
      */
     public Integer getTenDollarCount() {
@@ -300,7 +300,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This sets the count of ten dollar bills present in the drawer
-     * 
+     *
      * @param count the number of ten dollar bills present in the drawer
      */
     public void setTenDollarCount(Integer count) {
@@ -311,7 +311,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentFiveDollarAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentFiveDollarAmount
      */
     public KualiDecimal getFinancialDocumentFiveDollarAmount() {
@@ -320,7 +320,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentFiveDollarAmount attribute.
-     * 
+     *
      * @param financialDocumentFiveDollarAmount The financialDocumentFiveDollarAmount to set.
      */
     public void setFinancialDocumentFiveDollarAmount(KualiDecimal financialDocumentFiveDollarAmount) {
@@ -329,7 +329,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Returns the actual count of five dollar bills
-     * 
+     *
      * @return the number of five dollar bills present in the drawer
      */
     public Integer getFiveDollarCount() {
@@ -338,7 +338,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This sets the count of five dollar bills present in the drawer
-     * 
+     *
      * @param count the number of five dollar bills present in the drawer
      */
     public void setFiveDollarCount(Integer count) {
@@ -349,7 +349,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentTwoDollarAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentTwoDollarAmount
      */
     public KualiDecimal getFinancialDocumentTwoDollarAmount() {
@@ -358,7 +358,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentTwoDollarAmount attribute.
-     * 
+     *
      * @param financialDocumentTwoDollarAmount The financialDocumentTwoDollarAmount to set.
      */
     public void setFinancialDocumentTwoDollarAmount(KualiDecimal financialDocumentTwoDollarAmount) {
@@ -367,7 +367,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Returns the actual count of two dollar bills
-     * 
+     *
      * @return the number of two dollar bills present in the drawer
      */
     public Integer getTwoDollarCount() {
@@ -376,7 +376,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This sets the count of two dollar bills present in the drawer
-     * 
+     *
      * @param count the number of two dollar bills present in the drawer
      */
     public void setTwoDollarCount(Integer count) {
@@ -387,7 +387,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentOneDollarAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentOneDollarAmount
      */
     public KualiDecimal getFinancialDocumentOneDollarAmount() {
@@ -396,7 +396,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentOneDollarAmount attribute.
-     * 
+     *
      * @param financialDocumentOneDollarAmount The financialDocumentOneDollarAmount to set.
      */
     public void setFinancialDocumentOneDollarAmount(KualiDecimal financialDocumentOneDollarAmount) {
@@ -405,7 +405,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Returns the actual count of one dollar bills
-     * 
+     *
      * @return the number of one dollar bills present in the drawer
      */
     public Integer getOneDollarCount() {
@@ -414,7 +414,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This sets the count of one dollar bills present in the drawer
-     * 
+     *
      * @param count the number of one dollar bills present in the drawer
      */
     public void setOneDollarCount(Integer count) {
@@ -425,7 +425,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentOtherDollarAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentOtherDollarAmount
      */
     public KualiDecimal getFinancialDocumentOtherDollarAmount() {
@@ -434,7 +434,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentOtherDollarAmount attribute.
-     * 
+     *
      * @param financialDocumentOtherDollarAmount The financialDocumentOtherDollarAmount to set.
      */
     public void setFinancialDocumentOtherDollarAmount(KualiDecimal financialDocumentOtherDollarAmount) {
@@ -444,7 +444,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentFiftyCentAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentFiftyCentAmount
      */
     public KualiDecimal getFinancialDocumentFiftyCentAmount() {
@@ -453,7 +453,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentFiftyCentAmount attribute.
-     * 
+     *
      * @param financialDocumentFiftyCentAmount The financialDocumentFiftyCentAmount to set.
      */
     public void setFinancialDocumentFiftyCentAmount(KualiDecimal financialDocumentFiftyCentAmount) {
@@ -462,7 +462,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Returns the number of half-cent coins in the drawer
-     * 
+     *
      * @return the count of half cent coins in the drawer
      */
     public Integer getFiftyCentCount() {
@@ -472,7 +472,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
     /**
      * Sets the number of fifty cent coins in the drawer. This is useful if, you know, you're in da club, with, say a bottle full of
      * "bub"
-     * 
+     *
      * @param count the number of fifty cent coins present in the drawer
      */
     public void setFiftyCentCount(Integer count) {
@@ -483,7 +483,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentTwentyFiveCentAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentTwentyFiveCentAmount
      */
     public KualiDecimal getFinancialDocumentTwentyFiveCentAmount() {
@@ -492,7 +492,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentTwentyFiveCentAmount attribute.
-     * 
+     *
      * @param financialDocumentTwentyFiveCentAmount The financialDocumentTwentyFiveCentAmount to set.
      */
     public void setFinancialDocumentTwentyFiveCentAmount(KualiDecimal financialDocumentTwentyFiveCentAmount) {
@@ -501,7 +501,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Returns the number of quarters in the drawer
-     * 
+     *
      * @return the count of quarters in the drawer
      */
     public Integer getTwentyFiveCentCount() {
@@ -510,7 +510,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the number of quarters in the drawer
-     * 
+     *
      * @param count the number of quarters present in the drawer
      */
     public void setTwentyFiveCentCount(Integer count) {
@@ -521,7 +521,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentTenCentAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentTenCentAmount
      */
     public KualiDecimal getFinancialDocumentTenCentAmount() {
@@ -530,7 +530,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentTenCentAmount attribute.
-     * 
+     *
      * @param financialDocumentTenCentAmount The financialDocumentTenCentAmount to set.
      */
     public void setFinancialDocumentTenCentAmount(KualiDecimal financialDocumentTenCentAmount) {
@@ -539,7 +539,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Returns the number of dimes in the drawer
-     * 
+     *
      * @return the count of dimes in the drawer
      */
     public Integer getTenCentCount() {
@@ -548,7 +548,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the number of dimes in the drawer
-     * 
+     *
      * @param count the number of dimes present in the drawer
      */
     public void setTenCentCount(Integer count) {
@@ -559,7 +559,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentFiveCentAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentFiveCentAmount
      */
     public KualiDecimal getFinancialDocumentFiveCentAmount() {
@@ -568,7 +568,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentFiveCentAmount attribute.
-     * 
+     *
      * @param financialDocumentFiveCentAmount The financialDocumentFiveCentAmount to set.
      */
     public void setFinancialDocumentFiveCentAmount(KualiDecimal financialDocumentFiveCentAmount) {
@@ -577,7 +577,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Returns the number of nickels in the drawer
-     * 
+     *
      * @return the count of nickels in the drawer
      */
     public Integer getFiveCentCount() {
@@ -586,7 +586,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the number of nickels in the drawer
-     * 
+     *
      * @param count the number of nickels present in the drawer
      */
     public void setFiveCentCount(Integer count) {
@@ -597,7 +597,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentOneCentAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentOneCentAmount
      */
     public KualiDecimal getFinancialDocumentOneCentAmount() {
@@ -606,7 +606,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentOneCentAmount attribute.
-     * 
+     *
      * @param financialDocumentOneCentAmount The financialDocumentOneCentAmount to set.
      */
     public void setFinancialDocumentOneCentAmount(KualiDecimal financialDocumentOneCentAmount) {
@@ -615,7 +615,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Returns the number of pennies in the drawer
-     * 
+     *
      * @return the count of pennies in the drawer
      */
     public Integer getOneCentCount() {
@@ -624,7 +624,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the number of pennies in the drawer
-     * 
+     *
      * @param count the number of pennies present in the drawer
      */
     public void setOneCentCount(Integer count) {
@@ -635,7 +635,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentOtherCentAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentOtherCentAmount
      */
     public KualiDecimal getFinancialDocumentOtherCentAmount() {
@@ -644,7 +644,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentOtherCentAmount attribute.
-     * 
+     *
      * @param financialDocumentOtherCentAmount The financialDocumentOtherCentAmount to set.
      */
     public void setFinancialDocumentOtherCentAmount(KualiDecimal financialDocumentOtherCentAmount) {
@@ -654,7 +654,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentHundredCentAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentHundredCentAmount
      */
     public KualiDecimal getFinancialDocumentHundredCentAmount() {
@@ -663,7 +663,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentHundredCentAmount attribute.
-     * 
+     *
      * @param financialDocumentHundredCentAmount The financialDocumentHundredCentAmount to set.
      */
     public void setFinancialDocumentHundredCentAmount(KualiDecimal financialDocumentHundredCentAmount) {
@@ -672,7 +672,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Returns the number of dollar coins--Sacajawea, Susan B. Anthony, or otherwise--in the drawer
-     * 
+     *
      * @return the count of dollar coins in the drawer
      */
     public Integer getHundredCentCount() {
@@ -681,7 +681,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the number of hundred cent coins in the drawer
-     * 
+     *
      * @param count the number of hundred cent coins present in the drawer
      */
     public void setHundredCentCount(Integer count) {
@@ -692,7 +692,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentMiscellaneousAdvanceAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMiscellaneousAdvanceAmount
      */
     public KualiDecimal getFinancialDocumentMiscellaneousAdvanceAmount() {
@@ -701,7 +701,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentMiscellaneousAdvanceAmount attribute.
-     * 
+     *
      * @param financialDocumentMiscellaneousAdvanceAmount The financialDocumentMiscellaneousAdvanceAmount to set.
      */
     public void setFinancialDocumentMiscellaneousAdvanceAmount(KualiDecimal financialDocumentMiscellaneousAdvanceAmount) {
@@ -711,7 +711,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Gets the referenceFinancialDocumentNumber attribute.
-     * 
+     *
      * @return Returns the referenceFinancialDocumentNumber
      */
     public String getReferenceFinancialDocumentNumber() {
@@ -720,7 +720,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * Sets the referenceFinancialDocumentNumber attribute.
-     * 
+     *
      * @param referenceFinancialDocumentNumber The referenceFinancialDocumentNumber to set.
      */
     public void setReferenceFinancialDocumentNumber(String referenceFinancialDocumentNumber) {
@@ -729,7 +729,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This method calculates the total amount of currency in the cash drawer
-     * 
+     *
      * @return the total amount of currency
      */
     public KualiDecimal getCurrencyTotalAmount() {
@@ -763,7 +763,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This method calculates the total amount of coin in the cash drawer
-     * 
+     *
      * @return the total amount of coin
      */
     public KualiDecimal getCoinTotalAmount() {
@@ -794,7 +794,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This calculates the total amount of money currently in the cash drawer
-     * 
+     *
      * @return the amount currently in the cash drawer
      */
     public KualiDecimal getTotalAmount() {
@@ -803,7 +803,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This method adds currency to the cash drawer
-     * 
+     *
      * @param detail the record indicating how much of each denomination of currency to add
      */
     public void addCurrency(CurrencyDetail detail) {
@@ -875,7 +875,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This method puts coin into the cash drawer
-     * 
+     *
      * @param detail the record indicating how much coin of each denomiation to add
      */
     public void addCoin(CoinDetail detail) {
@@ -939,7 +939,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This method removes currency amounts from the cash drawer
-     * 
+     *
      * @param detail the record indicating how much currency of each denomination to remove
      */
     public void removeCurrency(CurrencyDetail detail) {
@@ -1011,7 +1011,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
 
     /**
      * This method takes coin out of the cash drawer
-     * 
+     *
      * @param detail the record indicating how much coin of each denomination to remove
      */
     public void removeCoin(CoinDetail detail) {
@@ -1072,7 +1072,7 @@ public class CashDrawer extends PersistableBusinessObjectBase {
             }
         }
     }
-    
+
     /**
      * Gets the campus attribute.
      *
@@ -1093,10 +1093,10 @@ public class CashDrawer extends PersistableBusinessObjectBase {
                 }
             }
         }
-        
+
         return campus;
     }
-    
+
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */

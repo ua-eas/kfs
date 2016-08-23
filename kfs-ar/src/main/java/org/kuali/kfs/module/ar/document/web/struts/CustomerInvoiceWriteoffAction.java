@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,7 +36,7 @@ import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.krad.service.KualiRuleService;
 
 public class CustomerInvoiceWriteoffAction extends FinancialSystemTransactionalDocumentActionBase {
-    
+
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#loadDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
      */
@@ -78,25 +78,25 @@ public class CustomerInvoiceWriteoffAction extends FinancialSystemTransactionalD
         saveCustomerNote(form);
         return actionForward;
     }
-    
-    
+
+
     protected void saveCustomerNote(ActionForm form) {
         CustomerService customerService = SpringContext.getBean(CustomerService.class);
-        
+
         CustomerInvoiceWriteoffForm customerInvoiceWriteoffForm = (CustomerInvoiceWriteoffForm) form;
         CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument = (CustomerInvoiceWriteoffDocument) customerInvoiceWriteoffForm.getDocument();
-        
+
         String customerNumber = customerInvoiceWriteoffDocument.getCustomerInvoiceDocument().getCustomer().getCustomerNumber();
         String customerNote = customerInvoiceWriteoffDocument.getCustomerNote();
-        
+
         customerService.createCustomerNote(customerNumber, customerNote);
     }
 
     /**
      * Do initialization for a new customer invoice writeoff document
-     * 
+     *
      * TODO This initation stuff does the exact same thing as customer credit memo. this should really be abstracted out...
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#createDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
      */
     @Override
@@ -104,10 +104,10 @@ public class CustomerInvoiceWriteoffAction extends FinancialSystemTransactionalD
         super.createDocument(kualiDocumentFormBase);
         ((CustomerInvoiceWriteoffDocument) kualiDocumentFormBase.getDocument()).initiateDocument();
     }
-    
+
     /**
      * Clears out init tab.
-     * 
+     *
      * @param mapping An ActionMapping
      * @param form An ActionForm
      * @param request The HttpServletRequest
@@ -116,18 +116,18 @@ public class CustomerInvoiceWriteoffAction extends FinancialSystemTransactionalD
      * @return An ActionForward
      */
     public ActionForward clearInitTab(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         CustomerInvoiceWriteoffForm customerInvoiceWriteoffForm = (CustomerInvoiceWriteoffForm) form;
         CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument = (CustomerInvoiceWriteoffDocument) customerInvoiceWriteoffForm.getDocument();
         customerInvoiceWriteoffDocument.clearInitFields();
-        
+
         return super.refresh(mapping, form, request, response);
-    }   
-    
+    }
+
     /**
      * Handles continue request. This request comes from the initial screen which gives ref. invoice number.
      * Based on that, the customer credit memo is initially populated.
-     * 
+     *
      * @param mapping An ActionMapping
      * @param form An ActionForm
      * @param request The HttpServletRequest
@@ -139,7 +139,7 @@ public class CustomerInvoiceWriteoffAction extends FinancialSystemTransactionalD
 
         CustomerInvoiceWriteoffForm customerInvoiceWriteoffForm = (CustomerInvoiceWriteoffForm) form;
         CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument = (CustomerInvoiceWriteoffDocument) customerInvoiceWriteoffForm.getDocument();
-        
+
         String errorPath = KFSConstants.DOCUMENT_PROPERTY_NAME;
         boolean rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new ContinueCustomerInvoiceWriteoffDocumentEvent(errorPath,customerInvoiceWriteoffDocument));
         if (rulePassed){
@@ -147,6 +147,6 @@ public class CustomerInvoiceWriteoffAction extends FinancialSystemTransactionalD
         }
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
-    }    
+    }
 
 }

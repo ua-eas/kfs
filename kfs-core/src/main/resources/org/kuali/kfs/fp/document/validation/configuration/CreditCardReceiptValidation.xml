@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -22,12 +22,12 @@
     xmlns:p="http://www.springframework.org/schema/p"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-        
+
     <bean id="creditCardReceiptDocumentFieldConversion" parent="validationFieldConversion">
 		<property name="sourceEventProperty" value="document" />
 		<property name="targetValidationProperty" value="creditCardReceiptDocumentForValidation" />
 	</bean>
-        
+
     <bean id="CreditCardReceipt-routeDocument-creditCardReceiptsValidation" abstract="true" parent="CollectionValidation" scope="prototype">
 		<property name="collectionProperty" value="document.creditCardReceipts" />
 		<property name="validations">
@@ -47,7 +47,7 @@
 	</bean>
 
 	<bean id="CreditCardReceipt-routeDocumentValidation" parent="CreditCardReceipt-routeDocumentValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CreditCardReceipt-routeDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -59,7 +59,7 @@
 						</list>
 					</property>
 				</bean>
-				
+
 				<bean parent="CreditCardReceipt-documentTotalValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
@@ -81,20 +81,20 @@
 							<bean parent="accountingDocumentFieldConversion" />
 						</list>
 					</property>
-				</bean> 
+				</bean>
  				<bean parent="CreditCardReceipt-routeDocument-creditCardReceiptsValidation" scope="prototype" />
 
 				<bean parent="AccountingDocument-capitalAssetLineUniquenessValidation" scope="prototype" />
 
 				<bean parent="CapitalAccountingLines-capitalAccountingLinesValidations" scope="prototype" />
-  				
+
   				<bean parent="CapitialAssetInformation-capitalAssetInformationValidation" scope="prototype" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CreditCardReceipt-saveDocumentValidation" parent="CreditCardReceipt-saveDocumentValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CreditCardReceipt-saveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -102,9 +102,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CreditCardReceipt-addAccountingLineValidation" parent="CreditCardReceipt-addAccountingLineValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CreditCardReceipt-addAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -133,15 +133,15 @@
 				<bean parent="AccountingDocument-defaultAccountingLineValuesAllowedValidation" scope="prototype">
 					<property name="accountingDocumentParameterPropertyName" value="document" />
 					<property name="accountingLineParameterPropertyName" value="accountingLine" />
-					<property name="quitOnFail" value="true" />					
+					<property name="quitOnFail" value="true" />
 				</bean>
 			</list>
 		</property>
 	</bean>
-	
-	
+
+
 	<bean id="CreditCardReceipt-updateAccountingLineValidation" parent="CreditCardReceipt-updateAccountingLineValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CreditCardReceipt-updateAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -169,14 +169,14 @@
 				<bean parent="AccountingDocument-defaultAccountingLineValuesAllowedValidation" scope="prototype">
 					<property name="accountingDocumentParameterPropertyName" value="document" />
 					<property name="accountingLineParameterPropertyName" value="updatedAccountingLine" />
-					<property name="quitOnFail" value="true" />					
+					<property name="quitOnFail" value="true" />
 				</bean>
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CreditCardReceipt-reviewAccountingLineValidation" parent="CreditCardReceipt-reviewAccountingLineValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CreditCardReceipt-reviewAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -200,18 +200,18 @@
 						</list>
 					</property>
 					<property name="quitOnFail" value="true" />
-				</bean>	
+				</bean>
 				<bean parent="AccountingDocument-defaultAccountingLineValuesAllowedValidation" scope="prototype">
 					<property name="accountingDocumentParameterPropertyName" value="document" />
 					<property name="accountingLineParameterPropertyName" value="accountingLine" />
-					<property name="quitOnFail" value="true" />					
+					<property name="quitOnFail" value="true" />
 				</bean>
 			</list>
 		</property>
 	</bean>
 
 	<bean id="CreditCardReceipt-deleteAccountingLineValidation" parent="CreditCardReceipt-deleteAccountingLineValidation-parentBean" scope="prototype" />
-  
+
 	<bean id="CreditCardReceipt-deleteAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<bean parent="AccountingDocument-DeleteAccountingLine-DefaultValidation" scope="prototype" />
@@ -219,7 +219,7 @@
 	</bean>
       <!-- object sub type check Event  -->
 	<bean id="CreditCardReceipt-capitalAccountingLinesObjectSubtypeValidations" parent="CreditCardReceipt-capitalAccountingLinesObjectSubtypeValidations-parentBean" scope="prototype" />
-  
+
 	<bean id="CreditCardReceipt-capitalAccountingLinesObjectSubtypeValidations-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
@@ -227,7 +227,7 @@
         			<property name="parameterProperties">
            				<list>
              				<bean parent="accountingDocumentFieldConversion" />
-           				</list> 
+           				</list>
                    </property>
        			</bean>
   			</list>

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -343,7 +343,7 @@
 		<property name="label" value="Primary Project Director Name" />
 		<property name="shortLabel" value="Primary Proj Director Name" />
 	</bean>
-	
+
 	<bean id="Award-awardPrimaryProjectDirector.projectDirector.principalId" parent="Award-awardPrimaryProjectDirector.projectDirector.principalId-parentBean"/>
 	<bean id="Award-awardPrimaryProjectDirector.projectDirector.principalId-parentBean" abstract="true" parent="AwardProjectDirector-principalId">
 		<property name="name" value="awardPrimaryProjectDirector.projectDirector.principalId"/>
@@ -374,7 +374,7 @@
 			<ref bean="StandardNameTextControl" />
 		</property>
 	</bean>
-	
+
 	<bean id="Award-awardPrimaryFundManager.fundManager.principalId" parent="Award-awardPrimaryFundManager.fundManager.principalId-parentBean"/>
 	<bean id="Award-awardPrimaryFundManager.fundManager.principalId-parentBean" abstract="true" parent="AwardFundManager-principalId">
 		<property name="name" value="awardPrimaryFundManager.fundManager.principalId"/>
@@ -831,7 +831,7 @@
 			value="letterOfCreditFund.letterOfCreditFundGroup.letterOfCreditFundGroupDescription" />
 		<property name="label" value="Invoicing Letter Of Credit Fund Group" />
 	</bean>
-	
+
 	<bean id="Award-letterOfCreditFund.letterOfCreditFundGroupCode" parent="Award-letterOfCreditFund.letterOfCreditFundGroupCode-parentBean"/>
 	<bean id="Award-letterOfCreditFund.letterOfCreditFundGroupCode-parentBean" abstract="true" parent="LetterOfCreditFund-letterOfCreditFundGroupCode">
 		<property name="name" value="letterOfCreditFund.letterOfCreditFundGroupCode"/>
@@ -1152,7 +1152,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="Award-inquirySectionDefinition-organizations" parent="Award-inquirySectionDefinition-organizations-parentBean" />
 	<bean id="Award-inquirySectionDefinition-organizations-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
@@ -1388,7 +1388,7 @@
 				</bean>
 			</list>
 		</property>
-	</bean>			
+	</bean>
 
 	<!-- Business Object Lookup Definition -->
 

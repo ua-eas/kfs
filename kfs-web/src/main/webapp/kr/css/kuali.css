@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 /**
  * Copyright 2005-2015 The Kuali Foundation
  *
@@ -1043,7 +1061,7 @@ div.innerTab-head{
 	padding-left:10px;
 	text-align:left;
 }
-div.innerTab-container{	
+div.innerTab-container{
 	background-color: #e4e4e4;
 	border-left-width: 0px;
 	background-image: url('../images/tab-sideright1.gif');
@@ -1077,7 +1095,7 @@ div.inner-subhead
 #horz-links input:hover
  {
 	color: #FFFFFF;
-	
+
 }
 
 #horz-links input.selected
@@ -1153,15 +1171,15 @@ table.questionTable {
 }
 
 td.leftTd {
-	border-bottom:1px solid #000000; 
-	border-right:1px solid #000000; 
-	padding:3px; 
+	border-bottom:1px solid #000000;
+	border-right:1px solid #000000;
+	padding:3px;
 	width:300px;
 }
 
 td.rightTd {
-	border-bottom:1px solid #000000; 
-	border-left:1px solid #000000; 
-	padding:3px; 
+	border-bottom:1px solid #000000;
+	border-left:1px solid #000000;
+	padding:3px;
 	width:300px;
-}	
+}

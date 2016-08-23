@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -43,19 +43,19 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
     private String objectCodes;
     private String accountName;
     private String subAccountName;
-    private String accountNumberAndName; 
+    private String accountNumberAndName;
     private String subAccountNumberAndName;
     private String divider;
-    
+
     // Groups
     private String accountNumber;
     private String subAccountNumber;
     private String emplid;
-    
+
     // Body parts
     private String financialObjectCode;
     private String financialObjectCodeName;
-    
+
     private String deleteBox;
     private String name;
     //from BudgetConstructionIntendedIncumbent
@@ -87,32 +87,32 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
     private BigDecimal appointmentTotalIntendedFteQuantity;
     private Integer amountChange;
     private BigDecimal percentChange;
-    
+
     //not sure where it is from
     private BigDecimal positionFte;
 
     // Total parts
-    
+
     private String totalObjectname;
-    
+
     private Integer totalObjectPositionCsfAmount;
     private Integer totalObjectAppointmentRequestedAmount;
     private BigDecimal totalObjectPositionCsfFteQuantity;
     private BigDecimal totalObjectAppointmentRequestedFteQuantity;
     private Integer totalObjectAmountChange;
     private BigDecimal totalObjectPercentChange;
-    
+
     private Integer totalAccountPositionCsfAmount;
     private Integer totalAccountAppointmentRequestedAmount;
     private BigDecimal totalAccountPositionCsfFteQuantity;
     private BigDecimal totalAccountAppointmentRequestedFteQuantity;
     private Integer totalAccountAmountChange;
     private BigDecimal totalAccountPercentChange;
-        
-    
+
+
     /**
      * Gets the baseFy
-     * 
+     *
      * @return Returns the baseFy.
      */
     public String getBaseFy() {
@@ -121,7 +121,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Sets the baseFy
-     * 
+     *
      * @param baseFy The baseFy to set.
      */
     public void setBaseFy(String baseFy) {
@@ -130,7 +130,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Gets the consHdr
-     * 
+     *
      * @return Returns the consHdr.
      */
     public String getConsHdr() {
@@ -139,7 +139,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Sets the consHdr
-     * 
+     *
      * @param consHdr The consHdr to set.
      */
     public void setConsHdr(String consHdr) {
@@ -148,7 +148,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Gets the fiscalYear
-     * 
+     *
      * @return Returns the fiscalYear.
      */
     public String getFiscalYear() {
@@ -157,7 +157,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Sets the fiscalYear
-     * 
+     *
      * @param fiscalYear The fiscalYear to set.
      */
     public void setFiscalYear(String fiscalYear) {
@@ -166,7 +166,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Gets the fundGroupCode
-     * 
+     *
      * @return Returns the fundGroupCode.
      */
     public String getFundGroupCode() {
@@ -175,7 +175,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Sets the fundGroupCode
-     * 
+     *
      * @param fundGroupCode The fundGroupCode to set.
      */
     public void setFundGroupCode(String fundGroupCode) {
@@ -184,7 +184,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Gets the organizationCode
-     * 
+     *
      * @return Returns the organizationCode.
      */
     public String getOrganizationCode() {
@@ -193,7 +193,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Sets the organizationCode
-     * 
+     *
      * @param organizationCode The organizationCode to set.
      */
     public void setOrganizationCode(String organizationCode) {
@@ -202,7 +202,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Gets the organizationName
-     * 
+     *
      * @return Returns the organizationName.
      */
     public String getOrganizationName() {
@@ -211,7 +211,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Sets the organizationName
-     * 
+     *
      * @param organizationName The organizationName to set.
      */
     public void setOrganizationName(String organizationName) {
@@ -220,7 +220,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Gets the reqFy
-     * 
+     *
      * @return Returns the reqFy.
      */
     public String getReqFy() {
@@ -229,7 +229,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Sets the reqFy
-     * 
+     *
      * @param reqFy The reqFy to set.
      */
     public void setReqFy(String reqFy) {
@@ -238,7 +238,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Gets the subFundGroupCode
-     * 
+     *
      * @return Returns the subFundGroupCode.
      */
     public String getSubFundGroupCode() {
@@ -247,7 +247,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Sets the subFundGroupCode
-     * 
+     *
      * @param subFundGroupCode The subFundGroupCode to set.
      */
     public void setSubFundGroupCode(String subFundGroupCode) {
@@ -256,7 +256,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Gets the subFundGroupDescription
-     * 
+     *
      * @return Returns the subFundGroupDescription.
      */
     public String getSubFundGroupDescription() {
@@ -265,7 +265,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Sets the subFundGroupDescription
-     * 
+     *
      * @param subFundGroupDescription The subFundGroupDescription to set.
      */
     public void setSubFundGroupDescription(String subFundGroupDescription) {
@@ -274,7 +274,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Gets the fundGroupName
-     * 
+     *
      * @return Returns the fundGroupName.
      */
     public String getFundGroupName() {
@@ -283,7 +283,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Sets the fundGroupName
-     * 
+     *
      * @param fundGroupName The fundGroupName to set.
      */
     public void setFundGroupName(String fundGroupName) {
@@ -292,7 +292,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Gets the chartOfAccountDescription
-     * 
+     *
      * @return Returns the chartOfAccountDescription.
      */
     public String getChartOfAccountDescription() {
@@ -301,7 +301,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Sets the chartOfAccountDescription
-     * 
+     *
      * @param chartOfAccountDescription The chartOfAccountDescription to set.
      */
     public void setChartOfAccountDescription(String chartOfAccountDescription) {
@@ -310,7 +310,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Gets the chartOfAccountsCode
-     * 
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -319,7 +319,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Sets the chartOfAccountsCode
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -328,7 +328,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Gets the orgChartOfAccountDescription
-     * 
+     *
      * @return Returns the orgChartOfAccountDescription.
      */
     public String getOrgChartOfAccountDescription() {
@@ -337,7 +337,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Sets the orgChartOfAccountDescription
-     * 
+     *
      * @param orgChartOfAccountDescription The orgChartOfAccountDescription to set.
      */
     public void setOrgChartOfAccountDescription(String orgChartOfAccountDescription) {
@@ -346,7 +346,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Gets the orgChartOfAccountsCode
-     * 
+     *
      * @return Returns the orgChartOfAccountsCode.
      */
     public String getOrgChartOfAccountsCode() {
@@ -355,7 +355,7 @@ public class BudgetConstructionOrgAccountFundingDetailReport {
 
     /**
      * Sets the orgChartOfAccountsCode
-     * 
+     *
      * @param orgChartOfAccountsCode The orgChartOfAccountsCode to set.
      */
     public void setOrgChartOfAccountsCode(String orgChartOfAccountsCode) {

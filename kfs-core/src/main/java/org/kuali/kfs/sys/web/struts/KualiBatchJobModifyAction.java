@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -58,7 +58,7 @@ public class KualiBatchJobModifyAction extends KualiAction {
     private static ParameterService parameterService;
     private static IdentityManagementService identityManagementService;
     private static DateTimeService dateTimeService;
-    
+
     @Override
     protected void checkAuthorization(ActionForm form, String methodToCall) throws AuthorizationException {
         if (form instanceof KualiBatchJobModifyForm) {
@@ -74,7 +74,7 @@ public class KualiBatchJobModifyAction extends KualiAction {
     /**
      * Performs the actual authorization check for a given job and action against the current user. This method can be overridden by
      * sub-classes if more granular controls are desired.
-     * 
+     *
      * @param job
      * @param actionType
      * @throws AuthorizationException
@@ -85,13 +85,13 @@ public class KualiBatchJobModifyAction extends KualiAction {
         permissionDetails.put(KimConstants.AttributeConstants.BEAN_NAME, form.getJob().getName());
         return getIdentityManagementService().isAuthorizedByTemplateName(GlobalVariables.getUserSession().getPrincipalId(), KRADConstants.KNS_NAMESPACE, KFSConstants.PermissionTemplate.MODIFY_BATCH_JOB.name, permissionDetails, new HashMap<String,String>(getRoleQualification(form, actionType)));
     }
-    
+
     protected void checkJobAuthorization(KualiBatchJobModifyForm form, String actionType) throws AuthorizationException {
         if (!canModifyJob(form, actionType)) {
             throw new AuthorizationException(GlobalVariables.getUserSession().getPrincipalName(), "actionType", form.getJob().getName());
         }
     }
-    
+
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         // load the given job and map into the form

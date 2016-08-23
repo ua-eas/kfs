@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -63,7 +63,7 @@ public enum PaymentRequestItemFixture {
     PREQ_VALID_STATE_GROSS_CODE_ITEM(
             PurApItemFixture.VALID_STATE_GROSS_CODE_ITEM, // purApItemFixture
             new PaymentRequestAccountingLineFixture[] { PaymentRequestAccountingLineFixture.BASIC_PREQ_ACCOUNT_1 } // paymentRequestAccountMultiFixtures
-    ),    
+    ),
     PREQ_WITH_NEGATIVE_FREIGHT_ITEM(
             PurApItemFixture.NEGATIVE_FREIGHT_ITEM, // purApItemFixture
             new PaymentRequestAccountingLineFixture[] { PaymentRequestAccountingLineFixture.BASIC_PREQ_ACCOUNT_1 } // paymentRequestAccountMultiFixtures
@@ -176,11 +176,11 @@ public enum PaymentRequestItemFixture {
             PurApItemFixture.MISC_ITEM_NO_DESC, // purApItemFixture
             new PaymentRequestAccountingLineFixture[] { PaymentRequestAccountingLineFixture.BASIC_PREQ_ACCOUNT_1 } // paymentRequestAccountMultiFixtures
     ),;
-    
+
     private PurApItemFixture purApItemFixture;
     private PaymentRequestAccountingLineFixture[] paymentRequestAccountingLineFixtures;
-    
-    private PaymentRequestItemFixture(PurApItemFixture purApItemFixture, PaymentRequestAccountingLineFixture[] paymentRequestAccountingLineFixtures) {        
+
+    private PaymentRequestItemFixture(PurApItemFixture purApItemFixture, PaymentRequestAccountingLineFixture[] paymentRequestAccountingLineFixtures) {
         this.purApItemFixture = purApItemFixture;
         this.paymentRequestAccountingLineFixtures = paymentRequestAccountingLineFixtures;
     }
@@ -196,7 +196,7 @@ public enum PaymentRequestItemFixture {
     }
 
     public AccountsPayableItem createPaymentRequestItem() {
-        PaymentRequestItem item = (PaymentRequestItem) purApItemFixture.createPurApItem(PaymentRequestItem.class);        
+        PaymentRequestItem item = (PaymentRequestItem) purApItemFixture.createPurApItem(PaymentRequestItem.class);
         return item;
     }
 

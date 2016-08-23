@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,24 +42,24 @@ public class AccountingLineViewDebitCreditAmountFieldDefinition extends Maintain
     private String voucherLineHelperProperty = "voucherLineHelper";
     private boolean useShortLabels = true;
     private String amountFieldName = "amount";
-    
+
     /**
      * @see org.kuali.kfs.sys.document.datadictionary.AccountingLineViewRenderableElementDefinition#createLayoutElement(java.lang.Class)
      */
     public TableJoining createLayoutElement(Class<? extends AccountingLine> accountingLineClass) {
         AccountingLineViewDebitCreditAmountLayoutElement layoutElement = new AccountingLineViewDebitCreditAmountLayoutElement();
-        
+
         layoutElement.setDebitAmountField(createFieldForPropertyName(amountFieldName, accountingLineClass));
         layoutElement.setDebitFieldDefinition(createFieldDefinitionForProperty(amountFieldName));
-        
+
         layoutElement.setCreditAmountField(createFieldForPropertyName(amountFieldName, accountingLineClass));
         layoutElement.setCreditFieldDefinition(createFieldDefinitionForProperty(amountFieldName));
-        
+
         layoutElement.setDefinition(this);
-        
+
         return layoutElement;
     }
-    
+
     /**
      * Creates a field for the given AccountingLine class and property name
      * @param propertyName the name of the property to create a Field for
@@ -75,7 +75,7 @@ public class AccountingLineViewDebitCreditAmountFieldDefinition extends Maintain
         }
         return realField;
     }
-    
+
     /**
      * Creates an AccountingLineViewFieldDefinition for the given property name
      * @param propertyName the name of the field property that we're creating a definition for
@@ -88,7 +88,7 @@ public class AccountingLineViewDebitCreditAmountFieldDefinition extends Maintain
     }
 
     /**
-     * Gets the newLineCreditAmountProperty attribute. 
+     * Gets the newLineCreditAmountProperty attribute.
      * @return Returns the newLineCreditAmountProperty.
      */
     public String getNewLineCreditAmountProperty() {
@@ -104,7 +104,7 @@ public class AccountingLineViewDebitCreditAmountFieldDefinition extends Maintain
     }
 
     /**
-     * Gets the newLineDebitAmountProperty attribute. 
+     * Gets the newLineDebitAmountProperty attribute.
      * @return Returns the newLineDebitAmountProperty.
      */
     public String getNewLineDebitAmountProperty() {
@@ -120,7 +120,7 @@ public class AccountingLineViewDebitCreditAmountFieldDefinition extends Maintain
     }
 
     /**
-     * Gets the voucherLineHelpersProperty attribute. 
+     * Gets the voucherLineHelpersProperty attribute.
      * @return Returns the voucherLineHelpersProperty.
      */
     public String getVoucherLineHelperProperty() {
@@ -136,7 +136,7 @@ public class AccountingLineViewDebitCreditAmountFieldDefinition extends Maintain
     }
 
     /**
-     * Gets the useShortLabels attribute. 
+     * Gets the useShortLabels attribute.
      * @return Returns the useShortLabels.
      */
     public boolean shouldUseShortLabels() {
@@ -152,7 +152,7 @@ public class AccountingLineViewDebitCreditAmountFieldDefinition extends Maintain
     }
 
     /**
-     * Gets the amountFieldName attribute. 
+     * Gets the amountFieldName attribute.
      * @return Returns the amountFieldName.
      */
     public String getAmountFieldName() {
@@ -166,5 +166,5 @@ public class AccountingLineViewDebitCreditAmountFieldDefinition extends Maintain
     public void setAmountFieldName(String amountFieldName) {
         this.amountFieldName = amountFieldName;
     }
-    
+
 }

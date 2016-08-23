@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -93,14 +93,14 @@ public class PurapTestConstants {
         static final String INVOICE_NUMBER = "123456789";
         static final KualiDecimal AMOUNT = new KualiDecimal(32);
     }
-    
+
     static class CMInit {
         static final String INITIAL_VENDOR_NUMBER = "1000-0";
         static final KualiDecimal HIGH_AMOUNT = new KualiDecimal(32);
         static final KualiDecimal LOW_AMOUNT = new KualiDecimal(16);
         static final KualiDecimal ZERO_AMOUNT = new KualiDecimal(0);
     }
-    
+
     static class PurCams {
         static final BigDecimal CAPITAL_AMOUNT = new BigDecimal(6000);
         static final BigDecimal CAPITAL_POSITIVE_AMOUNT = new BigDecimal(16);
@@ -116,7 +116,7 @@ public class PurapTestConstants {
         static final RecurringPaymentType RECURRING_PAYMENT_TYPE = new RecurringPaymentType();
         static final Long ASSET_NUMBER_1 = new Long("333221");
         static final Long ASSET_NUMBER_2 = new Long("333222");
-        
+
         static class MockAssetTransactionType implements CapitalAssetBuilderAssetTransactionType {
             private String capitalAssetTransactionTypeCode;
             private String capitalAssetTransactionTypeDescription;
@@ -124,7 +124,7 @@ public class PurapTestConstants {
             private String capitalAssetQuantitySubtypeRequiredText;
             private String capitalAssetNonquantitySubtypeRequiredText;
             private boolean active;
-            
+
             /**
              * Constructs a MockAssetTransactionType.java.
              * @param capitalAssetTransactionTypeCode
@@ -156,7 +156,7 @@ public class PurapTestConstants {
             public void setCapitalAssetNonquantityDrivenAllowIndicator(boolean capitalAssetNonquantityDrivenAllowIndicator) {
                 this.capitalAssetNonquantityDrivenAllowIndicator = capitalAssetNonquantityDrivenAllowIndicator;
             }
-            
+
             public String getCapitalAssetNonquantitySubtypeRequiredText() {
                 return capitalAssetNonquantitySubtypeRequiredText;
             }
@@ -182,13 +182,13 @@ public class PurapTestConstants {
             public void setActive(boolean active) {
                 this.active = active;
             }
-            
+
             public void refresh() {}
-            
+
             public void prepareForWorkflow() {}
         }
     }
-    
+
     static class Threshold {
         static final String CHART_CODE = "BA";
         static final String CHART_CODE_INVALID = "XX";
@@ -205,7 +205,7 @@ public class PurapTestConstants {
         static final String VENDOR_NUMBER_INVALID = "0000-0";
         static final KualiDecimal THRESHOLD_AMOUNT = new KualiDecimal(100);
     }
-    
+
     @SuppressWarnings("deprecation")
     static class BulkReceiving {
         static final Date SHIPMENT_RECEIVIED_DATE = new Date(108, 1, 1); // 2008-01-01

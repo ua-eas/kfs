@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -74,8 +74,8 @@
     <property name="control">
       <ref bean="TenCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="YearEndBudgetAdjustmentDocument-nextPositionTargetLineNumber" parent="YearEndBudgetAdjustmentDocument-nextPositionTargetLineNumber-parentBean"/>
 
@@ -92,8 +92,8 @@
     <property name="control">
       <ref bean="TenCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="YearEndBudgetAdjustmentDocument-postingYear" parent="YearEndBudgetAdjustmentDocument-postingYear-parentBean"/>
 
@@ -104,11 +104,11 @@
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.fp.businessobject.options.BudgetAdjustmentFiscalYearValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
-  
+
    <!-- validations -->
-  
+
   <bean id="YearEndBudgetAdjustmentDocument-validations" parent="YearEndBudgetAdjustmentDocument-validations-parentBean"/>
-  
+
   <bean id="YearEndBudgetAdjustmentDocument-validations-parentBean" abstract="true"  class="org.springframework.beans.factory.config.MapFactoryBean">
   	<property name="sourceMap">
 		<map key-type="java.lang.Class">
@@ -147,11 +147,11 @@
     	</map>
     </property>
   </bean>
-  
+
 
 <!-- accounting line groups -->
   <bean id="YearEndBudgetAdjustmentDocument-sourceAccountingLineGroup" parent="YearEndBudgetAdjustmentDocument-sourceAccountingLineGroup-parentBean"/>
-  
+
   <bean id="YearEndBudgetAdjustmentDocument-sourceAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
 	  <property name="accountingLineView" ref="BudgetAdjustment-accountingLineView"/>
 	  <property name="accountingLineClass" value="org.kuali.kfs.fp.businessobject.BudgetAdjustmentSourceAccountingLine"/>
@@ -160,9 +160,9 @@
 	  <property name="importedLinePropertyPrefix" value="source"/>
 	  <property name="errorKey" value="document.sourceAccounting*,sourceAccountingLines,newSourceLine*"/> <!-- note people copying this: AV and JV have extra things that belong here -->
 	</bean>
-	
+
 	<bean id="YearEndBudgetAdjustmentDocument-targetAccountingLineGroup" parent="YearEndBudgetAdjustmentDocument-targetAccountingLineGroup-parentBean"/>
-	
+
 	<bean id="YearEndBudgetAdjustmentDocument-targetAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
 	  <property name="accountingLineView" ref="BudgetAdjustment-accountingLineView"/>
 	  <property name="accountingLineClass" value="org.kuali.kfs.fp.businessobject.BudgetAdjustmentTargetAccountingLine"/>
@@ -171,12 +171,12 @@
 	  <property name="importedLinePropertyPrefix" value="target"/>
 	  <property name="errorKey" value="document.targetAccounting*,targetAccountingLines,newTargetLine*"/>
 	</bean>
-	
+
 	<!-- workflow attributes for routing -->
 	<bean id="YearEndBudgetAdjustmentDocument-workflowAttributes" parent="YearEndBudgetAdjustmentDocument-workflowAttributes-parentBean"/>
-	
+
 	<bean id="YearEndBudgetAdjustmentDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
-		
+
 	    <property name="routingTypeDefinitions">
     		<map>
     			<entry key="AccountingOrganizationHierarchy" value-ref="RoutingType-AccountingDocument-OrganizationHierarchy"/>

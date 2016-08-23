@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,25 +39,25 @@ public class CustomerCreditMemoNoOtherCRMInRouteForTheInvoiceValidation extends 
     private CustomerCreditMemoDocument customerCreditMemoDocument;
     private BusinessObjectService businessObjectService;
     private WorkflowDocumentService workflowDocumentService;
-    
+
     public boolean validate(AttributedDocumentEvent event) {
-    
+
         String invoiceDocumentNumber = customerCreditMemoDocument.getFinancialDocumentReferenceInvoiceNumber();
         WorkflowDocument workflowDocument;
         boolean success = true;
-        
+
         Map<String, String> fieldValues = new HashMap<String, String>();
         fieldValues.put("financialDocumentReferenceInvoiceNumber", invoiceDocumentNumber);
-        
+
         BusinessObjectService businessObjectService = SpringContext.getBean(BusinessObjectService.class);
-        Collection<CustomerCreditMemoDocument> customerCreditMemoDocuments = 
+        Collection<CustomerCreditMemoDocument> customerCreditMemoDocuments =
             businessObjectService.findMatching(CustomerCreditMemoDocument.class, fieldValues);
-        
+
         // no CRMs associated with the invoice are found
         if (customerCreditMemoDocuments.isEmpty())
             return true;
-        
-        String userId = GlobalVariables.getUserSession().getPrincipalId();        
+
+        String userId = GlobalVariables.getUserSession().getPrincipalId();
         for(CustomerCreditMemoDocument customerCreditMemoDocument : customerCreditMemoDocuments) {
             workflowDocument = WorkflowDocumentFactory.loadDocument(userId, customerCreditMemoDocument.getDocumentNumber());
             if (!(workflowDocument.isApproved() || workflowDocument.isProcessed() || workflowDocument.isCanceled() || workflowDocument.isDisapproved())) {
@@ -66,9 +66,9 @@ public class CustomerCreditMemoNoOtherCRMInRouteForTheInvoiceValidation extends 
             }
         }
         return true;
-    
+
     }
-    
+
     public CustomerCreditMemoDocument getCustomerCreditMemoDocument() {
         return customerCreditMemoDocument;
     }
@@ -83,7 +83,7 @@ public class CustomerCreditMemoNoOtherCRMInRouteForTheInvoiceValidation extends 
 
     public void setWorkflowDocumentService(WorkflowDocumentService workflowDocumentService) {
         this.workflowDocumentService = workflowDocumentService;
-    }    
+    }
 
     public BusinessObjectService getBusinessObjectService() {
         return businessObjectService;
@@ -91,6 +91,6 @@ public class CustomerCreditMemoNoOtherCRMInRouteForTheInvoiceValidation extends 
 
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;
-    }    
+    }
 
 }

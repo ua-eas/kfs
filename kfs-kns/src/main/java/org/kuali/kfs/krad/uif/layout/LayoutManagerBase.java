@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,13 +37,13 @@ import java.util.Set;
 
 /**
  * Base class for all layout managers
- * 
+ *
  * <p>
  * Provides general properties of all layout managers, such as the unique id,
  * rendering template, and style settings
  * </p>
- * 
- * 
+ *
+ *
  */
 public abstract class LayoutManagerBase extends ConfigurableBase implements LayoutManager {
 	private static final long serialVersionUID = -2657663560459456814L;
@@ -98,7 +98,7 @@ public abstract class LayoutManagerBase extends ConfigurableBase implements Layo
 	 * Set of property names for the layout manager base for which on the
 	 * property value reference should be copied. Subclasses can override this
 	 * but should include a call to super
-	 * 
+	 *
 	 * @see LayoutManager.
 	 *      getPropertiesForReferenceCopy()
 	 */
@@ -112,7 +112,7 @@ public abstract class LayoutManagerBase extends ConfigurableBase implements Layo
 
 	/**
 	 * Default Impl
-	 * 
+	 *
 	 * @see LayoutManager#getSupportedContainer()
 	 */
 	@Override
@@ -195,7 +195,7 @@ public abstract class LayoutManagerBase extends ConfigurableBase implements Layo
 	/**
 	 * Builds the HTML class attribute string by combining the styleClasses list
 	 * with a space delimiter
-	 * 
+	 *
 	 * @return String class attribute string
 	 */
 	public String getStyleClassesAsString() {
@@ -211,7 +211,7 @@ public abstract class LayoutManagerBase extends ConfigurableBase implements Layo
 	 * delimited by space. This is a convenience for configuration. If a child
 	 * bean needs to inherit the classes from the parent, it should configure as
 	 * a list and use merge="true"
-	 * 
+	 *
 	 * @param styleClasses
 	 */
 	public void setStyleClasses(String styleClasses) {
@@ -221,7 +221,7 @@ public abstract class LayoutManagerBase extends ConfigurableBase implements Layo
 
 	/**
 	 * This method adds a single style to the list of css style classes on this layoutManager
-	 * 
+	 *
 	 * @param style
 	 */
 	@Override

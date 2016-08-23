@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,7 +33,7 @@ import org.kuali.kfs.krad.util.GlobalVariables;
  */
 public class SalaryExpenseTransferAccountingLinesNoSalariesWagesValidation extends GenericValidation {
     private Document documentForValidation;
-    
+
 
     private AccountingLine accountingLineForValidation;
 
@@ -47,7 +47,7 @@ public class SalaryExpenseTransferAccountingLinesNoSalariesWagesValidation exten
         AccountingLine accountingLine = getAccountingLineForValidation();
         if (accountingLine.isTargetAccountingLine()) {
             Account account = accountFromLine(accountingLine);
-            if (!isValidSubjectFund(account)) {     
+            if (!isValidSubjectFund(account)) {
                 GlobalVariables.getMessageMap().putError(KFSPropertyConstants.TARGET_ACCOUNTING_LINES, LaborKeyConstants.INVALID_SALARY_ACCOUNT_SUB_FUND_ERROR, account.getChartOfAccountsCode(), account.getAccountNumber());
                 result = false;
             }
@@ -57,28 +57,28 @@ public class SalaryExpenseTransferAccountingLinesNoSalariesWagesValidation exten
 
     /**
      * Checks whether the given Account has a sub fund which accepts salaries and wages
-     * @param Account 
+     * @param Account
      * @return True if the given accounting line's account sub fund accepts wages, false otherwise.
-     */ 
-    protected boolean isValidSubjectFund(Account account) {        
+     */
+    protected boolean isValidSubjectFund(Account account) {
         return (account.getSubFundGroup().isSubFundGroupWagesIndicator());
     }
 
    /**
     * extract Account number from accounting line
-    * 
+    *
      * @param accountingLine The accounting line the account code will be retrieved from.
     * @return account
     */
     protected Account accountFromLine(AccountingLine accountingLine) {
-         
+
         ExpenseTransferAccountingLine expenseTransferAccountingLine = (ExpenseTransferAccountingLine) accountingLine;
-        expenseTransferAccountingLine.refreshReferenceObject(KFSPropertyConstants.LABOR_OBJECT);          
+        expenseTransferAccountingLine.refreshReferenceObject(KFSPropertyConstants.LABOR_OBJECT);
         return (expenseTransferAccountingLine.getAccount());
     }
-    
+
     /**
-     * Gets the accountingLineForValidation attribute. 
+     * Gets the accountingLineForValidation attribute.
      * @return Returns the accountingLineForValidation.
      */
     public AccountingLine getAccountingLineForValidation() {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -67,7 +67,7 @@ public class ReversalDaoOjb extends PlatformAwareDaoBaseOjb implements ReversalD
     /**
      * Find the maximum transactionLedgerEntrySequenceNumber in the entry table for a specific transaction. This is used to make
      * sure that rows added have a unique primary key.
-     * 
+     *
      * @param t a transaction to find the maximum sequence number for
      * @return the max sequence number for the given transaction
      */
@@ -110,7 +110,7 @@ public class ReversalDaoOjb extends PlatformAwareDaoBaseOjb implements ReversalD
 
     /**
      * Fetches the reversal record that would affected by the posting of the given transaction
-     * 
+     *
      * @param t the transaction to find the related reversal for
      * @return the reversal affected by the given transaction
      * @see org.kuali.kfs.gl.dataaccess.ReversalDao#getByTransaction(org.kuali.kfs.gl.businessobject.Transaction)
@@ -141,7 +141,7 @@ public class ReversalDaoOjb extends PlatformAwareDaoBaseOjb implements ReversalD
     /**
      * Fetches all reversals that have been set to reverse on or before the given date - that is to say,
      * returns all the reversal records ready to be reversed!
-     * 
+     *
      * @param before the date that reversals must reverse on or before
      * @return an Iterator of reversal records to reverse
      * @see org.kuali.kfs.gl.dataaccess.ReversalDao#getByDate(java.util.Date)
@@ -158,7 +158,7 @@ public class ReversalDaoOjb extends PlatformAwareDaoBaseOjb implements ReversalD
 
     /**
      * Deletes a reversal record
-     * 
+     *
      * @param re reversal to delete
      * @see org.kuali.kfs.gl.dataaccess.ReversalDao#delete(org.kuali.kfs.gl.businessobject.Reversal)
      */

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -63,11 +63,11 @@ public class BalanceInquiryForm extends LookupForm {
 
     /**
      * Picks out business object name from the request to get retrieve a lookupable and set properties.
-     * 
+     *
      * @see org.kuali.kfs.kns.web.struts.form.LookupForm#populate(javax.servlet.http.HttpServletRequest)
-     *      
+     *
      * KRAD Conversion: Lookupable performs customization of the fields and check for additional fields.
-     *  
+     *
      * Fields are in data dictionary for bo Balance.
      */
     public void populate(HttpServletRequest request) {

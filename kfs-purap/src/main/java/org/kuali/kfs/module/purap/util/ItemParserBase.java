@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -68,14 +68,14 @@ public class ItemParserBase implements ItemParser {
      */
     protected static final String[] DEFAULT_FORMAT = {ITEM_QUANTITY, KFSPropertyConstants.ITEM_UNIT_OF_MEASURE_CODE, ITEM_CATALOG_NUMBER, ITEM_COMMODITY_CODE, ITEM_DESCRIPTION, ITEM_UNIT_PRICE};
     protected static final String[] COMMODITY_CODE_DISABLED_FORMAT = {ITEM_QUANTITY, KFSPropertyConstants.ITEM_UNIT_OF_MEASURE_CODE, ITEM_CATALOG_NUMBER, ITEM_DESCRIPTION, ITEM_UNIT_PRICE};
-    
+
     private Integer lineNo = 0;
 
     /**
      * @see org.kuali.kfs.module.purap.util.ItemParser#getItemFormat()
      */
     public String[] getItemFormat() {
-        //Check the ENABLE_COMMODITY_CODE_IND system parameter. If it's Y then 
+        //Check the ENABLE_COMMODITY_CODE_IND system parameter. If it's Y then
         //we should return the DEFAULT_FORMAT, otherwise
         //we should return the COMMODITY_CODE_DISABLED_FORMAT
         boolean enableCommodityCode = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_COMMODITY_CODE_IND);
@@ -106,7 +106,7 @@ public class ItemParserBase implements ItemParser {
 
     /**
      * Retrieves the attribute label for the specified attribute.
-     * 
+     *
      * @param clazz the class in which the specified attribute is defined
      * @param attributeName the name of the specified attribute
      * @return the attribute label for the specified attribute
@@ -123,7 +123,7 @@ public class ItemParserBase implements ItemParser {
     /**
      * Checks whether the specified item class is a subclass of PurApItem;
      * throws exceptions if not.
-     * 
+     *
      * @param itemClass the specified item class
      */
     protected void checkItemClass(Class<? extends PurApItem> itemClass) {
@@ -131,11 +131,11 @@ public class ItemParserBase implements ItemParser {
             throw new IllegalArgumentException("unknown item class: " + itemClass);
         }
     }
-    
+
     /**
      * Checks whether the specified item import file is not null and of a valid format;
      * throws exceptions if conditions not satisfied.
-     * 
+     *
      * @param itemClass the specified item import file
      */
     protected void checkItemFile(FormFile itemFile) {
@@ -150,7 +150,7 @@ public class ItemParserBase implements ItemParser {
 
     /**
      * Parses a line of item data from a csv file and retrieves the attributes as key-value string pairs into a map.
-     * 
+     *
      * @param itemLine a string read from a line in the item import file
      * @return a map containing item attribute name-value string pairs
      */
@@ -160,7 +160,7 @@ public class ItemParserBase implements ItemParser {
         if ( attributeNames.length != attributeValues.length ) {
             String[] errorParams = { "" + attributeNames.length, "" + attributeValues.length, "" + lineNo };
             GlobalVariables.getMessageMap().putError( PurapConstants.ITEM_TAB_ERRORS, ERROR_ITEMPARSER_WRONG_PROPERTY_NUMBER, errorParams );
-            throw new ItemParserException("wrong number of item properties: " + attributeValues.length + " exist, " + attributeNames.length + " expected (line " + lineNo + ")", ERROR_ITEMPARSER_WRONG_PROPERTY_NUMBER, errorParams); 
+            throw new ItemParserException("wrong number of item properties: " + attributeValues.length + " exist, " + attributeNames.length + " expected (line " + lineNo + ")", ERROR_ITEMPARSER_WRONG_PROPERTY_NUMBER, errorParams);
         }
 
         Map<String, String> itemMap = new HashMap<String, String>();
@@ -169,10 +169,10 @@ public class ItemParserBase implements ItemParser {
         }
         return itemMap;
     }
-    
+
     /**
      * Generates an item instance and populates it with the specified attribute map.
-     * 
+     *
      * @param itemMap the specified attribute map from which attributes are populated
      * @param itemClass the class of which the new item instance shall be created
      * @return the populated item
@@ -188,16 +188,16 @@ public class ItemParserBase implements ItemParser {
         catch (InstantiationException e) {
             throw new InfrastructureException("unable to complete item line population.", e);
         }
-        
+
         boolean failed = false;
         for (Entry<String, String> entry : itemMap.entrySet()) {
             String key = entry.getKey();
-            String value = entry.getValue();          
+            String value = entry.getValue();
             try {
                 /* removing this part as the checking are done in rule class later
                 if ((key.equals(ITEM_DESCRIPTION) || key.equals(ITEM_UNIT_PRICE)) && value.equals("")) {
                     String[] errorParams = { key, "" + lineNo };
-                    throw new ItemParserException("empty property value for " + key + " (line " + lineNo + ")", ERROR_ITEMPARSER_EMPTY_PROPERTY_VALUE, errorParams);                    
+                    throw new ItemParserException("empty property value for " + key + " (line " + lineNo + ")", ERROR_ITEMPARSER_EMPTY_PROPERTY_VALUE, errorParams);
                 }
                 else */
                 if (key.equals(KFSPropertyConstants.ITEM_UNIT_OF_MEASURE_CODE)) {
@@ -228,21 +228,21 @@ public class ItemParserBase implements ItemParser {
         }
 
         if (failed) {
-            throw new ItemParserException("empty or invalid item properties in line " + lineNo + ")", ERROR_ITEMPARSER_ITEM_PROPERTY, ""+lineNo);             
+            throw new ItemParserException("empty or invalid item properties in line " + lineNo + ")", ERROR_ITEMPARSER_ITEM_PROPERTY, ""+lineNo);
         }
         return item;
     }
 
     /**
      * Populates extra item attributes not contained in the imported item data to default values.
-     * 
+     *
      * @param item the item to be populated
      * @param documentNumber the number of the docment that contains the item
      */
-    protected void populateExtraAttributes( PurApItem item, String documentNumber ) {     
+    protected void populateExtraAttributes( PurApItem item, String documentNumber ) {
         if (item.getItemQuantity() != null) {
             String paramName = PurapParameterConstants.DEFAULT_QUANTITY_ITEM_TYPE;
-            String itemTypeCode = SpringContext.getBean(ParameterService.class).getParameterValueAsString(PurapConstants.PURAP_NAMESPACE, "Document", paramName);            
+            String itemTypeCode = SpringContext.getBean(ParameterService.class).getParameterValueAsString(PurapConstants.PURAP_NAMESPACE, "Document", paramName);
             item.setItemTypeCode(itemTypeCode);
         }
         else {
@@ -255,7 +255,7 @@ public class ItemParserBase implements ItemParser {
         if (item instanceof PurchaseOrderItem)
             ((PurchaseOrderItem)item).setDocumentNumber(documentNumber);
     }
-    
+
     /**
      * @see org.kuali.kfs.module.purap.util.ItemParser#parseItem(java.lang.String,java.lang.Class,java.lang.String)
      */
@@ -266,7 +266,7 @@ public class ItemParserBase implements ItemParser {
         item.refresh();
         return item;
     }
-    
+
     /**
      * @see org.kuali.kfs.module.purap.util.ItemParser#parseItem(org.apache.struts.upload.FormFile,java.lang.Class,java.lang.String)
      */
@@ -291,7 +291,7 @@ public class ItemParserBase implements ItemParser {
         catch (IOException e) {
             throw new InfrastructureException("unable to open import file in ItemParserBase.", e);
         }
-        
+
         // parse items line by line
         lineNo = 0;
         boolean failed = false;
@@ -299,11 +299,11 @@ public class ItemParserBase implements ItemParser {
         try {
             while ( (itemLine = br.readLine()) != null ) {
                 lineNo++;
-                
+
                 if(StringUtils.isBlank(StringUtils.remove(StringUtils.deleteWhitespace(itemLine),KFSConstants.COMMA))) {
                     continue;
                 }
-                
+
                 try {
                     PurApItem item = parseItem( itemLine, itemClass, documentNumber );
                     importedItems.add(item);
@@ -312,11 +312,11 @@ public class ItemParserBase implements ItemParser {
                     // continue to parse the rest of the items after the current item fails
                     // error messages are already dealt with inside parseItem, so no need to do anything here
                     failed = true;
-                }                
+                }
             }
-            
+
             if (failed) {
-                throw new ItemParserException("errors in parsing item lines in file " + itemFile.getFileName(), ERROR_ITEMPARSER_ITEM_LINE, itemFile.getFileName());             
+                throw new ItemParserException("errors in parsing item lines in file " + itemFile.getFileName(), ERROR_ITEMPARSER_ITEM_LINE, itemFile.getFileName());
             }
         }
         catch (IOException e) {

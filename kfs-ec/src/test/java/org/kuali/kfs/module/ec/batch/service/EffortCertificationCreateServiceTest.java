@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -80,7 +80,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
 
     /**
      * check if the service can approperiately handle the input parameters
-     * 
+     *
      * @see EffortCertificationCreateService.create(Integer, String)
      */
     public void testInputParameters_ValidParameters() throws Exception {
@@ -108,7 +108,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
 
     /**
      * check if the service can approperiately handle the input parameters
-     * 
+     *
      * @see EffortCertificationCreateService.create(Integer, String)
      */
     public void testInputParameters_EmptyFiscalYear() throws Exception {
@@ -125,7 +125,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
 
     /**
      * check if the service can approperiately handle the input parameters
-     * 
+     *
      * @see EffortCertificationCreateService.create(Integer, String)
      */
     public void testInputParameters_EmptyReportNumber() throws Exception {
@@ -143,7 +143,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
 
     /**
      * check if the service can approperiately handle the input parameters
-     * 
+     *
      * @see EffortCertificationCreateService.create(Integer, String)
      */
     public void testInputParameters_UndefinedReportDefinition() throws Exception {
@@ -161,7 +161,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
 
     /**
      * check if the service can approperiately handle the input parameters
-     * 
+     *
      * @see EffortCertificationCreateService.create(Integer, String)
      */
     public void testInputParameters_InactiveReportDefinition() throws Exception {
@@ -182,7 +182,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
 
     /**
      * check if the service can approperiately handle the input parameters
-     * 
+     *
      * @see EffortCertificationCreateService.create(Integer, String)
      */
     public void testInputParameters_NotOpenedReportDefinition() throws Exception {
@@ -203,7 +203,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
 
     /**
      * check if the service can approperiately handle the input parameters
-     * 
+     *
      * @see EffortCertificationCreateService.create(Integer, String)
      */
     public void testInputParameters_ClosedReportDefinition() throws Exception {
@@ -224,7 +224,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
 
     /**
      * check if the service can approperiately handle the input parameters
-     * 
+     *
      * @see EffortCertificationCreateService.create(Integer, String)
      */
     public void testInputParameters_DocumentBuildNotExist() throws Exception {
@@ -248,7 +248,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
 
     /**
      * check if the service can approperiately handle the input parameters
-     * 
+     *
      * @see EffortCertificationCreateService.create(Integer, String)
      */
     public void testInputParameters_DocumentExist() throws Exception {
@@ -279,7 +279,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
 
     /**
      * If everything is set up correctly, a set of documents can be created.
-     * 
+     *
      * @see EffortCertificationCreateService.create(Integer, String)
      */
     public void testCreate() throws Exception {
@@ -317,7 +317,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
 
     /**
      * after each document is created, it should be routed for approval.
-     * 
+     *
      * @see EffortCertificationCreateService.create(Integer, String)
      */
     public void testRoute() throws Exception {
@@ -350,7 +350,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
 
     /**
      * build a report defintion object from the given test target
-     * 
+     *
      * @param testTarget the given test target that specifies the test data being used
      * @return a report defintion object
      */
@@ -360,7 +360,7 @@ public class EffortCertificationCreateServiceTest extends KualiTestBase {
 
     /**
      * build an Effort Certification Document object from the given test target
-     * 
+     *
      * @param testTarget the given test target that specifies the test data being used
      * @return an Effort Certification Document object
      */

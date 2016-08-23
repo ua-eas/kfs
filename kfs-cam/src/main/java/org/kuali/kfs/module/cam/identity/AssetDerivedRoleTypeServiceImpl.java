@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,19 +36,19 @@ import org.kuali.kfs.krad.service.DocumentService;
 public class AssetDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBase {
 
     protected DocumentService documentService;
-    
+
     /**
      * Context:
-     *  the EquipmentLoanOrReturnDocument document can be accessed by clicking "loan" on the Asset lookup results. 
-     *  With this document, a user may decide to lend an asset to someone. 
+     *  the EquipmentLoanOrReturnDocument document can be accessed by clicking "loan" on the Asset lookup results.
+     *  With this document, a user may decide to lend an asset to someone.
      *  Therefore, the borrower will want to approve the document confirming that he indeed wants to borrow the item.
-     *  
+     *
      * Requirement:
-     *  The service will take in a document number as a role qualifier. 
-     *  It will retrieve the document given the doc ID, extract out the user ID of the borrower 
-     *  (the borrowerUniversalIdentifier property of the document object), 
+     *  The service will take in a document number as a role qualifier.
+     *  It will retrieve the document given the doc ID, extract out the user ID of the borrower
+     *  (the borrowerUniversalIdentifier property of the document object),
      *  and return this principal ID as the only role member for a given document.
-     * 
+     *
      * @see org.kuali.rice.kns.kim.role.DerivedRoleTypeServiceBase#getRoleMembersFromDerivedRole(java.lang.String, java.lang.String, java.util.Map)
      */
     @Override
@@ -86,5 +86,5 @@ public class AssetDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBase 
         }
         return documentService;
     }
-    
+
 }

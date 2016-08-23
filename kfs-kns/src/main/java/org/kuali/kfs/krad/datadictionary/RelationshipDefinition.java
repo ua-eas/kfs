@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * A single Relationship definition in the DataDictionary, which contains information concerning which primitive attributes of this
  * class can be used to retrieve an instance of some related Object instance
- * 
+ *
                 The relationship element defines how primitive attributes of this
                 class can be used to retrieve an instance of some related Object instance
                 DD: See RelationshipDefinition.java.
@@ -44,14 +44,14 @@ import java.util.List;
                 which contains the following keys:
                     * "sourceName"
                     * "targetName"
- * 
+ *
  */
 public class RelationshipDefinition extends DataDictionaryDefinitionBase {
     private static final long serialVersionUID = 2946722646095412576L;
-    
+
 	protected String objectAttributeName; //Same as parentAttributeName of DataObjectRelationship
 	protected Class<?> sourceClass; //parentClass
-	
+
     /**
      * For 1:1 relationships, this class represents the type of the reference class.  For 1:n references, this class represents the type of the element
      * of the collection
@@ -81,7 +81,7 @@ public class RelationshipDefinition extends DataDictionaryDefinitionBase {
 	        if (propertyClass == null) {
 	            throw new AttributeValidationException("cannot get valid class for property '" + objectAttributeName + "' as an attribute of '" + sourceClass + "'");
 	        }
-	
+
 	        targetClass = propertyClass;
         }
         return targetClass;
@@ -89,7 +89,7 @@ public class RelationshipDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * Sets the {@link #targetClass}
-     * 
+     *
      * @param targetClass
      */
     public void setTargetClass(Class<?> targetClass) {
@@ -110,7 +110,7 @@ public class RelationshipDefinition extends DataDictionaryDefinitionBase {
 
     public List<PrimitiveAttributeDefinition> getPrimitiveAttributes() {
         return primitiveAttributes;
-    }    
+    }
 
     public List<SupportAttributeDefinition> getSupportAttributes() {
         return supportAttributes;
@@ -124,7 +124,7 @@ public class RelationshipDefinition extends DataDictionaryDefinitionBase {
         }
         return false;
     }
-    
+
     public SupportAttributeDefinition getIdentifier() {
         for (SupportAttributeDefinition supportAttributeDefinition : supportAttributes) {
             if ( supportAttributeDefinition.isIdentifier() ) {
@@ -133,10 +133,10 @@ public class RelationshipDefinition extends DataDictionaryDefinitionBase {
         }
         return null;
     }
-    
+
     /**
      * Directly validate simple fields, call completeValidation on Definition fields.
-     * 
+     *
      * @see DataDictionaryEntry#completeValidation()
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -165,7 +165,7 @@ public class RelationshipDefinition extends DataDictionaryDefinitionBase {
     }
 
     /**
-     * 
+     *
                     The primitiveAttribute element identifies one pair of
                     corresponding fields in the primary business object and
                     the related business object.

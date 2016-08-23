@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -33,23 +33,23 @@
         <bean parent="ReferenceDefinition" p:attributeName="fiscalYear" p:attributeToHighlightOnFail="universityFiscalYear" p:displayFieldName="Fiscal Year"/>
         <bean parent="ReferenceDefinition" p:attributeName="chartOfAccounts" p:attributeToHighlightOnFail="chartOfAccountsCode" p:displayFieldName="Chart Code"/>
         <bean parent="ReferenceDefinition" p:attributeName="account" p:attributeToHighlightOnFail="accountNumber" p:displayFieldName="Account Number"/>
-        <bean parent="ReferenceDefinition" p:attributeName="incomeFinancialObject" p:attributeToHighlightOnFail="incomeFinancialObjectCode" p:displayFieldName="Income Financial Object Code"/>        
-        <bean parent="ReferenceDefinition" p:attributeName="expenseFinancialObject" p:attributeToHighlightOnFail="expenseFinancialObjectCode" p:displayFieldName="Expense Financial Object Code"/>        
+        <bean parent="ReferenceDefinition" p:attributeName="incomeFinancialObject" p:attributeToHighlightOnFail="incomeFinancialObjectCode" p:displayFieldName="Income Financial Object Code"/>
+        <bean parent="ReferenceDefinition" p:attributeName="expenseFinancialObject" p:attributeToHighlightOnFail="expenseFinancialObjectCode" p:displayFieldName="Expense Financial Object Code"/>
       </list>
-    </property>    
+    </property>
     <property name="lockingKeys">
       <list>
         <value>universityFiscalYear</value>
       </list>
     </property>
-    
+
     <property name="webScriptFiles">
       <list>
         <value>../dwr/interface/AccountService.js</value>
         <value>../scripts/coa/accountDocument.js</value>
       </list>
-    </property>            
-    
+    </property>
+
     <property name="documentTypeName" value="DVWT"/>
     <property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase"/>
     <property name="workflowAttributes">
@@ -73,8 +73,8 @@
 				<list>
 					<value>chartOfAccountsCode</value>
 				</list>
-			</property> 
-		</bean>  
+			</property>
+		</bean>
         <bean parent="MaintainableFieldDefinition" p:name="incomeFinancialObjectCode" p:required="true"/>
         <bean parent="MaintainableFieldDefinition" p:name="expenseFinancialObjectCode" p:required="true"/>
         <bean parent="MaintainableFieldDefinition" p:name="domesticChargeAmt" p:required="true"/>
@@ -82,9 +82,9 @@
       </list>
     </property>
   </bean>
-  
+
   <!-- workflow attributes -->
   <bean id="WireChargeMaintenanceDocument-workflowAttributes" parent="WireChargeMaintenanceDocument-workflowAttributes-parentBean"/>
-  
+
   <bean id="WireChargeMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true"/>
 </beans>

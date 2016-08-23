@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,7 +49,7 @@ public class AssetTransferAction extends FinancialSystemTransactionalDocumentAct
 
     /**
      * This method had to override because asset information has to be refreshed before display
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#docHandler(org.apache.struts.action.ActionMapping,
      *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
@@ -82,7 +82,7 @@ public class AssetTransferAction extends FinancialSystemTransactionalDocumentAct
 
     /**
      * This method handles when request is from a work flow document search
-     * 
+     *
      * @param assetTransferForm Form
      * @param assetTransferDocument Document
      * @param service BusinessObjectService
@@ -105,7 +105,7 @@ public class AssetTransferAction extends FinancialSystemTransactionalDocumentAct
 
     /**
      * This method handles the request coming from asset lookup screen
-     * 
+     *
      * @param request Request
      * @param assetTransferForm Current form
      * @param assetTransferDocument Document
@@ -125,7 +125,7 @@ public class AssetTransferAction extends FinancialSystemTransactionalDocumentAct
 
     /**
      * Since the organization fields are view only we need to make sure they are in sync with the data entry fields.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#refresh(org.apache.struts.action.ActionMapping,
      *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */

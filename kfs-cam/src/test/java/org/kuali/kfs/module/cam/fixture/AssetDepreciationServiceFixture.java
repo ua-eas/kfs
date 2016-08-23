@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -69,7 +69,7 @@ public enum AssetDepreciationServiceFixture {
 
     private AssetDepreciationServiceFixture() {
     }
-    
+
     private <T> List<T> getObjects(Class<T> clazz, String prefix) {
         Integer numOfRecords = new Integer(properties.getProperty(prefix + "." + NUM_OF_REC));
         List<T> results = new ArrayList<>();
@@ -101,7 +101,7 @@ public enum AssetDepreciationServiceFixture {
     public String getDepreciationDateString() {
         return properties.getProperty(DEPRECIATION_DATE);
     }
-    
+
     public Date getDepreciationDate() throws ParseException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.parse(getDepreciationDateString());
@@ -145,10 +145,10 @@ public enum AssetDepreciationServiceFixture {
                     info.setPrimaryDepreciationMethodCode(asset.getPrimaryDepreciationMethodCode());
                     info.setDepreciationDate(asset.getDepreciationDate());
                     switch (asset.getCapitalAssetTypeCode()) {
-                        case "304": 
+                        case "304":
                             info.setDepreciableLifeLimit(3);
                             break;
-                        case "90001": 
+                        case "90001":
                             info.setDepreciableLifeLimit(1);
                             break;
                     }
@@ -167,13 +167,13 @@ public enum AssetDepreciationServiceFixture {
             info.setCampusPlantChartCode("BL");
             info.setFinancialObjectTypeCode("EE");
             info.setAccumulatedRoundingErrorInMillicents(payment.getAccumulatedRoundingErrorInMillicents());
-            
+
             result.add(info);
-        }      
+        }
         return result;
     }
 
-    public Map<Long, KualiDecimal> getPrimaryDepreciationBaseAmountForSV() {        
+    public Map<Long, KualiDecimal> getPrimaryDepreciationBaseAmountForSV() {
         List<Asset> assets = getAssets();
         List<AssetPayment> assetPayments = getAssetPaymentsFromPropertiesFile();
         return getPrimaryDepreciationBaseAmountForSV(assets, assetPayments);
@@ -185,7 +185,7 @@ public enum AssetDepreciationServiceFixture {
         for (Asset asset : assets) {
             if (asset.getPrimaryDepreciationMethodCode().equals("SV")) {
                 result.put(asset.getCapitalAssetNumber(), KualiDecimal.ZERO);
-            }            
+            }
         }
         for (AssetPayment payment : assetPayments) {
             KualiDecimal total = result.get(payment.getCapitalAssetNumber());
@@ -212,7 +212,7 @@ public enum AssetDepreciationServiceFixture {
         objectCode.setFinancialObjectCode("7000");
         assetObjectCode.getObjectCode().add(objectCode);
         result.add(assetObjectCode);
-        
+
         assetObjectCode = new AssetObjectCode();
         assetObjectCode.setChartOfAccountsCode("BL");
         assetObjectCode.setUniversityFiscalYear(2010);
@@ -227,7 +227,7 @@ public enum AssetDepreciationServiceFixture {
         objectCode.setFinancialObjectCode("7030");
         assetObjectCode.getObjectCode().add(objectCode);
         result.add(assetObjectCode);
-        
+
         return result;
     }
 
@@ -236,7 +236,7 @@ public enum AssetDepreciationServiceFixture {
         List<Asset> assets = getAssets();
         List<AssetPayment> assetPayments = getAssetPaymentsFromPropertiesFile();
         for (Asset asset : assets) {
-            result.add(asset.getCapitalAssetNumber());         
+            result.add(asset.getCapitalAssetNumber());
         }
         for (AssetPayment payment : assetPayments) {
             KualiDecimal depreciatedAmount = payment.getAccumulatedPrimaryDepreciationAmount();

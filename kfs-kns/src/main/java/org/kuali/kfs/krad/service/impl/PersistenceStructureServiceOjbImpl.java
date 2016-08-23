@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,15 +49,15 @@ import org.kuali.kfs.krad.util.ForeignKeyFieldsPopulationState;
 public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBase implements PersistenceStructureService {
 
 	/**
-	 * 
+	 *
 	 * special case when the attributeClass passed in doesnt match the class of
 	 * the reference-descriptor as defined in ojb-repository. Currently the only
 	 * case of this happening is ObjectCode vs. ObjectCodeCurrent.
-	 * 
+	 *
 	 * NOTE: This method makes no real sense and is a product of a hack
 	 * introduced by KFS for an unknown reason. If you find yourself using this
 	 * map stop and go do something else.
-	 * 
+	 *
 	 * @param from
 	 *            the class in the code
 	 * @param to
@@ -65,7 +65,7 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 	 */
 	public static Map<Class, Class> referenceConversionMap = new HashMap<Class, Class>();
 
-	
+
 	private PersistenceStructureService persistenceStructureServiceJpa;
 
 	public PersistenceStructureService getPersistenceStructureServiceJpa() {
@@ -75,11 +75,11 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 	public void setPersistenceStructureServiceJpa(PersistenceStructureService persistenceStructureServiceJpa) {
 		this.persistenceStructureServiceJpa = persistenceStructureServiceJpa;
 	}
-	
+
 	/**
 	 * @see PersistenceService#isPersistable(java.lang.Class)
 	 */
-	
+
 	public boolean isPersistable(Class clazz) {
 		boolean isPersistable = false;
 		try {
@@ -95,7 +95,7 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 	/**
 	 * @see PersistenceService#getPrimaryKeys(java.lang.Class)
 	 */
-	
+
 	public List getPrimaryKeys(Class clazz) {
 		List pkList = new ArrayList();
 		ClassDescriptor classDescriptor = getClassDescriptor(clazz);
@@ -110,9 +110,9 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 	/**
 	 * @see org.kuali.rice.krad.service.PersistenceMetadataExplorerService#listFieldNames(java.lang.Class)
 	 */
-	
+
 	public List listFieldNames(Class clazz) {
-		List fieldNames = new ArrayList(); 
+		List fieldNames = new ArrayList();
 		ClassDescriptor classDescriptor = getClassDescriptor(clazz);
 		FieldDescriptor fieldDescriptors[] = classDescriptor.getFieldDescriptions();
 		for (int i = 0; i < fieldDescriptors.length; ++i) {
@@ -159,7 +159,7 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 	/**
 	 * @see org.kuali.rice.krad.service.PersistenceMetadataExplorerService#listPersistableSubclasses(java.lang.Class)
 	 */
-	
+
 	// Unit tests only
 	public List listPersistableSubclasses(Class superclazz) {
 		if (superclazz == null) {
@@ -183,7 +183,7 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 	 * @see PersistenceService#getRelationshipMetadata(java.lang.Class,
 	 *      java.lang.String)
 	 */
-	
+
 	public Map<String, DataObjectRelationship> getRelationshipMetadata(Class persistableClass, String attributeName, String attributePrefix) {
 		if (persistableClass == null) {
 			throw new IllegalArgumentException("invalid (null) persistableClass");
@@ -213,7 +213,7 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 		return relationships;
 	}
 
-	
+
 	// Unit tests only
 	public Map<String, DataObjectRelationship> getRelationshipMetadata(Class persistableClass, String attributeName) {
 		return getRelationshipMetadata(persistableClass, attributeName, null);
@@ -223,7 +223,7 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 	 * @see PersistenceService#getForeignKeyFieldName(java.lang.Object,
 	 *      java.lang.String, java.lang.String)
 	 */
-	
+
 	public String getForeignKeyFieldName(Class persistableObjectClass, String attributeName, String pkName) {
 		String fkName = "";
 		ClassDescriptor classDescriptor = getClassDescriptor(persistableObjectClass);
@@ -248,7 +248,7 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 	 * @see PersistenceService#getReferencesForForeignKey(java.lang.Class,
 	 *      java.lang.String)
 	 */
-	
+
 	public Map getReferencesForForeignKey(Class persistableObjectClass, String attributeName) {
 		Map referenceClasses = new HashMap();
 		if (PersistableBusinessObject.class.isAssignableFrom(persistableObjectClass)) {
@@ -289,7 +289,7 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 	 *      assumes that foreign-keys map to primary keys on the other object,
 	 *      and never to a set of candidate keys, or any other column.
 	 */
-	
+
 	public Map getForeignKeysForReference(Class clazz, String attributeName) {
 		// yelp if nulls were passed in
 		if (clazz == null) {
@@ -312,10 +312,10 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 		}
 
 		Map fkMap = new HashMap();
-		
+
 		// make sure the attribute designated is listed as a
-		// reference-descriptor on the clazz specified, otherwise 
-		// throw an exception (OJB); 
+		// reference-descriptor on the clazz specified, otherwise
+		// throw an exception (OJB);
 		ClassDescriptor classDescriptor = getClassDescriptor(clazz);
 		ObjectReferenceDescriptor referenceDescriptor = classDescriptor.getObjectReferenceDescriptorByName(attributeName);
 		if (referenceDescriptor == null) {
@@ -368,11 +368,11 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 			// add the fieldName and fieldType to the map
 			fkMap.put(fkFieldName, pkFieldName);
 		}
-		
+
 		return fkMap;
 	}
 
-	
+
 	public Map<String, String> getInverseForeignKeysForCollection(Class boClass, String collectionName) {
 		// yelp if nulls were passed in
 		if (boClass == null) {
@@ -440,16 +440,16 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 
 			fkToPkMap.put(parentForeignKey, childPrimaryKey);
 		}
-				
+
 		return fkToPkMap;
 	}
 
 	/**
 	 * @see PersistenceService#getNestedForeignKeyMap(java.lang.Class)
 	 */
-	
+
 	public Map getNestedForeignKeyMap(Class persistableObjectClass) {
-		Map fkMap = new HashMap(); 
+		Map fkMap = new HashMap();
 		ClassDescriptor classDescriptor = getClassDescriptor(persistableObjectClass);
 		Vector objectReferences = classDescriptor.getObjectReferenceDescriptors();
 		for (Iterator iter = objectReferences.iterator(); iter.hasNext();) {
@@ -463,7 +463,7 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 				fkMap.put(objectReferenceDescriptor.getAttributeName() + "." + pkField.getAttributeName(), fkFields[i].getAttributeName());
 			}
 		}
-		
+
 		return fkMap;
 	}
 
@@ -586,14 +586,14 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 				throw new RuntimeException("The flag is set that indicates all fields are populated, but there " + "are fields present in the unpopulatedFields list.  This should never happen, and indicates " + "that the logic in this method is broken.");
 			}
 		}
-		
+
 		return new ForeignKeyFieldsPopulationState(allFieldsPopulated, anyFieldsPopulated, unpopulatedFields);
 	}
 
 	/**
 	 * @see PersistenceStructureService#listReferenceObjectFieldNames(java.lang.Class)
 	 */
-	
+
 	public Map<String, Class> listReferenceObjectFields(Class boClass) {
 		// validate parameter
 		if (boClass == null) {
@@ -617,11 +617,11 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
                 references.put(superReferenceDescriptor, referenceDescriptor.getItemClass());
             }
 		}
-		
+
 		return references;
 	}
 
-	
+
 	public Map<String, Class> listCollectionObjectTypes(Class boClass) {
 		if (boClass == null) {
 			throw new IllegalArgumentException("Class specified in the parameter was null.");
@@ -639,7 +639,7 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 		for (CollectionDescriptor collectionDescriptor : collectionDescriptors) {
 			references.put(collectionDescriptor.getAttributeName(), collectionDescriptor.getItemClass());
 		}
-		
+
 		return references;
 	}
 
@@ -670,27 +670,27 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 		return listReferenceObjectFields(bo.getClass());
 	}
 
-	
+
 	public boolean isReferenceUpdatable(Class boClass, String referenceName) {
 		ClassDescriptor classDescriptor = getClassDescriptor(boClass);
 		ObjectReferenceDescriptor refDesc = classDescriptor.getObjectReferenceDescriptorByName(referenceName);
 		return refDesc.getCascadingStore() != ObjectReferenceDescriptor.CASCADE_NONE;
 	}
 
-	
+
 	public boolean isCollectionUpdatable(Class boClass, String collectionName) {
 		ClassDescriptor cd = getClassDescriptor(boClass);
 		CollectionDescriptor collDesc = cd.getCollectionDescriptorByName(collectionName);
 		return collDesc.getCascadingStore() != ObjectReferenceDescriptor.CASCADE_NONE;
 	}
 
-	
+
 	public boolean hasCollection(Class boClass, String collectionName) {
 		ClassDescriptor cd = getClassDescriptor(boClass);
 		return cd.getCollectionDescriptorByName(collectionName) != null;
 	}
 
-	
+
 	public boolean hasReference(Class boClass, String referenceName) {
 		ClassDescriptor cd = getClassDescriptor(boClass);
 		return cd.getObjectReferenceDescriptorByName(referenceName) != null;
@@ -698,15 +698,15 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
 
 	/**
 	 * This overridden method ...
-	 * 
+	 *
 	 * @see PersistenceStructureService#getTableName(java.lang.Class)
 	 */
-	
+
 	public String getTableName(Class<? extends PersistableBusinessObject> boClass) {
 		ClassDescriptor cd = getClassDescriptor(boClass);
 		return cd.getFullTableName();
 	}
-	
-	
+
+
 }
 

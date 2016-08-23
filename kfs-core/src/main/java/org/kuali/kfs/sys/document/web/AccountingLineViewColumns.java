@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,12 +28,12 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * A layout element that renders elements 
+ * A layout element that renders elements
  */
 public class AccountingLineViewColumns implements AccountingLineViewLineFillingElement {
     private List<AccountingLineViewField> fields;
     private AccountingLineViewColumnsDefinition definition;
-    
+
     /**
      * Constructs a AccountingLineViewColumns
      * @param definition the data dictionary validation of this columns layout element
@@ -53,7 +53,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#getRequestedRowCount()
      */
     public int getRequestedRowCount() {
@@ -78,26 +78,26 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
         AccountingLineTable columnsTable = new AccountingLineTable();
 
         List<AccountingLineTableRow> rows = createRowsForFields();
-        
+
         columnsTable.setRows(rows);
         cell.addRenderableElement(columnsTable);
         headerLabelRow.addCell(cell);
     }
-    
+
     /**
      * Creates rows for the inner tables for each field inside this columsn definition
      * @return a List of created AccountingLineTableRows
      */
     protected List<AccountingLineTableRow> createRowsForFields() {
         List<AccountingLineTableRow> rows = new ArrayList<>();
-        
+
         int countForThisRow = 0;
         AccountingLineTableRow row = new AccountingLineTableRow();
         for (AccountingLineViewField field : fields) {
             row.addCell(createHeaderCellForField(field));
             row.addCell(createCellForField(field));
             countForThisRow += 1;
-            
+
             if (countForThisRow == definition.getColumnCount()) {
                 rows.add(row);
                 countForThisRow = 0;
@@ -111,12 +111,12 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
             }
             rows.add(row);
         }
-        
+
         return rows;
     }
-    
+
     /**
-     * Creates a header cell for for the given field 
+     * Creates a header cell for for the given field
      * @param field the field to create a header cell for
      * @return a header cell
      */
@@ -126,7 +126,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
         headerCell.addRenderableElement(field.createHeaderLabel());
         return headerCell;
     }
-    
+
     /**
      * Creates the "field" cell for the given field
      * @param field the field to create a cell for
@@ -137,7 +137,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
         cell.addRenderableElement(field);
         return cell;
     }
-    
+
     /**
      * Creates an empty cell to pad out the place typically held for a cell
      * @return an empty table cell that spans two columns
@@ -150,7 +150,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
     }
 
     /**
-     * An exception state; line filling elements can only join tables through lines 
+     * An exception state; line filling elements can only join tables through lines
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinTable(java.util.List)
      */
     public void joinTable(List<AccountingLineTableRow> rows) {
@@ -213,7 +213,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
     }
 
     /**
-     * Gets the fields attribute. 
+     * Gets the fields attribute.
      * @return Returns the fields.
      */
     public List<AccountingLineViewField> getFields() {

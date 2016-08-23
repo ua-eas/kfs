@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,7 +37,7 @@ public class ChartOrgHolderImpl implements ChartOrgHolder {
     protected static transient ChartService chartService;
 
     public ChartOrgHolderImpl() {}
-    
+
     public ChartOrgHolderImpl( String chartOfAccountsCode, String organizationCode ) {
         this.chartOfAccountsCode = chartOfAccountsCode;
         this.organizationCode = organizationCode;
@@ -95,7 +95,7 @@ public class ChartOrgHolderImpl implements ChartOrgHolder {
     public void setOrganizationCode(String organizationCode) {
         this.organizationCode = organizationCode;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if ( obj == null || !(obj instanceof ChartOrgHolder) ) {
@@ -104,14 +104,14 @@ public class ChartOrgHolderImpl implements ChartOrgHolder {
         return StringUtils.equals( chartOfAccountsCode, ((ChartOrgHolder)obj).getChartOfAccountsCode() )
                 && StringUtils.equals( organizationCode, ((ChartOrgHolder)obj).getOrganizationCode() );
     }
-    
+
     @Override
     public int hashCode() {
         return String.valueOf(chartOfAccountsCode).hashCode() + String.valueOf(organizationCode).hashCode();
     }
-    
+
     @Override
-    public String toString() {        
+    public String toString() {
         return String.valueOf(chartOfAccountsCode) + "-" + String.valueOf(organizationCode);
     }
 }

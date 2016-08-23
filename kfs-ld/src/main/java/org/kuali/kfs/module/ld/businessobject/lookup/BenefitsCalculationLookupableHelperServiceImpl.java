@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -50,7 +50,7 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 public class BenefitsCalculationLookupableHelperServiceImpl extends AbstractLookupableHelperServiceImpl {
 
     private ParameterService parameterService;
-    
+
     @Override
     public List<? extends BusinessObject> getSearchResults(Map<String, String> fieldValues) {
         // remove hidden fields
@@ -75,9 +75,9 @@ public class BenefitsCalculationLookupableHelperServiceImpl extends AbstractLook
     @Override
     public List<Column> getColumns() {
         List<Column> columns =  super.getColumns();
-        
+
         String offsetParmValue = parameterService.getParameterValueAsString(LaborEnterpriseFeedStep.class, LaborConstants.BenefitCalculation.LABOR_BENEFIT_CALCULATION_OFFSET_IND);
-        
+
         if(offsetParmValue.equalsIgnoreCase("n")) {
             for(Iterator<Column> it = columns.iterator(); it.hasNext(); ) {
                 Column column = (Column)it.next();
@@ -86,19 +86,19 @@ public class BenefitsCalculationLookupableHelperServiceImpl extends AbstractLook
                 }
             }
         }
-        
+
         return columns;
     }
-    
+
     /**
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getRows()
      */
     @Override
     public List<Row> getRows() {
         List<Row> rows =  super.getRows();
-        
+
         String offsetParmValue = parameterService.getParameterValueAsString(LaborEnterpriseFeedStep.class, LaborConstants.BenefitCalculation.LABOR_BENEFIT_CALCULATION_OFFSET_IND);
-        
+
         if(offsetParmValue.equalsIgnoreCase("n")) {
             for(Iterator<Row> it = rows.iterator(); it.hasNext(); ) {
                 Row row = (Row)it.next();
@@ -109,42 +109,42 @@ public class BenefitsCalculationLookupableHelperServiceImpl extends AbstractLook
                 }
             }
         }
-        
+
         return rows;
     }
-    
+
     /**
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#validateSearchParameters(java.util.Map)
      */
     @Override
     public void validateSearchParameters(Map fieldValues) {
         super.validateSearchParameters(fieldValues);
-        
+
         HashMap<String, String> fieldsMap = new HashMap<String, String>();
-        
+
         String accountNumber = (String) fieldValues.get("accountCodeOffset");
         String objectCode = (String) fieldValues.get("objectCodeOffset");
-        
+
         // Validate the Account Number field is a valid Account Number in the DB
         if (StringUtils.isNotEmpty(accountNumber)) {
             fieldsMap.clear();
             fieldsMap.put(GeneralLedgerConstants.ColumnNames.ACCOUNT_NUMBER, accountNumber);
             List<Account> accountNums = (List<Account>) SpringContext.getBean(BusinessObjectService.class).findMatching(Account.class, fieldsMap);
-           
-            
+
+
             if (accountNums == null || accountNums.size() <= 0) {
                 GlobalVariables.getMessageMap().putError("accountNumber", KFSKeyConstants.ERROR_CUSTOM, new String[] { "Invalid Account Number: " + accountNumber });
                 throw new ValidationException("errors in search criteria");
             }
         }
-        
+
         // Validate the Object Code field is a valid Object Code in the DB
         if (StringUtils.isNotEmpty(objectCode)) {
             fieldsMap.clear();
             fieldsMap.put(GeneralLedgerConstants.ColumnNames.OBJECT_CODE, objectCode);
             List<ObjectCode> objCodes = (List<ObjectCode>) SpringContext.getBean(BusinessObjectService.class).findMatching(ObjectCode.class, fieldsMap);
-           
-            
+
+
             if (objCodes == null || objCodes.size() <= 0) {
                 GlobalVariables.getMessageMap().putError(KFSPropertyConstants.OBJECT_CODE, KFSKeyConstants.ERROR_CUSTOM, new String[] { "Invalid Object Code: " + objectCode });
                 throw new ValidationException("errors in search criteria");
@@ -153,7 +153,7 @@ public class BenefitsCalculationLookupableHelperServiceImpl extends AbstractLook
     }
 
     /**
-     * Gets the parameterService attribute. 
+     * Gets the parameterService attribute.
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {

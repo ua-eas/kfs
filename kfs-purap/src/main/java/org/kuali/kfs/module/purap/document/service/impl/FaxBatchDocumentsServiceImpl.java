@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -45,18 +45,18 @@ public class FaxBatchDocumentsServiceImpl implements FaxBatchDocumentsService {
    /**
     * Faxes pending documents.  Currently only PO documents set to Pending Fax
     * Status inside workflow.
-    * 
+    *
     * @return Collection of ServiceError objects
     */
    public boolean faxPendingPurchaseOrders() {
-       
+
      Collection<PurchaseOrderDocument> pendingPOs = purchaseOrderService.getPendingPurchaseOrderFaxes();
      boolean result = true;
-     
+
      for (Iterator<PurchaseOrderDocument> iter = pendingPOs.iterator(); iter.hasNext();) {
 
          PurchaseOrderDocument po =  iter.next();
-       
+
          if (!po.getDocumentHeader().hasWorkflowDocument()){
              try {
                  po = (PurchaseOrderDocument)SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(po.getDocumentNumber());
@@ -65,10 +65,10 @@ public class FaxBatchDocumentsServiceImpl implements FaxBatchDocumentsService {
                  throw new RuntimeException(e);
              }
          }
-         
+
          GlobalVariables.getMessageMap().clearErrorMessages();
          faxService.faxPurchaseOrderPdf(po,false);
-       
+
          if (GlobalVariables.getMessageMap().hasErrors()){
              try {
                  po.updateAndSaveAppDocStatus(PurapConstants.PurchaseOrderStatuses.APPDOC_OPEN);
@@ -78,7 +78,7 @@ public class FaxBatchDocumentsServiceImpl implements FaxBatchDocumentsService {
                  LOG.error(errorMsg, we);
                  throw new RuntimeException(errorMsg, we);
              }
-             
+
              po.setPurchaseOrderInitialOpenTimestamp(dateTimeService.getCurrentTimestamp());
              po.setPurchaseOrderLastTransmitTimestamp(dateTimeService.getCurrentTimestamp());
              purapService.saveDocumentNoValidation(po);
@@ -86,10 +86,10 @@ public class FaxBatchDocumentsServiceImpl implements FaxBatchDocumentsService {
              result = false;
          }
      }
-     
+
      return result;
    }
-   
+
    public void setPurchaseOrderService(PurchaseOrderService purchaseOrderService) {
        this.purchaseOrderService = purchaseOrderService;
    }
@@ -105,5 +105,5 @@ public class FaxBatchDocumentsServiceImpl implements FaxBatchDocumentsService {
    public void setDateTimeService(DateTimeService dateTimeService) {
        this.dateTimeService = dateTimeService;
    }
-    
+
 }

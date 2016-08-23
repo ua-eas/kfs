@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,43 +22,43 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class AccountParametersDTO implements Serializable {
-    
+
     private static final long serialVersionUID = 8417796622708399543L;
-    
-    protected String unit;    
+
+    protected String unit;
     protected String principalId;
-    
+
     //Values that can override
     protected String higherEdFunctionCode;
     protected String indirectCostTypeCode;
     protected String indirectCostRate;
-                
+
     protected String defaultAddressCityName;
     protected String defaultAddressStateCode;
     protected String defaultAddressStreetAddress;
     protected String defaultAddressZipCode;
-    
+
     protected String adminContactAddressCityName;
     protected String adminContactAddressStateCode;
     protected String adminContactAddressStreetAddress;
     protected String adminContactAddressZipCode;
-        
+
     //Mapped directly from Award
     protected String accountName;
     protected String accountNumber;
     protected String cfdaNumber;
     protected Date expirationDate;
-    protected Date effectiveDate;    
-    protected boolean offCampusIndicator;        
+    protected Date effectiveDate;
+    protected boolean offCampusIndicator;
     protected String expenseGuidelineText;
     protected String incomeGuidelineText;
     protected String purposeText;
 
-    
+
     public AccountParametersDTO() {}
 
     /**
-     * Gets the unit attribute. 
+     * Gets the unit attribute.
      * @return Returns the unit.
      */
     public String getUnit() {
@@ -74,7 +74,7 @@ public class AccountParametersDTO implements Serializable {
     }
 
     /**
-     * Gets the accountNumber attribute. 
+     * Gets the accountNumber attribute.
      * @return Returns the accountNumber.
      */
     public String getAccountNumber() {
@@ -90,7 +90,7 @@ public class AccountParametersDTO implements Serializable {
     }
 
     /**
-     * Gets the accountName attribute. 
+     * Gets the accountName attribute.
      * @return Returns the accountName.
      */
     public String getAccountName() {
@@ -106,7 +106,7 @@ public class AccountParametersDTO implements Serializable {
     }
 
     /**
-     * Gets the higherEdFunctionCode attribute. 
+     * Gets the higherEdFunctionCode attribute.
      * @return Returns the higherEdFunctionCode.
      */
     public String getHigherEdFunctionCode() {
@@ -122,7 +122,7 @@ public class AccountParametersDTO implements Serializable {
     }
 
     /**
-     * Gets the indirectCostTypeCode attribute. 
+     * Gets the indirectCostTypeCode attribute.
      * @return Returns the indirectCostTypeCode.
      */
     public String getIndirectCostTypeCode() {
@@ -138,7 +138,7 @@ public class AccountParametersDTO implements Serializable {
     }
 
     /**
-     * Gets the indirectCostRate attribute. 
+     * Gets the indirectCostRate attribute.
      * @return Returns the indirectCostRate.
      */
     public String getIndirectCostRate() {
@@ -154,7 +154,7 @@ public class AccountParametersDTO implements Serializable {
     }
 
     /**
-     * Gets the expenseGuidelineText attribute. 
+     * Gets the expenseGuidelineText attribute.
      * @return Returns the expenseGuidelineText.
      */
     public String getExpenseGuidelineText() {
@@ -170,7 +170,7 @@ public class AccountParametersDTO implements Serializable {
     }
 
     /**
-     * Gets the incomeGuidelineText attribute. 
+     * Gets the incomeGuidelineText attribute.
      * @return Returns the incomeGuidelineText.
      */
     public String getIncomeGuidelineText() {
@@ -186,7 +186,7 @@ public class AccountParametersDTO implements Serializable {
     }
 
     /**
-     * Gets the purposeText attribute. 
+     * Gets the purposeText attribute.
      * @return Returns the purposeText.
      */
     public String getPurposeText() {
@@ -202,7 +202,7 @@ public class AccountParametersDTO implements Serializable {
     }
 
     /**
-     * Gets the cfdaNumber attribute. 
+     * Gets the cfdaNumber attribute.
      * @return Returns the cfdaNumber.
      */
     public String getCfdaNumber() {
@@ -218,7 +218,7 @@ public class AccountParametersDTO implements Serializable {
     }
 
     /**
-     * Gets the expirationDate attribute. 
+     * Gets the expirationDate attribute.
      * @return Returns the expirationDate.
      */
     public Date getExpirationDate() {
@@ -234,7 +234,7 @@ public class AccountParametersDTO implements Serializable {
     }
 
     /**
-     * Gets the effectiveDate attribute. 
+     * Gets the effectiveDate attribute.
      * @return Returns the effectiveDate.
      */
     public Date getEffectiveDate() {
@@ -250,7 +250,7 @@ public class AccountParametersDTO implements Serializable {
     }
 
     /**
-     * Gets the offCampusIndicator attribute. 
+     * Gets the offCampusIndicator attribute.
      * @return Returns the offCampusIndicator.
      */
     public boolean isOffCampusIndicator() {
@@ -329,7 +329,7 @@ public class AccountParametersDTO implements Serializable {
         this.adminContactAddressZipCode = adminContactAddressZipCode;
     }
 
- 
+
     public String getPrincipalId() {
         return principalId;
     }
@@ -337,5 +337,5 @@ public class AccountParametersDTO implements Serializable {
     public void setPrincipalId(String principalId) {
         this.principalId = principalId;
     }
-    
+
 }

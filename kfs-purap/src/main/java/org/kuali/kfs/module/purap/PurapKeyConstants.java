@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -214,7 +214,7 @@ public class PurapKeyConstants {
     public static final String MESSAGE_PAYMENT_REQUEST_PAYDATE_OVER_THRESHOLD_DAYS = "message.paymentRequest.payDate.over.threshold.days";
     public static final String WARNING_PAYMENT_REQUEST_VENDOR_INVOICE_AMOUNT_INVALID = "warning.paymentRequest.vendorInvoiceAmount.invalid";
     public static final String WARNING_PAYMENT_REQUEST_ITEM_TOTAL_NOT_EQUAL = "warning.paymentRequest.item.TotalInvoice.notEqual";
-    
+
     public static final String ERROR_PAYMENT_REQUEST_TAX_FIELD_REQUIRED = "errors.paymentRequest.tax.field.required";
     public static final String ERROR_PAYMENT_REQUEST_TAX_FIELD_REQUIRED_IF = "errors.paymentRequest.tax.field.required.if";
     public static final String ERROR_PAYMENT_REQUEST_TAX_FIELD_DISALLOWED_IF = "errors.paymentRequest.tax.field.disallowed.if";
@@ -378,9 +378,9 @@ public class PurapKeyConstants {
     public static final String ERROR_PAYMENT_REQUEST_CANNOT_BE_CANCELLED = "error.paymentRequest.cannot.be.cancelled";
 
     public static final String ERROR_PURCHASE_ORDER_RETRANSMIT_SELECT = "error.purchaseOrder.retransmit.select";
-    
+
     public static final String ERROR_INACTIVE_VENDORADDRESS = "error.inactive.vendoraddress";
-            
+
     public static final String KEY_ACCT_EXPIRED_NOTE = "note.acct.expired.using.continuation.acct";
 
 }

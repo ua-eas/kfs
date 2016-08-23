@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -21,9 +21,9 @@
 <%@ attribute name="documentAttributes" required="true" type="java.util.Map"
               description="The DataDictionary entry containing attributes for this row's fields." %>
 <%@ attribute name="deliveryReadOnly" required="false"
-              description="Boolean to indicate if delivery tab fields are read only" %>              
+              description="Boolean to indicate if delivery tab fields are read only" %>
 <%@ attribute name="showDefaultBuildingOption" required="false"
-              description="Boolean to indicate if user should be allowed to set their default building" %>              
+              description="Boolean to indicate if user should be allowed to set their default building" %>
 
 <c:set var="fullEntryMode" value="${KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT] && (empty KualiForm.editingMode['restrictFiscalEntry'])}" />
 <c:set var="notOtherDeliveryBuilding" value="${not KualiForm.document.deliveryBuildingOtherIndicator}" />
@@ -46,24 +46,24 @@
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryCampusCode}" />
                 </th>
                 <td class="datacell">
-                    <kul:htmlControlAttribute 
-                        attributeEntry="${documentAttributes.deliveryCampusCode}" 
-                        property="document.deliveryCampusCode" readOnly="true" tabindexOverride="${tabindexOverrideBase + 0}"/>&nbsp;                
+                    <kul:htmlControlAttribute
+                        attributeEntry="${documentAttributes.deliveryCampusCode}"
+                        property="document.deliveryCampusCode" readOnly="true" tabindexOverride="${tabindexOverrideBase + 0}"/>&nbsp;
                     <c:if test="${(fullEntryMode or amendmentEntry) && !deliveryReadOnly}">
                         <kul:lookup boClassName="org.kuali.kfs.vnd.businessobject.CampusParameter"
                             lookupParameters="document.deliveryCampusCode:campusCode"
                             fieldConversions="campusCode:document.deliveryCampusCode"/>
                     </c:if>
-                </td>               
+                </td>
                 <th class="right">
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryToName}"/>
                 </th>
                 <td class="datacell">
-                    <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.deliveryToName}" property="document.deliveryToName" 
+                    <kul:htmlControlAttribute
+                    	attributeEntry="${documentAttributes.deliveryToName}" property="document.deliveryToName"
                     	readOnly="${not (fullEntryMode or amendmentEntry) or deliveryReadOnly}" tabindexOverride="${tabindexOverrideBase + 5}"/>
                     <c:if test="${fullEntryMode && !deliveryReadOnly}">
-                        <kul:lookup boClassName="org.kuali.rice.kim.api.identity.Person" 
+                        <kul:lookup boClassName="org.kuali.rice.kim.api.identity.Person"
                         	fieldConversions="name:document.deliveryToName,emailAddress:document.deliveryToEmailAddress,phoneNumber:document.deliveryToPhoneNumber"/>
                     </c:if>
                 </td>
@@ -73,8 +73,8 @@
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryBuildingName}"/>
                 </th>
                 <td class="datacell">
-                    <kul:htmlControlAttribute 
-                        attributeEntry="${documentAttributes.deliveryBuildingName}" 
+                    <kul:htmlControlAttribute
+                        attributeEntry="${documentAttributes.deliveryBuildingName}"
                         property="document.deliveryBuildingName" readOnly="true" tabindexOverride="${tabindexOverrideBase + 0}"/>&nbsp;
                         <c:if test="${hasErrors}">
               				<kul:fieldShowErrorIcon />
@@ -88,13 +88,13 @@
                             <html:submit property="methodToCall.setAsDefaultBuilding" alt="set as default building" styleClass="btn btn-default small" value="Set as Default Building" />
                         </c:if>
                     </c:if>
-                </td>           
+                </td>
                 <th class="right">
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryToPhoneNumber}"/>
                 </th>
                 <td class="datacell">
-                    <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.deliveryToPhoneNumber}" property="document.deliveryToPhoneNumber" 
+                    <kul:htmlControlAttribute
+                    	attributeEntry="${documentAttributes.deliveryToPhoneNumber}" property="document.deliveryToPhoneNumber"
                     	readOnly="${not (fullEntryMode or amendmentEntry) or deliveryReadOnly}" tabindexOverride="${tabindexOverrideBase + 5}"/>
                 </td>
             </tr>
@@ -103,16 +103,16 @@
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryBuildingLine1Address}"/>
                 </th>
                 <td class="datacell">
-                    <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.deliveryBuildingLine1Address}" property="document.deliveryBuildingLine1Address"  
+                    <kul:htmlControlAttribute
+                    	attributeEntry="${documentAttributes.deliveryBuildingLine1Address}" property="document.deliveryBuildingLine1Address"
                     	readOnly="${notOtherDeliveryBuilding or not (fullEntryMode or amendmentEntry) or deliveryReadOnly}" tabindexOverride="${tabindexOverrideBase + 0}"/>
-                </td>           
+                </td>
                 <th class="right">
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryToEmailAddress}"/>
                 </th>
                 <td class="datacell">
-                    <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.deliveryToEmailAddress}" property="document.deliveryToEmailAddress" 
+                    <kul:htmlControlAttribute
+                    	attributeEntry="${documentAttributes.deliveryToEmailAddress}" property="document.deliveryToEmailAddress"
                     	readOnly="${not (fullEntryMode or amendmentEntry) or deliveryReadOnly}" tabindexOverride="${tabindexOverrideBase + 5}"/>
                 </td>
 			</tr>
@@ -121,8 +121,8 @@
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryBuildingLine2Address}"/>
                 </th>
                 <td class="datacell">
-                    <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.deliveryBuildingLine2Address}" property="document.deliveryBuildingLine2Address" 
+                    <kul:htmlControlAttribute
+                    	attributeEntry="${documentAttributes.deliveryBuildingLine2Address}" property="document.deliveryBuildingLine2Address"
                     	readOnly="${not (fullEntryMode or amendmentEntry) or deliveryReadOnly}" tabindexOverride="${tabindexOverrideBase + 0}"/>
                 </td>
                 <c:if test="${!lockB2BEntry}">
@@ -130,7 +130,7 @@
 	                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryRequiredDate}"/>
 	                </th>
 	                <td class="datacell">
-	                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.deliveryRequiredDate}" datePicker="true" property="document.deliveryRequiredDate" 
+	                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.deliveryRequiredDate}" datePicker="true" property="document.deliveryRequiredDate"
 	                    readOnly="${not (fullEntryMode or amendmentEntry) or deliveryReadOnly}" tabindexOverride="${tabindexOverrideBase + 5}"/>
 	                </td>
 	            </c:if>
@@ -144,24 +144,24 @@
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryBuildingRoomNumber}"/>
                 </th>
                 <td class="datacell">
-                    <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.deliveryBuildingRoomNumber}" property="document.deliveryBuildingRoomNumber" 
+                    <kul:htmlControlAttribute
+                    	attributeEntry="${documentAttributes.deliveryBuildingRoomNumber}" property="document.deliveryBuildingRoomNumber"
                     	readOnly="${not (fullEntryMode or amendmentEntry) or deliveryReadOnly}" tabindexOverride="${tabindexOverrideBase + 0}"/>
 			        <c:if test="${(fullEntryMode or amendmentEntry) && !deliveryReadOnly && notOtherDeliveryBuilding && (not empty KualiForm.document.deliveryBuildingCode)}">
-			            <kul:lookup boClassName="org.kuali.kfs.sys.businessobject.Room" 
+			            <kul:lookup boClassName="org.kuali.kfs.sys.businessobject.Room"
 			                readOnlyFields="buildingCode,campusCode"
 			                lookupParameters="'Y':active,document.deliveryBuildingCode:buildingCode,document.deliveryCampusCode:campusCode"
 			                fieldConversions="buildingRoomNumber:document.deliveryBuildingRoomNumber"/>
 			        </c:if>
-                </td>           
+                </td>
                 <c:if test="${!lockB2BEntry}">
 	                <th class="right">
 	                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryRequiredDateReasonCode}"/>
 	                </th>
 	                <td class="datacell">
-	                    <kul:htmlControlAttribute 
+	                    <kul:htmlControlAttribute
 	                    	attributeEntry="${documentAttributes.deliveryRequiredDateReasonCode}" property="document.deliveryRequiredDateReasonCode"
-	                        extraReadOnlyProperty="document.deliveryRequiredDateReason.deliveryRequiredDateReasonDescription" 
+	                        extraReadOnlyProperty="document.deliveryRequiredDateReason.deliveryRequiredDateReasonDescription"
 	                        readOnly="${not (fullEntryMode or amendmentEntry) or deliveryReadOnly}" tabindexOverride="${tabindexOverrideBase + 5}"/>
 	                </td>
                 </c:if>
@@ -171,8 +171,8 @@
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryCityName}"/>
                 </th>
                 <td class="datacell">
-                    <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.deliveryCityName}" property="document.deliveryCityName" 
+                    <kul:htmlControlAttribute
+                    	attributeEntry="${documentAttributes.deliveryCityName}" property="document.deliveryCityName"
                     	readOnly="${notOtherDeliveryBuilding or not (fullEntryMode or amendmentEntry) or deliveryReadOnly}" tabindexOverride="${tabindexOverrideBase + 0}"/>
                 </td>
                 <c:if test="${!lockB2BEntry}">
@@ -180,19 +180,19 @@
                         <kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryInstructionText}"/>
                     </th>
                     <td class="datacell"  rowspan="4">
-                        <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.deliveryInstructionText}" property="document.deliveryInstructionText" 
+                        <kul:htmlControlAttribute
+                        	attributeEntry="${documentAttributes.deliveryInstructionText}" property="document.deliveryInstructionText"
                         	readOnly="${not (fullEntryMode or amendmentEntry) or deliveryReadOnly}" tabindexOverride="${tabindexOverrideBase + 5}"/>
                     </td>
                 </c:if>
 			</tr>
-            <tr>			
+            <tr>
 				<th class="right">
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryStateCode}"/>
                 </th>
                 <td class="datacell">
-                    <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.deliveryStateCode}" property="document.deliveryStateCode" 
+                    <kul:htmlControlAttribute
+                    	attributeEntry="${documentAttributes.deliveryStateCode}" property="document.deliveryStateCode"
                     	readOnly="${notOtherDeliveryBuilding or not (fullEntryMode or amendmentEntry) or deliveryReadOnly}" tabindexOverride="${tabindexOverrideBase + 0}"/>
                 </td>
 			</tr>
@@ -201,8 +201,8 @@
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryPostalCode}"/>
                 </th>
                 <td class="datacell">
-                    <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.deliveryPostalCode}" property="document.deliveryPostalCode" 
+                    <kul:htmlControlAttribute
+                    	attributeEntry="${documentAttributes.deliveryPostalCode}" property="document.deliveryPostalCode"
                     	readOnly="${notOtherDeliveryBuilding or not (fullEntryMode or amendmentEntry) or deliveryReadOnly}" tabindexOverride="${tabindexOverrideBase + 0}"/>
                 </td>
 			</tr>
@@ -211,57 +211,57 @@
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.deliveryCountryCode}"/>
                 </th>
                 <td class="datacell">
-                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.deliveryCountryCode}" 
-                    	property="document.deliveryCountryCode" 
+                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.deliveryCountryCode}"
+                    	property="document.deliveryCountryCode"
                     	extraReadOnlyProperty="document.deliveryCountryName"
                     	readOnly="${notOtherDeliveryBuilding or not (fullEntryMode or amendmentEntry) or deliveryReadOnly}" tabindexOverride="${tabindexOverrideBase + 0}"/>
                 </td>
 			</tr>
         </table>
 
-	   	<c:if test="${displayReceivingAddress}">    
-	   	
+	   	<c:if test="${displayReceivingAddress}">
+
     	<!---- Receiving Address ---->
             <h3>Receiving Address</h3>
 
-		<table cellpadding="0" cellspacing="0" class="datatable" summary="Receiving Address Section">	 
+		<table cellpadding="0" cellspacing="0" class="datatable" summary="Receiving Address Section">
 			<tr>
                 <th class="right">
                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.receivingName}" />
                 </th>
-                <td class="datacell"> 
+                <td class="datacell">
                 	<kul:htmlControlAttribute attributeEntry="${documentAttributes.receivingName}" property="document.receivingName" readOnly="true" /><br>
                    	<kul:htmlControlAttribute attributeEntry="${documentAttributes.receivingLine1Address}" property="document.receivingLine1Address" readOnly="true" /><br>
-                   	<c:if test="${! empty KualiForm.document.receivingLine2Address}">                   	
+                   	<c:if test="${! empty KualiForm.document.receivingLine2Address}">
                    		<kul:htmlControlAttribute attributeEntry="${documentAttributes.receivingLine2Address}" property="document.receivingLine2Address" readOnly="true" /><br>
                    	</c:if>
   	           		<kul:htmlControlAttribute attributeEntry="${documentAttributes.receivingCityName}" property="document.receivingCityName" readOnly="true" />,&nbsp;
                     <kul:htmlControlAttribute attributeEntry="${documentAttributes.receivingStateCode}" property="document.receivingStateCode" readOnly="true" />&nbsp;
                     <kul:htmlControlAttribute attributeEntry="${documentAttributes.receivingPostalCode}" property="document.receivingPostalCode" readOnly="true" />
-                   	<c:if test="${! empty KualiForm.document.receivingCountryCode}">                   	
-	            		<br><kul:htmlControlAttribute attributeEntry="${documentAttributes.receivingCountryCode}" 
-	            			property="document.receivingCountryCode" 
+                   	<c:if test="${! empty KualiForm.document.receivingCountryCode}">
+	            		<br><kul:htmlControlAttribute attributeEntry="${documentAttributes.receivingCountryCode}"
+	            			property="document.receivingCountryCode"
 	            			extraReadOnlyProperty="document.receivingCountryName"
 	            			readOnly="true" />
                    	</c:if>
             	</td>
                 <td class="datacell">
-                    <c:if test="${fullEntryMode || amendmentEntry}" > 
+                    <c:if test="${fullEntryMode || amendmentEntry}" >
                     	<kul:lookup boClassName="org.kuali.kfs.module.purap.businessobject.ReceivingAddress"
                     		lookupParameters="'Y':active,document.chartOfAccountsCode:chartOfAccountsCode,document.organizationCode:organizationCode"
                     		fieldConversions="receivingName:document.receivingName,receivingCityName:document.receivingCityName,receivingLine1Address:document.receivingLine1Address,receivingLine2Address:document.receivingLine2Address,receivingCityName:document.receivingCityName,receivingStateCode:document.receivingStateCode,receivingPostalCode:document.receivingPostalCode,receivingCountryCode:document.receivingCountryCode,useReceivingIndicator:document.addressToVendorIndicator"/>
-                    </c:if>            		
+                    </c:if>
             	</td>
             </tr>
         </table>
-        
+
     	<!---- Address To Vendor ---->
             <h3>Address To Vendor</h3>
-        
+
 		<table cellpadding="0" cellspacing="0" class="datatable" summary="Address To Vendor Section">
 			<tr>
 				<th class="right">
-					
+
 						<c:choose>
 							<c:when test="${(fullEntryMode || amendmentEntry) && !lockAddressToVendor}" >
 								<kul:htmlAttributeLabel attributeEntry="${documentAttributes.addressToVendorIndicator}" />
@@ -273,8 +273,8 @@
 					</div>
 				</th>
 				<td class="datacell">
-                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.addressToVendorIndicator}" property="document.addressToVendorIndicator" 
-                    	readOnly="${!(fullEntryMode || amendmentEntry) || lockAddressToVendor}" tabindexOverride="${tabindexOverrideBase + 5}"/><br>				
+                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.addressToVendorIndicator}" property="document.addressToVendorIndicator"
+                    	readOnly="${!(fullEntryMode || amendmentEntry) || lockAddressToVendor}" tabindexOverride="${tabindexOverrideBase + 5}"/><br>
 					<!--
 					<c:choose>
 						<c:when test="${KualiForm.document.addressToVendorIndicator == 'true'}">
@@ -290,8 +290,8 @@
             	</td>
             </tr>
         </table>
-					
-		</c:if>            		
+
+		</c:if>
 
 	</div>
 </kul:tab>

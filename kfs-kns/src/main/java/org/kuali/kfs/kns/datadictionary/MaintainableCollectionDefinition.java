@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,7 +41,7 @@ import java.util.Map;
         collection             true
         name                   name of collection
         dataObjectClass    name of collection class
-        
+
 * name is the name of the collection
 * dataObjectClass is the class name of the objects in the collection
 * sourceClassName is the class name of the BO used in a lookup
@@ -117,7 +117,7 @@ public class MaintainableCollectionDefinition extends MaintainableItemDefinition
 
     /**
      * Directly validate simple fields, call completeValidation on Definition fields.
-     * 
+     *
      * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Object)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -130,7 +130,7 @@ public class MaintainableCollectionDefinition extends MaintainableItemDefinition
                 throw new AttributeValidationException("unable to find attribute named '" + attributeToHighlightOnDuplicateKey + "'in dataObjectClass '" + businessObjectClass.getName() + "' of collection '" + getName() + "' in rootBusinessObjectClass '" + rootBusinessObjectClass.getName() + "' (" + "" + ")");
             }
         }
-        
+
         for (MaintainableFieldDefinition maintainableField : maintainableFields ) {
             maintainableField.completeValidation(businessObjectClass, null);
         }
@@ -142,7 +142,7 @@ public class MaintainableCollectionDefinition extends MaintainableItemDefinition
 //        for (MaintainableFieldDefinition summaryField : summaryFields ) {
 //            summaryField.completeValidation(dataObjectClass, null, validationCompletionUtils);
 //        }
-//        
+//
 //        for (MaintainableFieldDefinition identifierField : duplicateIdentificationFields) {
 //            identifierField.completeValidation(dataObjectClass, null, validationCompletionUtils);
 //        }
@@ -190,7 +190,7 @@ public class MaintainableCollectionDefinition extends MaintainableItemDefinition
         return maintainableCollections;
     }
 
-    
+
     /**
      * @return Collection of all SummaryFieldDefinitions associated with this SummaryFieldDefinition, in the order in which they
      *         were added
@@ -320,7 +320,7 @@ summaryTitle is the label of the summary
                 throw new DuplicateEntryException("duplicate fieldName entry for field '" + fieldName + "'");
             }
 
-            duplicateIdentificationFieldMap.put(fieldName, identifierField);            
+            duplicateIdentificationFieldMap.put(fieldName, identifierField);
         }
         this.duplicateIdentificationFields = duplicateIdentificationFields;
     }
@@ -337,5 +337,5 @@ summaryTitle is the label of the summary
 			boolean alwaysAllowCollectionDeletion) {
 		this.alwaysAllowCollectionDeletion = alwaysAllowCollectionDeletion;
 	}
-    
+
 }

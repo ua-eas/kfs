@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,7 +53,7 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
 
     /**
      * Returns directory path for EnterpriseFeederService
-     * 
+     *
      * @param fileType file type (not used)
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getDirectoryPath(java.lang.String)
      */
@@ -66,7 +66,7 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
 
     /**
      * Get all relevant file types for Enterprise Feeder File Set
-     * 
+     *
      * @return List<String> including "DATA", "RECON" file types
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getFileTypes()
      */
@@ -79,7 +79,7 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
 
     /**
      * Returns the file extension depending on the file type
-     * 
+     *
      * @param fileType the file type (returned in {@link #getFileTypes()})
      * @return the file extension
      */
@@ -95,7 +95,7 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
 
     /**
      * Returns a map with the enterprise feeder file type descriptions
-     * 
+     *
      * @return a map containing the following key/description pairs: DATA/Data Files, RECON/Reconciliation File
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#getFileTypeDescription()
      */
@@ -108,7 +108,7 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
 
     /**
      * Return the file name based on information from user and file user identifier
-     * 
+     *
      * @param user Person object representing user who uploaded file
      * @param fileUserIdentifer String representing user who uploaded file
      * @return String enterprise feeder formated file name string using information from user and file user identifier
@@ -151,7 +151,7 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
 
     /**
      * Return true if file is required
-     * 
+     *
      * @param fileType type of file
      * @return true if file type is required
      * @see org.kuali.kfs.sys.batch.BatchInputFileSetType#isFileRequired(java.lang.String)
@@ -179,7 +179,7 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
 
     /**
      * Returns done file name for a specific user and file user identifier
-     * 
+     *
      * @param user the user who uploaded or will upload the file
      * @param fileUserIdentifier the file identifier
      * @return String done file name
@@ -199,7 +199,7 @@ public class EnterpriseFeederFileSetType implements BatchInputFileSetType {
 
     /**
      * Return set of file user identifiers from a list of files
-     * 
+     *
      * @param user user who uploaded or will upload file
      * @param files list of files objects
      * @return Set containing all user identifiers from list of files

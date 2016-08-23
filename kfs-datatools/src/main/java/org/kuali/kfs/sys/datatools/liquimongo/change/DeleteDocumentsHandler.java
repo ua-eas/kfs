@@ -42,9 +42,9 @@ public class DeleteDocumentsHandler extends AbstractDocumentStoreChangeHandler i
         verifyKeyExistence(change,QUERY);
 
         String collectionName = change.get(COLLECTION_NAME).asText();
-        JsonNode query = change.get(QUERY); 
+        JsonNode query = change.get(QUERY);
         Query q = JsonUtils.getQueryFromJson(query);
-        
+
         mongoTemplate.remove(q, collectionName);
     }
 

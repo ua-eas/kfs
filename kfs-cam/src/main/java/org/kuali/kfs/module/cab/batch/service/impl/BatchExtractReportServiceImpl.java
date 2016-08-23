@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -89,7 +89,7 @@ public class BatchExtractReportServiceImpl implements BatchExtractReportService 
 
     /**
      * Gets the reportGenerationService attribute.
-     * 
+     *
      * @return Returns the reportGenerationService.
      */
     public ReportGenerationService getReportGenerationService() {
@@ -98,7 +98,7 @@ public class BatchExtractReportServiceImpl implements BatchExtractReportService 
 
     /**
      * Sets the reportGenerationService attribute value.
-     * 
+     *
      * @param reportGenerationService The reportGenerationService to set.
      */
     public void setReportGenerationService(ReportGenerationService reportGenerationService) {
@@ -107,7 +107,7 @@ public class BatchExtractReportServiceImpl implements BatchExtractReportService 
 
     /**
      * Gets the cabBatchStatusReportInfo attribute.
-     * 
+     *
      * @return Returns the cabBatchStatusReportInfo.
      */
     public ReportInfo getCabBatchStatusReportInfo() {
@@ -116,7 +116,7 @@ public class BatchExtractReportServiceImpl implements BatchExtractReportService 
 
     /**
      * Sets the cabBatchStatusReportInfo attribute value.
-     * 
+     *
      * @param cabBatchStatusReportInfo The cabBatchStatusReportInfo to set.
      */
     public void setCabBatchStatusReportInfo(ReportInfo cabBatchStatusReportInfo) {
@@ -126,7 +126,7 @@ public class BatchExtractReportServiceImpl implements BatchExtractReportService 
 
     /**
      * Gets the dateTimeService attribute.
-     * 
+     *
      * @return Returns the dateTimeService.
      */
     public DateTimeService getDateTimeService() {
@@ -135,7 +135,7 @@ public class BatchExtractReportServiceImpl implements BatchExtractReportService 
 
     /**
      * Sets the dateTimeService attribute value.
-     * 
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -144,7 +144,7 @@ public class BatchExtractReportServiceImpl implements BatchExtractReportService 
 
     /**
      * Gets the cabBatchMismatchReportInfo attribute.
-     * 
+     *
      * @return Returns the cabBatchMismatchReportInfo.
      */
     public ReportInfo getCabBatchMismatchReportInfo() {
@@ -153,7 +153,7 @@ public class BatchExtractReportServiceImpl implements BatchExtractReportService 
 
     /**
      * Sets the cabBatchMismatchReportInfo attribute value.
-     * 
+     *
      * @param cabBatchMismatchReportInfo The cabBatchMismatchReportInfo to set.
      */
     public void setCabBatchMismatchReportInfo(ReportInfo cabBatchMismatchReportInfo) {

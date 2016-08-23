@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,8 +37,8 @@ import java.util.Map;
 /**
  * Field that presents an action that can be taken on the UI such as submitting
  * the form or invoking a script
- * 
- * 
+ *
+ *
  */
 public class ActionField extends FieldBase {
     private static final long serialVersionUID = 1025672792657238829L;
@@ -81,7 +81,7 @@ public class ActionField extends FieldBase {
      * <ul>
      * <li>Set the actionLabel if blank to the Field label</li>
      * </ul>
-     * 
+     *
      * @see ComponentBase#performInitialization(View, java.lang.Object)
      */
     @Override
@@ -100,7 +100,7 @@ public class ActionField extends FieldBase {
      * <li>Add methodToCall action parameter if set and setup event code for
      * setting action parameters</li>
      * </ul>
-     * 
+     *
      * @see ComponentBase#performFinalize(View,
      *      java.lang.Object, Component)
      */
@@ -202,7 +202,7 @@ public class ActionField extends FieldBase {
                 writeParamsScript = writeParamsScript + "writeHiddenToForm('jumpToName' , '" + jumpToNameAfterSubmit
                         + "'); ";
             }
-            
+
             String postScript = "";
             if (StringUtils.isNotBlank(clientSideJs)) {
                 postScript = clientSideJs;
@@ -268,7 +268,7 @@ public class ActionField extends FieldBase {
      * selected. For client side calls gives the name of the script function
      * that should be invoked when the action is selected
      * </p>
-     * 
+     *
      * @return String name of method to call
      */
     public String getMethodToCall() {
@@ -277,7 +277,7 @@ public class ActionField extends FieldBase {
 
     /**
      * Setter for the actions method to call
-     * 
+     *
      * @param methodToCall
      */
     public void setMethodToCall(String methodToCall) {
@@ -291,7 +291,7 @@ public class ActionField extends FieldBase {
      * label for the action. For buttons this generally is the button text,
      * while for an action link it would be the links displayed text
      * </p>
-     * 
+     *
      * @return String label for action
      */
     public String getActionLabel() {
@@ -300,7 +300,7 @@ public class ActionField extends FieldBase {
 
     /**
      * Setter for the actions label
-     * 
+     *
      * @param actionLabel
      */
     public void setActionLabel(String actionLabel) {
@@ -315,7 +315,7 @@ public class ActionField extends FieldBase {
      * action link templates the image is used for the link instead of the
      * action link text
      * </p>
-     * 
+     *
      * @return ImageField action image
      */
     public ImageField getActionImage() {
@@ -324,7 +324,7 @@ public class ActionField extends FieldBase {
 
     /**
      * Setter for the action image field
-     * 
+     *
      * @param actionImage
      */
     public void setActionImage(ImageField actionImage) {
@@ -340,7 +340,7 @@ public class ActionField extends FieldBase {
      * Support exists in the <code>UifControllerBase</code> for handling
      * navigation between pages
      * </p>
-     * 
+     *
      * @return String id of page that should be rendered when the action item is
      *         selected
      */
@@ -350,7 +350,7 @@ public class ActionField extends FieldBase {
 
     /**
      * Setter for the navigate to page id
-     * 
+     *
      * @param navigateToPageId
      */
     public void setNavigateToPageId(String navigateToPageId) {
@@ -394,7 +394,7 @@ public class ActionField extends FieldBase {
      * to provide the context the action is in (such as the collection name and
      * line the action applies to)
      * </p>
-     * 
+     *
      * @return Map<String, String> action parameters
      */
     public Map<String, String> getActionParameters() {
@@ -403,7 +403,7 @@ public class ActionField extends FieldBase {
 
     /**
      * Setter for the action parameters
-     * 
+     *
      * @param actionParameters
      */
     public void setActionParameters(Map<String, String> actionParameters) {
@@ -412,7 +412,7 @@ public class ActionField extends FieldBase {
 
     /**
      * Convenience method to add a parameter to the action parameters Map
-     * 
+     *
      * @param parameterName
      *            - name of parameter to add
      * @param parameterValue
@@ -472,7 +472,7 @@ public class ActionField extends FieldBase {
 
     /**
      * Setter for the light box lookup widget
-     * 
+     *
      * @param lightBoxLookup
      *            <code>LightBoxLookup</code> widget to set
      */
@@ -486,7 +486,7 @@ public class ActionField extends FieldBase {
      * The light box lookup widget will change the lookup behaviour to open the
      * lookup in a light box.
      * </p>
-     * 
+     *
      * @return the <code>DirectInquiry</code> field DirectInquiry
      */
     public LightBox getLightBoxLookup() {
@@ -508,7 +508,7 @@ public class ActionField extends FieldBase {
      * jumpToNameAfterSubmit will result in this ActionField being jumped to by
      * default if it is present on the new page. WARNING: jumpToIdAfterSubmit
      * always takes precedence over jumpToNameAfterSubmit, if set.
-     * 
+     *
      * @param jumpToIdAfterSubmit
      *            the jumpToIdAfterSubmit to set
      */
@@ -523,7 +523,7 @@ public class ActionField extends FieldBase {
      * will result in this ActionField being jumped to by default if it is
      * present on the new page. WARNING: jumpToIdAfterSubmit always takes
      * precedence over jumpToNameAfterSubmit, if set.
-     * 
+     *
      * @return the jumpToNameAfterSubmit
      */
     public String getJumpToNameAfterSubmit() {
@@ -543,7 +543,7 @@ public class ActionField extends FieldBase {
      * is retrieved. Passing in "FIRST" will focus on the first visible input
      * element on the form. Passing in the empty string will result in this
      * ActionField being focused.
-     * 
+     *
      * @return the focusOnAfterSubmit
      */
     public String getFocusOnAfterSubmit() {
@@ -583,7 +583,7 @@ public class ActionField extends FieldBase {
      * will be the last script executed by the click event. Sidenote: This js is
      * always called after hidden actionParameters and methodToCall methods are
      * written by the js to the html form.
-     * 
+     *
      * @return the clientSideJs
      */
     public String getClientSideJs() {
@@ -603,7 +603,7 @@ public class ActionField extends FieldBase {
 
     /**
      * Setter for the light box direct inquiry widget
-     * 
+     *
      * @param lightBoxDirectInquiry
      *            <code>LightBox</code> widget to set
      */
@@ -617,7 +617,7 @@ public class ActionField extends FieldBase {
      * The light box widget will change the direct inquiry behaviour to open up
      * in a light box.
      * </p>
-     * 
+     *
      * @return the <code>LightBox</code> field LightBox
      */
     public LightBox getLightBoxDirectInquiry() {

@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -38,11 +38,11 @@
                 <tr>
                     <kul:htmlAttributeHeaderCell literalLabel="add:" scope="row"/>
                     <td class="infoline">
-                        <kul:htmlControlAttribute 
-                            attributeEntry="${stipulationAttributes.vendorStipulationDescription}" 
-                            property="newPurchaseOrderVendorStipulationLine.vendorStipulationDescription" 
+                        <kul:htmlControlAttribute
+                            attributeEntry="${stipulationAttributes.vendorStipulationDescription}"
+                            property="newPurchaseOrderVendorStipulationLine.vendorStipulationDescription"
                             tabindexOverride="${tabindexOverrideBase + 0}"/>
-                        <kul:lookup boClassName="org.kuali.kfs.module.purap.businessobject.VendorStipulation" 
+                        <kul:lookup boClassName="org.kuali.kfs.module.purap.businessobject.VendorStipulation"
                         	readOnlyFields="active" lookupParameters="'Y':active"
                         	fieldConversions="vendorStipulationDescription:document.vendorStipulationDescription" /></div>
                     </td>
@@ -61,13 +61,13 @@
                     <tr>
 		                <td class="infoline">&nbsp;</td>
 		                <td align=center valign=middle class="datacell">
-		                    <kul:htmlControlAttribute 
-		                        attributeEntry="${stipulationAttributes.vendorStipulationDescription}" 
-		                        property="document.purchaseOrderVendorStipulation[${ctr}].vendorStipulationDescription" 
-		                        readOnly="${not (fullEntryMode or (!empty KualiForm.editingMode['amendmentEntry']))}" 
+		                    <kul:htmlControlAttribute
+		                        attributeEntry="${stipulationAttributes.vendorStipulationDescription}"
+		                        property="document.purchaseOrderVendorStipulation[${ctr}].vendorStipulationDescription"
+		                        readOnly="${not (fullEntryMode or (!empty KualiForm.editingMode['amendmentEntry']))}"
 		                        tabindexOverride="${tabindexOverrideBase + 0}" />
 		                </td>
-		                <c:if test="${(fullEntryMode or (!empty KualiForm.editingMode['amendmentEntry']))}" >		                
+		                <c:if test="${(fullEntryMode or (!empty KualiForm.editingMode['amendmentEntry']))}" >
 		                	<td class="infoline">
                                     <html:submit
                                             property="methodToCall.deleteStipulation.line${ctr}"

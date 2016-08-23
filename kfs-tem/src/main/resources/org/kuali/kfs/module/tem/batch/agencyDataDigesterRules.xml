@@ -1,36 +1,36 @@
 <?xml version="1.0"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-<!DOCTYPE digester-rules 
-    PUBLIC "-//Jakarta Apache //DTD digester-rules XML V1.0//EN" 
+<!DOCTYPE digester-rules
+    PUBLIC "-//Jakarta Apache //DTD digester-rules XML V1.0//EN"
     "http://jakarta.apache.org/commons/digester/dtds/digester-rules.dtd">
 
 <digester-rules>
 
 	<pattern value="agencyData">
 		<object-create-rule classname="org.kuali.kfs.module.tem.businessobject.AgencyImportData"  />
-		
+
         <call-method-rule  pattern="importBy" methodname="setImportBy" paramcount="0" />
-		        
-        <pattern value="record">  
+
+        <pattern value="record">
 			<object-create-rule classname="org.kuali.kfs.module.tem.businessobject.AgencyStagingData"  />
-			
+
 			<!-- Agency Information -->
 	 		<call-method-rule pattern="agencyDataId" methodname="setAgencyDataId" paramcount="0" paramtypes="java.lang.Integer" />
 			<call-method-rule pattern="creditCardOrAgencyCode" methodname="setCreditCardOrAgencyCode" paramcount="0" />
@@ -39,13 +39,13 @@
 			<call-method-rule pattern="agencyFileName" methodname="setAgencyFileName" paramcount="0" />
 			<call-method-rule pattern="merchantName" methodname="setMerchantName" paramcount="0" />
 			<call-method-rule pattern="billingCycleDate" methodname="setBillingCycleDate" paramcount="0" paramtypes="java.sql.Date" />
-	
+
 			<!-- Trip Information -->
 			<call-method-rule pattern="tripId" methodname="setTripId" paramcount="0" />
 			<call-method-rule pattern="tripInvoiceNumber" methodname="setTripInvoiceNumber" paramcount="0" />
 			<call-method-rule pattern="tripTravelerTypeId" methodname="setTripTravelerTypeId" paramcount="0" />
 			<call-method-rule pattern="otherAmount" methodname="setOtherAmount" paramcount="0" />
-			
+
 			<!-- Traveler Information -->
 			<call-method-rule pattern="travelerName" methodname="setTravelerName" paramcount="0" />
 			<call-method-rule pattern="travelerId" methodname="setTravelerId" paramcount="0" />
@@ -53,9 +53,9 @@
 			<call-method-rule pattern="tripExpenseAmount" methodname="setTripExpenseAmount" paramcount="0" />
 			<call-method-rule pattern="alternateTripId" methodname="setAlternateTripId" paramcount="0" />
 			<call-method-rule pattern="tripArrangerName" methodname="setTripArrangerName" paramcount="0" />
-			
+
 			<!-- Accounting Information -->
-			<pattern value="accountingInfo">  
+			<pattern value="accountingInfo">
         		<object-create-rule classname="org.kuali.kfs.module.tem.businessobject.TripAccountingInformation" />
         		<call-method-rule pattern="tripChartCode" methodname="setTripChartCode" paramcount="0" />
         		<call-method-rule pattern="tripAccountNumber" methodname="setTripAccountNumber" paramcount="0" />
@@ -64,13 +64,13 @@
 			    <call-method-rule pattern="subObjectCode" methodname="setSubObjectCode" paramcount="0" />
 			    <call-method-rule pattern="projectCode" methodname="setProjectCode" paramcount="0" />
 			    <call-method-rule pattern="organizationReference" methodname="setOrganizationReference" paramcount="0" />
-			    
+
             	<set-next-rule methodname="addTripAccountingInformation" />
 			</pattern>
-			
+
 			<call-method-rule pattern="groupObjectCode" methodname="setGroupObjectCode" paramcount="0" />
 			<call-method-rule pattern="distributionCode" methodname="setDistributionCode" paramcount="0" />
-			
+
 			<!-- Airline Information -->
 			<call-method-rule pattern="tripDepartureDate" methodname="setTripDepartureDate" paramcount="0" paramtypes="java.sql.Date" />
 			<call-method-rule pattern="tripReturnDate" methodname="setTripReturnDate" paramcount="0" paramtypes="java.sql.Date" />
@@ -90,7 +90,7 @@
 			<call-method-rule pattern="airServiceFeeNumber" methodname="setAirServiceFeeNumber" paramcount="0" />
 			<call-method-rule pattern="airServiceFeeAmount" methodname="setAirServiceFeeAmount" paramcount="0" />
 			<call-method-rule pattern="transactionUniqueId" methodname="setTransactionUniqueId" paramcount="0" />
-			
+
 			<!-- Lodging information -->
 			<call-method-rule pattern="lodgingItineraryNumber" methodname="setLodgingItineraryNumber" paramcount="0" />
 			<call-method-rule pattern="lodgingPrepayDate" methodname="setLodgingPrepayDate" paramcount="0" paramtypes="java.sql.Date" />
@@ -103,7 +103,7 @@
 			<call-method-rule pattern="lodgingPropertyCityName" methodname="setLodgingPropertyCityName" paramcount="0" />
 			<call-method-rule pattern="lodgingPropertyStateCode" methodname="setLodgingPropertyStateCode" paramcount="0" />
 			<call-method-rule pattern="lodgingCountryName" methodname="setLodgingCountryName" paramcount="0" />
-			
+
 			<!-- Rental Car Information -->
 			<call-method-rule pattern="rentalCarItineraryNumber" methodname="setRentalCarItineraryNumber" paramcount="0" />
 			<call-method-rule pattern="rentalCarAmount" methodname="setRentalCarAmount" paramcount="0" />
@@ -118,11 +118,11 @@
 			<call-method-rule pattern="rentalCarGovernmentSurchargeAmount" methodname="setRentalCarGovernmentSurchargeAmount" paramcount="0" />
 			<call-method-rule pattern="rentalCarBillAmount" methodname="setRentalCarBillAmount" paramcount="0" />
 			<call-method-rule pattern="rentalCarDetailText" methodname="setRentalCarDetailText" paramcount="0" />
-			
+
 			<!-- Conference Registration -->
 			<call-method-rule pattern="registrationCompanyName" methodname="setRegistrationCompanyName" paramcount="0" />
 			<call-method-rule pattern="registrationAmount" methodname="setRegistrationAmount" paramcount="0" />
-			
+
 			<!-- Processing Information -->
 			<call-method-rule pattern="transactionPostingDate" methodname="setTransactionPostingDate" paramcount="0" paramtypes="java.sql.Date" />
 			<call-method-rule pattern="objectVersionNumber" methodname="setObjectVerNumber" paramcount="0" paramtypes="java.lang.Integer" />
@@ -132,7 +132,7 @@
 
             <set-next-rule methodname="addAgencyStagingData" />
        	</pattern>
-       	
+
 	</pattern>
 
 </digester-rules>

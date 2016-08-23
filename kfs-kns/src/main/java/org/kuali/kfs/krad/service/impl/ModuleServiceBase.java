@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,7 +39,7 @@ import java.util.Properties;
 /**
  * This class implements ModuleService interface.
  *
- * 
+ *
  */
 public class ModuleServiceBase extends RemoteModuleServiceBase implements ModuleService {
 
@@ -97,17 +97,17 @@ public class ModuleServiceBase extends RemoteModuleServiceBase implements Module
     @Deprecated
     @Override
     protected String getInquiryUrl(Class inquiryBusinessObjectClass) {
-        
+
         String riceBaseUrl = "";
         String potentialUrlAddition = "";
 
         if (goToCentralRiceForInquiry()) {
-            riceBaseUrl = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KRADConstants.KUALI_RICE_URL_KEY); 
+            riceBaseUrl = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KRADConstants.KUALI_RICE_URL_KEY);
         } else {
             riceBaseUrl = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY);
             potentialUrlAddition = "kr/";
         }
-        
+
         String inquiryUrl = riceBaseUrl;
         if (!inquiryUrl.endsWith("/")) {
             inquiryUrl = inquiryUrl + "/";
@@ -146,19 +146,19 @@ public class ModuleServiceBase extends RemoteModuleServiceBase implements Module
             riceBaseUrl = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY);
             potentialUrlAddition = "kr/";
         }
-        
+
         String lookupUrl = riceBaseUrl;
         if (!lookupUrl.endsWith("/")) {
             lookupUrl = lookupUrl + "/";
         }
-        
+
         if (parameters.containsKey(KRADConstants.MULTIPLE_VALUE)) {
             lookupUrl = lookupUrl + potentialUrlAddition + KRADConstants.MULTIPLE_VALUE_LOOKUP_ACTION;
         }
         else {
             lookupUrl = lookupUrl + potentialUrlAddition + KRADConstants.LOOKUP_ACTION;
         }
-           
+
         for (String paramName : parameters.keySet()) {
             urlParameters.put(paramName, parameters.get(paramName));
         }
@@ -191,7 +191,7 @@ public class ModuleServiceBase extends RemoteModuleServiceBase implements Module
         return businessObjectService;
     }
 
-    public boolean goToCentralRiceForInquiry() { 
+    public boolean goToCentralRiceForInquiry() {
         return false;
     }
 

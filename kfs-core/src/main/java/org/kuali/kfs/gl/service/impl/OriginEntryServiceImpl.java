@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -76,16 +76,16 @@ public class OriginEntryServiceImpl implements OriginEntryService {
     public OriginEntryServiceImpl() {
         super();
     }
-    
+
     public void createEntry(OriginEntryFull originEntry, PrintStream ps) {
-        LOG.debug("createEntry() with PrintStream started");   
-        
+        LOG.debug("createEntry() with PrintStream started");
+
         try {
             ps.printf("%s\n", originEntry.getLine());
         } catch (Exception e) {
             throw new RuntimeException(e.toString());
         }
-        
+
     }
 
     /**
@@ -94,7 +94,7 @@ public class OriginEntryServiceImpl implements OriginEntryService {
      * @return a LedgerEntryHolder with all of the summarized information
      * @see org.kuali.kfs.gl.service.OriginEntryService#getSummaryByGroupId(Collection)
      */
-    
+
     //TODO:- This method used for report. I will delete this method after all reports are done.
     public LedgerEntryHolder getSummaryByGroupId(Collection groupIdList) {
         LOG.debug("getSummaryByGroupId() started");
@@ -110,7 +110,7 @@ public class OriginEntryServiceImpl implements OriginEntryService {
 
     /**
      * Creates or updates a ledger entry with the array of information from the given entry summary object
-     * 
+     *
      * @param entrySummary a collection of java.lang.Objects, which is what OJB report queries return
      * @return a LedgerEntry holding the given report summarization data
      */
@@ -154,7 +154,7 @@ public class OriginEntryServiceImpl implements OriginEntryService {
     /**
      * This method writes origin entries into a file format. This particular implementation will use the OriginEntryFull.getLine
      * method to generate the text for this file.
-     * 
+     *
      * @param entries An iterator of OriginEntries
      * @param bw an opened, ready-for-output bufferedOutputStream.
      * @see org.kuali.kfs.gl.service.OriginEntryService#flatFile(java.util.Iterator, java.io.BufferedOutputStream)
@@ -171,9 +171,9 @@ public class OriginEntryServiceImpl implements OriginEntryService {
             throw new RuntimeException("Error writing to file: " + e.getMessage());
         }
     }
-    
+
     public  Map getEntriesByGroupIdWithPath(String fileNameWithPath, List<OriginEntryFull> originEntryList) {
-        
+
         FileReader INPUT_GLE_FILE = null;
         BufferedReader INPUT_GLE_FILE_br;
         try {
@@ -182,7 +182,7 @@ public class OriginEntryServiceImpl implements OriginEntryService {
             throw new RuntimeException(e);
         }
         INPUT_GLE_FILE_br = new BufferedReader(INPUT_GLE_FILE);
-        
+
         boolean loadError = false;
         //returnErrorList is list of List<Message>
         Map returnMessageMap = getEntriesByBufferedReader(INPUT_GLE_FILE_br, originEntryList);
@@ -193,16 +193,16 @@ public class OriginEntryServiceImpl implements OriginEntryService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        
+
         return returnMessageMap;
     }
-    
+
     public Map getEntriesByBufferedReader(BufferedReader inputBufferedReader, List<OriginEntryFull> originEntryList) {
         String line;
         int lineNumber = 0;
         Map returnMessageMap = new HashMap();
         try {
-            List<Message> tmperrors = new ArrayList();    
+            List<Message> tmperrors = new ArrayList();
             while ((line = inputBufferedReader.readLine()) != null) {
                 lineNumber++;
                 OriginEntryFull originEntry = new OriginEntryFull();
@@ -217,20 +217,20 @@ public class OriginEntryServiceImpl implements OriginEntryService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-            
+
         return returnMessageMap;
 
-        
+
     }
 
     /**
      * get the summarized information of poster input entries that belong to the entry groups with the given group id list
-     * 
+     *
      * @param groupIdList the origin entry groups
      * @return a map of summarized information of poster input entries within the specified groups
      * @see org.kuali.kfs.gl.service.OriginEntryService#getPosterOutputSummaryByGroupId(java.util.Collection)
      */
-    
+
     //TODO:- This method used for report. This method can be deleted after all reports are done.
     public Map<String, PosterOutputSummaryEntry> getPosterOutputSummaryByGroupId(Collection groupIdList) {
         LOG.debug("getPosterOutputSummaryByGroupId() started");
@@ -248,7 +248,7 @@ public class OriginEntryServiceImpl implements OriginEntryService {
         File file = new File(fileNameWithPath);
         Iterator<OriginEntryFull> fileIterator = new OriginEntryFileIterator(file);
         int count = 0;
-        
+
         while(fileIterator.hasNext()){
             count++;
             fileIterator.next();

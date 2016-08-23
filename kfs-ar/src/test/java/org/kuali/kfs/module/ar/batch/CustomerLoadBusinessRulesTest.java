@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,37 +41,37 @@ public class CustomerLoadBusinessRulesTest extends KualiTestBase {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerLoadBusinessRulesTest.class);
 
     CustomerLoadService customerLoadService;
-    
+
     public void setUp() {
         customerLoadService = SpringContext.getBean(CustomerLoadService.class);
     }
-    
+
     public void testNothing() {
-        
+
     }
-    
+
     public void NORUN_testErrorMessages_BadDocument1() {
         List<CustomerDigesterVO> customerVOs = new ArrayList<CustomerDigesterVO>();
         CustomerDigesterVO customerVO = CustomerLoadVOGenerator.generateCustomerVO(CustomerLoadVOGenerator.getValidCustomerVO1(), CustomerLoadVOGenerator.getValidAddressVO1());
         customerVOs.add(customerVO);
-        
+
         boolean result = false;
         List<MaintenanceDocument> customerMaintDocs = new ArrayList<MaintenanceDocument>();
-        
+
         assertTrue("GlobalVariables MessageMap should be empty.", GlobalVariables.getMessageMap().hasErrors());
-        
+
         result = customerLoadService.validateAndPrepare(customerVOs, customerMaintDocs, true);
         showMessageMap();
-        
+
         assertTrue("The Validation should have produced no error messages.", GlobalVariables.getMessageMap().hasErrors());
-        
+
     }
-    
+
     /**
-     * 
+     *
      * This method is used during debugging to dump the contents of the error map, including the key names. It is not used by the
      * application in normal circumstances at all.
-     * 
+     *
      */
     private void showMessageMap() {
 
@@ -84,7 +84,7 @@ public class CustomerLoadBusinessRulesTest extends KualiTestBase {
         for (String errorMapKey : errorMapKeys) {
             errorMapEntry = (AutoPopulatingList<ErrorMessage>) (GlobalVariables.getMessageMap()).getMessages(errorMapKey);
             for (ErrorMessage errorMessage : errorMapEntry) {
-                
+
                 if (errorMessage.getMessageParameters() == null) {
                     LOG.error("[" + errorMapKey + "] " + errorMessage.getErrorKey());
                 }
@@ -100,7 +100,7 @@ public class CustomerLoadBusinessRulesTest extends KualiTestBase {
         String comma = "";
         for (int i = 0; i < stringArray.length; i++) {
             sb.append(comma + stringArray[i]);
-            if ("".equals(comma)) comma = ","; 
+            if ("".equals(comma)) comma = ",";
         }
         return sb.toString();
     }

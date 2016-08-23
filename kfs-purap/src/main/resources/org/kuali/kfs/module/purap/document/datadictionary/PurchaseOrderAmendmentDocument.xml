@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -22,7 +22,7 @@
 
   <bean id="PurchaseOrderAmendmentDocument-parentBean" abstract="true" parent="TransactionalDocumentEntry">
     <property name="documentTypeName" value="POA"/>
-    <property name="sessionDocument" value="true"/>    
+    <property name="sessionDocument" value="true"/>
     <property name="documentClass" value="org.kuali.kfs.module.purap.document.PurchaseOrderAmendmentDocument"/>
     <property name="baseDocumentClass" value="org.kuali.kfs.module.purap.document.PurchaseOrderAmendmentDocument"/>
     <property name="businessRulesClass" value="org.kuali.kfs.sys.document.validation.impl.AccountingRuleEngineRuleBase"/>
@@ -43,7 +43,7 @@
 	        <entry>
     			<key><value>distributeSource</value></key>
 	    		<ref bean="PurchaseOrderDocument-distributeSourceAccountingLineGroup" parent="AccountingLineGroup"/>
-	    	</entry>	    	
+	    	</entry>
     	</map>
     </property>
     <property name="attributes">
@@ -66,9 +66,9 @@
     	</list>
     </property>
   </bean>
-  
+
   <!-- Attribute Definitions -->
-  
+
   <bean id="PurchaseOrderAmendmentDocument-newUnorderedItem" parent="PurchaseOrderAmendmentDocument-newUnorderedItem-parentBean"/>
 
   <bean id="PurchaseOrderAmendmentDocument-newUnorderedItem-parentBean" abstract="true" parent="AttributeDefinition">
@@ -95,10 +95,10 @@
 
 
   <bean id="PurchaseOrderAmendmentDocument-validations" parent="PurchaseOrderAmendmentDocument-validations-parentBean"/>
-  
+
   <bean id="PurchaseOrderAmendmentDocument-validations-parentBean" abstract="true"  class="org.springframework.beans.factory.config.MapFactoryBean">
     <property name="sourceMap">
-	  <map key-type="java.lang.Class">			
+	  <map key-type="java.lang.Class">
 	    <entry>
 		  <key><value>org.kuali.kfs.sys.document.validation.event.AttributedRouteDocumentEvent</value></key>
 		  <value>PurchaseOrderAmendment-routeDocumentValidation</value>
@@ -106,61 +106,61 @@
 		<entry>
 		  <key><value>org.kuali.kfs.sys.document.validation.event.AttributedApproveDocumentEvent</value></key>
 		  <value>PurchaseOrderAmendment-approveDocumentValidation</value>
-		</entry>	
+		</entry>
 	    <entry>
 		  <key><value>org.kuali.kfs.sys.document.validation.event.AddAccountingLineEvent</value></key>
 		  <value>PurchaseOrderAmendment-addAccountingLineValidation</value>
-		</entry>		
+		</entry>
 		<entry>
 		  <key><value>org.kuali.kfs.sys.document.validation.event.UpdateAccountingLineEvent</value></key>
 		  <value>PurchaseOrderAmendment-updateAccountingLineValidation</value>
-		</entry>	
+		</entry>
 	    <entry>
 		  <key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedSplitPurchaseOrderEvent</value></key>
 		  <value>PurchaseOrderAmendment-performSplitValidation</value>
-		</entry>	
+		</entry>
 		<entry>
 		  <key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedAddVendorToQuoteEvent</value></key>
 		  <value>PurchaseOrderAmendment-performAddQuoteToVendorValidation</value>
-		</entry>	
+		</entry>
 	    <entry>
 		  <key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedAssignSensitiveDataEvent</value></key>
 		  <value>PurchaseOrderAmendment-performAssignSensitiveDataValidation</value>
-		</entry>				    		
+		</entry>
 		<entry>
 			<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedAddPurchasingAccountsPayableItemEvent</value></key>
-			<value>PurchaseOrderAmendment-addPurchasingAccountsPayableItemValidation</value>				
+			<value>PurchaseOrderAmendment-addPurchasingAccountsPayableItemValidation</value>
 		</entry>
 		<entry>
 			<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedImportPurchasingAccountsPayableItemEvent</value></key>
-			<value>PurchaseOrderAmendment-importPurchasingAccountsPayableItemValidation</value>				
-		</entry>						
+			<value>PurchaseOrderAmendment-importPurchasingAccountsPayableItemValidation</value>
+		</entry>
 		<entry>
 			<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedChangeSystemPurapEvent</value></key>
-			<value>PurchaseOrderAmendment-changeSystemPurapValidation</value>				
-		</entry>			
+			<value>PurchaseOrderAmendment-changeSystemPurapValidation</value>
+		</entry>
 		<entry>
 			<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedSelectSystemPurapEvent</value></key>
-			<value>PurchaseOrderAmendment-selectSystemPurapValidation</value>				
-		</entry>			
+			<value>PurchaseOrderAmendment-selectSystemPurapValidation</value>
+		</entry>
 		<entry>
 			<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedUpdateCamsViewPurapEvent</value></key>
-			<value>PurchaseOrderAmendment-updateCamsViewPurapValidation</value>				
-		</entry>			
+			<value>PurchaseOrderAmendment-updateCamsViewPurapValidation</value>
+		</entry>
 		<entry>
 			<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedAddPurchasingItemCapitalAssetEvent</value></key>
-			<value>PurchaseOrderAmendment-addPurchasingItemCapitalAssetValidation</value>				
-		</entry>			
+			<value>PurchaseOrderAmendment-addPurchasingItemCapitalAssetValidation</value>
+		</entry>
 		<entry>
 			<key><value>org.kuali.kfs.module.purap.document.validation.event.AttributedAddPurchasingCapitalAssetLocationEvent</value></key>
-			<value>PurchaseOrderAmendment-addPurchasingCapitalAssetLocationValidation</value>				
+			<value>PurchaseOrderAmendment-addPurchasingCapitalAssetLocationValidation</value>
 		</entry>
 		<entry>
 			<key><value>org.kuali.kfs.module.purap.document.validation.event.PurchasingAccountsPayableItemPreCalculateEvent</value></key>
 			<value>PurchaseOrderAmendment-purchasingAccountsPayablesItemPreCalculateValidations</value>
 		</entry>
       </map>
-    </property>	  
+    </property>
   </bean>
 
     <!-- workflow attributes for routing -->
@@ -177,5 +177,5 @@
     		</map>
     	</property>
 	</bean>
-	
+
 </beans>

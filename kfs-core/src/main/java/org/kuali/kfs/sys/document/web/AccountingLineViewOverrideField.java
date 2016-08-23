@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,7 +42,7 @@ public class AccountingLineViewOverrideField implements RenderableElement {
     private AccountingLineViewOverrideFieldDefinition definition;
     private Field overrideField;
     private int arbitrarilyHighIndex;
-    
+
     /**
      * Constructs a AccountingLineViewOverrideField
      * @param field the owning accounting line view field
@@ -57,7 +57,7 @@ public class AccountingLineViewOverrideField implements RenderableElement {
     /**
      * Adds our override field (though not our override needed field - we'll let Struts handle the value population on that
      * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFields(java.util.List)
-     * 
+     *
      * KRAD Conversion: performs adding override field to the fields - No use of data dictionary
      */
     public void appendFields(List<Field> fields) {
@@ -89,7 +89,7 @@ public class AccountingLineViewOverrideField implements RenderableElement {
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#populateWithTabIndexIfRequested(int[], int)
      */
     public void populateWithTabIndexIfRequested(int reallyHighIndex) {
@@ -97,7 +97,7 @@ public class AccountingLineViewOverrideField implements RenderableElement {
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.web.RenderableElement#renderElement(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag, org.kuali.kfs.sys.document.web.AccountingLineRenderingContext)
      */
     public void renderElement(PageContext pageContext, Tag parentTag, AccountingLineRenderingContext renderingContext) throws JspException {
@@ -110,7 +110,7 @@ public class AccountingLineViewOverrideField implements RenderableElement {
         renderer.render(pageContext, parentTag);
         renderer.clear();
     }
-    
+
     /**
      * Retrieves the value of the override needed value associated with the override field
      * @param accountingLine the accounting line to get the override needed value from
@@ -131,7 +131,7 @@ public class AccountingLineViewOverrideField implements RenderableElement {
     public void transformField(AccountingLineFieldRenderingTransformation fieldTransformation, AccountingLine accountingLine, Map unconvertedValues) {
         fieldTransformation.transformField(accountingLine, overrideField, definition, unconvertedValues);
     }
-    
+
     /**
      * Sets the accounting Line Property
      * @param propertyPrefix the accounting line property

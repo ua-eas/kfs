@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,7 +41,7 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
     protected String laborEntryTransactionDate;
     protected String laborEntryTransactionLedgerEntrySequenceNumber;
     protected String laborEntryTransactionLedgerEntryAmount;
-    
+
     protected String laborEntryTransactionPostingDate;
     protected String laborEntryPayPeriodEndDate;
     protected String laborEntryTransactionTotalHours;
@@ -62,7 +62,7 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
     protected String getDefaultDocumentTypeName() {
         return "LLCP";
     }
-    
+
     /**
      * @see GeneralLedgerCorrectionProcessForm#clearForm()
      */
@@ -85,14 +85,14 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
         setLaborEntryTransactionLedgerEntryAmount("");
         setLaborEntryTransactionLedgerEntrySequenceNumber("");
         setLaborEntryUniversityFiscalYear("");
-        
+
         setLaborEntryTransactionPostingDate("");
         setLaborEntryPayPeriodEndDate("");
         setLaborEntryTransactionTotalHours("");
         setLaborEntryPayrollEndDateFiscalYear("");
         setLaborEntryEmployeeRecord("");
-        
-        
+
+
         setLaborEntryForManualEdit(loe);
     }
 
@@ -108,7 +108,7 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
 
     /**
      * Gets the laborEntryForManualEdit attribute.
-     * 
+     *
      * @return Returns the laborEntryForManualEdit.
      */
     public LaborOriginEntry getLaborEntryForManualEdit() {
@@ -117,7 +117,7 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
 
     /**
      * Sets the laborEntryForManualEdit attribute value.
-     * 
+     *
      * @param laborEntryForManualEdit The laborEntryForManualEdit to set.
      */
     public void setLaborEntryForManualEdit(LaborOriginEntry laborEntryForManualEdit) {
@@ -133,19 +133,19 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
         laborEntryForManualEdit.setFieldValue("transactionLedgerEntryAmount", getLaborEntryTransactionLedgerEntryAmount());
         laborEntryForManualEdit.setFieldValue("transactionDate", getLaborEntryTransactionDate());
         laborEntryForManualEdit.setFieldValue("financialDocumentReversalDate", getLaborEntryFinancialDocumentReversalDate());
-        
-        
+
+
         laborEntryForManualEdit.setFieldValue("transactionPostingDate", getLaborEntryTransactionPostingDate());
         laborEntryForManualEdit.setFieldValue("payPeriodEndDate", getLaborEntryPayPeriodEndDate());
         laborEntryForManualEdit.setFieldValue("transactionTotalHours", getLaborEntryTransactionTotalHours());
         laborEntryForManualEdit.setFieldValue("payrollEndDateFiscalYear", getLaborEntryPayrollEndDateFiscalYear());
         laborEntryForManualEdit.setFieldValue("employeeRecord", getLaborEntryEmployeeRecord());
-        
+
     }
 
     /**
      * Gets the laborEntryFinancialDocumentReversalDate attribute.
-     * 
+     *
      * @return Returns the laborEntryFinancialDocumentReversalDate.
      */
     public String getLaborEntryFinancialDocumentReversalDate() {
@@ -154,7 +154,7 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
 
     /**
      * Sets the laborEntryFinancialDocumentReversalDate attribute value.
-     * 
+     *
      * @param laborEntryFinancialDocumentReversalDate The laborEntryFinancialDocumentReversalDate to set.
      */
     public void setLaborEntryFinancialDocumentReversalDate(String laborEntryFinancialDocumentReversalDate) {
@@ -163,7 +163,7 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
 
     /**
      * Gets the laborEntryTransactionDate attribute.
-     * 
+     *
      * @return Returns the laborEntryTransactionDate.
      */
     public String getLaborEntryTransactionDate() {
@@ -172,7 +172,7 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
 
     /**
      * Sets the laborEntryTransactionDate attribute value.
-     * 
+     *
      * @param laborEntryTransactionDate The laborEntryTransactionDate to set.
      */
     public void setLaborEntryTransactionDate(String laborEntryTransactionDate) {
@@ -181,7 +181,7 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
 
     /**
      * Gets the laborEntryTransactionLedgerEntryAmount attribute.
-     * 
+     *
      * @return Returns the laborEntryTransactionLedgerEntryAmount.
      */
     public String getLaborEntryTransactionLedgerEntryAmount() {
@@ -190,7 +190,7 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
 
     /**
      * Sets the laborEntryTransactionLedgerEntryAmount attribute value.
-     * 
+     *
      * @param laborEntryTransactionLedgerEntryAmount The laborEntryTransactionLedgerEntryAmount to set.
      */
     public void setLaborEntryTransactionLedgerEntryAmount(String laborEntryTransactionLedgerEntryAmount) {
@@ -199,7 +199,7 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
 
     /**
      * Gets the laborEntryTransactionLedgerEntrySequenceNumber attribute.
-     * 
+     *
      * @return Returns the laborEntryTransactionLedgerEntrySequenceNumber.
      */
     public String getLaborEntryTransactionLedgerEntrySequenceNumber() {
@@ -208,7 +208,7 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
 
     /**
      * Sets the laborEntryTransactionLedgerEntrySequenceNumber attribute value.
-     * 
+     *
      * @param laborEntryTransactionLedgerEntrySequenceNumber The laborEntryTransactionLedgerEntrySequenceNumber to set.
      */
     public void setLaborEntryTransactionLedgerEntrySequenceNumber(String laborEntryTransactionLedgerEntrySequenceNumber) {
@@ -217,7 +217,7 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
 
     /**
      * Gets the laborEntryUniversityFiscalYear attribute.
-     * 
+     *
      * @return Returns the laborEntryUniversityFiscalYear.
      */
     public String getLaborEntryUniversityFiscalYear() {
@@ -226,7 +226,7 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
 
     /**
      * Sets the laborEntryUniversityFiscalYear attribute value.
-     * 
+     *
      * @param laborEntryUniversityFiscalYear The laborEntryUniversityFiscalYear to set.
      */
     public void setLaborEntryUniversityFiscalYear(String laborEntryUniversityFiscalYear) {
@@ -235,7 +235,7 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
 
     /**
      * Gets the LedgerCorrectionDocument attribute.
-     * 
+     *
      * @return Returns the LedgerCorrectionDocument.
      */
     public LedgerCorrectionDocument getLaborCorrectionDocument() {
@@ -244,9 +244,9 @@ public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
 
     /**
      * Gets the TableRenderColumnMetadata attribute.
-     * 
+     *
      * @return Returns the TableRenderColumnMetadata.
-     *      
+     *
      * KRAD Conversion: gets the column metadata.
      */
     public List<Column> getTableRenderColumnMetadata() {

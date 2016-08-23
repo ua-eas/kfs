@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -91,12 +91,12 @@ function makeDwrSingleReply( boName, propertyName, targetFieldName ) {
             if (data != null && typeof data == 'object') {
                 setRecipientValue( targetFieldName, data[propertyName] );
                 if (boName=="budgetAgency") {
-                    setRecipientValue( "document.budget.budgetAgency.agencyTypeCode", data["agencyTypeCode"] ); 
-                    removeFpt(boName);                   
+                    setRecipientValue( "document.budget.budgetAgency.agencyTypeCode", data["agencyTypeCode"] );
+                    removeFpt(boName);
                 }
                 if (boName=="agency") {
-                    setRecipientValue( "document.routingFormAgency.agency.agencyTypeCode", data["agencyTypeCode"] ); 
-                    removeFpt(boName);                   
+                    setRecipientValue( "document.routingFormAgency.agency.agencyTypeCode", data["agencyTypeCode"] );
+                    removeFpt(boName);
                 }
             } else {
                 setRecipientNotFoundValue( targetFieldName, wrapError( friendlyBoName + " not found" ), true );
@@ -126,7 +126,7 @@ function personIDLookup( userIdField ) {
     var elPrefix = findElPrefix( userIdField );
 	var userNameFieldName = elPrefix + ".personName";
 	var universalIdFieldName = findElPrefix( elPrefix ) + ".principalId";
-	
+
 	loadPersonInfo( userIdField, universalIdFieldName, userNameFieldName );
 }
 
@@ -147,7 +147,7 @@ function loadPersonInfo( userIdFieldName, universalIdFieldName, userNameFieldNam
                          setRecipientValue( 'document.budget.budgetProjectDirectorUniversalIdentifier', data.principalId );
                     } else {
                         setChartOrg( findElPrefix( userNameFieldName ), data.primaryDepartmentCode );
-                    
+
                     }
                 } else {
                     clearRecipients( universalIdFieldName );
@@ -165,11 +165,11 @@ function loadPersonInfo( userIdFieldName, universalIdFieldName, userNameFieldNam
 function setChartOrg(elPrefix, deptId) {
 
   splitStr=deptId.split("-");
-  
+
   setRecipientValue( findElPrefix( elPrefix ) + ".chartOfAccountsCode", splitStr[0] );
   setRecipientValue( findElPrefix( elPrefix ) + ".organizationCode", splitStr[1] );
   setRecipientValue( elPrefix+".primaryDepartmentCode", splitStr[0]+" / "+splitStr[1] );
-  
+
 }
 
 
@@ -178,7 +178,7 @@ function budgetNameLookup( documentNumberField ) {
 	var personNameFieldName = elPrefix + ".budget.projectDirector.person.name";
 	var agencyNameFieldName = elPrefix + ".budget.budgetAgency.fullName";
 	var budgetDocumentNumberFieldName = elPrefix  + ".budget.documentNumber";
-	
+
 	loadBudgetInfo( documentNumberField, personNameFieldName, agencyNameFieldName, budgetDocumentNumberFieldName );
 }
 
@@ -234,7 +234,7 @@ function cfdaLookup( cfdaField ) {
     var elPrefix = findElPrefix( cfdaField );
 	var titleNameFieldName = elPrefix + ".cfdaProgramTitleName";
 	var routingFormCfdaFieldName = findElPrefix( elPrefix ) + ".routingFormCatalogOfFederalDomesticAssistanceNumber";
-	
+
 	loadCfdaInfo( cfdaField, titleNameFieldName, routingFormCfdaFieldName );
 }
 
@@ -378,10 +378,10 @@ function removeFpt(boName) {
   }
 	  var typeCode=kualiElements[elementName];
 	  var fptAgencyNumber=kualiElements[agencyNumber];
-	  
+
 	  if (typeCode!=null && getElementValue( elementName )!=null ) {
 		  if (typeCode.value!="F") {
-		    if (fptAgencyNumber==null || getElementValue(agencyNumber)=="") {		    
+		    if (fptAgencyNumber==null || getElementValue(agencyNumber)=="") {
 		    restoreFpt(boName);
 		    }
 		  } else {
@@ -394,8 +394,8 @@ function removeFpt(boName) {
 			    newdiv.innerHTML="N/A"
 			    pDiv.appendChild(newdiv);
 			  }
-		  } 
-	  } 
+		  }
+	  }
 }
 
 function sleep50ms() {
@@ -423,10 +423,10 @@ function restoreFpt(boName) {
             "src=\"kr/static/images/searchicon.png\" border=\"0\" class=\"tinybutton searchicon\" valign=\"middle\" alt=\"Search \" title=\"Search \" /> "+
 			    		"<div id=\"document.federalPassThroughAgency.fullName.div\" > </div> <div id='myDiv'></div>"
     }
-    
+
     newdiv.innerHTML=addedHtml;
 	pDiv.appendChild(newdiv);
-	             
+
 }
 
 function setRecipientNotFoundValue(recipientBase, value, isError ) {

@@ -45,9 +45,9 @@ public class UpdateDocumentHandler extends AbstractDocumentStoreChangeHandler im
         verifyKeyExistence(change, DOCUMENT);
 
         String collectionName = change.get(COLLECTION_NAME).asText();
-        JsonNode query = change.get(QUERY); 
+        JsonNode query = change.get(QUERY);
         Query q = JsonUtils.getQueryFromJson(query);
-        
+
         // Delete then add the document
         JsonNode document = change.get(DOCUMENT);
         mongoTemplate.remove(q, collectionName);

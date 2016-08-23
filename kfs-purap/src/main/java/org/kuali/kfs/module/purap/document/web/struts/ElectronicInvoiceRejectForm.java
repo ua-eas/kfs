@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -51,7 +51,7 @@ public class ElectronicInvoiceRejectForm extends FinancialSystemTransactionalDoc
     protected String getDefaultDocumentTypeName() {
         return "EIRT";
     }
-    
+
     public ElectronicInvoiceRejectDocument getElectronicInvoiceRejectDocument() {
         return (ElectronicInvoiceRejectDocument) getDocument();
     }
@@ -62,14 +62,14 @@ public class ElectronicInvoiceRejectForm extends FinancialSystemTransactionalDoc
 
     /**
      * Build additional electronic invoice specific buttons and set extraButtons list.
-     * 
+     *
      * @return - list of extra buttons to be displayed to the user
-     * 
+     *
      * KRAD Conversion: Performs customization of an extra button.
-     * 
+     *
      * No data dictionary is involved.
      */
-    
+
     @Override
     public List<ExtraButton> getExtraButtons() {
         // clear out the extra buttons array
@@ -93,13 +93,13 @@ public class ElectronicInvoiceRejectForm extends FinancialSystemTransactionalDoc
 
     /**
      * Adds a new button to the extra buttons collection.
-     * 
+     *
      * @param property - property for button
      * @param source - location of image
      * @param altText - alternate text for button if images don't appear
-     * 
+     *
      * KRAD Conversion: Performs customization of an extra button.
-     * 
+     *
      */
     protected void addExtraButton(String property, String source, String altText) {
 
@@ -111,7 +111,7 @@ public class ElectronicInvoiceRejectForm extends FinancialSystemTransactionalDoc
 
         extraButtons.add(newButton);
     }
-    
+
     /**
      * This method builds the url for the disbursement info on the purap documents.
      * @return the disbursement info url

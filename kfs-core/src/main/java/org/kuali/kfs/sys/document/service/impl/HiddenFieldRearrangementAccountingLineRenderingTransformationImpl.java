@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,7 +41,7 @@ public class HiddenFieldRearrangementAccountingLineRenderingTransformationImpl i
             moveHiddenFields(row, cell);
         }
     }
-    
+
     /**
      * Finds the first top-level non-hidden container from the given list of elements
      * @param elements the elements to find the first non-hidden container from
@@ -57,9 +57,9 @@ public class HiddenFieldRearrangementAccountingLineRenderingTransformationImpl i
         }
         throw new IllegalArgumentException("The renderable element tree specified does not seem to have any elements that will display as non-hidden specified");
     }
-    
+
     /**
-     * Moves any hidden fields in the source container to the target container 
+     * Moves any hidden fields in the source container to the target container
      * @param sourceContainer the container which may have hidden fields
      * @param targetContainer the container which should be carrying all hidden fields
      */
@@ -68,7 +68,7 @@ public class HiddenFieldRearrangementAccountingLineRenderingTransformationImpl i
             moveHiddenFields(cell, targetCell);
         }
     }
-    
+
     /**
      * Moves any hidden renderable fields in the source cell to the target cell
      * @param sourceCell the source cell to move hidden elements from

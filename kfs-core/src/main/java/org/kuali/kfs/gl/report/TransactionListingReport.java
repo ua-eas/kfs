@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,20 +37,20 @@ public class TransactionListingReport {
     protected KualiDecimal debitTotal;
     protected KualiDecimal creditTotal;
     protected KualiDecimal budgetTotal;
-    
+
     public TransactionListingReport() {
         super();
-        
+
         transactionCount = 0;
         debitTotal = KualiDecimal.ZERO;
         creditTotal = KualiDecimal.ZERO;
         budgetTotal = KualiDecimal.ZERO;
     }
-    
+
     /**
      * This will write a transaction to the report. It collects data in order for this to be a listing, hence it is the developers responsibility
      * to call generateStatistics after printing the listing.
-     * 
+     *
      * @param reportWriterService destination report
      * @param transaction Transaction to be printed
      */
@@ -61,9 +61,9 @@ public class TransactionListingReport {
             if (transactionCount == 0) {
                 reportWriterService.writeTableHeader(transaction);
             }
-            
+
             reportWriterService.writeTableRow(transaction);
-            
+
             if (KFSConstants.GL_DEBIT_CODE.equals(transaction.getTransactionDebitCreditCode())) {
                 debitTotal = debitTotal.add(transaction.getTransactionLedgerEntryAmount());
             }
@@ -76,24 +76,24 @@ public class TransactionListingReport {
             transactionCount++;
         }
     }
-    
+
     /**
      * Writes the statistics to the report that were collected by this class
-     * 
+     *
      * @param reportWriterService destination report
      */
     public void generateStatistics(ReportWriterService reportWriterService) {
         LOG.debug("generateStatistics() started");
-        
+
         reportWriterService.writeStatisticLine("Total Transactions                %,9d", transactionCount);
         reportWriterService.writeStatisticLine("Total Debit Amount                %,9.2f", debitTotal.doubleValue());
         reportWriterService.writeStatisticLine("Total Credit Amount               %,9.2f", creditTotal.doubleValue());
         reportWriterService.writeStatisticLine("Total Budget Amount               %,9.2f", budgetTotal.doubleValue());
     }
-    
+
     /**
      * This will generate a report on the transactions passed to it
-     * 
+     *
      * @param reportWriterService destination report
      * @param transactions Transactions sorted properly
      */

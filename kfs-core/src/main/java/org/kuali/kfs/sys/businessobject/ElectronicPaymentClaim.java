@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -38,7 +38,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
  * This class is used to represent an electronic payment claim.
  */
 public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
-    
+
     public final static class ClaimStatusCodes {
         public final static String CLAIMED = "C";
         public final static String UNCLAIMED = "U";
@@ -50,7 +50,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
     private Integer financialDocumentPostingYear;
     private String financialDocumentPostingPeriodCode;
     private String paymentClaimStatusCode;
-    
+
     private AdvanceDepositDocument generatingDocument;
     private SourceAccountingLine generatingAccountingLine;
     private AccountingPeriod financialDocumentPostingPeriod;
@@ -58,12 +58,12 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     private transient KualiDecimal amountFrom;
     private transient KualiDecimal amountTo;
-    
+
     public ElectronicPaymentClaim() {}
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber
      */
     public String getDocumentNumber() {
@@ -72,7 +72,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Sets the documentNumber attribute.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -82,7 +82,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentLineNumber attribute.
-     * 
+     *
      * @return Returns the financialDocumentLineNumber
      */
     public Integer getFinancialDocumentLineNumber() {
@@ -91,7 +91,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentLineNumber attribute.
-     * 
+     *
      * @param financialDocumentLineNumber The financialDocumentLineNumber to set.
      */
     public void setFinancialDocumentLineNumber(Integer financialDocumentLineNumber) {
@@ -101,7 +101,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Gets the referenceFinancialDocumentNumber attribute.
-     * 
+     *
      * @return Returns the referenceFinancialDocumentNumber
      */
     public String getReferenceFinancialDocumentNumber() {
@@ -110,7 +110,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Sets the referenceFinancialDocumentNumber attribute.
-     * 
+     *
      * @param referenceFinancialDocumentNumber The referenceFinancialDocumentNumber to set.
      */
     public void setReferenceFinancialDocumentNumber(String referenceFinancialDocumentNumber) {
@@ -120,7 +120,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentPostingYear attribute.
-     * 
+     *
      * @return Returns the financialDocumentPostingYear
      */
     public Integer getFinancialDocumentPostingYear() {
@@ -129,7 +129,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentPostingYear attribute.
-     * 
+     *
      * @param financialDocumentPostingYear The financialDocumentPostingYear to set.
      */
     public void setFinancialDocumentPostingYear(Integer financialDocumentPostingYear) {
@@ -139,7 +139,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocumentPostingPeriodCode attribute.
-     * 
+     *
      * @return Returns the financialDocumentPostingPeriodCode
      */
     public String getFinancialDocumentPostingPeriodCode() {
@@ -148,7 +148,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocumentPostingPeriodCode attribute.
-     * 
+     *
      * @param financialDocumentPostingPeriodCode The financialDocumentPostingPeriodCode to set.
      */
     public void setFinancialDocumentPostingPeriodCode(String financialDocumentPostingPeriodCode) {
@@ -156,7 +156,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
     }
 
     /**
-     * Gets the paymentClaimStatusCode attribute. 
+     * Gets the paymentClaimStatusCode attribute.
      * @return Returns the paymentClaimStatusCode.
      */
     public String getPaymentClaimStatusCode() {
@@ -172,7 +172,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
     }
 
     /**
-     * Gets the generatingDocument attribute. 
+     * Gets the generatingDocument attribute.
      * @return Returns the generatingDocument.
      */
     public AdvanceDepositDocument getGeneratingDocument() {
@@ -187,9 +187,9 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
         }
         return this.generatingDocument;
     }
-    
+
     /**
-     * Gets the generatingDocumentHeader attribute. 
+     * Gets the generatingDocumentHeader attribute.
      * @return Returns the generatingDocumentHeader.
      */
     public DocumentHeader getGeneratingDocumentHeader() {
@@ -214,19 +214,19 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
             final AdvanceDepositDocument generatingDocument = getGeneratingDocument();
             if (generatingDocument != null && generatingDocument.getSourceAccountingLines() != null) {
                 int count = 0;
-                
+
                 while (generatingAccountingLine == null && count < generatingDocument.getSourceAccountingLines().size()) {
                     if (generatingDocument.getSourceAccountingLine(count).getSequenceNumber().equals(getFinancialDocumentLineNumber())) {
                         generatingAccountingLine = generatingDocument.getSourceAccountingLine(count);
                     }
                     count += 1;
                 }
-                
+
             }
         }
         return generatingAccountingLine;
     }
-    
+
     /**
      * Returns the AdvanceDepositDetail for the first deposit detail on this document
      * @return the advance deposit detail that describes the transaction responsible for the creation of this record
@@ -240,7 +240,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
     }
 
     /**
-     * Gets the financialDocumentPostingPeriod attribute. 
+     * Gets the financialDocumentPostingPeriod attribute.
      * @return Returns the financialDocumentPostingPeriod.
      */
     public AccountingPeriod getFinancialDocumentPostingPeriod() {
@@ -254,7 +254,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
     public void setFinancialDocumentPostingPeriod(AccountingPeriod financialDocumentPostingPeriod) {
         this.financialDocumentPostingPeriod = financialDocumentPostingPeriod;
     }
-    
+
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
@@ -266,7 +266,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
         }
         return m;
     }
-    
+
     /**
      * Returns the String representation for an Electronic Payment Claim record, to be used by the claimed
      * checkbox
@@ -280,7 +280,7 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
         representation.append(getFinancialDocumentLineNumber());
         return representation.toString();
     }
-    
+
     /**
      * @return a descriptive version of the paymentClaimStatusCode field
      */

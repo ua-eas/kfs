@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,18 +37,18 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * TODO jawbenne don't forget to fill this in. 
- * 
- * 
+ * TODO jawbenne don't forget to fill this in.
+ *
+ *
  */
 public class ModuleLockingHandlerInterceptor implements HandlerInterceptor {
 
     private static final Logger LOG = Logger.getLogger(ModuleLockingHandlerInterceptor.class);
-    
-    
+
+
     private KualiModuleService kualiModuleService;
     private String moduleLockedMapping;
-    
+
     /**
      * @return the moduleLockedMapping
      */
@@ -72,7 +72,7 @@ public class ModuleLockingHandlerInterceptor implements HandlerInterceptor {
 
     /**
      * This overridden method ...
-     * 
+     *
      * @see org.springframework.web.servlet.HandlerInterceptor#afterCompletion(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, java.lang.Exception)
      */
     @Override
@@ -82,7 +82,7 @@ public class ModuleLockingHandlerInterceptor implements HandlerInterceptor {
 
     /**
      * This overridden method ...
-     * 
+     *
      * @see org.springframework.web.servlet.HandlerInterceptor#postHandle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.web.servlet.ModelAndView)
      */
     @Override
@@ -93,7 +93,7 @@ public class ModuleLockingHandlerInterceptor implements HandlerInterceptor {
 
     /**
      * This overridden method ...
-     * 
+     *
      * @see org.springframework.web.servlet.HandlerInterceptor#preHandle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object)
      */
     @Override
@@ -103,7 +103,7 @@ public class ModuleLockingHandlerInterceptor implements HandlerInterceptor {
         }
         return true;
     }
-    
+
     private ModuleService getModuleService(HttpServletRequest request) {
         String boClass = request.getParameter(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE);
         if(StringUtils.isBlank(boClass)) {
@@ -136,7 +136,7 @@ public class ModuleLockingHandlerInterceptor implements HandlerInterceptor {
         }
         return false;
     }
-    
+
     protected KualiModuleService getKualiModuleService() {
         if ( kualiModuleService == null ) {
             kualiModuleService = KRADServiceLocatorWeb.getKualiModuleService();

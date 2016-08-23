@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -92,7 +92,7 @@ public class CustomerInvoiceDocumentSourceLinesAuthorizer extends FinancialProce
     private boolean isNewLine(Integer accountingLineIndex) {
         return (accountingLineIndex == null || accountingLineIndex.intValue() < 0);
     }
-    
+
     @Override
     public Set<String> getUnviewableBlocks(AccountingDocument accountingDocument, AccountingLine accountingLine, boolean newLine, Person currentUser) {
         Set<String> blocks = super.getUnviewableBlocks(accountingDocument, accountingLine, newLine, currentUser);
@@ -104,27 +104,27 @@ public class CustomerInvoiceDocumentSourceLinesAuthorizer extends FinancialProce
         }
         return blocks;
     }
-    
+
     /**
      * Overridden to make:
      * 1. chart and account number read only for discount lines
      * 2. invoice item description and amount editable for recurring invoices
-     * 
+     *
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#determineFieldModifyability(org.kuali.kfs.sys.document.AccountingDocument,
      *      org.kuali.kfs.sys.businessobject.AccountingLine, org.kuali.kfs.sys.document.web.AccountingLineViewField, java.util.Map)
      */
     @Override
     public boolean determineEditPermissionOnField(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editablePage) {
         boolean canModify = super.determineEditPermissionOnField(accountingDocument, accountingLine, accountingLineCollectionProperty, fieldName, editablePage);
-        
+
         if (canModify) {
             boolean discountLineFlag = ((CustomerInvoiceDetail)accountingLine).isDiscountLine();
             if (discountLineFlag) {
-                if (StringUtils.equals(fieldName, getChartPropertyName()) || StringUtils.equals(fieldName, getAccountNumberPropertyName())) 
+                if (StringUtils.equals(fieldName, getChartPropertyName()) || StringUtils.equals(fieldName, getAccountNumberPropertyName()))
                     canModify = false;
             }
         }
-        
+
         return canModify;
     }
 
@@ -141,14 +141,14 @@ public class CustomerInvoiceDocumentSourceLinesAuthorizer extends FinancialProce
     protected String getAccountNumberPropertyName() {
         return "accountNumber";
     }
-    
+
     /**
      * @return the property name of the invoice item description field, which will be set editable for recurring invoices
      */
     protected String getItemDescriptionPropertyName() {
         return "invoiceItemDescription";
     }
-    
+
     /**
      * @return the property name of the amount field, which will be set editable for recurring invoices
      */

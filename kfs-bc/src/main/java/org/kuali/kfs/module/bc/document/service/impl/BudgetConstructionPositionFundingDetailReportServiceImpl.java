@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -96,7 +96,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * builds report header
-     * 
+     *
      * @param universityFiscalYear
      * @param objectCodes
      * @param orgPositionFundingDetailReportEntry
@@ -130,7 +130,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * builds report body
-     * 
+     *
      * @param universityFiscalYear
      * @param orgPositionFundingDetailReportEntry
      * @param positionFundingDetailEntry
@@ -230,7 +230,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * builds report total
-     * 
+     *
      * @param orgPositionFundingDetailReportEntry
      * @param positionFundingDetail
      * @param fundingDetailTotalPerson
@@ -283,7 +283,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * calculates total part of person
-     * 
+     *
      * @param positionFundingDetailList
      * @param listForCalculateTotalPerson
      * @return
@@ -335,7 +335,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * calculates total part of org
-     * 
+     *
      * @param positionFundingDetailList
      * @param listForCalculateTotalOrg
      * @return
@@ -380,7 +380,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * builds orderByList for sort order.
-     * 
+     *
      * @return List<String> returnList
      */
     public List<String> buildOrderByList() {
@@ -401,7 +401,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * builds list of fields for comparing entry of person total
-     * 
+     *
      * @return List<String>
      */
     protected List<String> fieldsForPerson() {
@@ -413,7 +413,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * builds list of fields for comparing entry of org total
-     * 
+     *
      * @return List<String>
      */
     protected List<String> fieldsForOrg() {

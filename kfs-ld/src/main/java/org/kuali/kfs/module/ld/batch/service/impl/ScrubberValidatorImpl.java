@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -74,7 +74,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
     private ScrubberValidator scrubberValidator;
     private PersistenceStructureService persistenceStructureService;
     private boolean continuationAccountIndicator;
-    
+
 
     /**
      * @see org.kuali.module.labor.service.LaborScrubberValidator#validateTransaction(owrg.kuali.module.labor.bo.LaborOriginEntry,
@@ -84,7 +84,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
         LOG.debug("validateTransaction() started");
         List<Message> errors = new ArrayList<Message>();
         continuationAccountIndicator = false;
-        
+
         LaborOriginEntry laborOriginEntry = (LaborOriginEntry) originEntry;
         LaborOriginEntry laborScrubbedEntry = (LaborOriginEntry) scrubbedEntry;
 
@@ -124,7 +124,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
         if (err != null) {
             errors.add(err);
         }
-        
+
         err = validateSubAccount(laborOriginEntry, laborScrubbedEntry, (LaborAccountingCycleCachingService) laborAccountingCycleCachingService);
         if (err != null) {
             errors.add(err);
@@ -171,7 +171,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
 
     /**
      * Validates the closed period code of the origin entry. Scrubber accepts closed fiscal periods for the specified balance type.
-     * 
+     *
      * @param originEntry the origin entry being scrubbed
      * @param workingEntry the scrubbed version of the origin entry
      * @return a Message if an error was encountered, otherwise null
@@ -208,11 +208,11 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
         SystemOptions scrubbedEntryOption = null;
         if (laborOriginEntry.getPayrollEndDateFiscalYear() != null){
             scrubbedEntryOption = laborAccountingCycleCachingService.getSystemOptions(laborOriginEntry.getPayrollEndDateFiscalYear());
-            
+
             if (scrubbedEntryOption == null) {
                 return MessageBuilder.buildMessage(KFSKeyConstants.ERROR_PAYROLL_END_DATE_FISCAL_YEAR, "" + laborOriginEntry.getPayrollEndDateFiscalYear(), Message.TYPE_FATAL);
             }
-            
+
         }
 
         return null;
@@ -231,7 +231,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
         } else {
             tempPayrollFiscalYear = laborOriginEntry.getPayrollEndDateFiscalYear();
         }
-        
+
         if (!laborOriginEntry.getPayrollEndDateFiscalPeriodCode().equals("")  ){
             accountingPeriod = laborAccountingCycleCachingService.getAccountingPeriod(tempPayrollFiscalYear, laborOriginEntry.getPayrollEndDateFiscalPeriodCode());
             if (accountingPeriod == null) {
@@ -361,10 +361,10 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
                 accountNumber = account.getContinuationAccountNumber();
             }
             else {
-                
+
                 // set continuationAccountLogicIndi
                 continuationAccountIndicator = true;
-                
+
                 laborWorkingEntry.setAccount(account);
                 laborWorkingEntry.setAccountNumber(accountNumber);
                 laborWorkingEntry.setChartOfAccountsCode(chartCode);
@@ -469,10 +469,10 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
 
         return MessageBuilder.buildMessageWithPlaceHolder(LaborKeyConstants.MESSAGE_SUSPENSE_ACCOUNT_APPLIED, Message.TYPE_WARNING, new Object[] { suspenseCOAcode, suspenseAccountNumber, suspenseSubAccountNumber } );
     }
-    
+
     /**
      * Validates the sub account of the origin entry
-     * 
+     *
      * @param originEntry the origin entry being scrubbed
      * @param workingEntry the scrubbed version of the origin entry
      * @return a Message if an error was encountered, otherwise null
@@ -486,7 +486,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
             workingEntry.setSubAccountNumber(KFSConstants.getDashSubAccountNumber());
             return null;
         }
-                
+
         // If the sub account number is empty, set it to dashes.
         // Otherwise set the workingEntry sub account number to the
         // sub account number of the input origin entry.
@@ -527,12 +527,12 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
             // No sub account is specified.
             workingEntry.setSubAccountNumber(KFSConstants.getDashSubAccountNumber());
         }
-        
-        
+
+
         return null;
-        
+
     }
-    
+
 
     /**
      * @see org.kuali.kfs.gl.service.ScrubberValidator#isAccountExpired(org.kuali.kfs.coa.businessobject.Account, org.kuali.kfs.sys.businessobject.UniversityDate)
@@ -546,7 +546,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
 
     /**
      * Sets the parameterService attribute value.
-     * 
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -555,7 +555,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
 
     /**
      * Sets the kualiConfigurationService attribute value.
-     * 
+     *
      * @param service The kualiConfigurationService to set.
      */
     public void setConfigurationService(ConfigurationService service) {
@@ -564,7 +564,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
 
     /**
      * Sets the accountService attribute value.
-     * 
+     *
      * @param as The accountService to set.
      */
     public void setAccountService(AccountService as) {
@@ -573,7 +573,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
 
     /**
      * Sets the persistenceService attribute value.
-     * 
+     *
      * @param ps The persistenceService to set.
      */
     public void setPersistenceService(PersistenceService ps) {
@@ -582,7 +582,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -591,7 +591,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
 
     /**
      * Sets the balanceTypService attribute value.
-     * 
+     *
      * @param balanceTypService The balanceTypService to set.
      */
     public void setBalanceTypService(BalanceTypeService balanceTypService) {
@@ -600,7 +600,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
 
     /**
      * Sets the scrubberValidator attribute value.
-     * 
+     *
      * @param sv The scrubberValidator to set.
      */
     public void setScrubberValidator(ScrubberValidator sv) {
@@ -609,7 +609,7 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
 
     /**
      * Sets the persistenceStructureService attribute value.
-     * 
+     *
      * @param persistenceStructureService The persistenceStructureService to set.
      */
     public void setPersistenceStructureService(PersistenceStructureService persistenceStructureService) {
@@ -618,12 +618,12 @@ public class ScrubberValidatorImpl implements ScrubberValidator {
 
     /**
      * Sets the optionsService attribute value.
-     * 
+     *
      * @param optionsService The optionsService to set.
      */
     public void setOptionsService(OptionsService optionsService) {
         this.optionsService = optionsService;
     }
-    
-    
+
+
 }

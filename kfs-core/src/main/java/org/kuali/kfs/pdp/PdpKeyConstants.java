@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -202,11 +202,11 @@ public class PdpKeyConstants {
     public static final String ERROR_ACH_ACCOUNT_NOT_INACTIVABLE = "error.pdp.achAccount.accountNotInactivable";
 
     public static class Format {
-    	public static final String MESSAGE_PDP_FORMAT_BATCH_EMAIL_SUBJECT="message.pdp.format.batch.email.subject"; 
-    	
+    	public static final String MESSAGE_PDP_FORMAT_BATCH_EMAIL_SUBJECT="message.pdp.format.batch.email.subject";
+
         public static final String ERROR_PDP_FORMAT_PROCESS_ALREADY_RUNNING = "error.pdp.format.alreadyRunning";
         public static final String ERROR_PDP_NO_MATCHING_PAYMENT_FOR_FORMAT = "error.pdp.format.NoMatchingPayments";
-        
+
         public static final class ErrorMessages{
             public static final String ERROR_FORMAT_BANK_MISSING = "format.bank.missing";
             public static final String ERROR_FORMAT_DISBURSEMENT_EXHAUSTED = "format.disb.exhausted";

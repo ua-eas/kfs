@@ -1,23 +1,23 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <data xmlns="ns:workflow" xsi:schemaLocation="ns:workflow resource:WorkflowData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  
+
   <ruleAttributes xmlns="ns:workflow/RuleAttribute" xsi:schemaLocation="ns:workflow/RuleAttribute resource:RuleAttribute">
     <ruleAttribute>
       <name>KFSPurapDocumentSearchCustomizer</name>
@@ -180,7 +180,7 @@
             	<status>Awaiting Contract Manager Assignment</status>
             	<status>Closed</status>
             	<status>Cancelled</status>
-            	<status>In Process</status>            	   
+            	<status>In Process</status>
      </validApplicationStatuses>
       <policies>
         <policy>
@@ -376,7 +376,7 @@
               <name>DOCUMENT_STATUS_POLICY</name>
               <stringValue>app</stringValue>
         </policy>
-      </policies>      
+      </policies>
       <routePaths>
         <routePath>
           <start name="AdHoc" nextNode="RequiresContractManagementReview" nextAppDocStatus="Awaiting Purchasing Approval" />
@@ -507,7 +507,7 @@
         </simple>
       </routeNodes>
     </documentType>
-	
+
 	<documentType>
       <name>
         POA
@@ -530,7 +530,7 @@
       <routingVersion>
         2
       </routingVersion>
-        <validApplicationStatuses>	  
+        <validApplicationStatuses>
 	  	<!--  Incomplete status start -->
 	  	<category name="INCOMPLETE STATUSES">
 	  	  <status>In Process</status>
@@ -583,7 +583,7 @@
               <name>DOCUMENT_STATUS_POLICY</name>
               <stringValue>app</stringValue>
         </policy>
-      </policies>	  
+      </policies>
       <routePaths>
 				<routePath>
 					<start name="AdHoc" nextNode="HasNewUnorderedItems"  nextAppDocStatus="Awaiting New Unordered Item Review"/>
@@ -619,7 +619,7 @@
 				</simple>
 			</routeNodes>
     </documentType>
-	
+
 	 <documentType>
       <name>
         POC
@@ -694,7 +694,7 @@
               <name>DOCUMENT_STATUS_POLICY</name>
               <stringValue>app</stringValue>
         </policy>
-      </policies>	  
+      </policies>
       <routePaths>
         <routePath>
           <start name="AdHoc"/>
@@ -703,7 +703,7 @@
       <routeNodes>
         <start name="AdHoc"/>
       </routeNodes>
-    </documentType>		
+    </documentType>
 	<documentType>
       <name>
         POPH
@@ -778,7 +778,7 @@
               <name>DOCUMENT_STATUS_POLICY</name>
               <stringValue>app</stringValue>
         </policy>
-      </policies>	  
+      </policies>
       <routePaths>
         <routePath>
           <start name="AdHoc"/>
@@ -863,7 +863,7 @@
               <name>DOCUMENT_STATUS_POLICY</name>
               <stringValue>app</stringValue>
         </policy>
-      </policies>	  
+      </policies>
       <routePaths>
         <routePath>
           <start name="AdHoc" nextNode="AccountsPayable"/>
@@ -954,7 +954,7 @@
               <name>DOCUMENT_STATUS_POLICY</name>
               <stringValue>app</stringValue>
         </policy>
-      </policies>	  
+      </policies>
       <routePaths>
         <routePath>
           <start name="AdHoc"/>
@@ -1038,7 +1038,7 @@
               <name>DOCUMENT_STATUS_POLICY</name>
               <stringValue>app</stringValue>
         </policy>
-      </policies>	  
+      </policies>
       <routePaths>
         <routePath>
           <start name="AdHoc"/>
@@ -1122,7 +1122,7 @@
               <name>DOCUMENT_STATUS_POLICY</name>
               <stringValue>app</stringValue>
         </policy>
-      </policies>	  
+      </policies>
     </documentType>
   <documentType>
       <name>
@@ -1198,7 +1198,7 @@
               <name>DOCUMENT_STATUS_POLICY</name>
               <stringValue>app</stringValue>
         </policy>
-      </policies>	  
+      </policies>
       <routePaths>
         <routePath>
           <start name="AdHoc"/>
@@ -1207,7 +1207,7 @@
       <routeNodes>
         <start name="AdHoc"/>
       </routeNodes>
-    </documentType> 
+    </documentType>
     <documentType>
       <name>
         EIRT
@@ -1278,14 +1278,14 @@
       	<status>Void</status>
       	<status>Cancelled</status>
       	<status>Complete</status>
-      	<status>Awaiting AP Review</status>      	
+      	<status>Awaiting AP Review</status>
       </validApplicationStatuses>
       <policies>
         <policy>
               <name>DOCUMENT_STATUS_POLICY</name>
               <stringValue>app</stringValue>
         </policy>
-      </policies>      
+      </policies>
       <routePaths>
         <routePath>
           <start name="AdHoc" nextNode="RequiresImageAttachment" nextAppDocStatus="Awaiting AP Review"/>
@@ -1373,7 +1373,7 @@
               <name>DOCUMENT_STATUS_POLICY</name>
               <stringValue>app</stringValue>
         </policy>
-      </policies>      
+      </policies>
       <routePaths>
         <routePath>
           <start name="AdHoc" nextNode="RequiresImageAttachment" nextAppDocStatus="Awaiting AP Review"/>
@@ -1590,7 +1590,7 @@
               <name>DOCUMENT_STATUS_POLICY</name>
               <stringValue>app</stringValue>
         </policy>
-      </policies>      
+      </policies>
       <routePaths>
         <routePath>
           <start name="AdHoc" nextNode="RelatesToOutstandingTransactions" nextAppDocStatus="Awaiting Purchase Order Open Status"/>

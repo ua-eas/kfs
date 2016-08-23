@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,7 +34,7 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class IndirectCostRecoveryRateMaintainableImpl extends FinancialSystemMaintainable {
-    private static final Logger LOG = Logger.getLogger(IndirectCostRecoveryRateMaintainableImpl.class);  
+    private static final Logger LOG = Logger.getLogger(IndirectCostRecoveryRateMaintainableImpl.class);
 
     private Integer indirectCostRecoveryRateNextEntryNumber;
 
@@ -72,41 +72,41 @@ public class IndirectCostRecoveryRateMaintainableImpl extends FinancialSystemMai
 
     /**
      * @see org.kuali.kfs.sys.document.FinancialSystemMaintainable#populateChartOfAccountsCodeFields()
-     * 
-     * Special treatment is needed to populate the chart code from the account number field in IndirectCostRecoveryRateDetails, 
-     * as the potential reference account doesn't exist in the collection due to wild cards, which also needs special handling.  
+     *
+     * Special treatment is needed to populate the chart code from the account number field in IndirectCostRecoveryRateDetails,
+     * as the potential reference account doesn't exist in the collection due to wild cards, which also needs special handling.
      */
     @Override
     protected void populateChartOfAccountsCodeFields() {
         // calling super method in case there're reference accounts/collections other than ICR rates
         super.populateChartOfAccountsCodeFields();
-        
-        PersistableBusinessObject bo = getBusinessObject();        
-        AccountService acctService = SpringContext.getBean(AccountService.class);    
+
+        PersistableBusinessObject bo = getBusinessObject();
+        AccountService acctService = SpringContext.getBean(AccountService.class);
         PersistableBusinessObject newAccount = getNewCollectionLine(KFSPropertyConstants.INDIRECT_COST_RECOVERY_RATE_DETAILS);
         String accountNumber = (String)ObjectUtils.getPropertyValue(newAccount, KFSPropertyConstants.ACCOUNT_NUMBER);
         String coaCode = null;
-        
+
         // if accountNumber is wild card, populate chart code with the same wild card
-        if (GeneralLedgerConstants.PosterService.SYMBOL_USE_EXPENDITURE_ENTRY.equals(accountNumber) || 
+        if (GeneralLedgerConstants.PosterService.SYMBOL_USE_EXPENDITURE_ENTRY.equals(accountNumber) ||
             GeneralLedgerConstants.PosterService.SYMBOL_USE_ICR_FROM_ACCOUNT.equals(accountNumber)) {
             coaCode = accountNumber;
         }
         // otherwise do the normal account lookup
         else {
-            Account account = acctService.getUniqueAccountForAccountNumber(accountNumber);            
+            Account account = acctService.getUniqueAccountForAccountNumber(accountNumber);
             if (ObjectUtils.isNotNull(account)) {
                 coaCode = account.getChartOfAccountsCode();
             }
         }
-         
+
         // populate chart code field
         try {
-            ObjectUtils.setObjectProperty(newAccount, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, coaCode); 
+            ObjectUtils.setObjectProperty(newAccount, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, coaCode);
         }
         catch (Exception e) {
             LOG.error("Error in setting property value for " + KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
-        } 
-    }    
-    
+        }
+    }
+
 }

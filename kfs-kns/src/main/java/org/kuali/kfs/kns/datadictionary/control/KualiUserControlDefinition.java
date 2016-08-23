@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -45,7 +45,7 @@ import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 @Deprecated
 public class KualiUserControlDefinition extends ControlDefinitionBase {
     private static final long serialVersionUID = 4749994521411547705L;
-    
+
 	protected String universalIdAttributeName;
     protected String userIdAttributeName;
     protected String personNameAttributeName;
@@ -54,7 +54,7 @@ public class KualiUserControlDefinition extends ControlDefinitionBase {
     }
 
     /**
-     * 
+     *
      * @see ControlDefinition#isKualiUser()
      */
     public boolean isKualiUser() {
@@ -62,7 +62,7 @@ public class KualiUserControlDefinition extends ControlDefinitionBase {
     }
 
     /**
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     public String toString() {
@@ -71,7 +71,7 @@ public class KualiUserControlDefinition extends ControlDefinitionBase {
 
     /**
      * Gets the personNameAttributeName attribute.
-     * 
+     *
      * @return Returns the personNameAttributeName.
      */
     public String getPersonNameAttributeName() {
@@ -91,7 +91,7 @@ public class KualiUserControlDefinition extends ControlDefinitionBase {
 
     /**
      * Gets the universalIdAttributeName attribute.
-     * 
+     *
      * @return Returns the universalIdAttributeName.
      */
     public String getUniversalIdAttributeName() {
@@ -111,7 +111,7 @@ public class KualiUserControlDefinition extends ControlDefinitionBase {
 
     /**
      * Gets the userIdAttributeName attribute.
-     * 
+     *
      * @return Returns the userIdAttributeName.
      */
     public String getUserIdAttributeName() {

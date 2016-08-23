@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -38,7 +38,7 @@ public enum PurchasingAccountsPayableItemAssetFixture {
             return itemAsset;
         }
     },
-    
+
     REC2 {
         public PurchasingAccountsPayableItemAsset newRecord() {
             PurchasingAccountsPayableItemAsset itemAsset = new PurchasingAccountsPayableItemAsset();
@@ -49,7 +49,7 @@ public enum PurchasingAccountsPayableItemAssetFixture {
             return itemAsset;
         }
     },
-    
+
     REC3 {
         public PurchasingAccountsPayableItemAsset newRecord() {
             PurchasingAccountsPayableItemAsset itemAsset = new PurchasingAccountsPayableItemAsset();
@@ -60,7 +60,7 @@ public enum PurchasingAccountsPayableItemAssetFixture {
             return itemAsset;
         }
     },
-    
+
     REC4 {
         public PurchasingAccountsPayableItemAsset newRecord() {
             PurchasingAccountsPayableItemAsset itemAsset = new PurchasingAccountsPayableItemAsset();
@@ -78,7 +78,7 @@ public enum PurchasingAccountsPayableItemAssetFixture {
         List<PurchasingAccountsPayableItemAsset> itemAssets = new ArrayList<PurchasingAccountsPayableItemAsset>();
         List<PurchasingAccountsPayableLineAssetAccount> newAccounts = PurchasingAccountsPayableLineAssetAccountFixture.createPurApAccounts();
         Iterator iterator =  newAccounts.iterator();
-        
+
         // build four item lines
         if (iterator.hasNext()) {
             PurchasingAccountsPayableLineAssetAccount newAccount1 = (PurchasingAccountsPayableLineAssetAccount)iterator.next();
@@ -96,7 +96,7 @@ public enum PurchasingAccountsPayableItemAssetFixture {
             newAccount2.setPurchasingAccountsPayableItemAsset(newItem2);
             itemAssets.add(newItem2);
         }
-        
+
         if (iterator.hasNext()) {
             PurchasingAccountsPayableLineAssetAccount newAccount3 = (PurchasingAccountsPayableLineAssetAccount)iterator.next();
             PurchasingAccountsPayableItemAsset newItem3 = REC3.newRecord();
@@ -105,7 +105,7 @@ public enum PurchasingAccountsPayableItemAssetFixture {
             newAccount3.setPurchasingAccountsPayableItemAsset(newItem3);
             itemAssets.add(newItem3);
         }
-        
+
         if (iterator.hasNext()) {
             // add the 1st account to this item
             PurchasingAccountsPayableLineAssetAccount newAccount4 = (PurchasingAccountsPayableLineAssetAccount)iterator.next();
@@ -120,10 +120,10 @@ public enum PurchasingAccountsPayableItemAssetFixture {
                 newItem4.getPurchasingAccountsPayableLineAssetAccounts().add(newAccount5);
                 newAccount5.setPurchasingAccountsPayableItemAsset(newItem4);
             }
-            
+
             itemAssets.add(newItem4);
         }
-        
+
         return itemAssets;
     }
 

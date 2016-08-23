@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -24,8 +24,8 @@ import org.kuali.kfs.krad.datadictionary.validation.FieldLevelValidationPattern;
 
 /**
  * Validation pattern for matching fixed point numbers, optionally matching negative numbers
- * 
- * 
+ *
+ *
  */
 public class FixedPointValidationPattern extends FieldLevelValidationPattern {
     public static final String PATTERN_TYPE_PRECISION = "fixedPoint.precision";
@@ -79,11 +79,11 @@ public class FixedPointValidationPattern extends FieldLevelValidationPattern {
 
     /**
      * Adds special handling to account for optional allowNegative and dynamic precision, scale
-     * 
+     *
      * @see ValidationPattern#getRegexString()
      */
     @Override
-	protected String getRegexString() {    	
+	protected String getRegexString() {
     	final StringBuilder regex = new StringBuilder();
 
         if (allowNegative) {
@@ -139,23 +139,23 @@ public class FixedPointValidationPattern extends FieldLevelValidationPattern {
 
 	/**
 	 * This overridden method ...
-	 * 
+	 *
 	 * @see ValidationPattern#getValidationErrorMessageParameters(java.lang.String)
 	 */
 	@Override
 	public String[] getValidationErrorMessageParameters(String attributeLabel) {
 		return new String[] {attributeLabel, String.valueOf(precision), String.valueOf(scale)};
 	}
-	
+
 	@Override
 	public void completeValidation() throws ValidationPatternException {
 		super.completeValidation();
-		
+
     	final boolean valid =
     		(getPrecision() >= 1) &&
     		(getScale() >= 0) &&
     		(getPrecision() >= getScale());
-    	
+
     	if (!valid) {
     		throw new ValidationPatternException("The precision must be >= 1.  The scale must be >= 0.  The precision must be >= scale. Precision: " + getPrecision() + " Scale: " + getScale());
     	}

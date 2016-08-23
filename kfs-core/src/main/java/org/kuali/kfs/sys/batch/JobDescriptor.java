@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -60,7 +60,7 @@ public class JobDescriptor implements BeanNameAware {
     /**
      * Constructs a non-volatile, durable, non-recoverable JobDetail w/ org.kuali.kfs.sys.batch.Job as the job class and the specified
      * name and group from this instance. Also adds status=Pending to the JobDataMap, if this is a scheduled job.
-     * 
+     *
      * @return the org.quartz.JobDetail corresponding to this instance
      */
     public JobDetail getJobDetail() {
@@ -69,7 +69,7 @@ public class JobDescriptor implements BeanNameAware {
 
     /**
      * Sets the group attribute value.
-     * 
+     *
      * @param group The group to set.
      */
     public void setGroup(String group) {
@@ -78,7 +78,7 @@ public class JobDescriptor implements BeanNameAware {
 
     /**
      * Sets the dependencies attribute value.
-     * 
+     *
      * @param dependencies The dependencies to set.
      */
     public void setDependencies(Map<String, String> dependencies) {
@@ -87,7 +87,7 @@ public class JobDescriptor implements BeanNameAware {
 
     /**
      * Gets the dependencies attribute.
-     * 
+     *
      * @return Returns the dependencies.
      */
     public Map<String, String> getDependencies() {
@@ -96,7 +96,7 @@ public class JobDescriptor implements BeanNameAware {
 
     /**
      * Sets the steps attribute value.
-     * 
+     *
      * @param steps The steps to set.
      */
     public void setSteps(List<Step> steps) {
@@ -105,7 +105,7 @@ public class JobDescriptor implements BeanNameAware {
 
     /**
      * Gets the steps attribute.
-     * 
+     *
      * @return Returns the steps.
      */
     public List<Step> getSteps() {
@@ -114,7 +114,7 @@ public class JobDescriptor implements BeanNameAware {
 
     /**
      * Sets the schedulerService attribute value.
-     * 
+     *
      * @param schedulerService The schedulerService to set.
      */
     public void setSchedulerService(SchedulerService schedulerService) {
@@ -142,7 +142,7 @@ public class JobDescriptor implements BeanNameAware {
     }
 
     /**
-     * Gets the namespaceCode attribute. 
+     * Gets the namespaceCode attribute.
      * @return Returns the namespaceCode.
      */
     public String getNamespaceCode() {

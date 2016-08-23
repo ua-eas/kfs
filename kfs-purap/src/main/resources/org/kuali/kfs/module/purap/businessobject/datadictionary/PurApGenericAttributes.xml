@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-        
+
 <bean id="PurApGenericAttributes" parent="PurApGenericAttributes-parentBean"/>
 
 <bean id="PurApGenericAttributes-parentBean" abstract="true" parent="BusinessObjectEntry">
@@ -47,7 +47,7 @@
 			<ref bean="PurApGenericAttributes-creditMemoPaidTimestamp"/>
 			<ref bean="PurApGenericAttributes-genericItemAmount"/>
 			<ref bean="PurApGenericAttributes-sequenceId"/>
-			<ref bean="PurApGenericAttributes-applicationDocumentStatus"/>			
+			<ref bean="PurApGenericAttributes-applicationDocumentStatus"/>
 		</list>
 	</property>
 </bean>
@@ -216,15 +216,15 @@
     </property>
     <property name="control">
       <bean parent="HiddenControlDefinition" />
-    </property>    
-  </bean>  
+    </property>
+  </bean>
   <bean id="PurApGenericAttributes-applicationDocumentStatus" parent="PurApGenericAttributes-applicationDocumentStatus-parentBean"/>
 
   <bean id="PurApGenericAttributes-applicationDocumentStatus-parentBean" abstract="true" parent="FinancialSystemDocumentHeader-applicationDocumentStatus">
     <property name="label" value="Application Document Status"/>
     <property name="shortLabel" value="App Doc Status"/>
   </bean>
-            
+
   <bean id="PurApGenericAttributes-purchaseOrderStatus" parent="PurApGenericAttributes-purchaseOrderStatus-parentBean"/>
 
   <bean id="PurApGenericAttributes-purchaseOrderStatus-parentBean" abstract="true" parent="AttributeDefinition">
@@ -238,7 +238,7 @@
     </property>
     <property name="control">
       <bean parent="TextControlDefinition" p:size="20"/>
-    </property>    
+    </property>
   </bean>
   <bean id="PurApGenericAttributes-paymentRequestStatus" parent="PurApGenericAttributes-paymentRequestStatus-parentBean"/>
 
@@ -253,7 +253,7 @@
     </property>
     <property name="control">
       <bean parent="HiddenControlDefinition" />
-    </property>    
+    </property>
   </bean>
   <bean id="PurApGenericAttributes-creditMemoStatus" parent="PurApGenericAttributes-creditMemoStatus-parentBean"/>
 
@@ -268,7 +268,7 @@
     </property>
     <property name="control">
       <bean parent="HiddenControlDefinition" />
-    </property>        
+    </property>
   </bean>
   <bean id="PurApGenericAttributes-extractedTimestamp" parent="PurApGenericAttributes-extractedTimestamp-parentBean"/>
 
@@ -313,8 +313,8 @@
     <property name="control">
       <ref bean="TenCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
-  
+
 </beans>

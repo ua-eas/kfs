@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,7 +29,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.kuali.kfs.module.purap.PurapConstants;
 
 public class ElectronicInvoiceDetailRequestSummary {
-  
+
   private String subTotalAmount; // has money xml node
   private String subTotalAmountCurrency;
   private String taxAmount; // has money xml node  (not all tax fields are stored as tax should never occur)
@@ -40,12 +40,12 @@ public class ElectronicInvoiceDetailRequestSummary {
   private String specialHandlingAmountDescription;
   private String shippingAmount; // has money xml node
   private String shippingAmountCurrency;
-  // grossAmount should = subTotalAmount + taxAmount + specialHandlingAmount + shippingAmount 
+  // grossAmount should = subTotalAmount + taxAmount + specialHandlingAmount + shippingAmount
   private String grossAmount; // subTotal + taxes + shipping + special handling
   private String grossAmountCurrency;
   private String discountAmount; // has money xml node
   private String discountAmountCurrency;
-  // netAmount should = grossAmount - discountAmount 
+  // netAmount should = grossAmount - discountAmount
   private String netAmount;  // has money xml node
   private String netAmountCurrency;
   private String depositAmount;  // has money xml node
@@ -53,7 +53,7 @@ public class ElectronicInvoiceDetailRequestSummary {
   // dueAmount should = newAmount - depositAmount
   private String dueAmount;  // has money xml node
   private String dueAmountCurrency;
-  
+
   /**
    * Newly Added
    */
@@ -62,11 +62,11 @@ public class ElectronicInvoiceDetailRequestSummary {
   private String taxPercentageRate;
 //  private String taxableAmount;
 //  private String taxableAmountCurrency;
-  
+
   public ElectronicInvoiceDetailRequestSummary() {
     super();
   }
-  
+
   public String getShippingDescription() {
     if (this.shippingAmount != null) {
       try {
@@ -81,7 +81,7 @@ public class ElectronicInvoiceDetailRequestSummary {
     }
     return null;
   }
-  
+
   public BigDecimal getInvoiceSubTotalAmount() {
     if ( (this.subTotalAmount == null) || ("".equals(this.subTotalAmount)) ) {
       return BigDecimal.ZERO;
@@ -137,7 +137,7 @@ public class ElectronicInvoiceDetailRequestSummary {
       return new BigDecimal(this.netAmount);
     }
   }
-  
+
   public BigDecimal getInvoiceDepositAmount() {
     if ( (this.depositAmount == null) || ("".equals(this.depositAmount)) ) {
       return BigDecimal.ZERO;
@@ -145,7 +145,7 @@ public class ElectronicInvoiceDetailRequestSummary {
       return new BigDecimal(this.depositAmount);
     }
   }
-  
+
   public BigDecimal getInvoiceDueAmount() {
     if ( (this.dueAmount == null) || ("".equals(this.dueAmount)) ) {
       return BigDecimal.ZERO;
@@ -153,7 +153,7 @@ public class ElectronicInvoiceDetailRequestSummary {
       return new BigDecimal(this.dueAmount);
     }
   }
-  
+
   /**
    * @return Returns the depositAmount.
    */
@@ -339,7 +339,7 @@ public class ElectronicInvoiceDetailRequestSummary {
         }
        return null;
   }
-  
+
   /**
    * @param specialHandlingAmountDescription the specialHandlingAmountDescription to set
    */
@@ -406,7 +406,7 @@ public class ElectronicInvoiceDetailRequestSummary {
   public void setTaxDescription(String taxDescription) {
     this.taxDescription = taxDescription;
   }
-  
+
   public String getTaxCategory() {
       return taxCategory;
   }
@@ -414,7 +414,7 @@ public class ElectronicInvoiceDetailRequestSummary {
   public void setTaxCategory(String taxCategory) {
       this.taxCategory = taxCategory;
   }
-  
+
   public String getTaxPercentageRate() {
       return taxPercentageRate;
   }
@@ -430,7 +430,7 @@ public class ElectronicInvoiceDetailRequestSummary {
   public void setTaxPurpose(String taxPurpose) {
       this.taxPurpose = taxPurpose;
   }
-  
+
 //  public String getTaxableAmount() {
 //      return taxableAmount;
 //  }
@@ -446,7 +446,7 @@ public class ElectronicInvoiceDetailRequestSummary {
 //  public void setTaxableAmountCurrency(String taxableAmountCurrency) {
 //      this.taxableAmountCurrency = taxableAmountCurrency;
 //  }
-  
+
   public String toString(){
       ToStringBuilder toString = new ToStringBuilder(this);
       toString.append("subTotalAmount",getSubTotalAmount());
@@ -474,7 +474,7 @@ public class ElectronicInvoiceDetailRequestSummary {
       toString.append("depositAmountCurrency",getDepositAmountCurrency());
       toString.append("dueAmount",getDueAmount());
       toString.append("dueAmountCurrency",getDueAmountCurrency());
-      
+
       return toString.toString();
   }
 

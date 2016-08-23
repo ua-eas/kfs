@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -22,18 +22,18 @@
     xmlns:p="http://www.springframework.org/schema/p"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-        
-	<import resource="IntraAccountAdjustmentValidators.xml" />        
+
+	<import resource="IntraAccountAdjustmentValidators.xml" />
 
 <!--  Validations for Add Accounting Line -->
-<bean id="IntraAccountAdjustment-addAccountingLineValidation" 
+<bean id="IntraAccountAdjustment-addAccountingLineValidation"
 			parent="IntraAccountAdjustment-addAccountingLineValidation-parentBean" scope="prototype" />
-			
-    <bean id="IntraAccountAdjustment-addAccountingLineValidation-parentBean" class="org.kuali.kfs.sys.document.validation.impl.CompositeValidation" 
+
+    <bean id="IntraAccountAdjustment-addAccountingLineValidation-parentBean" class="org.kuali.kfs.sys.document.validation.impl.CompositeValidation"
     			abstract="true">
         <property name="validations">
             <list>
-                <bean class="org.kuali.kfs.sys.document.validation.impl.CompositeValidation" scope="prototype"> 
+                <bean class="org.kuali.kfs.sys.document.validation.impl.CompositeValidation" scope="prototype">
                     <property name="validations">
                         <list>
                             <bean parent="AccountingDocument-businessObjectDataDictionaryValidation" scope="prototype">
@@ -44,7 +44,7 @@
                                     </bean>
                                 </property>
                                 <property name="quitOnFail" value="true" />
-                            </bean>                            
+                            </bean>
                             <bean parent="AccountingDocument-accountingLineDataDictionaryValidation" scope="prototype">
                                 <property name="parameterProperties">
                                     <list>
@@ -59,9 +59,9 @@
 							 <bean parent="IAADocument-defaultAccountingLineValuesAllowedValidation" scope="prototype">
 								<property name="quitOnFail" value="true" />
 								<property name="accountingDocumentParameterPropertyName" value="document" />
-								<property name="accountingLineParameterPropertyName" value="accountingLine" />								
-							</bean> 
-							
+								<property name="accountingLineParameterPropertyName" value="accountingLine" />
+							</bean>
+
 		                    <bean parent="IAADocument-accountingLineSubAccountValuesAllowedValidation" scope="prototype">
 								<property name="quitOnFail" value="true" />
 								 <property name="parameterProperties">
@@ -70,10 +70,10 @@
           	    					   <property name="targetValidationProperty" value="accountingLineForValidation" />
                                     </bean>
                                 </property>
-							</bean>   							                          
+							</bean>
                         </list>
                     </property>
-                
+
                       <property name="quitOnFail" value="true" />
                 </bean>
                 <bean parent="AccountingDocument-accountingLineAmountPositiveValidation" scope="prototype">
@@ -109,10 +109,10 @@
         </property>
     </bean>
     <!--  Validations for Route Document -->
-    
+
     <bean id="IntraAccountAdjustment-routeDocumentValidation" parent="IntraAccountAdjustment-routeDocumentValidation-parentBean" scope="prototype"/>
 
-	<bean id="IntraAccountAdjustment-routeDocumentValidation-parentBean" class="org.kuali.kfs.sys.document.validation.impl.CompositeValidation" 
+	<bean id="IntraAccountAdjustment-routeDocumentValidation-parentBean" class="org.kuali.kfs.sys.document.validation.impl.CompositeValidation"
 		scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
@@ -140,8 +140,8 @@
 						</list>
 					</property>
 				</bean>
-				<bean parent="IntraAccountAdjustment-transferTotalsBalanceValidation" scope="prototype"/>	
-				<bean parent="CapitalAccountingLines-capitalAccountingLinesValidations" scope="prototype" />					
+				<bean parent="IntraAccountAdjustment-transferTotalsBalanceValidation" scope="prototype"/>
+				<bean parent="CapitalAccountingLines-capitalAccountingLinesValidations" scope="prototype" />
 				<bean parent="CapitialAssetInformation-capitalAssetInformationValidation" scope="prototype" />
 			</list>
 		</property>
@@ -149,39 +149,39 @@
 
 	<bean id="IntraAccountAdjustment-saveDocumentValidation" parent="IntraAccountAdjustment-saveDocumentValidation-parentBean" scope="prototype"/>
 
-	
+
 	<bean id="IntraAccountAdjustment-saveDocumentValidation-parentBean" parent="AccountingDocument-SaveDocument-DefaultValidation" scope="prototype" abstract="true" />
-	
+
 	<!-- Approve document validation -->
-	
+
 	<bean id="IntraAccountAdjustment-approveDocumentValidation" parent="AccountingDocument-ApproveDocument-DefaultValidation" scope="prototype" />
-	
+
 	<!-- Blanket Approve Validation -->
-	<bean id="IntraAccountAdjustment-blanketApproveDocumentValidation" 
+	<bean id="IntraAccountAdjustment-blanketApproveDocumentValidation"
 											parent="IntraAccountAdjustment-blanketApproveDocumentValidation-parentBean" scope="prototype"/>
 
-	<bean id="IntraAccountAdjustment-blanketApproveDocumentValidation-parentBean" class="org.kuali.kfs.sys.document.validation.impl.CompositeValidation" 
+	<bean id="IntraAccountAdjustment-blanketApproveDocumentValidation-parentBean" class="org.kuali.kfs.sys.document.validation.impl.CompositeValidation"
 		scope="prototype" abstract="true">
 		<property name="validations">
 			<list>
 				<bean parent="AccountingDocument-BlanketApproveDocument-DefaultValidation" scope="prototype"/>
-				<bean parent="CapitalAccountingLines-capitalAccountingLinesValidations" scope="prototype" />	
-				<bean parent="CapitialAssetInformation-capitalAssetInformationValidation" scope="prototype" />					
+				<bean parent="CapitalAccountingLines-capitalAccountingLinesValidations" scope="prototype" />
+				<bean parent="CapitialAssetInformation-capitalAssetInformationValidation" scope="prototype" />
 			</list>
 		</property>
-	</bean>		
-	
+	</bean>
+
 	<!-- Delete Accounting Line Validation -->
-	<bean id="IntraAccountAdjustment-deleteAccountingLineValidation" 
+	<bean id="IntraAccountAdjustment-deleteAccountingLineValidation"
 											parent="AccountingDocument-DeleteAccountingLine-DefaultValidation" scope="prototype" />
 	<!-- Update Accounting Line Validation -->
-	<bean id="IntraAccountAdjustment-updateAccountingLineValidation" 
+	<bean id="IntraAccountAdjustment-updateAccountingLineValidation"
 											parent="IntraAccountAdjustment-updateAccountingLineValidation-parentBean" scope="prototype"/>
-	<bean id="IntraAccountAdjustment-updateAccountingLineValidation-parentBean" class="org.kuali.kfs.sys.document.validation.impl.CompositeValidation" 
+	<bean id="IntraAccountAdjustment-updateAccountingLineValidation-parentBean" class="org.kuali.kfs.sys.document.validation.impl.CompositeValidation"
     			abstract="true">
         <property name="validations">
             <list>
-               <bean class="org.kuali.kfs.sys.document.validation.impl.CompositeValidation" scope="prototype"> 
+               <bean class="org.kuali.kfs.sys.document.validation.impl.CompositeValidation" scope="prototype">
                    <property name="validations">
                        <list>
                            <bean parent="AccountingDocument-businessObjectDataDictionaryValidation" scope="prototype">
@@ -192,7 +192,7 @@
                                    </bean>
                                </property>
                                <property name="quitOnFail" value="true" />
-                           </bean>                            
+                           </bean>
                            <bean parent="AccountingDocument-accountingLineDataDictionaryValidation" scope="prototype">
                                <property name="parameterProperties">
                                    <list>
@@ -207,9 +207,9 @@
 						 <bean parent="IAADocument-defaultAccountingLineValuesAllowedValidation" scope="prototype">
 							<property name="quitOnFail" value="true" />
 							<property name="accountingDocumentParameterPropertyName" value="document" />
-							<property name="accountingLineParameterPropertyName" value="updatedAccountingLine" />								
-						</bean>   
-											                          
+							<property name="accountingLineParameterPropertyName" value="updatedAccountingLine" />
+						</bean>
+
                        </list>
                    </property>
                </bean>
@@ -245,9 +245,9 @@
  			</list>
         </property>
     </bean>
-												
+
  <bean id="IntraAccountAdjustment-capitalAccountingLinesObjectSubtypeValidations" parent="IntraAccountAdjustment-capitalAccountingLinesObjectSubtypeValidations-parentBean" scope="prototype" />
-  
+
 	<bean id="IntraAccountAdjustment-capitalAccountingLinesObjectSubtypeValidations-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
@@ -255,15 +255,15 @@
         			<property name="parameterProperties">
            				<list>
              				<bean parent="accountingDocumentFieldConversion" />
-           				</list> 
+           				</list>
                    </property>
        			</bean>
   			</list>
   		</property>
 	</bean>
-				
-	
-	
-	
-	
-</beans>    
+
+
+
+
+
+</beans>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,7 +33,7 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
- * 
+ *
  * This class implements the business rules specific to the {@link SubObjCdGlobal} Maintenance Document.
  */
 public class SubObjCdGlobalRule extends GlobalDocumentRuleBase {
@@ -44,7 +44,7 @@ public class SubObjCdGlobalRule extends GlobalDocumentRuleBase {
      * old objects contained in the maintenance document. It also calls the BusinessObjectBase.refresh(), which will attempt to load
      * all sub-objects from the DB by their primary keys, if available. This also loops through each detail item (SubObjCdGlobalDetail and AccountGlobalDetail)
      * are refreshed
-     * 
+     *
      * @param document - the maintenanceDocument being evaluated
      */
     @Override
@@ -167,7 +167,7 @@ public class SubObjCdGlobalRule extends GlobalDocumentRuleBase {
     }
 
     /**
-     * 
+     *
      * This calls the {@link SubObjCdGlobalRule#checkAccountDetails(AccountGlobalDetail)} on each AccountGlobalDetail as well as calling
      * {@link SubObjCdGlobalRule#checkOnlyOneChartErrorWrapper(List)} to ensure there is just one chart
      * @param details
@@ -198,7 +198,7 @@ public class SubObjCdGlobalRule extends GlobalDocumentRuleBase {
     }
 
     /**
-     * 
+     *
      * This checks that if the account and chart are entered that the  account associated with the AccountGlobalDetail is valid
      * @param dtl - the AccountGlobalDetail we are dealing with
      * @return false if any of the fields are found to be invalid
@@ -219,7 +219,7 @@ public class SubObjCdGlobalRule extends GlobalDocumentRuleBase {
     }
 
     /**
-     * 
+     *
      * This checks that if the object code, chart code, and fiscal year are entered it is a valid Object Code, chart, and Fiscal Year
      * associated with this SubObjectCode
      * @param dtl - the SubObjCdGlobalDetail we are checking
@@ -270,7 +270,7 @@ public class SubObjCdGlobalRule extends GlobalDocumentRuleBase {
     }
 
     /**
-     * 
+     *
      * This checks that the SubObjCdGlobalDetail list isn't empty or null
      * @param subObjCdGlobalDetails
      * @return false if the list is null or empty
@@ -284,7 +284,7 @@ public class SubObjCdGlobalRule extends GlobalDocumentRuleBase {
     }
 
     /**
-     * 
+     *
      * This checks that the AccountGlobalDetail list isn't empty or null
      * @param acctChangeDetails
      * @return false if the list is null or empty
@@ -298,7 +298,7 @@ public class SubObjCdGlobalRule extends GlobalDocumentRuleBase {
     }
 
     /**
-     * 
+     *
      * This checks that the fiscal year is the same on the doc and all SubObjCdGlobalDetails
      * @param socChangeDocument
      * @return false if the fiscal year is not the same on the doc and any of the SubObjCdGlobalDetails
@@ -319,7 +319,7 @@ public class SubObjCdGlobalRule extends GlobalDocumentRuleBase {
     }
 
     /**
-     * 
+     *
      * This checks that the chart is the same on the document, SubObjCdGlobalDetails and AccountGlobalDetails
      * @param socChangeDocument
      * @return false if the chart is missing or not the same on the doc, or the detail lists
@@ -351,7 +351,7 @@ public class SubObjCdGlobalRule extends GlobalDocumentRuleBase {
     /**
      * This checks to make sure that the fiscal year on the {@link SubObjCdGlobalDetail} is not empty and
      * the document's fiscal year matches the detail's fiscal year
-     * 
+     *
      * @param socChangeDocument
      * @return false if the fiscal year is missing or is not the same between the doc and the detail
      */
@@ -390,8 +390,8 @@ public class SubObjCdGlobalRule extends GlobalDocumentRuleBase {
     }
 
     /**
-     * 
-     * This checks to make sure that the chart of accounts on the {@link SubObjCdGlobalDetail} is not empty and 
+     *
+     * This checks to make sure that the chart of accounts on the {@link SubObjCdGlobalDetail} is not empty and
      * the document's chart matches the detail's chart
      * @param socChangeDocument
      * @param socChangeDetail
@@ -402,11 +402,11 @@ public class SubObjCdGlobalRule extends GlobalDocumentRuleBase {
     protected boolean checkChartOnSubObjCodeDetails(SubObjectCodeGlobal socChangeDocument, SubObjectCodeGlobalDetail socChangeDetail, int lineNum, boolean add) {
         boolean success = true;
         String errorPath = KFSConstants.EMPTY_STRING;
-        
+
         if (StringUtils.isBlank(socChangeDetail.getChartOfAccountsCode())) {
             return success; // just return, the existence check will balk at empty details
         }
-        
+
         // first must have an actual fiscal year
         if (socChangeDetail.getChartOfAccounts() == null) {
             if (add) {
@@ -439,7 +439,7 @@ public class SubObjCdGlobalRule extends GlobalDocumentRuleBase {
     }
 
     /**
-     * 
+     *
      * This checks that the chart of accounts on the {@link AccountGlobalDetail} is not empty and matches
      * the document's chart matches the detail's chart
      * @param socChangeDocument

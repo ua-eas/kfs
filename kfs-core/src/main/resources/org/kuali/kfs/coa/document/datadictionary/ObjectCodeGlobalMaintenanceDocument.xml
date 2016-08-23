@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -44,11 +44,11 @@
         <value>documentNumber</value>
       </list>
     </property>
-    
-    
-    
-    
-    
+
+
+
+
+
     <property name="documentTypeName" value="GOBJ"/>
     <property name="businessRulesClass" value="org.kuali.kfs.coa.document.validation.impl.ObjectCodeGlobalRule"/>
     <property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase"/>
@@ -120,10 +120,10 @@
     </property>
   </bean>
 
-   
+
 	<!-- workflow attributes -->
   	<bean id="ObjectCodeGlobalMaintenanceDocument-workflowAttributes" parent="ObjectCodeGlobalMaintenanceDocument-workflowAttributes-parentBean"/>
-  
+
 	<bean id="ObjectCodeGlobalMaintenanceDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
 		<property name="routingTypeDefinitions">
     		<map>
@@ -131,12 +131,12 @@
     		</map>
 		</property>
 	</bean>
-	
+
 	<bean id="ObjectCodeGlobalMaintenanceDocument-RoutingAttribute-Chart" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     	<property name="qualificationAttributeName" value="chartOfAccountsCode"/>
 	</bean>
-	
-   	
+
+
    	<bean id="ObjectCodeGlobalMaintenanceDocument-DocumentValuePathGroup-Chart" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
     	<property name="documentCollectionPath">
     		<bean class="org.kuali.kfs.krad.datadictionary.DocumentCollectionPath">
@@ -148,8 +148,8 @@
 		   		</property>
     		</bean>
     	</property>
-   	</bean>  
-   	
+   	</bean>
+
 	<bean id="ObjectCodeGlobalMaintenanceDocument-RoutingType-Chart" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>

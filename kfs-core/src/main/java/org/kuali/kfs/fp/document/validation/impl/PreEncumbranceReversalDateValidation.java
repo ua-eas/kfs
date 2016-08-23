@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,7 +27,7 @@ import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 
 /**
- * Validates that an accounting line does not have a capital object object code 
+ * Validates that an accounting line does not have a capital object object code
  */
 public class PreEncumbranceReversalDateValidation extends GenericValidation {
     private AccountingDocumentRuleHelperService accountingDocumentRuleHelperService;
@@ -43,9 +43,9 @@ public class PreEncumbranceReversalDateValidation extends GenericValidation {
        // AccountingDocumentRuleHelperService accountingDocumentRuleUtil = getAccountingLineRuleHelperService();
         return accountingDocumentRuleHelperService.isValidReversalDate(reversalDate, DOCUMENT_ERROR_PREFIX + REVERSAL_DATE);
     }
-   
+
     /**
-     * Gets the accountingDocumentRuleHelperService attribute. 
+     * Gets the accountingDocumentRuleHelperService attribute.
      * @return Returns the accountingDocumentRuleHelperService.
      */
     public AccountingDocumentRuleHelperService getAccountingDocumentRuleHelperService() {
@@ -61,7 +61,7 @@ public class PreEncumbranceReversalDateValidation extends GenericValidation {
     }
 
     /**
-     * Gets the accountingDocumentForValidation attribute. 
+     * Gets the accountingDocumentForValidation attribute.
      * @return Returns the accountingDocumentForValidation.
      */
     public PreEncumbranceDocument getAccountingDocumentForValidation() {
@@ -76,6 +76,6 @@ public class PreEncumbranceReversalDateValidation extends GenericValidation {
         this.accountingDocumentForValidation = accountingDocumentForValidation;
     }
 
-    
-   
+
+
 }

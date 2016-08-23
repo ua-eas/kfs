@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -90,13 +90,13 @@ public class AssetDateServiceImpl implements AssetDateService {
         if(ObjectUtils.isNull(oldOffCampusLocation) || ObjectUtils.isNull(newOffCampusLocation)){
             return;
         }
-        if (!StringUtils.equalsIgnoreCase(oldAsset.getCampusCode(), newAsset.getCampusCode()) || !StringUtils.equalsIgnoreCase(oldAsset.getBuildingCode(), newAsset.getBuildingCode()) || 
-                !StringUtils.equalsIgnoreCase(oldAsset.getBuildingRoomNumber(), newAsset.getBuildingRoomNumber()) || !StringUtils.equalsIgnoreCase(oldAsset.getBuildingSubRoomNumber(), newAsset.getBuildingSubRoomNumber()) || 
-                !StringUtils.equalsIgnoreCase(oldAsset.getCampusTagNumber(), newAsset.getCampusTagNumber()) || !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationContactName(), newOffCampusLocation.getAssetLocationContactName()) || 
-                !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationStreetAddress(), newOffCampusLocation.getAssetLocationStreetAddress()) || 
-                !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationCityName(), newOffCampusLocation.getAssetLocationCityName()) || 
-                !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationStateCode(), newOffCampusLocation.getAssetLocationStateCode()) || 
-                !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationZipCode(), newOffCampusLocation.getAssetLocationZipCode()) || 
+        if (!StringUtils.equalsIgnoreCase(oldAsset.getCampusCode(), newAsset.getCampusCode()) || !StringUtils.equalsIgnoreCase(oldAsset.getBuildingCode(), newAsset.getBuildingCode()) ||
+                !StringUtils.equalsIgnoreCase(oldAsset.getBuildingRoomNumber(), newAsset.getBuildingRoomNumber()) || !StringUtils.equalsIgnoreCase(oldAsset.getBuildingSubRoomNumber(), newAsset.getBuildingSubRoomNumber()) ||
+                !StringUtils.equalsIgnoreCase(oldAsset.getCampusTagNumber(), newAsset.getCampusTagNumber()) || !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationContactName(), newOffCampusLocation.getAssetLocationContactName()) ||
+                !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationStreetAddress(), newOffCampusLocation.getAssetLocationStreetAddress()) ||
+                !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationCityName(), newOffCampusLocation.getAssetLocationCityName()) ||
+                !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationStateCode(), newOffCampusLocation.getAssetLocationStateCode()) ||
+                !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationZipCode(), newOffCampusLocation.getAssetLocationZipCode()) ||
                 !StringUtils.equalsIgnoreCase(oldOffCampusLocation.getAssetLocationCountryCode(), newOffCampusLocation.getAssetLocationCountryCode()) ) {
             Timestamp timestamp = new Timestamp(dateTimeService.getCurrentDate().getTime());
             newAsset.setLastInventoryDate(timestamp);

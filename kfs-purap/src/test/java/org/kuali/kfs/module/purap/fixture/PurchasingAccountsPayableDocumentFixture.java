@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,22 +44,22 @@ public enum PurchasingAccountsPayableDocumentFixture {
             null, // vendorPostalCode
             null, // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
             false), //useTaxIndicator
     REQ_WITH_MANUALLY_ENTERED_VENDOR(null, RequisitionStatuses.APPDOC_IN_PROCESS, null, null, "Colts Gear Shop", "111 Champs St", null, "Indy Rocks", "IN", null, "11111", "US", null, null,false),
-    REQ_TAX(null, 
-            RequisitionStatuses.APPDOC_IN_PROCESS, 
-            1000, 
-            0, 
-            "ABC CLEANING SERVICES", 
-            "123456 BROAD ST", 
-            null, 
-            "TRUMANSBURG", 
-            "SC", 
-            null, 
-            "11111", 
-            "US", 
-            null, 
+    REQ_TAX(null,
+            RequisitionStatuses.APPDOC_IN_PROCESS,
+            1000,
+            0,
+            "ABC CLEANING SERVICES",
+            "123456 BROAD ST",
+            null,
+            "TRUMANSBURG",
+            "SC",
+            null,
+            "11111",
+            "US",
+            null,
             null,
             false),
     // APO FIXTURES
@@ -76,7 +76,7 @@ public enum PurchasingAccountsPayableDocumentFixture {
             "14886", // vendorPostalCode
             "US", // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
             false), //useTaxIndicator
     REQ_ALTERNATE_APO(null, // purapDocumentIdentifier
             RequisitionStatuses.APPDOC_IN_PROCESS, // statusCode
@@ -91,7 +91,7 @@ public enum PurchasingAccountsPayableDocumentFixture {
             "01501", // vendorPostalCode
             "US", // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
             false), //useTaxIndicator
 
     REQ_WITH_RESTRICTED_VENDOR(null, // purapDocumentIdentifier
@@ -107,9 +107,9 @@ public enum PurchasingAccountsPayableDocumentFixture {
             "48823", // vendorPostalCode
             "US", // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
             false), //useTaxIndicator
-                    
+
     REQ_WITH_VENDOR_NOT_IN_DATABASE(null, // purapDocumentIdentifier
             RequisitionStatuses.APPDOC_IN_PROCESS, // statusCode
             -999999999, // vendorHeaderGeneratedIdentifier
@@ -123,7 +123,7 @@ public enum PurchasingAccountsPayableDocumentFixture {
             "48823", // vendorPostalCode
             "US", // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
             false), //useTaxIndicator)
 
     REQ_WITH_DEBARRED_VENDOR(null, // purapDocumentIdentifier
@@ -139,7 +139,7 @@ public enum PurchasingAccountsPayableDocumentFixture {
             "48823", // vendorPostalCode
             "US", // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
             false), //useTaxIndicator)
 
     REQ_WITH_INACTIVE_VENDOR(null, // purapDocumentIdentifier
@@ -155,7 +155,7 @@ public enum PurchasingAccountsPayableDocumentFixture {
             "48823", // vendorPostalCode
             "US", // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
             false), //useTaxIndicator)
 
     REQ_WITH_DV_VENDOR(null, // purapDocumentIdentifier
@@ -171,9 +171,9 @@ public enum PurchasingAccountsPayableDocumentFixture {
             "48823", // vendorPostalCode
             "US", // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
             false), //useTaxIndicator)
-            
+
     REQ_WITH_INVALID_US_VENDOR_ZIP_CODE_CONTAINS_LETTERS(null, // purapDocumentIdentifier
             RequisitionStatuses.APPDOC_IN_PROCESS, // statusCode
             1002, // vendorHeaderGeneratedIdentifier
@@ -187,9 +187,9 @@ public enum PurchasingAccountsPayableDocumentFixture {
             "ABC12", // vendorPostalCode
             "US", // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
             false), //useTaxIndicator)
-                    
+
     REQ_WITH_INVALID_US_VENDOR_ZIP_CODE_BAD_FORMAT(null, // purapDocumentIdentifier
             RequisitionStatuses.APPDOC_IN_PROCESS, // statusCode
             1002, // vendorHeaderGeneratedIdentifier
@@ -197,15 +197,15 @@ public enum PurchasingAccountsPayableDocumentFixture {
             "BASIC CORP ACTIVE", // vendorName
             "123 Hagadorn Rd", // vendorLine1Address
             null, // vendorLine2Address
-            "EAST LANSING", // vendorCityName           
+            "EAST LANSING", // vendorCityName
             "MI", // vendorStateCode
             null, // vendorAddressInternationalProvinceName
             "123456", // vendorPostalCode
             "US", // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
             false), //useTaxIndicator)
-                    
+
     REQ_WITH_INVALID_NON_US_VENDOR_ZIP_CODE_CONTAINS_LETTERS(null, // purapDocumentIdentifier
             RequisitionStatuses.APPDOC_IN_PROCESS, // statusCode
             1002, // vendorHeaderGeneratedIdentifier
@@ -219,9 +219,9 @@ public enum PurchasingAccountsPayableDocumentFixture {
             "ABC12", // vendorPostalCode
             "JP", // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
             false), //useTaxIndicator)
-                    
+
     REQ_WITH_VALID_US_VENDOR_ZIP_CODE_WITH_4_TRAILING_NUMBERS(null, // purapDocumentIdentifier
             RequisitionStatuses.APPDOC_IN_PROCESS, // statusCode
             1002, // vendorHeaderGeneratedIdentifier
@@ -235,9 +235,9 @@ public enum PurchasingAccountsPayableDocumentFixture {
             "48823-1234", // vendorPostalCode
             "US", // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
             false), //useTaxIndicator)
-                    
+
     // PURCHASE ORDER FIXTURES
     // TODO f2f: fix the PO one because actually, the vendor must be selected from the database
     PO_ONLY_REQUIRED_FIELDS(null, // purapDocumentIdentifier
@@ -253,12 +253,12 @@ public enum PurchasingAccountsPayableDocumentFixture {
             "14886", // vendorPostalCode
             "US", // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
             false), //useTaxIndicator)
     PO_WITH_MANUALLY_ENTERED_VENDOR(null, PurchaseOrderStatuses.APPDOC_IN_PROCESS, 1000, 0, "ABC Cleaning Services", "123456 BROAD ST", null, "TRUMANSBURG", "NY", null, "14886", "US", null, null, false),
 
     // PAYMENT REQUEST FIXTURES
-    PREQ_ONLY_REQUIRED_FIELDS(null, // purapDocumentIdentifier 
+    PREQ_ONLY_REQUIRED_FIELDS(null, // purapDocumentIdentifier
             PaymentRequestStatuses.APPDOC_IN_PROCESS,  // statusCode
             1010,   // vendorHeaderGeneratedIdentifier
             2,   // vendorDetailAssignedIdentifier
@@ -288,7 +288,7 @@ public enum PurchasingAccountsPayableDocumentFixture {
             null, // vendorCustomerNumber
             null, // accountsPayablePurchasingDocumentLinkIdentifier
             false), //useTaxIndicator)
-            
+
     // CREDIT MEMO FIXTURES
     CM_ONLY_REQUIRED_FIELDS(null, // purapDocumentIdentifier
             CreditMemoStatuses.APPDOC_IN_PROCESS, // statusCode
@@ -303,7 +303,7 @@ public enum PurchasingAccountsPayableDocumentFixture {
             "14886", // vendorPostalCode
             "US", // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
             false), //useTaxIndicator)
     REQ_MULTI_QUANTITY(null, // purapDocumentIdentifier
             RequisitionStatuses.APPDOC_IN_PROCESS, // statusCode
@@ -318,7 +318,7 @@ public enum PurchasingAccountsPayableDocumentFixture {
             "33555", // vendorPostalCode
             "US", // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
             false), //useTaxIndicator)
     REQ_MULTI_NON_QUANTITY(null, // purapDocumentIdentifier
             RequisitionStatuses.APPDOC_IN_PROCESS, // statusCode
@@ -333,7 +333,7 @@ public enum PurchasingAccountsPayableDocumentFixture {
             "01501", // vendorPostalCode
             "US", // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
             false), //useTaxIndicator)
      EINVOICE_PO(null, // purapDocumentIdentifier
             PurchaseOrderStatuses.APPDOC_IN_PROCESS, // statusCode
@@ -348,8 +348,8 @@ public enum PurchasingAccountsPayableDocumentFixture {
             "14886", // vendorPostalCode
             "US", // vendorCountryCode
             null, // vendorCustomerNumber
-            null, // accountsPayablePurchasingDocumentLinkIdentifier, 
-            false), //useTaxIndicator)       
+            null, // accountsPayablePurchasingDocumentLinkIdentifier,
+            false), //useTaxIndicator)
     ;
 
     public final Integer purapDocumentIdentifier;

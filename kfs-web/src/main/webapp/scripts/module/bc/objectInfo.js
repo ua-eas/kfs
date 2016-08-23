@@ -1,22 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 
 var chartCodeSuffix = ".chartOfAccountsCode";
 var chartNameSuffix = ".chartOfAccounts.finChartOfAccountDescription";
@@ -27,35 +27,35 @@ var subAccountNameSuffix = ".subAccount.subAccountName";
 
 /**
  * import the given javascript into the hosting document
- * 
- * @param scriptSourceFileName the given script source file name 
- * @param scriptSourceHolder the script source file name holder that is a key-value pair object. 
+ *
+ * @param scriptSourceFileName the given script source file name
+ * @param scriptSourceHolder the script source file name holder that is a key-value pair object.
  * One script source file name can only have one entry in the object, so it is used to avoid double load scripts.
- */  
+ */
 function importJavascriptFile(scriptSourceFileName, scriptSourceHolder) {
 	if (scriptSourceFileName == "" || scriptSourceHolder[scriptSourceFileName] != null) {
 		return;
 	}
-	
+
 	var scriptElement = document.createElement("script");
 	scriptElement.type = "text/javascript";
 	scriptElement.src = scriptSourceFileName;
 	document.getElementsByTagName("head")[0].appendChild(scriptElement);
-	
+
 	scriptSourceHolder[scriptSourceFileName] = scriptSourceFileName;
-} 
+}
 
 /**
  * import the script that defines the DWR interface into the hosting document
- * 
+ *
  * @param interfaceName the given interface name
  * @param interfaceScriptHolder the script name holder that is a key-value pair object
- */	
+ */
 function importDWRInterface(interfaceName, interfaceScriptHolder) {
 	if (interfaceName == "" || interfaceScriptHolder[interfaceName] != null) {
 		return;
 	}
-	
+
 	var scriptSourceFileName = "dwr/interface/" + interfaceName + ".js";
 	importJavascriptFile(scriptSourceFileName, interfaceScriptHolder)
 }
@@ -63,12 +63,12 @@ function importDWRInterface(interfaceName, interfaceScriptHolder) {
 /**
  * the constructor of BudgetObjectInfoUpdator object
  */
-function BudgetObjectInfoUpdator(){ 
+function BudgetObjectInfoUpdator(){
 	requestedCsfAmountSuffix = ".appointmentRequestedCsfAmount";
 	requestedCsfTimePercentSuffix = ".appointmentRequestedCsfTimePercent";
 	requestedCsfFteQuantitySuffix = ".appointmentRequestedCsfFteQuantity";
 	emptyString = '';
-	
+
 	var interfaceScriptHolder = new Object();
 	importDWRInterface("BudgetConstructionAppointmentFundingReasonCodeService", interfaceScriptHolder);
 	importDWRInterface("BudgetConstructionIntendedIncumbentService", interfaceScriptHolder);
@@ -79,7 +79,7 @@ function BudgetObjectInfoUpdator(){
 }
 
 /**
- * retrieve duration and open/close the amount and time percent fields 
+ * retrieve duration and open/close the amount and time percent fields
  */
 BudgetObjectInfoUpdator.prototype.loadDurationInfo = function(durationCodeFieldName, durationDescriptionFieldName ) {
     var durationCode = dwr.util.getValue( durationCodeFieldName ).trim();
@@ -92,37 +92,37 @@ BudgetObjectInfoUpdator.prototype.loadDurationInfo = function(durationCodeFieldN
 
 	if (durationCodeField.defaultValue != durationCode){
 		durationCodeField.defaultValue = durationCode;
-		
+
 		if (durationCode==emptyString) {
 			setRecipientValue(durationDescriptionFieldName, emptyString);
 		}
 		else {
-			var isDefualtCode = (durationCode == "NONE");								
+			var isDefualtCode = (durationCode == "NONE");
 			if(isDefualtCode){
 				requestedCsfAmountField.setAttribute('value', '0');
 				requestedCsfAmountField.setAttribute('disabled', true);
-			
+
 				requestedCsfTimePercentField.setAttribute('value', '0.00');
 				requestedCsfTimePercentField.setAttribute('disabled', true);
-	
-				setRecipientValue( fieldNamePrefix + requestedCsfFteQuantitySuffix , '0.00000' );			
+
+				setRecipientValue( fieldNamePrefix + requestedCsfFteQuantitySuffix , '0.00000' );
 			}
 			else{
 				requestedCsfAmountField.removeAttribute('disabled');
 				requestedCsfTimePercentField.removeAttribute('disabled');
 				requestedCsfAmountField.focus();
-			} 
+			}
 
 			var dwrReply = {
 				callback:function(data) {
-				if ( data != null && typeof data == 'object' ) {								
+				if ( data != null && typeof data == 'object' ) {
 					setRecipientValue( durationDescriptionFieldName, data.appointmentDurationDescription);
 				} else {
-					setRecipientValue( durationDescriptionFieldName, wrapError( "duration not found" ), true );	
+					setRecipientValue( durationDescriptionFieldName, wrapError( "duration not found" ), true );
 					requestedCsfAmountField.setAttribute('disabled', true);
-					requestedCsfTimePercentField.setAttribute('disabled', true);		
+					requestedCsfTimePercentField.setAttribute('disabled', true);
 				} },
-				errorHandler:function( errorMessage ) { 
+				errorHandler:function( errorMessage ) {
 					setRecipientValue( durationDescriptionFieldName, wrapError( "duration not found" ), true );
 				}
 			};
@@ -151,29 +151,29 @@ BudgetObjectInfoUpdator.prototype.loadReasonCodeInfo = function(reasonAmountFiel
 		} else {
 			reasonAmountField.removeAttribute('disabled');
 			reasonAmountField.focus();
-	
+
 			var dwrReply = {
 				callback:function(data) {
 				if ( data != null && typeof data == 'object' ) {
 					setRecipientValue( reasonDescriptionFieldName, data.appointmentFundingReasonDescription);
 				} else {
-					setRecipientValue( reasonDescriptionFieldName, wrapError( "reason not found" ), true );			
+					setRecipientValue( reasonDescriptionFieldName, wrapError( "reason not found" ), true );
 					reasonAmountField.setAttribute('disabled', true);
 				} },
-				errorHandler:function( errorMessage ) { 
+				errorHandler:function( errorMessage ) {
 					setRecipientValue( reasonDescriptionFieldName, wrapError( "reason not found" ), true );
 				}
 			};
-	
+
 			BudgetConstructionAppointmentFundingReasonCodeService.getByPrimaryId( reasonCode, dwrReply );
 		}
-	} 
+	}
 }
 
 /**
  * retrieve the intended incumbent and administrative post according to the given information
  */
-BudgetObjectInfoUpdator.prototype.loadIntendedIncumbentInfo = function(positionNumberFieldName, iuClassificationLevelFieldName, administrativePostFieldName, emplidFieldName, personNameFieldName) {	
+BudgetObjectInfoUpdator.prototype.loadIntendedIncumbentInfo = function(positionNumberFieldName, iuClassificationLevelFieldName, administrativePostFieldName, emplidFieldName, personNameFieldName) {
 
 	var emplid = getElementValue( emplidFieldName );
 
@@ -193,24 +193,24 @@ BudgetObjectInfoUpdator.prototype.loadIntendedIncumbentInfo = function(positionN
 				setRecipientValue( personNameFieldName, data.name);
 			} else {
 				setRecipientValue(iuClassificationLevelFieldName, emptyString);
-				setRecipientValue( personNameFieldName, wrapError( "Intended incumbent not found" ), true );			
+				setRecipientValue( personNameFieldName, wrapError( "Intended incumbent not found" ), true );
 			} },
-			errorHandler:function( errorMessage ) { 
+			errorHandler:function( errorMessage ) {
 				setRecipientValue( personNameFieldName, wrapError( "Error" ), true );
 			}
 		};
-		
+
 		BudgetConstructionIntendedIncumbentService.getByPrimaryId( emplid, dwrReply );
 	}
-	
+
 	budgetObjectInfoUpdator.loadAdministrativePostInfo(emplidFieldName, positionNumberFieldName, administrativePostFieldName);
 }
 
 /**
  * retrieve the position and adminstrative post according to the given fiscal year, employee id and position number
  */
-BudgetObjectInfoUpdator.prototype.loadPositionInfo = function(universityFiscalYearFieldName, emplidFieldName, 
-	iuNormalWorkMonthsFieldName, iuPayMonthsFieldName, positionFullTimeEquivalencyFieldName, administrativePostFieldName, 
+BudgetObjectInfoUpdator.prototype.loadPositionInfo = function(universityFiscalYearFieldName, emplidFieldName,
+	iuNormalWorkMonthsFieldName, iuPayMonthsFieldName, positionFullTimeEquivalencyFieldName, administrativePostFieldName,
 	positionNumberFieldName, positionDescriptionFieldName) {
 
 	var emplid = getElementValue( emplidFieldName );
@@ -234,16 +234,16 @@ BudgetObjectInfoUpdator.prototype.loadPositionInfo = function(universityFiscalYe
 				setRecipientValue( positionDescriptionFieldName, wrapError( "position not found" ), true );
 				setRecipientValue(iuNormalWorkMonthsFieldName, emptyString);
 				setRecipientValue(iuPayMonthsFieldName, emptyString);
-				setRecipientValue(positionFullTimeEquivalencyFieldName, emptyString);			
+				setRecipientValue(positionFullTimeEquivalencyFieldName, emptyString);
 			} },
-			errorHandler:function( errorMessage ) { 
+			errorHandler:function( errorMessage ) {
 				setRecipientValue( positionDescriptionFieldName, wrapError( "position not found" ), true );
 			}
 		};
-		
+
 		BudgetConstructionPositionService.getByPrimaryId(universityFiscalYear, positionNumber, dwrReply );
 	}
-	
+
 	budgetObjectInfoUpdator.loadAdministrativePostInfo(emplidFieldName, positionNumberFieldName, administrativePostFieldName);
 }
 
@@ -253,7 +253,7 @@ BudgetObjectInfoUpdator.prototype.loadPositionInfo = function(universityFiscalYe
 BudgetObjectInfoUpdator.prototype.loadAdministrativePostInfo = function(emplidFieldName, positionNumberFieldName, administrativePostFieldName) {
 	var emplid = getElementValue( emplidFieldName );
 	var positionNumber = getElementValue( positionNumberFieldName );
-	
+
 	if (positionNumber == emptyString || emplid == emptyString || emplid == 'VACANT') {
 		setRecipientValue(administrativePostFieldName, emptyString);
 	} else {
@@ -262,13 +262,13 @@ BudgetObjectInfoUpdator.prototype.loadAdministrativePostInfo = function(emplidFi
 			if ( data != null && typeof data == 'object' ) {
 				setRecipientValue( administrativePostFieldName, data.administrativePost);
 			} else {
-				clearRecipients(administrativePostFieldName, emptyString);			
+				clearRecipients(administrativePostFieldName, emptyString);
 			} },
-			errorHandler:function( errorMessage ) { 
+			errorHandler:function( errorMessage ) {
 				setRecipientValue( administrativePostFieldName, wrapError( "administrative post not found" ), true );
 			}
 		};
-		
+
 		BudgetConstructionAdministrativePostService.getByPrimaryId(emplid, positionNumber, dwrReply );
 	}
 }
@@ -290,13 +290,13 @@ BudgetObjectInfoUpdator.prototype.recalculateFTE = function(payMonthsFieldName, 
 				var formattedFTE = new Number(data).toFixed(5);
 				setRecipientValue( fteQuantityFieldName, formattedFTE );
 			} else {
-				setRecipientValue( fteQuantityFieldName, emptyString );			
+				setRecipientValue( fteQuantityFieldName, emptyString );
 			} },
-			errorHandler:function( errorMessage ) { 
+			errorHandler:function( errorMessage ) {
 				setRecipientValue( fteQuantityFieldName, emptyString );
 			}
 		};
-		
+
 		SalarySettingService.calculateFteQuantity(payMonths, fundingMonths, timePercent, dwrReply );
 	}
 }
@@ -317,12 +317,12 @@ BudgetObjectInfoUpdator.prototype.loadChartAccountInfo = function( accountCodeFi
         setRecipientValue( elPrefix + subAccountNumberSuffix, "" );
         setRecipientValue( elPrefix + subAccountNameSuffix, "" );
     }
-    
+
     if (accountCode=='') {
 		clearRecipients(accountNameFieldName);
 		clearRecipients(coaCodeFieldName);
-		clearRecipients(coaNameFieldName);    
-		
+		clearRecipients(coaNameFieldName);
+
 	} else {
 		var dwrReply = {
 			callback:function(data) {
@@ -330,21 +330,21 @@ BudgetObjectInfoUpdator.prototype.loadChartAccountInfo = function( accountCodeFi
 				setRecipientValue( accountNameFieldName, data.accountName  );
 				setRecipientValue( coaCodeFieldName, data.chartOfAccountsCode );
 			    setRecipientValue( coaNameFieldName, data.chartOfAccounts.finChartOfAccountDescription );
-			    
+
 			} else {
-				setRecipientValue( accountNameFieldName, wrapError( "account not found" ), true );	
-				clearRecipients(coaCodeFieldName);  
+				setRecipientValue( accountNameFieldName, wrapError( "account not found" ), true );
+				clearRecipients(coaCodeFieldName);
 				clearRecipients(coaNameFieldName);
 			} },
-			errorHandler:function( errorMessage ) { 
+			errorHandler:function( errorMessage ) {
 				setRecipientValue( accountNameFieldName, wrapError( "account not found" ), true );
-				clearRecipients(coaCodeFieldName);  
+				clearRecipients(coaCodeFieldName);
 				clearRecipients(coaNameFieldName);
 			}
 		};
-		
-		 AccountService.getUniqueAccountForAccountNumber( accountCode, dwrReply ); 
-	}	
+
+		 AccountService.getUniqueAccountForAccountNumber( accountCode, dwrReply );
+	}
 }
 
 var budgetObjectInfoUpdator = new BudgetObjectInfoUpdator();

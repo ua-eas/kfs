@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,13 +27,13 @@ import java.io.OutputStream;
 
 /**
  * This service interface defines the methods that a DisbursementVoucherCoverSheetService implementation must provide.
- * 
+ *
  */
 public interface DisbursementVoucherCoverSheetService {
 
     /**
      * Generates a disbursement voucher cover sheet.
-     * 
+     *
      * @param document The DisbursementVoucherDocument used to generate the cover sheet.
      * @param outputStream The stream to write out the new cover sheet.
      * @throws DocumentException Thrown if there is a problem pulling data from the document to create the cover sheet.
@@ -43,7 +43,7 @@ public interface DisbursementVoucherCoverSheetService {
 
     /**
      * checks the status of the document to see if the cover sheet is printable
-     * 
+     *
      * @param document submitted document
      * @return true if document is not canceled, initiated, disapproved, exception, or saved
      */

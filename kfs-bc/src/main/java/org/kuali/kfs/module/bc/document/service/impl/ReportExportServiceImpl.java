@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -77,7 +77,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
         //
         //
-        // 
+        //
         // $line$ = "%%$line$%%$dlm$%%fdoc_nbr.ld_pnd_bcnstr_gl_t%%$dlm$%%$sep$"
         // $line$ = "%%$line$%%univ_fiscal_yr.ld_pnd_bcnstr_gl_t%%$sep$"
         // $line$ = "%%$line$%%$dlm$%%fin_coa_cd.ld_pnd_bcnstr_gl_t%%$dlm$%%$sep$"
@@ -293,7 +293,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
     /**
      * Sets the reportDumpDao attribute value.
-     * 
+     *
      * @param reportDumpDao The reportDumpDao to set.
      */
     public void setReportDumpDao(ReportDumpDao reportDumpDao) {
@@ -309,7 +309,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
     /**
      * Retrieves all PendingBudgetConstructionGeneralLedger sorted by financialObjectCode and financialSubObjectCode
-     * 
+     *
      * @param accountRecord
      * @return
      */
@@ -330,7 +330,7 @@ public class ReportExportServiceImpl implements ReportExportService {
     /**
      * Retrieves all PendingBudgetConstructionAppointmentFunding sorted by "financialObjectCode", "financialSubObjectCode",
      * "positionNumber", "emplid"
-     * 
+     *
      * @param accountRecord
      * @return
      */
@@ -350,7 +350,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
     /**
      * Retrieves all BudgetConstructionMonthly sorted by "financialObjectCode", "financialSubObjectCode"
-     * 
+     *
      * @param accountRecord
      * @return
      */
@@ -370,7 +370,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
     /**
      * Retrieves all BudgetConstructionAccountDump by principalId
-     * 
+     *
      * @param principalId
      * @return
      */
@@ -383,7 +383,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
     /**
      * Constructs a line for the Account Dump Report
-     * 
+     *
      * @param pendingEntry
      * @param textDelimiter
      * @param fieldSeperator
@@ -416,7 +416,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
     /**
      * Constructs a line of the Funding Dump File
-     * 
+     *
      * @param fundingRecord
      * @param fieldSeperator
      * @param textDelimiter
@@ -488,8 +488,8 @@ public class ReportExportServiceImpl implements ReportExportService {
         line = line + new KualiDecimal(fundingRecord.getAppointmentRequestedPayRate()) + fieldSeperator;
         line = line + textDelimiter + (fundingRecord.isAppointmentFundingDeleteIndicator() ? "Y" : "N") + textDelimiter + fieldSeperator;
         line = line + fundingRecord.getAppointmentFundingMonth() + fieldSeperator;
-        
-        List<BudgetConstructionAppointmentFundingReason> appointmentFundingReasonList = fundingRecord.getBudgetConstructionAppointmentFundingReason(); 
+
+        List<BudgetConstructionAppointmentFundingReason> appointmentFundingReasonList = fundingRecord.getBudgetConstructionAppointmentFundingReason();
         if (ObjectUtils.isNotNull(appointmentFundingReasonList) && !appointmentFundingReasonList.isEmpty()){
             line = line + textDelimiter + ((appointmentFundingReasonList.get(0).getAppointmentFundingReasonCode() == null) ? "" : appointmentFundingReasonList.get(0).getAppointmentFundingReasonCode()) + textDelimiter + fieldSeperator;
         }
@@ -504,7 +504,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
     /**
      * Constructs a monthly dump file line
-     * 
+     *
      * @param monthlyRecord
      * @param fieldSeperator
      * @param textDelimiter

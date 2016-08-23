@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,38 +36,38 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 public class BulkReceivingPurchaseOrderIdValidation extends GenericValidation {
 
     private PurchaseOrderService purchaseOrderService;
-    
+
     public boolean validate(AttributedDocumentEvent event) {
-        
+
         boolean valid = true;
-        
+
         BulkReceivingDocument bulkReceivingDocument = (BulkReceivingDocument)event.getDocument();
-        
+
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(KFSPropertyConstants.DOCUMENT);
-        
+
         return canCreateBulkReceivingDocument(bulkReceivingDocument);
 
     }
 
     /**
-     * Determines if it is valid to create a bulk receiving document.  
-     * 
+     * Determines if it is valid to create a bulk receiving document.
+     *
      * @param bulkReceivingDocument
      * @return
      */
     protected boolean canCreateBulkReceivingDocument(BulkReceivingDocument bulkReceivingDocument){
-        
+
         boolean valid = true;
-        
+
         if (bulkReceivingDocument.getPurchaseOrderIdentifier() != null){
             PurchaseOrderDocument po = SpringContext.getBean(PurchaseOrderService.class).getCurrentPurchaseOrder(bulkReceivingDocument.getPurchaseOrderIdentifier());
-            
+
             if (ObjectUtils.isNull(po)){
                 GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, PurapKeyConstants.ERROR_BULK_RECEIVING_DOCUMENT_INVALID_PO, bulkReceivingDocument.getDocumentNumber(), bulkReceivingDocument.getPurchaseOrderIdentifier().toString());
                 valid = false;
             }else{
-                if (!(po.getApplicationDocumentStatus().equals(PurapConstants.PurchaseOrderStatuses.APPDOC_OPEN) || 
+                if (!(po.getApplicationDocumentStatus().equals(PurapConstants.PurchaseOrderStatuses.APPDOC_OPEN) ||
                     po.getApplicationDocumentStatus().equals(PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED))){
                     valid &= false;
                     GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, PurapKeyConstants.ERROR_BULK_RECEIVING_PO_NOT_OPEN, bulkReceivingDocument.getDocumentNumber(), bulkReceivingDocument.getPurchaseOrderIdentifier().toString());
@@ -80,7 +80,7 @@ public class BulkReceivingPurchaseOrderIdValidation extends GenericValidation {
                 }
             }
         }
-         
+
         return valid;
     }
 

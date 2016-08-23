@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,8 +33,8 @@ import org.springframework.beans.factory.InitializingBean;
 
 /**
  * Contains common properties and methods for data dictionary entries.
- * 
- * 
+ *
+ *
  */
 abstract public class DataDictionaryEntryBase implements DataDictionaryEntry, Serializable, InitializingBean {
     protected List<AttributeDefinition> attributes;
@@ -45,7 +45,7 @@ abstract public class DataDictionaryEntryBase implements DataDictionaryEntry, Se
     protected Map<String, ComplexAttributeDefinition> complexAttributeMap;
     protected Map<String, CollectionDefinition> collectionMap;
     protected Map<String, RelationshipDefinition> relationshipMap;
-    
+
     public DataDictionaryEntryBase() {
         this.attributes = new ArrayList<AttributeDefinition>();
         this.complexAttributes = new ArrayList<ComplexAttributeDefinition>();
@@ -56,10 +56,10 @@ abstract public class DataDictionaryEntryBase implements DataDictionaryEntry, Se
         this.collectionMap = new LinkedHashMap<String, CollectionDefinition>();
         this.relationshipMap = new LinkedHashMap<String, RelationshipDefinition>();
     }
-    
+
     /* Returns the given entry class (bo class or document class) */
     public abstract Class<?> getEntryClass();
-    
+
     /**
      * @param attributeName
      * @return AttributeDefinition with the given name, or null if none with that name exists
@@ -77,7 +77,7 @@ abstract public class DataDictionaryEntryBase implements DataDictionaryEntry, Se
     public List<AttributeDefinition> getAttributes() {
         return this.attributes;
     }
-    
+
     /**
 	 * @return the complexAttributes
 	 */
@@ -106,10 +106,10 @@ abstract public class DataDictionaryEntryBase implements DataDictionaryEntry, Se
                 throw new DuplicateEntryException("complex attribute '" + complexAttributeName + "' already defined as a Collection for class '" + getEntryClass().getName() + "'");
             } else if (attributeMap.containsKey(complexAttributeName)) {
                 throw new DuplicateEntryException("complex attribute '" + complexAttributeName + "' already defined as an Attribute for class '" + getEntryClass().getName() + "'");
-            } 
+            }
 
             complexAttributeMap.put(complexAttributeName, complexAttribute);
-            
+
         }
 
 	    this.complexAttributes = complexAttributes;
@@ -156,7 +156,7 @@ abstract public class DataDictionaryEntryBase implements DataDictionaryEntry, Se
      * Directly validate simple fields, call completeValidation on Definition fields.
      */
     public void completeValidation() {
-        
+
         for ( AttributeDefinition attributeDefinition : attributes ) {
             attributeDefinition.completeValidation(getEntryClass(), null);
         }
@@ -171,7 +171,7 @@ abstract public class DataDictionaryEntryBase implements DataDictionaryEntry, Se
     }
 
     /**
-            The attributes element contains attribute 
+            The attributes element contains attribute
             elements.  These define the specifications for business object fields.
 
             JSTL: attributes is a Map which is accessed by a key of "attributes".
@@ -237,7 +237,7 @@ abstract public class DataDictionaryEntryBase implements DataDictionaryEntry, Se
             } else if (complexAttributeMap.containsKey(attributeName)){
                 throw new DuplicateEntryException("attribute '" + attributeName + "' already defined as an Complex Attribute for class '" + getEntryClass().getName() + "'");
             }
-            attributeMap.put(attributeName, attribute);            
+            attributeMap.put(attributeName, attribute);
         }
         this.attributes = attributes;
     }
@@ -290,7 +290,7 @@ abstract public class DataDictionaryEntryBase implements DataDictionaryEntry, Se
             }
 
             collectionMap.put(collectionName, collection);
-            
+
         }
         this.collections = collections;
     }
@@ -324,7 +324,7 @@ abstract public class DataDictionaryEntryBase implements DataDictionaryEntry, Se
                 * "targetName"
 
             See RelationshipsMapBuilder.java.
-            
+
      */
     public void setRelationships(List<RelationshipDefinition> relationships) {
         this.relationships = relationships;
@@ -333,7 +333,7 @@ abstract public class DataDictionaryEntryBase implements DataDictionaryEntry, Se
     public Set<String> getCollectionNames() {
         return collectionMap.keySet();
     }
-    
+
     public Set<String> getAttributeNames() {
         return attributeMap.keySet();
     }
@@ -341,16 +341,16 @@ abstract public class DataDictionaryEntryBase implements DataDictionaryEntry, Se
     public Set<String> getRelationshipNames() {
         return relationshipMap.keySet();
     }
-    
+
     /**
      * This overridden method ...
-     * 
+     *
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
     public void afterPropertiesSet() throws Exception {
     	if ( relationships != null ) {
             relationshipMap.clear();
-            for ( RelationshipDefinition relationship : relationships ) {            
+            for ( RelationshipDefinition relationship : relationships ) {
                 if (relationship == null) {
                     throw new IllegalArgumentException("invalid (null) relationshipDefinition");
                 }
@@ -362,7 +362,7 @@ abstract public class DataDictionaryEntryBase implements DataDictionaryEntry, Se
                 relationshipMap.put(relationshipName, relationship);
             }
     	}
-    	
+
     	//Populate attributes with nested attribute definitions
     	if (complexAttributes != null){
     		for (ComplexAttributeDefinition complexAttribute:complexAttributes){
@@ -370,22 +370,22 @@ abstract public class DataDictionaryEntryBase implements DataDictionaryEntry, Se
     		}
     	}
    	}
-    
+
     private void addNestedAttributes(ComplexAttributeDefinition complexAttribute, String attrPath){
     	DataDictionaryEntryBase dataDictionaryEntry = (DataDictionaryEntryBase)complexAttribute.getDataObjectEntry();
-    	
+
     	//Add attributes for the complex attibutes
     	for (AttributeDefinition attribute:dataDictionaryEntry.getAttributes()){
     		String nestedAttributeName = attrPath + "." + attribute.getName();
     		AttributeDefinition nestedAttribute = copyAttributeDefinition(attribute);
     		nestedAttribute.setName(nestedAttributeName);
-    		
+
     		if (!attributeMap.containsKey(nestedAttributeName)){
     			this.attributes.add(nestedAttribute);
     			this.attributeMap.put(nestedAttributeName, nestedAttribute);
     		}
-    	}    	
-    	
+    	}
+
     	//Recursively add complex attributes
     	List<ComplexAttributeDefinition> nestedComplexAttributes = dataDictionaryEntry.getComplexAttributes();
     	if (nestedComplexAttributes != null){
@@ -394,20 +394,20 @@ abstract public class DataDictionaryEntryBase implements DataDictionaryEntry, Se
 	    	}
     	}
     }
-    
+
     private AttributeDefinition copyAttributeDefinition(AttributeDefinition attrDefToCopy){
     	AttributeDefinition attrDefCopy = new AttributeDefinition();
-    	
-    	try {    		
+
+    	try {
 			BeanUtils.copyProperties(attrDefToCopy, attrDefCopy, new String[] { "formatterClass" });
-			
+
 			//BeanUtils doesn't copy properties w/o "get" read methods, manually copy those here
 			attrDefCopy.setRequired(attrDefToCopy.isRequired());
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return attrDefCopy;
     }
 }

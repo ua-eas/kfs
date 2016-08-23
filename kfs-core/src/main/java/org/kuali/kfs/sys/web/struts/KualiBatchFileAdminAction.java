@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,18 +49,18 @@ import org.kuali.kfs.krad.util.KRADConstants;
 public class KualiBatchFileAdminAction extends KualiAction {
     public ActionForward download(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         KualiBatchFileAdminForm fileAdminForm = (KualiBatchFileAdminForm) form;
-        String filePath = BatchFileUtils.resolvePathToAbsolutePath(fileAdminForm.getFilePath());       
+        String filePath = BatchFileUtils.resolvePathToAbsolutePath(fileAdminForm.getFilePath());
         FileStorageService fileStorageService = SpringContext.getBean(FileStorageService.class);
         String directoryName = StringUtils.substringBeforeLast(filePath, fileStorageService.separator());
         String fileName = StringUtils.substringAfterLast(filePath, fileStorageService.separator());
-        
+
         if (!fileStorageService.fileExists(filePath)) {
             throw new RuntimeException("Error: non-existent file or directory provided");
         }
         if (!BatchFileUtils.isDirectoryAccessible(directoryName)) {
             throw new RuntimeException("Error: inaccessible directory provided");
         }
-        
+
         // TODO: Eliminate use of File class altogether, once BatchFile class is refactored.
         File file = new File(filePath).getAbsoluteFile();
         BatchFile batchFile = new BatchFile();
@@ -68,7 +68,7 @@ public class KualiBatchFileAdminAction extends KualiAction {
         if (!SpringContext.getBean(BatchFileAdminAuthorizationService.class).canDownload(batchFile, GlobalVariables.getUserSession().getPerson())) {
             throw new RuntimeException("Error: not authorized to download file");
         }
-        
+
         response.setContentType("application/octet-stream");
         response.setHeader("Content-disposition", "attachment; filename=" + fileName);
         response.setHeader("Expires", "0");
@@ -81,22 +81,22 @@ public class KualiBatchFileAdminAction extends KualiAction {
         response.getOutputStream().flush();
         return null;
     }
-    
+
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         KualiBatchFileAdminForm fileAdminForm = (KualiBatchFileAdminForm) form;
         String filePath = BatchFileUtils.resolvePathToAbsolutePath(fileAdminForm.getFilePath());
         FileStorageService fileStorageService = SpringContext.getBean(FileStorageService.class);
         String directoryName = StringUtils.substringBeforeLast(filePath, fileStorageService.separator());
-        
+
         ConfigurationService kualiConfigurationService = SpringContext.getBean(ConfigurationService.class);
-        
+
         if (!fileStorageService.fileExists(filePath)) {
             throw new RuntimeException("Error: non-existent file or directory provided");
         }
         if (!BatchFileUtils.isDirectoryAccessible(directoryName)) {
             throw new RuntimeException("Error: inaccessible directory provided");
         }
-        
+
         // TODO: Eliminate use of File class altogether, once BatchFile class is refactored.
         File file = new File(filePath).getAbsoluteFile();
         BatchFile batchFile = new BatchFile();
@@ -104,9 +104,9 @@ public class KualiBatchFileAdminAction extends KualiAction {
         if (!SpringContext.getBean(BatchFileAdminAuthorizationService.class).canDelete(batchFile, GlobalVariables.getUserSession().getPerson())) {
             throw new RuntimeException("Error: not authorized to delete file");
         }
-        
+
         String displayFileName = BatchFileUtils.pathRelativeToRootDirectory(filePath);
-        
+
         Object question = request.getParameter(KFSConstants.QUESTION_INST_ATTRIBUTE_NAME);
         if (question == null) {
             String questionText = kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.QUESTION_BATCH_FILE_ADMIN_DELETE_CONFIRM);

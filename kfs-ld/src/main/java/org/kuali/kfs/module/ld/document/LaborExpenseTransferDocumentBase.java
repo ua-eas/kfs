@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,7 +53,7 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
 
     /**
      * Determine whether target accouting lines have the same amounts as source accounting lines for each object code
-     * 
+     *
      * @return true if target accouting lines have the same amounts as source accounting lines for each object code; otherwise,
      *         false
      */
@@ -89,7 +89,7 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
 
     /**
      * summerize the amounts of accounting lines by object codes
-     * 
+     *
      * @param accountingLines the given accounting line list
      * @return the summerized amounts by object codes
      */
@@ -112,7 +112,7 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
 
     /**
      * Gets the emplid
-     * 
+     *
      * @return Returns the emplid.
      * @see org.kuali.kfs.module.ld.document.LaborExpenseTransferDocument#getEmplid()
      */
@@ -122,23 +122,23 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
 
     /**
      * Sets the emplid
-     * 
+     *
      * @see org.kuali.kfs.module.ld.document.LaborExpenseTransferDocument#setEmplid(String)
      * @param emplid
      */
     public void setEmplid(String emplid) {
         this.emplid = emplid;
     }
-    
+
     /**
-     * Gets the user attribute. 
+     * Gets the user attribute.
      * @return Returns the user.
      */
     public Person getUser() {
         if(user == null || !StringUtils.equals(user.getEmployeeId(), emplid)) {
             this.user = SpringContext.getBean(PersonService.class).getPersonByEmployeeId(emplid);
         }
-        
+
         return user;
     }
 
@@ -148,11 +148,11 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
      */
     public void setUser(Person user) {
         this.user = user;
-    }    
+    }
 
     /**
      * Overrides the base implementation to return "From".
-     * 
+     *
      * @see org.kuali.rice.krad.document.AccountingDocument#getSourceAccountingLinesSectionTitle()
      */
     public String getSourceAccountingLinesSectionTitle() {
@@ -161,7 +161,7 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
 
     /**
      * Overrides the base implementation to return "To".
-     * 
+     *
      * @see org.kuali.rice.krad.document.AccountingDocument#getTargetAccountingLinesSectionTitle()
      */
     public String getTargetAccountingLinesSectionTitle() {
@@ -183,5 +183,5 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
     public Class getTargetAccountingLineClass() {
         return ExpenseTransferTargetAccountingLine.class;
     }
-    
+
 }

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -48,26 +48,26 @@ import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 /**
  * check to ensure totals of accounting lines in source and target sections match by pay FY + pay period
- * 
+ *
  * @param accountingDocument the given document
  * @return true if the given accounting lines in source and target match by pay fy and pp
  */
 public class LaborExpenseTransferValidTransferAmountValidation extends GenericValidation {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LaborExpenseTransferValidTransferAmountValidation.class);
-    
-    private Document documentForValidation;  
-    
+
+    private Document documentForValidation;
+
     /**
-     * Validates before the document routes 
+     * Validates before the document routes
      * @see org.kuali.kfs.validation.Validation#validate(java.lang.Object[])
      */
     public boolean validate(AttributedDocumentEvent event) {
         boolean result = true;
-               
+
         Document documentForValidation = getDocumentForValidation();
 
         LaborExpenseTransferDocumentBase expenseTransferDocument = (LaborExpenseTransferDocumentBase) documentForValidation;
-        
+
         List sourceLines = expenseTransferDocument.getSourceAccountingLines();
 
         Map<String, ExpenseTransferAccountingLine> accountingLineGroupMap = this.getAccountingLineGroupMap(sourceLines, ExpenseTransferSourceAccountingLine.class);
@@ -77,13 +77,13 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.SOURCE_ACCOUNTING_LINES, LaborKeyConstants.ERROR_TRANSFER_AMOUNT_EXCEED_MAXIMUM);
             return false;
         }
-                
-        return result;       
+
+        return result;
     }
 
     /**
      * determine whether the amount to be tranferred is only up to the amount in ledger balance for a given pay period
-     * 
+     *
      * @param accountingDocument the given accounting document
      * @return true if the amount to be tranferred is only up to the amount in ledger balance for a given pay period; otherwise,
      *         false
@@ -112,7 +112,7 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
     }
     /**
      * build the field-value maps throught the given accouting line
-     * 
+     *
      * @param accountingLine the given accounting line
      * @return the field-value maps built from the given accouting line
      */
@@ -140,17 +140,17 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
         fieldValues.put(KFSPropertyConstants.EMPLID, accountingLine.getEmplid());
         fieldValues.put(KFSPropertyConstants.POSITION_NUMBER, accountingLine.getPositionNumber());
 
-        Document documentForValidation = getDocumentForValidation();    
+        Document documentForValidation = getDocumentForValidation();
         if (documentForValidation instanceof BenefitExpenseTransferDocument) {
             fieldValues.remove(KFSPropertyConstants.EMPLID);
-            fieldValues.remove(KFSPropertyConstants.POSITION_NUMBER);            
+            fieldValues.remove(KFSPropertyConstants.POSITION_NUMBER);
         }
         return fieldValues;
     }
-    
+
     /**
      * Groups the accounting lines by the specified key fields
-     * 
+     *
      * @param accountingLines the given accounting lines that are stored in a list
      * @param clazz the class type of given accounting lines
      * @return the accounting line groups
@@ -180,10 +180,10 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
         }
         return accountingLineGroupMap;
     }
-    
+
     /**
      * Gets the default key of ExpenseTransferAccountingLine
-     * 
+     *
      * @return the default key of ExpenseTransferAccountingLine
      */
     protected List<String> defaultKeyOfExpenseTransferAccountingLine() {
@@ -206,10 +206,10 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
 
         return defaultKey;
     }
-    
+
     /**
      * get the amount for a given period from a ledger balance that has the given values for specified fileds
-     * 
+     *
      * @param fieldValues the given fields and their values
      * @param periodCode the given period
      * @return the amount for a given period from the qualified ledger balance
@@ -230,7 +230,7 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
 
     /**
      * Gets the balance amount of a given period
-     * 
+     *
      * @param fieldValues
      * @param periodCode
      * @return
@@ -238,17 +238,17 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
     protected KualiDecimal getBalanceAmountOfGivenPeriod(Map<String, Object> fieldValues, String periodCode) {
         KualiDecimal balanceAmount = KualiDecimal.ZERO;
         List<LedgerBalance> ledgerBalances = (List<LedgerBalance>) SpringContext.getBean(BusinessObjectService.class).findMatching(LedgerBalance.class, fieldValues);
-        
+
         LedgerBalance summaryBalance = new LedgerBalance();
         for(LedgerBalance balance : ledgerBalances) {
             ConsolidationUtil.sumLedgerBalances(summaryBalance, balance);
         }
-    
+
         return summaryBalance.getAmount(periodCode);
     }
 
     /**
-     * Gets the documentForValidation attribute. 
+     * Gets the documentForValidation attribute.
      * @return Returns the documentForValidation.
      */
     public Document getDocumentForValidation() {
@@ -261,5 +261,5 @@ public class LaborExpenseTransferValidTransferAmountValidation extends GenericVa
      */
     public void setDocumentForValidation(Document documentForValidation) {
         this.documentForValidation = documentForValidation;
-    }    
+    }
 }

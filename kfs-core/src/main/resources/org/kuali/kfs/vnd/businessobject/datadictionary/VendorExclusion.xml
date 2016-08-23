@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -74,7 +74,7 @@
       <bean parent="TextControlDefinition" p:size="10"/>
     </property>
   </bean>
-  
+
   <bean id="VendorExclusion-name" parent="VendorExclusion-name-parentBean"/>
 
   <bean id="VendorExclusion-name-parentBean" abstract="true" parent="AttributeDefinition">
@@ -86,7 +86,7 @@
       <bean parent="TextControlDefinition" p:size="200"/>
     </property>
   </bean>
-  
+
   <bean id="VendorExclusion-address1" parent="VendorExclusion-address1-parentBean"/>
 
   <bean id="VendorExclusion-address1-parentBean" abstract="true" parent="AttributeDefinition">
@@ -98,7 +98,7 @@
       <bean parent="TextControlDefinition" p:size="150"/>
     </property>
   </bean>
-  
+
   <bean id="VendorExclusion-city" parent="VendorExclusion-city-parentBean"/>
 
   <bean id="VendorExclusion-city-parentBean" abstract="true" parent="AttributeDefinition">
@@ -110,9 +110,9 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="VendorExclusion-state" parent="VendorExclusion-state-parentBean"/>
-  
+
   <bean id="VendorExclusion-state-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="state"/>
     <property name="label" value="EPLS State/Country"/>
@@ -122,9 +122,9 @@
       <bean parent="TextControlDefinition" p:size="2"/>
     </property>
   </bean>
-  
+
   <bean id="VendorExclusion-province" parent="VendorExclusion-province-parentBean"/>
-  
+
   <bean id="VendorExclusion-province-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="province"/>
     <property name="label" value="EPLS Province"/>
@@ -134,9 +134,9 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="VendorExclusion-zip" parent="VendorExclusion-zip-parentBean"/>
-  
+
   <bean id="VendorExclusion-zip-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="zip"/>
     <property name="label" value="EPLS Zip"/>
@@ -146,9 +146,9 @@
       <bean parent="TextControlDefinition" p:size="20"/>
     </property>
   </bean>
-  
+
   <bean id="VendorExclusion-aliases" parent="VendorExclusion-aliases-parentBean"/>
-  
+
   <bean id="VendorExclusion-aliases-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="aliases"/>
     <property name="label" value="EPLS Aliases"/>
@@ -158,9 +158,9 @@
       <bean parent="TextControlDefinition" p:size="1000"/>
     </property>
   </bean>
-  
+
   <bean id="VendorExclusion-description" parent="VendorExclusion-description-parentBean"/>
-  
+
   <bean id="VendorExclusion-description-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="description"/>
     <property name="label" value="EPLS Notes"/>
@@ -170,9 +170,9 @@
       <bean parent="TextControlDefinition" p:size="1000"/>
     </property>
   </bean>
-  
+
   <bean id="VendorExclusion-confirmStatusCode" parent="VendorExclusion-confirmStatusCode-parentBean"/>
-  
+
   <bean id="VendorExclusion-confirmStatusCode-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="confirmStatusCode"/>
     <property name="label" value="Confirm Match Status"/>
@@ -183,18 +183,18 @@
     </property>
     <property name="formatterClass" value="org.kuali.kfs.vnd.businessobject.format.DebarredVendorConfirmStatusFormatter"/>
   </bean>
-  
+
   <bean id="VendorExclusion-lastUpdatedTimeStamp" parent="VendorExclusion-lastUpdatedTimeStamp-parentBean"/>
-  
+
   <bean id="VendorExclusion-lastUpdatedTimeStamp-parentBean" abstract="true" parent="GenericAttributes-genericDate">
     <property name="name" value="lastUpdatedTimeStamp"/>
     <property name="label" value="Last Updated Date"/>
     <property name="shortLabel" value="Updated"/>
     <property name="maxLength" value="7"/>
   </bean>
-  
+
   <bean id="VendorExclusion-lastUpdatedPrincipalName" parent="VendorExclusion-lastUpdatedPrincipalName-parentBean"/>
-  
+
   <bean id="VendorExclusion-lastUpdatedPrincipalName-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="lastUpdatedPrincipalName"/>
     <property name="label" value="Last Updated Person"/>
@@ -204,18 +204,18 @@
       <bean parent="TextControlDefinition" p:size="100"/>
     </property>
   </bean>
-  
+
   <bean id="VendorExclusion-vendorHeader.vendorTypeCode" parent="VendorExclusion-vendorHeader.vendorTypeCode-parentBean"/>
-  
+
   <bean id="VendorExclusion-vendorHeader.vendorTypeCode-parentBean" abstract="true" parent="VendorHeader-vendorTypeCode">
     <property name="name" value="vendorHeader.vendorTypeCode"/>
     <property name="control">
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.vnd.businessobject.options.ExclusionVendorTypeValuesFinder"/>
     </property>
   </bean>
-  
+
   <bean id="VendorExclusion-vendorExclusionStatus" parent="VendorExclusion-vendorExclusionStatus-parentBean"/>
-  
+
   <bean id="VendorExclusion-vendorExclusionStatus-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="vendorExclusionStatus"/>
     <property name="label" value="Vendor Exclusion Status"/>
@@ -225,9 +225,9 @@
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.vnd.businessobject.options.VendorExclusionStatusValuesFinder"/>
     </property>
   </bean>
-  
+
   <bean id="VendorExclusion-concatenatedId" parent="VendorExclusion-concatenatedId-parentBean"/>
-  
+
   <bean id="VendorExclusion-concatenatedId-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="concatenatedId"/>
     <property name="label" value="Vendor # / EPLS #"/>
@@ -235,9 +235,9 @@
       <bean parent="TextControlDefinition" p:size="100"/>
     </property>
   </bean>
-  
+
   <bean id="VendorExclusion-concatenatedAliases" parent="VendorExclusion-concatenatedAliases-parentBean"/>
-  
+
   <bean id="VendorExclusion-concatenatedAliases-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="concatenatedAliases"/>
     <property name="label" value="Aliases"/>
@@ -245,49 +245,49 @@
       <bean parent="TextControlDefinition" p:size="1000"/>
     </property>
   </bean>
-  
+
   <bean id="VendorExclusion-vendorDetail.vendorNumber" parent="VendorExclusion-vendorDetail.vendorNumber-parentBean"/>
-  
+
   <bean id="VendorExclusion-vendorDetail.vendorNumber-parentBean" abstract="true" parent="VendorDetail-vendorNumber">
     <property name="name" value="vendorDetail.vendorNumber"/>
   </bean>
-  
+
   <bean id="VendorExclusion-vendorDetail.vendorName" parent="VendorExclusion-vendorDetail.vendorName-parentBean"/>
-  
+
   <bean id="VendorExclusion-vendorDetail.vendorName-parentBean" abstract="true" parent="VendorDetail-vendorName">
     <property name="name" value="vendorDetail.vendorName"/>
   </bean>
-  
+
   <bean id="VendorExclusion-vendorAddress.vendorLine1Address" parent="VendorExclusion-vendorAddress.vendorLine1Address-parentBean"/>
-  
+
   <bean id="VendorExclusion-vendorAddress.vendorLine1Address-parentBean" abstract="true" parent="VendorAddress-vendorLine1Address">
     <property name="name" value="vendorAddress.vendorLine1Address"/>
   </bean>
-  
+
   <bean id="VendorExclusion-vendorAddress.vendorCityName" parent="VendorExclusion-vendorAddress.vendorCityName-parentBean"/>
-  
+
   <bean id="VendorExclusion-vendorAddress.vendorCityName-parentBean" abstract="true" parent="VendorAddress-vendorCityName">
     <property name="name" value="vendorAddress.vendorCityName"/>
   </bean>
-  
+
   <bean id="VendorExclusion-vendorAddress.vendorAddressInternationalProvinceName" parent="VendorExclusion-vendorAddress.vendorAddressInternationalProvinceName-parentBean"/>
-  
+
   <bean id="VendorExclusion-vendorAddress.vendorAddressInternationalProvinceName-parentBean" abstract="true" parent="VendorAddress-vendorAddressInternationalProvinceName">
     <property name="name" value="vendorAddress.vendorAddressInternationalProvinceName"/>
   </bean>
-  
+
   <bean id="VendorExclusion-vendorAddress.vendorStateCode" parent="VendorExclusion-vendorAddress.vendorStateCode-parentBean"/>
-  
+
   <bean id="VendorExclusion-vendorAddress.vendorStateCode-parentBean" abstract="true" parent="VendorAddress-vendorStateCode">
     <property name="name" value="vendorAddress.vendorStateCode"/>
   </bean>
-  
+
   <bean id="VendorExclusion-vendorAddress.vendorZipCode" parent="VendorExclusion-vendorAddress.vendorZipCode-parentBean"/>
-  
+
   <bean id="VendorExclusion-vendorAddress.vendorZipCode-parentBean" abstract="true" parent="VendorAddress-vendorZipCode">
     <property name="name" value="vendorAddress.vendorZipCode"/>
   </bean>
-  
+
 <!-- Business Object Inquiry Definition -->
 
   <bean id="VendorExclusion-inquiryDefinition" parent="VendorExclusion-inquiryDefinition-parentBean"/>
@@ -347,7 +347,7 @@
     <property name="lookupableID" value="vendorExclusionLookupable" />
     <property name="lookupFields">
       <list>
-        <bean parent="FieldDefinition" p:attributeName="vendorHeader.vendorTypeCode"/> 
+        <bean parent="FieldDefinition" p:attributeName="vendorHeader.vendorTypeCode"/>
         <bean parent="FieldDefinition" p:attributeName="confirmStatusCode"/>
         <bean parent="FieldDefinition" p:attributeName="vendorExclusionStatus" p:required="true"/>
       </list>

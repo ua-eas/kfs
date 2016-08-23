@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -56,7 +56,7 @@ public class BatchMaintenanceServiceImpl implements BatchMaintenanceService {
 
     /**
      * This method changes the status for PaymentGroup and PaymentGroupHistory.
-     * 
+     *
      * @param paymentGroup the PaymentGroup to change the status
      * @param newPaymentStatus the new payment status
      * @param changeStatus the payment change status code
@@ -91,7 +91,7 @@ public class BatchMaintenanceServiceImpl implements BatchMaintenanceService {
     /**
      * cancelPendingBatch() This method cancels a pending batch by canceling each payment in the batch if the following rules apply.
      * - All payments must have a status of 'OPEN'.
-     * 
+     *
      * @param paymentBatchId (Integer) Primary key of the Pending Batch to be canceled.
      * @param note (String) Change note text entered by user.
      * @param user (User) Actor making change.
@@ -133,7 +133,7 @@ public class BatchMaintenanceServiceImpl implements BatchMaintenanceService {
     /**
      * holdPendingBatch() This method holds a pending batch by holding each payment in the batch if the following rules apply. - All
      * payments must have a status of 'OPEN'.
-     * 
+     *
      * @param paymentBatchId (Integer) Primary key of the Pending Batch to be held.
      * @param note (String) Change note text entered by user.
      * @param user (User) Actor making change.
@@ -175,7 +175,7 @@ public class BatchMaintenanceServiceImpl implements BatchMaintenanceService {
     /**
      * removeBatchHold() This method removes holds on batches of payments if the following rules apply. - All Payments' statuses in
      * batch must be: "held".
-     * 
+     *
      * @param paymentBatchId (Integer) Primary key of the Pending Batch to be released from hold.
      * @param note (String) Change note text entered by user.
      * @param user (User) Actor making change.
@@ -262,7 +262,7 @@ public class BatchMaintenanceServiceImpl implements BatchMaintenanceService {
 
     /**
      * This method sets the batchMaintenanceDao
-     * 
+     *
      * @param batchMaintenanceDao BatchMaintenanceDao
      */
     public void setBatchMaintenanceDao(BatchMaintenanceDao batchMaintenanceDao) {
@@ -271,7 +271,7 @@ public class BatchMaintenanceServiceImpl implements BatchMaintenanceService {
 
     /**
      * Sets the business object service
-     * 
+     *
      * @param businessObjectService
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,7 +41,7 @@ public class CollectorReportServiceImplTest extends KualiTestBase {
         CollectorReportServiceImpl collectorReportServiceImpl = (CollectorReportServiceImpl) SpringContext.getBean(CollectorReportService.class);
         MockMailServiceImpl mockMailService = (MockMailServiceImpl) SpringContext.getService("mockMailService");
         collectorReportServiceImpl.setMailService(mockMailService);
-        
+
         ConfigurationService configurationService = SpringContext.getBean(ConfigurationService.class);
 
         CollectorReportData reportData = new CollectorReportData();
@@ -81,13 +81,13 @@ public class CollectorReportServiceImplTest extends KualiTestBase {
         reportData.setEmailSendingStatusForParsedBatch(batch3, formattedMessage);
 
         collectorReportServiceImpl.sendEmailSendFailureNotice(reportData);
-        
+
         MailMessage message = mockMailService.getMailMessage();
         assertTrue("message body does not contain failure batch id 2", StringUtils.contains(message.getMessage(), "Test Batch 2"));
         assertTrue("message body does not contain failure batch id 3", StringUtils.contains(message.getMessage(), "Test Batch 3"));
         assertTrue("message body does not contain failure email for batch 2", StringUtils.contains(message.getMessage(), "jonny@arizona"));
         assertTrue("message body does not contain failure email for batch 3", StringUtils.contains(message.getMessage(), "yo"));
-        
+
         assertFalse("message body contains success batch id 1", StringUtils.contains(message.getMessage(), "Test Batch 1"));
         assertFalse("message body contains email success batch id 1", StringUtils.contains(message.getMessage(), "foo@arizona.edu"));
     }

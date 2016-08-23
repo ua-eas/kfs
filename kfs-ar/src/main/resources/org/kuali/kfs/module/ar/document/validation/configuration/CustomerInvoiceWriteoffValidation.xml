@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -22,33 +22,33 @@
     xmlns:p="http://www.springframework.org/schema/p"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-        
+
     <bean id="CustomerInvoiceWriteoff-saveDocumentValidation" parent="CustomerInvoiceWriteoff-saveDocumentValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CustomerInvoiceWriteoff-saveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
 			<list></list>
 		</property>
 	</bean>
-  
+
   	<bean id="CustomerInvoiceWriteoff-approveDocumentValidation" parent="CustomerInvoiceWriteoff-approveDocumentValidation-parentBean" scope="prototype" />
-  
+
   	<bean id="CustomerInvoiceWriteoff-approveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list></list>
   		</property>
   	</bean>
-  
+
 	<bean id="CustomerInvoiceWriteoff-blanketApproveDocumentValidation" parent="CustomerInvoiceWriteoff-blanketApproveDocumentValidation-parentBean" scope="prototype" />
-  
+
   	<bean id="CustomerInvoiceWriteoff-blanketApproveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list></list>
   		</property>
 	</bean>
-   	
+
 	<bean id="CustomerInvoiceWriteoff-continueCustomerInvoiceWriteoffDocumentValidation" parent="CustomerInvoiceWriteoff-continueCustomerInvoiceWriteoffDocumentValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CustomerInvoiceWriteoff-continueCustomerInvoiceWriteoffDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
@@ -58,7 +58,7 @@
 							<bean parent="validationFieldConversion">
 								<property name="sourceEventProperty" value="document" />
 								<property name="targetValidationProperty" value="customerInvoiceWriteoffDocument" />
-							</bean>						
+							</bean>
 						</list>
 					</property>
 					<property name="quitOnFail" value="true" />
@@ -69,9 +69,9 @@
 							<bean parent="validationFieldConversion">
 								<property name="sourceEventProperty" value="document" />
 								<property name="targetValidationProperty" value="customerInvoiceWriteoffDocument" />
-							</bean>						
+							</bean>
 						</list>
-					</property>				
+					</property>
 					<property name="quitOnFail" value="true" />
 				</bean>
 				<bean parent="CustomerInvoiceWriteoff-noOtherCRMInRouteForTheInvoiceValidation">
@@ -80,7 +80,7 @@
 							<bean parent="validationFieldConversion">
 								<property name="sourceEventProperty" value="document" />
 								<property name="targetValidationProperty" value="customerInvoiceWriteoffDocument" />
-							</bean>						
+							</bean>
 						</list>
 					</property>
 					<property name="quitOnFail" value="true" />
@@ -91,7 +91,7 @@
 							<bean parent="validationFieldConversion">
 								<property name="sourceEventProperty" value="document" />
 								<property name="targetValidationProperty" value="customerInvoiceWriteoffDocument" />
-							</bean>						
+							</bean>
 						</list>
 					</property>
 					<property name="quitOnFail" value="true" />
@@ -99,9 +99,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CustomerInvoiceWriteoff-routeDocumentValidation" parent="CustomerInvoiceWriteoff-routeDocumentValidation-parentBean" scope="prototype" />
-	
+
 	<bean id="CustomerInvoiceWriteoff-routeDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
 		<property name="validations">
   			<list>
@@ -133,7 +133,7 @@
 							<bean parent="validationFieldConversion">
 								<property name="sourceEventProperty" value="document" />
 								<property name="targetValidationProperty" value="customerInvoiceWriteoffDocument" />
-							</bean>						
+							</bean>
 						</list>
 					</property>
 					<property name="quitOnFail" value="true" />
@@ -154,8 +154,8 @@
 				</bean>
 			</list>
   		</property>
-	</bean>	
-	
+	</bean>
+
 	<bean id="CustomerInvoiceWriteoff-isChartCodeWriteoffGLPEBranch" abstract="true" parent="CollectionValidation" scope="prototype">
   		<property name="collectionProperty" value="document.customerInvoiceDocument.customerInvoiceDetailsWithoutDiscounts" />
   		<property name="validations">
@@ -173,7 +173,7 @@
   			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="CustomerInvoiceWriteoff-isOrgAccountinDefaultWriteoffGLPEBranch" abstract="true" parent="CompositeValidation" scope="prototype">
   		<property name="validations">
   			<list>
@@ -210,5 +210,5 @@
   			</list>
 		</property>
 	</bean>
-	
+
 </beans>

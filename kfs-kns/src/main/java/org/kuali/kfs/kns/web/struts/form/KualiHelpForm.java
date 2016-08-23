@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,8 +22,8 @@ import org.kuali.kfs.krad.datadictionary.HelpDefinition;
 
 /**
  * Holds help parameters and found text.
- * 
- * 
+ *
+ *
  */
 public class KualiHelpForm extends KualiForm {
     private static final long serialVersionUID = 1L;
@@ -146,7 +146,7 @@ public class KualiHelpForm extends KualiForm {
 
     /**
      * Form field accessor for Required
-     * 
+     *
      * @param r
      */
     public void setHelpRequired(String r) {
@@ -155,7 +155,7 @@ public class KualiHelpForm extends KualiForm {
 
     /**
      * Form field accessor for Required
-     * 
+     *
      * @return String
      */
     public String getHelpRequired() {
@@ -164,7 +164,7 @@ public class KualiHelpForm extends KualiForm {
 
     /**
      * Form field accessor for DataType
-     * 
+     *
      * @param s
      */
     public void setHelpDataType(String s) {
@@ -173,7 +173,7 @@ public class KualiHelpForm extends KualiForm {
 
     /**
      * Form field accessor for DataType
-     * 
+     *
      * @return String
      */
     public String getHelpDataType() {
@@ -182,7 +182,7 @@ public class KualiHelpForm extends KualiForm {
 
     /**
      * Form field accessor for Maximum Length
-     * 
+     *
      * @param m
      */
     public void setHelpMaxLength(String m) {
@@ -191,7 +191,7 @@ public class KualiHelpForm extends KualiForm {
 
     /**
      * Form field accessor for Maximum Length
-     * 
+     *
      * @return String
      */
     public String getHelpMaxLength() {
@@ -200,7 +200,7 @@ public class KualiHelpForm extends KualiForm {
 
     /**
      * Form field accessor for name of Validation Pattern
-     * 
+     *
      * @param v
      */
     public void setValidationPatternName(String v) {
@@ -209,7 +209,7 @@ public class KualiHelpForm extends KualiForm {
 
     /**
      * Form field accessor for name of Validation Pattern
-     * 
+     *
      * @return String
      */
     public String getValidationPatternName() {
@@ -218,7 +218,7 @@ public class KualiHelpForm extends KualiForm {
 
     /**
      * Form field accessor for system parameter help.
-     * 
+     *
      * @return helpDefinition
      */
     public HelpDefinition getHelpDefinition() {
@@ -227,7 +227,7 @@ public class KualiHelpForm extends KualiForm {
 
     /**
      * Form field accessor for system parameter help.
-     * 
+     *
      * @param helpDefinition
      */
     public void setHelpDefinition(HelpDefinition helpDefinition) {

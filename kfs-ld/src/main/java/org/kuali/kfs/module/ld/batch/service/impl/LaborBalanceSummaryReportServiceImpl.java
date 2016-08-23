@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -59,13 +59,13 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
     private DateTimeService dateTimeService;
     private OptionsService optionsService;
     private ParameterService parameterService;
-    
+
     private LaborLedgerBalanceService laborLedgerBalanceService;
     private ReportWriterService laborPosterOutputSummaryReportWriterService;
     private FiscalYearAwareReportWriterService laborActualBalanceSummaryReportWriterService;
     private FiscalYearAwareReportWriterService laborBudgetBalanceSummaryReportWriterService;
     private FiscalYearAwareReportWriterService laborEncumbranceSummaryReportWriterService;
-    
+
     private String batchFileDirectoryName;
 
     /**
@@ -105,13 +105,13 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
 
     // generate a set of balance summary reports for actual, budget and encumbrance balances
     protected void generateBalanceSummaryReports(Integer fiscalYear, Date runDate) {
-        SystemOptions options = optionsService.getOptions(fiscalYear);       
+        SystemOptions options = optionsService.getOptions(fiscalYear);
         if(options == null) {
             LOG.fatal("The data for " + fiscalYear + "have NOT been setup.");
             return;
         }
-        
-        List<String> actualsBalanceTypes = this.getActualBalanceTypes(fiscalYear);   
+
+        List<String> actualsBalanceTypes = this.getActualBalanceTypes(fiscalYear);
         this.writeSummaryReport(fiscalYear, actualsBalanceTypes, laborActualBalanceSummaryReportWriterService);
 
         List<String> budgetBalanceTypes = this.getBudgetBalanceTypes(fiscalYear);
@@ -121,25 +121,25 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
         this.writeSummaryReport(fiscalYear, encumbranceBalanceTypes, laborEncumbranceSummaryReportWriterService);
     }
 
-    protected void writeSummaryReport(Integer fiscalYear, List<String> balanceTypes, FiscalYearAwareReportWriterService reportWriterService) {        
+    protected void writeSummaryReport(Integer fiscalYear, List<String> balanceTypes, FiscalYearAwareReportWriterService reportWriterService) {
         List<LaborBalanceSummary> balanceSummary = laborLedgerBalanceService.findBalanceSummary(fiscalYear, balanceTypes);
         List<GlSummary> summaryList = new ArrayList<GlSummary>(balanceSummary);
-        
+
         GlSummary totals = new LaborBalanceSummary();
         for(GlSummary summaryLine : summaryList) {
             totals.add(summaryLine);
-        }        
+        }
         totals.setFundGroup("Total");
-        
-        try { 
+
+        try {
             reportWriterService.setFiscalYear(fiscalYear);
             ((WrappingBatchService)reportWriterService).initialize();
             reportWriterService.writeSubTitle("Balance Type of " + balanceTypes + " for Fiscal Year " + fiscalYear);
             reportWriterService.writeNewLines(1);
-            
+
             reportWriterService.writeTableRowSeparationLine(totals);
             reportWriterService.writeTable(summaryList, true, false);
-            
+
             reportWriterService.writeTableRowSeparationLine(totals);
             reportWriterService.writeTableRow(totals);
         }
@@ -147,17 +147,17 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
             ((WrappingBatchService)reportWriterService).destroy();
         }
     }
-    
+
     /**
      * Generates reports about the output of a poster run.
-     * 
+     *
      * @param runDate the date the poster was run.
      */
     protected void generatePosterOutputSummaryReport(Date runDate) {
         PosterOutputSummaryReport posterOutputSummaryReport = new PosterOutputSummaryReport();
-        
+
         // summarize all the entries for the main poster
-        File mainPosterFile = FileUtil.getNewestFile(new File(batchFileDirectoryName), new RegexFileFilter((LaborConstants.BatchFileSystem.POSTER_INPUT_FILE + "\\.[0-9_\\-]+\\" + GeneralLedgerConstants.BatchFileSystem.EXTENSION)));        
+        File mainPosterFile = FileUtil.getNewestFile(new File(batchFileDirectoryName), new RegexFileFilter((LaborConstants.BatchFileSystem.POSTER_INPUT_FILE + "\\.[0-9_\\-]+\\" + GeneralLedgerConstants.BatchFileSystem.EXTENSION)));
         if (mainPosterFile != null && mainPosterFile.exists()) {
             LaborOriginEntryFileIterator mainPosterIterator = new LaborOriginEntryFileIterator(mainPosterFile);
             while (mainPosterIterator.hasNext()) {
@@ -167,14 +167,14 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
         } else {
             LOG.warn("Could not Main Poster Input file, "+ LaborConstants.BatchFileSystem.POSTER_INPUT_FILE + ", for tabulation in the Poster Output Summary Report");
         }
-        
+
         posterOutputSummaryReport.writeReport(laborPosterOutputSummaryReportWriterService);
     }
 
 
     /**
      * get the encumbrance balance type codes for the given fiscal year
-     * 
+     *
      * @param fiscalYear the given fiscal year
      * @return the encumbrance balance type codes for the given fiscal year
      */
@@ -191,7 +191,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
 
     /**
      * get the actual balance type codes for the given fiscal year
-     * 
+     *
      * @param fiscalYear the given fiscal year
      * @return the actual balance type codes for the given fiscal year
      */
@@ -205,7 +205,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
 
     /**
      * get the budget balance type codes for the given fiscal year
-     * 
+     *
      * @param fiscalYear the given fiscal year
      * @return the budget balance type codes for the given fiscal year
      */
@@ -221,7 +221,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
 
     /**
      * determine if the given date is within the year end period
-     * 
+     *
      * @param runDate the given date
      * @param yearEndPeriodLowerBound the lower bound date of year end period
      * @param yearEndPeriodUpperBound the upper bound date of year end period
@@ -234,7 +234,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
 
     /**
      * determine if the given date is within the lower bound of year end period
-     * 
+     *
      * @param runDate the given date
      * @param yearEndPeriodLowerBound the lower bound date of year end period
      * @param lastDayOfFiscalYear the last day of the current fiscal year
@@ -248,7 +248,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
 
     /**
      * determine if the given date is within the upper bound of year end period
-     * 
+     *
      * @param runDate the given date
      * @param yearEndPeriodUpperBound the upper bound date of year end period
      * @param lastDayOfFiscalYear the last day of the current fiscal year
@@ -272,7 +272,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
 
     /**
      * Sets the dateTimeService attribute value.
-     * 
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -281,7 +281,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
 
     /**
      * Sets the optionsService attribute value.
-     * 
+     *
      * @param optionsService The optionsService to set.
      */
     public void setOptionsService(OptionsService optionsService) {
@@ -295,7 +295,7 @@ public class LaborBalanceSummaryReportServiceImpl implements LaborBalanceSummary
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }
-    
+
     /**
      * Sets the laborLedgerBalanceService attribute value.
      * @param laborLedgerBalanceService The laborLedgerBalanceService to set.

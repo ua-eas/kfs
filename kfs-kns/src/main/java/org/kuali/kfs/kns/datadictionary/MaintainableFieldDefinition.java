@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -63,13 +63,13 @@ import java.util.List;
 @Deprecated
 public class MaintainableFieldDefinition extends MaintainableItemDefinition implements FieldDefinitionI{
     private static final long serialVersionUID = -1176087424343479963L;
-    
+
 	protected boolean required = false;
     protected boolean unconditionallyReadOnly = false;
     protected boolean readOnlyAfterAdd = false;
     protected boolean noLookup = false;
     protected boolean lookupReadOnly = false;
-    
+
     protected String defaultValue;
     protected String template;
     protected Class<? extends ValueFinder> defaultValueFinderClass;
@@ -80,15 +80,15 @@ public class MaintainableFieldDefinition extends MaintainableItemDefinition impl
 
     protected Class<? extends BusinessObject> overrideLookupClass;
     protected String overrideFieldConversions;
-    
+
     protected String alternateDisplayAttributeName;
     protected String additionalDisplayAttributeName;
-    
+
     protected boolean triggerOnChange;
-    
+
     protected Boolean showFieldLevelHelp = null; // use default from system
     protected String fieldLevelHelpUrl = null;
-    
+
     public MaintainableFieldDefinition() {}
 
     /**
@@ -114,7 +114,7 @@ required is true if the field must contain a non-null value
 
 
     /**
-     * 
+     *
                        The defaultValue element will pre-load the specified value
                        into the lookup field.
      */
@@ -145,7 +145,7 @@ required is true if the field must contain a non-null value
 	}
 
     /**
-     * Gets the overrideFieldConversions attribute. 
+     * Gets the overrideFieldConversions attribute.
      * @return Returns the overrideFieldConversions.
      */
     public String getOverrideFieldConversions() {
@@ -175,7 +175,7 @@ required is true if the field must contain a non-null value
 
 
     /**
-     * Gets the overrideLookupClass attribute. 
+     * Gets the overrideLookupClass attribute.
      * @return Returns the overrideLookupClass.
      */
     public Class<? extends BusinessObject> getOverrideLookupClass() {
@@ -187,7 +187,7 @@ required is true if the field must contain a non-null value
 
     /**
      * Directly validate simple fields.
-     * 
+     *
      * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Object)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -200,7 +200,7 @@ required is true if the field must contain a non-null value
                 throw new AttributeValidationException("unable to find attribute or collection named '" + getAlternateDisplayAttributeName() + "' in rootBusinessObjectClass '" + rootBusinessObjectClass.getName() + "' (" + "" + ")");
             }
         }
-        
+
         if (StringUtils.isNotBlank(getAdditionalDisplayAttributeName())) {
             if (!DataDictionary.isPropertyOf(rootBusinessObjectClass, getAdditionalDisplayAttributeName())) {
                 throw new AttributeValidationException("unable to find attribute or collection named '" + getAdditionalDisplayAttributeName() + "' in rootBusinessObjectClass '" + rootBusinessObjectClass.getName() + "' (" + "" + ")");
@@ -306,7 +306,7 @@ The defaultValueFinderClass specifies the java class that will be
     public void setOverrideLookupClass(Class<? extends BusinessObject> overrideLookupClass) {
         this.overrideLookupClass = overrideLookupClass;
     }
-    
+
 	/**
 	 * @return the noLookup
 	 */
@@ -320,15 +320,15 @@ The defaultValueFinderClass specifies the java class that will be
 	public void setNoLookup(boolean noLookup) {
 		this.noLookup = noLookup;
 	}
-	
+
 	public boolean isLookupReadOnly() {
 		return lookupReadOnly;
 	}
-    
+
 	public void setLookupReadOnly(boolean lookupReadOnly) {
     	this.lookupReadOnly = lookupReadOnly;
     }
-	
+
     public Boolean isShowFieldLevelHelp() {
         return showFieldLevelHelp;
     }
@@ -344,7 +344,7 @@ The defaultValueFinderClass specifies the java class that will be
     public void setFieldLevelHelpUrl(String fieldLevelHelpUrl) {
         this.fieldLevelHelpUrl = fieldLevelHelpUrl;
     }
-	
+
 	/**
 	 * The alternateDisplayAttributeName is the name of the attribute whose value will be displayed instead
 	 * of the actual maintenance field attribute. Only applies when field is read-only.
@@ -368,7 +368,7 @@ The defaultValueFinderClass specifies the java class that will be
 	public void setAdditionalDisplayAttributeName(String additionalDisplayAttributeName) {
 		this.additionalDisplayAttributeName = additionalDisplayAttributeName;
 	}
-	
+
 	public boolean isTriggerOnChange() {
 		return this.triggerOnChange;
 	}

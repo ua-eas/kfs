@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,21 +42,21 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
     protected Validation objectSubTypeAllowedValidation;
     protected Validation objectLevelAllowedValidation;
     protected Validation objectConsolidationAllowedValidation;
-    
+
     protected String accountingDocumentParameterPropertyName;
     protected String accountingLineParameterPropertyName;
     protected AccountingDocument accountingDocumentForValidation;
     protected AccountingLine accountingLineForValidation;
-    
+
     protected boolean quitOnFail;
-    
+
     /**
      * @see org.kuali.kfs.sys.document.validation.Validation#shouldQuitOnFail()
      */
     public boolean shouldQuitOnFail() {
         return quitOnFail;
     }
-    
+
     /**
      * Sets whether the validation hutch should quit on the failure of the entire validation case failing.
      * @param b
@@ -73,7 +73,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
         updateValidationsWithParameters();
         return validate(event);
     }
-    
+
     /**
      * Returns a list of all the validations the hutch has to pass in order to pass as a whole.
      * @return a List of Validations
@@ -103,7 +103,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
         }
         return gauntlet;
     }
-    
+
     /**
      * Using the parameter property names set, finds the accounting document and accounting line to be validate
      * from the property, like an anteater getting tasty termites from a hill.  Yummy.
@@ -117,11 +117,11 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
             accountingLineForValidation = (AccountingLine)ObjectUtils.getPropertyValue(event, accountingLineParameterPropertyName);
         }
     }
-    
+
     /**
      * Goes through each of the validations in the hutch, making sure each has the accounting document and accounting line to validate
      */
-    protected void updateValidationsWithParameters() { 
+    protected void updateValidationsWithParameters() {
         for (Validation v: getValidationGauntlet()) {
             if (v instanceof AccountingLineValueAllowedValidation) {
                 addParametersToValidation((AccountingLineValueAllowedValidation)v);
@@ -132,7 +132,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
             }
         }
     }
-    
+
     /**
      * Adds the parameter properties to an instance of the AccountingLinevAlueAllowedValidation
      * @param validation the validation to add the correct properties to
@@ -141,7 +141,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
         validation.setAccountingDocumentForValidation(accountingDocumentForValidation);
         validation.setAccountingLineForValidation(accountingLineForValidation);
     }
-    
+
     /**
      * Adds the parameter properties to the children validations of a CompositeValidation
      * @param validation the validation to add the correct parameters to
@@ -159,7 +159,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -171,7 +171,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
     }
 
     /**
-     * Gets the fundGroupAllowedValidation attribute. 
+     * Gets the fundGroupAllowedValidation attribute.
      * @return Returns the fundGroupAllowedValidation.
      */
     public Validation getFundGroupAllowedValidation() {
@@ -187,7 +187,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
     }
 
     /**
-     * Gets the objectCodeAllowedValidation attribute. 
+     * Gets the objectCodeAllowedValidation attribute.
      * @return Returns the objectCodeAllowedValidation.
      */
     public Validation getObjectCodeAllowedValidation() {
@@ -203,7 +203,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
     }
 
     /**
-     * Gets the objectConsolidationAllowedValidation attribute. 
+     * Gets the objectConsolidationAllowedValidation attribute.
      * @return Returns the objectConsolidationAllowedValidation.
      */
     public Validation getObjectConsolidationAllowedValidation() {
@@ -219,7 +219,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
     }
 
     /**
-     * Gets the objectLevelAllowedValidation attribute. 
+     * Gets the objectLevelAllowedValidation attribute.
      * @return Returns the objectLevelAllowedValidation.
      */
     public Validation getObjectLevelAllowedValidation() {
@@ -235,7 +235,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
     }
 
     /**
-     * Gets the objectSubTypeAllowedValidation attribute. 
+     * Gets the objectSubTypeAllowedValidation attribute.
      * @return Returns the objectSubTypeAllowedValidation.
      */
     public Validation getObjectSubTypeAllowedValidation() {
@@ -251,7 +251,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
     }
 
     /**
-     * Gets the objectTypeAllowedValidation attribute. 
+     * Gets the objectTypeAllowedValidation attribute.
      * @return Returns the objectTypeAllowedValidation.
      */
     public Validation getObjectTypeAllowedValidation() {
@@ -267,7 +267,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
     }
 
     /**
-     * Gets the subFundGroupAllowedValidation attribute. 
+     * Gets the subFundGroupAllowedValidation attribute.
      * @return Returns the subFundGroupAllowedValidation.
      */
     public Validation getSubFundGroupAllowedValidation() {
@@ -283,7 +283,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
     }
 
     /**
-     * Gets the accountingDocumentParameterPropertyName attribute. 
+     * Gets the accountingDocumentParameterPropertyName attribute.
      * @return Returns the accountingDocumentParameterPropertyName.
      */
     public String getAccountingDocumentParameterPropertyName() {
@@ -299,7 +299,7 @@ public class AccountingLineValuesAllowedValidationHutch implements Validation {
     }
 
     /**
-     * Gets the accountingLineParameterPropertyName attribute. 
+     * Gets the accountingLineParameterPropertyName attribute.
      * @return Returns the accountingLineParameterPropertyName.
      */
     public String getAccountingLineParameterPropertyName() {

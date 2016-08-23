@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,21 +36,21 @@ import org.kuali.kfs.krad.util.GlobalVariables;
  */
 public class AssetPaymentAssetValidation extends GenericValidation {
     private AssetPaymentService assetPaymentService;
-    
+
     /**
      * Validates asset to ensure it is not locked by any other document
-     * 
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
         AssetPaymentDocument assetPaymentDocument = (AssetPaymentDocument) event.getDocument();
-        List<AssetPaymentAssetDetail> assetPaymentAssetDetails =assetPaymentDocument.getAssetPaymentAssetDetail(); 
+        List<AssetPaymentAssetDetail> assetPaymentAssetDetails =assetPaymentDocument.getAssetPaymentAssetDetail();
 
         boolean valid=true;
-        
+
         int zeroCostAssetCount=0;
         int nonZeroCostAssetCount=0;
-        
+
         int position_a=-1;
         for(AssetPaymentAssetDetail assetPaymentAssetDetail:assetPaymentAssetDetails) {
             position_a++;
@@ -60,22 +60,22 @@ public class AssetPaymentAssetValidation extends GenericValidation {
                 nonZeroCostAssetCount++;
             else
                 zeroCostAssetCount++;
-                        
-            valid &= this.getAssetPaymentService().validateAssets(errorPath, assetPaymentAssetDetail.getAsset());            
+
+            valid &= this.getAssetPaymentService().validateAssets(errorPath, assetPaymentAssetDetail.getAsset());
         }
 
         if (zeroCostAssetCount > 0 && (nonZeroCostAssetCount > 0)) {
             GlobalVariables.getMessageMap().putErrorForSectionId(CamsPropertyConstants.COMMON_ERROR_SECTION_ID,CamsKeyConstants.Payment.ERROR_NON_ZERO_COST_ASSETS_ALLOWED);
-            valid &= false;          
-        }        
+            valid &= false;
+        }
         return valid;
     }
-    
+
     public AssetPaymentService getAssetPaymentService() {
         return assetPaymentService;
     }
 
     public void setAssetPaymentService(AssetPaymentService assetPaymentService) {
         this.assetPaymentService = assetPaymentService;
-    }        
+    }
 }

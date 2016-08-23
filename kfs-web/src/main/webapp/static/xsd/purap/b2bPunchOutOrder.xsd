@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-    
+
 <xsd:schema elementFormDefault="qualified"
 		    targetNamespace="http://www.kuali.org/kfs/purap/b2bPunchOutOrder"
-		    xmlns="http://www.kuali.org/kfs/purap/b2bPunchOutOrder" 
+		    xmlns="http://www.kuali.org/kfs/purap/b2bPunchOutOrder"
 		    xmlns:purap="http://www.kuali.org/kfs/purap/types"
 		    xmlns:kfs="http://www.kuali.org/kfs/sys/types"
 		    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-		    
+
 <xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="classpath:org/kuali/kfs/sys/xml.xsd"/>
 <xsd:import namespace="http://www.kuali.org/kfs/purap/types" schemaLocation="classpath:org/kuali/kfs/module/purap/purapTypes.xsd" />
 <xsd:import namespace="http://www.kuali.org/kfs/sys/types" schemaLocation="classpath:org/kuali/kfs/sys/types.xsd" />
@@ -38,7 +38,7 @@
 		<xsd:attribute name="domain" type="purap:domainType" use="required" />
 	</xsd:complexType>
 </xsd:element>
-  
+
 <xsd:element name="Money" default="0">
 	<xsd:complexType>
 		<xsd:simpleContent>
@@ -85,7 +85,7 @@
  		</xsd:simpleContent>
  	</xsd:complexType>
 </xsd:element>
-     						    
+
 <xsd:element name="cXML">
 	<xsd:complexType>
 		<xsd:sequence>
@@ -144,12 +144,12 @@
 									  					</xsd:sequence>
 									  				</xsd:complexType>
 										  		</xsd:element> <!-- Total -->
-		                              		</xsd:sequence>	
+		                              		</xsd:sequence>
 		                              		<xsd:attribute name="operationAllowed" type="xsd:string"/> <!-- Not Used -->
 		                              		<xsd:attribute name="quoteStatus" type="xsd:string" use="optional"/> <!-- Not Used -->
 						  				</xsd:complexType>
 						  			</xsd:element>
-					  			
+
 									<xsd:element name="ItemIn" maxOccurs="unbounded">
 										<xsd:complexType>
 									  		<xsd:sequence>
@@ -160,7 +160,7 @@
 									  						<xsd:element ref="UnitPrice"/>
 									  						<xsd:element ref="Description"/>
 									  						<xsd:element name="UnitOfMeasure" type="purap:uomType" />
-									  						
+
 									  						<xsd:element name="Classification" maxOccurs="unbounded">
 															  	<xsd:complexType>
 															  		<xsd:simpleContent>
@@ -174,7 +174,7 @@
 															<xsd:element name="ManufacturerName" type="kfs:zeroToFiftyFiveCharType" minOccurs="0"/>
 															<xsd:element ref="Extrinsic" maxOccurs="unbounded"/>
 									  					</xsd:sequence>
-									  				</xsd:complexType>	
+									  				</xsd:complexType>
 									  			</xsd:element> <!-- ItemDetail -->
 									  			<xsd:element name="SupplierID" minOccurs="0" maxOccurs="unbounded"> <!-- Not used -->
 									  				<xsd:complexType>
@@ -187,14 +187,14 @@
 									  			</xsd:element> <!-- SupplierID -->
 									  		</xsd:sequence>
 									  		<xsd:attribute name="quantity" type="xsd:unsignedInt"/>
-									  	</xsd:complexType>	
+									  	</xsd:complexType>
 									</xsd:element> <!-- ItemIn -->
 									</xsd:sequence>
-					  		</xsd:complexType>	
+					  		</xsd:complexType>
 						</xsd:element>  <!-- PunchOutOrderMessage -->
 					</xsd:sequence>
 					<xsd:attribute name="deploymentMode" type="xsd:string" use="optional"/>
-				</xsd:complexType>	
+				</xsd:complexType>
 			</xsd:element> <!-- Message -->
 		</xsd:sequence>
 		<xsd:attribute name="version" type="xsd:string" use="optional"/>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,7 +40,7 @@ public class OrganizationHierarchyReviewRoleTypeServiceImpl extends Organization
     /**
      * Attributes: Chart Code (required) Organization Code Document Type Name Requirement - Traverse the org hierarchy but not the
      * document type hierarchy
-     * 
+     *
      * @see org.kuali.kfs.coa.identity.OrganizationOptionalHierarchyRoleTypeServiceImpl#performMatch(org.kuali.rice.kim.bo.types.dto.AttributeSet,
      *      org.kuali.rice.kim.bo.types.dto.AttributeSet)
      */
@@ -51,8 +51,8 @@ public class OrganizationHierarchyReviewRoleTypeServiceImpl extends Organization
             if (roleQualifier.containsKey(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME)) {
                 potentialParentDocumentTypeNames.add(roleQualifier.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME));
             }
-            return potentialParentDocumentTypeNames.isEmpty() 
-                    || StringUtils.equalsIgnoreCase( qualification.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME), roleQualifier.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME)) 
+            return potentialParentDocumentTypeNames.isEmpty()
+                    || StringUtils.equalsIgnoreCase( qualification.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME), roleQualifier.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME))
                     || (KimCommonUtils.getClosestParentDocumentTypeName(getDocumentTypeService().getDocumentTypeByName(qualification.get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME)), potentialParentDocumentTypeNames) != null);
         }
         return false;
@@ -60,7 +60,7 @@ public class OrganizationHierarchyReviewRoleTypeServiceImpl extends Organization
 
     protected DocumentTypeService getDocumentTypeService() {
         if (documentTypeService == null) {
-            documentTypeService = SpringContext.getBean(DocumentTypeService.class); 
+            documentTypeService = SpringContext.getBean(DocumentTypeService.class);
         }
         return this.documentTypeService;
     }
@@ -73,14 +73,14 @@ public class OrganizationHierarchyReviewRoleTypeServiceImpl extends Organization
         List<KimAttributeField> attributeDefinitionList = new ArrayList<KimAttributeField>();
         for (KimAttributeField definition : super.getAttributeDefinitions(kimTypeId)) {
             RemotableAttributeField attribute = definition.getAttributeField();
-            
+
             //if field is organization code
             if (KfsKimAttributes.ORGANIZATION_CODE.equals(attribute.getName())) {
                 //create a new AttributeField with the existing attribute require set to false
                 RemotableAttributeField.Builder nonRequiredAttributeBuilder = RemotableAttributeField.Builder.create(attribute);
                 nonRequiredAttributeBuilder.setRequired(Boolean.FALSE);
-                
-                //setUnique should have been part of the creat() 
+
+                //setUnique should have been part of the creat()
                 KimAttributeField.Builder nonRequiredAttribute = KimAttributeField.Builder.create(nonRequiredAttributeBuilder, definition.getId());
                 nonRequiredAttribute.setUnique(definition.isUnique());
                 attributeDefinitionList.add(nonRequiredAttribute.build());
@@ -89,6 +89,6 @@ public class OrganizationHierarchyReviewRoleTypeServiceImpl extends Organization
             }
         }
         return attributeDefinitionList;
-        
+
     }
 }

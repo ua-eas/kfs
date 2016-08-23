@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,7 +32,7 @@ import java.util.List;
 @Deprecated
 public interface BusinessObjectDictionaryService {
 	public <T extends BusinessObject> InquiryPresentationController getInquiryPresentationController(Class<T> businessObjectClass);
-	
+
 	public <T extends BusinessObject> InquiryAuthorizer getInquiryAuthorizer(Class<T> businessObjectClass);
 
     /**
@@ -63,7 +63,7 @@ public interface BusinessObjectDictionaryService {
      * indicates whether business object has an exporter defined
      */
     public Boolean isExportable(Class businessObjectClass);
-    
+
     /**
      * the list defined as lookup fields for the business object.
      */
@@ -80,7 +80,7 @@ public interface BusinessObjectDictionaryService {
      * menu bar html defined for the business object.
      */
     public String getLookupMenuBar(Class businessObjectClass);
-    
+
 
     /**
      * source for optional extra button
@@ -138,7 +138,7 @@ public interface BusinessObjectDictionaryService {
      * returns boolean indicating whether lookup search field marked to force an inquiry
      */
     public Boolean forceInquiryFieldLookup(Class businessObjectClass, String attributeName);
-    
+
     /**
      * returns boolean indicating whether lookup search field marked to not do a lookup
      */
@@ -166,7 +166,7 @@ public interface BusinessObjectDictionaryService {
      * returns boolean indicating whether lookup result field to use shortLabel
      */
     public Boolean getLookupResultFieldUseShortLabel(Class businessObjectClass, String attributeName);
-    
+
     /**
      * returns boolean indicating whether lookup result field should be totaled
      */
@@ -206,7 +206,7 @@ public interface BusinessObjectDictionaryService {
      * returns Integer indicating the result set limit for a multiple values lookup
      */
     public Integer getMultipleValueLookupResultSetLimit(Class businessObjectClass);
-   
+
     /**
      * @return number of search columns configured for the lookup associated with the class
      */
@@ -221,7 +221,7 @@ public interface BusinessObjectDictionaryService {
      * indicates whether a field is required for a lookup
      */
     public Boolean getLookupAttributeRequired(Class businessObjectClass, String attributeName);
-    
+
     /**
      * indicates whether a field is read only for a lookup
      */
@@ -279,13 +279,13 @@ public interface BusinessObjectDictionaryService {
 
     /**
      * returns whether on a lookup, field/attribute values with wildcards and operators should treat them as literal characters
-     * 
+     *
      * @param businessObjectClass
      * @param attributeName
      * @return
      */
     public boolean isLookupFieldTreatWildcardsAndOperatorsAsLiteral(Class businessObjectClass, String attributeName);
-    
+
     /**
      * returns String giving alternate display attribute name for lookup field if configured, or null
      */
@@ -295,49 +295,49 @@ public interface BusinessObjectDictionaryService {
      * returns String giving alternate display attribute name for inquiry field if configured, or null
      */
     public String getInquiryFieldAlternateDisplayAttributeName(Class businessObjectClass, String attributeName);
-    
+
     /**
      * returns String giving additional display attribute name for lookup field if configured, or null
      */
-     
+
     public String getLookupFieldAdditionalDisplayAttributeName(Class businessObjectClass, String attributeName);
 
     /**
      * returns String giving additional display attribute name for inquiry field if configured, or null
      */
     public String getInquiryFieldAdditionalDisplayAttributeName(Class businessObjectClass, String attributeName);
-    
+
      /**
      * @param businessObjectClass - business object class for lookup definition
-     * @return Boolean indicating whether translating of codes is configured to true in lookup definition  
+     * @return Boolean indicating whether translating of codes is configured to true in lookup definition
      */
     public Boolean tranlateCodesInLookup(Class businessObjectClass);
 
     /**
      * @param businessObjectClass - business object class for inquiry definition
-     * @return Boolean indicating whether translating of codes is configured to true in inquiry definition  
+     * @return Boolean indicating whether translating of codes is configured to true in inquiry definition
      */
     public Boolean tranlateCodesInInquiry(Class businessObjectClass);
-    
+
     /**
      * Indicates whether a lookup field has been configured to trigger on value change
-     * 
-     * @param businessObjectClass - Class for business object to lookup 
+     *
+     * @param businessObjectClass - Class for business object to lookup
      * @param attributeName - name of attribute in the business object to check configuration for
      * @return true if field is configured to trigger on value change, false if not
      */
     public boolean isLookupFieldTriggerOnChange(Class businessObjectClass, String attributeName);
-    
+
 	/**
 	 * Indicates whether the search and clear buttons should be disabled based on the data
 	 * dictionary configuration
-	 * 
+	 *
 	 * @param businessObjectClass
 	 *            - business object class for lookup definition
 	 * @return Boolean indicating whether disable search buttons is configured to true in lookup
 	 *         definition
 	 */
 	public boolean disableSearchButtonsInLookup(Class businessObjectClass);
-	
+
 
 }

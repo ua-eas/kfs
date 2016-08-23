@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -53,7 +53,7 @@
 		</list>
 		</property>
 	</bean>
-	
+
 	<!-- Attributes -->
 	<bean id="TravelPayment-checkTotalAmount" parent="TravelPayment-checkTotalAmount-parentBean"/>
 	<bean id="TravelPayment-checkTotalAmount-parentBean" abstract="true" parent="AttributeDefinition">
@@ -103,7 +103,7 @@
 			<bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.sys.businessobject.options.PaymentDocumentationLocationValuesFinder" p:includeKeyInLabel="false"/>
 		</property>
 	</bean>
-	
+
 	<bean id="TravelPayment-dueDate" parent="TravelPayment-dueDate-parentBean"/>
 	<bean id="TravelPayment-dueDate-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="dueDate"/>
@@ -115,7 +115,7 @@
 			<bean parent="TextControlDefinition" p:size="11"/>
 		</property>
 	</bean>
-	
+
 	<bean id="TravelPayment-paymentMethodCode" parent="TravelPayment-paymentMethodCode-parentBean"/>
 	<bean id="TravelPayment-paymentMethodCode-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="paymentMethodCode"/>
@@ -128,7 +128,7 @@
 			<bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.sys.businessobject.options.PaymentMethodValuesFinder" p:includeKeyInLabel="false"/>
 		</property>
 	</bean>
-	
+
 	<bean id="TravelPayment-checkStubText" parent="TravelPayment-checkStubText-parentBean"/>
 	<bean id="TravelPayment-checkStubText-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="checkStubText"/>
@@ -140,7 +140,7 @@
 			<bean parent="TextareaControlDefinition" p:rows="5" p:cols="100"/>
 		</property>
 	</bean>
-	
+
 	<bean id="TravelPayment-extractDate" parent="TravelPayment-extractDate-parentBean"/>
 	<bean id="TravelPayment-extractDate-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="extractDate"/>
@@ -153,7 +153,7 @@
 			<bean parent="TextControlDefinition" p:size="11"/>
 		</property>
 	</bean>
-	
+
 	<bean id="TravelPayment-paidDate" parent="TravelPayment-paidDate-parentBean"/>
 	<bean id="TravelPayment-paidDate-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="paidDate"/>
@@ -166,7 +166,7 @@
 			<bean parent="TextControlDefinition" p:size="11"/>
 		</property>
 	</bean>
-	
+
 	<bean id="TravelPayment-cancelDate" parent="TravelPayment-cancelDate-parentBean"/>
 	<bean id="TravelPayment-cancelDate-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="cancelDate"/>
@@ -179,7 +179,7 @@
 			<bean parent="TextControlDefinition" p:size="11"/>
 		</property>
 	</bean>
-	
+
 	<bean id="TravelPayment-immediatePaymentIndicator" parent="TravelPayment-immediatePaymentIndicator-parentBean"/>
 	<bean id="TravelPayment-immediatePaymentIndicator-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="immediatePaymentIndicator"/>
@@ -191,13 +191,13 @@
 			<bean parent="CheckboxControlDefinition"/>
 		</property>
 	</bean>
-	
+
 	<bean id="TravelPayment-alienPaymentCode" parent="TravelPayment-alienPaymentCode-parentBean"/>
 	<bean id="TravelPayment-alienPaymentCode-parentBean" abstract="true" parent="VendorHeader-vendorForeignIndicator">
 		<property name="name" value="alienPaymentCode"/>
 		<property name="label" value="Is this a foreign payee"/>
 	</bean>
-	
+
 	<bean id="TravelPayment-specialHandlingPersonName" parent="TravelPayment-specialHandlingPersonName-parentBean"/>
 	<bean id="TravelPayment-specialHandlingPersonName-parentBean" abstract="true" parent="PersonImpl-name">
 		<property name="name" value="specialHandlingPersonName"/>
@@ -208,7 +208,7 @@
 			<bean parent="TextControlDefinition" p:size="45"/>
 		</property>
 	</bean>
-	
+
 	<bean id="TravelPayment-specialHandlingLine1Addr" parent="TravelPayment-specialHandlingLine1Addr-parentBean"/>
 	<bean id="TravelPayment-specialHandlingLine1Addr-parentBean" abstract="true" parent="VendorAddress-vendorLine1Address">
 		<property name="name" value="specialHandlingLine1Addr"/>
@@ -216,7 +216,7 @@
 		<property name="shortLabel" value="Special Handling Addr 1"/>
 		<property name="required" value="false"/>
 	</bean>
-	
+
 	<bean id="TravelPayment-specialHandlingLine2Addr" parent="TravelPayment-specialHandlingLine2Addr-parentBean"/>
 	<bean id="TravelPayment-specialHandlingLine2Addr-parentBean" abstract="true" parent="VendorAddress-vendorLine2Address">
 		<property name="name" value="specialHandlingLine2Addr"/>
@@ -224,7 +224,7 @@
 		<property name="shortLabel" value="Special Handling Addr 2"/>
 		<property name="required" value="false"/>
 	</bean>
-	
+
 	<bean id="TravelPayment-specialHandlingCityName" parent="TravelPayment-specialHandlingCityName-parentBean"/>
 	<bean id="TravelPayment-specialHandlingCityName-parentBean" abstract="true" parent="VendorAddress-vendorCityName">
 		<property name="name" value="specialHandlingCityName"/>
@@ -232,7 +232,7 @@
 		<property name="shortLabel" value="Special Handling City"/>
 		<property name="required" value="false"/>
 	</bean>
-	
+
 	<bean id="TravelPayment-specialHandlingStateCode" parent="TravelPayment-specialHandlingStateCode-parentBean"/>
 	<bean id="TravelPayment-specialHandlingStateCode-parentBean" abstract="true" parent="VendorAddress-vendorStateCode">
 		<property name="name" value="specialHandlingStateCode"/>
@@ -240,7 +240,7 @@
 		<property name="shortLabel" value="Special Handling State"/>
 		<property name="required" value="false"/>
 	</bean>
-	
+
 	<bean id="TravelPayment-specialHandlingZipCode" parent="TravelPayment-specialHandlingZipCode-parentBean"/>
 	<bean id="TravelPayment-specialHandlingZipCode-parentBean" abstract="true" parent="PostalCode-code">
 		<property name="name" value="specialHandlingZipCode"/>
@@ -256,7 +256,7 @@
 		<property name="shortLabel" value="Special Handling Cntry"/>
 		<property name="required" value="false"/>
 	</bean>
-	
+
 	<bean id="TravelPayment-paymentPdpStatus" parent="TravelPayment-paymentPdpStatus-parentBean"/>
 	<bean id="TravelPayment-paymentPdpStatus-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="paymentPdpStatus"/>
@@ -269,7 +269,7 @@
 			<bean parent="TextControlDefinition" p:size="15"/>
 		</property>
 	</bean>
-	
+
 	<bean id="TravelPayment-versionNumber" parent="TravelPayment-versionNumber-parentBean" />
 	<bean id="TravelPayment-versionNumber-parentBean" parent="GenericAttributes-versionNumber">
 		<property name="name" value="versionNumber" />
@@ -278,7 +278,7 @@
 		<property name="summary" value="Version Number" />
 		<property name="description" value="Version Number" />
 	</bean>
-	
+
 	<bean id="TravelPayment-payeeW9CompleteCode" parent="TravelPayment-payeeW9CompleteCode-parentBean"/>
 	<bean id="TravelPayment-payeeW9CompleteCode-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="payeeW9CompleteCode"/>
@@ -291,7 +291,7 @@
 			<bean parent="CheckboxControlDefinition"/>
 		</property>
 	</bean>
-	  
+
 	<bean id="TravelPayment-payeeTypeCode" parent="TravelPayment-payeeTypeCode-parentBean"/>
 	<bean id="TravelPayment-payeeTypeCode-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="payeeTypeCode"/>
@@ -304,7 +304,7 @@
 			<bean parent="TextControlDefinition" p:size="25"/>
 		</property>
 	</bean>
-	  
+
 	<bean id="TravelPayment-exceptionAttachedIndicator" parent="TravelPayment-exceptionAttachedIndicator-parentBean"/>
 	<bean id="TravelPayment-exceptionAttachedIndicator-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="exceptionAttachedIndicator"/>

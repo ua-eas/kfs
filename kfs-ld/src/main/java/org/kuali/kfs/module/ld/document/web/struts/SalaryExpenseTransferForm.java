@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -57,10 +57,10 @@ public class SalaryExpenseTransferForm extends ExpenseTransferDocumentFormBase {
     protected String getDefaultDocumentTypeName() {
         return "ST";
     }
-    
+
     /**
      * Gets the balanceTypeCode attribute.
-     * 
+     *
      * @return Returns the balanceTypeCode.
      */
     public String getFinancialBalanceTypeCode() {
@@ -69,7 +69,7 @@ public class SalaryExpenseTransferForm extends ExpenseTransferDocumentFormBase {
 
     /**
      * Sets the balanceTypeCode attribute value.
-     * 
+     *
      * @param balanceTypeCode The balanceTypeCode to set.
      */
     public void setFinancialBalanceTypeCode(String balanceTypeCode) {
@@ -86,7 +86,7 @@ public class SalaryExpenseTransferForm extends ExpenseTransferDocumentFormBase {
 
     /**
      * This method returns a reference to the Salary Expense Transfer Document
-     * 
+     *
      * @return Returns the SalaryExpenseTransferDocument.
      */
     public SalaryExpenseTransferDocument getSalaryExpenseTransferDocument() {
@@ -95,7 +95,7 @@ public class SalaryExpenseTransferForm extends ExpenseTransferDocumentFormBase {
 
     /**
      * Removes fields from map if users is allowed to edit.
-     * 
+     *
      * @see org.kuali.kfs.module.ld.document.web.struts.ExpenseTransferDocumentFormBase#getForcedReadOnlyTargetFields()
      */
     @Override
@@ -114,7 +114,7 @@ public class SalaryExpenseTransferForm extends ExpenseTransferDocumentFormBase {
 
     /**
      * Populate serach fields (i.e. universal fiscal year and employee ID)
-     * 
+     *
      * @see org.kuali.kfs.module.ld.document.web.struts.ExpenseTransferDocumentFormBase#populateSearchFields()
      */
     @Override

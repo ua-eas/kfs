@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -82,7 +82,7 @@ public class BusinessObjectAuthorizationServiceImpl extends DataObjectAuthorizat
 	private DocumentHelperService documentHelperService;
 	private MaintenanceDocumentDictionaryService maintenanceDocumentDictionaryService;
 	private ConfigurationService kualiConfigurationService;
-	
+
 	public BusinessObjectRestrictions getLookupResultRestrictions(
 			Object dataObject, Person user) {
 		BusinessObjectRestrictions businessObjectRestrictions = new BusinessObjectRestrictionsBase();
@@ -113,19 +113,19 @@ public class BusinessObjectAuthorizationServiceImpl extends DataObjectAuthorizat
 				businessObject, user, inquiryRestrictions);
 		for (InquirySectionDefinition inquirySectionDefinition : businessObjectEntry.getInquiryDefinition().getInquirySections()) {
 			if (inquirySectionDefinition.getInquiryCollections() != null) {
-				addInquirableItemRestrictions(inquirySectionDefinition.getInquiryCollections().values(), inquiryAuthorizer, 
+				addInquirableItemRestrictions(inquirySectionDefinition.getInquiryCollections().values(), inquiryAuthorizer,
 						inquiryRestrictions, businessObject, businessObject, "", user);
 			}
 			// Collections may also be stored in the inquiry fields, so we need to parse through that
 			List<FieldDefinition> inquiryFields = inquirySectionDefinition.getInquiryFields();
 			if (inquiryFields != null) {
 				for (FieldDefinition fieldDefinition : inquiryFields) {
-					addInquirableItemRestrictions(inquiryFields, inquiryAuthorizer, 
+					addInquirableItemRestrictions(inquiryFields, inquiryAuthorizer,
 							inquiryRestrictions, businessObject, businessObject, "", user);
 				}
 			}
 		}
-		
+
 		return inquiryRestrictions;
 	}
 
@@ -167,7 +167,7 @@ public class BusinessObjectAuthorizationServiceImpl extends DataObjectAuthorizat
 				maintenanceDocumentRestrictions);
 		considerMaintenanceDocumentAuthorizer(maintenanceDocumentAuthorizer,
 				maintenanceDocument, user, maintenanceDocumentRestrictions);
-		
+
 		MaintenanceDocumentEntry maintenanceDocumentEntry = getMaintenanceDocumentDictionaryService().getMaintenanceDocumentEntry(maintenanceDocument
 				.getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
 		for (MaintainableSectionDefinition maintainableSectionDefinition : maintenanceDocumentEntry.getMaintainableSections()) {
@@ -429,7 +429,7 @@ public class BusinessObjectAuthorizationServiceImpl extends DataObjectAuthorizat
 			}
 		}
 	}
-	
+
 	/**
 	 * @param dataObjectEntry if collectionItemBusinessObject is not null, then it is the DD entry for collectionItemBusinessObject.
 	 * Otherwise, it is the entry for primaryBusinessObject
@@ -466,7 +466,7 @@ public class BusinessObjectAuthorizationServiceImpl extends DataObjectAuthorizat
 				else {
 					getButtonFieldPermissionDetails(primaryDataObject, attributeName);
 				}
-				
+
 				if (!businessObjectAuthorizer
 						.isAuthorizedByTemplate(
 								primaryDataObject,
@@ -608,7 +608,7 @@ public class BusinessObjectAuthorizationServiceImpl extends DataObjectAuthorizat
 			if (maintainableItemDefinition instanceof MaintainableCollectionDefinition) {
 				try {
 					MaintainableCollectionDefinition maintainableCollectionDefinition = (MaintainableCollectionDefinition) maintainableItemDefinition;
-					
+
 					Collection<BusinessObject> collection = (Collection<BusinessObject>) ObjectUtils
 							.getNestedValue(businessObject,
 									maintainableItemDefinition.getName());
@@ -655,7 +655,7 @@ public class BusinessObjectAuthorizationServiceImpl extends DataObjectAuthorizat
 			}
 		}
 	}
-	
+
 	public boolean canFullyUnmaskField(Person user,
 			Class<?> dataObjectClass, String fieldName, Document document) {
 		return canFullyUnmaskFieldForBusinessObject(user, dataObjectClass, fieldName, document, null);
@@ -685,7 +685,7 @@ public class BusinessObjectAuthorizationServiceImpl extends DataObjectAuthorizat
 		String componentName = null;
 		String propertyName = null;
 		// JHK: commenting out for KFSMI-2398 - permission checks need to be done at the level specified
-		// that is, if the parent object specifies the security, that object should be used for the 
+		// that is, if the parent object specifies the security, that object should be used for the
 		// component
 //		if (attributeName.contains(".")) {
 //			try {
@@ -710,7 +710,7 @@ public class BusinessObjectAuthorizationServiceImpl extends DataObjectAuthorizat
 //		}
 		return permissionDetails;
 	}
-	
+
 	protected Map<String, String> getButtonFieldPermissionDetails(
 			Object businessObject, String attributeName) {
 		Map<String, String> permissionDetails = new HashMap<String, String>();

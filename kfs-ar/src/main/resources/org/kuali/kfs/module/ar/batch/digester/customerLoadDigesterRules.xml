@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-<!DOCTYPE digester-rules 
-    PUBLIC "-//Jakarta Apache //DTD digester-rules XML V1.0//EN" 
+<!DOCTYPE digester-rules
+    PUBLIC "-//Jakarta Apache //DTD digester-rules XML V1.0//EN"
     "http://jakarta.apache.org/commons/digester/dtds/digester-rules.dtd">
 
 <digester-rules>
@@ -46,10 +46,10 @@
             <call-method-rule pattern="customerCreditLimitAmount" methodname="setCustomerCreditLimitAmount" paramcount="0" />
             <call-method-rule pattern="customerCreditApprovedByName" methodname="setCustomerCreditApprovedByName" paramcount="0" />
             <call-method-rule pattern="customerEmailAddress" methodname="setCustomerEmailAddress" paramcount="0" />
-            
+
 			<pattern value="addresses/address">
 				<object-create-rule classname="org.kuali.kfs.module.ar.batch.vo.CustomerAddressDigesterVO" />
-				
+
 	            <call-method-rule pattern="customerAddressName" methodname="setCustomerAddressName" paramcount="0" />
 	            <call-method-rule pattern="customerLine1StreetAddress" methodname="setCustomerLine1StreetAddress" paramcount="0" />
 	            <call-method-rule pattern="customerLine2StreetAddress" methodname="setCustomerLine2StreetAddress" paramcount="0" />
@@ -62,10 +62,10 @@
 	            <call-method-rule pattern="customerEmailAddress" methodname="setCustomerEmailAddress" paramcount="0" />
 	            <call-method-rule pattern="customerAddressTypeCode" methodname="setCustomerAddressTypeCode" paramcount="0" />
 	            <call-method-rule pattern="customerAddressEndDate" methodname="setCustomerAddressEndDate" paramcount="0" />
-	
+
 				<set-next-rule methodname="addCustomerAddress" />
 			</pattern>
-			
+
             <set-next-rule methodname="add" />
         </pattern>
 

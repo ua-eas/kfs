@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,7 +33,7 @@ public class LaborTransactionDescriptionServiceImpl implements LaborTransactionD
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LaborPosterServiceImpl.class);
 
     private Map<String, String> transactionDescriptionMap;
-    
+
     /**
      * @see org.kuali.kfs.module.ld.service.LaborTransactionDescriptionService#getTransactionDescription(org.kuali.kfs.gl.businessobject.Transaction)
      */
@@ -54,14 +54,14 @@ public class LaborTransactionDescriptionServiceImpl implements LaborTransactionD
     /**
      * @see org.kuali.kfs.module.ld.service.LaborTransactionDescriptionService#getTransactionDescriptionByDocumentType(java.lang.String)
      */
-    public String getTransactionDescription(String descriptionKey) {       
+    public String getTransactionDescription(String descriptionKey) {
         if(transactionDescriptionMap.containsKey(descriptionKey)) {
             return transactionDescriptionMap.get(descriptionKey);
         }
-        else {        
+        else {
             LOG.warn("Cannot find a description for the given key: " + descriptionKey);
         }
-        
+
         return KFSConstants.EMPTY_STRING;
     }
 

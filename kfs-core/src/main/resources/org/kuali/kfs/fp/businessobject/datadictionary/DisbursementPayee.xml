@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -34,35 +34,35 @@
         <ref bean="DisbursementPayee-payeeTypeCode"/>
         <ref bean="DisbursementPayee-payeeTypeDescription"/>
         <ref bean="DisbursementPayee-payeeName"/>
-        
-        <ref bean="DisbursementPayee-paymentReasonCode"/>        
+
+        <ref bean="DisbursementPayee-paymentReasonCode"/>
         <ref bean="DisbursementPayee-taxNumber"/>
         <ref bean="DisbursementPayee-vendorName"/>
         <ref bean="DisbursementPayee-employeeId"/>
         <ref bean="DisbursementPayee-vendorNumber"/>
-        <ref bean="DisbursementPayee-firstName"/>   
-        <ref bean="DisbursementPayee-lastName"/> 
+        <ref bean="DisbursementPayee-firstName"/>
+        <ref bean="DisbursementPayee-lastName"/>
         <ref bean="DisbursementPayee-address"/>
-        
-        <ref bean="DisbursementPayee-active"/>    
+
+        <ref bean="DisbursementPayee-active"/>
       </list>
     </property>
   </bean>
-  
+
 <!-- Attribute Definitions -->
   <bean id="DisbursementPayee-payeeIdNumber" parent="DisbursementPayee-payeeIdNumber-parentBean"/>
   <bean id="DisbursementPayee-payeeIdNumber-parentBean" abstract="true" parent="DisbursementVoucherPayeeDetail-disbVchrPayeeIdNumber">
     <property name="name" value="payeeIdNumber"/>
     <property name="label" value="Payee Number"/>
   </bean>
-   
+
   <bean id="DisbursementPayee-payeeTypeCode" parent="DisbursementPayee-payeeTypeCode-parentBean"/>
   <bean id="DisbursementPayee-payeeTypeCode-parentBean" abstract="true" parent="DisbursementVoucherPayeeDetail-disbursementVoucherPayeeTypeCode">
     <property name="name" value="payeeTypeCode"/>
     <property name="label" value="Payee Type"/>
     <property name="shortLabel" value="Pay Type"/>
   </bean>
-  
+
   <bean id="DisbursementPayee-payeeTypeDescription" parent="DisbursementPayee-payeeTypeDescription-parentBean"/>
   <bean id="DisbursementPayee-payeeTypeDescription-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="payeeTypeDescription"/>
@@ -72,20 +72,20 @@
     <property name="control">
       <ref bean="StandardNameTextControl" />
     </property>
-  </bean>  
-  
+  </bean>
+
   <bean id="DisbursementPayee-payeeName" parent="DisbursementPayee-payeeName-parentBean"/>
   <bean id="DisbursementPayee-payeeName-parentBean" abstract="true" parent="DisbursementVoucherPayeeDetail-disbVchrPayeePersonName">
     <property name="name" value="payeeName"/>
     <property name="label" value="Payee Name"/>
     <property name="shortLabel" value="Payee Name"/>
-  </bean>  
-  
+  </bean>
+
   <bean id="DisbursementPayee-paymentReasonCode" parent="DisbursementPayee-paymentReasonCode-parentBean"/>
   <bean id="DisbursementPayee-paymentReasonCode-parentBean" abstract="true" parent="DisbursementVoucherPayeeDetail-disbVchrPaymentReasonCode">
     <property name="name" value="paymentReasonCode"/>
   </bean>
-  
+
   <bean id="DisbursementPayee-taxNumber" parent="DisbursementPayee-taxNumber-parentBean"/>
   <bean id="DisbursementPayee-taxNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="taxNumber"/>
@@ -101,25 +101,25 @@
     </property>
     <property name="attributeSecurity">
 		<bean parent="AttributeSecurity">
-  			<property name="mask" value="true"/> 
+  			<property name="mask" value="true"/>
     			<property name="maskFormatter">
-      			<bean parent="MaskFormatterLiteral" p:literal="*****************"/> 
+      			<bean parent="MaskFormatterLiteral" p:literal="*****************"/>
   			</property>
             <!-- disabled since an exeception occurs when the tax number is null or less than five charactres.
-  			<property name="partialMask" value="true" /> 
+  			<property name="partialMask" value="true" />
       			<property name="partialMaskFormatter">
-      			<bean parent="MaskFormatterSubString" p:maskLength="5" /> 
+      			<bean parent="MaskFormatterSubString" p:maskLength="5" />
   			</property>
             -->
   		</bean>
   	</property>
   </bean>
-  
+
   <bean id="DisbursementPayee-employeeId" parent="DisbursementPayee-employeeId-parentBean"/>
   <bean id="DisbursementPayee-employeeId-parentBean" parent="PersonImpl-employeeId" abstract="true"/>
-  
+
   <bean id="DisbursementPayee-vendorNumber" parent="DisbursementPayee-vendorNumber-parentBean"/>
-  <bean id="DisbursementPayee-vendorNumber-parentBean" abstract="true" parent="VendorDetail-vendorNumber"/> 
+  <bean id="DisbursementPayee-vendorNumber-parentBean" abstract="true" parent="VendorDetail-vendorNumber"/>
 
   <bean id="DisbursementPayee-firstName" parent="DisbursementPayee-firstName-parentBean"/>
   <bean id="DisbursementPayee-firstName-parentBean" parent="PersonImpl-firstName" abstract="true">
@@ -139,7 +139,7 @@
 
   <bean id="DisbursementPayee-vendorName" parent="DisbursementPayee-vendorName-parentBean"/>
   <bean id="DisbursementPayee-vendorName-parentBean" abstract="true" parent="VendorDetail-vendorName"/>
-  
+
   <bean id="DisbursementPayee-address" parent="DisbursementPayee-address-parentBean"/>
   <bean id="DisbursementPayee-address-parentBean" parent="AttributeDefinition" abstract="true">
     <property name="name" value="address"/>
@@ -151,7 +151,7 @@
       <ref bean="StandardNameTextControl" />
     </property>
   </bean>
-  
+
   <bean id="DisbursementPayee-active" parent="DisbursementPayee-active-parentBean"/>
   <bean id="DisbursementPayee-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="active"/>
@@ -163,15 +163,15 @@
   <bean id="DisbursementPayee-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Payee Lookup"/>
     <property name="lookupableID" value="disbursementPayeeLookupable"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
         <property name="attributeNames">
           <list>
             <value>payeeTypeDescription</value>
             <value>payeeName</value>
-          </list>     
-        </property> 
+          </list>
+        </property>
       </bean>
     </property>
     <property name="lookupFields">
@@ -183,10 +183,10 @@
         <bean parent="FieldDefinition" p:attributeName="vendorName"/>
         <bean parent="FieldDefinition" p:attributeName="employeeId"/>
         <bean parent="FieldDefinition" p:attributeName="vendorNumber"/>
-        <bean parent="FieldDefinition" p:attributeName="active"/>  
+        <bean parent="FieldDefinition" p:attributeName="active"/>
       </list>
     </property>
-    
+
     <property name="resultFields">
       <list>
       	<bean parent="FieldDefinition" p:attributeName="payeeName"/>
@@ -194,7 +194,7 @@
         <bean parent="FieldDefinition" p:attributeName="address"/>
         <bean parent="FieldDefinition" p:attributeName="payeeIdNumber"/>
         <bean parent="FieldDefinition" p:attributeName="active"/>
-        <bean parent="FieldDefinition" p:attributeName="taxNumber"/>             
+        <bean parent="FieldDefinition" p:attributeName="taxNumber"/>
       </list>
     </property>
   </bean>

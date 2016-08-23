@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,7 +25,7 @@ import org.kuali.kfs.krad.datadictionary.validation.capability.ExistenceConstrai
  * Common class for attribute definitions in the DataDictionary, which contains
  * information relating to the display, validation, and general maintenance of a
  * specific attribute of an entry. An attribute can be a simple or complex attribute.
- *  
+ *
  */
 public abstract class AttributeDefinitionBase extends DataDictionaryDefinitionBase implements ExistenceConstrainable{
 
@@ -39,9 +39,9 @@ public abstract class AttributeDefinitionBase extends DataDictionaryDefinitionBa
     protected String constraintText;
 	protected String summary;
 	protected String description;
-	
+
 	protected Boolean required = Boolean.FALSE;
-	
+
 	public String getName() {
 		return name;
 	}
@@ -97,7 +97,7 @@ public abstract class AttributeDefinitionBase extends DataDictionaryDefinitionBa
 		}
 		this.shortLabel = shortLabel;
 	}
-	
+
 	/**
 	 * The required element allows values of "true" or "false". A value of
 	 * "true" indicates that a value must be entered for this business object
@@ -135,7 +135,7 @@ public abstract class AttributeDefinitionBase extends DataDictionaryDefinitionBa
     public void setConstraintText(String constraintText) {
         this.constraintText = constraintText;
     }
-	
+
 	public String getSummary() {
 		return summary;
 	}
@@ -159,7 +159,7 @@ public abstract class AttributeDefinitionBase extends DataDictionaryDefinitionBa
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public String getDisplayLabelAttribute() {
 		return displayLabelAttribute;
 	}
@@ -167,7 +167,7 @@ public abstract class AttributeDefinitionBase extends DataDictionaryDefinitionBa
 	/**
 	 * The displayLabelAttribute element is used to indicate that the label and
 	 * short label should be obtained from another attribute.
-	 * 
+	 *
 	 * The label element and short label element defined for this attribute will
 	 * be overridden. Instead, the label and short label values will be obtained
 	 * by referencing the corresponding values from the attribute indicated by

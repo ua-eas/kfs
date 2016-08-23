@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,7 +28,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
  * AccountBalance BO for Balancing process. I.e. a shadow representation.
  */
 public class AccountBalanceHistory extends AccountBalance {
-    
+
     /**
      * Constructs a AccountBalanceHistory.java.
      */
@@ -41,7 +41,7 @@ public class AccountBalanceHistory extends AccountBalance {
 
     /**
      * Constructs a BalanceHistory.java.
-     * 
+     *
      * @param transaction
      */
     public AccountBalanceHistory(OriginEntryInformation originEntry) {
@@ -53,7 +53,7 @@ public class AccountBalanceHistory extends AccountBalance {
         this.setUniversityFiscalYear(originEntry.getUniversityFiscalYear());
         this.setSubAccountNumber(originEntry.getSubAccountNumber());
     }
-    
+
     /**
      * Updates amount if the object already existed
      * @param originEntry representing the update details
@@ -83,7 +83,7 @@ public class AccountBalanceHistory extends AccountBalance {
         }
         return true;
     }
-    
+
     /**
      * Compare amounts
      * @param accountBalance
@@ -95,10 +95,10 @@ public class AccountBalanceHistory extends AccountBalance {
                 && accountBalance.getAccountLineEncumbranceBalanceAmount().equals(this.getAccountLineEncumbranceBalanceAmount())) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * History does not track this field.
      * @see org.kuali.kfs.gl.businessobject.Balance#getTimestamp()

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,7 +42,7 @@ public class KualiBalanceInquiryReportMenuAction extends KualiAction {
 
     /**
      * Entry point to balance inquiry menu, forwards to jsp for rendering.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -56,7 +56,7 @@ public class KualiBalanceInquiryReportMenuAction extends KualiAction {
 
     /**
      * Returns back to calling document.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -74,7 +74,7 @@ public class KualiBalanceInquiryReportMenuAction extends KualiAction {
     /**
      * Needs to overrided to inject the real value into the docFormKey b/c otherwise the lookup's refresh back to this menu
      * overwrites the original value that we actually need. It too leverages the docFormKey.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -94,7 +94,7 @@ public class KualiBalanceInquiryReportMenuAction extends KualiAction {
 
     /**
      * Takes care of storing the action form in the user session and forwarding to the balance inquiry lookup action.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request

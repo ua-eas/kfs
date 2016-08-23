@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -54,7 +54,7 @@ public class AssetPaymentPostingDateValidation extends GenericValidation {
 
     /**
      * Validates asset payment posting date
-     * 
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -63,7 +63,7 @@ public class AssetPaymentPostingDateValidation extends GenericValidation {
         if (assetPaymentDocument.isCapitalAssetBuilderOriginIndicator()) {
             return true;
         }
-        
+
         boolean valid = true;
         AssetPaymentDetail assetPaymentDetail = (AssetPaymentDetail) getAccountingLineForValidation();
         Date expenditureFinancialDocumentPostedDate = assetPaymentDetail.getExpenditureFinancialDocumentPostedDate();
@@ -83,7 +83,7 @@ public class AssetPaymentPostingDateValidation extends GenericValidation {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.AssetPaymentDetail.DOCUMENT_POSTING_DATE, KFSKeyConstants.ERROR_EXISTENCE, label);
                 return false;
             }
-            
+
             // Validating the fiscal year extracted from posted document date is not greater than the current fiscal year.
             Integer currentFiscalYear = universityDateService.getCurrentFiscalYear();
             if (universityDate.getUniversityFiscalYear().compareTo(currentFiscalYear) > 0) {

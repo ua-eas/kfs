@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,7 +31,7 @@ public interface AssetPaymentService {
 
 	/**
 	 * Finds out the maximum value of payment sequence for an asset
-	 * 
+	 *
 	 * @param assetPayment
 	 *            Asset Payment
 	 * @return Maximum sequence value of asset payment within an asset
@@ -40,7 +40,7 @@ public interface AssetPaymentService {
 
 	/**
 	 * Checks if asset payment is federally funder or not
-	 * 
+	 *
 	 * @param assetPayment
 	 *            Payment record
 	 * @return True if financial object sub type code indicates federal
@@ -50,7 +50,7 @@ public interface AssetPaymentService {
 
 	/**
 	 * Checks active status of financial object of the payment
-	 * 
+	 *
 	 * @param assetPayment
 	 *            Payment record
 	 * @return True if object is active
@@ -60,7 +60,7 @@ public interface AssetPaymentService {
 	/**
 	 * Stores the approved asset payment detail records in the asset payment
 	 * table, and updates the total cost of the asset in the asset table
-	 * 
+	 *
 	 * @param assetPaymentDetail
 	 */
 	void processApprovedAssetPayment(AssetPaymentDocument assetPaymentDocument);
@@ -70,7 +70,7 @@ public interface AssetPaymentService {
 	 * <li>If it is a depreciation field, then reset the value to null, so that
 	 * they don't get copied to offset payments</li> <li>If it is an amount
 	 * field, then reverse the amount by multiplying with -1</li>
-	 * 
+	 *
 	 * @param offsetPayment
 	 *            Offset payment
 	 * @param reverseAmount
@@ -85,7 +85,7 @@ public interface AssetPaymentService {
 
 	/**
 	 * Checks if payment is eligible for GL posting
-	 * 
+	 *
 	 * @param assetPayment
 	 *            AssetPayment
 	 * @return true if elgible for GL posting
@@ -94,7 +94,7 @@ public interface AssetPaymentService {
 
 	/**
 	 * Checks if object sub type is non depreciable federally owned
-	 * 
+	 *
 	 * @param string
 	 *            objectSubType
 	 * @return true if is NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES
@@ -105,7 +105,7 @@ public interface AssetPaymentService {
 	 * sets in an assetPaymentDetail BO the posting year and posting period that
 	 * is retrived from the university date table using the asset payment posted
 	 * date as a key.
-	 * 
+	 *
 	 * @param assetPaymentDetail
 	 * @return boolean
 	 */
@@ -113,7 +113,7 @@ public interface AssetPaymentService {
 
 	/**
 	 * Returns asset payment details quantity
-	 * 
+	 *
 	 * @param assetGlobal
 	 * @return Integer
 	 */
@@ -121,7 +121,7 @@ public interface AssetPaymentService {
 
 	/**
 	 * Validates the assets inputed in the asset payment document
-	 * 
+	 *
 	 * @param errorPath
 	 * @param asset
 	 * @return
@@ -131,7 +131,7 @@ public interface AssetPaymentService {
 	/**
 	 * This method determines whether or not an asset has different object sub
 	 * type codes in its documents.
-	 * 
+	 *
 	 * @return true when the asset has payments with object codes that point to
 	 *         different object sub type codes
 	 */
@@ -139,7 +139,7 @@ public interface AssetPaymentService {
 
 	/**
 	 * Check if payment is eligible for CAPITALIZATION GL posting.
-	 * 
+	 *
 	 * @param assetPayment
 	 * @return
 	 */
@@ -147,7 +147,7 @@ public interface AssetPaymentService {
 
 	/**
 	 * Check if payment is eligible for ACCUMMULATE_DEPRECIATION GL posting.
-	 * 
+	 *
 	 * @param assetPayment
 	 * @return
 	 */
@@ -155,7 +155,7 @@ public interface AssetPaymentService {
 
 	/**
 	 * Check if payment is eligible for OFFSET_AMOUNT GL posting.
-	 * 
+	 *
 	 * @param assetPayment
 	 * @return
 	 */
@@ -164,8 +164,8 @@ public interface AssetPaymentService {
 	/**
 	 * Return the AssetPaymentDistributionType associated with the provided
 	 * code.
-	 * 
-	 * 
+	 *
+	 *
 	 * @param distributionCode
 	 * @return AssetPaymentDistributionType
 	 */

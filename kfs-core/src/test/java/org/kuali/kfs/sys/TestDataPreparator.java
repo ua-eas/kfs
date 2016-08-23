@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,7 +46,7 @@ public class TestDataPreparator {
      * load properties from the given class path resource. The class path is different than the absolute path. If a resource is
      * located at /project/test/org/kuali/kfs/util/message.properties, then its class path is org/kuali/kfs/util/message.properties,
      * which is the fully-qualified Java package name plus the resource name.
-     * 
+     *
      * @param classPath the given class path of a resource
      * @return properties loaded from the given resource.
      */
@@ -65,7 +65,7 @@ public class TestDataPreparator {
     /**
      * build a list of objects of type "clazz" from the test data provided by the given properties. The default fieldNames and
      * deliminator are used.
-     * 
+     *
      * @param clazz the the specified object type
      * @param properties the given properties that contain the test data
      * @param propertyKeyPrefix the test data with the given key prefix can be used to construct the return objects
@@ -80,7 +80,7 @@ public class TestDataPreparator {
 
     /**
      * build a list of objects of type "clazz" from the test data provided by the given properties
-     * 
+     *
      * @param clazz the the specified object type
      * @param properties the given properties that contain the test data
      * @param propertyKeyPrefix the test data with the given key prefix can be used to construct the return objects
@@ -101,7 +101,7 @@ public class TestDataPreparator {
 
     /**
      * build an object of type "clazz" from the test data provided by the given properties
-     * 
+     *
      * @param clazz the the specified object type
      * @param properties the given properties that contain the test data
      * @param propertyKey the test data with the given key
@@ -124,7 +124,7 @@ public class TestDataPreparator {
 
     /**
      * build an object of type "clazz" from the test data provided by the given properties
-     * 
+     *
      * @param clazz the the specified object type
      * @param properties the given properties that contain the test data
      * @param propertyKey the test data with the given key
@@ -149,7 +149,7 @@ public class TestDataPreparator {
     /**
      * build a list of objects of type "clazz" from the expected results provided by the given properties. The default fieldNames
      * and deliminator are used.
-     * 
+     *
      * @param clazz the the specified object type. The instance of this type should be comparable through overriding Object.equals()
      * @param properties the given properties that contain the expected results
      * @param propertyKeyPrefix the expected results with the given key prefix can be used to construct the return objects
@@ -164,7 +164,7 @@ public class TestDataPreparator {
 
     /**
      * build a list of objects of type "clazz" from the expected results provided by the given properties
-     * 
+     *
      * @param clazz the the specified object type. The instance of this type should be comparable through overriding Object.equals()
      * @param properties the given properties that contain the expected results
      * @param propertyKeyPrefix the expected results with the given key prefix can be used to construct the return objects
@@ -193,7 +193,7 @@ public class TestDataPreparator {
 
     /**
      * build the cleanup criteria for "clazz" from the given properties. The default fieldNames and deliminator are used.
-     * 
+     *
      * @param clazz the the specified object type.
      * @param properties the given properties that contain the cleanup criteria fields and values
      * @param propertyKey the given property whose value provides the cleanup criteria values
@@ -207,7 +207,7 @@ public class TestDataPreparator {
 
     /**
      * build the cleanup criteria for "clazz" from the given properties.
-     * 
+     *
      * @param clazz the the specified object type.
      * @param properties the given properties that contain the cleanup criteria fields and values
      * @param propertyKey the given property whose value provides the cleanup criteria values
@@ -222,7 +222,7 @@ public class TestDataPreparator {
 
     /**
      * persist the given data object if it is not in the persistent store
-     * 
+     *
      * @param dataObject the given data object
      * @return return the data object persisted into the data store
      */
@@ -242,7 +242,7 @@ public class TestDataPreparator {
 
     /**
      * persist the given data object if it is not in the persistent store
-     * 
+     *
      * @param dataObject the given data object
      * @return return the data object persisted into the data store
      */
@@ -290,7 +290,7 @@ public class TestDataPreparator {
 
     /**
      * test if the given object is in the given collection. The given key fields can be used for the comparison.
-     * 
+     *
      * @return true if the given object is in the given collection; otherwise, false
      */
     public static <T> boolean contains(List<T> collection, T object, List<String> keyFields) {
@@ -307,7 +307,7 @@ public class TestDataPreparator {
 
     /**
      * test if the given two collections contain the exactly same elements. The given key fields can be used for the comparison.
-     * 
+     *
      * @return true if the given two collections contain the exactly same elements; otherwise, false
      */
     public static <T> boolean hasSameElements(List<T> collection1, List<T> collection2, List<String> keyFields) {
@@ -335,7 +335,7 @@ public class TestDataPreparator {
 
     /**
      * Generates transaction data for a business object from properties
-     * 
+     *
      * @param businessObject the transction business object
      * @return the transction business object with data
      * @throws Exception thrown if an exception is encountered for any reason
@@ -358,7 +358,7 @@ public class TestDataPreparator {
 
                 String propertyType = PropertyUtils.getPropertyType(testData, propertyName).getSimpleName();
                 Object finalPropertyValue = ObjectUtil.valueOf(propertyType, propertyValue);
-                
+
                 if (finalPropertyValue != null) {
                     PropertyUtils.setProperty(testData, propertyName, finalPropertyValue);
                 }
@@ -373,7 +373,7 @@ public class TestDataPreparator {
 
     /**
      * get an instant of BusinessObjectService
-     * 
+     *
      * @return an instant of BusinessObjectService
      */
     private static BusinessObjectService getBusinessObjectService() {
@@ -382,7 +382,7 @@ public class TestDataPreparator {
 
     /**
      * get an instant of PersistenceService
-     * 
+     *
      * @return an instant of PersistenceService
      */
     private static PersistenceService getPersistenceService() {

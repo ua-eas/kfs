@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,10 +25,10 @@ import org.kuali.kfs.sys.document.validation.BranchingValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 
 public class PurchaseOrderAmendmentProcessAccountValidation extends BranchingValidation {
-    
+
     protected final String PROCESS_ACCOUNT_VALIDATION="processAccountValidation";
     protected PurApItem itemForValidation;
-    
+
     /**
      * Overrides the method in PurchasingProcessAccountValidation to provide additional
      * validation condition. If the accounts on the item are editable in the amendment document then
@@ -36,7 +36,7 @@ public class PurchaseOrderAmendmentProcessAccountValidation extends BranchingVal
      * we should just return true so that the account won't be validated, because if
      * the items contain accounts that aren't editable, it doesn't make sense to give
      * the user account validation errors.
-     * 
+     *
      */
     @Override
     protected String determineBranch(AttributedDocumentEvent event) {
@@ -59,5 +59,5 @@ public class PurchaseOrderAmendmentProcessAccountValidation extends BranchingVal
     public void setItemForValidation(PurApItem itemForValidation) {
         this.itemForValidation = itemForValidation;
     }
-    
+
 }

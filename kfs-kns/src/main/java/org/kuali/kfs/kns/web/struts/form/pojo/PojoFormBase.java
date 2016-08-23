@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -52,10 +52,10 @@ import java.util.Set;
 // begin Kuali Foundation modification: this class was named SLActionForm
 public class PojoFormBase extends ActionForm implements PojoForm {
     private static final long serialVersionUID = 1L;
-    
+
     // begin Kuali Foundation modification
     private static final Logger LOG = Logger.getLogger(PojoFormBase.class);
-    
+
     private static final String PREVIOUS_REQUEST_EDITABLE_PROPERTIES_GUID = "editablePropertiesGuid";
 
     /**
@@ -65,7 +65,7 @@ public class PojoFormBase extends ActionForm implements PojoForm {
 
 	// removed member variables: cachedActionErrors, coder, errorInfo, fieldOrder, formConfig, HEADING_KEY, IGNORED_KEYS,
 	//     invalidValueKeys, logger, messageResourceKey, messageResources, padNonRequiredFields, valueBinder
-	 
+
     static final String CREATE_ERR_MSG = "Can't create formatter for keypath ";
     static final String CONVERT_ERR_MSG = "Can't convert value for keypath: ";
 
@@ -77,9 +77,9 @@ public class PojoFormBase extends ActionForm implements PojoForm {
     private List<String> maxUploadFileSizes = new ArrayList<String>();
     private Set<String> editableProperties = new HashSet<String>();
     protected Set<String> requiredNonEditableProperties = new HashSet<String>();
-    private String strutsActionMappingScope; 
+    private String strutsActionMappingScope;
     private boolean isNewForm = true;
-    
+
     private String populateEditablePropertiesGuid;
     private String actionEditablePropertiesGuid;
 
@@ -89,7 +89,7 @@ public class PojoFormBase extends ActionForm implements PojoForm {
     //     clearUnknownKeys, clearValidationErrors, coalesceMessageArgs, containsKey, convertValue, createActionMessage, createMessageResourcesIfNecessary, fieldOrder, fieldValidationRuleOrder,
     //     formatMessage, formatMessageArgs, formatterSettingsForKeypath, formatterTypeForKeypath, formBeanConfigForKey, formConfig, formValidationRuleOrder,
     //     generateErrorMessages, getActionErrors, getActionMessages, getErrorMessages, getFieldLabel, getFormatterTypes, getGlobalMessages, getIgnoredKeys, getInvalidValueKeys, getLabels, getLengthValidations, getLocale,
-    //     getMultipartRequestParameters, getPadNonRequiredFields, 
+    //     getMultipartRequestParameters, getPadNonRequiredFields,
     //     getPatternValidations, getPropertyConfig, getRangeValidations, getRequiredFields, hasErrorMessageForKey, hasErrors, hasFormatterForKeypath,
     //     hasGlobalMessageForKey, isMultipart, messageForKey, messageForRule, messageInfoForRule, messageResourcesConfigForKey, messageResourcesKey, messageResourcesPath,
     //     messagesForFormLevelRule, messagesForKey, moduleConfigForRequest, removeIgnoredKey, removePropertyConfig,
@@ -98,7 +98,7 @@ public class PojoFormBase extends ActionForm implements PojoForm {
     //     setRequiredFields, setValueBinder, shouldFormat, validate, validateForm, validateLength, validatePattern, validateProperty, validateRange, validateRequestValues, validateRequired, valueBinder
 
 	// end Kuali Foundation modification
-	
+
 
 	// begin Kuali Foundation modification
     /**
@@ -173,7 +173,7 @@ public class PojoFormBase extends ActionForm implements PojoForm {
             if (shouldPropertyBePopulatedInForm(keypath, request)) {
 	            Object param = params.get(keypath);
 	            //LOG.debug("(keypath,paramType)=(" + keypath + "," + param.getClass().getName() + ")");
-	
+
 	            populateForProperty(keypath, param, params);
             }
         }
@@ -424,7 +424,7 @@ public class PojoFormBase extends ActionForm implements PojoForm {
 	// begin Kuali Foundation modification
     /**
      * Gets the formatterTypes attribute.
-     * 
+     *
      * @return Returns the formatterTypes.
      */
     public Map getFormatterTypes() {
@@ -447,7 +447,7 @@ public class PojoFormBase extends ActionForm implements PojoForm {
 	// begin Kuali Foundation modification
     /**
      * Adds the given string as a maximum size to the form.  It will be used if a file upload is used.
-     * 
+     *
      * @param sizeString
      */
     protected final void addMaxUploadSize( String sizeString ) {
@@ -455,7 +455,7 @@ public class PojoFormBase extends ActionForm implements PojoForm {
     }
 
     /**
-     * Initializes the list of max upload sizes if necessary. 
+     * Initializes the list of max upload sizes if necessary.
      *
      */
     protected final void initMaxUploadSizes() {
@@ -470,9 +470,9 @@ public class PojoFormBase extends ActionForm implements PojoForm {
                 }
                 addMaxUploadSize(systemDefault);
     	    }
-    	}	
+    	}
     }
-    
+
     /**
      * Subclasses can override this to add their own max upload size to the list.  Only the largest passed will be used.
      *
@@ -480,13 +480,13 @@ public class PojoFormBase extends ActionForm implements PojoForm {
     protected void customInitMaxUploadSizes() {
 	// nothing here
     }
-    
+
     public final List<String> getMaxUploadSizes() {
 	initMaxUploadSizes();
-	
+
 	return maxUploadFileSizes;
     }
-    
+
     @Override
 	public void registerEditableProperty(String editablePropertyName){
     	if ( LOG.isDebugEnabled() ) {
@@ -494,11 +494,11 @@ public class PojoFormBase extends ActionForm implements PojoForm {
     	}
     	editableProperties.add(editablePropertyName);
     }
-    
+
     public void registerRequiredNonEditableProperty(String requiredNonEditableProperty) {
     	requiredNonEditableProperties.add(requiredNonEditableProperty);
     }
-    
+
     @Override
 	public void clearEditablePropertyInformation(){
     	if ( LOG.isDebugEnabled() ) {
@@ -506,41 +506,41 @@ public class PojoFormBase extends ActionForm implements PojoForm {
     	}
     	editableProperties = new HashSet<String>();
     }
-    
+
     @Override
 	public Set<String> getEditableProperties(){
     	return editableProperties;
     }
- 
+
     public boolean isPropertyEditable(String propertyName) {
     	final Set<String> populateEditableProperties = getPopulateEditableProperties();
         return WebUtils.isPropertyEditable(populateEditableProperties, propertyName);
     }
-    
+
     /***
      * @see PojoForm#addRequiredNonEditableProperties()
      */
     @Override
 	public void addRequiredNonEditableProperties(){
     }
-    
+
     public boolean isPropertyNonEditableButRequired(String propertyName) {
         return WebUtils.isPropertyEditable(requiredNonEditableProperties, propertyName);
     }
-    
+
     protected String getParameter(HttpServletRequest request, String parameterName){
     	return request.getParameter(parameterName);
     }
-    
+
     protected String[] getParameterValues(HttpServletRequest request, String parameterName){
     	return request.getParameterValues(parameterName);
     }
-    
+
     @Override
 	public Set<String> getRequiredNonEditableProperties(){
     	return requiredNonEditableProperties;
     }
-    
+
 	/**
 	 * @see PojoForm#registerStrutsActionMappingScope(String)
 	 */
@@ -548,11 +548,11 @@ public class PojoFormBase extends ActionForm implements PojoForm {
 	public void registerStrutsActionMappingScope(String strutsActionMappingScope) {
 		this.strutsActionMappingScope = strutsActionMappingScope;
 	}
-	
+
 	public String getStrutsActionMappingScope() {
 		return strutsActionMappingScope;
 	}
-	
+
 	/**
 	 * @see PojoForm#registerStrutsActionMappingScope(String)
 	 */
@@ -560,19 +560,19 @@ public class PojoFormBase extends ActionForm implements PojoForm {
 	public void registerIsNewForm(boolean isNewForm) {
 		this.isNewForm = isNewForm;
 	}
-	
+
 	@Override
 	public boolean getIsNewForm() {
 		return this.isNewForm;
 	}
-	
-	
+
+
 	/**
 	 * @see PojoForm#shouldPropertyBePopulatedInForm(java.lang.String, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
 	public boolean shouldPropertyBePopulatedInForm(String requestParameterName, HttpServletRequest request) {
-		
+
 		if (requestParameterName.equals(PojoFormBase.PREVIOUS_REQUEST_EDITABLE_PROPERTIES_GUID)) {
 			return false; // don't repopulate this
 		}
@@ -580,13 +580,13 @@ public class PojoFormBase extends ActionForm implements PojoForm {
 			return isPropertyEditable(requestParameterName) || isPropertyNonEditableButRequired(requestParameterName);
 		}
 		return true;
-		
+
 	}
 
 	/**
 	 * Base implementation that returns just "start".  sub-implementations should not add values to Set instance returned
 	 * by this method, and should create its own instance.
-	 * 
+	 *
 	 * @see PojoForm#getMethodToCallsToBypassSessionRetrievalForGETRequests()
 	 */
 	@Override
@@ -600,20 +600,20 @@ public class PojoFormBase extends ActionForm implements PojoForm {
 
 	/**
 	 * Sets the guid to editable properties consulted during population
-	 * 
+	 *
 	 */
 	@Override
 	public void setPopulateEditablePropertiesGuid(String guid) {
 		this.populateEditablePropertiesGuid = guid;
 	}
-	
+
 	/**
 	 * @return the guid for the populate editable properties
 	 */
 	public String getPopulateEditablePropertiesGuid() {
 		return this.populateEditablePropertiesGuid;
 	}
-	
+
 	/**
 	 * Sets the guid of the editable properties which were registered by the action
 	 * @see PojoForm#setActionEditablePropertiesGuid(java.lang.String)
@@ -622,14 +622,14 @@ public class PojoFormBase extends ActionForm implements PojoForm {
 	public void setActionEditablePropertiesGuid(String guid) {
 		this.actionEditablePropertiesGuid = guid;
 	}
-	
+
 	/**
 	 * @return the guid of the editable properties which had been registered by the action processing
 	 */
 	public String getActionEditablePropertiesGuid() {
 		return actionEditablePropertiesGuid;
 	}
-	
+
 	/**
 	 * @return the editable properties to be consulted during population
 	 */
@@ -640,10 +640,10 @@ public class PojoFormBase extends ActionForm implements PojoForm {
 	    	holder = new EditablePropertiesHistoryHolder();
 	    }
 	    GlobalVariables.getUserSession().addObject(KRADConstants.EDITABLE_PROPERTIES_HISTORY_HOLDER_ATTR_NAME, holder);
-		
+
 		return holder.getEditableProperties(getPopulateEditablePropertiesGuid());
 	}
-	
+
 	/**
 	 * Copies all editable properties in the populate editable properties to the action editable properties
 	 */
@@ -653,6 +653,6 @@ public class PojoFormBase extends ActionForm implements PojoForm {
 			registerEditableProperty(property);
 		}
 	}
-	
+
 	// end Kuali Foundation modification
 }

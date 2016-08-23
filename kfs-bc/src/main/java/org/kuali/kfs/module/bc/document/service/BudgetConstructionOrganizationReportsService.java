@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,7 +31,7 @@ public interface BudgetConstructionOrganizationReportsService {
     /**
      * This method retrieves a Budget Construction Organization Reports instance by its composite primary keys (parameters passed
      * in).
-     * 
+     *
      * @param chartOfAccountsCode
      * @param organizationCode
      * @return a Budget Construction Organization Reports instance.
@@ -44,7 +44,7 @@ public interface BudgetConstructionOrganizationReportsService {
 
     /**
      * This method returns a list of child BC organization reports objects for the passed in org.
-     * 
+     *
      * @param chartOfAccountsCode
      * @param organizationCode
      * @return
@@ -53,7 +53,7 @@ public interface BudgetConstructionOrganizationReportsService {
 
     /**
      * This method returns if an org is a leaf
-     * 
+     *
      * @param chartOfAccountsCode
      * @param organizationCode
      * @return

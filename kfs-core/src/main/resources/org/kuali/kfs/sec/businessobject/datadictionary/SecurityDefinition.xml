@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -71,7 +71,7 @@
       <bean parent="TextControlDefinition" p:size="10"/>
     </property>
   </bean>
-  
+
   <bean id="SecurityDefinition-name" parent="SecurityDefinition-name-parentBean"/>
 
   <bean id="SecurityDefinition-name-parentBean" abstract="true" parent="AttributeDefinition">
@@ -105,7 +105,7 @@
       <bean parent="TextControlDefinition" p:size="100"/>
     </property>
   </bean>
-  
+
   <bean id="SecurityDefinition-attributeId" parent="SecurityDefinition-attributeId-parentBean"/>
 
   <bean id="SecurityDefinition-attributeId-parentBean" abstract="true" parent="SecurityAttribute-id">
@@ -114,7 +114,7 @@
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.sec.businessobject.options.SecurityAttributeFinder" p:includeBlankRow="true" />
     </property>
   </bean>
-  
+
   <bean id="SecurityDefinition-securityAttribute.name" parent="SecurityDefinition-securityAttribute.name-parentBean"/>
 
   <bean id="SecurityDefinition-securityAttribute.name-parentBean" abstract="true" parent="SecurityAttribute-name">
@@ -129,7 +129,7 @@
     <property name="shortLabel" value="Rstr View Acct Ln"/>
     <property name="required" value="true"/>
   </bean>
- 
+
   <bean id="SecurityDefinition-restrictEditAccountingLine" parent="SecurityDefinition-restrictEditAccountingLine-parentBean"/>
 
   <bean id="SecurityDefinition-restrictEditAccountingLine-parentBean" abstract="true" parent="GenericAttributes-genericBoolean-parentBean">
@@ -147,7 +147,7 @@
     <property name="shortLabel" value="Rstr View Doc"/>
     <property name="required" value="true"/>
   </bean>
-  
+
   <bean id="SecurityDefinition-restrictEditDocument" parent="SecurityDefinition-restrictEditDocument-parentBean"/>
 
   <bean id="SecurityDefinition-restrictEditDocument-parentBean" abstract="true" parent="GenericAttributes-genericBoolean-parentBean">
@@ -155,8 +155,8 @@
     <property name="label" value="Restrict Edit Document"/>
     <property name="shortLabel" value="Rstr Edit Doc"/>
     <property name="required" value="true"/>
-  </bean>  
-  
+  </bean>
+
   <bean id="SecurityDefinition-restrictViewNotesAndAttachments" parent="SecurityDefinition-restrictViewNotesAndAttachments-parentBean"/>
 
   <bean id="SecurityDefinition-restrictViewNotesAndAttachments-parentBean" abstract="true" parent="GenericAttributes-genericBoolean-parentBean">
@@ -165,7 +165,7 @@
     <property name="shortLabel" value="Rstr View NTE/ATT"/>
     <property name="required" value="true"/>
   </bean>
-  
+
   <bean id="SecurityDefinition-restrictLookup" parent="SecurityDefinition-restrictLookup-parentBean"/>
 
   <bean id="SecurityDefinition-restrictLookup-parentBean" abstract="true" parent="GenericAttributes-genericBoolean-parentBean">
@@ -174,7 +174,7 @@
     <property name="shortLabel" value="Rstr Lookup"/>
     <property name="required" value="true"/>
   </bean>
-  
+
   <bean id="SecurityDefinition-restrictGLInquiry" parent="SecurityDefinition-restrictGLInquiry-parentBean"/>
 
   <bean id="SecurityDefinition-restrictGLInquiry-parentBean" abstract="true" parent="GenericAttributes-genericBoolean-parentBean">
@@ -182,8 +182,8 @@
     <property name="label" value="Restrict GL Inquiry"/>
     <property name="shortLabel" value="Rstr GL Inquiry"/>
     <property name="required" value="true"/>
-  </bean>  
-  
+  </bean>
+
   <bean id="SecurityDefinition-restrictLaborInquiry" parent="SecurityDefinition-restrictLaborInquiry-parentBean"/>
 
   <bean id="SecurityDefinition-restrictLaborInquiry-parentBean" abstract="true" parent="GenericAttributes-genericBoolean-parentBean">
@@ -191,15 +191,15 @@
     <property name="label" value="Restrict Labor Inquiry"/>
     <property name="shortLabel" value="Rstr LD Inquiry"/>
     <property name="required" value="true"/>
-  </bean>  
-     
+  </bean>
+
   <bean id="SecurityDefinition-active" parent="SecurityDefinition-active-parentBean"/>
 
   <bean id="SecurityDefinition-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="active"/>
     <property name="shortLabel" value="Active"/>
   </bean>
-  
+
 <!-- Business Object Inquiry Definition -->
 
   <bean id="SecurityDefinition-inquiryDefinition" parent="SecurityDefinition-inquiryDefinition-parentBean"/>
@@ -213,9 +213,9 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="SecurityDefinition-inquirySectionDefinition" parent="SecurityDefinition-inquirySectionDefinition-parentBean"/>
-  <bean id="SecurityDefinition-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true"> 
+  <bean id="SecurityDefinition-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true">
 	  <property name="title" value="Definition"/>
 	  <property name="numberOfColumns" value="1"/>
 	  <property name="inquiryFields">
@@ -226,9 +226,9 @@
 	    </list>
 	  </property>
   </bean>
-  
+
   <bean id="SecurityDefinition-inquirySectionDefinition-docTypes" parent="SecurityDefinition-inquirySectionDefinition-docTypes-parentBean"/>
-  <bean id="SecurityDefinition-inquirySectionDefinition-docTypes-parentBean" parent="InquirySectionDefinition" abstract="true"> 
+  <bean id="SecurityDefinition-inquirySectionDefinition-docTypes-parentBean" parent="InquirySectionDefinition" abstract="true">
   	  <property name="title" value="Doc Types"/>
       <property name="inquiryFields">
         <list>
@@ -246,7 +246,7 @@
       </list>
     </property>
   </bean>
-          
+
 <!-- Business Object Lookup Definition -->
 
 
@@ -254,7 +254,7 @@
 
   <bean id="SecurityDefinition-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Security Definition Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
         <property name="attributeNames">

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -45,18 +45,18 @@ public class ObjectCodeMaintainableImpl extends FinancialSystemMaintainable {
         return maintenanceLocks;
     }
 
-    
+
     @Override
     public void saveBusinessObject() {
         boolean isInactivatingObjectCode = isInactivatingObjectCode();
-        
+
         super.saveBusinessObject();
-        
+
         if (isInactivatingObjectCode) {
             SpringContext.getBean(SubObjectTrickleDownInactivationService.class).trickleDownInactivateSubObjects((ObjectCode) getBusinessObject(), getDocumentNumber());
         }
     }
-    
+
     protected boolean isInactivatingObjectCode() {
         // the object code has to be inactive on the new side during an edit for it to be possible that we are inactivating an object code
         if (KRADConstants.MAINTENANCE_EDIT_ACTION.equals(getMaintenanceAction()) && !((ObjectCode) getBusinessObject()).isActive()) {
@@ -70,7 +70,7 @@ public class ObjectCodeMaintainableImpl extends FinancialSystemMaintainable {
         }
         return false;
     }
-    
+
     protected ObjectCode retrieveObjectCodeFromDB() {
         ObjectCode maintainedObjectCode = (ObjectCode) getBusinessObject();
         ObjectCode oldObjectCode = SpringContext.getBean(ObjectCodeService.class).getByPrimaryId(maintainedObjectCode.getUniversityFiscalYear(), maintainedObjectCode.getChartOfAccountsCode(), maintainedObjectCode.getFinancialObjectCode());
@@ -86,7 +86,7 @@ public class ObjectCodeMaintainableImpl extends FinancialSystemMaintainable {
         super.refresh(refreshCaller, fieldValues, document);
         refreshReportsToChartOfAccountsCodeIfNecessary(document);
     }
-    
+
     /**
      * Insures that the reports to chart of accounts code on the document is populated by the chosen chart of account's reports to chart code
      * @param document the MaintenanceDocument to get the ObjectCode to update from
@@ -96,7 +96,7 @@ public class ObjectCodeMaintainableImpl extends FinancialSystemMaintainable {
         if (!StringUtils.isBlank(newObjectCode.getChartOfAccountsCode())) {
             newObjectCode.refreshReferenceObject("chartOfAccounts");
             final Chart newChart = newObjectCode.getChartOfAccounts();
-            
+
             if (!ObjectUtils.isNull(newChart) && (StringUtils.isBlank(newObjectCode.getReportsToChartOfAccountsCode()) || !newObjectCode.getReportsToChartOfAccountsCode().equalsIgnoreCase(newChart.getReportsToChartOfAccountsCode()))) {
                 newObjectCode.setReportsToChartOfAccountsCode(newChart.getReportsToChartOfAccountsCode());
             }

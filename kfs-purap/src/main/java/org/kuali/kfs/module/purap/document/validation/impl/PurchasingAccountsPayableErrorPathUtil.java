@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,7 +40,7 @@ public class PurchasingAccountsPayableErrorPathUtil {
      * Fix the GlobalVariables.getMessageMap errorPath for how payment request documents needs them in order to properly display
      * errors on the interface. This is different from other financial document accounting lines because instead payment request
      * documents have accounting lines insides of items. Hence the error path is slightly different.
-     * 
+     *
      * @param financialDocument The financial document the errors will be posted to.
      * @param accountingLine The accounting line the error will be posted on.
      */

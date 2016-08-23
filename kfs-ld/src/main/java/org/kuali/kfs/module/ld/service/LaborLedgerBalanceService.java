@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -58,7 +58,7 @@ public interface LaborLedgerBalanceService {
 
     /**
      * This method gets the size of balance entries according to input fields and values
-     * 
+     *
      * @param fieldValues the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @param encumbranceBalanceTypes a list of encumbrance balance types
@@ -73,7 +73,7 @@ public interface LaborLedgerBalanceService {
      * NOTE: unused
      *
      * This method gets the size of balance entries according to input fields and values
-     * 
+     *
      * @param fieldValues the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @param encumbranceBalanceTypes a list of encumbrance balance types
@@ -84,7 +84,7 @@ public interface LaborLedgerBalanceService {
 
     /**
      * This method finds the summary records of balance entries according to input fields and values
-     * 
+     *
      * @param fieldValues the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @param encumbranceBalanceTypes a list of encumbranceBalanceTypes
@@ -99,7 +99,7 @@ public interface LaborLedgerBalanceService {
      * NOTE: unused
      *
      * This method finds the summary records of balance entries according to input fields and values
-     * 
+     *
      * @param fieldValues the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @param encumbranceBalanceTypes a list of encumbranceBalanceTypes
@@ -110,7 +110,7 @@ public interface LaborLedgerBalanceService {
 
     /**
      * find a ledger balance from the given ledger balance collection with the given transaction information
-     * 
+     *
      * @param ledgerBalanceCollection the given ledger balance collection
      * @param transaction the given transaction information
      * @param keyList the given list of keys that need to be compared
@@ -120,7 +120,7 @@ public interface LaborLedgerBalanceService {
 
     /**
      * find a ledger balance from the given ledger balance collection with the given transaction information
-     * 
+     *
      * @param ledgerBalanceCollection the given ledger balance collection
      * @param transaction the given transaction information
      * @return a matching ledger balance from the given ledger balance
@@ -129,7 +129,7 @@ public interface LaborLedgerBalanceService {
 
     /**
      * convert the given transaction information into a ledger balance and add it into the given ledger balance collection with
-     * 
+     *
      * @param ledgerBalanceCollection the given ledger balance collection
      * @param transaction the given transaction information
      * @return the ledger balance that has been added; otherwise, null;
@@ -138,7 +138,7 @@ public interface LaborLedgerBalanceService {
 
     /**
      * update the given ledger balance with the given transaction information
-     * 
+     *
      * @param ledgerBalance the given ledger balance
      * @param transaction the given transaction information
      */
@@ -146,7 +146,7 @@ public interface LaborLedgerBalanceService {
 
     /**
      * find the funding by employee
-     * 
+     *
      * @param fieldValues the given field values
      * @return the funding by employee
      */
@@ -154,7 +154,7 @@ public interface LaborLedgerBalanceService {
 
     /**
      * find the employee funding with the corresponding CSF trakers
-     * 
+     *
      * @param fieldValues the given field values
      * @return the employee funding with the corresponding CSF trakers
      */
@@ -162,7 +162,7 @@ public interface LaborLedgerBalanceService {
 
     /**
      * find the summary of the ledger balances for the given fiscal year and balance types
-     * 
+     *
      * @param fiscalYear the given fiscal year
      * @param balanceTypes the given balance type codes
      * @return the ledger balances for the given fiscal year and balance types
@@ -171,14 +171,14 @@ public interface LaborLedgerBalanceService {
 
     /**
      * save the given ledger balance into the underlying data store
-     * 
+     *
      * @param ledgerBalance the given ledger balance
      */
     public void save(LedgerBalance ledgerBalance);
 
     /**
      * find the accounts (chart of accounts code + account number) in the given fund groups
-     * 
+     *
      * @param fiscalYear the given fiscal year
      * @param fieldValues the input fields and values
      * @param subFundGroupCodes the given list of qualified sub fund group codes
@@ -189,7 +189,7 @@ public interface LaborLedgerBalanceService {
 
     /**
      * find all ledger balances matching the given criteria within the given fiscal years
-     * 
+     *
      * @param fieldValues the given field values
      * @param excludedFieldValues the given field values that must not be matched
      * @param fiscalYears the given fiscal years
@@ -201,7 +201,7 @@ public interface LaborLedgerBalanceService {
 
     /**
      * delete the ledger balance records that were posted prior to the given fiscal year
-     * 
+     *
      * @param fiscalYear the given fiscal year
      * @param chartOfAccountsCode the given chart of account code
      */

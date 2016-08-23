@@ -67,7 +67,7 @@ public class UpdateDocumentHandlerTest {
     @Test
     public void testMakeChangeUpdatesDocument() throws Exception {
         Query q = new Query(Criteria.where("myId").is("10"));
-        
+
         mongoTemplate.remove(q, "collection");
         EasyMock.expectLastCall();
         mongoTemplate.save(JSON.parse("{ }"), "collection");

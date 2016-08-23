@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -38,7 +38,7 @@ public class PayrollAmountHolder {
 
     /**
      * Constructs a PayrollAmountHolder.java.
-     * 
+     *
      * @param totalAmount the total payroll amount
      * @param accumulatedAmount the accumulated payroll amount
      * @param accumulatedPercent the accumulated payroll percent
@@ -52,7 +52,7 @@ public class PayrollAmountHolder {
 
     /**
      * Gets the payrollAmount attribute.
-     * 
+     *
      * @return Returns the payrollAmount.
      */
     public KualiDecimal getPayrollAmount() {
@@ -61,7 +61,7 @@ public class PayrollAmountHolder {
 
     /**
      * Sets the payrollAmount attribute value.
-     * 
+     *
      * @param payrollAmount The payrollAmount to set.
      */
     public void setPayrollAmount(KualiDecimal payrollAmount) {
@@ -70,7 +70,7 @@ public class PayrollAmountHolder {
 
     /**
      * Gets the payrollPercent attribute.
-     * 
+     *
      * @return Returns the payrollPercent.
      */
     public Integer getPayrollPercent() {
@@ -79,7 +79,7 @@ public class PayrollAmountHolder {
 
     /**
      * Sets the payrollPercent attribute value.
-     * 
+     *
      * @param payrollPercent The payrollPercent to set.
      */
     public void setPayrollPercent(Integer payrollPercent) {
@@ -88,7 +88,7 @@ public class PayrollAmountHolder {
 
     /**
      * Gets the totalAmount attribute.
-     * 
+     *
      * @return Returns the totalAmount.
      */
     public KualiDecimal getTotalAmount() {
@@ -97,7 +97,7 @@ public class PayrollAmountHolder {
 
     /**
      * Sets the totalAmount attribute value.
-     * 
+     *
      * @param totalAmount The totalAmount to set.
      */
     public void setTotalAmount(KualiDecimal totalAmount) {
@@ -106,7 +106,7 @@ public class PayrollAmountHolder {
 
     /**
      * Gets the accumulatedAmount attribute.
-     * 
+     *
      * @return Returns the accumulatedAmount.
      */
     public KualiDecimal getAccumulatedAmount() {
@@ -115,7 +115,7 @@ public class PayrollAmountHolder {
 
     /**
      * Sets the accumulatedAmount attribute value.
-     * 
+     *
      * @param accumulatedAmount The accumulatedAmount to set.
      */
     public void setAccumulatedAmount(KualiDecimal accumulatedAmount) {
@@ -124,7 +124,7 @@ public class PayrollAmountHolder {
 
     /**
      * Gets the accumulatedPercent attribute.
-     * 
+     *
      * @return Returns the accumulatedPercent.
      */
     public Integer getAccumulatedPercent() {
@@ -133,7 +133,7 @@ public class PayrollAmountHolder {
 
     /**
      * Sets the accumulatedPercent attribute value.
-     * 
+     *
      * @param accumulatedPercent The accumulatedPercent to set.
      */
     public void setAccumulatedPercent(Integer accumulatedPercent) {
@@ -142,7 +142,7 @@ public class PayrollAmountHolder {
 
     /**
      * calculate the payroll percentage based on the given information in payroll amount holder
-     * 
+     *
      * @param payrollAmountHolder the given payroll amount holder containing relating information
      */
     public static void calculatePayrollPercent(PayrollAmountHolder payrollAmountHolder) {
@@ -169,7 +169,7 @@ public class PayrollAmountHolder {
 
     /**
      * recalculate the payroll amount based on the given total amount and effort percent
-     * 
+     *
      * @param totalPayrollAmount the given total amount
      * @param effortPercent the given effort percent
      * @return the payroll amount calculated from the given total amount and effort percent
@@ -182,7 +182,7 @@ public class PayrollAmountHolder {
 
     /**
      * recalculate the effort percent based on the given total amount and payroll amount
-     * 
+     *
      * @param totalPayrollAmount the given total amount
      * @param payrollAmount the given payroll amount
      * @return the effort percent calculated from the given total amount and payroll amount
@@ -195,7 +195,7 @@ public class PayrollAmountHolder {
 
     /**
      * recalculate the effort percent based on the given total amount and payroll amount and return it as of type String
-     * 
+     *
      * @param totalPayrollAmount the given total amount
      * @param payrollAmount the given payroll amount
      * @return the effort percent as String calculated from the given total amount and payroll amount

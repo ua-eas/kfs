@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -44,9 +44,9 @@
         <value>vendorDetailAssignedIdentifier</value>
       </list>
     </property>
-    
-    
-    
+
+
+
     <property name="documentTypeName" value="PVEN"/>
     <property name="businessRulesClass" value="org.kuali.kfs.vnd.document.validation.impl.VendorRule"/>
     <property name="documentAuthorizerClass" value="org.kuali.kfs.vnd.document.authorization.VendorDocumentAuthorizer"/>
@@ -55,7 +55,7 @@
     <property name="workflowAttributes">
     	<ref bean="VendorMaintenanceDocument-workflowAttributes"/>
     </property>
-    
+
   </bean>
 
 <!-- Maintenance Section Definitions -->
@@ -72,8 +72,8 @@
         <bean parent="MaintainableFieldDefinition" p:name="vendorHeaderGeneratedIdentifier" p:unconditionallyReadOnly="true"/>
         <bean parent="MaintainableFieldDefinition" p:name="vendorDetailAssignedIdentifier" p:unconditionallyReadOnly="true"/>
         <bean parent="MaintainableFieldDefinition" p:name="vendorNumber" p:unconditionallyReadOnly="true"/>
-        <bean parent="MaintainableFieldDefinition" p:name="vendorParentIndicator" p:defaultValue="true"/>       
-        <bean parent="MaintainableFieldDefinition" p:name="vendorParentName" p:unconditionallyReadOnly="true"/>       
+        <bean parent="MaintainableFieldDefinition" p:name="vendorParentIndicator" p:defaultValue="true"/>
+        <bean parent="MaintainableFieldDefinition" p:name="vendorParentName" p:unconditionallyReadOnly="true"/>
         <bean parent="MaintainableFieldDefinition" p:name="vendorName"/>
         <bean parent="MaintainableFieldDefinition" p:name="vendorLastName"/>
         <bean parent="MaintainableFieldDefinition" p:name="vendorFirstName"/>
@@ -484,7 +484,7 @@
           </property>
           <property name="maintainableFields">
             <list>
-              <bean parent="MaintainableFieldDefinition" p:name="vendorContractGeneratedIdentifier" p:unconditionallyReadOnly="true"/>            
+              <bean parent="MaintainableFieldDefinition" p:name="vendorContractGeneratedIdentifier" p:unconditionallyReadOnly="true"/>
               <bean parent="MaintainableFieldDefinition" p:name="vendorContractName" p:required="true"/>
               <bean parent="MaintainableFieldDefinition" p:name="vendorContractDescription" p:required="true"/>
               <bean parent="MaintainableFieldDefinition" p:name="vendorCampusCode" p:required="true"/>
@@ -546,5 +546,5 @@
     		</map>
     	</property>
 	</bean>
-    	  	  
+
 </beans>

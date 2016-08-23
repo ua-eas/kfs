@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -94,13 +94,13 @@ public class ExtractStepTest extends BatchTestBase {
 //NO RUN SETUP
     public void testNothing() {
     }
-   
+
     public void NORUN_testExecute() throws Exception {
 //        java.sql.Date currentSqlDate = SpringContext.getBean(DateTimeService.class).getCurrentSqlDate();
         Date currentSqlDate = dateTimeService.getCurrentSqlDate();
         extractStep.execute("CabBatchExtractJob", dateTimeService.getCurrentDate());
         // Count of GL lines
-        
+
         Map<String,Object> m = new HashMap<String,Object>();
         m.put("transactionDate", dateTimeService.getCurrentSqlDate());
         Collection<GeneralLedgerEntry> gls = boService.findMatching(GeneralLedgerEntry.class,m);
@@ -108,7 +108,7 @@ public class ExtractStepTest extends BatchTestBase {
 
         // Count of purap docs
         Map<String,String> m2 = new HashMap<String,String>();
-        m2.put("activityStatusCode",  CabConstants.ActivityStatusCode.NEW);        
+        m2.put("activityStatusCode",  CabConstants.ActivityStatusCode.NEW);
         Collection<PurchasingAccountsPayableDocument> allCabDocs = boService.findMatching(PurchasingAccountsPayableDocument.class,m2);
         assertEquals(7, allCabDocs.size());
 
@@ -119,10 +119,10 @@ public class ExtractStepTest extends BatchTestBase {
        //Collection<PurchasingAccountsPayableItemAsset> matchingItems = businessObjectService.findMatching(PurchasingAccountsPayableItemAsset.class, keys);
 
         Map<String,Object> m3 = new HashMap<String,Object>();
-        m3.put("activityStatusCode", CabConstants.ActivityStatusCode.NEW);        
+        m3.put("activityStatusCode", CabConstants.ActivityStatusCode.NEW);
         Collection<PurchasingAccountsPayableItemAsset> allCabItems = boService.findMatching(PurchasingAccountsPayableItemAsset.class, m3);
         for(PurchasingAccountsPayableItemAsset aci:allCabItems){
-            
+
             System.out.println(aci.isActive()+" - "+aci.getActivityStatusCode());
         }
        //assertEquals(14, allCabItems.size());
@@ -130,7 +130,7 @@ public class ExtractStepTest extends BatchTestBase {
         // Count of purap account lines
         Collection<PurchasingAccountsPayableLineAssetAccount> allCabAccts = boService.findAll(PurchasingAccountsPayableLineAssetAccount.class);
        //for(PurchasingAccountsPayableLineAssetAccount aca:allCabAccts){
-            
+
        //     System.out.println(aca.isActive()+" - "+aca.getGeneralLedgerEntry().getTransactionDate());
        // }
        //assertEquals(17, allCabAccts.size());
@@ -139,5 +139,5 @@ public class ExtractStepTest extends BatchTestBase {
         SimpleDateFormat fmt = new SimpleDateFormat("MM/dd/yyyy");
         assertEquals(fmt.format(currentSqlDate), findCabExtractTimeParam().getValue().substring(0, 10));
     }
- // END NO RUN SETUP     
+ // END NO RUN SETUP
 }

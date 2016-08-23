@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -197,7 +197,7 @@ public enum PurApItemFixture {
             false, // itemAssignedToTradeInIndicator
             new KualiDecimal(1), // extendedPrice
             null // itemQuantity
-    ),    
+    ),
     VALID_FREIGHT_ITEM(null, // itemIdentifier
             new Integer(1), // itemLineNumber
             null, // itemUnitOfMeasureCode
@@ -211,7 +211,7 @@ public enum PurApItemFixture {
             false, // itemAssignedToTradeInIndicator
             new KualiDecimal(1), // extendedPrice
             null // itemQuantity
-    ),   
+    ),
     VALID_SHIPPING_AND_HANDLING_ITEM(null, // itemIdentifier
             new Integer(1), // itemLineNumber
             null, // itemUnitOfMeasureCode
@@ -225,7 +225,7 @@ public enum PurApItemFixture {
             false, // itemAssignedToTradeInIndicator
             new KualiDecimal(1), // extendedPrice
             null // itemQuantity
-    ),    
+    ),
     POSITIVE_DISC_ITEM(null, // itemIdentifier
             new Integer(1), // itemLineNumber
             null, // itemUnitOfMeasureCode
@@ -533,7 +533,7 @@ public enum PurApItemFixture {
             false, // itemAssignedToTradeInIndicator
             new KualiDecimal(0), // extendedPrice
             null // itemQuantity
-    ),  
+    ),
     ZERO_SHIPPING_AND_HANDLING_ITEM(null, // itemIdentifier
             new Integer(1), // itemLineNumber
             null, // itemUnitOfMeasureCode
@@ -715,7 +715,7 @@ public enum PurApItemFixture {
             false, // itemAssignedToTradeInIndicator
             new KualiDecimal(0), // extendedPrice
             null // itemQuantity
-    ),  
+    ),
     SHIPPING_AND_HANDLING_ITEM_NO_DESC(null, // itemIdentifier
             new Integer(1), // itemLineNumber
             null, // itemUnitOfMeasureCode
@@ -743,7 +743,7 @@ public enum PurApItemFixture {
             false, // itemAssignedToTradeInIndicator
             new KualiDecimal(0), // extendedPrice
             null // itemQuantity
-    ),  
+    ),
     VALID_MIN_ORDER_ITEM(null, // itemIdentifier
             new Integer(1), // itemLineNumber
             null, // itemUnitOfMeasureCode
@@ -757,7 +757,7 @@ public enum PurApItemFixture {
             false, // itemAssignedToTradeInIndicator
             new KualiDecimal(1), // extendedPrice
             null // itemQuantity
-    ),  
+    ),
     VALID_MISC_ITEM(null, // itemIdentifier
             new Integer(1), // itemLineNumber
             null, // itemUnitOfMeasureCode
@@ -771,7 +771,7 @@ public enum PurApItemFixture {
             false, // itemAssignedToTradeInIndicator
             new KualiDecimal(1), // extendedPrice
             null // itemQuantity
-    ),  
+    ),
     VALID_FED_GROSS_CODE_ITEM(null, // itemIdentifier
             new Integer(1), // itemLineNumber
             null, // itemUnitOfMeasureCode
@@ -785,7 +785,7 @@ public enum PurApItemFixture {
             false, // itemAssignedToTradeInIndicator
             new KualiDecimal(1), // extendedPrice
             null // itemQuantity
-    ),  
+    ),
     VALID_STATE_GROSS_CODE_ITEM(null, // itemIdentifier
             new Integer(1), // itemLineNumber
             null, // itemUnitOfMeasureCode
@@ -813,7 +813,7 @@ public enum PurApItemFixture {
             false, // itemAssignedToTradeInIndicator
             new KualiDecimal(100), // extendedPrice
             new KualiDecimal(10) // itemQuantity
-    ),  
+    ),
     EINVOICE_ITEM(null, // itemIdentifier
             new Integer(1), // itemLineNumber
             "BG", // itemUnitOfMeasureCode
@@ -827,7 +827,7 @@ public enum PurApItemFixture {
             false, // itemAssignedToTradeInIndicator
             new KualiDecimal(1), // extendedPrice
             new KualiDecimal(1) // itemQuantity
-    ), 
+    ),
     BASIC_B2B_QTY_ITEM_1(null, // itemIdentifier
             new Integer(1), // itemLineNumber
             "PCS", // itemUnitOfMeasureCode

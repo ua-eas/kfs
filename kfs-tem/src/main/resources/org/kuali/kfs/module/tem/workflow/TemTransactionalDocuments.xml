@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -203,8 +203,8 @@
 			         	</branch>
 			         	<branch name="False">
 			            	<simple name="NoOpRequiresSeparationOfDuties" nextNode="JoinRequiresSeparationOfDuties" nextAppDocStatus="Awaiting Travel Manager Review" />
-			         	</branch>	
-			         	<join name="JoinRequiresSeparationOfDuties" />	         		
+			         	</branch>
+			         	<join name="JoinRequiresSeparationOfDuties" />
 	     			</split>
 					<split name="TravelAdvanceRequested" nextAppDocStatus="Awaiting Travel Manager Review">
                         <branch name="True">
@@ -275,8 +275,8 @@
                     </qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-                
-                
+
+
 				<split name="TravelIsInternational">
                     <type>org.kuali.kfs.sys.document.workflow.SimpleBooleanSplitNode
                     </type>
@@ -291,8 +291,8 @@
                     </qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-                
-                
+
+
                 <split name="TravelNeedsRiskManagement">
                     <type>org.kuali.kfs.sys.document.workflow.SimpleBooleanSplitNode
                     </type>
@@ -323,7 +323,7 @@
 						P
           			</activationType>
 				</role>
-				
+
 				<role name="Budget">
 					<qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
 					<activationType>P</activationType>
@@ -335,7 +335,7 @@
                     <type>org.kuali.rice.kew.engine.node.NoOpNode</type>
                 </simple>
                 <join name="JoinRequiresBudgetReview" />
-                
+
 				<split name="TravelAdvanceRequested">
                     <type>org.kuali.kfs.sys.document.workflow.SimpleBooleanSplitNode
                     </type>
@@ -356,7 +356,7 @@
                     </qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-                
+
                 <join name="JoinRequiresSeparationOfDuties" />
 				<simple name="NoOpRequiresSeparationOfDuties">
 					<type>org.kuali.rice.kew.engine.node.NoOpNode</type>
@@ -368,7 +368,7 @@
                     <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-                
+
 			</routeNodes>
 		</documentType>
 		<documentType>
@@ -532,8 +532,8 @@
 			         	</branch>
 			         	<branch name="False">
 			            	<simple name="NoOpRequiresSeparationOfDuties" nextNode="JoinRequiresSeparationOfDuties" nextAppDocStatus="Awaiting Travel Manager Review" />
-			         	</branch>	
-			         	<join name="JoinRequiresSeparationOfDuties" />	         		
+			         	</branch>
+			         	<join name="JoinRequiresSeparationOfDuties" />
 	     			</split>
 					<role name="Travel" nextNode="TaxManagerApproval" nextAppDocStatus="Awaiting Tax Manager Review" />
 					<split name="TaxManagerApproval" nextNode="PaymentMethod" nextAppDocStatus="Awaiting Tax Manager Review">
@@ -542,8 +542,8 @@
 			         	</branch>
 			         	<branch name="False">
 			            	<simple name="NoOpTaxManager" nextNode="JoinTaxManager" nextAppDocStatus="Awaiting Disbursement Method Review" />
-			         	</branch>	
-			         	<join name="JoinTaxManager" />	         		
+			         	</branch>
+			         	<join name="JoinTaxManager" />
 	     			</split>
 	     			<role name="PaymentMethod" nextAppDocStatus="Department Approved" />
                 </routePath>
@@ -565,17 +565,17 @@
                     <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-                
+
                 <role name="AccountingOrganizationHierarchy">
                     <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-                
+
                 <role name="ReimbursementOverage">
                     <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-                
+
                 <join name="JoinTravelRequiresDivisionApproval" />
 				<simple name="NoOpTravelRequiresDivisionApproval">
 					<type>org.kuali.rice.kew.engine.node.NoOpNode</type>
@@ -587,7 +587,7 @@
                     <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-                
+
                 <join name="JoinTravelHasSpecialRequest" />
 				<simple name="NoOpTravelHasSpecialRequest">
 					<type>org.kuali.rice.kew.engine.node.NoOpNode</type>
@@ -599,7 +599,7 @@
                     <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-                
+
                 <join name="JoinTravelIsInternational" />
 				<simple name="NoOpTravelIsInternational">
 					<type>org.kuali.rice.kew.engine.node.NoOpNode</type>
@@ -611,7 +611,7 @@
                     <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-                
+
                 <join name="JoinRequiresSubFund" />
 				<simple name="NoOpSubFund">
 					<type>org.kuali.rice.kew.engine.node.NoOpNode</type>
@@ -623,7 +623,7 @@
                     <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-                
+
                 <join name="JoinRequiresAward" />
 				<simple name="NoOpAward">
 					<type>org.kuali.rice.kew.engine.node.NoOpNode</type>
@@ -635,7 +635,7 @@
                     <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-                
+
                 <role name="Budget">
 					<qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
 					<activationType>P</activationType>
@@ -647,7 +647,7 @@
                     <type>org.kuali.rice.kew.engine.node.NoOpNode</type>
                 </simple>
                 <join name="JoinRequiresBudgetReview" />
-                
+
                 <join name="JoinTaxManager" />
 				<simple name="NoOpTaxManager">
 					<type>org.kuali.rice.kew.engine.node.NoOpNode</type>
@@ -659,7 +659,7 @@
                     <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-                
+
                 <join name="JoinRequiresSeparationOfDuties" />
 				<simple name="NoOpRequiresSeparationOfDuties">
 					<type>org.kuali.rice.kew.engine.node.NoOpNode</type>
@@ -675,7 +675,7 @@
                     <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-	     			
+
                 <role name="Travel">
                     <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
                     <activationType>P</activationType>
@@ -692,9 +692,9 @@
 	      <name>TTA</name>
 	      <parent>TT</parent>
 	      <docHandler>${kfs.url}/temTravelArranger.do?methodToCall=docHandler</docHandler>
-	      <helpDefinitionURL>			
-			default.htm?turl=WordDocuments%2Ftravelarranger.htm		
-      	  </helpDefinitionURL>			
+	      <helpDefinitionURL>
+			default.htm?turl=WordDocuments%2Ftravelarranger.htm
+      	  </helpDefinitionURL>
 	      <label>Travel Arranger</label>
 	      <routePaths>
 	                <routePath>
@@ -735,12 +735,12 @@
             <parent>TT</parent>
             <docHandler>${kfs.url}/temTravelRelocation.do?methodToCall=docHandler
             </docHandler>
-            <helpDefinitionURL>			
-				default.htm?turl=WordDocuments%2Fmovingandrelocationreimbursement.htm		
-      	  	</helpDefinitionURL>	
+            <helpDefinitionURL>
+				default.htm?turl=WordDocuments%2Fmovingandrelocationreimbursement.htm
+      	  	</helpDefinitionURL>
       	  	<docSearchHelpURL>
         		${kfs.externalizable.help.url}/default.htm?turl=WordDocuments%2Fmovingandrelocation.htm
-      		</docSearchHelpURL>		
+      		</docSearchHelpURL>
             <label>Moving and Relocation Reimbursement</label>
             <attributes>
 				<attribute>
@@ -822,8 +822,8 @@
                         </branch>
                         <join name="JoinTravelHasSpecialRequest" />
                     </split>
-					<role name="ExecutiveApproval" nextNode="SubFund" nextAppDocStatus="Awaiting Sub-Fund Review" />				
-                    
+					<role name="ExecutiveApproval" nextNode="SubFund" nextAppDocStatus="Awaiting Sub-Fund Review" />
+
                     <role name="SubFund" nextNode="Award" nextAppDocStatus="Awaiting Award Review" />
                     <role name="Award" nextNode="RequiresBudgetReview" nextAppDocStatus="Awaiting Budget Review" />
                     <split name="RequiresBudgetReview" nextNode="RequiresSeparationOfDuties" nextAppDocStatus="Awaiting Budget Review">
@@ -841,8 +841,8 @@
                         </branch>
                         <branch name="False">
                             <simple name="NoOpRequiresSeparationOfDuties" nextNode="JoinRequiresSeparationOfDuties" nextAppDocStatus="Awaiting Moving and Relocation Manager Review" />
-                        </branch>   
-                        <join name="JoinRequiresSeparationOfDuties" />                  
+                        </branch>
+                        <join name="JoinRequiresSeparationOfDuties" />
                     </split>
                     <role name="MovingAndRelocationManager" nextNode="TaxManagerApproval" nextAppDocStatus="Awaiting Tax Manager Review" />
                     <split name="TaxManagerApproval" nextNode="PaymentMethod" nextAppDocStatus="Awaiting Tax Manager Review">
@@ -852,12 +852,12 @@
 			         	<branch name="False">
 			            	<simple name="NoOpTaxManagerApproval" nextNode="JoinTaxManagerApproval" nextAppDocStatus="Awaiting Disbursement Method Review" />
 			         	</branch>
-                        <join name="JoinTaxManagerApproval"/>		         		
+                        <join name="JoinTaxManagerApproval"/>
 	     			</split>
 	     			<role name="PaymentMethod" nextAppDocStatus="Moving And Relocation Manager Approved" />
                 </routePath>
-            </routePaths> 
-            
+            </routePaths>
+
             <routeNodes>
             	<start name="AdHoc" />
                 <join name="JoinTravelRequiresTravelerApproval" />
@@ -887,7 +887,7 @@
 						P
                     </activationType>
 				</role>
-                
+
                 <join name="JoinTravelHasSpecialRequest" />
                 <simple name="NoOpTravelHasSpecialRequest">
                     <type>org.kuali.rice.kew.engine.node.NoOpNode</type>
@@ -899,12 +899,12 @@
                     <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-				 
+
                 <role name="ExecutiveApproval">
                     <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
                     <activationType>P</activationType>
                </role>
-				
+
 				<role name="SubFund">
                     <qualifierResolverClass>
                         org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
@@ -921,7 +921,7 @@
                         P
                     </activationType>
                 </role>
-                
+
                 <role name="Budget">
 					<qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
 					<activationType>P</activationType>
@@ -933,7 +933,7 @@
                     <type>org.kuali.rice.kew.engine.node.NoOpNode</type>
                 </simple>
                 <join name="JoinRequiresBudgetReview" />
-                
+
                 <join name="JoinTaxManagerApproval" />
                 <split name="TaxManagerApproval">
 				    <type>org.kuali.kfs.sys.document.workflow.SimpleBooleanSplitNode</type>
@@ -941,14 +941,14 @@
 				<simple name="NoOpTaxManagerApproval">
 				    <type>org.kuali.rice.kew.engine.node.NoOpNode</type>
 				</simple>
-				
+
 				<role name="Tax">
 			        <qualifierResolverClass>
 			            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
 			        </qualifierResolverClass>
 			        <activationType>P</activationType>
-				</role> 
-				
+				</role>
+
                 <join name="JoinRequiresSeparationOfDuties" />
                 <simple name="NoOpRequiresSeparationOfDuties">
                     <type>org.kuali.rice.kew.engine.node.NoOpNode</type>
@@ -960,7 +960,7 @@
                     <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-                
+
                 <role name="PaymentMethod">
                     <qualifierResolverClass>
                         org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
@@ -968,8 +968,8 @@
                     <activationType>
                         P
                     </activationType>
-                </role>    
-                
+                </role>
+
                 <role name="MovingAndRelocationManager">
                     <qualifierResolverClass>
                         org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
@@ -977,8 +977,8 @@
                     <activationType>
                         P
                     </activationType>
-                </role>        
-            </routeNodes>        
+                </role>
+            </routeNodes>
         </documentType>
       <documentType>
       <name>TXRF</name>
@@ -986,9 +986,9 @@
       <description />
       <label>Taxable Ramification</label>
       <docHandler>${kfs.url}/temTaxableRamification.do?methodToCall=docHandler</docHandler>
-      <helpDefinitionURL>	
+      <helpDefinitionURL>
 		default.htm?turl=WordDocuments%2Ftaxableramification.htm
-      </helpDefinitionURL>	
+      </helpDefinitionURL>
       <active>true</active>
       <routingVersion>2</routingVersion>
       <routePaths>
@@ -1036,12 +1036,12 @@
             <parent>TT</parent>
             <docHandler>${kfs.url}/temTravelEntertainment.do?methodToCall=docHandler
             </docHandler>
-            <helpDefinitionURL>	
+            <helpDefinitionURL>
 				default.htm?turl=WordDocuments%2Fentertainmentreimbursement.htm
       		</helpDefinitionURL>
       		<docSearchHelpURL>
         		${kfs.externalizable.help.url}/default.htm?turl=WordDocuments%2Fentertainmentreimbursement1.htm
-      		</docSearchHelpURL>	
+      		</docSearchHelpURL>
             <label>Entertainment Reimbursement</label>
             <attributes>
 				<attribute>
@@ -1139,8 +1139,8 @@
                         </branch>
                         <branch name="False">
                             <simple name="NoOpRequiresSeparationOfDuties" nextNode="JoinRequiresSeparationOfDuties" nextAppDocStatus="Awaiting Entertainment Manager Review" />
-                        </branch>   
-                        <join name="JoinRequiresSeparationOfDuties" />                  
+                        </branch>
+                        <join name="JoinRequiresSeparationOfDuties" />
                     </split>
 					<role name="EntertainmentManager" nextNode="TaxManager" nextAppDocStatus="Awaiting Tax Manager Review"/>
 					<split name="TaxManager" nextNode="PaymentMethod" nextAppDocStatus="Awaiting Tax Manager Review">
@@ -1156,7 +1156,7 @@
                 </routePath>
             </routePaths>
             <routeNodes>
-          
+
                 <start name="AdHoc" />
                 <join name="JoinTravelRequiresTravelerApproval" />
                 <simple name="NoOpTravelRequiresTravelerApproval">
@@ -1207,7 +1207,7 @@
 					</qualifierResolverClass>
 					<activationType>P</activationType>
 				</role>
-				
+
 				<role name="Budget">
 					<qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
 					<activationType>P</activationType>
@@ -1219,7 +1219,7 @@
                     <type>org.kuali.rice.kew.engine.node.NoOpNode</type>
                 </simple>
                 <join name="JoinRequiresBudgetReview" />
-				
+
 				<join name="JoinTaxManager" />
                 <simple name="NoOpTaxManager">
                     <type>org.kuali.rice.kew.engine.node.NoOpNode</type>
@@ -1233,7 +1233,7 @@
 					</qualifierResolverClass>
 					<activationType>P</activationType>
 				</role>
-            
+
                 <join name="JoinRequiresSeparationOfDuties" />
                 <simple name="NoOpRequiresSeparationOfDuties">
                     <type>org.kuali.rice.kew.engine.node.NoOpNode</type>
@@ -1245,14 +1245,14 @@
                     <qualifierResolverClass>org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-                
+
                 <role name="PaymentMethod">
                     <qualifierResolverClass>
                         org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
                     </qualifierResolverClass>
                     <activationType>P</activationType>
                 </role>
-            
+
 				<role name="EntertainmentManager">
                     <qualifierResolverClass>
                         org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
@@ -1266,9 +1266,9 @@
 			<parent>TT</parent>
 			<label>CTS Card Application</label>
 			<docHandler>${kfs.url}/temCTSCardApplication.do?methodToCall=docHandler</docHandler>
-			<helpDefinitionURL>	
+			<helpDefinitionURL>
 				default.htm?turl=WordDocuments%2Fctscardapplication.htm
-      		</helpDefinitionURL>	
+      		</helpDefinitionURL>
 			<active>true</active>
 			<routingVersion>2</routingVersion>
 			<authorizer>org.kuali.kfs.module.tem.document.authorization.TravelWorkflowDocumentAuthorizer</authorizer>
@@ -1319,7 +1319,7 @@
 			<parent>TT</parent>
 			<label>Corporate Card Application</label>
 			<docHandler>${kfs.url}/temCorporateCardApplication.do?methodToCall=docHandler</docHandler>
-			<helpDefinitionURL>	
+			<helpDefinitionURL>
 				default.htm?turl=WordDocuments%2Fcorporatecardapplication1.htm
       		</helpDefinitionURL>
       		<docSearchHelpURL>

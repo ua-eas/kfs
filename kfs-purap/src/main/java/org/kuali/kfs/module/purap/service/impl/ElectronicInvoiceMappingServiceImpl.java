@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,13 +34,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ElectronicInvoiceMappingServiceImpl implements ElectronicInvoiceMappingService {
   private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicInvoiceMappingServiceImpl.class);
-  
+
   private ElectronicInvoicingDao electronicInvoicingDao;
 
   public void setElectronicInvoicingDao(ElectronicInvoicingDao electronicInvoicingDao) {
     this.electronicInvoicingDao = electronicInvoicingDao;
   }
-  
+
   public Map getDefaultItemMappingMap() {
     LOG.debug("getDefaultItemMappingMap() started");
     return electronicInvoicingDao.getDefaultItemMappingMap();
@@ -52,37 +52,37 @@ public class ElectronicInvoiceMappingServiceImpl implements ElectronicInvoiceMap
       }
     return electronicInvoicingDao.getItemMappingMap(vendorHeaderId,vendorDetailId);
   }
-  
+
   public boolean acceptAmountType(String cxmlAmountType) {
     return ( (cxmlAmountType != null) && (!(cxmlAmountType.equalsIgnoreCase(ITEM_TYPE_RETURN_VALUE_UNACCEPTED))) );
   }
-  
+
   /**
    * This method defines which field out of the ElectronicInvoiceOrder that the
    * purchase order number is coming in as
-   * 
+   *
    * @param invoiceOrder  ElectronicInvoiceOrder we need to get the PO ID from
    * @return the String value of the purchase order id
    */
   public String getInvoicePurchaseOrderID(ElectronicInvoiceOrder invoiceOrder) {
     return invoiceOrder.getOrderReferenceOrderID();
   }
-  
+
   /**
    * This method defines which field out of the ElectronicInvoiceItem that the
    * catalog number is coming in as
-   * 
+   *
    * @param eii  ElectronicInvoiceItem we need to get the catalog number from
    * @return catalog number value
    */
   public String getCatalogNumber(ElectronicInvoiceItem item) {
     return item.getReferenceItemIDSupplierPartID();
   }
-  
+
   /**
    * This method defines which field out of the ElectronicInvoice that the
    * customer number field is coming in as
-   * 
+   *
    * @param ei  ElectronicInvoice we need to get the customer number from
    * @return customer number value
    */
@@ -90,7 +90,7 @@ public class ElectronicInvoiceMappingServiceImpl implements ElectronicInvoiceMap
     // TODO: Future Release - Enter valid location for Customer Number from E-Invoice
     return null;
   }
-  
+
   /**
    * This method contains the mapping check for valid Currency Code(s)
    */
@@ -116,6 +116,6 @@ public class ElectronicInvoiceMappingServiceImpl implements ElectronicInvoiceMap
     }
     return false;
   }
-  
-  
+
+
 }

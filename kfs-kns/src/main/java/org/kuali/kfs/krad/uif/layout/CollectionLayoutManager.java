@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,7 +31,7 @@ import java.util.List;
  * Layout manager implementations that work with a collection (such as a table
  * layout) should implement this interface for building the collection
  * <code>Component</code> instances
- * 
+ *
  * <p>
  * Unlike other <code>Group</code> instances, <code>CollectionGroup</code>
  * instances need to generate new instances of the configured components for
@@ -41,8 +41,8 @@ import java.util.List;
  * applyModel phase) this method will be invoked on the manager so that it may
  * setup the line as needed.
  * </p>
- * 
- * 
+ *
+ *
  * @see CollectionGroupBuilder
  */
 public interface CollectionLayoutManager extends LayoutManager {
@@ -50,14 +50,14 @@ public interface CollectionLayoutManager extends LayoutManager {
 	/**
 	 * Call to the layout manager to build the components necessary for the
 	 * given collection line
-	 * 
+	 *
 	 * <p>
 	 * As the collection is being iterated over by the
 	 * <code>CollectionGroupBuilder</code> this method is invoked for each line.
 	 * The builder will create copies of the configured fields and actions for
 	 * the line and pass into the layout manager so they can be assembled
 	 * </p>
-	 * 
+	 *
 	 * @param view
 	 *            - view instance the collection belongs to
 	 * @param model
@@ -93,7 +93,7 @@ public interface CollectionLayoutManager extends LayoutManager {
 	 * sub-collection field groups. For each sub-collection a copy of the
 	 * prototype is made and the list will be passed to the layout manager
 	 * buildLine method
-	 * 
+	 *
 	 * @return GroupField instance to use as prototype
 	 */
 	public FieldGroup getSubCollectionFieldGroupPrototype();

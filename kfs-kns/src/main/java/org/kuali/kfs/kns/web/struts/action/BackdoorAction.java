@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -45,7 +45,7 @@ import java.util.Map;
  * A Struts Action which permits a user to execute a backdoor login to masquerade
  * as another user.
  *
- * 
+ *
  */
 public class BackdoorAction extends org.kuali.kfs.kns.web.struts.action.KualiAction {
 
@@ -69,7 +69,7 @@ public class BackdoorAction extends org.kuali.kfs.kns.web.struts.action.KualiAct
     public ActionForward refresh(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
     	return portal(mapping, form, request, response);
     }
-    
+
     public ActionForward start(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("start");
         return portal(mapping, form, request, response);
@@ -87,15 +87,15 @@ public class BackdoorAction extends org.kuali.kfs.kns.web.struts.action.KualiAct
 
     public ActionForward logout(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("logout");
-        
+
         String forward = "viewPortal";
         UserSession uSession = getUserSession(request);
-        
+
         if (uSession.isBackdoorInUse()) {
             uSession.clearBackdoorUser();
             setFormGroupPermission((BackdoorForm)form, request);
             //request.setAttribute("reloadPage","true");
-            
+
             UserSession KnsUserSession;
             KnsUserSession = GlobalVariables.getUserSession();
             KnsUserSession.clearBackdoorUser();
@@ -103,7 +103,7 @@ public class BackdoorAction extends org.kuali.kfs.kns.web.struts.action.KualiAct
         else {
             forward = "logout";
         }
-        
+
         return mapping.findForward(forward);
     }
 
@@ -138,7 +138,7 @@ public class BackdoorAction extends org.kuali.kfs.kns.web.struts.action.KualiAct
         }
 
         setFormGroupPermission(backdoorForm, request);
-        
+
         return mapping.findForward("portal");
     }
 

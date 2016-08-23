@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -72,14 +72,14 @@ public class BudgetConstructionSalaryStatisticsReportServiceImpl implements Budg
         // build order list
         List<String> orderList = buildOrderByList();
         Collection<BudgetConstructionSalaryTotal> salaryStatisticsList = budgetConstructionOrganizationReportsService.getBySearchCriteriaOrderByList(BudgetConstructionSalaryTotal.class, searchCriteria, orderList);
-        
+
         // get object codes
         searchCriteria.clear();
         searchCriteria.put(KFSPropertyConstants.PERSON_UNIVERSAL_IDENTIFIER, principalName);
         Collection<BudgetConstructionObjectPick> objectPickList = businessObjectService.findMatching(BudgetConstructionObjectPick.class, searchCriteria);
-        
+
         String objectCodes = budgetConstructionReportsServiceHelper.getSelectedObjectCodes(principalName);
-        
+
         // build reports
         for (BudgetConstructionSalaryTotal salaryStatisticsEntry : salaryStatisticsList) {
             BudgetConstructionOrgSalaryStatisticsReport orgSalaryStatisticsReportEntry = new BudgetConstructionOrgSalaryStatisticsReport();
@@ -87,14 +87,14 @@ public class BudgetConstructionSalaryStatisticsReportServiceImpl implements Budg
             buildReportsBody(orgSalaryStatisticsReportEntry, salaryStatisticsEntry);
             reportSet.add(orgSalaryStatisticsReportEntry);
         }
-        
+
         return reportSet;
     }
 
 
     /**
      * builds report Header
-     * 
+     *
      * @param BudgetConstructionObjectDump bcod
      */
     public void buildReportsHeader(Integer universityFiscalYear, String objectCodes, BudgetConstructionOrgSalaryStatisticsReport orgSalaryStatisticsReportEntry, BudgetConstructionSalaryTotal salaryTotalEntry) {
@@ -135,36 +135,36 @@ public class BudgetConstructionSalaryStatisticsReportServiceImpl implements Budg
 
     public void buildReportsBody(BudgetConstructionOrgSalaryStatisticsReport orgSalaryStatisticsReportEntry, BudgetConstructionSalaryTotal salaryTotalEntry) {
         orgSalaryStatisticsReportEntry.setInitialRequestedFteQuantity(salaryTotalEntry.getInitialRequestedFteQuantity());
-        
+
         orgSalaryStatisticsReportEntry.setTotalInitialRequestedAmount(BudgetConstructionReportHelper.convertKualiInteger(salaryTotalEntry.getInitialRequestedAmount()));
 
         BigDecimal averageAmount = BudgetConstructionReportHelper.calculateDivide(salaryTotalEntry.getInitialRequestedAmount().bigDecimalValue(), salaryTotalEntry.getInitialRequestedFteQuantity());
         orgSalaryStatisticsReportEntry.setTotalAverageAmount(BudgetConstructionReportHelper.setDecimalDigit(averageAmount, 0, false).intValue());
-        
+
         BigDecimal requestedFteQuantity = salaryTotalEntry.getAppointmentRequestedFteQuantity().setScale(5, BigDecimal.ROUND_HALF_UP);
         orgSalaryStatisticsReportEntry.setAppointmentRequestedFteQuantity(requestedFteQuantity);
-        
+
         orgSalaryStatisticsReportEntry.setTotalCsfAmount(BudgetConstructionReportHelper.convertKualiInteger(salaryTotalEntry.getCsfAmount()));
         orgSalaryStatisticsReportEntry.setTotalAppointmentRequestedAmount(BudgetConstructionReportHelper.convertKualiInteger(salaryTotalEntry.getAppointmentRequestedAmount()));
 
         BigDecimal csfAmount = new BigDecimal(BudgetConstructionReportHelper.convertKualiInteger(salaryTotalEntry.getCsfAmount()));
         BigDecimal averageCfsAmount = BudgetConstructionReportHelper.calculateDivide(csfAmount, salaryTotalEntry.getAppointmentRequestedFteQuantity());
         orgSalaryStatisticsReportEntry.setAverageCsfAmount(BudgetConstructionReportHelper.setDecimalDigit(averageCfsAmount, 0, false));
-        
+
         BigDecimal appointmentRequestedAmount = new BigDecimal(BudgetConstructionReportHelper.convertKualiInteger(salaryTotalEntry.getAppointmentRequestedAmount()));
         BigDecimal averageRequestedAmount = BudgetConstructionReportHelper.calculateDivide(appointmentRequestedAmount, requestedFteQuantity);
         orgSalaryStatisticsReportEntry.setAverageAppointmentRequestedAmount(BudgetConstructionReportHelper.setDecimalDigit(averageRequestedAmount, 0, false));
-        
+
         BigDecimal averageChange = orgSalaryStatisticsReportEntry.getAverageAppointmentRequestedAmount().subtract(orgSalaryStatisticsReportEntry.getAverageCsfAmount());
         orgSalaryStatisticsReportEntry.setAverageChange(averageChange);
-      
+
         BigDecimal percentChange = BudgetConstructionReportHelper.calculatePercent(orgSalaryStatisticsReportEntry.getAverageChange(), orgSalaryStatisticsReportEntry.getAverageCsfAmount());
         orgSalaryStatisticsReportEntry.setPercentChange(percentChange);
     }
 
     /**
      * builds orderByList for sort order.
-     * 
+     *
      * @return returnList
      */
     public List<String> buildOrderByList() {
@@ -202,17 +202,17 @@ public class BudgetConstructionSalaryStatisticsReportServiceImpl implements Budg
 
     /**
      * Gets the persistenceServiceOjb attribute.
-     * 
+     *
      * @return Returns the persistenceServiceOjb
      */
-    
+
     public PersistenceService getPersistenceServiceOjb() {
         return persistenceServiceOjb;
     }
 
-    /**	
+    /**
      * Sets the persistenceServiceOjb attribute.
-     * 
+     *
      * @param persistenceServiceOjb The persistenceServiceOjb to set.
      */
     public void setPersistenceServiceOjb(PersistenceService persistenceServiceOjb) {

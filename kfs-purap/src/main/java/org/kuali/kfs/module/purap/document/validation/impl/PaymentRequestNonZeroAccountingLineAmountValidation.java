@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,15 +41,15 @@ public class PaymentRequestNonZeroAccountingLineAmountValidation extends Purchas
 
     private PurApItem itemForValidation;
     private ParameterService parameterService;
-    
+
     public boolean validate(AttributedDocumentEvent event) {
-        boolean valid = true;        
+        boolean valid = true;
         String status = ((PaymentRequestDocument)event.getDocument()).getApplicationDocumentStatus();
 
         AccountingDocument accountingDocument = (AccountingDocument)event.getDocument();
         this.setAccountingDocumentForValidation(accountingDocument);
         this.setDataDictionaryService(SpringContext.getBean(DataDictionaryService.class));
-        
+
         //Do this for AFOA only
         if (StringUtils.equals(PaymentRequestStatuses.APPDOC_AWAITING_FISCAL_REVIEW, status)) {
             final Set<String> currentNodes = accountingDocument.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames();
@@ -71,11 +71,11 @@ public class PaymentRequestNonZeroAccountingLineAmountValidation extends Purchas
                                 valid &= false;
                             }
                         }
-                    } 
+                    }
                 }
             }
         }
-        
+
         return valid;
     }
 
@@ -83,22 +83,22 @@ public class PaymentRequestNonZeroAccountingLineAmountValidation extends Purchas
      * checks if an accounting line with zero dollar amount can be approved.  This will check
      * the system parameter APPROVE_ACCOUNTING_LINES_WITH_ZERO_DOLLAR_AMOUNT_IND and determines if the
      * line can be approved or not.
-     * 
+     *
      * @return true if the system parameter value is Y else returns N.
      */
     public boolean canApproveAccountingLinesWithZeroAmount() {
         boolean canApproveLine = false;
-        
+
         // get parameter to see if accounting line with zero dollar amount can be approved.
         String approveZeroAmountLine = SpringContext.getBean(ParameterService.class).getParameterValueAsString(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.APPROVE_ACCOUNTING_LINES_WITH_ZERO_DOLLAR_AMOUNT_IND);
-        
+
         if ("Y".equalsIgnoreCase(approveZeroAmountLine)) {
             return true;
         }
-        
+
         return canApproveLine;
     }
-    
+
     public PurApItem getItemForValidation() {
         return itemForValidation;
     }
@@ -106,20 +106,20 @@ public class PaymentRequestNonZeroAccountingLineAmountValidation extends Purchas
     public void setItemForValidation(PurApItem itemForValidation) {
         this.itemForValidation = itemForValidation;
     }
-    
+
     /**
      * Gets the parameterService attribute.
-     * 
+     *
      * @return Returns the parameterService
      */
-    
+
     public ParameterService getParameterService() {
         return parameterService;
     }
 
-    /** 
+    /**
      * Sets the parameterService attribute.
-     * 
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,89 +49,89 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
- * This is a holder class which can be passed to the matching service to validate einvoice or reject doc data 
- * against the po document.   
- * 
+ * This is a holder class which can be passed to the matching service to validate einvoice or reject doc data
+ * against the po document.
+ *
  */
 
 public class ElectronicInvoiceOrderHolder {
-    
+
     private final static Logger LOG = Logger.getLogger(ElectronicInvoiceOrderHolder.class);
-    
+
     private ElectronicInvoiceRejectDocument rejectDocument;
     private ElectronicInvoiceOrder invoiceOrder;
     private ElectronicInvoice eInvoice;
     private PurchaseOrderDocument poDocument;
     private Map<String,ElectronicInvoiceItemMapping> itemTypeMappings;
     private Map<String,ItemType> kualiItemTypes;
-    
-    private Map<String, FieldErrorHelper> errorFieldDetails = new HashMap<String, FieldErrorHelper>(); 
-    
+
+    private Map<String, FieldErrorHelper> errorFieldDetails = new HashMap<String, FieldErrorHelper>();
+
     private List<ElectronicInvoiceItemHolder> items = new ArrayList<ElectronicInvoiceItemHolder>();
-    
+
     private boolean isRejected = false;
     private boolean isRejectDocumentHolder;
     private boolean validateHeader;
-    
+
     private String[] summaryRejectCodes = new String[]{PurapConstants.ElectronicInvoice.TAX_SUMMARY_AMT_MISMATCH,
                                                        PurapConstants.ElectronicInvoice.SHIPPING_SUMMARY_AMT_MISMATCH,
                                                        PurapConstants.ElectronicInvoice.SPL_HANDLING_SUMMARY_AMT_MISMATCH,
                                                        PurapConstants.ElectronicInvoice.DISCOUNT_SUMMARY_AMT_MISMATCH};
-    
+
     public ElectronicInvoiceOrderHolder(ElectronicInvoiceRejectDocument rejectDocument,
                                         Map itemTypeMappings,
                                         Map itemTypes){
-        
+
         /**
          * This class has been designed based on good citizen pattern.
          */
         if (rejectDocument == null){
             throw new NullPointerException("ElectronicInvoiceRejectDocument should not be null");
         }
-        
+
         this.rejectDocument = rejectDocument;
         this.itemTypeMappings = itemTypeMappings;
         this.poDocument = rejectDocument.getCurrentPurchaseOrderDocument();
         this.kualiItemTypes = itemTypes;
-        
+
         isRejectDocumentHolder = true;
         validateHeader = true;
-        
+
         for (int i = 0; i < rejectDocument.getInvoiceRejectItems().size(); i++) {
-            
+
             ElectronicInvoiceRejectItem invoiceRejectItem = rejectDocument.getInvoiceRejectItems().get(i);
-            
+
             PurApItem poItem = null;
             if (poDocument != null){
                 try{
                     poItem = poDocument.getItemByLineNumber(invoiceRejectItem.getInvoiceReferenceItemLineNumber());
                 }catch(NullPointerException e){
                     /**
-                     * Not needed to handle this invalid item here, this will be handled in the matching process 
+                     * Not needed to handle this invalid item here, this will be handled in the matching process
                      */
                 }
             }
-            
+
             items.add(new ElectronicInvoiceItemHolder(invoiceRejectItem,itemTypeMappings,poItem == null ? null : (PurchaseOrderItem)poItem,this));
         }
-        
+
         /**
          * It's needed to retain any reject reasons which are related to summary amount matching
-         * which should not escape from the matching process 
+         * which should not escape from the matching process
          */
         retainSummaryRejects(rejectDocument);
-        
+
     }
-    
+
     protected void retainSummaryRejects(ElectronicInvoiceRejectDocument rejectDocument){
-        
+
         if (LOG.isInfoEnabled()){
             LOG.info("Searching for summary rejects");
         }
-        
+
         List<ElectronicInvoiceRejectReason> retainList = new ArrayList<ElectronicInvoiceRejectReason>();
         List<ElectronicInvoiceRejectReason> rejectReasons = rejectDocument.getInvoiceRejectReasons();
-        
+
         for (int i = 0; i < rejectReasons.size(); i++) {
             if (ArrayUtils.contains(summaryRejectCodes,rejectReasons.get(i).getInvoiceRejectReasonTypeCode())){
                 retainList.add(rejectReasons.get(i));
@@ -140,69 +140,69 @@ public class ElectronicInvoiceOrderHolder {
                 }
             }
         }
-        
+
         if (LOG.isInfoEnabled()){
             if (retainList.size() == 0){
                 LOG.info("No summary rejects found");
             }
         }
-        
+
         /**
          * FIXME: Use rejectDocument.getInvoiceRejectReasons().remove(index) instead of creating a new list
          */
         rejectDocument.getInvoiceRejectReasons().clear();
-        
+
         for (int i = 0; i < retainList.size(); i++) {
             rejectDocument.addRejectReason(retainList.get(i));
         }
     }
-    
-    
+
+
     public ElectronicInvoiceOrderHolder(ElectronicInvoice eInvoice,
                                         ElectronicInvoiceOrder invoiceOrder,
                                         PurchaseOrderDocument poDocument,
                                         Map itemTypeMappings,
                                         Map itemTypes,
                                         boolean validateHeader){
-        
+
         if (eInvoice == null){
             throw new NullPointerException("ElectronicInvoice should not be null");
         }
-        
+
         if (invoiceOrder == null){
             throw new NullPointerException("ElectronicInvoiceOrder should not be null");
         }
-        
+
         this.eInvoice = eInvoice;
         this.invoiceOrder = invoiceOrder;
         this.itemTypeMappings = itemTypeMappings;
         this.validateHeader = validateHeader;
         this.kualiItemTypes = itemTypes;
-        
+
         this.poDocument = poDocument;
-        
+
         isRejectDocumentHolder = false;
-        
+
         for (int i = 0; i < invoiceOrder.getInvoiceItems().size(); i++) {
 
             ElectronicInvoiceItem orderItem = invoiceOrder.getInvoiceItems().get(i);
-            
+
             PurApItem poItem = null;
             if (poDocument != null){
                 try{
                     poItem = poDocument.getItemByLineNumber(orderItem.getReferenceLineNumberInteger());
                 }catch(NullPointerException e){
                     /**
-                     * Not needed to handle this invalid item here, this will be handled in the matching process 
+                     * Not needed to handle this invalid item here, this will be handled in the matching process
                      */
                 }
             }
-            
+
             items.add(new ElectronicInvoiceItemHolder(orderItem,itemTypeMappings,poItem == null ? null : (PurchaseOrderItem)poItem,this));
         }
-        
+
     }
-    
+
     public String getFileName() {
         if (isRejectDocumentHolder()){
             return rejectDocument.getInvoiceFileName();
@@ -210,7 +210,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getFileName();
         }
     }
-    
+
     public String getDunsNumber() {
         if (isRejectDocumentHolder()){
             return rejectDocument.getVendorDunsNumber();
@@ -218,7 +218,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getDunsNumber();
         }
     }
-    
+
     public String getCustomerNumber() {
         if (isRejectDocumentHolder()){
             return rejectDocument.getInvoiceCustomerNumber();
@@ -226,7 +226,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getCustomerNumber();
         }
     }
-    
+
     public Integer getVendorHeaderId(){
         if (isRejectDocumentHolder()){
             return rejectDocument.getVendorHeaderGeneratedIdentifier();
@@ -234,7 +234,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getVendorHeaderID();
         }
     }
-    
+
     public Integer getVendorDetailId(){
         if (isRejectDocumentHolder()){
             return rejectDocument.getVendorDetailAssignedIdentifier();
@@ -242,19 +242,19 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getVendorDetailID();
         }
     }
-    
+
     public String getVendorName(){
         if (isRejectDocumentHolder()){
             if (rejectDocument.getVendorDetail() != null){
                 return rejectDocument.getVendorDetail().getVendorName();
             }else{
-               return StringUtils.EMPTY; 
+               return StringUtils.EMPTY;
             }
         }else{
             return eInvoice.getVendorName();
         }
     }
-    
+
     public String getInvoiceNumber(){
         if (isRejectDocumentHolder()){
             return rejectDocument.getInvoiceFileNumber();
@@ -262,7 +262,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getInvoiceDetailRequestHeader().getInvoiceId();
         }
     }
-    
+
     public Date getInvoiceDate(){
         if (isRejectDocumentHolder()){
             return ElectronicInvoiceUtils.getDate(rejectDocument.getInvoiceFileDate());
@@ -270,7 +270,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getInvoiceDetailRequestHeader().getInvoiceDate();
         }
     }
-    
+
     public String getInvoiceDateString(){
         if (isRejectDocumentHolder()){
             return rejectDocument.getInvoiceFileDate();
@@ -278,8 +278,8 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getInvoiceDetailRequestHeader().getInvoiceDateString();
         }
     }
-    
-    
+
+
     public boolean isInformationOnly(){
         if (isRejectDocumentHolder()){
             return rejectDocument.isInvoiceFileInformationOnlyIndicator();
@@ -287,7 +287,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getInvoiceDetailRequestHeader().isInformationOnly();
         }
     }
-    
+
     public String getInvoicePurchaseOrderID(){
         if (isRejectDocumentHolder()){
             return rejectDocument.getInvoicePurchaseOrderNumber();
@@ -295,7 +295,7 @@ public class ElectronicInvoiceOrderHolder {
             return invoiceOrder.getOrderReferenceOrderID();
         }
     }
-    
+
     public boolean isTaxInLine(){
         if (isRejectDocumentHolder()){
             return rejectDocument.isInvoiceFileTaxInLineIndicator();
@@ -303,7 +303,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getInvoiceDetailRequestHeader().isTaxInLine();
         }
     }
-    
+
     public BigDecimal getTaxAmount(){
         if (isRejectDocumentHolder()){
             return rejectDocument.getInvoiceItemTaxAmount();
@@ -311,7 +311,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getInvoiceTaxAmount(invoiceOrder);
         }
     }
-    
+
     public String getTaxDescription(){
         if (isRejectDocumentHolder()){
             return rejectDocument.getInvoiceItemTaxDescription();
@@ -326,7 +326,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getInvoiceDetailRequestHeader().isSpecialHandlingInLine();
         }
     }
-    
+
     public BigDecimal getInvoiceSpecialHandlingAmount(){
         if (isRejectDocumentHolder()){
             return rejectDocument.getInvoiceItemSpecialHandlingAmount();
@@ -334,7 +334,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getInvoiceSpecialHandlingAmount(invoiceOrder);
         }
     }
-    
+
     public String getInvoiceSpecialHandlingDescription(){
         if (isRejectDocumentHolder()){
             return rejectDocument.getInvoiceItemSpecialHandlingDescription();
@@ -342,7 +342,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getInvoiceSpecialHandlingDescription(invoiceOrder);
         }
     }
-    
+
     public boolean isShippingInLine(){
         if (isRejectDocumentHolder()){
             return rejectDocument.isInvoiceFileShippingInLineIndicator();
@@ -350,7 +350,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getInvoiceDetailRequestHeader().isShippingInLine();
         }
     }
-    
+
     public BigDecimal getInvoiceShippingAmount(){
         if (isRejectDocumentHolder()){
             return rejectDocument.getInvoiceItemShippingAmount();
@@ -358,7 +358,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getInvoiceShippingAmount(invoiceOrder);
         }
     }
-    
+
     public String getInvoiceShippingDescription(){
         if (isRejectDocumentHolder()){
             return rejectDocument.getInvoiceItemShippingDescription();
@@ -366,7 +366,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getInvoiceShippingDescription(invoiceOrder);
         }
     }
-    
+
     public boolean isDiscountInLine(){
         if (isRejectDocumentHolder()){
             return rejectDocument.isInvoiceFileDiscountInLineIndicator();
@@ -374,7 +374,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getInvoiceDetailRequestHeader().isDiscountInLine();
         }
     }
-    
+
     public BigDecimal getInvoiceDiscountAmount(){
         if (isRejectDocumentHolder()){
             return rejectDocument.getInvoiceItemDiscountAmount();
@@ -382,12 +382,12 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getInvoiceDiscountAmount(invoiceOrder);
         }
     }
-    
+
     public BigDecimal getInvoiceDepositAmount() {
         if (isRejectDocumentHolder()){
             throw new UnsupportedOperationException("Deposit amount not available for the reject document");
         }else{
-            return eInvoice.getInvoiceDepositAmount();    
+            return eInvoice.getInvoiceDepositAmount();
         }
     }
 
@@ -398,11 +398,11 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getInvoiceDueAmount();
         }
     }
-      
+
     public PurchaseOrderDocument getPurchaseOrderDocument(){
         return poDocument;
     }
-    
+
     public ElectronicInvoiceItemHolder[] getItems() {
         if (items != null){
             ElectronicInvoiceItemHolder[] returnItems = new ElectronicInvoiceItemHolder[items.size()];
@@ -411,9 +411,9 @@ public class ElectronicInvoiceOrderHolder {
         }
         return null;
     }
-    
+
     public ElectronicInvoiceItemHolder getItemByLineNumber(int lineNumber){
-        
+
         if (items != null){
             for (int i = 0; i < items.size(); i++) {
                 ElectronicInvoiceItemHolder itemHolder = items.get(i);
@@ -424,38 +424,38 @@ public class ElectronicInvoiceOrderHolder {
         }
         return null;
     }
-    
+
     public void addInvoiceHeaderRejectReason(ElectronicInvoiceRejectReason rejectReason){
         addInvoiceHeaderRejectReason(rejectReason,null,null);
     }
-    
+
     public void addInvoiceHeaderRejectReason(ElectronicInvoiceRejectReason rejectReason,
                                              String fieldName,
                                              String applnResourceKey){
-        
+
         if (LOG.isInfoEnabled()){
             LOG.info("Adding reject reason - " + rejectReason.getInvoiceRejectReasonDescription());
         }
-        
+
         if (isRejectDocumentHolder()){
             rejectDocument.addRejectReason(rejectReason);
             if (fieldName != null && applnResourceKey != null){
                 /**
                  * FIXME : Create a helper method to get the fieldname and key name in the resource bundle
-                 * for a specific reject reason type code instead of getting it from the 
-                 * calling method. Matching service should not do these things. It should 
+                 * for a specific reject reason type code instead of getting it from the
+                 * calling method. Matching service should not do these things. It should
                  * not know whether it's doing the matching process for a reject doc or for einvoice. It should
                  * be independent of the incoming data
-                 * 
+                 *
                  */
-                GlobalVariables.getMessageMap().putError(fieldName, applnResourceKey);    
+                GlobalVariables.getMessageMap().putError(fieldName, applnResourceKey);
             }
         }else{
             eInvoice.addFileRejectReasonToList(rejectReason);
             eInvoice.setFileRejected(true);
         }
     }
-    
+
     public void addInvoiceOrderRejectReason(ElectronicInvoiceRejectReason rejectReason,
                                             String fieldName){
         addInvoiceOrderRejectReason(rejectReason,fieldName,null);
@@ -464,21 +464,21 @@ public class ElectronicInvoiceOrderHolder {
     public void addInvoiceOrderRejectReason(ElectronicInvoiceRejectReason rejectReason,
                                             String fieldName,
                                             String applnResourceKey){
-        
+
         if (LOG.isInfoEnabled()){
             LOG.info("Adding reject reason - " + rejectReason.getInvoiceRejectReasonDescription());
         }
-        
+
         if (isRejectDocumentHolder()){
             rejectDocument.addRejectReason(rejectReason);
             if (fieldName != null && applnResourceKey != null){
                 /**
                  * FIXME : Create a helper method to get the fieldname and key name in the resource bundle
-                 * for a specific reject reason type code instead of getting it from the 
-                 * calling method. Matching service should not do these things. It should 
+                 * for a specific reject reason type code instead of getting it from the
+                 * calling method. Matching service should not do these things. It should
                  * not know whether it's doing the matching process for a reject doc or for einvoice. It should
                  * be independent of the incoming data
-                 * 
+                 *
                  * Also, needs to analyze the way of handling errors in specific line item
                  */
                 GlobalVariables.getMessageMap().putError(fieldName, applnResourceKey);
@@ -488,15 +488,15 @@ public class ElectronicInvoiceOrderHolder {
             eInvoice.setFileRejected(true);
         }
     }
-    
+
     public void addInvoiceOrderRejectReason(ElectronicInvoiceRejectReason rejectReason) {
         addInvoiceOrderRejectReason(rejectReason,null,null);
     }
-    
+
     public boolean isValidateHeaderInformation(){
         return validateHeader;
     }
-    
+
     public boolean isRejectDocumentHolder(){
         return isRejectDocumentHolder;
     }
@@ -508,7 +508,7 @@ public class ElectronicInvoiceOrderHolder {
             return itemTypeMappings.get(invoiceItemTypeCode);
         }
     }
-    
+
     /*public boolean isItemTypeAvailableInKuali(String invoiceItemTypeCode) {
         if (itemTypeMappings == null) {
             return false;
@@ -517,7 +517,7 @@ public class ElectronicInvoiceOrderHolder {
             return itemTypeMappings.containsKey(invoiceItemTypeCode);
         }
     }*/
-    
+
     public boolean isItemTypeAvailableInItemMapping(String invoiceItemTypeCode) {
         if (itemTypeMappings == null) {
             return false;
@@ -527,7 +527,7 @@ public class ElectronicInvoiceOrderHolder {
         }
     }
 
-    
+
     public boolean isInvoiceRejected() {
         if (isRejectDocumentHolder()) {
             return rejectDocument.getInvoiceRejectReasons() != null && rejectDocument.getInvoiceRejectReasons().size() > 0;
@@ -537,22 +537,22 @@ public class ElectronicInvoiceOrderHolder {
         }
     }
 
-    
+
     public String getKualiItemTypeCodeFromMappings(String invoiceItemTypeCode) {
-        
+
         ElectronicInvoiceItemMapping itemMapping = getInvoiceItemMapping(invoiceItemTypeCode);
-        
+
         if (itemMapping != null) {
             return itemMapping.getItemTypeCode();
         } else {
             return null;
         }
     }
-    
+
    /* public String getKualiItemTypeCode(String invoiceItemTypeCode) {
-        
+
         ItemType itemType = kualiItemTypes.get(invoiceItemTypeCode);
-        
+
         if (itemType != null) {
             return itemType.getItemTypeCode();
         }
@@ -560,7 +560,7 @@ public class ElectronicInvoiceOrderHolder {
             return null;
         }
     }*/
-    
+
    /* public boolean isKualiItemTypeExistsInVendorItemTypeMappings(String kualiItemType){
         ElectronicInvoiceItemMapping[] mappings = getInvoiceItemTypeMappings();
         if (mappings != null){
@@ -570,10 +570,10 @@ public class ElectronicInvoiceOrderHolder {
                 }
             }
         }
-        
+
         return false;
     }*/
-    
+
     public ElectronicInvoiceItemMapping[] getInvoiceItemTypeMappings(){
         if (itemTypeMappings != null){
             ElectronicInvoiceItemMapping[] itemMappings = new ElectronicInvoiceItemMapping[itemTypeMappings.size()];
@@ -583,7 +583,7 @@ public class ElectronicInvoiceOrderHolder {
             return null;
         }
     }
-    
+
     public boolean isInvoiceNumberAcceptIndicatorEnabled(){
         if (isRejectDocumentHolder()) {
             return rejectDocument.isInvoiceNumberAcceptIndicator();
@@ -591,7 +591,7 @@ public class ElectronicInvoiceOrderHolder {
             return false;
         }
     }
-    
+
     public ElectronicInvoice getElectronicInvoice(){
         if (isRejectDocumentHolder()){
             throw new UnsupportedOperationException("ElectronicInvoice object not available for ElectronicInvoiceRejectDocument");
@@ -599,7 +599,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice;
         }
     }
-    
+
     public BigDecimal getInvoiceNetAmount(){
         if (isRejectDocumentHolder()){
             return rejectDocument.getInvoiceItemNetAmount();
@@ -607,7 +607,7 @@ public class ElectronicInvoiceOrderHolder {
             return eInvoice.getInvoiceNetAmount(invoiceOrder);
         }
     }
-    
+
     public Date getInvoiceProcessedDate(){
         DateTimeService dateTimeService = SpringContext.getBean(DateTimeService.class);
         if (isRejectDocumentHolder()){
@@ -621,7 +621,7 @@ public class ElectronicInvoiceOrderHolder {
             return dateTimeService.getCurrentSqlDate();
         }
     }
-    
+
     public String getInvoiceShipToAddressAsString() {
 
         StringBuffer noteBuffer = new StringBuffer();
@@ -672,18 +672,18 @@ public class ElectronicInvoiceOrderHolder {
         }
         return noteBuffer.toString();
     }
-    
+
     public String getInvoiceBillToAddressAsString(){
-        
+
         StringBuffer noteBuffer = new StringBuffer();
         noteBuffer.append("Billing Address from Electronic Invoice:\n\n");
-        
+
         if (!isRejectDocumentHolder()){
-            
+
             ElectronicInvoicePostalAddress billToAddress = eInvoice.getCxmlPostalAddress(invoiceOrder,
                                                                                          PurapConstants.ElectronicInvoice.CXML_ADDRESS_BILL_TO_ROLE_ID,
                                                                                          PurapConstants.ElectronicInvoice.CXML_ADDRESS_BILL_TO_NAME);
-            
+
             if (billToAddress != null) {
 
                 if (StringUtils.isNotEmpty(billToAddress.getName())) {
@@ -702,30 +702,30 @@ public class ElectronicInvoiceOrderHolder {
 
                 noteBuffer.append(billToAddress.getCityName() + ", " + billToAddress.getStateCode() + " " + billToAddress.getPostalCode() + "\n");
                 noteBuffer.append(billToAddress.getCountryName());
-            }   
+            }
         }else{
-            
+
             if (StringUtils.isNotEmpty(rejectDocument.getInvoiceBillToAddressName())) {
                 noteBuffer.append(rejectDocument.getInvoiceBillToAddressName() + "\n");
               }
-              
+
               noteBuffer.append(rejectDocument.getInvoiceBillToAddressLine1() + "\n");
-              
+
               if (StringUtils.isNotEmpty(rejectDocument.getInvoiceBillToAddressLine2())){
                 noteBuffer.append(rejectDocument.getInvoiceBillToAddressLine2() + "\n");
               }
-            
+
               if (StringUtils.isNotEmpty(rejectDocument.getInvoiceBillToAddressLine3())){
                   noteBuffer.append(rejectDocument.getInvoiceBillToAddressLine3() + "\n");
               }
-        
+
               noteBuffer.append(rejectDocument.getInvoiceBillToAddressCityName() + ", " + rejectDocument.getInvoiceBillToAddressStateCode() + " " + rejectDocument.getInvoiceBillToAddressPostalCode() + "\n");
               noteBuffer.append(rejectDocument.getInvoiceBillToAddressCountryName());
         }
-        
+
         return noteBuffer.toString();
     }
-    
+
     public Integer getAccountsPayablePurchasingDocumentLinkIdentifier(){
         if (isRejectDocumentHolder()){
             return rejectDocument.getAccountsPayablePurchasingDocumentLinkIdentifier();
@@ -737,28 +737,28 @@ public class ElectronicInvoiceOrderHolder {
             }
         }
     }
-    
+
     protected class FieldErrorHelper {
-        
+
         private String fieldName;
         private String applicationResourceKeyName;
         private String rejectReasonTypeCode;
-        
+
         FieldErrorHelper(String fieldName,
                          String applicationResourceKeyName,
                          String rejectReasonTypeCode){
-            
+
             if (StringUtils.isEmpty(fieldName) ||
                 StringUtils.isEmpty(applicationResourceKeyName) ||
                 StringUtils.isEmpty(rejectReasonTypeCode)){
                 throw new NullPointerException("Invalid field Values [fieldName=" + fieldName + ",applicationResourceKeyName=" + applicationResourceKeyName + ",rejectReasonTypeCode=" + rejectReasonTypeCode + "]");
             }
-            
+
             this.fieldName = fieldName;
             this.applicationResourceKeyName = applicationResourceKeyName;
             this.rejectReasonTypeCode = rejectReasonTypeCode;
         }
-        
+
         public String getApplicationResourceKeyName() {
             return applicationResourceKeyName;
         }
@@ -777,7 +777,7 @@ public class ElectronicInvoiceOrderHolder {
         public void setRejectReasonTypeCode(String rejectReasonTypeCode) {
             this.rejectReasonTypeCode = rejectReasonTypeCode;
         }
-        
+
         public String toString(){
             ToStringBuilder toString = new ToStringBuilder(this);
             toString.append("fieldName",fieldName);
@@ -785,8 +785,8 @@ public class ElectronicInvoiceOrderHolder {
             toString.append("rejectReasonTypeCode",rejectReasonTypeCode);
             return toString.toString();
         }
-        
+
     }
-    
-    
+
+
 }

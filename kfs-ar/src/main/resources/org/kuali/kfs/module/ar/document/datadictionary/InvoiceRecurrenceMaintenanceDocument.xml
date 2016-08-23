@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -33,8 +33,8 @@
         <value>invoiceNumber</value>
       </list>
     </property>
-    
-    
+
+
     <property name="documentTypeName" value="INVR"/>
     <property name="promptBeforeValidationClass" value="org.kuali.kfs.module.ar.document.validation.impl.InvoiceRecurrencePreRules"/>
     <property name="businessRulesClass" value="org.kuali.kfs.module.ar.document.validation.impl.InvoiceRecurrenceRule"/>
@@ -71,11 +71,11 @@
       </list>
     </property>
   </bean>
-<!-- Start - Workflow Attribute Beans -->  
+<!-- Start - Workflow Attribute Beans -->
     <bean id="InvoiceRecurrenceMaintenanceDocument-workflowAttributes" parent="InvoiceRecurrenceMaintenanceDocument-workflowAttributes-parentBean"/>
-	
+
 	<bean id="InvoiceRecurrenceMaintenanceDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
-		<!-- 
+		<!--
     	<property name="searchingTypeDefinitions">
     		<list>
     			<ref bean="SearchingType-InvoiceRecurrenceMaintenanceDocument-chartOfAccountsCode"/>
@@ -89,8 +89,8 @@
     			<entry key="Recurrence" value-ref="InvoiceRecurrenceMaintenanceDocument-RoutingType-BillingChartOrg"/>
     		</map>
     	</property>
-	</bean>  
-	
+	</bean>
+
 	 <bean id="RoutingType-InvoiceRecurrenceMaintenanceDocument-Account" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
@@ -104,7 +104,7 @@
     		</list>
     	</property>
     </bean>
-    
+
 	<bean id="DocumentValuePathGroup-InvoiceRecurrenceMaintenanceDocument-Account-sourceAccountingLines" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
 		<property name="documentCollectionPath">
 			<bean parent="DocumentCollectionPath-AccountingLine-chartAndAccountNumber">
@@ -112,7 +112,7 @@
 			</bean>
 		</property>
 	</bean>
-	<!-- 
+	<!--
 	<bean id="SearchingType-InvoiceRecurrenceMaintenanceDocument-chartOfAccountsCode" class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
         <property name="searchingAttribute" ref="SearchingAttribute-chartOfAccountsCode"/>
         <property name="documentValues">
@@ -128,14 +128,14 @@
         		<value>newMaintainableObject.businessObject.customerInvoiceDocument.sourceAccountingLines.accountNumber</value>
         	</list>
         </property>
-    </bean>     
+    </bean>
  -->
   <bean id="InvoiceRecurrenceMaintenanceDocument-DocumentValuePathGroup-billingChartOrg" parent="InvoiceRecurrenceMaintenanceDocument-DocumentValuePathGroup-billingChartOrg-parentBean"/>
   <bean id="InvoiceRecurrenceMaintenanceDocument-DocumentValuePathGroup-billingChartOrg-parentBean" abstract="true" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
 		<property name="documentValues">
 			<list>
 				<value>newMaintainableObject.businessObject.customerInvoiceDocument.billByChartOfAccountCode</value>
-				<value>newMaintainableObject.businessObject.customerInvoiceDocument.billedByOrganizationCode</value>	    					
+				<value>newMaintainableObject.businessObject.customerInvoiceDocument.billedByOrganizationCode</value>
 			</list>
 		</property>
   </bean>

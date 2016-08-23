@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,18 +29,18 @@ import java.util.Map;
 /**
  * Provides methods for working with <code>MaintenanceDocument</code>(s)
  *
- * 
+ *
  */
 public interface MaintenanceDocumentService {
 
 	/**
 	 * Prepares the <code>MaintenanceDocument</code> on initial request
-	 * 
+	 *
 	 * <p>
 	 * This includes retrieving the data object for edit or copy, clearing
 	 * fields
 	 * </p>
-	 * 
+	 *
 	 * @param objectClassName
 	 *            - class name for the object being maintained
 	 * @param docTypeName
@@ -74,29 +74,29 @@ public interface MaintenanceDocumentService {
     /**
 	 * Attempts to find any other active documents that are pending on the same
 	 * maintenance record.
-	 * 
+	 *
 	 * If any are pending and locked, thereby blocking this document, then the
 	 * docHeaderId/documentNumber of the blocking locked document is returned.
-	 * 
+	 *
 	 * Otherwise, if nothing is blocking, then null is returned.
-	 * 
+	 *
 	 * @param document
 	 *            - document to test
 	 * @return A String representing the docHeaderId of any blocking document,
 	 *         or null if none are blocking
-	 * 
+	 *
 	 */
 	public String getLockingDocumentId(MaintenanceDocument document);
 
 	/**
 	 * Attempts to find any other active documents that are pending on the same
 	 * maintenance record.
-	 * 
+	 *
 	 * If any are pending and locked, thereby blocking this document, then the
 	 * docHeaderId/documentNumber of the blocking locked document is returned.
-	 * 
+	 *
 	 * Otherwise, if nothing is blocking, then null is returned.
-	 * 
+	 *
 	 * @param maintainable
 	 *            - maintainable representing the document to test
 	 * @param documentNumber
@@ -110,11 +110,11 @@ public interface MaintenanceDocumentService {
 	/**
 	 * Call the same-named method in the Dao, since the service has access to
 	 * the Dao, but the caller doesn't.
-	 * 
+	 *
 	 * This method deletes the locks for the given document number. It is called
 	 * when the document is final, thus it can be unlocked, or when the locks
 	 * need to be regenerated (thus they get cleared first).
-	 * 
+	 *
 	 * @param documentNumber
 	 *            - document number whose locks should be deleted
 	 */
@@ -123,10 +123,10 @@ public interface MaintenanceDocumentService {
 	/**
 	 * Call the same-named method in the Dao, since the service has access to
 	 * the Dao, but the caller doesn't.
-	 * 
+	 *
 	 * This method stores the given list of maintenance locks. Typically these
 	 * will all be for the same document.
-	 * 
+	 *
 	 * @param maintenanceLocks
 	 *            - the list of maintenance locks to be stored
 	 */

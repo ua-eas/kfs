@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -310,7 +310,7 @@
 				p:includeKeyInLabel="false" />
 		</property>
 	</bean>
-	
+
 	<bean id="Agency-dunningCampaign" parent="Agency-dunningCampaign-parentBean" />
 
 	<bean id="Agency-dunningCampaign-parentBean" abstract="true"
@@ -439,7 +439,7 @@
 		<property name="label" value="State Agency" />
 		<property name="shortLabel" value="State Agency" />
 	</bean>
- 
+
 	<!-- Business Object Inquiry Definition -->
 
 	<bean id="Agency-inquiryDefinition" parent="Agency-inquiryDefinition-parentBean" />
@@ -560,7 +560,7 @@
 				<bean parent="FieldDefinition" p:attributeName="dunningCampaign" />
 			</list>
 		</property>
-	</bean>	
+	</bean>
 
 	<bean id="Agency-inquirySectionDefinition-notes" parent="Agency-inquirySectionDefinition-notes-parentBean" />
 	<bean id="Agency-inquirySectionDefinition-notes-parentBean" parent="InquirySectionDefinition" abstract="true">
@@ -584,7 +584,7 @@
 				</bean>
 			</list>
 		</property>
-	</bean>			
+	</bean>
 
 	<!-- Business Object Lookup Definition -->
 
@@ -610,7 +610,7 @@
 				<bean parent="FieldDefinition" p:attributeName="fullName" />
 				<bean parent="FieldDefinition" p:attributeName="agencyTypeCode" />
 				<bean parent="FieldDefinition" p:attributeName="customerNumber" />
-				<bean parent="FieldDefinition" p:defaultValue="Y" p:attributeName="active" />				
+				<bean parent="FieldDefinition" p:defaultValue="Y" p:attributeName="active" />
 				<bean parent="FieldDefinition" p:attributeName="agencyAddresses.agencyContactName" />
 				<bean parent="FieldDefinition" p:attributeName="agencyAddresses.agencyContactEmailAddress" />
 			</list>

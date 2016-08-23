@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 
 /**
  * Abstraction of the regular expressions used to validate attribute values.
- * 
+ *
                     The validationPattern element defines the allowable character-level
                     or field-level values for an attribute.
 
@@ -121,25 +121,25 @@ abstract public class ValidationPattern implements Serializable {
      * @return ExportMap describing the subclass instance
      */
     abstract public ExportMap buildExportMap(String exportKey);
-    
+
     abstract public String getValidationErrorMessageKey();
-    
+
     public String[] getValidationErrorMessageParameters(String attributeLabel) {
         return new String[] {attributeLabel};
     }
-    
+
     /**
      * This method throws an exception if it is not configured properly
-     * 
+     *
      */
     public void completeValidation() throws ValidationPatternException {
     }
-    
+
     /** exception thrown when a ValidationPattern is in an incorrect state. */
     public static class ValidationPatternException extends RiceRuntimeException {
 
     	private static final long serialVersionUID = 2012770642382150523L;
-        
+
         public ValidationPatternException(String message) {
             super(message);
         }

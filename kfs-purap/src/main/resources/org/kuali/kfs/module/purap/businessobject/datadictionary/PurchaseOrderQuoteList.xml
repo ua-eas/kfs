@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -82,20 +82,20 @@
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.vnd.businessobject.options.ContractManagerValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
-  
+
   <bean id="PurchaseOrderQuoteList-contractManagerName" parent="PurchaseOrderQuoteList-contractManagerName-parentBean"/>
 
   <bean id="PurchaseOrderQuoteList-contractManagerName-parentBean" abstract="true" parent="ContractManager-contractManagerName">
   </bean>
-  
+
   <bean id="PurchaseOrderQuoteList-active" parent="PurchaseOrderQuoteList-active-parentBean"/>
-  
+
   <bean id="PurchaseOrderQuoteList-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
       <property name="name" value="active"/>
   </bean>
 
 
-  
+
 
 <!-- Business Object Inquiry Definition -->
 
@@ -124,7 +124,7 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="PurchaseOrderQuoteList-inquirySectionDefinition-vendors" parent="PurchaseOrderQuoteList-inquirySectionDefinition-vendors-parentBean"/>
   <bean id="PurchaseOrderQuoteList-inquirySectionDefinition-vendors-parentBean" parent="InquirySectionDefinition" abstract="true">
 	  <property name="title" value="Vendors"/>
@@ -144,8 +144,8 @@
 	  <property name="summaryTitle" value="Vendor"/>
 	  <property name="inquiryFields">
 	    <list>
-	      <bean parent="FieldDefinition" p:attributeName="vendorDetail.vendorName"/>   
-	      <bean parent="FieldDefinition" p:attributeName="vendorDetail.vendorNumber"/>                                                                                     
+	      <bean parent="FieldDefinition" p:attributeName="vendorDetail.vendorName"/>
+	      <bean parent="FieldDefinition" p:attributeName="vendorDetail.vendorNumber"/>
 	      <bean parent="FieldDefinition" p:attributeName="active"/>
 	    </list>
 	  </property>
@@ -155,7 +155,7 @@
 	    </list>
 	  </property>
 	</bean>
-      
+
 <!-- Business Object Lookup Definition -->
 
 
@@ -163,7 +163,7 @@
 
   <bean id="PurchaseOrderQuoteList-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Purchase Order Quote List Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
       </bean>

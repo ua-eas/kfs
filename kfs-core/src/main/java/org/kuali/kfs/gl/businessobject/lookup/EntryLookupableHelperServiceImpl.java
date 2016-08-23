@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -59,7 +59,7 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
 
     /**
      * Validate the university fiscal year that has been queried on
-     * 
+     *
      * @param fieldValues the queried fields
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#validateSearchParameters(java.util.Map)
      */
@@ -77,7 +77,7 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
                 throw new ValidationException("errors in search criteria");
             }
         }
-        
+
         if (!allRequiredsForAccountSearch(fieldValues) && !allRequiredsForDocumentSearch(fieldValues)) {
             GlobalVariables.getMessageMap().putError("universityFiscalYear", KFSKeyConstants.ERROR_GL_LOOKUP_ENTRY_NON_MATCHING_REQUIRED_FIELDS, new String[] {});
             throw new ValidationException("errors in search criteria");
@@ -96,7 +96,7 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
         final String fiscalPeriodCode = (String)fieldValues.get("universityFiscalPeriodCode");
         return !StringUtils.isBlank(fiscalYearAsString) && !StringUtils.isBlank(chartOfAccountsCode) && !StringUtils.isBlank(accountNumber) && !StringUtils.isBlank(fiscalPeriodCode);
     }
-    
+
     /**
      * Determines if all the required values for an document based search are present - fiscal year and document number
      * @param fieldValues field values to check
@@ -154,7 +154,7 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
 
         // get the actual size of all qualified search results
         Long actualSize = new Long(entryService.getEntryRecordCount(fieldValues));
-        
+
         // calculate how many pending entries were included in the original results
         int numPendingEntriesAdded = searchResultsCollection.size() - searchResultsCollectionSize;
         actualSize += numPendingEntriesAdded;
@@ -164,7 +164,7 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
 
     /**
      * Updates pending entries before their results are included in the lookup results
-     * 
+     *
      * @param entryCollection a collection of balance entries
      * @param fieldValues the map containing the search fields and values
      * @param isApproved flag whether the approved entries or all entries will be processed
@@ -202,20 +202,20 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
             }
 
             scrubberValidator.validateForInquiry(pendingEntry);
-            
+
             Entry entry = new Entry(pendingEntry, postDate);
-            
+
             String approvedCode = pendingEntry.getFinancialDocumentApprovedCode();
             String description = Constant.DocumentApprovedCode.getDescription(approvedCode);
             entry.getDummyBusinessObject().setPendingEntryOption(description);
-            
+
             entryCollection.add(entry);
         }
     }
 
     /**
      * Sets the scrubberValidator attribute value.
-     * 
+     *
      * @param scrubberValidator The scrubberValidator to set.
      */
     public void setScrubberValidator(ScrubberValidator scrubberValidator) {
@@ -224,13 +224,13 @@ public class EntryLookupableHelperServiceImpl extends AbstractGeneralLedgerLooku
 
     /**
      * Sets the entryService attribute value.
-     * 
+     *
      * @param entryService The entryService to set.
      */
     public void setEntryService(EntryService entryService) {
         this.entryService = entryService;
     }
-    
+
     /**
      * @return the system's configured implementation of the LaborModuleService
      */

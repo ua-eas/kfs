@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -29,22 +29,22 @@
 <%@ attribute name="isKeyFieldsLocked" required="false" description="determine whether the key fields can be locked from editing"%>
 <%@ attribute name="accountsCanCrossCharts" required="false"  description="Whether or not accounts can cross charts"%>
 
-<c:if test="${!accountingLineScriptsLoaded}">	
+<c:if test="${!accountingLineScriptsLoaded}">
     <script type='text/javascript' src="dwr/interface/ChartService.js"></script>
     <script type='text/javascript' src="dwr/interface/AccountService.js"></script>
     <script type='text/javascript' src="dwr/interface/SubAccountService.js"></script>
     <script type='text/javascript' src="dwr/interface/ObjectCodeService.js"></script>
     <script type='text/javascript' src="dwr/interface/SubObjectCodeService.js"></script>
-    
+
 	<script type="text/javascript" src="scripts/sys/objectInfo.js"></script>
 	<script type="text/javascript" src="scripts/module/bc/objectInfo.js"></script>
-	
+
 	<c:set var="accountingLineScriptsLoaded" value="true" scope="request" />
 </c:if>
 
-<c:set var="pbcafAttributes" value="${DataDictionary['PendingBudgetConstructionAppointmentFunding'].attributes}" />  
-<c:set var="intcumbentAttributes" value="${DataDictionary['BudgetConstructionIntendedIncumbent'].attributes}" /> 
-<c:set var="adminPostAttributes" value="${DataDictionary['BudgetConstructionAdministrativePost'].attributes}" /> 
+<c:set var="pbcafAttributes" value="${DataDictionary['PendingBudgetConstructionAppointmentFunding'].attributes}" />
+<c:set var="intcumbentAttributes" value="${DataDictionary['BudgetConstructionIntendedIncumbent'].attributes}" />
+<c:set var="adminPostAttributes" value="${DataDictionary['BudgetConstructionAdministrativePost'].attributes}" />
 
 <c:set var="colspan" value="${countOfMajorColumns}" />
 
@@ -68,8 +68,8 @@
 	   	<kul:htmlAttributeHeaderCell attributeEntry="${intcumbentAttributes.iuClassificationLevel}"/>
 	    <kul:htmlAttributeHeaderCell attributeEntry="${adminPostAttributes.administrativePost}"/>
 	</tr>
-	
-	<tr> 
+
+	<tr>
 	  	<bc:pbglLineDataCell dataCellCssClass="datacell center"
 	    	accountingLine="${fundingLineName}"
 	      	cellProperty="${fundingLineName}.appointmentFundingDeleteIndicator"
@@ -79,7 +79,7 @@
 		    readOnly="false"
 		    rowSpan="1" dataFieldCssClass="nobord"
 		    anchor="salaryexistingLineLineAnchor${lineIndex}" disabled="true"/>
-		    
+
 		 <c:if test="${!accountsCanCrossCharts}">
              <html:hidden property="${fundingLineName}.chartOfAccountsCode" />
 			 <bc:pbglLineDataCell dataCellCssClass="datacell"
@@ -114,7 +114,7 @@
 			    displayHidden="false"
 			    lookupOrInquiryKeys="chartOfAccountsCode"
 			    accountingLineValuesMap="${fundingLine.valuesMap}" />
-			      
+
 			 <bc:pbglLineDataCell dataCellCssClass="datacell"
 				accountingLine="${fundingLineName}"
 				field="accountNumber" detailFunction="loadAccountInfo"
@@ -130,12 +130,12 @@
 	  	<c:if test="${fundingLine.subAccountNumber ne KualiForm.dashSubAccountNumber}">
 	      	<c:set var="doAccountLookupOrInquiry" value="true"/>
 	  	</c:if>
-	  	
+
 		<bc:pbglLineDataCell dataCellCssClass="datacell"
 			accountingLine="${fundingLineName}"
 			field="subAccountNumber" detailFunction="loadSubAccountInfo"
 			detailField="subAccount.subAccountName"
-			attributes="${pbcafAttributes}" lookup="true" inquiry="${doAccountLookupOrInquiry}" 
+			attributes="${pbcafAttributes}" lookup="true" inquiry="${doAccountLookupOrInquiry}"
 			boClassSimpleName="SubAccount"
 			readOnly="${hasBeenAdded || isKeyFieldsLocked}"
 			displayHidden="false"
@@ -148,7 +148,7 @@
           for this field. Instead we force the field to be readonly so it will have a hidden tag
           created for it instead of the explicit hidden defined in this tag.
           Changed readOnly="${hasBeenAdded || isKeyFieldsLocked}" to true
-        --%>	
+        --%>
 		<bc:pbglLineDataCell dataCellCssClass="datacell"
 			accountingLine="${fundingLineName}"
 			field="financialObjectCode" detailFunction="loadObjectInfo"
@@ -161,37 +161,37 @@
 			lookupOrInquiryKeys="universityFiscalYear,chartOfAccountsCode"
 			accountingLineValuesMap="${fundingLine.valuesMap}"
 			inquiryExtraKeyValues="universityFiscalYear=${fundingLine.universityFiscalYear}" />
-	
+
 	  	<c:set var="doLookupOrInquiry" value="false"/>
 	  	<c:if test="${fundingLine.financialSubObjectCode ne KualiForm.dashFinancialSubObjectCode}">
 	      	<c:set var="doLookupOrInquiry" value="true"/>
 	  	</c:if>
-	  	
+
 	  	<bc:pbglLineDataCell dataCellCssClass="datacell"
 			accountingLine="${fundingLineName}"
 			field="financialSubObjectCode" detailFunction="loadSubObjectInfo"
 			detailFunctionExtraParam="${fundingLine.universityFiscalYear}, "
 			detailField="financialSubObject.financialSubObjectCdshortNm"
-			attributes="${pbcafAttributes}" lookup="true" inquiry="${doLookupOrInquiry}" 
+			attributes="${pbcafAttributes}" lookup="true" inquiry="${doLookupOrInquiry}"
 			boClassSimpleName="SubObjectCode"
 			readOnly="${hasBeenAdded || isKeyFieldsLocked}"
 			displayHidden="false"
 			lookupOrInquiryKeys="universityFiscalYear,chartOfAccountsCode,financialObjectCode,accountNumber"
 			accountingLineValuesMap="${fundingLine.valuesMap}"
 			inquiryExtraKeyValues="universityFiscalYear=${fundingLine.universityFiscalYear}" />
-	
+
 		<c:set var="doLookupOrInquiry" value="false"/>
 		<c:if test="${fundingLine.emplid ne BCConstants.VACANT_EMPLID}">
 			<c:set var="doLookupOrInquiry" value="true"/>
 		</c:if>
-	
+
 		<bc:pbglLineDataCell dataCellCssClass="datacell"
 			accountingLine="${fundingLineName}"
-			field="emplid" 
+			field="emplid"
 			detailFunction="budgetObjectInfoUpdator.loadIntendedIncumbentInfo"
 			detailField="budgetConstructionIntendedIncumbent.name"
-			detailFunctionExtraParam="'${fundingLineName}.positionNumber', 
-						'${fundingLineName}.budgetConstructionIntendedIncumbent.iuClassificationLevel', 
+			detailFunctionExtraParam="'${fundingLineName}.positionNumber',
+						'${fundingLineName}.budgetConstructionIntendedIncumbent.iuClassificationLevel',
 						'${fundingLineName}.budgetConstructionAdministrativePost.administrativePost',"
 			attributes="${pbcafAttributes}" inquiry="${doLookupOrInquiry}" lookup="true"
 			boClassSimpleName="BudgetConstructionIntendedIncumbent"
@@ -200,19 +200,19 @@
 			displayHidden="false"
 			lookupOrInquiryKeys="emplid"
 			accountingLineValuesMap="${fundingLine.valuesMap}"
-			inquiryExtraKeyValues="universityFiscalYear=${fundingLine.universityFiscalYear}" />	
-	 
-        <td class="datacell" rowSpan="1">        		
-		    <bc:pbglLineDataCellDetail detailField="budgetConstructionIntendedIncumbent.iuClassificationLevel" 
+			inquiryExtraKeyValues="universityFiscalYear=${fundingLine.universityFiscalYear}" />
+
+        <td class="datacell" rowSpan="1">
+		    <bc:pbglLineDataCellDetail detailField="budgetConstructionIntendedIncumbent.iuClassificationLevel"
 		    	accountingLine="${fundingLineName}" dataFieldCssClass="nowrap" />
-		</td> 
-		
-		<td class="datacell" rowSpan="1">        		
-		    <bc:pbglLineDataCellDetail detailField="budgetConstructionAdministrativePost.administrativePost" 
+		</td>
+
+		<td class="datacell" rowSpan="1">
+		    <bc:pbglLineDataCellDetail detailField="budgetConstructionAdministrativePost.administrativePost"
 		    	accountingLine="${fundingLineName}" dataFieldCssClass="nowrap" />
-		</td>  		         
+		</td>
 	</tr>
-	                                
+
 	<tr id="${fundingLineName}">
 		<td colspan="${colspan}" class="infoline" style="border-bottom: none;">
 			<center>
@@ -223,14 +223,14 @@
 					lineIndex="${lineIndex}" hasBeenAdded="${hasBeenAdded}" readOnly="${detailReadOnly}"/>
 				<br/>
 			</center>
-		</td>            
+		</td>
 	</tr>
-	
+
 	<tr>
 		<td colspan="${colspan}" class="datacell">
 			<div class="right">
 				<jsp:doBody/>
 			</div>
-		</td>            
+		</td>
 	</tr>
 </table>

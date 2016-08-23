@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -54,7 +54,7 @@ public class AccessSecurityAccountBalanceByConsolidationLookupableHelperServiceI
     /**
      * Checks security on the detail balance records, if user does not have access to view any of those records they are removed and total lines
      * are updated
-     * 
+     *
      * @see org.kuali.kfs.gl.businessobject.lookup.AccountBalanceByConsolidationLookupableHelperServiceImpl#getSearchResults(java.util.Map)
      */
     @Override
@@ -97,10 +97,10 @@ public class AccessSecurityAccountBalanceByConsolidationLookupableHelperServiceI
 
     /**
      * Rebuilds the account balance total lines, logic mostly duplicated from AccountBalanceServiceImpl:findAccountBalanceByConsolidation
-     * 
+     *
      * @param balanceDetails List of AccountBalance detail lines
      * @param universityFiscalYear Fiscal Year being searched
-     * @param subAccountNumber Sub Account number being searched 
+     * @param subAccountNumber Sub Account number being searched
      * @param dbo TransientBalanceInquiryAttributes object that will be set on total lines
      * @return List of AccountBalance total lines
      */
@@ -192,7 +192,7 @@ public class AccessSecurityAccountBalanceByConsolidationLookupableHelperServiceI
 
     /**
      * Sets the accessSecurityService attribute value.
-     * 
+     *
      * @param accessSecurityService The accessSecurityService to set.
      */
     public void setAccessSecurityService(AccessSecurityService accessSecurityService) {
@@ -201,7 +201,7 @@ public class AccessSecurityAccountBalanceByConsolidationLookupableHelperServiceI
 
     /**
      * Sets the objectTypeService attribute value.
-     * 
+     *
      * @param objectTypeService The objectTypeService to set.
      */
     public void setObjectTypeService(ObjectTypeService objectTypeService) {
@@ -210,7 +210,7 @@ public class AccessSecurityAccountBalanceByConsolidationLookupableHelperServiceI
 
     /**
      * Sets the kualiConfigurationService attribute value.
-     * 
+     *
      * @param kualiConfigurationService The kualiConfigurationService to set.
      */
     public void setConfigurationService(ConfigurationService kualiConfigurationService) {

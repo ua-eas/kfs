@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,15 +40,15 @@ public class AccountingLineViewDebitCreditAmountLayoutElement implements TableJo
     private AccountingLineViewDebitCreditAmountFieldDefinition definition;
     private AccountingLineViewFieldDefinition debitFieldDefinition;
     private AccountingLineViewFieldDefinition creditFieldDefinition;
-    
+
     /**
-     * Returns whether the debit and the credit amount fields are both read only 
+     * Returns whether the debit and the credit amount fields are both read only
      * @see org.kuali.kfs.sys.document.web.ReadOnlyable#isReadOnly()
      */
     public boolean isReadOnly() {
         return (debitAmountField == null || debitAmountField.isReadOnly()) && (creditAmountField == null || creditAmountField.isReadOnly());
     }
-    
+
     /**
      * Read onlyizes both the credit and the debit amount fields
      * @see org.kuali.kfs.sys.document.web.ReadOnlyable#readOnlyize()
@@ -61,7 +61,7 @@ public class AccountingLineViewDebitCreditAmountLayoutElement implements TableJo
             creditAmountField.setReadOnly(true);
         }
     }
-    
+
     /**
      * We don't generate headers
      * @see org.kuali.kfs.sys.document.web.TableJoiningWithHeader#createHeaderLabel()
@@ -69,7 +69,7 @@ public class AccountingLineViewDebitCreditAmountLayoutElement implements TableJo
     public HeaderLabel createHeaderLabel() {
         return null;
     }
-    
+
     /**
      * This isn't hidden
      * @see org.kuali.kfs.sys.document.web.TableJoiningWithHeader#isHidden()
@@ -77,15 +77,15 @@ public class AccountingLineViewDebitCreditAmountLayoutElement implements TableJo
     public boolean isHidden() {
         return false;
     }
-    
+
     /**
-     * This renderable element...it ain't got no single name! 
+     * This renderable element...it ain't got no single name!
      * @see org.kuali.kfs.sys.document.web.TableJoining#getName()
      */
     public String getName() {
         return null;
     }
-    
+
     /**
      * Request two rows - one for the header, one for the field
      * @see org.kuali.kfs.sys.document.web.TableJoining#getRequestedRowCount()
@@ -93,7 +93,7 @@ public class AccountingLineViewDebitCreditAmountLayoutElement implements TableJo
     public int getRequestedRowCount() {
         return 2;
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinRow(org.kuali.kfs.sys.document.web.AccountingLineTableRow, org.kuali.kfs.sys.document.web.AccountingLineTableRow)
      */
@@ -107,34 +107,34 @@ public class AccountingLineViewDebitCreditAmountLayoutElement implements TableJo
             row.addCell(createCellForField(creditAmountField, creditFieldDefinition, false));
         }
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinTable(java.util.List)
      */
     public void joinTable(List<AccountingLineTableRow> rows) {
         final int remainingRowCount = rows.size() - 1;
-        
+
         if (debitAmountField != null) {
             rows.get(0).addCell(createHeaderCellForField(true));
-            
+
             AccountingLineTableCell currentCell = createCellForField(debitAmountField, debitFieldDefinition, true);
             currentCell.setRowSpan(remainingRowCount);
             rows.get(1).addCell(currentCell);
         }
         if (creditAmountField != null) {
             rows.get(0).addCell(createHeaderCellForField(false));
-            
+
             AccountingLineTableCell baseCell = createCellForField(creditAmountField, creditFieldDefinition, false);
             baseCell.setRowSpan(remainingRowCount);
             rows.get(1).addCell(baseCell);
         }
     }
-    
+
     /**
      * Creates a table cell with a renderable field inside
      * @param field the field to create a cell for
-     * @return a cell that wraps the given field 
-     * 
+     * @return a cell that wraps the given field
+     *
      * KRAD Conversion: Customization of the fields - No use of data dictionary
      */
     protected AccountingLineTableCell createCellForField(Field field, AccountingLineViewFieldDefinition definition, boolean isDebit) {
@@ -143,7 +143,7 @@ public class AccountingLineViewDebitCreditAmountLayoutElement implements TableJo
         cell.addRenderableElement(renderableField);
         return cell;
     }
-    
+
     /**
      * Creates a header cell for the given field
      * @param field the field to create a header cell for
@@ -153,25 +153,25 @@ public class AccountingLineViewDebitCreditAmountLayoutElement implements TableJo
         AccountingLineTableCell headerCell = new AccountingLineTableCell();
         headerCell.setRendersAsHeader(true);
         final String propertyName = isDebit ? getDebitPropertyName() : getCreditPropertyName();
-        final String label = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(propertyName); 
+        final String label = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(propertyName);
         headerCell.addRenderableElement(new LiteralHeaderLabel(label));
         return headerCell;
     }
-    
+
     /**
      * @return the property name for debit labels
      */
     protected String getDebitPropertyName() {
         return "label.document.journalVoucher.accountingLine.debit";
     }
-    
+
     /**
      * @return the property name for credit labels
      */
     protected String getCreditPropertyName() {
         return "label.document.journalVoucher.accountingLine.credit";
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.TableJoining#performFieldTransformations(java.util.List, org.kuali.kfs.sys.businessobject.AccountingLine, java.util.Map, java.util.Map)
      */
@@ -181,7 +181,7 @@ public class AccountingLineViewDebitCreditAmountLayoutElement implements TableJo
             fieldTransformation.transformField(accountingLine, getCreditAmountField(), getCreditFieldDefinition(), unconvertedValues);
         }
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.TableJoining#readOnlyizeReadOnlyBlocks(java.util.Set)
      */
@@ -195,13 +195,13 @@ public class AccountingLineViewDebitCreditAmountLayoutElement implements TableJo
             }
         }
     }
-    
+
     /**
      * Does nothing - we don't have action blocks, like, ever
      * @see org.kuali.kfs.sys.document.web.TableJoining#removeAllActionBlocks()
      */
     public void removeAllActionBlocks() {}
-    
+
     /**
      * @see org.kuali.kfs.sys.document.web.TableJoining#removeUnviewableBlocks(java.util.Set)
      */
@@ -215,13 +215,13 @@ public class AccountingLineViewDebitCreditAmountLayoutElement implements TableJo
             }
         }
     }
-    
+
     /**
-     * Gets the creditAmountField attribute. 
+     * Gets the creditAmountField attribute.
      * @return Returns the creditAmountField.
-     * 
+     *
      * KRAD Conversion: getting the field value - No use of data dictionary
-     * 
+     *
      */
     public Field getCreditAmountField() {
         return creditAmountField;
@@ -229,14 +229,14 @@ public class AccountingLineViewDebitCreditAmountLayoutElement implements TableJo
     /**
      * Sets the creditAmountField attribute value.
      * @param creditAmountField The creditAmountField to set.
-     * 
+     *
      * KRAD Conversion: setting up the value of the fields - No use of data dictionary
      */
     public void setCreditAmountField(Field creditAmountField) {
         this.creditAmountField = creditAmountField;
     }
     /**
-     * Gets the creditFieldDefinition attribute. 
+     * Gets the creditFieldDefinition attribute.
      * @return Returns the creditFieldDefinition.
      */
     public AccountingLineViewFieldDefinition getCreditFieldDefinition() {
@@ -250,7 +250,7 @@ public class AccountingLineViewDebitCreditAmountLayoutElement implements TableJo
         this.creditFieldDefinition = creditFieldDefinition;
     }
     /**
-     * Gets the debitAmountField attribute. 
+     * Gets the debitAmountField attribute.
      * @return Returns the debitAmountField.
      */
     public Field getDebitAmountField() {
@@ -264,7 +264,7 @@ public class AccountingLineViewDebitCreditAmountLayoutElement implements TableJo
         this.debitAmountField = debitAmountField;
     }
     /**
-     * Gets the debitFieldDefinition attribute. 
+     * Gets the debitFieldDefinition attribute.
      * @return Returns the debitFieldDefinition.
      */
     public AccountingLineViewFieldDefinition getDebitFieldDefinition() {
@@ -278,7 +278,7 @@ public class AccountingLineViewDebitCreditAmountLayoutElement implements TableJo
         this.debitFieldDefinition = debitFieldDefinition;
     }
     /**
-     * Gets the definition attribute. 
+     * Gets the definition attribute.
      * @return Returns the definition.
      */
     public AccountingLineViewDebitCreditAmountFieldDefinition getDefinition() {
@@ -313,7 +313,7 @@ public class AccountingLineViewDebitCreditAmountLayoutElement implements TableJo
         if (debitAmountField != null) {
             debitAmountField.setReadOnly(false);
         }
-        
+
         if (creditAmountField != null) {
             creditAmountField.setReadOnly(false);
         }

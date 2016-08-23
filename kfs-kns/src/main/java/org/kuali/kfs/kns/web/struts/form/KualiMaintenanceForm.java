@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -58,8 +58,8 @@ import java.util.regex.Pattern;
 
 /**
  * This class is the base action form for all maintenance documents.
- * 
- * 
+ *
+ *
  */
 public class KualiMaintenanceForm extends KualiDocumentFormBase {
     protected static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(KualiMaintenanceForm.class);
@@ -94,23 +94,23 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
     protected String lookupResultsSequenceNumber;
     /**
      * The type of result returned by the multi-value lookup
-     * 
+     *
      * TODO: to be persisted in the lookup results service instead?
      */
     protected String lookupResultsBOClassName;
-    
+
     /**
      * The name of the collection looked up (by a multiple value lookup)
      */
     protected String lookedUpCollectionName;
-    
+
     protected MaintenanceDocumentRestrictions authorizations;
-    
+
     /**
      * Override the default method to add the if statement which can't be called until after parameters from a multipart request
      * have been made accessible, but which must be called before the parameter values are used to instantiate and populate business
      * objects.
-     * 
+     *
      * @param requestParameters
      */
     @Override
@@ -123,7 +123,7 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
             docTypeName = docTypeNames[0];
         }
 
-        if (StringUtils.isNotBlank(docTypeName)) {          
+        if (StringUtils.isNotBlank(docTypeName)) {
         	if(this.getDocument() == null){
             setDocTypeName(docTypeName);
             Class documentClass = KRADServiceLocatorWeb.getDataDictionaryService().getDocumentClassByTypeName(docTypeName);
@@ -158,18 +158,18 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
                 throw new RuntimeException("Unable to instantiate document with type name '" + docTypeName + "' and document class '" + documentClass + "'");
             }
             setDocument(document);
-          } 
+          }
        }
-        
+
         MaintenanceDocumentBase maintenanceDocument = (MaintenanceDocumentBase) getDocument();
 
         //Handling the Multi-Part Attachment
         for ( Object obj : requestParameters.entrySet() ) {
-            String parameter = (String)((Map.Entry)obj).getKey(); 
+            String parameter = (String)((Map.Entry)obj).getKey();
             if (parameter.toUpperCase().startsWith(KRADConstants.MAINTENANCE_NEW_MAINTAINABLE.toUpperCase())) {
                 String propertyName = parameter.substring(KRADConstants.MAINTENANCE_NEW_MAINTAINABLE.length());
                 Object propertyValue = requestParameters.get(parameter);
-                
+
                 if(propertyValue != null && propertyValue instanceof FormFile) {
                     populateAttachmentFile(maintenanceDocument, propertyName, (FormFile) propertyValue);
                     if (propertyName.startsWith(KRADConstants.MAINTENANCE_ADD_PREFIX)) {
@@ -255,11 +255,11 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
                     }
                 }
             }
-            
+
             // now, get all add lines and store them to a separate map
             // for use in a separate call to the maintainable
             for ( Map.Entry<String, String> entry : localNewMaintainableValues.entrySet() ) {
-                String key = entry.getKey(); 
+                String key = entry.getKey();
                 if ( key.startsWith( KRADConstants.MAINTENANCE_ADD_PREFIX ) ) {
                     localNewCollectionValues.put( key.substring( KRADConstants.MAINTENANCE_ADD_PREFIX.length() ),
                             entry.getValue() );
@@ -268,7 +268,7 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
             if ( LOG.isDebugEnabled() ) {
                 LOG.debug( "checked for add line parameters - got: " + localNewCollectionValues );
             }
-            
+
             this.newMaintainableValues = localNewMaintainableValues;
             this.oldMaintainableValues = localOldMaintainableValues;
 
@@ -280,13 +280,13 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
 
             GlobalVariables.getMessageMap().addToErrorPath("document.newMaintainableObject");
             // update the main object
-            Map cachedValues = 
+            Map cachedValues =
             	maintenanceDocument.getNewMaintainableObject().populateBusinessObject(localNewMaintainableValues, maintenanceDocument, getMethodToCall());
-            
+
             if(maintenanceDocument.getFileAttachment() != null) {
                 populateAttachmentPropertyForBO(maintenanceDocument);
             }
-            
+
             // update add lines
             localNewCollectionValues = KRADServiceLocatorWeb.getMaintenanceDocumentService().resolvePrincipalNamesToPrincipalIds((BusinessObject)maintenanceDocument.getNewMaintainableObject().getBusinessObject(), localNewCollectionValues);
             cachedValues.putAll( maintenanceDocument.getNewMaintainableObject().populateNewCollectionLines( localNewCollectionValues, maintenanceDocument, getMethodToCall() ) );
@@ -320,11 +320,11 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
             throw new RuntimeException("Exception occurred while setting attachment property on NewMaintainable bo", e);
         }
     }
-    
+
     /**
      * Merges rows of old and new for each section (tab) of the ui. Also, renames fields to prevent naming conflicts and does
      * setting of read only fields.
-     * 
+     *
      * @return Returns the maintenanceSections.
      */
     public List getSections() {
@@ -346,7 +346,7 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
         //    applyAuthorizations();
         //}
 
-        
+
         // get business object being maintained and its keys
         List keyFieldNames = KNSServiceLocator.getBusinessObjectMetaDataService().listPrimaryKeyFieldNames(((MaintenanceDocumentBase) getDocument()).getNewMaintainableObject().getBusinessObject().getClass());
 
@@ -354,14 +354,14 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
         Maintainable oldMaintainable = ((MaintenanceDocumentBase) getDocument()).getOldMaintainableObject();
         oldMaintainable.setMaintenanceAction(getMaintenanceAction());
         List oldMaintSections = oldMaintainable.getSections((MaintenanceDocument) getDocument(), null);
-        
+
         Maintainable newMaintainable = ((MaintenanceDocumentBase) getDocument()).getNewMaintainableObject();
         newMaintainable.setMaintenanceAction(getMaintenanceAction());
         List newMaintSections = newMaintainable.getSections((MaintenanceDocument) getDocument(), oldMaintainable);
         WorkflowDocument workflowDocument = this.getDocument().getDocumentHeader().getWorkflowDocument();
         String documentStatus =  workflowDocument.getStatus().getCode();
         String documentInitiatorPrincipalId = workflowDocument.getInitiatorPrincipalId();
-        
+
 
         // mesh sections for proper jsp display
         List meshedSections = FieldUtils
@@ -369,7 +369,7 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
                         authorizations, documentStatus, documentInitiatorPrincipalId);
 
         return meshedSections;
-    }    
+    }
 
     /**
      * @return Returns the maintenanceAction.
@@ -443,7 +443,7 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
 
     /**
      * Gets the authorizations attribute.
-     * 
+     *
      * @return Returns the authorizations.
      */
     public MaintenanceDocumentRestrictions getAuthorizations() {
@@ -452,7 +452,7 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
 
     /**
      * Sets the authorizations attribute value.
-     * 
+     *
      * @param authorizations The authorizations to set.
      */
     public void setAuthorizations(MaintenanceDocumentRestrictions authorizations) {
@@ -461,7 +461,7 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
 
     /**
      * Sets the newMaintainableValues attribute value.
-     * 
+     *
      * @param newMaintainableValues The newMaintainableValues to set.
      */
     public void setNewMaintainableValues(Map newMaintainableValues) {
@@ -471,7 +471,7 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
 
     /**
      * Sets the oldMaintainableValues attribute value.
-     * 
+     *
      * @param oldMaintainableValues The oldMaintainableValues to set.
      */
     public void setOldMaintainableValues(Map oldMaintainableValues) {
@@ -527,8 +527,8 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
     }
 
 	/**
-	 * This overridden method handles the case where maint doc properties do not reflect the true nature of the 
-	 * 
+	 * This overridden method handles the case where maint doc properties do not reflect the true nature of the
+	 *
 	 * @see KualiForm#retrieveFormValueForLookupInquiryParameters(java.lang.String, java.lang.String)
 	 */
 	@Override
@@ -545,7 +545,7 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
 					return (String) parameterValue;
 				}
 				Formatter formatter = Formatter.getFormatter(parameterValue.getClass());
-				return (String) formatter.format(parameterValue); 
+				return (String) formatter.format(parameterValue);
 			}
 		}
 		if (parameterValueLocation.toLowerCase().startsWith(KRADConstants.MAINTENANCE_NEW_MAINTAINABLE.toLowerCase())) {
@@ -553,12 +553,12 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
 			String propertyName = parameterValueLocation.substring(KRADConstants.MAINTENANCE_NEW_MAINTAINABLE.length());
 			String addPrefix = KRADConstants.ADD_PREFIX.toLowerCase() + ".";
 
-			if (propertyName.toLowerCase().startsWith(addPrefix)) { // 
+			if (propertyName.toLowerCase().startsWith(addPrefix)) { //
 				propertyName = propertyName.substring(addPrefix.length()); // remove addPrefix from the propertyName
 				String collectionName = parseAddCollectionName(propertyName);
 				propertyName = propertyName.substring(collectionName.length()); // remove collectionName from pN
 				if (propertyName.startsWith(".")) { propertyName = propertyName.substring(1); } // strip beginning "."
-				PersistableBusinessObject newCollectionLine = 
+				PersistableBusinessObject newCollectionLine =
 					maintDoc.getNewMaintainableObject().getNewCollectionLine(collectionName);
 				Object parameterValue = ObjectUtils.getPropertyValue(newCollectionLine, propertyName);
 				if (parameterValue == null) {
@@ -578,7 +578,7 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
 					return (String) parameterValue;
 				}
 				Formatter formatter = Formatter.getFormatter(parameterValue.getClass());
-				return (String) formatter.format(parameterValue); 
+				return (String) formatter.format(parameterValue);
 			}
 		}
 		return super.retrieveFormValueForLookupInquiryParameters(parameterName, parameterValueLocation);
@@ -586,7 +586,7 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
 
 	/**
 	 * This method returns the collection name (including nested collections) from a propertyName string
-	 * 
+	 *
 	 * @param propertyName a parameterValueLocation w/ KRADConstants.MAINTENANCE_NEW_MAINTAINABLE +
 	 * KRADConstants.ADD_PREFIX + "." stripped off the front
 	 * @return the collectionName
@@ -614,7 +614,7 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
 
 	/**
 	 * This overridden method ...
-	 * 
+	 *
 	 * @see KualiDocumentFormBase#shouldPropertyBePopulatedInForm(java.lang.String, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
@@ -638,7 +638,7 @@ public class KualiMaintenanceForm extends KualiDocumentFormBase {
 
 	/**
 	 * This overridden method ...
-	 * 
+	 *
 	 * @see KualiDocumentFormBase#shouldMethodToCallParameterBeUsed(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override

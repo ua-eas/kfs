@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,12 +29,12 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 public class BulkReceivingDeliveryValidation extends GenericValidation {
 
     PostalCodeValidationService postalCodeValidationService;
-    
+
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        BulkReceivingDocument bulkReceivingDocument = (BulkReceivingDocument)event.getDocument();        
+        BulkReceivingDocument bulkReceivingDocument = (BulkReceivingDocument)event.getDocument();
         GlobalVariables.getMessageMap().clearErrorPath();
-        GlobalVariables.getMessageMap().addToErrorPath(PurapConstants.BULK_RECEIVING_DELIVERY_TAB_ERRORS);        
+        GlobalVariables.getMessageMap().addToErrorPath(PurapConstants.BULK_RECEIVING_DELIVERY_TAB_ERRORS);
         valid = postalCodeValidationService.validateAddress(bulkReceivingDocument.getDeliveryCountryCode(), bulkReceivingDocument.getDeliveryStateCode(), bulkReceivingDocument.getDeliveryPostalCode(), PurapPropertyConstants.DELIVERY_STATE_CODE, PurapPropertyConstants.DELIVERY_POSTAL_CODE);
         GlobalVariables.getMessageMap().clearErrorPath();
         return valid;
@@ -43,5 +43,5 @@ public class BulkReceivingDeliveryValidation extends GenericValidation {
     public void setPostalCodeValidationService(PostalCodeValidationService postalCodeValidationService) {
         this.postalCodeValidationService = postalCodeValidationService;
     }
-    
+
 }

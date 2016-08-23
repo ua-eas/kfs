@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -96,7 +96,7 @@ public class KualiBatchInputFileSetForm extends KualiForm {
 
     /**
      * Gets the batchInputFileSetType attribute.
-     * 
+     *
      * @return Returns the batchInputFileSetType.
      */
     public BatchInputFileSetType getBatchInputFileSetType() {
@@ -105,7 +105,7 @@ public class KualiBatchInputFileSetForm extends KualiForm {
 
     /**
      * Sets the batchInputFileSetType attribute value.
-     * 
+     *
      * @param batchInputFileSetType The batchInputFileSetType to set.
      */
     public void setBatchInputFileSetType(BatchInputFileSetType batchInputFileSetType) {
@@ -114,7 +114,7 @@ public class KualiBatchInputFileSetForm extends KualiForm {
 
     /**
      * Gets the uploadedFiles attribute.
-     * 
+     *
      * @return Returns the uploadedFiles.
      */
     public Map<String, FormFile> getUploadedFiles() {
@@ -123,7 +123,7 @@ public class KualiBatchInputFileSetForm extends KualiForm {
 
     /**
      * Sets the uploadedFiles attribute value.
-     * 
+     *
      * @param uploadedFiles The uploadedFiles to set.
      */
     public void setUploadedFiles(Map<String, FormFile> uploadedFiles) {
@@ -132,7 +132,7 @@ public class KualiBatchInputFileSetForm extends KualiForm {
 
     /**
      * Gets the fileAliases attribute.
-     * 
+     *
      * @return Returns the fileAliases.
      */
     public List<KeyValue> getFileTypes() {
@@ -141,7 +141,7 @@ public class KualiBatchInputFileSetForm extends KualiForm {
 
     /**
      * Sets the fileAliases attribute value.
-     * 
+     *
      * @param fileAliases The fileAliases to set.
      */
     public void setFileTypes(List<KeyValue> fileAliases) {
@@ -150,7 +150,7 @@ public class KualiBatchInputFileSetForm extends KualiForm {
 
     /**
      * Gets the downloadFileAlias attribute.
-     * 
+     *
      * @return Returns the downloadFileAlias.
      */
     public String getDownloadFileType() {
@@ -159,7 +159,7 @@ public class KualiBatchInputFileSetForm extends KualiForm {
 
     /**
      * Sets the downloadFileAlias attribute value.
-     * 
+     *
      * @param downloadFileAlias The downloadFileAlias to set.
      */
     public void setDownloadFileType(String downloadFileAlias) {

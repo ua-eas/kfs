@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -47,11 +47,11 @@
     <field-descriptor name="effortCertificationReportBeginPeriodCode" column="LBR_RPT_BEG_FSCL_PRD_CD" jdbc-type="VARCHAR" />
     <field-descriptor name="effortCertificationReportEndFiscalYear" column="LBR_RPT_END_FSCL_YR" jdbc-type="INTEGER" />
     <field-descriptor name="effortCertificationReportEndPeriodCode" column="LBR_RPT_END_FSCL_PRD_CD" jdbc-type="VARCHAR" />
-    
+
     <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
     <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
     <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
-	
+
 	<reference-descriptor name="options" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
 		<foreignkey field-ref="universityFiscalYear" />
 	</reference-descriptor>
@@ -96,15 +96,15 @@
 	<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
 	<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
 	<field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-	
+
 	<reference-descriptor name="options" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
 		<foreignkey field-ref="universityFiscalYear" />
 	</reference-descriptor>
-	
+
     <reference-descriptor name="effortCertificationReportDefinition" class-ref="org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="universityFiscalYear" />
         <foreignkey field-ref="effortCertificationReportNumber" />
-    </reference-descriptor>	
+    </reference-descriptor>
 </class-descriptor>
 
 <class-descriptor class="org.kuali.kfs.module.ec.businessobject.EffortCertificationReportEarnPaygroup" table="LD_A21_RPT_EARN_PAY_T">
@@ -132,16 +132,16 @@
 	<field-descriptor name="effortCertificationDocumentCode" column="A21_LBR_DOC_CD" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
 	<field-descriptor name="universityFiscalYear" column="A21_LBR_FSCL_YR" jdbc-type="INTEGER" index="true"/>
 	<field-descriptor name="emplid" column="EMPLID" jdbc-type="VARCHAR" index="true"/>
-	
+
 	<reference-descriptor name="options" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
 		<foreignkey field-ref="universityFiscalYear" />
 	</reference-descriptor>
-	
+
     <reference-descriptor name="effortCertificationReportDefinition" class-ref="org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="universityFiscalYear" />
         <foreignkey field-ref="effortCertificationReportNumber" />
     </reference-descriptor>
-    
+
     <collection-descriptor name="effortCertificationDetailLinesBuild" element-class-ref="org.kuali.kfs.module.ec.businessobject.EffortCertificationDetailBuild" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="true">
         <orderby name="chartOfAccountsCode" sort="ASC" />
         <orderby name="accountNumber" sort="ASC" />
@@ -152,7 +152,7 @@
         <orderby name="sourceAccountNumber" sort="ASC" />
         <inverse-foreignkey field-ref="effortCertificationBuildNumber" />
     </collection-descriptor>
-    
+
 </class-descriptor>
 
 <class-descriptor class="org.kuali.kfs.module.ec.businessobject.EffortCertificationDetailBuild" table="LD_A21_DTL_LN_BLD_T">
@@ -176,41 +176,41 @@
 	<reference-descriptor name="options" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
 		<foreignkey field-ref="universityFiscalYear" />
 	</reference-descriptor>
-	
+
     <reference-descriptor name="effortCertificationDocumentBuild" class-ref="org.kuali.kfs.module.ec.businessobject.EffortCertificationDocumentBuild" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="effortCertificationBuildNumber" />
     </reference-descriptor>
-    	
+
 	<reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
 		<foreignkey field-ref="chartOfAccountsCode" />
 	</reference-descriptor>
-	
+
 	<reference-descriptor name="financialObject" class-ref="org.kuali.kfs.coa.businessobject.ObjectCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
 		<foreignkey field-ref="universityFiscalYear" />
 		<foreignkey field-ref="chartOfAccountsCode" />
 		<foreignkey field-ref="financialObjectCode" />
 	</reference-descriptor>
-	
+
 	<reference-descriptor name="account" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
 		<foreignkey field-ref="chartOfAccountsCode" />
 		<foreignkey field-ref="accountNumber" />
 	</reference-descriptor>
-	
+
 	<reference-descriptor name="sourceChartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
 		<foreignkey field-ref="sourceChartOfAccountsCode" />
 	</reference-descriptor>
-	
+
 	<reference-descriptor name="sourceAccount" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
 		<foreignkey field-ref="sourceChartOfAccountsCode" />
 		<foreignkey field-ref="sourceAccountNumber" />
 	</reference-descriptor>
-	
+
     <reference-descriptor name="subAccount" class-ref="org.kuali.kfs.coa.businessobject.SubAccount" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="false" >
         <foreignkey field-ref="chartOfAccountsCode" />
         <foreignkey field-ref="accountNumber" />
         <foreignkey field-ref="subAccountNumber" />
     </reference-descriptor>
-    
+
 </class-descriptor>
 
 
@@ -222,20 +222,20 @@
     <field-descriptor name="effortCertificationDocumentCode" column="A21_LBR_DOC_CD" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
     <field-descriptor name="universityFiscalYear" column="A21_LBR_FSCL_YR" jdbc-type="INTEGER" index="true" />
     <field-descriptor name="emplid" column="EMPLID" jdbc-type="VARCHAR" index="true" />
-   
+
    	<reference-descriptor name="options" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
 		<foreignkey field-ref="universityFiscalYear" />
 	</reference-descriptor>
-	
+
     <reference-descriptor name="effortCertificationReportDefinition" class-ref="org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="universityFiscalYear" />
         <foreignkey field-ref="effortCertificationReportNumber" />
     </reference-descriptor>
-    
+
     <reference-descriptor name="documentHeader" class-ref="org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="true" >
         <foreignkey field-ref="documentNumber" />
     </reference-descriptor>
-  
+
     <collection-descriptor name="effortCertificationDetailLines" element-class-ref="org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="true">
         <orderby name="effortCertificationPayrollAmount" sort="DESC" />
         <inverse-foreignkey field-ref="documentNumber" />
@@ -250,11 +250,11 @@
     <field-descriptor name="effortCertificationDocumentCode" column="A21_LBR_DOC_CD" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
     <field-descriptor name="universityFiscalYear" column="A21_LBR_FSCL_YR" jdbc-type="INTEGER" index="true" />
     <field-descriptor name="emplid" column="EMPLID" jdbc-type="VARCHAR" index="true" />
-   
+
    	<reference-descriptor name="options" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
 		<foreignkey field-ref="universityFiscalYear" />
 	</reference-descriptor>
-	
+
     <reference-descriptor name="effortCertificationReportDefinition" class-ref="org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="universityFiscalYear" />
         <foreignkey field-ref="effortCertificationReportNumber" />
@@ -263,7 +263,7 @@
     <reference-descriptor name="documentHeader" class-ref="org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="true" >
         <foreignkey field-ref="documentNumber" />
     </reference-descriptor>
-  
+
     <collection-descriptor name="effortCertificationDetailLines" element-class-ref="org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="true">
         <orderby name="effortCertificationPayrollAmount" sort="DSC" />
         <inverse-foreignkey field-ref="documentNumber" />
@@ -291,35 +291,35 @@
 	<reference-descriptor name="options" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
 		<foreignkey field-ref="universityFiscalYear" />
 	</reference-descriptor>
-   
+
     <reference-descriptor name="effortCertificationDocument" class-ref="org.kuali.kfs.module.ec.document.EffortCertificationDocument" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="documentNumber" />
     </reference-descriptor>
-   
+
     <reference-descriptor name="financialObject" class-ref="org.kuali.kfs.coa.businessobject.ObjectCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="universityFiscalYear" />
         <foreignkey field-ref="chartOfAccountsCode" />
         <foreignkey field-ref="financialObjectCode" />
     </reference-descriptor>
-   
+
     <reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="chartOfAccountsCode" />
     </reference-descriptor>
-  
+
     <reference-descriptor name="account" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="chartOfAccountsCode" />
         <foreignkey field-ref="accountNumber" />
     </reference-descriptor>
-    
+
     <reference-descriptor name="sourceChartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="sourceChartOfAccountsCode" />
     </reference-descriptor>
-   
+
     <reference-descriptor name="sourceAccount" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="sourceChartOfAccountsCode" />
         <foreignkey field-ref="sourceAccountNumber" />
     </reference-descriptor>
-  
+
     <reference-descriptor name="subAccount" class-ref="org.kuali.kfs.coa.businessobject.SubAccount" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="false" >
         <foreignkey field-ref="chartOfAccountsCode" />
         <foreignkey field-ref="accountNumber" />
@@ -336,16 +336,16 @@
 	<reference-descriptor name="options" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
 		<foreignkey field-ref="universityFiscalYear" />
 	</reference-descriptor>
-	
+
 	<reference-descriptor name="chart" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
 		<foreignkey field-ref="chartOfAccountsCode" />
 	</reference-descriptor>
-	
+
     <reference-descriptor name="effortCertificationReportDefinition" class-ref="org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="universityFiscalYear" />
         <foreignkey field-ref="effortCertificationReportNumber" />
     </reference-descriptor>
-  
+
     <reference-descriptor name="organization" class-ref="org.kuali.kfs.coa.businessobject.Organization" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
         <foreignkey field-ref="chartOfAccountsCode" />
         <foreignkey field-ref="organizationCode" />

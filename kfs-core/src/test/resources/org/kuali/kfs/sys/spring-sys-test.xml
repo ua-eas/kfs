@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -32,16 +32,16 @@
     <bean id="unitTestSqlDao" parent="platformAwareDao" class="org.kuali.kfs.sys.dataaccess.impl.UnitTestSqlDaoOjb" />
 
     <bean id="riceUnitTestSqlDao" parent="ricePlatformAwareDao" class="org.kuali.kfs.sys.dataaccess.impl.UnitTestSqlDaoOjb" />
-    
+
 	<bean id="trigger" abstract="true">
 		<property name="group" value="scheduled" />
 		<property name="dateTimeService" ref="dateTimeService" />
 		<property name="testMode" value="true" />
 	</bean>
-	
+
 	<bean id="infoForParameterMapReport" class="org.kuali.kfs.sys.report.ReportInfoHolder" >
 		<property name="reportTitle" value="Account and SubAccount For Testing" />
-		<property name="reportFileName" value="TestReportWithParameterMap" /> 
+		<property name="reportFileName" value="TestReportWithParameterMap" />
 		<property name="reportsDirectory" value="${reports.directory}/" />
 		<property name="resourceBundleBaseName" value="org/kuali/kfs/sys/report/ReportGenerationService" />
 		<property name="reportTemplateClassPath" value="org/kuali/kfs/sys/report/" />
@@ -54,7 +54,7 @@
 			</map>
 		</property>
 	</bean>
-	
+
 	<bean id="infoForDataSourceReport" class="org.kuali.kfs.sys.report.ReportInfoHolder" >
 		<property name="reportTitle" value="Account For Testing" />
 		<property name="reportFileName" value="TestReportWithDataSource" />
@@ -68,18 +68,18 @@
 				<entry key="AccountReport" value="AccountReport"/>
 			</map>
 		</property>
-	</bean>	
-    
+	</bean>
+
     <bean id="mockReportWriterService" class="org.kuali.kfs.gl.service.impl.MockReportWriterService" />
-    
+
 	<bean id="sysMockAutoDisapproveDocumentsService" parent="autoDisapproveService">
 		<property name="autoDisapproveErrorReportWriterService">
 			<ref bean="mockReportWriterService" />
 		</property>
 	</bean>
 
-    <!-- Fake dependency added for SchedulerServiceImplTest.testDropDependenciesNotScheduled -->    
-    <bean id="purgeReportsAndStagingJob" parent="purgeReportsAndStagingJob-parentBean">	
+    <!-- Fake dependency added for SchedulerServiceImplTest.testDropDependenciesNotScheduled -->
+    <bean id="purgeReportsAndStagingJob" parent="purgeReportsAndStagingJob-parentBean">
 		<property name="dependencies">
 			<map>
 				<entry key="dailyEmailJob" value="hardDependency"/>

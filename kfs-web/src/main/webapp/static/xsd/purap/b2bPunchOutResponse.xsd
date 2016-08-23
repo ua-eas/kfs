@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-    
+
 <xsd:schema elementFormDefault="qualified"
 		    targetNamespace="http://www.kuali.org/kfs/purap/b2bPunchOutResponse"
-		    xmlns="http://www.kuali.org/kfs/purap/b2bPunchOutResponse" 
+		    xmlns="http://www.kuali.org/kfs/purap/b2bPunchOutResponse"
 		    xmlns:purap="http://www.kuali.org/kfs/purap/types"
 		    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
 <xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="classpath:org/kuali/kfs/sys/xml.xsd"/>
 <xsd:import namespace="http://www.kuali.org/kfs/purap/types" schemaLocation="classpath:org/kuali/kfs/module/purap/purapTypes.xsd" />
-	
+
 	<xsd:element name="cXML">
 	    <xsd:complexType>
 	      <xsd:sequence>
-	        <xsd:element name="Response">		    
+	        <xsd:element name="Response">
 	        	<xsd:complexType>
 		            <xsd:sequence>
-		            
+
        		      		<xsd:element name="Status">
 						  <xsd:complexType>
 						  	<xsd:simpleContent>
@@ -44,7 +44,7 @@
 						  	</xsd:simpleContent>
 						  </xsd:complexType>
 						</xsd:element>
-						
+
 						<xsd:element name="PunchOutSetupResponse">
 							  <xsd:complexType>
 									<xsd:sequence>
@@ -53,12 +53,12 @@
 												<xsd:sequence>
 													<xsd:element name="URL" type="xsd:string"/>
 												</xsd:sequence>
-					       		      		</xsd:complexType>	
+					       		      		</xsd:complexType>
 					       		      	 </xsd:element>
 	       		      				</xsd:sequence>
-	       		      		</xsd:complexType>	
+	       		      		</xsd:complexType>
         		      	</xsd:element>
-        		      	
+
         		    </xsd:sequence>
         		</xsd:complexType>
         	</xsd:element> <!-- Response -->
@@ -68,6 +68,6 @@
         <xsd:attribute name="timestamp" type="xsd:string" use="required" />
         <xsd:attribute name="payloadID" type="xsd:string" use="required" />
        </xsd:complexType>
-    </xsd:element>    		      		
+    </xsd:element>
 
-</xsd:schema>		    
+</xsd:schema>

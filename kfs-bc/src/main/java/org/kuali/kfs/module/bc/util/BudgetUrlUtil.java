@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,7 +42,7 @@ public class BudgetUrlUtil {
 
     /**
      * Builds url for temp list action.
-     * 
+     *
      * @param mapping struts action mapping
      * @param form BudgetExpansionForm
      * @param tempListMode mode for temp list action
@@ -59,7 +59,7 @@ public class BudgetUrlUtil {
         parameters.put(KFSConstants.SUPPRESS_ACTIONS, "false");
         parameters.put(BCConstants.SHOW_INITIAL_RESULTS, "true");
         parameters.put(BCConstants.TempListLookupMode.TEMP_LIST_LOOKUP_MODE, Integer.toString(tempListMode));
-        
+
         if (additionalParameters != null) {
             for (String parameterKey : additionalParameters.keySet()) {
                 parameters.put(parameterKey, additionalParameters.get(parameterKey));
@@ -71,7 +71,7 @@ public class BudgetUrlUtil {
 
     /**
      * Builds a budget URL setting default parameters.
-     * 
+     *
      * @param mapping struts action mapping
      * @param form BudgetExpansionForm
      * @param actionPath url path for requested action
@@ -87,7 +87,7 @@ public class BudgetUrlUtil {
         parameters.put(KFSConstants.BACK_LOCATION, basePath + mapping.getPath() + ".do");
         parameters.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, form.getUniversityFiscalYear().toString());
         parameters.put(KFSPropertyConstants.KUALI_USER_PERSON_UNIVERSAL_IDENTIFIER, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        
+
         if (StringUtils.isNotEmpty(((KualiForm) form).getAnchor())) {
             parameters.put(BCConstants.RETURN_ANCHOR, ((KualiForm) form).getAnchor());
         }

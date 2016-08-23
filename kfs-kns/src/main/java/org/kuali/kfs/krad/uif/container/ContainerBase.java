@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,14 +37,14 @@ import java.util.List;
 /**
  * Base <code>Container</code> implementation which container implementations
  * can extend
- * 
+ *
  * <p>
  * Provides properties for the basic <code>Container</code> functionality in
  * addition to default implementation of the lifecycle methods including some
  * setup of the header, items list, and layout manager
  * </p>
- * 
- * 
+ *
+ *
  */
 public abstract class ContainerBase extends ComponentBase implements Container {
 	private static final long serialVersionUID = -4182226230601746657L;
@@ -74,12 +74,12 @@ public abstract class ContainerBase extends ComponentBase implements Container {
 
 	/**
 	 * The following initialization is performed:
-	 * 
+	 *
 	 * <ul>
 	 * <li>Sorts the containers list of components</li>
 	 * <li>Initializes LayoutManager</li>
 	 * </ul>
-	 * 
+	 *
 	 * @see ComponentBase#performInitialization(View, java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
@@ -112,13 +112,13 @@ public abstract class ContainerBase extends ComponentBase implements Container {
 
 	/**
 	 * The following finalization is performed:
-	 * 
+	 *
 	 * <ul>
 	 * <li>Sets the headerText of the header Group if it is blank</li>
 	 * <li>Set the messageText of the summary MessageField if it is blank</li>
 	 * <li>Finalizes LayoutManager</li>
 	 * </ul>
-	 * 
+	 *
 	 * @see ComponentBase#performFinalize(View,
 	 *      java.lang.Object, Component)
 	 */
@@ -182,7 +182,7 @@ public abstract class ContainerBase extends ComponentBase implements Container {
 	/**
 	 * Additional keys that should be matching on when gathering errors or other
 	 * messages for the <code>Container</code>
-	 * 
+	 *
 	 * <p>
 	 * Messages associated with the container will be displayed with the
 	 * container grouping in the user interface. Typically, these are a result
@@ -192,12 +192,12 @@ public abstract class ContainerBase extends ComponentBase implements Container {
 	 * errors associated with the containers id. Keys given here will be matched
 	 * in addition to those defaults.
 	 * </p>
-	 * 
+	 *
 	 * <p>
 	 * Multple keys can be given using the comma delimiter, the * wildcard is
 	 * also allowed in the message key
 	 * </p>
-	 * 
+	 *
 	 * @return String additional message key string
 	 */
 	public String getAdditionalMessageKeys() {
@@ -206,7 +206,7 @@ public abstract class ContainerBase extends ComponentBase implements Container {
 
 	/**
 	 * Setter for the components additional message key string
-	 * 
+	 *
 	 * @param additionalMessageKeys
 	 */
 	public void setAdditionalMessageKeys(String additionalMessageKeys) {
@@ -253,7 +253,7 @@ public abstract class ContainerBase extends ComponentBase implements Container {
 
 	/**
 	 * Setter for the containers list of components
-	 * 
+	 *
 	 * @param items
 	 */
 	public abstract void setItems(List<? extends Component> items);
@@ -264,7 +264,7 @@ public abstract class ContainerBase extends ComponentBase implements Container {
 	 * this property. The first component found in the list without an order
 	 * will be assigned the configured initial value, and incremented by one for
 	 * each component (without an order) found afterwards
-	 * 
+	 *
 	 * @return int order sequence
 	 */
 	public int getItemOrderingSequence() {
@@ -273,7 +273,7 @@ public abstract class ContainerBase extends ComponentBase implements Container {
 
 	/**
 	 * Setter for the container's item ordering sequence number (initial value)
-	 * 
+	 *
 	 * @param itemOrderingSequence
 	 */
 	public void setItemOrderingSequence(int itemOrderingSequence) {
@@ -331,13 +331,13 @@ public abstract class ContainerBase extends ComponentBase implements Container {
 	/**
 	 * Convenience setter for configuration to turn rendering of the header
 	 * on/off
-	 * 
+	 *
 	 * <p>
 	 * For nested groups (like Field Groups) it is often necessary to only show
 	 * the container body (the contained components). This method allows the
 	 * header to not be displayed
 	 * </p>
-	 * 
+	 *
 	 * @param renderHeader
 	 */
 	public void setRenderHeader(boolean renderHeader) {
@@ -349,13 +349,13 @@ public abstract class ContainerBase extends ComponentBase implements Container {
 	/**
 	 * Convenience setter for configuration to turn rendering of the footer
 	 * on/off
-	 * 
+	 *
 	 * <p>
 	 * For nested groups it is often necessary to only show the container body
 	 * (the contained components). This method allows the footer to not be
 	 * displayed
 	 * </p>
-	 * 
+	 *
 	 * @param renderFooter
 	 */
 	public void setRenderFooter(boolean renderFooter) {
@@ -414,7 +414,7 @@ public abstract class ContainerBase extends ComponentBase implements Container {
 	/**
 	 * Gets only the data fields that are nested in this container.  This is a subset of
 	 * what getComponentsForLifecycle() returns
-	 * 
+	 *
 	 * @return
 	 */
 	public List<InputField> getInputFields(){
@@ -425,7 +425,7 @@ public abstract class ContainerBase extends ComponentBase implements Container {
 			}
 		}
 		return inputFields;
-		
+
 	}
 
     /**
@@ -448,7 +448,7 @@ public abstract class ContainerBase extends ComponentBase implements Container {
                 inputFields.addAll(cb.getAllInputFields());
             }
         }
-        return inputFields;    
+        return inputFields;
     }
 
 	/**

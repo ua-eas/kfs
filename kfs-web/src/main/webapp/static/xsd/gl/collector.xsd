@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -21,7 +21,7 @@
     targetNamespace="http://www.kuali.org/kfs/gl/collector"
     xmlns="http://www.kuali.org/kfs/gl/collector" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-    <!-- header fields -->   
+    <!-- header fields -->
     <xsd:element name="organizationCode" type="xsd:normalizedString"/>
     <xsd:element name="transmissionDate" type="xsd:date"/>
    	<xsd:element name="batchSequenceNumber" type="xsd:integer"/>
@@ -31,7 +31,7 @@
 	<xsd:element name="phoneNumber" type="xsd:normalizedString"/>
 	<xsd:element name="mailingAddress" type="xsd:normalizedString"/>
 	<xsd:element name="departmentName" type="xsd:normalizedString"/>
-   
+
        <!-- glEntry fields -->
     <xsd:element name="universityFiscalYear" type="xsd:normalizedString"/>
     <xsd:element name="chartOfAccountsCode" type="xsd:normalizedString"/>
@@ -68,7 +68,7 @@
     <xsd:element name="collectorDetailSequenceNumber" type="xsd:normalizedString"/>
     <xsd:element name="detailText" type="xsd:normalizedString"/>
     <xsd:element name="amount" type="xsd:decimal"/>
- 
+
     <!-- definition of complex type elements -->
 
         <xsd:complexType name="headerType">
@@ -113,7 +113,7 @@
 		        <xsd:element ref="totalAmount" />
             </xsd:all>
         </xsd:complexType>
- 
+
         <xsd:complexType name="glEntryType">
             <xsd:all>
                <xsd:element maxOccurs="1" minOccurs="0" ref="universityFiscalYear" />
@@ -154,7 +154,7 @@
                 <xsd:element name="trailer" type="trailerType"/>
             </xsd:sequence>
         </xsd:complexType>
-        
+
     <xsd:element name="batch" type="batchType"/>
 
 </xsd:schema>

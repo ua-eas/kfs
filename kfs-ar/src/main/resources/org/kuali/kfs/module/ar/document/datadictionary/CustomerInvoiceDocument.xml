@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -22,8 +22,8 @@
 
   <bean id="CustomerInvoiceDocument-parentBean" abstract="true" parent="TransactionalDocumentEntry">
     <property name="allowsErrorCorrection" value="true"/>
-    
-    
+
+
     <property name="documentTypeName" value="INV"/>
     <property name="documentClass" value="org.kuali.kfs.module.ar.document.CustomerInvoiceDocument"/>
     <property name="baseDocumentClass" value="org.kuali.kfs.module.ar.document.CustomerInvoiceDocument"/>
@@ -106,7 +106,7 @@
 
   <!-- accounting line groups -->
   <bean id="CustomerInvoiceDocument-sourceAccountingLineGroup" parent="CustomerInvoiceDocument-sourceAccountingLineGroup-parentBean"/>
-  
+
   <bean id="CustomerInvoiceDocument-sourceAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
 	  <property name="accountingLineView" ref="AccountsReceivable-CustomerInvoice-accountingLineView"/>
 	  <property name="accountingLineClass" value="org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail"/>
@@ -116,11 +116,11 @@
 	  <property name="totals" ref="AccountingDocument-sourceGroupTotals"/>
 	  <property name="errorKey" value="document.sourceAccounting*,sourceAccountingLines,newSourceLine*"/> <!-- note people copying this: AV and JV have extra things that belong here -->
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-documentNumber" parent="CustomerInvoiceDocument-documentNumber-parentBean"/>
 
   <bean id="CustomerInvoiceDocument-documentNumber-parentBean" abstract="true" parent="DocumentHeader-documentNumber"/>
-  
+
   <bean id="CustomerInvoiceDocument-documentHeader.documentDescription" parent="CustomerInvoiceDocument-documentHeader.documentDescription-parentBean"/>
 
   <bean id="CustomerInvoiceDocument-documentHeader.documentDescription-parentBean" abstract="true" parent="DocumentHeader-documentDescription">
@@ -138,7 +138,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-age" parent="CustomerInvoiceDocument-age-parentBean"/>
   <bean id="CustomerInvoiceDocument-age-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="age"/>
@@ -150,8 +150,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="7"/>
     </property>
-  </bean>  
-  
+  </bean>
+
   <bean id="CustomerInvoiceDocument-invoiceAttentionLineText" parent="CustomerInvoiceDocument-invoiceAttentionLineText-parentBean"/>
   <bean id="CustomerInvoiceDocument-invoiceAttentionLineText-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="invoiceAttentionLineText"/>
@@ -164,7 +164,7 @@
       <bean parent="TextControlDefinition" p:size="82"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-invoiceDueDate" parent="CustomerInvoiceDocument-invoiceDueDate-parentBean"/>
   <bean id="CustomerInvoiceDocument-invoiceDueDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
     <property name="name" value="invoiceDueDate"/>
@@ -172,7 +172,7 @@
     <property name="shortLabel" value="Due Date"/>
     <property name="required" value="true"/>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-billingDate" parent="CustomerInvoiceDocument-billingDate-parentBean"/>
   <bean id="CustomerInvoiceDocument-billingDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
     <property name="name" value="billingDate"/>
@@ -180,7 +180,7 @@
     <property name="shortLabel" value="Billing Date"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-printDate" parent="CustomerInvoiceDocument-printDate-parentBean"/>
   <bean id="CustomerInvoiceDocument-printDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
     <property name="name" value="printDate"/>
@@ -188,7 +188,7 @@
     <property name="shortLabel" value="Print Date"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-invoiceTermsText" parent="CustomerInvoiceDocument-invoiceTermsText-parentBean"/>
   <bean id="CustomerInvoiceDocument-invoiceTermsText-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="invoiceTermsText"/>
@@ -201,7 +201,7 @@
       	<bean parent="TextControlDefinition" p:size="44"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-organizationInvoiceNumber" parent="CustomerInvoiceDocument-organizationInvoiceNumber-parentBean"/>
   <bean id="CustomerInvoiceDocument-organizationInvoiceNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="organizationInvoiceNumber"/>
@@ -237,7 +237,7 @@
       <bean parent="TextControlDefinition" p:size="27"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-printInvoiceIndicator" parent="CustomerInvoiceDocument-printInvoiceIndicator-parentBean"/>
   <bean id="CustomerInvoiceDocument-printInvoiceIndicator-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="printInvoiceIndicator"/>
@@ -258,7 +258,7 @@
     <property name="shortLabel" value="P.O. Date"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-billByChartOfAccountCode" parent="CustomerInvoiceDocument-billByChartOfAccountCode-parentBean"/>
   <bean id="CustomerInvoiceDocument-billByChartOfAccountCode-parentBean" abstract="true" parent="Chart-chartOfAccountsCode">
     <property name="name" value="billByChartOfAccountCode"/>
@@ -269,7 +269,7 @@
       <ref bean="ChartSelectControl" />
     </property>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-billedByOrganizationCode" parent="CustomerInvoiceDocument-billedByOrganizationCode-parentBean"/>
   <bean id="CustomerInvoiceDocument-billedByOrganizationCode-parentBean" abstract="true" parent="Organization-organizationCode">
     <property name="name" value="billedByOrganizationCode"/>
@@ -280,7 +280,7 @@
       <bean parent="TextControlDefinition" p:size="6"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-customerShipToAddressIdentifier" parent="CustomerInvoiceDocument-customerShipToAddressIdentifier-parentBean"/>
   <bean id="CustomerInvoiceDocument-customerShipToAddressIdentifier-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="customerShipToAddressIdentifier"/>
@@ -293,7 +293,7 @@
       <bean parent="TextControlDefinition" p:size="7"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-customerBillToAddressIdentifier" parent="CustomerInvoiceDocument-customerBillToAddressIdentifier-parentBean"/>
   <bean id="CustomerInvoiceDocument-customerBillToAddressIdentifier-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="customerBillToAddressIdentifier"/>
@@ -306,7 +306,7 @@
       <bean parent="TextControlDefinition" p:size="7"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-customerSpecialProcessingCode" parent="CustomerInvoiceDocument-customerSpecialProcessingCode-parentBean"/>
   <bean id="CustomerInvoiceDocument-customerSpecialProcessingCode-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="customerSpecialProcessingCode"/>
@@ -319,7 +319,7 @@
       <ref bean="FourCharacterTextControl" />
     </property>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-customerRecordAttachmentIndicator" parent="CustomerInvoiceDocument-customerRecordAttachmentIndicator-parentBean"/>
   <bean id="CustomerInvoiceDocument-customerRecordAttachmentIndicator-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="customerRecordAttachmentIndicator"/>
@@ -332,7 +332,7 @@
       <bean parent="CheckboxControlDefinition"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-openInvoiceIndicator" parent="CustomerInvoiceDocument-openInvoiceIndicator-parentBean"/>
   <bean id="CustomerInvoiceDocument-openInvoiceIndicator-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="openInvoiceIndicator"/>
@@ -345,14 +345,14 @@
       <bean parent="CheckboxControlDefinition"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-sourceTotal" parent="CustomerInvoiceDocument-sourceTotal-parentBean"/>
   <bean id="CustomerInvoiceDocument-sourceTotal-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="sourceTotal"/>
     <property name="label" value="Invoice Total Amount"/>
     <property name="shortLabel" value="Invoice Total Amount"/>
   </bean>
-    
+
   <bean id="CustomerInvoiceDocument-billingDateForDisplay" parent="CustomerInvoiceDocument-billingDateForDisplay-parentBean"/>
   <bean id="CustomerInvoiceDocument-billingDateForDisplay-parentBean" abstract="true" parent="GenericAttributes-genericDate">
     <property name="name" value="billingDateForDisplay"/>
@@ -360,18 +360,18 @@
     <property name="shortLabel" value="Billing Date"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-versionNumber" parent="CustomerInvoiceDocument-versionNumber-parentBean"/>
   <bean id="CustomerInvoiceDocument-versionNumber-parentBean" abstract="true" parent="GenericAttributes-versionNumber">
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-openAmount" parent="CustomerInvoiceDocument-openAmount-parentBean"/>
   <bean id="CustomerInvoiceDocument-openAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="openAmount"/>
     <property name="label" value="Open Amount"/>
     <property name="shortLabel" value="Open Amount"/>
-  </bean>  
-  
+  </bean>
+
   <bean id="CustomerInvoiceDocument-customerName" parent="CustomerInvoiceDocument-customerName-parentBean"/>
   <bean id="CustomerInvoiceDocument-customerName-parentBean" abstract="true" parent="Customer-customerName"/>
 
@@ -379,18 +379,18 @@
   <bean id="CustomerInvoiceDocument-billingAddressName-parentBean" abstract="true" parent="CustomerAddress-customerAddressName">
 	<property name="name" value="billingAddressName"/>
   </bean>
-					
+
   <bean id="CustomerInvoiceDocument-billingCityName" parent="CustomerInvoiceDocument-billingCityName-parentBean"/>
   <bean id="CustomerInvoiceDocument-billingCityName-parentBean" abstract="true" parent="CustomerAddress-customerCityName">
 	<property name="name" value="billingCityName"/>
   </bean>
-									
+
   <bean id="CustomerInvoiceDocument-billingStateCode" parent="CustomerInvoiceDocument-billingStateCode-parentBean"/>
   <bean id="CustomerInvoiceDocument-billingStateCode-parentBean" abstract="true" parent="CustomerAddress-customerStateCode">
 	<property name="name" value="billingStateCode"/>
   </bean>
-					
-					
+
+
   <bean id="CustomerInvoiceDocument-billingZipCode" parent="CustomerInvoiceDocument-billingZipCode-parentBean"/>
   <bean id="CustomerInvoiceDocument-billingZipCode-parentBean" abstract="true" parent="CustomerAddress-customerZipCode">
 	<property name="name" value="billingZipCode"/>
@@ -398,12 +398,12 @@
       <bean parent="TextControlDefinition" p:size="22"/>
     </property>
   </bean>
-									
+
   <bean id="CustomerInvoiceDocument-billingCountryCode" parent="CustomerInvoiceDocument-billingCountryCode-parentBean"/>
   <bean id="CustomerInvoiceDocument-billingCountryCode-parentBean" abstract="true" parent="CustomerAddress-customerCountryCode">
 	<property name="name" value="billingCountryCode"/>
   </bean>
-									
+
   <bean id="CustomerInvoiceDocument-billingAddressInternationalProvinceName" parent="CustomerInvoiceDocument-billingAddressInternationalProvinceName-parentBean"/>
   <bean id="CustomerInvoiceDocument-billingAddressInternationalProvinceName-parentBean" abstract="true" parent="CustomerAddress-customerAddressInternationalProvinceName">
 	<property name="name" value="billingAddressInternationalProvinceName"/>
@@ -411,17 +411,17 @@
       <bean parent="TextControlDefinition" p:size="47"/>
     </property>
   </bean>
-									
+
   <bean id="CustomerInvoiceDocument-billingInternationalMailCode" parent="CustomerInvoiceDocument-billingInternationalMailCode-parentBean"/>
   <bean id="CustomerInvoiceDocument-billingInternationalMailCode-parentBean" abstract="true" parent="CustomerAddress-customerInternationalMailCode">
 	<property name="name" value="billingInternationalMailCode"/>
   </bean>
-									
+
   <bean id="CustomerInvoiceDocument-billingEmailAddress" parent="CustomerInvoiceDocument-billingEmailAddress-parentBean"/>
   <bean id="CustomerInvoiceDocument-billingEmailAddress-parentBean" abstract="true" parent="CustomerAddress-customerEmailAddress">
 	<property name="name" value="billingEmailAddress"/>
   </bean>
-									
+
   <bean id="CustomerInvoiceDocument-billingAddressTypeCode" parent="CustomerInvoiceDocument-billingAddressTypeCode-parentBean"/>
   <bean id="CustomerInvoiceDocument-billingAddressTypeCode-parentBean" abstract="true" parent="CustomerAddress-customerAddressTypeCode">
 	<property name="name" value="billingAddressTypeCode"/>
@@ -431,17 +431,17 @@
   <bean id="CustomerInvoiceDocument-shippingAddressName-parentBean" abstract="true" parent="CustomerAddress-customerAddressName">
 	<property name="name" value="shippingAddressName"/>
   </bean>
-									
+
   <bean id="CustomerInvoiceDocument-shippingCityName" parent="CustomerInvoiceDocument-shippingCityName-parentBean"/>
   <bean id="CustomerInvoiceDocument-shippingCityName-parentBean" abstract="true" parent="CustomerAddress-customerCityName">
 	<property name="name" value="shippingCityName"/>
   </bean>
-									
+
   <bean id="CustomerInvoiceDocument-shippingStateCode" parent="CustomerInvoiceDocument-shippingStateCode-parentBean"/>
   <bean id="CustomerInvoiceDocument-shippingStateCode-parentBean" abstract="true" parent="CustomerAddress-customerStateCode">
 	<property name="name" value="shippingStateCode"/>
   </bean>
-									
+
   <bean id="CustomerInvoiceDocument-shippingZipCode" parent="CustomerInvoiceDocument-shippingZipCode-parentBean"/>
   <bean id="CustomerInvoiceDocument-shippingZipCode-parentBean" abstract="true" parent="CustomerAddress-customerZipCode">
 	<property name="name" value="shippingZipCode"/>
@@ -449,12 +449,12 @@
       <bean parent="TextControlDefinition" p:size="22"/>
     </property>
   </bean>
-					
+
   <bean id="CustomerInvoiceDocument-shippingCountryCode" parent="CustomerInvoiceDocument-shippingCountryCode-parentBean"/>
   <bean id="CustomerInvoiceDocument-shippingCountryCode-parentBean" abstract="true" parent="CustomerAddress-customerCountryCode">
 	<property name="name" value="shippingCountryCode"/>
   </bean>
-									
+
   <bean id="CustomerInvoiceDocument-shippingAddressInternationalProvinceName" parent="CustomerInvoiceDocument-shippingAddressInternationalProvinceName-parentBean"/>
   <bean id="CustomerInvoiceDocument-shippingAddressInternationalProvinceName-parentBean" abstract="true" parent="CustomerAddress-customerAddressInternationalProvinceName">
 	<property name="name" value="shippingAddressInternationalProvinceName"/>
@@ -462,42 +462,42 @@
       <bean parent="TextControlDefinition" p:size="47"/>
     </property>
   </bean>
-									
+
   <bean id="CustomerInvoiceDocument-shippingInternationalMailCode" parent="CustomerInvoiceDocument-shippingInternationalMailCode-parentBean"/>
   <bean id="CustomerInvoiceDocument-shippingInternationalMailCode-parentBean" abstract="true" parent="CustomerAddress-customerInternationalMailCode">
 	<property name="name" value="shippingInternationalMailCode"/>
   </bean>
-									
+
   <bean id="CustomerInvoiceDocument-shippingEmailAddress" parent="CustomerInvoiceDocument-shippingEmailAddress-parentBean"/>
   <bean id="CustomerInvoiceDocument-shippingEmailAddress-parentBean" abstract="true" parent="CustomerAddress-customerEmailAddress">
 	<property name="name" value="shippingEmailAddress"/>
   </bean>
-									
+
   <bean id="CustomerInvoiceDocument-shippingAddressTypeCode" parent="CustomerInvoiceDocument-shippingAddressTypeCode-parentBean"/>
   <bean id="CustomerInvoiceDocument-shippingAddressTypeCode-parentBean" abstract="true" parent="CustomerAddress-customerAddressTypeCode">
 	<property name="name" value="shippingAddressTypeCode"/>
   </bean>
-				
+
   <bean id="CustomerInvoiceDocument-billingLine1StreetAddress" parent="CustomerInvoiceDocument-billingLine1StreetAddress-parentBean"/>
   <bean id="CustomerInvoiceDocument-billingLine1StreetAddress-parentBean" abstract="true" parent="CustomerAddress-customerLine1StreetAddress">
 	<property name="name" value="billingLine1StreetAddress"/>
   </bean>
-	
+
   <bean id="CustomerInvoiceDocument-billingLine2StreetAddress" parent="CustomerInvoiceDocument-billingLine2StreetAddress-parentBean"/>
   <bean id="CustomerInvoiceDocument-billingLine2StreetAddress-parentBean" abstract="true" parent="CustomerAddress-customerLine2StreetAddress">
 	<property name="name" value="billingLine2StreetAddress"/>
   </bean>
-	
+
   <bean id="CustomerInvoiceDocument-shippingLine1StreetAddress" parent="CustomerInvoiceDocument-shippingLine1StreetAddress-parentBean"/>
   <bean id="CustomerInvoiceDocument-shippingLine1StreetAddress-parentBean" abstract="true" parent="CustomerAddress-customerLine1StreetAddress">
 	<property name="name" value="shippingLine1StreetAddress"/>
   </bean>
-	
+
   <bean id="CustomerInvoiceDocument-shippingLine2StreetAddress" parent="CustomerInvoiceDocument-shippingLine2StreetAddress-parentBean"/>
   <bean id="CustomerInvoiceDocument-shippingLine2StreetAddress-parentBean" abstract="true" parent="CustomerAddress-customerLine2StreetAddress">
 	<property name="name" value="shippingLine2StreetAddress"/>
   </bean>
-  
+
   <bean id="CustomerInvoiceDocument-recurredInvoiceIndicator" parent="CustomerInvoiceDocument-recurredInvoiceIndicator-parentBean"/>
   <bean id="CustomerInvoiceDocument-recurredInvoiceIndicator-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="recurredInvoiceIndicator"/>
@@ -510,11 +510,11 @@
       <bean parent="CheckboxControlDefinition"/>
     </property>
   </bean>
-	  
+
   <bean id="CustomerInvoiceDocument-validations" parent="CustomerInvoiceDocument-validations-parentBean"/>
   <bean id="CustomerInvoiceDocument-validations-parentBean" abstract="true"  class="org.springframework.beans.factory.config.MapFactoryBean">
   	<property name="sourceMap">
-		<map key-type="java.lang.Class">			
+		<map key-type="java.lang.Class">
 			<entry>
 				<key><value>org.kuali.kfs.sys.document.validation.event.AttributedSaveDocumentEvent</value></key>
 				<value>CustomerInvoice-saveDocumentValidation</value>
@@ -554,18 +554,18 @@
 			<entry>
 				<key><value>org.kuali.kfs.module.ar.document.validation.event.RecalculateCustomerInvoiceDetailEvent</value></key>
 				<value>CustomerInvoice-recalculateCustomerInvoiceDetailValidation</value>
-			</entry>			
+			</entry>
     	</map>
     </property>
   </bean>
-   
-<!-- Start - Workflow Attribute Beans -->   
+
+<!-- Start - Workflow Attribute Beans -->
   <bean id="CustomerInvoiceDocument-DocumentValuePathGroup-billingChartOrg" parent="CustomerInvoiceDocument-DocumentValuePathGroup-billingChartOrg-parentBean"/>
   <bean id="CustomerInvoiceDocument-DocumentValuePathGroup-billingChartOrg-parentBean" abstract="true" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
 		<property name="documentValues">
 			<list>
 				<value>billByChartOfAccountCode</value>
-				<value>billedByOrganizationCode</value>	    					
+				<value>billedByOrganizationCode</value>
 			</list>
 		</property>
   </bean>
@@ -607,6 +607,6 @@
    			<entry key="Recurrence" value-ref="CustomerInvoiceDocument-RoutingType-BillingChartOrg"/>
    		</map>
    	</property>
-	</bean>	   
+	</bean>
 
 </beans>

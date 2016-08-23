@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,7 +33,7 @@ public interface CollectorHelperService {
 
     /**
      * Loads the file given by the filename, then performs the collector process: parse, validate, store, email.
-     * 
+     *
      * @param fileName - name of file to load (including path)
      * @param group the group into which to persist the origin entries for the collector batch/file
      * @param collectorReportData the object used to store all of the collector status information for reporting
@@ -46,7 +46,7 @@ public interface CollectorHelperService {
 
     /**
      * Validates the contents of a parsed file.
-     * 
+     *
      * @param batch - batch to validate
      * @return boolean - true if validation was OK, false if there were errors
      */
@@ -54,7 +54,7 @@ public interface CollectorHelperService {
 
     /**
      * Reconciles the trailer total count and amount to the actual parsed contents.
-     * 
+     *
      * @param batch - batch to check trailer
      * @param collectorReportData if running the actual collector batch process, should be the object representing the reporting
      *        data for the batch run. Otherwise, if running in the batch upload screen or in a manner in which reporting information

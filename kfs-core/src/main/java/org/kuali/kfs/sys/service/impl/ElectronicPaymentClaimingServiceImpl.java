@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -83,7 +83,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * This creates a note for the given point in the list of summaries.
-     * 
+     *
      * @param claims a List of ElectronicPaymentClaim records that are being claimed
      * @param startPoint the point in the list the note is starting at
      * @param maxSummariesPerNote the number of ElectronicPaymentClaim summaries we can have on a note
@@ -103,7 +103,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * Creates a summary line for a note from a claim
-     * 
+     *
      * @param claim the electronic payment claim to summarize
      * @return a String with the summary of the claim.
      */
@@ -141,19 +141,19 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
         List<ElectronicPaymentClaimingDocumentGenerationStrategy> documentChoices = new ArrayList<ElectronicPaymentClaimingDocumentGenerationStrategy>();
         Map<String, ElectronicPaymentClaimingDocumentGenerationStrategy> claimingDocHelpers = SpringContext.getBeansOfType(ElectronicPaymentClaimingDocumentGenerationStrategy.class);
         ElectronicPaymentClaimingDocumentGenerationStrategy claimingDocHelper;
-        
+
         // try the helper for no document case
         claimingDocHelper = claimingDocHelpers.get(CLAIMING_DOC_HELPER_BEAN_NAME);
         if (claimingDocHelper.userMayUseToClaim(user)) {
             documentChoices.add(claimingDocHelper);
-        }        
+        }
 
         // try the DI
         claimingDocHelper = claimingDocHelpers.get(DI_CLAIMING_DOC_HELPER_BEAN_NAME);
         if (claimingDocHelper.userMayUseToClaim(user)) {
             documentChoices.add(claimingDocHelper);
         }
-        
+
         // try the YEDI
         claimingDocHelper = claimingDocHelpers.get(YEDI_CLAIMING_DOC_HELPER_BEAN_NAME);
         if (claimingDocHelper.userMayUseToClaim(user)) {
@@ -172,7 +172,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
     /**
      * Sets the referenceFinancialDocumentNumber on each of the payments passed in with the given document number and then saves
      * them.
-     * 
+     *
      * @param payments a list of payments to claim
      * @param docmentNumber the document number of the claiming document
      */
@@ -209,11 +209,11 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
         String permissionTemplateName = KFSConstants.PermissionTemplate.CLAIM_ELECTRONIC_PAYMENT.name;
 
         Map<String,String> permissionDetails = new HashMap<String,String>();
-        permissionDetails.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME, workflowDocumentTypeName);      
+        permissionDetails.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME, workflowDocumentTypeName);
 
         IdentityManagementService identityManagementService = SpringContext.getBean(IdentityManagementService.class);
         boolean isAuthorized = identityManagementService.hasPermissionByTemplateName(principalId, namespaceCode, permissionTemplateName, permissionDetails);
-        
+
         return isAuthorized;
     }
 
@@ -232,7 +232,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
         }
         return claimRecords;
     }
-    
+
     /**
      * Determines if the given accounting line represents an electronic payment
      * @param accountingLine the accounting line to check
@@ -244,7 +244,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * Creates an electronic payment claim record to match the given accounting line on the document
-     * 
+     *
      * @param accountingLine an accounting line that an electronic payment claim record should be created for
      * @return the created ElectronicPaymentClaim business object
      */
@@ -260,7 +260,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -269,7 +269,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * Sets the documentService attribute value.
-     * 
+     *
      * @param documentService The documentService to set.
      */
     public void setDocumentService(DocumentService documentService) {
@@ -278,7 +278,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * Sets the parameterService attribute value.
-     * 
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -287,7 +287,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * Sets the dateTimeService attribute value.
-     * 
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {

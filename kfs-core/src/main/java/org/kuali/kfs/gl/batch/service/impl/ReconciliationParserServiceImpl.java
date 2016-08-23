@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,14 +30,14 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 /**
  * Format of the reconciliation file:
- * 
+ *
  * <pre>
- *  C tableid rowcount ; 
- *  S field1 dollaramount ; 
- *  S field2 dollaramount ; 
+ *  C tableid rowcount ;
+ *  S field1 dollaramount ;
+ *  S field2 dollaramount ;
  *  E checksum ;
  * </pre>
- * 
+ *
  * The character '#' and everything following it on that line is ignored. Whitespace characters are tab and space.<br>
  * <br>
  * A 'C' 'S' or 'E' must be the first character on a line unless the line is entirely whitespace or a comment. The case of these
@@ -73,7 +73,7 @@ public class ReconciliationParserServiceImpl implements ReconciliationParserServ
 
     /**
      * Parses a reconciliation file
-     * 
+     *
      * @param reader a source of data from which to build a reconciliation
      * @param tableId defined within the reconciliation file; defines which block to parse
      * @return parsed reconciliation data
@@ -203,7 +203,7 @@ public class ReconciliationParserServiceImpl implements ReconciliationParserServ
 
     /**
      * Removes comments and trims whitespace
-     * 
+     *
      * @param line the line
      * @return stripped and trimmed line
      */

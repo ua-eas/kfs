@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -80,11 +80,11 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
 
     /**
      * Returns a Map representation of the primary key of this document
-     * 
+     *
      * @return a Map that represents the database key of this document
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
         m.put(KFSPropertyConstants.DOCUMENT_NUMBER, this.documentNumber);
@@ -94,7 +94,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
     /**
      * Returns the editing method to use on the origin entries in the document, either "Manual Edit," "Using Criteria," "Remove
      * Group from Processing," or "Not Available"
-     * 
+     *
      * @return the String representation of the method this document is using
      */
     public String getMethod() {
@@ -114,7 +114,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
 
     /**
      * Returns the source of the origin entries this document uses: either an uploaded file of origin entries or the database
-     * 
+     *
      * @return a String with the name of the system in use
      */
     public String getSystem() {
@@ -128,7 +128,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
 
     /**
      * This method...
-     * 
+     *
      * @param ccg
      */
     public void addCorrectionChangeGroup(CorrectionChangeGroup ccg) {
@@ -139,7 +139,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
 
     /**
      * This method...
-     * 
+     *
      * @param changeNumber
      */
     public void removeCorrectionChangeGroup(int changeNumber) {
@@ -153,7 +153,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
 
     /**
      * This method...
-     * 
+     *
      * @param groupNumber
      * @return
      */
@@ -170,8 +170,8 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
 
         return ccg;
     }
-    
-    
+
+
     public void doRouteStatusChange(DocumentRouteStatusChange statusChangeEvent) {
         super.doRouteStatusChange(statusChangeEvent);
         if (getDocumentHeader().getWorkflowDocument().isProcessed()) {
@@ -183,7 +183,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
 
             String docId = getDocumentHeader().getDocumentNumber();
             GeneralLedgerCorrectionProcessDocument doc = correctionDocumentService.findByCorrectionDocumentHeaderId(docId);
-            
+
             String correctionType = doc.getCorrectionTypeCode();
             if (CorrectionDocumentService.CORRECTION_TYPE_REMOVE_GROUP_FROM_PROCESSING.equals(correctionType)) {
 
@@ -192,7 +192,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
                 originEntryGroupService.deleteFile(doneFileName);
 
             }
-            else if (CorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(correctionType) 
+            else if (CorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(correctionType)
                     || CorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(correctionType)) {
                 // KFSMI-5760 - apparently, this node can be executed more than once, which results in multiple
                 // files being created.  We need to check for the existence of a file with the proper
@@ -202,7 +202,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
                         // save the output file to originEntry directory when correctionFileDelete is false
                         DateTimeService dateTimeService = SpringContext.getBean(DateTimeService.class);
                         Date today = dateTimeService.getCurrentDate();
-    
+
                         // generate output file and set file name
                         String outputFileName = "";
                         if (!correctionFileDelete) {
@@ -212,7 +212,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
                         Step step = BatchSpringContext.getStep(CorrectionProcessScrubberStep.STEP_NAME);
                         CorrectionProcessScrubberStep correctionStep = (CorrectionProcessScrubberStep) ProxyUtils.getTargetIfProxied(step);
                         correctionStep.setDocumentId(docId);
-        
+
                         try {
                             step.execute(getClass().getName(), dateTimeService.getCurrentDate());
                         }
@@ -220,10 +220,10 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
                             LOG.error("GLCP scrubber encountered error:", e);
                             throw new RuntimeException("GLCP scrubber encountered error:", e);
                         }
-        
+
                         correctionStep = (CorrectionProcessScrubberStep) ProxyUtils.getTargetIfProxied(step);
                         correctionStep.setDocumentId(null);
-        
+
                         correctionDocumentService.generateCorrectionReport(this);
                         correctionDocumentService.aggregateCorrectionDocumentReports(this);
                     } else {
@@ -249,12 +249,12 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
         }
         return filenamesFound != null && filenamesFound.length > 0;
     }
-    
+
 
     /**
      * Waits for the event of the route level changing to "Approve" and at that point, saving all the entries as origin entries in a
      * newly created origin entry group, then scrubbing those entries
-     * 
+     *
      * @param cahnge a representation of the route level changed that just occurred
      * @see org.kuali.rice.krad.document.DocumentBase#handleRouteLevelChange(org.kuali.rice.kew.clientapp.vo.DocumentRouteLevelChangeDTO)
      */
@@ -265,7 +265,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
 
     /**
      * Returns the total dollar amount associated with this document
-     * 
+     *
      * @return if credit total is zero, debit total, otherwise credit total
      */
     public KualiDecimal getTotalDollarAmount() {
@@ -274,7 +274,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
 
     /**
      * Sets this document's document number, but also sets the document number on all children objects
-     * 
+     *
      * @param documentNumber the document number for this document
      * @see org.kuali.rice.krad.document.DocumentBase#setDocumentNumber(java.lang.String)
      */
@@ -332,7 +332,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
         if (ObjectUtils.isNull(correctionDebitTotalAmount)) {
             return KualiDecimal.ZERO;
         }
-        
+
         return correctionDebitTotalAmount;
     }
 
@@ -344,7 +344,7 @@ public class GeneralLedgerCorrectionProcessDocument extends FinancialSystemTrans
         if (ObjectUtils.isNull(correctionCreditTotalAmount)) {
             return KualiDecimal.ZERO;
         }
-        
+
         return correctionCreditTotalAmount;
     }
 

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -80,8 +80,8 @@
 		</property>
 		<property name="collections">
 			<list>
-				<!-- <bean parent="CollectionDefinition" p:name="subAccounts" p:label="Sub-Accounts" 
-					p:shortLabel="Sub-Accounts"/> <bean parent="CollectionDefinition" p:name="awards" 
+				<!-- <bean parent="CollectionDefinition" p:name="subAccounts" p:label="Sub-Accounts"
+					p:shortLabel="Sub-Accounts"/> <bean parent="CollectionDefinition" p:name="awards"
 					p:label="Awards" p:shortLabel="Awards"/> -->
 				<bean parent="CollectionDefinition" p:name="indirectCostRecoveryAutoDefAccounts"
 					p:label="ICR Accounts" p:shortLabel="ICR Account" />
@@ -149,7 +149,7 @@
 	</bean>
 
 	<!-- Attribute Definitions -->
-	<!-- Most attributes derived from Account; Define KC specific attributes 
+	<!-- Most attributes derived from Account; Define KC specific attributes
 		here -->
 	<bean id="AccountAutoCreateDefaults-accountDefaultId" parent="AccountAutoCreateDefaults-accountDefaultId-parentBean" />
 	<bean id="AccountAutoCreateDefaults-accountDefaultId-parentBean"
@@ -285,15 +285,15 @@
 					</property>
 				</bean>
 
-				<!-- <bean parent="InquirySectionDefinition" p:title="Awards"> <property 
-					name="inquiryFields"> <list> <bean parent="InquiryCollectionDefinition" p:attributeName="awards" 
-					p:businessObjectClass="org.kuali.kfs.integration.cg.ContractsAndGrantsAccountAwardInformation"> 
-					<property name="inquiryFields"> <list> <bean parent="FieldDefinition" p:attributeName="proposalNumber"/> 
-					<bean parent="FieldDefinition" p:attributeName="projectDirector.name"/> <bean 
-					parent="FieldDefinition" p:attributeName="award.proposal.proposalFederalPassThroughIndicator"/> 
-					<bean parent="FieldDefinition" p:attributeName="award.proposal.federalPassThroughAgencyNumber"/> 
-					<bean parent="FieldDefinition" p:attributeName="award.proposal.grantNumber"/> 
-					<bean parent="FieldDefinition" p:attributeName="award.agency.reportingName"/> 
+				<!-- <bean parent="InquirySectionDefinition" p:title="Awards"> <property
+					name="inquiryFields"> <list> <bean parent="InquiryCollectionDefinition" p:attributeName="awards"
+					p:businessObjectClass="org.kuali.kfs.integration.cg.ContractsAndGrantsAccountAwardInformation">
+					<property name="inquiryFields"> <list> <bean parent="FieldDefinition" p:attributeName="proposalNumber"/>
+					<bean parent="FieldDefinition" p:attributeName="projectDirector.name"/> <bean
+					parent="FieldDefinition" p:attributeName="award.proposal.proposalFederalPassThroughIndicator"/>
+					<bean parent="FieldDefinition" p:attributeName="award.proposal.federalPassThroughAgencyNumber"/>
+					<bean parent="FieldDefinition" p:attributeName="award.proposal.grantNumber"/>
+					<bean parent="FieldDefinition" p:attributeName="award.agency.reportingName"/>
 					</list> </property> </bean> </list> </property> </bean> -->
 
 			</list>

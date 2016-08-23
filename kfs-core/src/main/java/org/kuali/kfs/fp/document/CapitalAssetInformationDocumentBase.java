@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,13 +42,13 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 
     // capital asset
     protected List<CapitalAssetInformation> capitalAssetInformation;
-    
+
     /**
      * Constructs a CapitalAssetInformationDocumentBase
      */
     public CapitalAssetInformationDocumentBase() {
         super();
-        
+
         this.setCapitalAssetInformation(new ArrayList());
         this.setNextCapitalAssetLineNumber(1);
     }
@@ -64,25 +64,25 @@ import org.kuali.kfs.krad.util.ObjectUtils;
         // update gl status as processed when all the capital assets have been processed...
         SpringContext.getBean(CapitalAssetBuilderModuleService.class).markProcessedGLEntryLine(documentNumber);
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.AccountingDocumentBase#buildListOfDeletionAwareLists()
      */
     @Override
     public List buildListOfDeletionAwareLists() {
         List<List> managedLists = super.buildListOfDeletionAwareLists();
-        
+
         List<CapitalAssetInformation> capitalAssets = new ArrayList<CapitalAssetInformation>();
         capitalAssets.addAll(this.getCapitalAssetInformation());
 
-        managedLists.add(capitalAssets); 
-        
+        managedLists.add(capitalAssets);
+
         return managedLists;
     }
 
     /**
      * Return true if account line is debit
-     * 
+     *
      * @param financialDocument submitted accounting document
      * @param accountingLine accounting line from accounting document
      * @return true is account line is debit
@@ -94,7 +94,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
         DebitDeterminerService isDebitUtils = SpringContext.getBean(DebitDeterminerService.class);
         return isDebitUtils.isDebitConsideringSectionAndTypePositiveOnly(this, (AccountingLine) postable);
     }
-    
+
     /**
      * @see org.kuali.kfs.fp.document.CapitalAssetEditable#getCapitalAssetInformation()
      */
@@ -108,20 +108,20 @@ import org.kuali.kfs.krad.util.ObjectUtils;
     public void setCapitalAssetInformation(List<CapitalAssetInformation> capitalAssetInformation) {
         this.capitalAssetInformation = capitalAssetInformation;
     }
-    
+
     /**
      * Gets the nextCapitalAssetLineNumber attribute.
-     * 
+     *
      * @return Returns the nextCapitalAssetLineNumber
      */
-    
+
     public Integer getNextCapitalAssetLineNumber() {
         return nextCapitalAssetLineNumber;
     }
 
-    /** 
+    /**
      * Sets the nextCapitalAssetLineNumber attribute.
-     * 
+     *
      * @param nextCapitalAssetLineNumber The nextCapitalAssetLineNumber to set.
      */
     public void setNextCapitalAssetLineNumber(Integer nextCapitalAssetLineNumber) {

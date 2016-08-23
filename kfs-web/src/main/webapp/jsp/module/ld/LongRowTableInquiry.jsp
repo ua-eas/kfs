@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -68,7 +68,7 @@
                                     property="methodToCall.cancel" value="Cancel"
                                     styleClass="tinybutton btn btn-default"
                                     alt="Cancel" title="Cancel" />
-						    
+
 						    <c:if test="${not empty KualiForm.lookupable.extraButtonSource}">
                                 <a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&refreshCaller=org.kuali.kfs.kns.lookup.KualiLookupableImpl&docFormKey=${KualiForm.formKey}" /><c:out value="${KualiForm.lookupable.extraButtonParams}" />' title='<c:out value="${KualiForm.lookupable.extraButtonAltText}" />'>
                                     <span class="tinybutton btn btn-default"><c:out value="${KualiForm.lookupable.extraButtonAltText}" /></span>
@@ -81,23 +81,23 @@
 
 				<br />
 				<br />
-			</c:if> 
-			
+			</c:if>
+
 			<br />
 			<br />
 
 			<c:if test="${reqSearchResultsActualSize>0}">
 				<c:out value="${reqSearchResultsActualSize}" /> items found.
 	        </c:if>
-	        
+
 	        <display:table class="datatable-100" cellspacing="0"
 				cellpadding="0" name="${reqSearchResults}" id="row"
 				export="true" pagesize="100" defaultsort="1" decorator="org.kuali.kfs.module.ld.businessobject.lookup.LongRowTableDecorator"
 				requestURI="laborLongRowTableInquiry.do?methodToCall=viewResults&reqSearchResultsActualSize=${reqSearchResultsActualSize}&searchResultKey=${searchResultKey}">
-				
+
 				<c:set var="columnLength" value="14" />
 				<c:forEach items="${row.columns}" var="column" varStatus="status">
-					
+
 					<c:choose>
 						<c:when test="${column.formatter.implementationClass == 'org.kuali.rice.core.web.format.CurrencyFormatter'}">
 							<display:column class="numbercell" media="${(status.index < columnLength) ? 'all' : 'csv excel xml'}"
@@ -105,10 +105,10 @@
 								comparator="${column.comparator}" title="${column.columnTitle}" sortable="true">
 									<c:if test="${column.propertyURL != ''}">
 											<a href="<c:out value="${column.propertyURL}"/>" title="${column.propertyValue}"
-												target="blank"><c:out value="${column.propertyValue}" /></a>	
+												target="blank"><c:out value="${column.propertyValue}" /></a>
 									</c:if>
-									
-									<c:if test="${column.propertyURL == ''}"><c:out value="${column.propertyValue}" /></c:if>								
+
+									<c:if test="${column.propertyURL == ''}"><c:out value="${column.propertyValue}" /></c:if>
 							</display:column>
 						</c:when>
 
@@ -122,20 +122,20 @@
 									<a href="<c:out value="${column.propertyURL}"/>" title="${column.propertyValue}"
 										target="blank"><c:out value="${column.propertyValue}" /></a>
 
-								</display:column>								
+								</display:column>
 							</c:if>
-							
-							<c:if test="${column.propertyURL == ''}">								
+
+							<c:if test="${column.propertyURL == ''}">
 								<display:column class="infocell"
 									decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
 									media="${(status.index < columnLength) ? 'all' : 'csv excel xml'}"
 									comparator="${column.comparator}" title="${column.columnTitle}" sortable="true">
-									
+
 									<c:if test="${column.columnTitle == 'Project Code'}">
 										<div style="white-space: nowrap"><c:out
 											value="${column.propertyValue}" /></div>
 									</c:if>
-									
+
 									<c:if test="${column.columnTitle != 'Project Code'}">
 										<c:out value="${column.propertyValue}" />
 									</c:if>
@@ -143,8 +143,8 @@
 								</display:column>
 							</c:if>
 						</c:otherwise>
-					</c:choose>					
-				</c:forEach>				
+					</c:choose>
+				</c:forEach>
 			</display:table>
 			</td>
 		</tr>

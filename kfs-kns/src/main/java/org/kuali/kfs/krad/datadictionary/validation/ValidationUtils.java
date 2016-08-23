@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,34 +29,34 @@ import java.util.Collection;
 import java.util.Date;
 
 /**
- * Inherited from Kuali Student and adapted extensively, this class provides static utility methods for validation processing. 
- * 
- * 
+ * Inherited from Kuali Student and adapted extensively, this class provides static utility methods for validation processing.
+ *
+ *
  */
 public class ValidationUtils {
 
 	public static String buildPath(String attributePath, String attributeName) {
 		if (StringUtils.isNotBlank(attributeName)) {
-			if (StringUtils.isNotBlank(attributePath)) 
+			if (StringUtils.isNotBlank(attributePath))
 				return new StringBuilder(attributePath).append(".").append(attributeName).toString();
-		
+
 			return attributeName;
 		}
 		return attributePath;
 	}
-	
+
 	/**
 	 * Used to get the rightmost index value of an attribute path.
-	 *  
+	 *
 	 * @param attributePath
 	 * @return the right index of value of attribute path, -1 if path has no index
 	 */
 	public static int getLastPathIndex(String attributePath){
 	    int index = -1;
-	    
+
 	    int leftBracket = attributePath.lastIndexOf("[");
 	    int rightBracket = attributePath.lastIndexOf("]");
-	    
+
 	    if (leftBracket > 0 && rightBracket > leftBracket){
 	        String indexString = attributePath.substring(leftBracket +1, rightBracket);
 	        try {
@@ -65,10 +65,10 @@ public class ValidationUtils {
                 // Will just return -1
             }
 	    }
-	    
+
 	    return index;
 	}
-	
+
 	public static boolean compareValues(Object value1, Object value2,
 			DataType dataType, String operator, boolean isCaseSensitive, DateTimeService dateTimeService) {
 
@@ -80,13 +80,13 @@ public class ValidationUtils {
 				return "false".equals(value2.toString().toLowerCase());
 			}
 			if (value1 instanceof String && ((String) value1).isEmpty()){
-			    return "false".equals(value2.toString().toLowerCase());			    
+			    return "false".equals(value2.toString().toLowerCase());
 			}
 			if(value1 instanceof Collection && ((Collection<?>) value1).isEmpty()){
 				return "false".equals(value2.toString().toLowerCase());
 			}
 			return "true".equals(value2.toString().toLowerCase());
-		}		
+		}
 		// Convert objects into appropriate data types
 		if (null != dataType) {
 			if (DataType.STRING.equals(dataType)) {
@@ -97,7 +97,7 @@ public class ValidationUtils {
 				    v1 = v1.toUpperCase();
 				    v2 = v2.toUpperCase();
 				}
-				
+
 				compareResult = v1.compareTo(v2);
 			} else if (DataType.INTEGER.equals(dataType)) {
 				Integer v1 = getInteger(value1);
@@ -222,7 +222,7 @@ public class ValidationUtils {
 				result = dateTimeService.convertToDate(s.trim());
 			} catch (ParseException e) {
 				throw new IllegalArgumentException(e);
-			} 
+			}
 		}
 		return result;
 	}
@@ -246,8 +246,8 @@ public class ValidationUtils {
 			result = Boolean.parseBoolean(s.trim());
 		}
 		return result;
-	}	
-	
+	}
+
 
     public static boolean hasText(String string) {
 
@@ -265,25 +265,25 @@ public class ValidationUtils {
 
         return false;
     }
-    
+
     public static boolean isNullOrEmpty(Object value) {
     	return value == null || (value instanceof String && StringUtils.isBlank(((String) value).trim()));
     }
-    
-	
+
+
 	public static enum Result { VALID, INVALID, UNDEFINED };
-	
+
 	public static Object convertToDataType(Object value, DataType dataType, DateTimeService dateTimeService) throws AttributeValidationException {
 		Object returnValue = value;
-		
+
 		if (null == value)
 			return null;
-		
+
 		switch (dataType) {
 		case BOOLEAN:
 			if (! (value instanceof Boolean)) {
 				returnValue = Boolean.valueOf(value.toString());
-				
+
 				// Since the Boolean.valueOf is exceptionally loose - it basically takes any string and makes it false
 				if (!value.toString().equalsIgnoreCase("TRUE") && !value.toString().equalsIgnoreCase("FALSE"))
 					throw new AttributeValidationException("Value " + value.toString() + " is not a boolean!");
@@ -304,7 +304,7 @@ public class ValidationUtils {
 				returnValue = Double.valueOf(value.toString());
 			}
 			if (((Double)returnValue).isNaN())
-				throw new AttributeValidationException("Infinite Double values are not valid!");		
+				throw new AttributeValidationException("Infinite Double values are not valid!");
 			if (((Double)returnValue).isInfinite())
 				throw new AttributeValidationException("Infinite Double values are not valid!");
 			break;
@@ -329,27 +329,27 @@ public class ValidationUtils {
 			break;
 		case STRING:
 		}
-		
+
 		return returnValue;
 	}
-	
+
 	public static <T> Result isGreaterThan(T value, Comparable<T> limit) {
 		return limit == null ? Result.UNDEFINED : ( limit.compareTo(value) < 0 ? Result.VALID : Result.INVALID );
 	}
-	
+
 	public static <T> Result isGreaterThanOrEqual(T value, Comparable<T> limit) {
 		return limit == null ? Result.UNDEFINED : ( limit.compareTo(value) <= 0 ? Result.VALID : Result.INVALID );
 	}
-	
+
 	public static <T> Result isLessThan(T value, Comparable<T> limit) {
 		return limit == null ? Result.UNDEFINED : ( limit.compareTo(value) > 0 ? Result.VALID : Result.INVALID );
 	}
-	
+
 	public static <T> Result isLessThanOrEqual(T value, Comparable<T> limit) {
 		return limit == null ? Result.UNDEFINED : ( limit.compareTo(value) >= 0 ? Result.VALID : Result.INVALID );
 	}
-	
-	
+
+
     public static String[] getPathTokens(String fieldPath) {
         return (fieldPath != null && fieldPath.contains(".") ? fieldPath.split("\\.") : new String[]{fieldPath});
     }

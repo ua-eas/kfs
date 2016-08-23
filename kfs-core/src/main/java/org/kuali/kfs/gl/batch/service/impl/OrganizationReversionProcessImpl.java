@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -119,11 +119,11 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
     private SystemOptions systemOptions;
     private Integer paramFiscalYear;
-    
+
     private LedgerSummaryReport ledgerReport;
-    
+
     private PrintStream outputPs;
-     
+
     /**
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
@@ -141,7 +141,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
         this.FUND_CARRIED_MESSAGE = getConfigurationService().getPropertyValueAsString(KFSKeyConstants.OrganizationReversionProcess.FUND_CARRIED);
         this.FUND_REVERTED_TO_MESSAGE = getConfigurationService().getPropertyValueAsString(KFSKeyConstants.OrganizationReversionProcess.FUND_REVERTED_TO);
         this.FUND_REVERTED_FROM_MESSAGE = getConfigurationService().getPropertyValueAsString(KFSKeyConstants.OrganizationReversionProcess.FUND_REVERTED_FROM);
-        
+
         outputFileName = getBatchFileDirectoryName() + File.separator + (usePriorYearInformation ? GeneralLedgerConstants.BatchFileSystem.ORGANIZATION_REVERSION_CLOSING_FILE : GeneralLedgerConstants.BatchFileSystem.ORGANIZATION_REVERSION_PRE_CLOSING_FILE) + GeneralLedgerConstants.BatchFileSystem.EXTENSION;
     }
 
@@ -157,16 +157,16 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
         LOG.info("Initializing the process");
         initializeProcess();
-        
+
         //create files
         File outputFile = new File(outputFileName);
-        
+
         try {
             outputPs = new PrintStream(outputFile);
-        
+
             Iterator<Balance> balances = getBalanceService().findOrganizationReversionBalancesForFiscalYear((Integer) jobParameters.get(KFSConstants.UNIV_FISCAL_YR), usePriorYearInformation);
             processBalances(balances);
-            
+
             outputPs.close();
         } catch (FileNotFoundException e) {
             throw new RuntimeException("Organization Reversion File Files doesn't exist " + outputFileName);
@@ -177,14 +177,14 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
     /**
      * Given a list of balances, this method generates the origin entries for the organization reversion/carry forward process, and saves those
      * to an initialized origin entry group
-     * 
+     *
      * @param balances an iterator of balances to process; each balance returned by the iterator will be processed by this method
      */
     public void processBalances(Iterator<Balance> balances) {
         boolean skipToNextUnitOfWork = false;
         unitOfWork = new OrgReversionUnitOfWork();
         unitOfWork.setCategories(categoryList);
-        
+
         Balance bal;
         while (balances.hasNext()) {
             bal = balances.next();
@@ -242,15 +242,15 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
                 LOG.info(fee.getMessage());
             }
         }
-        
+
     }
 
     /**
      * Given a balance, returns the current organization reversion record and account or prior year account for the balance; it sets them
      * to private properties
-     * 
-     * @param bal the balance to find the account/prior year account and organization reversion record for 
-     * @throws FatalErrorException if an organization reversion record cannot be found in the database 
+     *
+     * @param bal the balance to find the account/prior year account and organization reversion record for
+     * @throws FatalErrorException if an organization reversion record cannot be found in the database
      */
     protected void retrieveCurrentReversionAndAccount(Balance bal) throws FatalErrorException {
         // initialize the account
@@ -272,7 +272,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
             // we can't find an organization reversion for this balance? Throw exception
             throw new FatalErrorException("No Organization Reversion found for: " + (Integer) jobParameters.get(KFSConstants.UNIV_FISCAL_YR) + "-" + bal.getChartOfAccountsCode() + "-" + account.getOrganizationCode());
         }
-        
+
         if (account.isClosed()) {
             organizationReversion = new ClosedAccountOrganizationReversion(organizationReversion);
         }
@@ -297,13 +297,13 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
         organizationReversionCounts.put("recordsWritten", new Integer(0));
 
         this.systemOptions = SpringContext.getBean(OptionsService.class).getOptions(paramFiscalYear);
-        
+
         ledgerReport = new LedgerSummaryReport();
     }
 
     /**
-     * Depending on the category that this balance belongs to, adds the balance to the appropriate bucket 
-     * 
+     * Depending on the category that this balance belongs to, adds the balance to the appropriate bucket
+     *
      * @param bal the current balance to process
      */
     protected void calculateBucketAmounts(Balance bal) {
@@ -365,7 +365,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
     /**
      * This method determines which origin entries (reversion, cash reversion, or carry forward) need to be generated for the current unit of work,
      * and then delegates to the origin entry generation methods to create those entries
-     * 
+     *
      * @return a list of OriginEntries which need to be written
      * @throws FatalErrorException thrown if object codes are missing in any of the generation methods
      */
@@ -390,7 +390,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
     /**
      * This method writes a list of OriginEntryFulls to a given origin entry group
-     * 
+     *
      * @param writeGroup the origin entry group to write to
      * @param originEntriesToWrite a list of origin entry fulls to write
      * @return the count of origin entries that were written
@@ -408,7 +408,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
     /**
      * This method starts the creation of an origin entry, by setting fields that are the same in every Org Rev origin entries
-     * 
+     *
      * @return an OriginEntryFull partially filled out with constant information
      */
     protected OriginEntryFull getEntry() {
@@ -426,13 +426,13 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
     /**
      * This method generates cash reversion origin entries for the current organization reversion, and adds them to the given list
-     * 
+     *
      * @param originEntriesToWrite a list of OriginEntryFulls to stick generated origin entries into
      * @throws FatalErrorException thrown if an origin entry's object code can't be found
      */
     public void generateCashReversions(List<OriginEntryFull> originEntriesToWrite) throws FatalErrorException {
         int entriesWritten = 0;
-        
+
         // Reversion of cash from the actual account in the fiscal year ending (balance type of NB)
         OriginEntryFull entry = getEntry();
         entry.refreshReferenceObject("option");
@@ -467,7 +467,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
         originEntriesToWrite.add(entry);
 
-        // Reversion of fund balance, starting with the actual account, to match the cash that was reverted (balance type of NB) 
+        // Reversion of fund balance, starting with the actual account, to match the cash that was reverted (balance type of NB)
         entry = getEntry();
         entry.setChartOfAccountsCode(unitOfWork.chartOfAccountsCode);
         entry.setAccountNumber(unitOfWork.accountNumber);
@@ -531,7 +531,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
         originEntriesToWrite.add(entry);
 
-        // Reversion of fund balance, starting with the cash reversion account, to match the cash that was reverted (balance type of NB) 
+        // Reversion of fund balance, starting with the cash reversion account, to match the cash that was reverted (balance type of NB)
         entry = getEntry();
         entry.setChartOfAccountsCode(organizationReversion.getCashReversionFinancialChartOfAccountsCode());
         entry.setAccountNumber(organizationReversion.getCashReversionAccountNumber());
@@ -560,7 +560,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
         // 3768 MOVE TRN-LDGR-ENTR-AMT TO WS-AMT-W-PERIOD
         // 3769 WS-AMT-N.
         // 3770 MOVE WS-AMT-X TO TRN-AMT-RED-X.
-        
+
         getFlexibleOffsetAccountService().updateOffset(entry);
         originEntriesToWrite.add(entry);
     }
@@ -568,7 +568,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
     /**
      * Generates carry forward origin entries on a category by category basis (if the organization reversion record asks for that), assuming carry
      * forwards are required for the current unit of work
-     * 
+     *
      * @param originEntriesToWrite a list of origin entries to write, which any generated origin entries should be added to
      * @throws FatalErrorException thrown if an object code cannot be found
      */
@@ -645,7 +645,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
      * If carry forwards need to be generated for this unit of work, this method will generate the origin entries to accomplish those object codes.
      * Note: this will only be called if the organization reversion record tells the process to munge all carry forwards for all categories
      * together; if the organization reversion record does not call for such a thing, then generateMany will be called
-     * 
+     *
      * @param originEntriesToWrite a list of origin entries to write, that any generated origin entries should be added to
      * @throws FatalErrorException thrown if the current object code can't be found in the database
      */
@@ -714,7 +714,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
     /**
      * If reversions are necessary, this will generate the origin entries for those reversions
-     * 
+     *
      * @param originEntriesToWrite the list of origin entries to add reversions into
      * @throws FatalErrorException thrown if object code if the entry can't be found
      */
@@ -773,7 +773,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
     /**
      * This method calculates the totals for a given unit of work's reversion
-     * 
+     *
      * @throws FatalErrorException
      */
     public void calculateTotals() throws FatalErrorException {
@@ -886,7 +886,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
         unitOfWork.setTotalReversion(totalAvailable);
         unitOfWork.setTotalCarryForward(KualiDecimal.ZERO);
     }
-    
+
     /**
      * Summarizes the given origin entries to the ledger report
      * @param originEntries the List of originEntries to summarize
@@ -911,7 +911,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
     /**
      * Gets the generatedOriginEntries attribute.
-     * 
+     *
      * @return Returns the generatedOriginEntries.
      */
     public List<OriginEntryFull> getGeneratedOriginEntries() {
@@ -920,7 +920,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
     /**
      * Sets the holdGeneratedOriginEntries attribute value.
-     * 
+     *
      * @param holdGeneratedOriginEntries The holdGeneratedOriginEntries to set.
      */
     public void setHoldGeneratedOriginEntries(boolean holdGeneratedOriginEntries) {
@@ -930,7 +930,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
     /**
      * Returns the total number of balances for the previous fiscal year
-     * 
+     *
      * @return the total number of balances for the previous fiscal year
      */
     public int getBalancesRead() {
@@ -939,7 +939,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
     /**
      * Returns the total number of balances selected for inclusion in this process
-     * 
+     *
      * @return the total number of balances selected for inclusion in this process
      */
     public int getBalancesSelected() {
@@ -948,7 +948,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
     /**
      * Returns the total number of origin entries written by this process
-     * 
+     *
      * @return the total number of origin entries written by this process
      */
     public int getRecordsWritten() {
@@ -957,7 +957,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
     /**
      * Used mainly for unit testing, this method allows a way to change the output group of a org reversion process run
-     * 
+     *
      * @param outputGroup
      */
     public void setOutputFileName(String outputFileName) {
@@ -966,7 +966,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
     /**
      * Increments one of the totals held in the count map this process uses for reported statistics
-     * 
+     *
      * @param countName the name of the count to increment
      */
     private void incrementCount(String countName) {
@@ -975,7 +975,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
     /**
      * Increments one of the totals held in the count map this process uses for reported statistics by a given increment
-     * 
+     *
      * @param countName the name of the count to increment
      * @param increment the amount to increment
      */
@@ -997,7 +997,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
             organizationReversionCounts.put(countName, new Integer(count.intValue() + increment));
         }
     }
-    
+
     /**
      * Writes out the encapsulated origin entry ledger report to the given reportWriterService
      * @param reportWriterService the report to write the ledger summary report to
@@ -1007,7 +1007,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
     }
 
     /**
-     * Gets the organizationReversionService attribute. 
+     * Gets the organizationReversionService attribute.
      * @return Returns the organizationReversionService.
      */
     public OrganizationReversionService getOrganizationReversionService() {
@@ -1023,7 +1023,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
     }
 
     /**
-     * Gets the balanceService attribute. 
+     * Gets the balanceService attribute.
      * @return Returns the balanceService.
      */
     public BalanceService getBalanceService() {
@@ -1039,7 +1039,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
     }
 
     /**
-     * Gets the originEntryService attribute. 
+     * Gets the originEntryService attribute.
      * @return Returns the originEntryService.
      */
     public OriginEntryService getOriginEntryService() {
@@ -1055,7 +1055,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
     }
 
     /**
-     * Gets the persistenceService attribute. 
+     * Gets the persistenceService attribute.
      * @return Returns the persistenceService.
      */
     public PersistenceService getPersistenceService() {
@@ -1071,7 +1071,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
     }
 
     /**
-     * Gets the dateTimeService attribute. 
+     * Gets the dateTimeService attribute.
      * @return Returns the dateTimeService.
      */
     public DateTimeService getDateTimeService() {
@@ -1087,7 +1087,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
     }
 
     /**
-     * Gets the priorYearAccountService attribute. 
+     * Gets the priorYearAccountService attribute.
      * @return Returns the priorYearAccountService.
      */
     public PriorYearAccountService getPriorYearAccountService() {
@@ -1103,7 +1103,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
     }
 
     /**
-     * Gets the orgReversionUnitOfWorkService attribute. 
+     * Gets the orgReversionUnitOfWorkService attribute.
      * @return Returns the orgReversionUnitOfWorkService.
      */
     public OrganizationReversionUnitOfWorkService getOrgReversionUnitOfWorkService() {
@@ -1119,7 +1119,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
     }
 
     /**
-     * Gets the flexibleOffsetAccountService attribute. 
+     * Gets the flexibleOffsetAccountService attribute.
      * @return Returns the flexibleOffsetAccountService.
      */
     public FlexibleOffsetAccountService getFlexibleOffsetAccountService() {
@@ -1135,7 +1135,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
     }
 
     /**
-     * Gets the parameterService attribute. 
+     * Gets the parameterService attribute.
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -1151,7 +1151,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
     }
 
     /**
-     * Gets the configurationService attribute. 
+     * Gets the configurationService attribute.
      * @return Returns the configurationService.
      */
     public ConfigurationService getConfigurationService() {
@@ -1167,7 +1167,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
     }
 
     /**
-     * Gets the usePriorYearInformation attribute. 
+     * Gets the usePriorYearInformation attribute.
      * @return Returns the usePriorYearInformation.
      */
     public boolean isUsePriorYearInformation() {
@@ -1183,7 +1183,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
     }
 
     /**
-     * Gets the cashOrganizationReversionCategoryLogic attribute. 
+     * Gets the cashOrganizationReversionCategoryLogic attribute.
      * @return Returns the cashOrganizationReversionCategoryLogic.
      */
     public OrganizationReversionCategoryLogic getCashOrganizationReversionCategoryLogic() {
@@ -1200,7 +1200,7 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
 
 
     /**
-     * Gets the batchFileDirectoryName attribute. 
+     * Gets the batchFileDirectoryName attribute.
      * @return Returns the batchFileDirectoryName.
      */
     public String getBatchFileDirectoryName() {
@@ -1230,5 +1230,5 @@ public class OrganizationReversionProcessImpl implements OrganizationReversionPr
     public void setOrganizationReversionCounts(Map<String, Integer> organizationReversionCounts) {
         this.organizationReversionCounts = organizationReversionCounts;
     }
-    
+
 }

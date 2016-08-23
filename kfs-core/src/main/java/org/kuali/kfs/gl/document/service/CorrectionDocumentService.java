@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,7 +53,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
 
     /**
      * Returns a specific correction change group for a GLCP document
-     * 
+     *
      * @param docId the document id of a GLCP document
      * @param i the number of the correction group within the document
      * @return a CorrectionChangeGroup
@@ -62,7 +62,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
 
     /**
      * Finds CollectionChange records associated with a given document id and correction change group
-     * 
+     *
      * @param docId the document id of a GLCP document
      * @param i the number of the correction group within the document
      * @return a List of qualifying CorrectionChange records
@@ -71,7 +71,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
 
     /**
      * Finds Collection Criteria associated with the given GLCP document and group
-     * 
+     *
      * @param docId the document id of a GLCP document
      * @param i the number of the correction group within the document
      * @return a List of qualifying CorrectionCriteria
@@ -80,7 +80,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
 
     /**
      * Retrieves a correction document by the document id
-     * 
+     *
      * @param docId the document id of the GLCP to find
      * @return a CorrectionDocument if found
      */
@@ -88,7 +88,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
 
     /**
      * Returns metadata to help render columns in the GLCP. Do not modify this list or the contents in this list.
-     * 
+     *
      * @param docId the document id of a GLCP document
      * @return a List of Columns to render
      */
@@ -96,7 +96,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
 
     /**
      * This method persists an Iterator of input origin entries for a document that is in the initiated or saved state
-     * 
+     *
      * @param document an initiated or saved document
      * @param entries an Iterator of origin entries
      */
@@ -104,21 +104,21 @@ public interface CorrectionDocumentService extends InitiateDirectory{
 
     /**
      * Removes input origin entries that were saved to the database associated with the given document
-     * 
+     *
      * @param document a GLCP document
      */
     public void removePersistedInputOriginEntries(GeneralLedgerCorrectionProcessDocument document);
 
     /**
      * Removes input origin entries that were saved to the database associated with the given document
-     * 
+     *
      * @param docId the document id of a GLCP document
      */
     public void removePersistedInputOriginEntries(String docId);
 
     /**
      * Retrieves input origin entries that have been persisted for this document
-     * 
+     *
      * @param document the document
      * @param abortThreshold if the file exceeds this number of rows, then null is returned. {@link UNLIMITED_ABORT_THRESHOLD}
      *        signifies that there is no limit
@@ -132,7 +132,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
      * one input origin entry record persisted for this document, but merely returns true if and only if the underlying persistence
      * mechanism has a record of this document's origin entries. See the docs for the implementations of this method for more
      * implementation specific details.
-     * 
+     *
      * @param document a GLCP document
      * @return Returns true if system should store origin entries, false otherwise
      */
@@ -140,7 +140,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
 
     /**
      * Writes out the persisted input origin entries in an {@link OutputStream} in a flat file format
-     * 
+     *
      * @param document a GLCP document
      * @param out an open and ready output stream
      * @throws IOException thrown if errors were encountered writing to the Stream
@@ -150,21 +150,21 @@ public interface CorrectionDocumentService extends InitiateDirectory{
 
     /**
      * This method persists an Iterator of input origin entries for a document that is in the initiated or saved state
-     * 
+     *
      * @param document an initiated or saved document
      * @param entries an Iterator of OriginEntries to persist
      */
     public void persistOutputOriginEntriesForInitiatedOrSavedDocument(GeneralLedgerCorrectionProcessDocument document, Iterator<OriginEntryFull> entries);
 
     /**
-     * Removes all output origin entries persisted in the database created by the given document 
-     * 
+     * Removes all output origin entries persisted in the database created by the given document
+     *
      * @param document a GLCP document
      */
     public void removePersistedOutputOriginEntries(GeneralLedgerCorrectionProcessDocument document);
 
     /**
-     * Removes all output origin entries persisted in the database created by the given document 
+     * Removes all output origin entries persisted in the database created by the given document
      *
      * @param docId the document id of a GLCP document
      */
@@ -172,7 +172,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
 
     /**
      * Retrieves output origin entries that have been persisted for this document
-     * 
+     *
      * @param document the document
      * @param abortThreshold if the file exceeds this number of rows, then null is returned. {@link UNLIMITED_ABORT_THRESHOLD}
      *        signifies that there is no limit
@@ -184,7 +184,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
     /**
      * Retrieves input origin entries that have been persisted for this document in an iterator. Implementations of this method may
      * choose to implement this method in a way that consumes very little memory.
-     * 
+     *
      * @param document the document
      * @return the iterator
      * @throws RuntimeException several reasons, primarily relating to underlying persistence layer problems
@@ -194,7 +194,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
     /**
      * Retrieves output origin entries that have been persisted for this document in an iterator. Implementations of this method may
      * choose to implement this method in a way that consumes very little memory.
-     * 
+     *
      * @param document the document
      * @return the iterator
      * @throws RuntimeException several reasons, primarily relating to underlying persistence layer problems
@@ -206,7 +206,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
      * least one output origin entry record persisted for this document, but merely returns true if and only if the underlying
      * persistence mechanism has a record of this document's origin entries. See the docs for the implementations of this method for
      * more implementation specific details.
-     * 
+     *
      * @param document a GLCP document to query
      * @return true if origin entries are stored to the system, false otherwise
      */
@@ -214,7 +214,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
 
     /**
      * Writes out the persisted output origin entries in an {@link OutputStream} in a flat file format\
-     * 
+     *
      * @param document a GLCP document
      * @param out axn open and ready output stream
      * @throws IOException thrown if IOExceptions occurred in writing the persisted origin entries
@@ -224,7 +224,7 @@ public interface CorrectionDocumentService extends InitiateDirectory{
 
     /**
      * Saves the input and output origin entry groups for a document prior to saving the document
-     * 
+     *
      * @param document a GLCP document
      * @param correctionDocumentEntryMetadata metadata about this GLCP document
      */
@@ -232,32 +232,32 @@ public interface CorrectionDocumentService extends InitiateDirectory{
 
     /**
      * Retrieves all of the documents that were finalized on a certain date
-     * 
+     *
      * @param date the date to find GLCP documents finalized on
      * @return a collection of documents
      */
     public Collection<GeneralLedgerCorrectionProcessDocument> getCorrectionDocumentsFinalizedOn(Date date);
-    
+
     public String generateOutputOriginEntryFileName(String docId);
-    
+
     public String createOutputFileForProcessing(String docId, java.util.Date today);
-    
+
     public String getBatchFileDirectoryName();
-    
+
     public String getGlcpDirectoryName();
-    
+
     /**
      * Generate a text report for the given correction document
-     * 
+     *
      * @param document GLCP document to report on
      */
     public void generateCorrectionReport(GeneralLedgerCorrectionProcessDocument document);
-    
+
     public void aggregateCorrectionDocumentReports(GeneralLedgerCorrectionProcessDocument document);
 
     /**
      * Finds any existing output files for the given document.  Used to prevent double-processing.
-     * 
+     *
      * @param documentNumber
      * @return
      */

@@ -1,26 +1,29 @@
 <%--
- Copyright 2005-2007 The Kuali Foundation
-
- Licensed under the Educational Community License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.opensource.org/licenses/ecl2.php
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 <%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
 
-<%@ attribute name="component" required="true" 
-              description="The UIF component for which the script will be generated" 
+<%@ attribute name="component" required="true"
+              description="The UIF component for which the script will be generated"
               type="org.kuali.kfs.krad.uif.component.ScriptEventSupport"%>
-              
-<%-- creates the script event registration code for the events 
-supported and configured on the component --%>     
+
+<%-- creates the script event registration code for the events
+supported and configured on the component --%>
 
 <krad:buffer>
 <jsp:attribute name="fragment">
@@ -29,7 +32,7 @@ supported and configured on the component --%>
      ${component.onLoadScript}
     });
   </c:if>
-  
+
   <c:if test="${component.supportsOnDocumentReady && (!empty component.onDocumentReadyScript)}">
     jq(document).ready(function() {
      ${component.onDocumentReadyScript}
@@ -70,44 +73,44 @@ supported and configured on the component --%>
     jq('#' + '${component.id}').focus(function() {
      ${component.onFocusScript}
     });
-  </c:if> 
+  </c:if>
 
   <c:if test="${component.supportsOnKeyPress && (!empty component.onKeyPressScript)}">
     jq('#' + '${component.id}').keypress(function() {
      ${component.onKeyPressScript}
     });
-  </c:if> 
+  </c:if>
 
   <c:if test="${component.supportsOnKeyUp && (!empty component.onKeyUpScript)}">
     jq('#' + '${component.id}').keyup(function() {
      ${component.onKeyUpScript}
     });
-  </c:if> 
+  </c:if>
 
   <c:if test="${component.supportsOnKeyDown && (!empty component.onKeyDownScript)}">
     jq('#' + '${component.id}').keydown(function() {
      ${component.onKeyDownScript}
     });
-  </c:if>    
+  </c:if>
 
   <c:if test="${component.supportsOnKeyDown && (!empty component.onKeyDownScript)}">
     jq('#' + '${component.id}').keydown(function() {
      ${component.onKeyDownScript}
     });
-  </c:if>  
+  </c:if>
 
   <c:if test="${component.supportsOnMouseOver && (!empty component.onMouseOverScript)}">
     jq('#' + '${component.id}').mouseover(function() {
      ${component.onMouseOverScript}
     });
-  </c:if>  
-    
+  </c:if>
+
   <c:if test="${component.supportsOnMouseOut && (!empty component.onMouseOutScript)}">
     jq('#' + '${component.id}').mouseout(function() {
      ${component.onMouseOutScript}
     });
-  </c:if>  
- 
+  </c:if>
+
   <c:if test="${component.supportsOnMouseUp && (!empty component.onMouseUpScript)}">
     jq('#' + '${component.id}').mouseup(function() {
      ${component.onMouseUpScript}

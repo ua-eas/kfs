@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <rules>
 	<rule name="new_rule_testing_1" alsoRenameClass="true">
-	
-<!-- 		
+
+<!--
 		<pattern>
 			<match></match>
 			<replacement></replacement>
 		</pattern>
- -->	
+ -->
     </rule>
 	<rule name="new_rule_testing_2">
-	
+
 		<pattern fileType="xml">
 			<match>org\.kuali\.rice\.krad\.bo\.State</match>
 			<replacement>org.kuali.rice.location.impl.state.StateBo</replacement>
@@ -179,7 +179,7 @@ import org.kuali.rice.kim.api.permission.PermissionService">SpringContext.getBea
 		</pattern>
 
 	</rule>
-	
+
 	<rule name="KFS_kim_attribute_updates">
 		<pattern>
 			<match>KfsKimAttributes\.(DOCUMENT_|COMPONENT_|PROPERTY_|NAMESPACE_|BEAN_NAME|CAMPUS_)</match>
@@ -192,6 +192,6 @@ import org.kuali.rice.kim.api.KimConstants">KimConstants.AttributeConstants.$1</
 import org.kuali.rice.kim.api.KimConstants">KimConstants.AttributeConstants.$1</replacement>
 		</pattern>
 
-		
-	</rule>	
+
+	</rule>
 </rules>

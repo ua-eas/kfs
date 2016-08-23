@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,7 +25,7 @@ import java.util.Set;
 public class MessageUtils {
     /**
      * Interpolates a message based on values contained in the data map, assuming message is formatted using a ${key} syntax.
-     * 
+     *
      * @param message
      *            the message to be interpolated
      * @param data
@@ -43,7 +43,7 @@ public class MessageUtils {
 
     /**
      * Interpolates a message based on parameter index, assuming message is formatted using a ${0}..${n} syntax
-     * 
+     *
      * @param message
      *            the message to be interpolated
      * @param data
@@ -61,10 +61,10 @@ public class MessageUtils {
         }
         return message;
     }
-    
+
     /**
      * Interpolates a message which requires only a single property replacement.
-     * 
+     *
      * @param message
      * @param parameter
      * @param value
@@ -74,10 +74,10 @@ public class MessageUtils {
     	message = message.replaceAll("\\$\\{" + parameter + "\\}", "" + escape(value.toString()));
     	return message;
     }
-    
+
     /**
      * Adds an escape to all characters requiring an escape.
-     * 
+     *
      * @param input
      * @return the input string with characters escaped.
      */
@@ -88,10 +88,10 @@ public class MessageUtils {
         }
         return input;
     }
-    
+
     /**
      * Returns a Set<String> of all interpolation targets (fields) within a String.
-     * 
+     *
      * @param input
      *            the String from which to extract the interpolation targets
      * @return Set<String> containing the field names of the interpolation targets

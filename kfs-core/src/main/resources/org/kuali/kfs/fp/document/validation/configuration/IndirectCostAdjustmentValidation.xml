@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -24,15 +24,15 @@
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
 	<bean id="IndirectCostAdjustment-routeDocumentValidation" parent="IndirectCostAdjustment-routeDocumentValidation-parentBean" scope="prototype" />
-  
+
   	<bean id="IndirectCostAdjustment-routeDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list><bean parent="AccountingDocument-RouteDocument-DefaultValidation" scope="prototype" /></list>
   		</property>
   	</bean>
-  	
+
   	<bean id="IndirectCostAdjustment-saveDocumentValidation" parent="IndirectCostAdjustment-saveDocumentValidation-parentBean" scope="prototype" />
-  
+
   	<bean id="IndirectCostAdjustment-saveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
     	<property name="validations">
     		<list>
@@ -40,28 +40,28 @@
     		</list>
     	</property>
     </bean>
-  
+
   	<bean id="IndirectCostAdjustment-approveDocumentValidation" parent="IndirectCostAdjustment-approveDocumentValidation-parentBean" scope="prototype" />
-  
+
   	<bean id="IndirectCostAdjustment-approveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list><bean parent="AccountingDocument-ApproveDocument-DefaultValidation" scope="prototype" /></list>
   		</property>
   	</bean>
-  
+
 	<bean id="IndirectCostAdjustment-blanketApproveDocumentValidation" parent="IndirectCostAdjustment-blanketApproveDocumentValidation-parentBean" scope="prototype" />
-  
+
   	<bean id="IndirectCostAdjustment-blanketApproveDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list><bean parent="AccountingDocument-BlanketApproveDocument-DefaultValidation" scope="prototype" /></list>
   		</property>
 	</bean>
-	
+
 	<bean id="IndirectCostAdjustment-accountingLineValuesAllowedValidation" parent="AccountingDocument-defaultAccountingLineValuesAllowedValidation">
 		<property name="objectCodeAllowedValidation"><null /></property>
 		<property name="objectSubTypeAllowedValidation"><null /></property>
 	</bean>
-	
+
 	<bean id="IndirectCostAdjustment-addAccountingLine-failFastValidation" abstract="true" parent="CompositeValidation" scope="prototype">
 		<property name="validations">
 			<list>
@@ -93,15 +93,15 @@
 			</list>
 		</property>
 	</bean>
-  
+
 	<bean id="IndirectCostAdjustment-addAccountingLineValidation" parent="IndirectCostAdjustment-addAccountingLineValidation-parentBean" scope="prototype" />
-  
+
 	<bean id="IndirectCostAdjustment-addAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
   				<bean parent="IndirectCostAdjustment-addAccountingLine-failFastValidation" scope="prototype" >
 					<property name="quitOnFail" value="true" />
-				</bean>	
+				</bean>
 				<bean parent="AccountingDocument-accountingLineAccessibleValidation" scope="prototype">
 					<property name="parameterProperties">
 						<list>
@@ -128,15 +128,15 @@
 			</list>
   		</property>
 	</bean>
-  
+
 	<bean id="IndirectCostAdjustment-deleteAccountingLineValidation" parent="IndirectCostAdjustment-deleteAccountingLineValidation-parentBean" scope="prototype" />
-  
+
 	<bean id="IndirectCostAdjustment-deleteAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<bean parent="AccountingDocument-DeleteAccountingLine-DefaultValidation" scope="prototype" />
   		</property>
 	</bean>
-	
+
 	<bean id="IndirectCostAdjustment-updateAccountingLine-failFastValidation" abstract="true" parent="CompositeValidation" scope="prototype">
 		<property name="validations">
 			<list>
@@ -168,9 +168,9 @@
 			</list>
 		</property>
 	</bean>
-  
+
 	<bean id="IndirectCostAdjustment-updateAccountingLineValidation" parent="IndirectCostAdjustment-updateAccountingLineValidation-parentBean" scope="prototype" />
-  
+
 	<bean id="IndirectCostAdjustment-updateAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>
@@ -201,7 +201,7 @@
 			</list>
   		</property>
 	</bean>
-	
+
 	<bean id="IndirectCostAdjustment-reviewAccountingLine-failFastValidation" abstract="true" parent="CompositeValidation" scope="prototype">
 		<property name="validations">
 			<list>
@@ -233,9 +233,9 @@
 			</list>
 		</property>
 	</bean>
-  
+
 	<bean id="IndirectCostAdjustment-reviewAccountingLineValidation" parent="IndirectCostAdjustment-reviewAccountingLineValidation-parentBean" scope="prototype" />
-  
+
 	<bean id="IndirectCostAdjustment-reviewAccountingLineValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
   		<property name="validations">
   			<list>

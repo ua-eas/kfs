@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -30,7 +30,7 @@
                            http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
     <bean id="fpModuleConfiguration" parent="fpModuleConfiguration-parentBean" />
-	
+
     <bean id="fpModuleConfiguration-parentBean" class="org.kuali.kfs.sys.FinancialSystemModuleConfiguration" abstract="true">
     	<property name="namespaceCode" value="KFS-FP" />
 		<property name="initializeDataDictionary" value="true" />
@@ -67,7 +67,7 @@
             <ref bean="wireChargeFiscalYearMaker" />
             <ref bean="travelPerDiemFiscalYearMaker" />
             <ref bean="fiscalYearFunctionControlFiscalYearMaker" />
-          </list>	
+          </list>
         </property>
         <property name="batchFileDirectories">
           <list>
@@ -88,7 +88,7 @@
   <bean id="capitalAssetInformationDao-parentBean" abstract="true" parent="platformAwareDao" class="org.kuali.kfs.fp.document.dataaccess.impl.CapitalAssetInformationDaoOjb"/>
 
 	<bean id="travelMileageRateDao" parent="platformAwareDao" class="org.kuali.kfs.fp.document.dataaccess.impl.TravelMileageRateDaoOjb" />
-	
+
 	<bean id="checkService"  parent="checkService-parentBean"/>
 	<bean id="checkService-parentBean" class="org.kuali.kfs.fp.service.impl.CheckServiceImpl" abstract="true">
 		<property name="checkDao">
@@ -148,12 +148,12 @@
 		</property>
 		<property name="vendorService">
 			<ref bean="vendorService" />
-		</property>		
+		</property>
 		<property name="personService">
 			<ref bean="personService" />
 		</property>
 	</bean>
-	
+
 	<bean id="disbursementVoucherExtractionHelperService" parent="disbursementVoucherExtractionHelperService-parentBean"/>
 	<bean id="disbursementVoucherExtractionHelperService-parentBean" class="org.kuali.kfs.fp.document.service.impl.DisbursementVoucherExtractionHelperServiceImpl" abstract="true">
 		<property name="businessObjectService" ref="businessObjectService"/>
@@ -165,7 +165,7 @@
 		<property name="paymentSourceHelperService" ref="paymentSourceHelperService"/>
 		<property name="disbursementVoucherDao" ref="disbursementVoucherDao"/>
 	</bean>
-	
+
 	<bean id="cashDrawerService"  parent="cashDrawerService-parentBean"/>
 	<bean id="cashDrawerService-parentBean" class="org.kuali.kfs.fp.service.impl.CashDrawerServiceImpl" abstract="true">
 		<property name="businessObjectService">
@@ -242,7 +242,7 @@
 
 	<bean id="procurementCardCreateEmailService"  parent="procurementCardCreateEmailService-parentBean"/>
 	<bean id="procurementCardCreateEmailService-parentBean" parent="velocityEmailServiceBase" class="org.kuali.kfs.fp.batch.service.impl.ProcurementCardCreateEmailServiceImpl" abstract="true">
-		<property name="templateUrl" value="org/kuali/kfs/fp/batch/template/pcard-create-doc-summary-email-plain-text.vm"/>	
+		<property name="templateUrl" value="org/kuali/kfs/fp/batch/template/pcard-create-doc-summary-email-plain-text.vm"/>
 	</bean>
 
 	<bean id="procurementCardLoadTransactionsService"  parent="procurementCardLoadTransactionsService-parentBean"/>
@@ -274,7 +274,7 @@
 		</property>
 		<property name="dictionaryValidationService" ref="dictionaryValidationService" />
 	</bean>
-	
+
 	<bean id="procurementCardDocumentJob" parent="scheduledJobDescriptor">
 		<property name="steps">
 			<list>
@@ -297,7 +297,7 @@
 	<bean id="disbursementVoucherPreDisbursementProcessorExtractStep" class="org.kuali.kfs.fp.batch.DvToPdpExtractStep" parent="step">
 		<property name="paymentSourceExtractionService" ref="disbursementVoucherExtractService" />
 	</bean>
-	
+
 	<bean id="disbursementVoucherExtractService"  parent="disbursementVoucherExtractService-parentBean"/>
 	<bean id="disbursementVoucherExtractService-parentBean" parent="paymentSourceExtractionService-parentBean" abstract="true">
 		<property name="paymentSourceToExtractService" ref="disbursementVoucherExtractionHelperService"/>
@@ -360,9 +360,9 @@
 	<bean id="cashDetailTypeCodeService"  parent="cashDetailTypeCodeService-parentBean"/>
 	<bean id="cashDetailTypeCodeService-parentBean" class="org.kuali.kfs.fp.service.impl.CashDetailTypeCodeServiceImpl" abstract="true">
 	</bean>
-	
+
 	<bean id="procurementCardInputFileType"  parent="procurementCardInputFileType-parentBean"/>
-	<bean id="procurementCardInputFileType-parentBean" class="org.kuali.kfs.fp.batch.ProcurementCardInputFileType" abstract="true"> 
+	<bean id="procurementCardInputFileType-parentBean" class="org.kuali.kfs.fp.batch.ProcurementCardInputFileType" abstract="true">
 	    <property name="directoryPath">
 	       <value>${staging.directory}/fp/procurementCard</value>
 	    </property>
@@ -389,13 +389,13 @@
 			<ref bean="nonResidentAlienTaxPercentLookupableHelperService" />
 		</property>
 	</bean>
-	
+
 	<bean id="cashDrawerLookupableHelperService"  parent="cashDrawerLookupableHelperService-parentBean"  scope="prototype"/>
 	<bean id="cashDrawerLookupableHelperService-parentBean" class="org.kuali.kfs.fp.businessobject.lookup.CashDrawerLookupableHelperServiceImpl" abstract="true">
 		<property name="cashDrawerService" ref="cashDrawerService" />
 		<property name="cashReceiptService" ref="cashReceiptService" />
 	</bean>
-	
+
 	<bean id="cashDrawerLookupable"  parent="cashDrawerLookupable-parentBean" scope="prototype"/>
 	<bean id="cashDrawerLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
 		<property name="lookupableHelperService">
@@ -406,43 +406,43 @@
 	<bean id="cashManagementDao" class="org.kuali.kfs.fp.document.dataaccess.impl.CashManagementDaoOjb" parent="platformAwareDao" />
 
 	<bean id="disbursementVoucherDao" class="org.kuali.kfs.fp.dataaccess.impl.DisbursementVoucherDaoOjb" parent="platformAwareDao" />
-	
+
 	<bean id="distributionOfIncomeAndExpenseElectronicPaymentClaimingDocumentHelper"  parent="distributionOfIncomeAndExpenseElectronicPaymentClaimingDocumentHelper-parentBean"/>
 	<bean id="distributionOfIncomeAndExpenseElectronicPaymentClaimingDocumentHelper-parentBean" class="org.kuali.kfs.fp.batch.service.impl.DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrategyImpl" abstract="true">
 		<property name="documentService"><ref bean ="documentService" /></property>
 		<property name="electronicPaymentClaimingService"><ref bean="electronicPaymentClaimingService" /></property>
 		<property name="parameterService"><ref bean="parameterService" /></property>
 	</bean>
-	
+
 	<bean id="yearEndDistributionOfIncomeAndExpenseElectronicPaymentClaimingDocumentHelper" parent="yearEndDistributionOfIncomeAndExpenseElectronicPaymentClaimingDocumentHelper-parentBean" />
 	<bean id="yearEndDistributionOfIncomeAndExpenseElectronicPaymentClaimingDocumentHelper-parentBean" class="org.kuali.kfs.fp.batch.service.impl.YearEndDistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrategyImpl" parent="distributionOfIncomeAndExpenseElectronicPaymentClaimingDocumentHelper" abstract="true" />
-	
+
 	<bean id="transferOfFundsService"  parent="transferOfFundsService-parentBean"/>
 	<bean id="transferOfFundsService-parentBean" class="org.kuali.kfs.fp.document.service.impl.TransferOfFundsServiceImpl" abstract="true">
 		<property name="parameterService"><ref bean="parameterService" /></property>
 	</bean>
-	
+
 	<bean id="disbursementPayeeLookupable"  parent="disbursementPayeeLookupable-parentBean" scope="prototype"/>
 	<bean id="disbursementPayeeLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="disbursementPayeeLookupableHelperService" />
 		</property>
 	</bean>
- 
+
  	<bean id="disbursementPayeeLookupableHelperService" scope="prototype" parent="disbursementPayeeLookupableHelperService-parentBean"/>
 	<bean id="disbursementPayeeLookupableHelperService-parentBean"  parent="payeeLookupableHelperServiceImpl-parentBean" abstract="true"  class="org.kuali.kfs.fp.businessobject.lookup.DisbursementPayeeLookupableHelperServiceImpl" scope="prototype" >
         <property name="accountsReceivableModuleService">
             <ref bean="accountsReceivableModuleService" />
-        </property> 
+        </property>
 	</bean>
-	
+
 	<bean id="disbursementPayeeInquirable" class="org.kuali.kfs.fp.businessobject.inquirable.DisbursementPayeeInquirableImpl" scope="prototype" parent="cf.kualiInquirable"/>
-	
+
 	<bean id="disbursementVoucherPaymentReasonService"  parent="disbursementVoucherPaymentReasonService-parentBean"/>
 	<bean id="disbursementVoucherPaymentReasonService-parentBean" class="org.kuali.kfs.fp.document.service.impl.DisbursementVoucherPaymentReasonServiceImpl"  abstract="true">
 		<property name="parameterService">
 			<ref bean="parameterService" />
-		</property>	
+		</property>
 		<property name="businessObjectService">
 			<ref bean="businessObjectService" />
 		</property>
@@ -450,59 +450,59 @@
 			<ref bean="disbursementVoucherPayeeService" />
 		</property>
 	</bean>
-	
+
     <bean id="wireChargeFiscalYearMaker" parent="FiscalYearMaker">
-		<property name="businessObjectClass" value="org.kuali.kfs.sys.businessobject.WireCharge" /> 
+		<property name="businessObjectClass" value="org.kuali.kfs.sys.businessobject.WireCharge" />
 		<property name="parentClasses">
 		  <set>
 		    <value>org.kuali.kfs.coa.businessobject.ObjectCode</value>
 		  </set>
-		</property>	
-	</bean>	
-	
-    <bean id="travelPerDiemFiscalYearMaker" parent="FiscalYearMaker">
-		<property name="businessObjectClass" value="org.kuali.kfs.fp.businessobject.TravelPerDiem" /> 
-	</bean>	
-	
-    <bean id="fiscalYearFunctionControlFiscalYearMaker" parent="FiscalYearMaker">
-		<property name="businessObjectClass" value="org.kuali.kfs.fp.businessobject.FiscalYearFunctionControl" /> 
+		</property>
 	</bean>
-	
+
+    <bean id="travelPerDiemFiscalYearMaker" parent="FiscalYearMaker">
+		<property name="businessObjectClass" value="org.kuali.kfs.fp.businessobject.TravelPerDiem" />
+	</bean>
+
+    <bean id="fiscalYearFunctionControlFiscalYearMaker" parent="FiscalYearMaker">
+		<property name="businessObjectClass" value="org.kuali.kfs.fp.businessobject.FiscalYearFunctionControl" />
+	</bean>
+
 	<bean id="cashReceiptInitiatorDerivedRoleTypeService"  parent="cashReceiptInitiatorDerivedRoleTypeService-parentBean"/>
 	<bean id="cashReceiptInitiatorDerivedRoleTypeService-parentBean" class="org.kuali.kfs.fp.identity.CashReceiptInitiatorDerivedRoleTypeServiceImpl" abstract="true" />
-	
+
 	<bean id="yearEndPendingEntryService" parent="yearEndPendingEntryService-parentBean" />
-    
+
     <bean id="yearEndPendingEntryService-parentBean" abstract="true" class="org.kuali.kfs.fp.document.service.impl.YearEndPendingEntryServiceImpl">
 		<property name="universityDateService" ref="universityDateService" />
 		<property name="sufficientFundsService" ref="sufficientFundsService" />
 		<property name="offsetDefinitionService" ref="offsetDefinitionService" />
     </bean>
-    
+
     <bean id="payeeLookupableHelperServiceImpl-parentBean" abstract="true"  class="org.kuali.kfs.fp.businessobject.lookup.AbstractPayeeLookupableHelperServiceImpl" parent="cf.lookupableHelperService">
     	<property name="vendorLookupable">
 			<ref bean="vendorLookupable" />
-		</property>	
+		</property>
 		<property name="kualiInquirable">
 			<ref bean="disbursementPayeeInquirable" />
-		</property>		
+		</property>
 		<property name="disbursementVoucherPaymentReasonService">
-			<ref bean="disbursementVoucherPaymentReasonService" />	
+			<ref bean="disbursementVoucherPaymentReasonService" />
 		</property>
 		<property name="disbursementVoucherPayeeService">
 			<ref bean="disbursementVoucherPayeeService" />
 		</property>
     </bean>
- 
+
     <bean id="accountingDocumentPreRuleService" parent="accountingDocumentPreRuleService-parentBean"/>
 	<bean id="accountingDocumentPreRuleService-parentBean" class="org.kuali.kfs.fp.service.impl.AccountingDocumentPreRuleServiceImpl"  abstract="true"/>
-	
+
 	<!-- upgrade jobs for kfs 5.3 -->
 	<bean id="populateProcurementCardDefaultIdsStep" parent="populateProcurementCardDefaultIdsStep-parentBean"/>
 	<bean id="populateProcurementCardDefaultIdsStep-parentBean" abstract="true" class="org.kuali.kfs.fp.batch.PopulateProcurementCardDefaultIdStep">
 		<property name="populateProcurementCardDefaultIdsService" ref="populateProcurementCardDefaultIdsService"/>
 	</bean>
-	
+
 	<bean id="populateProcurementCardDefaultIdsJob" parent="populateProcurementCardDefaultIdsJob-parentBean"/>
 	<bean id="populateProcurementCardDefaultIdsJob-parentBean" abstract="true" parent="unscheduledJobDescriptor">
 		<property name="steps">
@@ -511,12 +511,12 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="populateProcurementCardDefaultIdsService" parent="populateProcurementCardDefaultIdsService-parentBean"/>
 	<bean id="populateProcurementCardDefaultIdsService-parentBean" abstract="true" class="org.kuali.kfs.fp.service.impl.PopulateProcurementCardDefaultIdsServiceImpl">
 		<property name="populateProcurementCardDefaultIdsDao" ref="populateProcurementCardDefaultIdsDao"/>
 	</bean>
-	
+
 	<bean id="populateProcurementCardDefaultIdsDao" parent="populateProcurementCardDefaultIdsDao-parentBean"/>
 	<bean id="populateProcurementCardDefaultIdsDao-parentBean" abstract="true" parent="platformAwareDaoJdbc" class="org.kuali.kfs.fp.dataaccess.impl.PopulateProcurementCardDefaultIdsDaoJdbc">
 		<property name="sequenceAccessorService" ref="sequenceAccessorService"/>
@@ -539,7 +539,7 @@
 	<import resource="document/validation/configuration/DistributionOfIncomeAndExpenseValidation.xml" />
 	<import resource="document/validation/configuration/YearEndDistributionOfIncomeAndExpenseValidation.xml" />
 	<import resource="document/validation/configuration/GeneralErrorCorrectionValidation.xml" />
-	<import resource="document/validation/configuration/YearEndGeneralErrorCorrectionValidation.xml" />	
+	<import resource="document/validation/configuration/YearEndGeneralErrorCorrectionValidation.xml" />
 	<import resource="document/validation/configuration/ServiceBillingValidation.xml" />
 	<import resource="document/validation/configuration/NonCheckDisbursementValidation.xml" />
 	<import resource="document/validation/configuration/PreEncumbranceValidation.xml" />

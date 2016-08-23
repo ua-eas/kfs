@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -21,9 +21,9 @@
   <bean id="AccountMaintenanceDocument" parent="AccountMaintenanceDocument-parentBean"/>
 
   <bean id="AccountMaintenanceDocument-parentBean" parent="AccountMaintenanceDocument-baseBean" abstract="true" />
-  
-  <bean id="AccountMaintenanceDocument-baseBean" abstract="true" parent="MaintenanceDocumentEntry" 
-  	p:businessObjectClass="org.kuali.kfs.coa.businessobject.Account" 
+
+  <bean id="AccountMaintenanceDocument-baseBean" abstract="true" parent="MaintenanceDocumentEntry"
+  	p:businessObjectClass="org.kuali.kfs.coa.businessobject.Account"
   	p:maintainableClass="org.kuali.kfs.coa.document.KualiAccountMaintainableImpl">
     <property name="maintainableSections">
       <list>
@@ -31,29 +31,29 @@
         <ref bean="AccountMaintenanceDocument-AccountResponsibility"/>
           <ref bean="AccountMaintenanceDocument-GuidelinesAndPurpose"/>
         <ref bean="AccountMaintenanceDocument-AccountDescription"/>
-        
+
       </list>
     </property>
     <property name="defaultExistenceChecks">
         <list>
-	      	<bean parent="ReferenceDefinition" p:attributeName="organization" p:attributeToHighlightOnFail="organizationCode" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="accountPhysicalCampus" p:attributeToHighlightOnFail="accountPhysicalCampusCode" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="accountState" p:attributeToHighlightOnFail="accountStateCode" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="postalZipCode" p:attributeToHighlightOnFail="accountZipCode" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="accountType" p:attributeToHighlightOnFail="accountTypeCode" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="financialHigherEdFunction" p:attributeToHighlightOnFail="financialHigherEdFunctionCd" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="reportsToAccount" p:attributeToHighlightOnFail="reportsToAccountNumber" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="continuationAccount" p:attributeToHighlightOnFail="continuationAccountNumber" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="endowmentIncomeAccount" p:attributeToHighlightOnFail="endowmentIncomeAccountNumber" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="sufficientFundsCode" p:attributeToHighlightOnFail="accountSufficientFundsCode" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="accountFiscalOfficerUser" p:attributeToHighlightOnFail="accountFiscalOfficerUser.principalName" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="accountSupervisoryUser" p:attributeToHighlightOnFail="accountSupervisoryUser.principalName" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="accountManagerUser" p:attributeToHighlightOnFail="accountManagerUser.principalName" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="accountRestrictedStatus" p:attributeToHighlightOnFail="accountRestrictedStatusCode" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="subFundGroup" p:attributeToHighlightOnFail="subFundGroupCode" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="budgetRecordingLevel" p:attributeToHighlightOnFail="budgetRecordingLevelCode" /> 
-	      	<bean parent="ReferenceDefinition" p:attributeName="acctIndirectCostRcvyType" p:attributeToHighlightOnFail="acctIndirectCostRcvyTypeCd" /> 
-  	    </list>   
+	      	<bean parent="ReferenceDefinition" p:attributeName="organization" p:attributeToHighlightOnFail="organizationCode" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="accountPhysicalCampus" p:attributeToHighlightOnFail="accountPhysicalCampusCode" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="accountState" p:attributeToHighlightOnFail="accountStateCode" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="postalZipCode" p:attributeToHighlightOnFail="accountZipCode" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="accountType" p:attributeToHighlightOnFail="accountTypeCode" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="financialHigherEdFunction" p:attributeToHighlightOnFail="financialHigherEdFunctionCd" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="reportsToAccount" p:attributeToHighlightOnFail="reportsToAccountNumber" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="continuationAccount" p:attributeToHighlightOnFail="continuationAccountNumber" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="endowmentIncomeAccount" p:attributeToHighlightOnFail="endowmentIncomeAccountNumber" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="sufficientFundsCode" p:attributeToHighlightOnFail="accountSufficientFundsCode" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="accountFiscalOfficerUser" p:attributeToHighlightOnFail="accountFiscalOfficerUser.principalName" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="accountSupervisoryUser" p:attributeToHighlightOnFail="accountSupervisoryUser.principalName" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="accountManagerUser" p:attributeToHighlightOnFail="accountManagerUser.principalName" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="accountRestrictedStatus" p:attributeToHighlightOnFail="accountRestrictedStatusCode" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="subFundGroup" p:attributeToHighlightOnFail="subFundGroupCode" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="budgetRecordingLevel" p:attributeToHighlightOnFail="budgetRecordingLevelCode" />
+	      	<bean parent="ReferenceDefinition" p:attributeName="acctIndirectCostRcvyType" p:attributeToHighlightOnFail="acctIndirectCostRcvyTypeCd" />
+  	    </list>
     </property>
     <property name="lockingKeys">
       <list>
@@ -61,7 +61,7 @@
         <value>accountNumber</value>
       </list>
     </property>
-    
+
     <property name="documentTypeName" value="ACCT"/>
     <property name="businessRulesClass" value="org.kuali.kfs.coa.document.validation.impl.AccountRule"/>
     <property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase"/>
@@ -109,14 +109,14 @@
         <dd:maintField attributeName="subFundGroupCode" required="true" javascriptLeaveFieldFunction="onblur_subFundGroup" javascriptLeaveFieldCallbackFunction="checkRestrictedStatusCode_Callback"/>
         <dd:maintField attributeName="accountsFringesBnftIndicator" defaultValue="true"/>
         <dd:maintField attributeName="reportsToChartOfAccountsCode"/>
-        
+
         <bean parent="MaintainableFieldDefinition" p:name="reportsToAccountNumber" p:webUILeaveFieldFunction="onblur_accountNumber_newAccount">
 			<property name="webUILeaveFieldFunctionParameters">
 				<list>
 					<value>reportsToChartOfAccountsCode</value>
 				</list>
-			</property> 
-		</bean>        
+			</property>
+		</bean>
         <dd:maintField attributeName="financialHigherEdFunctionCd" required="true"/>
         <dd:maintField attributeName="sourceOfFundsTypeCode"/>
         <dd:maintField attributeName="accountRestrictedStatusCode" required="true" javascriptLeaveFieldFunction="onblur_accountRestrictedStatusCode" javascriptLeaveFieldCallbackFunction="checkRestrictedStatusCode_Callback"/>
@@ -127,8 +127,8 @@
 				<list>
 					<value>endowmentIncomeAcctFinCoaCd</value>
 				</list>
-			</property> 
-		</bean>        
+			</property>
+		</bean>
       </list>
     </property>
   </bean>
@@ -150,16 +150,16 @@
 				<list>
 					<value>continuationFinChrtOfAcctCd</value>
 				</list>
-			</property> 
-		</bean>                
+			</property>
+		</bean>
         <dd:maintField attributeName="incomeStreamFinancialCoaCode"/>
         <bean parent="MaintainableFieldDefinition" p:name="incomeStreamAccountNumber" p:webUILeaveFieldFunction="onblur_accountNumber_newAccount">
 			<property name="webUILeaveFieldFunctionParameters">
 				<list>
 					<value>incomeStreamFinancialCoaCode</value>
 				</list>
-			</property> 
-		</bean>          
+			</property>
+		</bean>
         <dd:maintField attributeName="budgetRecordingLevelCode" required="true"/>
         <dd:maintField attributeName="accountSufficientFundsCode" required="true"/>
         <dd:maintField attributeName="pendingAcctSufficientFundsIndicator"/>
@@ -200,7 +200,7 @@
 
 	<!-- workflow attributes -->
   	<bean id="AccountMaintenanceDocument-workflowAttributes" parent="AccountMaintenanceDocument-workflowAttributes-parentBean"/>
-  
+
   <bean id="AccountMaintenanceDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
 		<property name="routingTypeDefinitions">
     		<map>
@@ -212,7 +212,7 @@
     			<entry key="SubFund" value-ref="RoutingType-MaintenanceDocument-SubFund"/>
     		</map>
 		</property>
-		
+
 		<property name="searchingTypeDefinitions">
     		<list>
     			<bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
@@ -254,7 +254,7 @@
     					</list>
     				</property>
     			</bean>
-    			
+
     			<bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
     				<property name="searchingAttribute">
     					<bean class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
@@ -297,19 +297,19 @@
     		</list>
     	</property>
 	</bean>
-	
+
 	<bean id="AccountMaintenanceDocument-RoutingAttribute-AccountFiscalOfficerSystemIdentifier" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     	<property name="qualificationAttributeName" value="accountFiscalOfficerSystemIdentifier"/>
 	</bean>
-	
+
 	<bean id="AccountMaintenanceDocument-RoutingAttribute-AccountsSupervisorySystemsIdentifier" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     	<property name="qualificationAttributeName" value="accountsSupervisorySystemsIdentifier"/>
 	</bean>
-	
+
 	<bean id="AccountMaintenanceDocument-RoutingAttribute-Award" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     	<property name="qualificationAttributeName" value="contractsAndGrantsAccountResponsibilityId"/>
 	</bean>
-	
+
    	<bean id="AccountMaintenanceDocument-DocumentValuePathGroup-AccountOfficersAndAccount" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
 		<property name="documentValues">
 	   		<list>
@@ -320,7 +320,7 @@
 	   		</list>
    		</property>
    	</bean>
-   	
+
    	 <bean id="AccountMaintenanceDocument-DocumentValuePathGroup-Award" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
 		<property name="documentValues">
 	   		<list>
@@ -344,7 +344,7 @@
     		</list>
     	</property>
     </bean>
-  
+
   <bean id="AccountMaintenanceDocument-RoutingType-Award" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
@@ -357,5 +357,5 @@
     		</list>
     	</property>
     </bean>
- 
+
 </beans>

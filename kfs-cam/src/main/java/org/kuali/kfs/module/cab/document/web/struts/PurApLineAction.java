@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -68,7 +68,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Handle start action.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -121,7 +121,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Build PurchasingAccountsPayableDocument list in which all documents have the same PO_ID.
-     * 
+     *
      * @param purApLineForm
      */
     protected void buildPurApDocList(PurApLineForm purApLineForm) {
@@ -153,7 +153,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Setup relationship from account to item and item to doc. In this way, we keep all working objects in the same view as form.
-     * 
+     *
      * @param purApDocs
      */
     protected void setupObjectRelationship(List<PurchasingAccountsPayableDocument> purApDocs) {
@@ -169,7 +169,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Cancels the action and returns to portal main page
-     * 
+     *
      * @param mapping {@link ActionMapping}
      * @param form {@link ActionForm}
      * @param request {@link HttpServletRequest}
@@ -224,7 +224,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Remove PurApLineSession object from user session.
-     * 
+     *
      * @param purApLineForm
      */
     private void removePurApLineSession(Integer purchaseOrderIdentifier) {
@@ -234,7 +234,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * This method handles split action. Create one item with split quantity
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -269,7 +269,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Get PurApLineSession object from user session.
-     * 
+     *
      * @param purApLineForm
      * @return
      */
@@ -284,7 +284,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Check user input splitQty. It must be required and can't be zero or greater than current quantity.
-     * 
+     *
      * @param itemAsset
      * @param errorPath
      */
@@ -310,7 +310,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Merge Action includes merge all functionality.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -370,7 +370,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Generate the question string for different object sub type codes.
-     * 
+     *
      * @return
      */
     protected String generateObjectSubTypeQuestion() {
@@ -381,10 +381,10 @@ public class PurApLineAction extends CabActionBase {
         String warningMessage = kualiConfiguration.getPropertyValueAsString(CabKeyConstants.QUESTION_DIFFERENT_OBJECT_SUB_TYPES) + " " + CamsConstants.Parameters.OBJECT_SUB_TYPE_GROUPS + " " + parameterDetail + ". " + continueQuestion;
         return warningMessage;
     }
- 
+
     /**
      * Merge with service help.
-     * 
+     *
      * @param purApForm
      * @param mergeLines
      */
@@ -401,7 +401,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Retrieve user input merge quantity and merge description.
-     * 
+     *
      * @param firstItem
      * @param purApForm
      */
@@ -415,7 +415,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Clear user input after merge.
-     * 
+     *
      * @param purApForm
      */
     protected void clearForMerge(PurApLineForm purApForm) {
@@ -428,7 +428,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Check if the merge action is valid or not.
-     * 
+     *
      * @param purApForm
      * @param mergeLines
      */
@@ -451,7 +451,7 @@ public class PurApLineAction extends CabActionBase {
     /**
      * If to be merged items have: (1) No Pretag data: No problem; (2) 1 Pretag data entry: Associate this one with the new item
      * created after merge;(3) 1+ Pretag data entries: Display error, user has to manually fix data
-     * 
+     *
      * @param mergeLines
      */
     protected void checkPreTagValidForMerge(List<PurchasingAccountsPayableItemAsset> mergeLines, Integer purchaseOrderIdentifier) {
@@ -464,7 +464,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Build a Hashmap for itemLineNumber since itemLines could exist duplicate itemLineNumber
-     * 
+     *
      * @param itemLines
      * @return
      */
@@ -480,7 +480,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * For merge all, check if exists Trade-in allowance pending for allocate.
-     * 
+     *
      * @param mergeLines
      * @param purApForm
      */
@@ -493,7 +493,7 @@ public class PurApLineAction extends CabActionBase {
     /**
      * Check if merge lines selected are allowed to continue this action. Constraints include: merge lines must more than 1; no
      * additional charges pending for allocate.
-     * 
+     *
      * @param mergeLines
      * @param purApForm
      */
@@ -532,7 +532,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Update the item quantity value from a decimal(less than 1) to 1.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -554,7 +554,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Allocate line items including allocate additional charges functionality.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -616,7 +616,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Allocate with service help.
-     * 
+     *
      * @param purApForm
      * @param allocateSourceLine
      * @param allocateTargetLines
@@ -636,7 +636,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Check if the line items are allowed to allocate.
-     * 
+     *
      * @param selectedLine
      * @param allocateTargetLines
      * @param purApForm
@@ -670,7 +670,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Get the user selected line item and set the link reference to document
-     * 
+     *
      * @param purApLineForm
      * @return
      */
@@ -686,7 +686,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Get the user selected document.
-     * 
+     *
      * @param purApLineForm
      * @return
      */
@@ -696,7 +696,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Handle apply payment action.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -734,7 +734,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Create CAMS asset payment document.
-     * 
+     *
      * @param mapping
      * @param purApForm
      * @param selectedLine
@@ -756,7 +756,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Handle create asset action.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -814,7 +814,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * check if PurAp set CAMS Assets information
-     * 
+     *
      * @param selectedLine
      * @return
      */
@@ -824,7 +824,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Create asset global document
-     * 
+     *
      * @param mapping
      * @param purApForm
      * @param selectedLine
@@ -846,7 +846,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Validate selected line item for asset global creation.
-     * 
+     *
      * @param selectedLine
      */
     protected void validateCreateAssetAction(PurchasingAccountsPayableItemAsset selectedLine) {

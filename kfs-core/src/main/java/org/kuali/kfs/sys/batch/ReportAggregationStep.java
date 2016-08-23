@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,7 +40,7 @@ public class ReportAggregationStep extends AbstractStep {
     protected String inputFilePath;
     protected String inputFilePrefix;
     protected String inputFileSuffix;
-    
+
     public boolean execute(String jobName, Date jobRunDate) throws InterruptedException {
         File outputFile = new File(generateOutputFileName());
         List<File> inputFiles = retrieveFilesToAggregate();
@@ -53,7 +53,7 @@ public class ReportAggregationStep extends AbstractStep {
         Date now = dateTimeService.getCurrentDate();
         return outputFilePath + File.separator + outputFilePrefix + dateTimeService.toDateTimeStringForFilename(now) + outputFileSuffix;
     }
-    
+
     protected List<File> retrieveFilesToAggregate() {
         File inputDirectory = new File(inputFilePath);
         if (!inputDirectory.exists() || !inputDirectory.isDirectory()) {
@@ -61,14 +61,14 @@ public class ReportAggregationStep extends AbstractStep {
         }
         FileFilter filter = FileFilterUtils.andFileFilter(
                 new PrefixFileFilter(inputFilePrefix), new SuffixFileFilter(inputFileSuffix));
-        
+
         List<File> fileList = Arrays.asList(inputDirectory.listFiles(filter));
-        
+
         Collections.sort(fileList);
-        
+
         return fileList;
     }
-    
+
     /**
      * Sets the outputFilePath attribute value.
      * @param outputFilePath The outputFilePath to set.

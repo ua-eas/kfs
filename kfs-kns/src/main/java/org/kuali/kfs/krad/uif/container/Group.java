@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,13 +35,13 @@ import java.util.Set;
 /**
  * Container that holds a list of <code>Field</code> or other <code>Group</code>
  * instances
- * 
+ *
  * <p>
  * Groups can exist at different levels of the <code>View</code>, providing
  * conceptual groupings such as the page, section, and group. In addition, other
  * group types can be created to add behavior like collection support
  * </p>
- * 
+ *
  * <p>
  * <code>Group</code> implementation has properties for defaulting the binding
  * information (such as the parent object path and a binding prefix) for the
@@ -49,8 +49,8 @@ import java.util.Set;
  * the fields contained in the <code>Group</code> that implement
  * <code>DataBinding</code>, unless they have already been set on the field.
  * </p>
- * 
- * 
+ *
+ *
  */
 public class Group extends ContainerBase {
 	private static final long serialVersionUID = 7953641325356535509L;
@@ -71,12 +71,12 @@ public class Group extends ContainerBase {
 
 	/**
 	 * The following actions are performed:
-	 * 
+	 *
 	 * <ul>
 	 * <li>Sets the bindByNamePrefix if blank on any InputField and
 	 * FieldGroup instances within the items List</li>
 	 * </ul>
-	 * 
+	 *
 	 * @see ComponentBase#performInitialization(View, java.lang.Object)
 	 */
     @Override
@@ -178,7 +178,7 @@ public class Group extends ContainerBase {
 	 * be set on each attribute field instance if the bindingPrefix is blank and
 	 * not a form field
 	 * </p>
-	 * 
+	 *
 	 * @return String binding prefix to set
 	 */
 	public String getFieldBindByNamePrefix() {
@@ -187,7 +187,7 @@ public class Group extends ContainerBase {
 
 	/**
 	 * Setter for the field binding prefix
-	 * 
+	 *
 	 * @param fieldBindByNamePrefix
 	 */
 	public void setFieldBindByNamePrefix(String fieldBindByNamePrefix) {
@@ -197,7 +197,7 @@ public class Group extends ContainerBase {
 	/**
 	 * Object binding path to set on each of the group's
 	 * <code>InputField</code> instances
-	 * 
+	 *
 	 * <p>
 	 * When the attributes of the group belong to a object whose path is
 	 * different from the default then this property can be given to set each of
@@ -205,7 +205,7 @@ public class Group extends ContainerBase {
 	 * path can be overridden at the attribute level. The object path is set to
 	 * the fieldBindingObjectPath during the initialize phase.
 	 * </p>
-	 * 
+	 *
 	 * @return String model path to set
 	 * @see org.kuali.rice.krad.uif.BindingInfo.getBindingObjectPath()
 	 */
@@ -215,7 +215,7 @@ public class Group extends ContainerBase {
 
 	/**
 	 * Setter for the field object binding path
-	 * 
+	 *
 	 * @param fieldBindingObjectPath
 	 */
 	public void setFieldBindingObjectPath(String fieldBindingObjectPath) {
@@ -225,7 +225,7 @@ public class Group extends ContainerBase {
 	/**
 	 * Disclosure widget that provides collapse/expand functionality for the
 	 * group
-	 * 
+	 *
 	 * @return Accordion instance
 	 */
 	public Disclosure getDisclosure() {
@@ -234,7 +234,7 @@ public class Group extends ContainerBase {
 
 	/**
 	 * Setter for the group's disclosure instance
-	 * 
+	 *
 	 * @param disclosure
 	 */
 	public void setDisclosure(Disclosure disclosure) {
@@ -251,7 +251,7 @@ public class Group extends ContainerBase {
 
 	/**
 	 * Setter for the Group's list of components
-	 * 
+	 *
 	 * @param items
 	 */
 	@Override

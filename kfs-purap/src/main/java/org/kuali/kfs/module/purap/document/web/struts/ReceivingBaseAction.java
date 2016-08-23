@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -45,7 +45,7 @@ public class ReceivingBaseAction extends FinancialSystemTransactionalDocumentAct
 
     /**
      * A wrapper method which prompts for a reason to hold a payment request or credit memo.
-     * 
+     *
      * @param mapping An ActionMapping
      * @param form An ActionForm
      * @param request The HttpServletRequest
@@ -69,7 +69,7 @@ public class ReceivingBaseAction extends FinancialSystemTransactionalDocumentAct
 
     /**
      * Builds and asks questions which require text input by the user for a payment request or a credit memo.
-     * 
+     *
      * @param mapping An ActionMapping
      * @param form An ActionForm
      * @param request The HttpServletRequest
@@ -181,7 +181,7 @@ public class ReceivingBaseAction extends FinancialSystemTransactionalDocumentAct
     /**
      * Used to look up messages to be displayed, from the ConfigurationService, given either a whole key or two parts of a key
      * that may be concatenated together.
-     * 
+     *
      * @param messageKey String. One of the message keys in PurapKeyConstants.
      * @param messagePrefix String. A prefix to the question key, such as "ap.question." that, concatenated with the question,
      *        comprises the whole key of the message.

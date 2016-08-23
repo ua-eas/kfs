@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -61,7 +61,7 @@ public class DisbursementVoucherDocumentFieldValidation extends GenericValidatio
         errors.removeFromErrorPath(KFSPropertyConstants.DV_PAYEE_DETAIL);
         errors.removeFromErrorPath(KFSPropertyConstants.DOCUMENT);
 
-        //hasErrors() returns true if it not empty else false.  
+        //hasErrors() returns true if it not empty else false.
         if (errors.hasErrors()) {
             return false;
         }
@@ -99,7 +99,7 @@ public class DisbursementVoucherDocumentFieldValidation extends GenericValidatio
 
     /**
      * Return true if disbursement voucher does not have any notes
-     * 
+     *
      * @param document submitted disbursement voucher document
      * @return whether the given document has no notes
      */
@@ -111,7 +111,7 @@ public class DisbursementVoucherDocumentFieldValidation extends GenericValidatio
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
-     * 
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -120,7 +120,7 @@ public class DisbursementVoucherDocumentFieldValidation extends GenericValidatio
 
     /**
      * Gets the accountingDocumentForValidation attribute.
-     * 
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {

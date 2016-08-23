@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,12 +27,12 @@ public class AttributeValidationResult implements Serializable {
 
 	private String attributeName;
 	private Map<String, ConstraintValidationResult> constraintValidationResultMap;
-	
+
 	public AttributeValidationResult(String attributeName) {
 		this.attributeName = attributeName;
 		this.constraintValidationResultMap = new LinkedHashMap<String, ConstraintValidationResult>();
 	}
-	
+
 	public void addConstraintValidationResult(ConstraintValidationResult constraintValidationResult) {
 		constraintValidationResultMap.put(constraintValidationResult.getConstraintName(), constraintValidationResult);
 	}
@@ -40,7 +40,7 @@ public class AttributeValidationResult implements Serializable {
 	public Iterator<ConstraintValidationResult> iterator() {
 		return constraintValidationResultMap.values().iterator();
 	}
-	
+
 	protected ConstraintValidationResult getConstraintValidationResult(String constraintName) {
 		ConstraintValidationResult constraintValidationResult = constraintValidationResultMap.get(constraintName);
 		if (constraintValidationResult == null) {
@@ -63,7 +63,7 @@ public class AttributeValidationResult implements Serializable {
 	public void setAttributeName(String attributeName) {
 		this.attributeName = attributeName;
 	}
-	
+
 	/*
 	private static final long serialVersionUID = 1L;
 
@@ -75,12 +75,12 @@ public class AttributeValidationResult implements Serializable {
 	private String attributeName;
 	private String errorKey;
 	private String[] errorParameters;
-	
+
 	public AttributeValidationResult(String attributeName) {
 		this.level = ErrorLevel.OK;
 		this.attributeName = attributeName;
 	}
-	
+
 	public AttributeValidationResult(String entryName, String attributeName) {
 		this.level = ErrorLevel.OK;
 		this.entryName = entryName;
@@ -102,7 +102,7 @@ public class AttributeValidationResult implements Serializable {
 	public void setElement(String element) {
 		this.element = element;
 	}
-	
+
 
     public ErrorLevel getErrorLevel() {
         return level;
@@ -162,5 +162,5 @@ public class AttributeValidationResult implements Serializable {
 		this.errorParameters = errorParameters;
 	}
 	*/
-	
+
 }

@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -34,7 +34,7 @@
 			<ref bean="PerDiem-primaryDestinationId" />
 			<ref bean="PerDiem-seasonBeginMonthAndDay" />
 			<ref bean="PerDiem-effectiveFromDate" />
-			<ref bean="PerDiem-effectiveToDate" />			
+			<ref bean="PerDiem-effectiveToDate" />
 			<ref bean="PerDiem-breakfast" />
 			<ref bean="PerDiem-lunch" />
 			<ref bean="PerDiem-dinner" />
@@ -43,7 +43,7 @@
 			<ref bean="PerDiem-mealsAndIncidentals" />
 			<ref bean="PerDiem-primaryDestination.primaryDestinationName"/>
 			<ref bean="PerDiem-primaryDestination.regionCode"/>
-			<ref bean="PerDiem-versionNumber" />	
+			<ref bean="PerDiem-versionNumber" />
 		</list>
 		</property>
 	</bean>
@@ -145,7 +145,7 @@
 		<property name="summary" value="Version Number" />
 		<property name="description" value="Version Number" />
 	</bean>
-	
+
 	<bean id="PerDiem-lineNumber" parent="PerDiem-lineNumber-parentBean" />
 	<bean id="PerDiem-lineNumber-parentBean" abstract="true" parent="GenericAttributes-itemSequenceNumber">
 		<property name="name" value="lineNumber" />
@@ -154,7 +154,7 @@
 		<property name="summary" value="Line Number" />
 		<property name="description" value="Line Number" />
 	</bean>
-	
+
 	<bean id="PerDiem-seasonBeginMonthAndDay" parent="PerDiem-seasonBeginMonthAndDay-parentBean" />
 	<bean id="PerDiem-seasonBeginMonthAndDay-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="seasonBeginMonthAndDay" />
@@ -173,8 +173,8 @@
 				<property name="validationErrorMessageKey" value="error.perdiem.invalid.seasonBeginMonthDay"/>
 			</bean>
 		</property>
-	</bean>	
-	
+	</bean>
+
 	<bean id="PerDiem-effectiveToDate" parent="PerDiem-effectiveToDate-parentBean" />
 	<bean id="PerDiem-effectiveToDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
 		<property name="name" value="effectiveToDate" />
@@ -183,17 +183,17 @@
 		<property name="summary" value="Effective To Date" />
 		<property name="description" value="Effective To Date" />
 	</bean>
-	
+
 	<bean id="PerDiem-primaryDestination.primaryDestinationName" parent="PerDiem-primaryDestination.primaryDestinationName-parentBean"/>
 	<bean id="PerDiem-primaryDestination.primaryDestinationName-parentBean" abstract="true" parent="PrimaryDestination-primaryDestinationName">
 		<property name="name" value="primaryDestination.primaryDestinationName"/>
 	</bean>
-	
+
 	<bean id="PerDiem-primaryDestination.regionCode" parent="PerDiem-primaryDestination.regionCode-parentBean"/>
 	<bean id="PerDiem-primaryDestination.regionCode-parentBean" abstract="true" parent="PrimaryDestination-regionCode">
 		<property name="name" value="primaryDestination.regionCode"/>
 	</bean>
-	
+
 	<bean id="PerDiem-inquiryDefinition" parent="PerDiem-inquiryDefinition-parentBean" />
 	<bean id="PerDiem-inquiryDefinition-parentBean" abstract="true" parent="InquiryDefinition">
 		<property name="title" value="Per Diem Inquiry"/>
@@ -244,7 +244,7 @@
 			<bean parent="FieldDefinition" p:attributeName="primaryDestination.regionCode"/>
 			<bean parent="FieldDefinition" p:attributeName="seasonBeginMonthAndDay" />
 			<bean parent="FieldDefinition" p:attributeName="effectiveFromDate" />
-            <bean parent="FieldDefinition" p:attributeName="effectiveToDate" />		
+            <bean parent="FieldDefinition" p:attributeName="effectiveToDate" />
 			<bean parent="FieldDefinition" p:attributeName="breakfast" />
 			<bean parent="FieldDefinition" p:attributeName="lunch" />
 			<bean parent="FieldDefinition" p:attributeName="dinner" />

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -54,7 +54,7 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
 
     /**
      * This method uses the values provided to build and populate a cover sheet associated with a given DisbursementVoucher.
-     * 
+     *
      * @param document The DisbursementVoucher the cover sheet will be populated from.
      * @param outputStream The stream the cover sheet file will be written to.
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherCoverSheetService#generateDisbursementVoucherCoverSheet(org.kuali.kfs.fp.document.DisbursementVoucherDocument, java.io.OutputStream)
@@ -95,7 +95,7 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
                 alien = parameterService.getParameterValueAsString(DisbursementVoucherDocument.class, DisbursementVoucherConstants.DV_COVER_SHEET_TEMPLATE_ALIEN_PARM_NM);
                 lines = parameterService.getParameterValueAsString(DisbursementVoucherDocument.class, DisbursementVoucherConstants.DV_COVER_SHEET_TEMPLATE_LINES_PARM_NM);
             }
-            
+
             // determine if non-employee travel payment reasons
             String paymentReasonCode = document.getDvPayeeDetail().getDisbVchrPaymentReasonCode();
             ParameterEvaluator travelNonEmplPaymentReasonEvaluator = /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(DisbursementVoucherDocument.class, DisbursementVoucherConstants.NONEMPLOYEE_TRAVEL_PAY_REASONS_PARM_NM, paymentReasonCode);
@@ -148,19 +148,19 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
     /**
      * @see org.kuali.kfs.fp.document.service.DisbursementVoucherCoverSheetService#isCoverSheetPrintable(org.kuali.kfs.fp.document.DisbursementVoucherDocument)
      */
-    public boolean isCoverSheetPrintable(DisbursementVoucherDocument document) {        
+    public boolean isCoverSheetPrintable(DisbursementVoucherDocument document) {
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
-        
+
         if(ObjectUtils.isNull(workflowDocument)){
             return false;
-        }        
+        }
 
         return !(workflowDocument.isCanceled() || workflowDocument.isInitiated() || workflowDocument.isDisapproved() || workflowDocument.isException() || workflowDocument.isDisapproved() || workflowDocument.isSaved());
     }
 
     /**
      * This method contains logic to determine the address the cover sheet should be sent to.
-     * 
+     *
      * @param docLocCd A key used to retrieve the document location.
      * @return The address the cover sheet will be sent to or empty string if no location is found.
      */
@@ -180,7 +180,7 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -189,7 +189,7 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
 
     /**
      * Sets the persistenceStructureService attribute value.
-     * 
+     *
      * @param persistenceStructureService The persistenceService to set.
      */
     public void setPersistenceStructureService(PersistenceStructureService persistenceStructureService) {
@@ -198,7 +198,7 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
 
     /**
      * Sets the parameterService attribute value.
-     * 
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {

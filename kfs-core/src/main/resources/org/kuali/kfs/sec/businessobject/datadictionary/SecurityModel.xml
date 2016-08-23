@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -56,7 +56,7 @@
       <bean parent="TextControlDefinition" p:size="10"/>
     </property>
   </bean>
-  
+
   <bean id="SecurityModel-name" parent="SecurityModel-name-parentBean"/>
 
   <bean id="SecurityModel-name-parentBean" abstract="true" parent="AttributeDefinition">
@@ -90,14 +90,14 @@
       <bean parent="TextControlDefinition" p:size="100"/>
     </property>
   </bean>
-  
+
   <bean id="SecurityModel-active" parent="SecurityModel-active-parentBean"/>
 
   <bean id="SecurityModel-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="active"/>
     <property name="shortLabel" value="Active"/>
   </bean>
-  
+
 <!-- Business Object Inquiry Definition -->
 
   <bean id="SecurityModel-inquiryDefinition" parent="SecurityModel-inquiryDefinition-parentBean"/>
@@ -106,9 +106,9 @@
     <property name="title" value="Security Model Inquiry"/>
     <property name="inquirySections">
       <list>
-        <ref bean="SecurityModel-inquirySectionDefinition-model"/>        
+        <ref bean="SecurityModel-inquirySectionDefinition-model"/>
         <ref bean="SecurityModel-inquirySectionDefinition-modelDefinition"/>
-        <ref bean="SecurityModel-inquirySectionDefinition-modelMembers"/>        
+        <ref bean="SecurityModel-inquirySectionDefinition-modelMembers"/>
       </list>
     </property>
   </bean>
@@ -126,7 +126,7 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="SecurityModel-inquirySectionDefinition-modelDefinition" parent="SecurityModel-inquirySectionDefinition-modelDefinition-parentBean"/>
   <bean id="SecurityModel-inquirySectionDefinition-modelDefinition-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Model Definitions"/>
@@ -136,7 +136,7 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="SecurityModel-inquiryCollectionDefinition-modelDefinition" parent="SecurityModel-inquiryCollectionDefinition-modelDefinition-parentBean"/>
   <bean id="SecurityModel-inquiryCollectionDefinition-modelDefinition-parentBean" parent="InquiryCollectionDefinition" p:attributeName="modelDefinitions" abstract="true">
     <property name="businessObjectClass" value="org.kuali.kfs.sec.businessobject.SecurityModelDefinition"/>
@@ -147,11 +147,11 @@
         <bean parent="FieldDefinition" p:attributeName="operatorCode"/>
         <bean parent="FieldDefinition" p:attributeName="attributeValue"/>
         <bean parent="FieldDefinition" p:attributeName="overrideDeny"/>
-        <bean parent="FieldDefinition" p:attributeName="active"/>                  
+        <bean parent="FieldDefinition" p:attributeName="active"/>
       </list>
     </property>
   </bean>
-  
+
   <bean id="SecurityModel-inquirySectionDefinition-modelMembers" parent="SecurityModel-inquirySectionDefinition-modelMembers-parentBean"/>
   <bean id="SecurityModel-inquirySectionDefinition-modelMembers-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Model Members"/>
@@ -161,21 +161,21 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="SecurityModel-inquiryCollectionDefinition-modelMembers" parent="SecurityModel-inquiryCollectionDefinition-modelMembers-parentBean"/>
   <bean id="SecurityModel-inquiryCollectionDefinition-modelMembers-parentBean" parent="InquiryCollectionDefinition" p:attributeName="modelMembers" abstract="true">
-    <property name="businessObjectClass" value="org.kuali.kfs.sec.businessobject.SecurityModelMember"/> 
+    <property name="businessObjectClass" value="org.kuali.kfs.sec.businessobject.SecurityModelMember"/>
     <property name="inquiryFields">
       <list>
-        <bean parent="FieldDefinition" p:attributeName="memberTypeCode"/> 
+        <bean parent="FieldDefinition" p:attributeName="memberTypeCode"/>
         <bean parent="FieldDefinition" p:attributeName="memberId"/>
         <bean parent="FieldDefinition" p:attributeName="memberName"/>
         <bean parent="FieldDefinition" p:attributeName="activeFromDate"/>
-        <bean parent="FieldDefinition" p:attributeName="activeToDate"/>                                   
+        <bean parent="FieldDefinition" p:attributeName="activeToDate"/>
       </list>
     </property>
   </bean>
-  
+
 <!-- Business Object Lookup Definition -->
 
 
@@ -183,7 +183,7 @@
 
   <bean id="SecurityModel-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Security Model Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
         <property name="attributeNames">

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -91,7 +91,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
     /**
      * build a hashmap containing the next entry sequence number to use for each document (document number) to be loaded from budget
      * construction to the general ledger
-     * 
+     *
      * @param target fiscal year for the budget load
      * @return HashMapap keyed on document number containing the next entry sequence number to use for the key
      */
@@ -120,7 +120,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
     /**
      * This method creates a new generalLedgerPendingEntry object and initializes it with the default settings for the budget
      * construction general ledger load.
-     * 
+     *
      * @param requestYear
      * @param financialSystemOriginationCode
      * @return intiliazed GeneralLedgerPendingEntry business object
@@ -168,7 +168,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
 
     /**
      * This method loads all the eligible pending budget construction general ledger rows
-     * 
+     *
      * @param daoGlobalVariables
      * @param diagnosticCounters
      */
@@ -190,7 +190,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
 
     /**
      * This method builds the query to fetch the monthly budget general ledger lines to be loaded
-     * 
+     *
      * @param fiscalYear : the year to be loaded
      * @return query for fetching monthly budget rows
      */
@@ -216,7 +216,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
 
     /**
      * This method builds the query to fetch the pending budget construction general ledger rows to be loaded
-     * 
+     *
      * @param fiscalYear: the year to be loaded
      * @return query for fetching pending budget construction GL rows
      */
@@ -233,7 +233,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
 
     /**
      * complete the pending entry row based on the data returned from the DB store it to the DB
-     * 
+     *
      * @param newRow
      * @param source annual budget construction GL row
      * @param object containing global constants
@@ -350,7 +350,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
 
     /**
      * get a list of accounts that should not be loaded from the budget to the General Ledger
-     * 
+     *
      * @return hashset of accounts NOT to be loaded
      */
 
@@ -389,7 +389,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
     /**
      * build a hash set of subfunds whose accounts should NOT be loaded this can be done by either a list of FUND groups and/or a
      * list of subfund groups
-     * 
+     *
      * @see org.kuali.kfs.module.bc.BCConstants to initialize the String[] array(s) as desired
      * @return list of subfunds whose accounts will NOT be loaded
      */
@@ -439,7 +439,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
 
     /**
      * this method makes sure all accounting periods inn the target fiscal year are open
-     * 
+     *
      * @param request fiscal year (or other fiscal period) which is the TARGET of the load
      */
     protected void openAllAccountingPeriods(Integer requestYear) {
@@ -521,7 +521,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
      * This class allows us to create global variables and pass them around. This should make the code thread safe, in the unlikely
      * event it is called by more than one thread. it also allows us to fetch constants and build datas stuctures from the DB once
      * upon instantiation of this class, and make them available for the duration of the run
-     * 
+     *
      * @param requestYear
      * @param <documentNumber, ledger sequence number> HashMap
      * @param current SQL Date (which will be the transaction date in the general ledger entry rows we create)

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,7 +31,7 @@ import org.kuali.kfs.module.ld.businessobject.LedgerBalanceForYearEndBalanceForw
 
 /**
  * This is the data access object for ledger balance.
- * 
+ *
  * @see org.kuali.kfs.module.ld.businessobject.LedgerBalance
  */
 public interface LaborLedgerBalanceDao {
@@ -42,7 +42,7 @@ public interface LaborLedgerBalanceDao {
      * NOTE: unused
      *
      * This method finds the records of balance entries according to input fields and values
-     * 
+     *
      * @param fieldValues the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @return the records of balance entries
@@ -52,7 +52,7 @@ public interface LaborLedgerBalanceDao {
 
     /**
      * This method finds the records of balance entries according to input fields and values
-     * 
+     *
      * @param fieldValues the input fields and values
      * @param isConsolidated consolidation option is applied or not
      * @param noZeroAmounts makes sure at least one of the 13 monthly buckets has an amount not equals to zero
@@ -67,7 +67,7 @@ public interface LaborLedgerBalanceDao {
      *
      * This method gets the size collection of balance entry groups according to input fields and values if the entries are required
      * to be consolidated
-     * 
+     *
      * @param encumbranceBalanceTypes a list of encumbrance balance types
      * @param fieldValues the input fields and values
      * @return the size collection of balance entry groups
@@ -78,7 +78,7 @@ public interface LaborLedgerBalanceDao {
     /**
      * This method gets the size collection of balance entry groups according to input fields and values if the entries are required
      * to be consolidated
-     * 
+     *
      * @param encumbranceBalanceTypes a list of encumbrance balance types
      * @param fieldValues the input fields and values
      * @param noZeroAmounts makes sure at least one of the 13 monthly buckets has an amount not equals to zero
@@ -94,7 +94,7 @@ public interface LaborLedgerBalanceDao {
 
     /**
      * retrieve the current funds according to the given field values
-     * 
+     *
      * @param fieldValues the given field values
      * @return the current funds according to the given field values
      */
@@ -102,7 +102,7 @@ public interface LaborLedgerBalanceDao {
 
     /**
      * retrieve the encumbrance funds according to the given field values
-     * 
+     *
      * @param fieldValues the given field values
      * @return the encumbrance funds according to the given field values
      */
@@ -110,7 +110,7 @@ public interface LaborLedgerBalanceDao {
 
     /**
      * retrieve the current funds according to the given field values
-     * 
+     *
      * @param fieldValues the given field values
      * @return the current funds according to the given field values
      */
@@ -118,7 +118,7 @@ public interface LaborLedgerBalanceDao {
 
     /**
      * retrieve the encumbrance funds according to the given field values
-     * 
+     *
      * @param fieldValues the given field values
      * @return the encumbrance funds according to the given field values
      */
@@ -126,7 +126,7 @@ public interface LaborLedgerBalanceDao {
 
     /**
      * find the summary of the ledger balances for the given fiscal year and balance types
-     * 
+     *
      * @param fiscalYear the given fiscal year
      * @param balanceTypes the given balance type codes
      * @return the ledger balances for the given fiscal year and balance types
@@ -153,7 +153,7 @@ public interface LaborLedgerBalanceDao {
 
     /**
      * find the accounts (chart of accounts code + account number) in the given fund groups
-     * 
+     *
      * @param fiscalYear the given fiscal year
      * @param fieldValues the input fields and values
      * @param subFundGroupCodes the given list of qualified sub fund group codes
@@ -164,7 +164,7 @@ public interface LaborLedgerBalanceDao {
 
     /**
      * find all ledger balances matching the given criteria within the given fiscal years
-     * 
+     *
      * @param fieldValues the given field values
      * @param excludedFieldValues the given field values that must not be matched
      * @param fiscalYears the given fiscal years
@@ -176,7 +176,7 @@ public interface LaborLedgerBalanceDao {
 
     /**
      * delete the ledger balance records that were posted prior to the given fiscal year
-     * 
+     *
      * @param fiscalYear the given fiscal year
      * @param chartOfAccountsCode the given chart of account code
      */

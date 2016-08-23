@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -73,29 +73,29 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.web.TableJoining#joinTable(java.util.List)
      */
     public void joinTable(List<AccountingLineTableRow> rows) {
         throw new IllegalStateException("Line elements may not join a table directly; the specified rendering is incorrect");
     }
-    
+
     /**
      * Creates the hide/show block
-     * @param headerRowCount the number of header rows 
+     * @param headerRowCount the number of header rows
      * @return the hide show block
      */
     protected HideShowBlock createHideShowBlock(int headerRowCount) {
         HideShowBlock block = new HideShowBlock();
         List<AccountingLineTableRow> rows = createBlankRows(getRowsRequested());
-        
+
         haveLinesJoinRows(rows, headerRowCount);
-        
+
         block.setContentRows(rows);
         block.setDefinition(definition);
         return block;
     }
-    
+
     /**
      * Returns the total number of rows requested by each child line
      * @return the total number of rows requested
@@ -107,7 +107,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
         }
         return count;
     }
-    
+
     /**
      * Creates empty rows to populate the content of the hide/show block
      * @param cellCount the number of rows which will be returned
@@ -122,7 +122,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
         }
         return rows;
     }
-    
+
     /**
      * Causes child lines to join the given set of rows
      * @param rows the List of rows which child lines can join
@@ -131,7 +131,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
     protected void haveLinesJoinRows(List<AccountingLineTableRow> rows, int headerRowCount) {
         int count = 0;
         for (AccountingLineViewLineFillingElement line : lines) {
-            
+
             if (line.getRequestedRowCount() > 1) {
                 line.joinRow(rows.get(count), rows.get(count+1));
                 count += 2;
@@ -143,7 +143,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
     }
 
     /**
-     * Has the inner content perform any field transformations 
+     * Has the inner content perform any field transformations
      * @see org.kuali.kfs.sys.document.web.TableJoining#performFieldTransformations(java.util.List, org.kuali.kfs.sys.businessobject.AccountingLine, java.util.Map, java.util.Map)
      */
     public void performFieldTransformations(List<AccountingLineFieldRenderingTransformation> fieldTransformations, AccountingLine accountingLine, Map unconvertedValues) {
@@ -189,7 +189,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
     }
 
     /**
-     * Gets the lines attribute. 
+     * Gets the lines attribute.
      * @return Returns the lines.
      */
     public List<AccountingLineViewLineFillingElement> getLines() {
@@ -203,7 +203,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
     public void setLines(List<AccountingLineViewLineFillingElement> lines) {
         this.lines = lines;
     }
-    
+
     /**
      * Adds a single line to this element's list of lines
      * @param line the line to add
@@ -216,7 +216,7 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
     }
 
     /**
-     * Gets the definition attribute. 
+     * Gets the definition attribute.
      * @return Returns the definition.
      */
     public AccountingLineViewHideShowLinesDefinition getDefinition() {
@@ -277,5 +277,5 @@ public class HideShowLayoutElement implements AccountingLineViewLineFillingEleme
             line.setEditable();
         }
     }
-    
+
 }

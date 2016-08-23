@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -29,11 +29,11 @@
 	<c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}"/>
 	<c:set var="displayNewLoanTab" value="${KualiForm.editingMode['displayNewLoanTab']}" scope="request"/>
 	<c:set var="displayReturnLoanFieldsReadOnly" value="${KualiForm.editingMode['displayReturnLoanFieldsReadOnly']}" scope="request"/>
-	
-	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
-    <cams:viewAssetDetails defaultTabHide="false" /> 
 
-	<kul:tab tabTitle="Equipment Loans" defaultOpen="true" tabErrorKey="document.borrowerUniversalIdentifier,document.borrowerPerson.principalName,document.loanDate,document.expectedReturnDate,document.loanReturnDate"> 
+	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
+    <cams:viewAssetDetails defaultTabHide="false" />
+
+	<kul:tab tabTitle="Equipment Loans" defaultOpen="true" tabErrorKey="document.borrowerUniversalIdentifier,document.borrowerPerson.principalName,document.loanDate,document.expectedReturnDate,document.loanReturnDate">
 	    <div class="tab-container" align="center">
 	      <table width="100%" cellpadding="0" cellspacing="0" class="datatable">
 	      	<tr>
@@ -48,18 +48,18 @@
 			        <c:otherwise>
 					   	<td class="grid" width="25%">
 						   	<kul:checkErrors keyMatch="document.borrowerPerson.principalName,document.borrowerUniversalIdentifier" />
-							<kul:user userIdFieldName="document.borrowerPerson.principalName" 
-								userId="${KualiForm.document.borrowerPerson.principalName}" 
-								universalIdFieldName="document.borrowerUniversalIdentifier" 
-								universalId="${KualiForm.document.borrowerUniversalIdentifier}" 
-								userNameFieldName="document.borrowerPerson.name" label="User" 
+							<kul:user userIdFieldName="document.borrowerPerson.principalName"
+								userId="${KualiForm.document.borrowerPerson.principalName}"
+								universalIdFieldName="document.borrowerUniversalIdentifier"
+								universalId="${KualiForm.document.borrowerUniversalIdentifier}"
+								userNameFieldName="document.borrowerPerson.name" label="User"
 								userName="${KualiForm.document.borrowerPerson.name}"
-								lookupParameters="document.borrowerPerson.principalName:principalName" 
-								fieldConversions="principalName:document.borrowerPerson.principalName,principalId:document.borrowerUniversalIdentifier,name:document.borrowerPerson.name" 
+								lookupParameters="document.borrowerPerson.principalName:principalName"
+								fieldConversions="principalName:document.borrowerPerson.principalName,principalId:document.borrowerUniversalIdentifier,name:document.borrowerPerson.name"
 								hasErrors="${hasErrors}" readOnly="${readOnly}" />
 						</td>
 					</c:otherwise>
-				</c:choose>				
+				</c:choose>
 				<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${equipAttributes.loanDate}" /></th>
 			   	<c:choose>
 		            <c:when test="${readOnly or !displayNewLoanTab}">
@@ -85,53 +85,53 @@
 						<th class="grid" width="25%" align="right" colspan="2"></th>
 		            </c:when>
 		            <c:otherwise>
-		    			<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${equipAttributes.loanReturnDate}" /></th>	
-		    			<c:choose>                
+		    			<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${equipAttributes.loanReturnDate}" /></th>
+		    			<c:choose>
 				            <c:when test="${readOnly}">
 								<td class="grid" width="25%"><kul:htmlControlAttribute attributeEntry="${equipAttributes.loanReturnDate}" property="document.loanReturnDate" readOnly="true" />
 				            </c:when>
 				            <c:otherwise>
-								<td class="grid" width="25%"><kul:dateInput attributeEntry="${equipAttributes.loanReturnDate}" property="document.loanReturnDate" /></td> 
+								<td class="grid" width="25%"><kul:dateInput attributeEntry="${equipAttributes.loanReturnDate}" property="document.loanReturnDate" /></td>
 				            </c:otherwise>
 					    </c:choose>
 				    </c:otherwise>
 			    </c:choose>
-       		</tr>		    
+       		</tr>
 		</table>
 		</div>
 	</kul:tab>
 
 	<kul:tab tabTitle="Borrower's Address" defaultOpen="true" tabErrorKey="document.borrowerA*,document.borrowerC*,document.borrowerZ*,document.borrowerP*,document.borrowerS*">
-	         <!--Address,document.borrowerCityName,document.borrowerStateCode,document.borrowerZipCode,document.borrowerCountryCode,document.borrowerPhoneNumber,document.borrowerStorageStateCode,document.borrowerStorageZipCode,document.borrowerStorageCountryCode,document.borrowerStoragePhoneNumber" --> 
+	         <!--Address,document.borrowerCityName,document.borrowerStateCode,document.borrowerZipCode,document.borrowerCountryCode,document.borrowerPhoneNumber,document.borrowerStorageStateCode,document.borrowerStorageZipCode,document.borrowerStorageCountryCode,document.borrowerStoragePhoneNumber" -->
 
 	    <div class="tab-container" align="center">
 	      <table width="100%" cellpadding="0" cellspacing="0" class="datatable">
 	      	<tr>
 				<td class="tab-subhead"  width="50%" colspan="2">Borrower</td>
-				<td class="tab-subhead"  width="50%" colspan="2">Stored at</td>			
-			</tr>	
+				<td class="tab-subhead"  width="50%" colspan="2">Stored at</td>
+			</tr>
 			<tr>
 				<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${equipAttributes.borrowerAddress}" /></th>
-				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerAddress" attributeEntry="${equipAttributes.borrowerAddress}" readOnly="${readOnly}" /></td>								
+				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerAddress" attributeEntry="${equipAttributes.borrowerAddress}" readOnly="${readOnly}" /></td>
 				<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${equipAttributes.borrowerStorageAddress}" readOnly="true"/></th>
-				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerStorageAddress" attributeEntry="${equipAttributes.borrowerStorageAddress}" readOnly="${readOnly}" /></td>								
+				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerStorageAddress" attributeEntry="${equipAttributes.borrowerStorageAddress}" readOnly="${readOnly}" /></td>
 			</tr>
 		    <tr>
 		      	<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${equipAttributes.borrowerCityName}" /></th>
-		      	<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerCityName" attributeEntry="${equipAttributes.borrowerCityName}" readOnly="${readOnly}" /></td>		      	
+		      	<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerCityName" attributeEntry="${equipAttributes.borrowerCityName}" readOnly="${readOnly}" /></td>
 		      	<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${equipAttributes.borrowerStorageCityName}" readOnly="true"/></th>
-		      	<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerStorageCityName" attributeEntry="${equipAttributes.borrowerStorageCityName}" readOnly="${readOnly}" /></td>		      	
+		      	<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerStorageCityName" attributeEntry="${equipAttributes.borrowerStorageCityName}" readOnly="${readOnly}" /></td>
 			</tr>
 			<tr>
 				<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${equipAttributes.borrowerStateCode}" /></th>
-				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerStateCode" attributeEntry="${equipAttributes.borrowerStateCode}" readOnly="${readOnly}" />								
+				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerStateCode" attributeEntry="${equipAttributes.borrowerStateCode}" readOnly="${readOnly}" />
 					<c:if test="${not readOnly}">
 						&nbsp;
 		                <kul:lookup boClassName="org.kuali.rice.location.framework.state.StateEbo" fieldConversions="code:document.borrowerStateCode" lookupParameters="document.borrowerCountryCode:countryCode,document.borrowerStateCode:code" />
 					</c:if>
                 </td>
 				<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${equipAttributes.borrowerStorageStateCode}" readOnly="true"/></th>
-				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerStorageStateCode" attributeEntry="${equipAttributes.borrowerStorageStateCode}" readOnly="${readOnly}" />								
+				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerStorageStateCode" attributeEntry="${equipAttributes.borrowerStorageStateCode}" readOnly="${readOnly}" />
 					<c:if test="${not readOnly}">
 						&nbsp;
 		                <kul:lookup boClassName="org.kuali.rice.location.framework.state.StateEbo" fieldConversions="code:document.borrowerStorageStateCode" lookupParameters="document.borrowerStorageCountryCode:countryCode,document.borrowerStorageStateCode:code" />
@@ -145,37 +145,37 @@
 						&nbsp;
 		                <kul:lookup boClassName="org.kuali.rice.location.framework.postalcode.PostalCodeEbo" fieldConversions="code:document.borrowerZipCode" lookupParameters="document.borrowerCountryCode:countryCode,document.borrowerZipCode:code,document.borrowerStateCode:stateCode" />
 					</c:if>
-		      	</td>		      	
+		      	</td>
 		      	<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${equipAttributes.borrowerStorageZipCode}" readOnly="true"/></th>
 		      	<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerStorageZipCode" attributeEntry="${equipAttributes.borrowerStorageZipCode}" readOnly="${readOnly}" />
 					<c:if test="${not readOnly}">
 						&nbsp;
 		                <kul:lookup boClassName="org.kuali.rice.location.framework.postalcode.PostalCodeEbo" fieldConversions="code:document.borrowerStorageZipCode" lookupParameters="document.borrowerStorageCountryCode:countryCode,document.borrowerStorageZipCode:code,document.borrowerStorageStateCode:stateCode" />
 					</c:if>
-		      	</td>		      	
-		    </tr>		    
+		      	</td>
+		    </tr>
 		    <tr>
 				<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${equipAttributes.borrowerCountryCode}" /></th>
-				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerCountryCode" attributeEntry="${equipAttributes.borrowerCountryCode}" readOnly="${readOnly}" />								
+				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerCountryCode" attributeEntry="${equipAttributes.borrowerCountryCode}" readOnly="${readOnly}" />
 				</td>
 				<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${equipAttributes.borrowerStorageCountryCode}" readOnly="true"/></th>
-				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerStorageCountryCode" attributeEntry="${equipAttributes.borrowerStorageCountryCode}" readOnly="${readOnly}" />								
+				<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerStorageCountryCode" attributeEntry="${equipAttributes.borrowerStorageCountryCode}" readOnly="${readOnly}" />
 				</td>
 			</tr>
 		    <tr>
 		      	<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${equipAttributes.borrowerPhoneNumber}" readOnly="true"/></th>
-		      	<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerPhoneNumber" attributeEntry="${equipAttributes.borrowerPhoneNumber}" readOnly="${readOnly}" /></td>		      	
+		      	<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerPhoneNumber" attributeEntry="${equipAttributes.borrowerPhoneNumber}" readOnly="${readOnly}" /></td>
 		      	<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${equipAttributes.borrowerStoragePhoneNumber}" readOnly="true"/></th>
-		      	<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerStoragePhoneNumber" attributeEntry="${equipAttributes.borrowerStoragePhoneNumber}" readOnly="${readOnly}" /></td>		      	
-		    </tr>		    
-		  </table>   
+		      	<td class="grid" width="25%"><kul:htmlControlAttribute property="document.borrowerStoragePhoneNumber" attributeEntry="${equipAttributes.borrowerStoragePhoneNumber}" readOnly="${readOnly}" /></td>
+		    </tr>
+		  </table>
         </div>
 	  </kul:tab>
-    
-    <cams:assetLocation defaultTabHide="true" />  
+
+    <cams:assetLocation defaultTabHide="true" />
 	<cams:organizationInfo defaultTabHide="true"/>
 
-	<cams:viewPayments defaultTabHide="true" assetPayments="${KualiForm.document.asset.assetPayments}" />	
+	<cams:viewPayments defaultTabHide="true" assetPayments="${KualiForm.document.asset.assetPayments}" />
     <kul:notes />
     <kul:adHocRecipients />
     <kul:routeLog />

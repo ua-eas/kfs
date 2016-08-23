@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,8 +26,8 @@ import java.io.StringWriter;
 
 /**
  * Form class for incident reports
- * 
- * 
+ *
+ *
  */
 public class IncidentReportForm extends UifFormBase {
 
@@ -57,7 +57,7 @@ public class IncidentReportForm extends UifFormBase {
 
     /**
      * Creates the email message from the exception, form and user data.
-     * 
+     *
      * @return the email message
      */
     public String createEmailMessage() {
@@ -75,7 +75,7 @@ public class IncidentReportForm extends UifFormBase {
 
     /**
      * Creates the email subject containing the mode, view id and the exception message.
-     * 
+     *
      * @return the email subject
      */
     public String createEmailSubject() {
@@ -89,7 +89,7 @@ public class IncidentReportForm extends UifFormBase {
 
     /**
      * Truncate the string to specified length.
-     * 
+     *
      * @param str
      *            the string to truncate
      * @param maxLength
@@ -104,7 +104,7 @@ public class IncidentReportForm extends UifFormBase {
 
     /**
      * Gets the stack trace from an exception.
-     * 
+     *
      * @param t
      *            the throwable to get the stack trace from
      * @return the stack trace

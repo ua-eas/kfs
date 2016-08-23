@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,9 +37,9 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
 /**
- * Implementation of <code>HumanResourcesPayrollDao</code> using JDBC to query PS_POSITION_DATA and then set other 
+ * Implementation of <code>HumanResourcesPayrollDao</code> using JDBC to query PS_POSITION_DATA and then set other
  * <code>Position</code> fields to hard-coded IU values. This is for bootstrap only.
- * 
+ *
  * @see org.kuali.kfs.module.bc.dataaccess.HumanResourcesPayrollDao
  */
 public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase implements HumanResourcesPayrollDao {
@@ -47,12 +47,12 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
     /**
      * Gets the <code>Position</code> data by querying PS_POSITION_DATA then setting other fields using IU business rules. This is
      * used in the bootstrap service implementation for an example.
-     * 
+     *
      * @see org.kuali.kfs.module.bc.dataaccess.HumanResourcesPayrollDao#getPosition(java.lang.Integer, java.lang.String)
      */
     public Position getPosition(Integer universityFiscalYear, String positionNumber) {
         PositionData positionData = getPositionDataForFiscalYear(universityFiscalYear, positionNumber);
-        
+
         if (positionData == null) {
             return null;
         }
@@ -70,14 +70,14 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
     /**
      * find positions with effective date before July 1 of fiscal year or on August 1 of fiscal year for academic tenure salary plan
-     * 
+     *
      * @param universityFiscalYear
      * @param positionNumber
      * @return
      */
     protected PositionData getPositionDataForFiscalYear(Integer universityFiscalYear, String positionNumber) {
         Collection<PositionData> positionData = getPositionData(positionNumber);
-        
+
         if (positionData == null || positionData.isEmpty()) {
             return null;
         }
@@ -178,7 +178,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
     /**
      * Sets defaults based on salary plan.
-     * 
+     *
      * @param position <code>Position</code> to update
      */
     public void setDefaultObjectClass(Position position) {
@@ -213,7 +213,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
             position.setPositionUnionCode("B1");
         }
     }
-    
+
     protected class PositionData extends PersistableBusinessObjectBase {
         private String positionNumber;
         private String jobCode;
@@ -245,7 +245,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the positionNumber
-         * 
+         *
          * @return Returns the positionNumber
          */
         public String getPositionNumber() {
@@ -254,7 +254,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the positionNumber
-         * 
+         *
          * @param positionNumber The positionNumber to set.
          */
         public void setPositionNumber(String positionNumber) {
@@ -263,7 +263,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the jobCode
-         * 
+         *
          * @return Returns the jobCode
          */
         public String getJobCode() {
@@ -272,7 +272,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the jobCode
-         * 
+         *
          * @param jobCode The jobCode to set.
          */
         public void setJobCode(String jobCode) {
@@ -281,7 +281,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the effectiveDate
-         * 
+         *
          * @return Returns the effectiveDate
          */
         public Date getEffectiveDate() {
@@ -290,7 +290,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the effectiveDate
-         * 
+         *
          * @param effectiveDate The effectiveDate to set.
          */
         public void setEffectiveDate(Date effectiveDate) {
@@ -299,7 +299,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the positionEffectiveStatus
-         * 
+         *
          * @return Returns the positionEffectiveStatus
          */
         public String getPositionEffectiveStatus() {
@@ -308,7 +308,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the positionEffectiveStatus
-         * 
+         *
          * @param positionEffectiveStatus The positionEffectiveStatus to set.
          */
         public void setPositionEffectiveStatus(String positionEffectiveStatus) {
@@ -317,7 +317,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the description
-         * 
+         *
          * @return Returns the description
          */
         public String getDescription() {
@@ -326,7 +326,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the description
-         * 
+         *
          * @param description The description to set.
          */
         public void setDescription(String description) {
@@ -335,7 +335,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the shortDescription
-         * 
+         *
          * @return Returns the shortDescription
          */
         public String getShortDescription() {
@@ -344,7 +344,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the shortDescription
-         * 
+         *
          * @param shortDescription The shortDescription to set.
          */
         public void setShortDescription(String shortDescription) {
@@ -353,7 +353,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the businessUnit
-         * 
+         *
          * @return Returns the businessUnit
          */
         public String getBusinessUnit() {
@@ -362,7 +362,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the businessUnit
-         * 
+         *
          * @param businessUnit The businessUnit to set.
          */
         public void setBusinessUnit(String businessUnit) {
@@ -371,7 +371,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the departmentId
-         * 
+         *
          * @return Returns the departmentId
          */
         public String getDepartmentId() {
@@ -380,7 +380,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the departmentId
-         * 
+         *
          * @param departmentId The departmentId to set.
          */
         public void setDepartmentId(String departmentId) {
@@ -389,7 +389,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the positionStatus
-         * 
+         *
          * @return Returns the positionStatus
          */
         public String getPositionStatus() {
@@ -398,7 +398,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the positionStatus
-         * 
+         *
          * @param positionStatus The positionStatus to set.
          */
         public void setPositionStatus(String positionStatus) {
@@ -407,7 +407,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the statusDate
-         * 
+         *
          * @return Returns the statusDate
          */
         public Date getStatusDate() {
@@ -416,7 +416,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the statusDate
-         * 
+         *
          * @param statusDate The statusDate to set.
          */
         public void setStatusDate(Date statusDate) {
@@ -425,7 +425,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the budgetedPosition
-         * 
+         *
          * @return Returns the budgetedPosition
          */
         public String getBudgetedPosition() {
@@ -434,7 +434,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the budgetedPosition
-         * 
+         *
          * @param budgetedPosition The budgetedPosition to set.
          */
         public void setBudgetedPosition(String budgetedPosition) {
@@ -443,7 +443,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the standardHoursDefault
-         * 
+         *
          * @return Returns the standardHoursDefault
          */
         public BigDecimal getStandardHoursDefault() {
@@ -452,7 +452,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the standardHoursDefault
-         * 
+         *
          * @param standardHoursDefault The standardHoursDefault to set.
          */
         public void setStandardHoursDefault(BigDecimal standardHoursDefault) {
@@ -461,7 +461,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the standardHoursFrequency
-         * 
+         *
          * @return Returns the standardHoursFrequency
          */
         public String getStandardHoursFrequency() {
@@ -470,7 +470,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the standardHoursFrequency
-         * 
+         *
          * @param standardHoursFrequency The standardHoursFrequency to set.
          */
         public void setStandardHoursFrequency(String standardHoursFrequency) {
@@ -479,7 +479,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the positionRegularTemporary
-         * 
+         *
          * @return Returns the positionRegularTemporary
          */
         public String getPositionRegularTemporary() {
@@ -488,7 +488,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the positionRegularTemporary
-         * 
+         *
          * @param positionRegularTemporary The positionRegularTemporary to set.
          */
         public void setPositionRegularTemporary(String positionRegularTemporary) {
@@ -497,7 +497,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the positionFullTimeEquivalency
-         * 
+         *
          * @return Returns the positionFullTimeEquivalency
          */
         public BigDecimal getPositionFullTimeEquivalency() {
@@ -506,7 +506,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the positionFullTimeEquivalency
-         * 
+         *
          * @param positionFullTimeEquivalency The positionFullTimeEquivalency to set.
          */
         public void setPositionFullTimeEquivalency(BigDecimal positionFullTimeEquivalency) {
@@ -515,7 +515,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the positionSalaryPlanDefault
-         * 
+         *
          * @return Returns the positionSalaryPlanDefault
          */
         public String getPositionSalaryPlanDefault() {
@@ -524,7 +524,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the positionSalaryPlanDefault
-         * 
+         *
          * @param positionSalaryPlanDefault The positionSalaryPlanDefault to set.
          */
         public void setPositionSalaryPlanDefault(String positionSalaryPlanDefault) {
@@ -533,7 +533,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the positionGradeDefault
-         * 
+         *
          * @return Returns the positionGradeDefault
          */
         public String getPositionGradeDefault() {
@@ -542,7 +542,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the positionGradeDefault
-         * 
+         *
          * @param positionGradeDefault The positionGradeDefault to set.
          */
         public void setPositionGradeDefault(String positionGradeDefault) {
@@ -551,7 +551,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * construct the key list of the business object.
-         * 
+         *
          * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
          */
         protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
@@ -566,7 +566,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Gets the dummyBusinessObject
-         * 
+         *
          * @return Returns the dummyBusinessObject.
          */
         public TransientBalanceInquiryAttributes getDummyBusinessObject() {
@@ -575,7 +575,7 @@ public class HumanResourcesPayrollDaoJdbc extends BudgetConstructionDaoJdbcBase 
 
         /**
          * Sets the dummyBusinessObject
-         * 
+         *
          * @param dummyBusinessObject The dummyBusinessObject to set.
          */
         public void setDummyBusinessObject(TransientBalanceInquiryAttributes dummyBusinessObject) {

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd      http://rice.kuali.org/dd      http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -55,8 +55,8 @@
     <property name="webScriptFiles">
       <list>
         <value>../dwr/interface/AccountService.js</value>
-        <value>../dwr/interface/A21SubAccountService.js</value>                  
-        <value>../scripts/coa/subAccountDocument.js</value>  
+        <value>../dwr/interface/A21SubAccountService.js</value>
+        <value>../scripts/coa/subAccountDocument.js</value>
       </list>
     </property>
     <property name="workflowAttributes">
@@ -73,7 +73,7 @@
     <property name="maintainableItems">
       <list>
         <bean parent="MaintainableFieldDefinition" p:name="chartOfAccountsCode" p:required="true"/>
-        <bean parent="MaintainableFieldDefinition" p:name="accountNumber" p:required="true" p:webUILeaveFieldFunction="onblur_accountNumberPK"/>        
+        <bean parent="MaintainableFieldDefinition" p:name="accountNumber" p:required="true" p:webUILeaveFieldFunction="onblur_accountNumberPK"/>
         <bean parent="MaintainableFieldDefinition" p:name="subAccountNumber" p:required="true"/>
         <bean parent="MaintainableFieldDefinition" p:name="subAccountName" p:required="true"/>
         <bean parent="MaintainableFieldDefinition" p:name="active" p:defaultValue="true"/>
@@ -102,12 +102,12 @@
     <property name="maintainableItems">
       <list>
         <bean parent="MaintainableFieldDefinition" p:name="a21SubAccount.costShareChartOfAccountCode"/>
-        <bean parent="MaintainableFieldDefinition" p:name="a21SubAccount.costShareSourceAccountNumber" p:webUILeaveFieldFunction="onblur_accountNumberA21Sub">        	
+        <bean parent="MaintainableFieldDefinition" p:name="a21SubAccount.costShareSourceAccountNumber" p:webUILeaveFieldFunction="onblur_accountNumberA21Sub">
 			<property name="webUILeaveFieldFunctionParameters">
 				<list>
 					<value>a21SubAccount.costShareChartOfAccountCode</value>
 				</list>
-			</property>         	
+			</property>
         </bean>
         <bean parent="MaintainableFieldDefinition" p:name="a21SubAccount.costShareSourceSubAccountNumber"/>
       </list>
@@ -125,9 +125,9 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="SubAccountMaintenanceDocument-IndirectCostRecoveryAccounts" parent="SubAccountMaintenanceDocument-IndirectCostRecoveryAccounts-parentBean"/>
-  
+
   <bean id="SubAccountMaintenanceDocument-IndirectCostRecoveryAccounts-parentBean" abstract="true" parent="MaintainableSectionDefinition">
     <property name="id" value="indirectCostRecoveryAccounts"/>
     <property name="title" value="Indirect Cost Recovery Accounts"/>
@@ -153,8 +153,8 @@
                     <list>
                       <value>indirectCostRecoveryFinCoaCode</value>
                     </list>
-                  </property> 
-                </bean>      
+                  </property>
+                </bean>
                 <dd:maintField attributeName="accountLinePercent" />
                 <bean parent="MaintainableFieldDefinition" p:name="active" p:defaultValue="true"/>
                 <bean parent="MaintainableFieldDefinition" p:name="newCollectionRecord"/>
@@ -167,7 +167,7 @@
 
 <!-- workflow attributes -->
   	<bean id="SubAccountMaintenanceDocument-workflowAttributes" parent="SubAccountMaintenanceDocument-workflowAttributes-parentBean"/>
-  
+
 	<bean id="SubAccountMaintenanceDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
 		<property name="routingTypeDefinitions">
     		<map>
@@ -176,5 +176,5 @@
     		</map>
 		</property>
 	</bean>
- 
+
 </beans>

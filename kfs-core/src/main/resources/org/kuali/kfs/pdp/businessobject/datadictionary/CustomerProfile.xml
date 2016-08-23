@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -85,7 +85,7 @@
         <list>
             <bean parent="CollectionDefinition" p:name="customerBanks" p:label="Customer Banks" p:shortLabel="Customer Banks" p:elementLabel="Customer Banks"/>
         </list>
-    </property>    
+    </property>
 	<property name="relationships">
       <list>
         <bean parent="RelationshipDefinition">
@@ -121,7 +121,7 @@
               </property>
     		</bean>
       </list>
-    </property>  
+    </property>
   </bean>
 
 <!-- Attribute Definitions -->
@@ -138,12 +138,12 @@
       <ref bean="NumericValidation" />
     </property>
     <property name="required" value="true"/>
-    <property name="formatterClass" value="org.kuali.kfs.pdp.businessobject.DisbursementNumberFormatter"/> 
+    <property name="formatterClass" value="org.kuali.kfs.pdp.businessobject.DisbursementNumberFormatter"/>
     <property name="control">
       <bean parent="TextControlDefinition" p:size="9"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-customerShortName" parent="CustomerProfile-customerShortName-parentBean"/>
   <bean id="CustomerProfile-customerShortName-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="customerShortName"/>
@@ -155,7 +155,7 @@
       <bean parent="TextControlDefinition" p:size="20"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-customerDescription" parent="CustomerProfile-customerDescription-parentBean"/>
   <bean id="CustomerProfile-customerDescription-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="customerDescription"/>
@@ -167,7 +167,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-contactFullName" parent="CustomerProfile-contactFullName-parentBean"/>
   <bean id="CustomerProfile-contactFullName-parentBean" abstract="true" parent="PersonImpl-name">
     <property name="name" value="contactFullName"/>
@@ -177,8 +177,8 @@
     <property name="control">
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
-  </bean> 
-  
+  </bean>
+
   <bean id="CustomerProfile-processingEmailAddr" parent="CustomerProfile-processingEmailAddr-parentBean"/>
   <bean id="CustomerProfile-processingEmailAddr-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="processingEmailAddr"/>
@@ -190,20 +190,20 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-defaultPhysicalCampusProcessingCode" parent="CustomerProfile-defaultPhysicalCampusProcessingCode-parentBean"/>
   <bean id="CustomerProfile-defaultPhysicalCampusProcessingCode-parentBean" abstract="true" parent="Campus-code">
     <property name="name" value="defaultPhysicalCampusProcessingCode"/>
     <property name="label" value="Campus Process Location"/>
     <property name="shortLabel" value="Campus Process Location"/>
   </bean>
-  
+
   <bean id="CustomerProfile-chartCode" parent="CustomerProfile-chartCode-parentBean"/>
   <bean id="CustomerProfile-chartCode-parentBean" abstract="true" parent="Chart-chartOfAccountsCode">
     <property name="name" value="chartCode"/>
     <property name="label" value="Location"/>
   </bean>
-  
+
   <bean id="CustomerProfile-unitCode" parent="CustomerProfile-unitCode-parentBean"/>
   <bean id="CustomerProfile-unitCode-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="unitCode"/>
@@ -215,7 +215,7 @@
       <ref bean="FourCharacterTextControl" />
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-subUnitCode" parent="CustomerProfile-subUnitCode-parentBean"/>
   <bean id="CustomerProfile-subUnitCode-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="subUnitCode"/>
@@ -227,21 +227,21 @@
       <ref bean="FourCharacterTextControl" />
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-defaultChartCode" parent="CustomerProfile-defaultChartCode-parentBean"/>
   <bean id="CustomerProfile-defaultChartCode-parentBean" abstract="true" parent="Chart-chartOfAccountsCode">
     <property name="name" value="defaultChartCode"/>
     <property name="label" value="Default Chart"/>
     <property name="shortLabel" value="Default Chart"/>
   </bean>
-  
+
   <bean id="CustomerProfile-defaultAccountNumber" parent="CustomerProfile-defaultAccountNumber-parentBean"/>
   <bean id="CustomerProfile-defaultAccountNumber-parentBean" abstract="true" parent="Account-accountNumber">
     <property name="name" value="defaultAccountNumber"/>
     <property name="label" value="Default Account"/>
     <property name="shortLabel" value="Default Account"/>
   </bean>
-  
+
   <bean id="CustomerProfile-defaultSubAccountNumber" parent="CustomerProfile-defaultSubAccountNumber-parentBean"/>
   <bean id="CustomerProfile-defaultSubAccountNumber-parentBean" abstract="true" parent="SubAccount-subAccountNumber">
     <property name="name" value="defaultSubAccountNumber"/>
@@ -249,14 +249,14 @@
     <property name="shortLabel" value="Default Sub Account"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="CustomerProfile-defaultObjectCode" parent="CustomerProfile-defaultObjectCode-parentBean"/>
   <bean id="CustomerProfile-defaultObjectCode-parentBean" abstract="true" parent="ObjectCode-financialObjectCode">
     <property name="name" value="defaultObjectCode"/>
     <property name="label" value="Default Object Code"/>
     <property name="shortLabel" value="Default Object Code"/>
   </bean>
-  
+
   <bean id="CustomerProfile-defaultSubObjectCode" parent="CustomerProfile-defaultSubObjectCode-parentBean"/>
   <bean id="CustomerProfile-defaultSubObjectCode-parentBean" abstract="true" parent="SubObjectCode-financialSubObjectCode">
     <property name="name" value="defaultSubObjectCode"/>
@@ -264,7 +264,7 @@
     <property name="shortLabel" value="Default Sub Object Code"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="CustomerProfile-address1" parent="CustomerProfile-address1-parentBean"/>
   <bean id="CustomerProfile-address1-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="address1"/>
@@ -276,7 +276,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-address2" parent="CustomerProfile-address2-parentBean"/>
   <bean id="CustomerProfile-address2-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="address2"/>
@@ -288,7 +288,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-address3" parent="CustomerProfile-address3-parentBean"/>
   <bean id="CustomerProfile-address3-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="address3"/>
@@ -300,7 +300,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-address4" parent="CustomerProfile-address4-parentBean"/>
   <bean id="CustomerProfile-address4-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="address4"/>
@@ -312,7 +312,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-city" parent="CustomerProfile-city-parentBean"/>
   <bean id="CustomerProfile-city-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="city"/>
@@ -324,7 +324,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-stateCode" parent="CustomerProfile-stateCode-parentBean"/>
   <bean id="CustomerProfile-stateCode-parentBean" abstract="true" parent="State-code">
     <property name="name" value="stateCode"/>
@@ -332,7 +332,7 @@
     <property name="shortLabel" value="State"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="CustomerProfile-zipCode" parent="CustomerProfile-zipCode-parentBean"/>
   <bean id="CustomerProfile-zipCode-parentBean" abstract="true" parent="PostalCode-code">
     <property name="name" value="zipCode"/>
@@ -340,7 +340,7 @@
     <property name="shortLabel" value="Zip"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="CustomerProfile-countryCode" parent="CustomerProfile-countryCode-parentBean"/>
   <bean id="CustomerProfile-countryCode-parentBean" abstract="true" parent="Country-code" >
     <property name="name" value="countryCode"/>
@@ -350,8 +350,8 @@
     <property name="control">
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.CountryNotRestrictedValuesFinder" p:includeKeyInLabel="false"/>
     </property>
-  </bean>  
-  
+  </bean>
+
   <bean id="CustomerProfile-fileThresholdAmount" parent="CustomerProfile-fileThresholdAmount-parentBean"/>
   <bean id="CustomerProfile-fileThresholdAmount-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="fileThresholdAmount"/>
@@ -366,7 +366,7 @@
       <bean parent="TextControlDefinition" p:size="14"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-fileThresholdEmailAddress" parent="CustomerProfile-fileThresholdEmailAddress-parentBean"/>
   <bean id="CustomerProfile-fileThresholdEmailAddress-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="fileThresholdEmailAddress"/>
@@ -381,7 +381,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-paymentThresholdAmount" parent="CustomerProfile-paymentThresholdAmount-parentBean"/>
   <bean id="CustomerProfile-paymentThresholdAmount-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="paymentThresholdAmount"/>
@@ -396,7 +396,7 @@
       <bean parent="TextControlDefinition" p:size="14"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-paymentThresholdEmailAddress" parent="CustomerProfile-paymentThresholdEmailAddress-parentBean"/>
   <bean id="CustomerProfile-paymentThresholdEmailAddress-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="paymentThresholdEmailAddress"/>
@@ -411,7 +411,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-adviceHeaderText" parent="CustomerProfile-adviceHeaderText-parentBean"/>
   <bean id="CustomerProfile-adviceHeaderText-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="adviceHeaderText"/>
@@ -423,7 +423,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-adviceSubjectLine" parent="CustomerProfile-adviceSubjectLine-parentBean"/>
   <bean id="CustomerProfile-adviceSubjectLine-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="adviceSubjectLine"/>
@@ -435,7 +435,7 @@
       <ref bean="StandardNameTextControl" />
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-adviceReturnEmailAddr" parent="CustomerProfile-adviceReturnEmailAddr-parentBean"/>
   <bean id="CustomerProfile-adviceReturnEmailAddr-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="adviceReturnEmailAddr"/>
@@ -450,7 +450,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-checkHeaderNoteTextLine1" parent="CustomerProfile-checkHeaderNoteTextLine1-parentBean"/>
   <bean id="CustomerProfile-checkHeaderNoteTextLine1-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="checkHeaderNoteTextLine1"/>
@@ -462,7 +462,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-checkHeaderNoteTextLine2" parent="CustomerProfile-checkHeaderNoteTextLine2-parentBean"/>
   <bean id="CustomerProfile-checkHeaderNoteTextLine2-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="checkHeaderNoteTextLine2"/>
@@ -474,7 +474,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-checkHeaderNoteTextLine3" parent="CustomerProfile-checkHeaderNoteTextLine3-parentBean"/>
   <bean id="CustomerProfile-checkHeaderNoteTextLine3-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="checkHeaderNoteTextLine3"/>
@@ -486,7 +486,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-checkHeaderNoteTextLine4" parent="CustomerProfile-checkHeaderNoteTextLine4-parentBean"/>
   <bean id="CustomerProfile-checkHeaderNoteTextLine4-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="checkHeaderNoteTextLine4"/>
@@ -498,7 +498,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-additionalCheckNoteTextLine1" parent="CustomerProfile-additionalCheckNoteTextLine1-parentBean"/>
   <bean id="CustomerProfile-additionalCheckNoteTextLine1-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="additionalCheckNoteTextLine1"/>
@@ -510,7 +510,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-additionalCheckNoteTextLine2" parent="CustomerProfile-additionalCheckNoteTextLine2-parentBean"/>
   <bean id="CustomerProfile-additionalCheckNoteTextLine2-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="additionalCheckNoteTextLine2"/>
@@ -522,7 +522,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-additionalCheckNoteTextLine3" parent="CustomerProfile-additionalCheckNoteTextLine3-parentBean"/>
   <bean id="CustomerProfile-additionalCheckNoteTextLine3-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="additionalCheckNoteTextLine3"/>
@@ -534,7 +534,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-additionalCheckNoteTextLine4" parent="CustomerProfile-additionalCheckNoteTextLine4-parentBean"/>
   <bean id="CustomerProfile-additionalCheckNoteTextLine4-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="additionalCheckNoteTextLine4"/>
@@ -546,7 +546,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-achPaymentDescription" parent="CustomerProfile-achPaymentDescription-parentBean"/>
   <bean id="CustomerProfile-achPaymentDescription-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="achPaymentDescription"/>
@@ -558,7 +558,7 @@
       <bean parent="TextControlDefinition" p:size="50"/>
     </property>
   </bean>
-  
+
   <bean id="CustomerProfile-accountingEditRequired" parent="CustomerProfile-accountingEditRequired-parentBean"/>
   <bean id="CustomerProfile-accountingEditRequired-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="accountingEditRequired"/>
@@ -568,7 +568,7 @@
     <property name="maxLength" value="1"/>
     <property name="control" ref="IndicatorYNOnlySelectControl" />
   </bean>
-  
+
   <bean id="CustomerProfile-payeeIdRequired" parent="CustomerProfile-payeeIdRequired-parentBean"/>
   <bean id="CustomerProfile-payeeIdRequired-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="payeeIdRequired"/>
@@ -578,7 +578,7 @@
     <property name="maxLength" value="1"/>
     <property name="control" ref="IndicatorYNOnlySelectControl" />
   </bean>
-  
+
   <bean id="CustomerProfile-ownershipCodeRequired" parent="CustomerProfile-ownershipCodeRequired-parentBean"/>
   <bean id="CustomerProfile-ownershipCodeRequired-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="ownershipCodeRequired"/>
@@ -588,7 +588,7 @@
     <property name="maxLength" value="1"/>
     <property name="control" ref="IndicatorYNOnlySelectControl" />
   </bean>
-  
+
   <bean id="CustomerProfile-adviceCreate" parent="CustomerProfile-adviceCreate-parentBean"/>
   <bean id="CustomerProfile-adviceCreate-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="adviceCreate"/>
@@ -598,7 +598,7 @@
     <property name="maxLength" value="1"/>
     <property name="control" ref="IndicatorYNOnlySelectControl" />
   </bean>
-  
+
   <bean id="CustomerProfile-employeeCheck" parent="CustomerProfile-employeeCheck-parentBean"/>
   <bean id="CustomerProfile-employeeCheck-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="employeeCheck"/>
@@ -608,7 +608,7 @@
     <property name="maxLength" value="1"/>
     <property name="control" ref="IndicatorYNOnlySelectControl" />
   </bean>
-  
+
   <bean id="CustomerProfile-nraReview" parent="CustomerProfile-nraReview-parentBean"/>
   <bean id="CustomerProfile-nraReview-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="nraReview"/>
@@ -618,7 +618,7 @@
     <property name="maxLength" value="1"/>
     <property name="control" ref="IndicatorYNOnlySelectControl" />
   </bean>
-  
+
   <bean id="CustomerProfile-relieveLiabilities" parent="CustomerProfile-relieveLiabilities-parentBean"/>
   <bean id="CustomerProfile-relieveLiabilities-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="relieveLiabilities"/>
@@ -628,19 +628,19 @@
     <property name="maxLength" value="1"/>
     <property name="control" ref="IndicatorYNOnlySelectControl" />
   </bean>
-  
+
   <bean id="CustomerProfile-achTransactionType" parent="CustomerProfile-achTransactionType-parentBean"/>
   <bean id="CustomerProfile-achTransactionType-parentBean" abstract="true" parent="ACHTransactionType-code">
     <property name="name" value="achTransactionType"/>
     <property name="required" value="false"/>
   </bean>
-  
+
   <bean id="CustomerProfile-active" parent="CustomerProfile-active-parentBean"/>
 
   <bean id="CustomerProfile-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="active"/>
   </bean>
-  
+
 <!-- Business Object Inquiry Definition -->
 
 
@@ -678,13 +678,13 @@
         <bean parent="FieldDefinition" p:attributeName="stateCode"/>
         <bean parent="FieldDefinition" p:attributeName="zipCode"/>
         <bean parent="FieldDefinition" p:attributeName="countryCode"/>
-        <bean parent="FieldDefinition" p:attributeName="active"/>                   
+        <bean parent="FieldDefinition" p:attributeName="active"/>
       </list>
     </property>
   </bean>
-        
+
   <bean id="CustomerProfile-inquirySectionDefinition-checkAch" parent="CustomerProfile-inquirySectionDefinition-checkAch-parentBean"/>
-  <bean id="CustomerProfile-inquirySectionDefinition-checkAch-parentBean" parent="InquirySectionDefinition" abstract="true">		
+  <bean id="CustomerProfile-inquirySectionDefinition-checkAch-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Customer Check/ACH"/>
     <property name="inquiryFields">
       <list>
@@ -728,7 +728,7 @@
         <bean parent="FieldDefinition" p:attributeName="relieveLiabilities"/>
       </list>
     </property>
-  </bean>  
+  </bean>
 
   <bean id="CustomerProfile-inquirySectionDefinition-banks" parent="CustomerProfile-inquirySectionDefinition-banks-parentBean"/>
   <bean id="CustomerProfile-inquirySectionDefinition-banks-parentBean" parent="InquirySectionDefinition" abstract="true">
@@ -739,8 +739,8 @@
 		<ref bean="CustomerProfile-inquiryCollectionDefinition-banks"/>
       </list>
     </property>
-  </bean>  
-  
+  </bean>
+
   <bean id="CustomerProfile-inquiryCollectionDefinition-banks" parent="CustomerProfile-inquiryCollectionDefinition-banks-parentBean"/>
   <bean id="CustomerProfile-inquiryCollectionDefinition-banks-parentBean" parent="InquiryCollectionDefinition" abstract="true">
     <property name="attributeName" value="customerBanks"/>
@@ -758,14 +758,14 @@
       </list>
     </property>
   </bean>
-                        
+
 <!-- Business Object Lookup Definition -->
 
 
   <bean id="CustomerProfile-lookupDefinition" parent="CustomerProfile-lookupDefinition-parentBean"/>
   <bean id="CustomerProfile-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Customer Profile Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
         <property name="attributeNames">
@@ -780,7 +780,7 @@
         <bean parent="FieldDefinition" p:attributeName="id"/>
         <bean parent="FieldDefinition" p:attributeName="unitCode"/>
         <bean parent="FieldDefinition" p:attributeName="subUnitCode"/>
-        <bean parent="FieldDefinition" p:attributeName="active"/>      
+        <bean parent="FieldDefinition" p:attributeName="active"/>
       </list>
     </property>
     <property name="resultFields">

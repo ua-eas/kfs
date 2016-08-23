@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -600,40 +600,40 @@ public class TransferOfFundsDocumentRuleTest extends KualiTestBase {
         retval.addTargetAccountingLine(getValidObjectSubTypeTargetLine());
         return retval;
     }
-    
+
     private boolean testAddAccountingLineRule_IsObjectCodeAllowed(AccountingLine accountingLine, boolean expected) throws Exception {
         Map<String, Validation> validations = SpringContext.getBeansOfType(Validation.class);
         boolean result = true;
         TransferOfFundsDocument document = createDocument();
-        
+
         // do general validation
-        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation)validations.get("AccountingDocument-IsObjectCodeAllowed-DefaultValidation"); 
+        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation)validations.get("AccountingDocument-IsObjectCodeAllowed-DefaultValidation");
         if (validation == null) throw new IllegalStateException("No object code value allowed validation");
         validation.setAccountingDocumentForValidation(document);
         validation.setAccountingLineForValidation(accountingLine);
         result = validation.validate(null);
         // do TF version validation
-        validation = (AccountingLineValueAllowedValidation)validations.get("TransferOfFunds-objectCodeValueAllowedValidation"); 
+        validation = (AccountingLineValueAllowedValidation)validations.get("TransferOfFunds-objectCodeValueAllowedValidation");
         if (validation == null) throw new IllegalStateException("No TF specific object code value allowed validation");
         validation.setAccountingDocumentForValidation(document);
         validation.setAccountingLineForValidation(accountingLine);
         result = validation.validate(null);
-        
+
         return result;
     }
-    
+
     private void testAddAccountingLineRule_IsObjectTypeAllowed(AccountingLine accountingLine, boolean expected) throws Exception  {
         Map<String, Validation> validations = SpringContext.getBeansOfType(Validation.class);
         boolean result = true;
         TransferOfFundsDocument document = createDocument();
-        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation)validations.get("AccountingDocument-IsObjectTypeAllowed-DefaultValidation"); 
+        AccountingLineValueAllowedValidation validation = (AccountingLineValueAllowedValidation)validations.get("AccountingDocument-IsObjectTypeAllowed-DefaultValidation");
         if (validation == null) throw new IllegalStateException("No object type value allowed validation");
         validation.setAccountingDocumentForValidation(document);
         validation.setAccountingLineForValidation(accountingLine);
         result = validation.validate(null);
         assertEquals(expected, result);
     }
-    
+
     private void testAddAccountingLine_IsObjectSubTypeAllowed(AccountingLine accountingLine, boolean expected) throws Exception  {
         Map<String, Validation> validations = SpringContext.getBeansOfType(Validation.class);
         boolean result = true;

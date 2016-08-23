@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,12 +53,12 @@ public class AuxiliaryVoucherAccountingPeriodAllowedByParameterValidation extend
         if (!valid) {
             GlobalVariables.getMessageMap().putError(ACCOUNTING_PERIOD_ACTIVE_INDICATOR_FIELD, ERROR_ACCOUNTING_PERIOD_OUT_OF_RANGE);
         }
-        
+
         return valid;
     }
 
     /**
-     * Gets the auxiliaryVoucherDocumentForValidation attribute. 
+     * Gets the auxiliaryVoucherDocumentForValidation attribute.
      * @return Returns the auxiliaryVoucherDocumentForValidation.
      */
     public AuxiliaryVoucherDocument getAuxiliaryVoucherDocumentForValidation() {
@@ -74,7 +74,7 @@ public class AuxiliaryVoucherAccountingPeriodAllowedByParameterValidation extend
     }
 
     /**
-     * Gets the parameterService attribute. 
+     * Gets the parameterService attribute.
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -90,7 +90,7 @@ public class AuxiliaryVoucherAccountingPeriodAllowedByParameterValidation extend
     }
 
     /**
-     * Gets the accountingPeriodService attribute. 
+     * Gets the accountingPeriodService attribute.
      * @return Returns the accountingPeriodService.
      */
     public AccountingPeriodService getAccountingPeriodService() {

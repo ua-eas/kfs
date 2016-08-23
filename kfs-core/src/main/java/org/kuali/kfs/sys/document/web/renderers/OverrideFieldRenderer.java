@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -70,7 +70,7 @@ public class OverrideFieldRenderer extends FieldRendererBase {
         overrideNeededValue = null;
         storedFieldValue = null;
     }
-    
+
     /**
      * Cleans up the hidden that displays information for the override
      */
@@ -84,7 +84,7 @@ public class OverrideFieldRenderer extends FieldRendererBase {
         overridePresentTag.setProperty(null);
         overridePresentTag.setValue(null);
     }
-    
+
     /**
      * Cleans up the HiddenTag that renders override needed properties
      */
@@ -108,7 +108,7 @@ public class OverrideFieldRenderer extends FieldRendererBase {
     }
 
     /**
-     * Gets the readOnly attribute. 
+     * Gets the readOnly attribute.
      * @return Returns the readOnly.
      */
     public boolean isReadOnly() {
@@ -124,7 +124,7 @@ public class OverrideFieldRenderer extends FieldRendererBase {
     }
 
     /**
-     * Gets the overrideNeededValue attribute. 
+     * Gets the overrideNeededValue attribute.
      * @return Returns the overrideNeededValue.
      */
     public String getOverrideNeededValue() {
@@ -140,7 +140,7 @@ public class OverrideFieldRenderer extends FieldRendererBase {
     }
 
     /**
-     * Gets the accountingLine attribute. 
+     * Gets the accountingLine attribute.
      * @return Returns the accountingLine.
      */
     public AccountingLine getAccountingLine() {
@@ -168,14 +168,14 @@ public class OverrideFieldRenderer extends FieldRendererBase {
         } else {
         }
    }
-    
+
     /**
      * @return the HTML for a line break
      */
     protected String buildLineBreak() {
         return "<br />";
     }
-    
+
     /**
      * @return the HTML for a non-breaking space
      */
@@ -189,16 +189,16 @@ public class OverrideFieldRenderer extends FieldRendererBase {
     protected String buildLabelSpanOpening() {
         return "<span style=\"font-weight: normal\">";
     }
-    
+
     /**
      * @return builds the closing of the span tag to go around the label
      */
     protected String buildLabelSpanClosing() {
         return "</span>";
     }
-    
+
     /**
-     * Renders the override field as non-hidden (probably a checkbox) 
+     * Renders the override field as non-hidden (probably a checkbox)
      * @param pageContext the page context to render to
      * @param parentTag the tag requesting all this rendering
      * @throws JspException thrown if rendering fails
@@ -235,7 +235,7 @@ public class OverrideFieldRenderer extends FieldRendererBase {
             throw new JspException("Difficulty rendering override field", ioe);
         }
     }
-    
+
     /**
      * Renders the override field as a hidden field
      * @param pageContext the page context to render to
@@ -254,7 +254,7 @@ public class OverrideFieldRenderer extends FieldRendererBase {
         overrideHiddenTag.doStartTag();
         overrideHiddenTag.doEndTag();
     }
-    
+
     /**
      * Renders the override field as a hidden field
      * @param pageContext the page context to render to
@@ -269,7 +269,7 @@ public class OverrideFieldRenderer extends FieldRendererBase {
         overridePresentTag.doStartTag();
         overridePresentTag.doEndTag();
     }
-    
+
     /**
      * Renders the overrideNeeded field (which is always hidden)
      * @param pageContext the page context to render to

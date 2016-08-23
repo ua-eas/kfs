@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -102,9 +102,9 @@ public abstract class AttributeValidatingTypeServiceBase {
      * <p>This is the default implementation.  It calls into the service for each attribute to
      * validate it there.  No combination validation is done.  That should be done
      * by overriding this method.</p>
-     * <p>This implementation calls {@link #getTypeAttributeDefinitions(String)} to retrieve module-agnostic 
-     * representations.  It then iterates through the entry set of attributes, and calls 
-     * {@link #validateNonDataDictionaryAttribute(org.kuali.rice.core.api.uif.RemotableAttributeField, String, String)} 
+     * <p>This implementation calls {@link #getTypeAttributeDefinitions(String)} to retrieve module-agnostic
+     * representations.  It then iterates through the entry set of attributes, and calls
+     * {@link #validateNonDataDictionaryAttribute(org.kuali.rice.core.api.uif.RemotableAttributeField, String, String)}
      * or {@link #validateDataDictionaryAttribute(AttributeValidatingTypeServiceBase.TypeAttributeDefinition, String, String)}
      * as appropriate.  Lastly it calls {@link #validateReferencesExistAndActive(java.util.Map, java.util.Map, java.util.List)}.
      * </p>
@@ -173,7 +173,7 @@ public abstract class AttributeValidatingTypeServiceBase {
      * <p>This implementation instantiates any components mapped by attributes, populates them as best it can, and then
      * uses the {@link DataDictionaryService} to get relationship information.  Then, through the
      * {@link DictionaryValidationService} it attempts to ensure that any referenced business objects mapped by other
-     * attributes exist and are active.  It pulls any errors encountered out of the global error map via calls to 
+     * attributes exist and are active.  It pulls any errors encountered out of the global error map via calls to
      * {@link #extractErrorsFromGlobalVariablesErrorMap(String)}</p>
      * <p>TODO: who can explain this? :-)</p>
      *
@@ -401,7 +401,7 @@ public abstract class AttributeValidatingTypeServiceBase {
      * <p>This implementation checks if there is a regexConstraint set on the field, and if so
      * it compiles a Pattern (with no special flags) using it.  Otherwise, it returns a pattern that
      * always matches.</p>
-     * 
+     *
      * @param field the field for which to return a validation {@link Pattern}.
      * @return the compiled {@link Pattern} to use in validation the given field.
      */
@@ -415,7 +415,7 @@ public abstract class AttributeValidatingTypeServiceBase {
 
     /**
      * <p>Gets a {@link Formatter} appropriate for the data type of the given field.</p>
-     * <p>This implementation returns null if {@link org.kuali.rice.core.api.uif.RemotableAttributeField#getDataType()} 
+     * <p>This implementation returns null if {@link org.kuali.rice.core.api.uif.RemotableAttributeField#getDataType()}
      * returns null.  Otherwise, it returns the result of calling {@link Formatter#getFormatter(Class)} on the
      * {@link org.kuali.rice.core.api.uif.DataType}'s type</p>
      *
@@ -647,7 +647,7 @@ public abstract class AttributeValidatingTypeServiceBase {
     private static class ConfigurationServiceHolder {
         public static ConfigurationService configurationService = KRADServiceLocator.getKualiConfigurationService();
     }
-    
+
     protected ConfigurationService getConfigurationService() {
         return ConfigurationServiceHolder.configurationService;
     }

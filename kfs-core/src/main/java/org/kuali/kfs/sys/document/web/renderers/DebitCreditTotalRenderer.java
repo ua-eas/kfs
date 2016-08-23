@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,15 +30,15 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
     private String debitTotalProperty;
     private String creditTotalProperty;
     private String representedProperty;
-    
+
     private String debitTotalLabelProperty = "accounting.line.group.debitTotal.label";
     private String creditTotalLabelProperty = "accounting.line.group.creditTotal.label";
-    
-    private String formName = "KualiForm";   
-    
+
+    private String formName = "KualiForm";
+
     private WriteTag debitWriteTag = new WriteTag();
     private WriteTag creditWriteTag = new WriteTag();
-    
+
     /**
      * Constructs a GroupTotalRenderer, setting permanent values on the writeTag tag
      */
@@ -56,11 +56,11 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
         debitTotalProperty = null;
         creditTotalProperty = null;
         representedProperty = null;
-        
+
         debitWriteTag.setPageContext(null);
         debitWriteTag.setParent(null);
         debitWriteTag.setProperty(null);
-        
+
         creditWriteTag.setPageContext(null);
         creditWriteTag.setParent(null);
         creditWriteTag.setProperty(null);
@@ -72,10 +72,10 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
         JspWriter out = pageContext.getOut();
-        
+
         try {
             out.write("<tr class=\"total-line\">");
-            
+
             final int emptyCellSpanBefore = this.getColumnNumberOfRepresentedCell() - 1;
             if (emptyCellSpanBefore > 0) {
                 out.write("<td colspan=\"");
@@ -95,7 +95,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
             debitWriteTag.doEndTag();
 
             out.write("</td>");
-            
+
             out.write("<td colspan=\"1\" class=\"right\">");
             creditWriteTag.setPageContext(pageContext);
             creditWriteTag.setParent(parentTag);
@@ -120,7 +120,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
     }
 
     /**
-     * Gets the debitTotalProperty attribute. 
+     * Gets the debitTotalProperty attribute.
      * @return Returns the debitTotalProperty.
      */
     public String getDebitTotalProperty() {
@@ -136,7 +136,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
     }
 
     /**
-     * Gets the creditTotalProperty attribute. 
+     * Gets the creditTotalProperty attribute.
      * @return Returns the creditTotalProperty.
      */
     public String getCreditTotalProperty() {
@@ -152,7 +152,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
     }
 
     /**
-     * Gets the debitTotalLabelProperty attribute. 
+     * Gets the debitTotalLabelProperty attribute.
      * @return Returns the debitTotalLabelProperty.
      */
     public String getDebitTotalLabelProperty() {
@@ -168,7 +168,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
     }
 
     /**
-     * Gets the creditTotalLabelProperty attribute. 
+     * Gets the creditTotalLabelProperty attribute.
      * @return Returns the creditTotalLabelProperty.
      */
     public String getCreditTotalLabelProperty() {

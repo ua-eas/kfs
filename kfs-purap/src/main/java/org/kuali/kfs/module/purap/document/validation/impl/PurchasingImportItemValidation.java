@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,33 +44,33 @@ public class PurchasingImportItemValidation extends PurchasingAccountsPayableImp
 
     private BusinessObjectService businessObjectService;
     private DataDictionaryService dataDictionaryService;
-    
+
     public boolean validate(AttributedDocumentEvent event) {
-        boolean valid = true;  
-        
+        boolean valid = true;
+
         PurApItem refreshedItem = getItemForValidation();
         refreshedItem.refreshReferenceObject("itemType");
         super.setItemForValidation(refreshedItem);
-        
+
         valid &= super.validate(event);
         GlobalVariables.getMessageMap().addToErrorPath(PurapConstants.ITEM_TAB_ERROR_PROPERTY);
-        
+
         if (getItemForValidation().getItemType().isLineItemIndicator()) {
             valid &= validateItemDescription(getItemForValidation());
         }
         valid &= validateItemUnitPrice(getItemForValidation());
-        valid &= validateUnitOfMeasureCodeExists(getItemForValidation());        
+        valid &= validateUnitOfMeasureCodeExists(getItemForValidation());
         valid &= validateCommodityCodes(getItemForValidation(), commodityCodeIsRequired());
-        
+
         GlobalVariables.getMessageMap().removeFromErrorPath(PurapConstants.ITEM_TAB_ERROR_PROPERTY);
         return valid;
     }
 
     /**
      * Validates whether the commodity code existed on the item, and if existed, whether the
-     * commodity code on the item existed in the database, and if so, whether the commodity 
+     * commodity code on the item existed in the database, and if so, whether the commodity
      * code is active. Display error if any of these 3 conditions are not met.
-     * 
+     *
      * @param item  The PurApItem containing the commodity code to be validated.
      * @return boolean false if the validation fails and true otherwise.
      */
@@ -78,7 +78,7 @@ public class PurchasingImportItemValidation extends PurchasingAccountsPayableImp
         boolean valid = true;
         String identifierString = item.getItemIdentifierString();
         PurchasingItemBase purItem = (PurchasingItemBase) item;
-        
+
         //This validation is only needed if the commodityCodeRequired system parameter is true
         if (commodityCodeRequired && StringUtils.isBlank(purItem.getPurchasingCommodityCode()) ) {
             //This is the case where the commodity code is required but the item does not currently contain the commodity code.
@@ -101,18 +101,18 @@ public class PurchasingImportItemValidation extends PurchasingAccountsPayableImp
                 valid &= validateThatCommodityCodeIsActive(item);
             }
         }
-        
+
         return valid;
     }
 
     /**
      * Checks that a description was entered for the item.
-     * 
+     *
      * @param item
      * @return
      */
     public boolean validateItemDescription(PurApItem item) {
-        boolean valid = true;      
+        boolean valid = true;
         if (StringUtils.isEmpty(item.getItemDescription())) {
             valid = false;
             String attributeLabel = dataDictionaryService.
@@ -126,7 +126,7 @@ public class PurchasingImportItemValidation extends PurchasingAccountsPayableImp
     /**
      * Validates the unit price for all applicable item types. It validates that the unit price field was
      * entered on the item, and that the price is in the right range for the item type.
-     * 
+     *
      * @param purDocument the purchasing document to be validated
      * @return boolean false if there is any validation that fails.
      */
@@ -140,7 +140,7 @@ public class PurchasingImportItemValidation extends PurchasingAccountsPayableImp
                                         getAttributeDefinition(PurapPropertyConstants.ITEM_UNIT_PRICE).getLabel();
                 GlobalVariables.getMessageMap().putError(PurapPropertyConstants.ITEM_UNIT_PRICE, KFSKeyConstants.ERROR_REQUIRED, attributeLabel + " in " + item.getItemIdentifierString());
             }
-        }    
+        }
 
         if (ObjectUtils.isNotNull(item.getItemUnitPrice())) {
             if ((BigDecimal.ZERO.compareTo(item.getItemUnitPrice()) > 0) && ((!item.getItemTypeCode().equals(ItemTypeCodes.ITEM_TYPE_ORDER_DISCOUNT_CODE)) && (!item.getItemTypeCode().equals(ItemTypeCodes.ITEM_TYPE_TRADE_IN_CODE)))) {
@@ -160,17 +160,17 @@ public class PurchasingImportItemValidation extends PurchasingAccountsPayableImp
 
     /**
      * Validates that if the item type is quantity based, that the unit of measure code is valid.
-     * Looks for the UOM Code in the table. If it is not there, the code is invalid. 
-     * This checking is needed only for imported items, since items added from new line could only 
+     * Looks for the UOM Code in the table. If it is not there, the code is invalid.
+     * This checking is needed only for imported items, since items added from new line could only
      * choose an existing UOM from the drop-down list.
-     * 
+     *
      * @param item the item to be validated
      * @return boolean false if the item type is quantity based and the unit of measure code is invalid.
      */
     protected boolean validateUnitOfMeasureCodeExists(PurApItem item) {
         boolean valid = true;
-        
-        if (item.getItemType().isQuantityBasedGeneralLedgerIndicator()) {            
+
+        if (item.getItemType().isQuantityBasedGeneralLedgerIndicator()) {
             String uomCode = item.getItemUnitOfMeasureCode();
             Map<String,String> fieldValues = new HashMap<String,String>();
             fieldValues.put(KFSPropertyConstants.ITEM_UNIT_OF_MEASURE_CODE, uomCode);
@@ -178,7 +178,7 @@ public class PurchasingImportItemValidation extends PurchasingAccountsPayableImp
                 String[] errorParams = { uomCode, "" + item.getItemLineNumber() };
                 GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERRORS, PurapKeyConstants.ERROR_ITEMPARSER_INVALID_UOM_CODE, errorParams);
                 valid = false;
-            }  
+            }
         }
 
         return valid;
@@ -186,8 +186,8 @@ public class PurchasingImportItemValidation extends PurchasingAccountsPayableImp
 
     /**
      * Predicate to do a parameter lookup and tell us whether a commodity code is required.
-     * Override in child classes. 
-     * 
+     * Override in child classes.
+     *
      * @return      True if a commodity code is required.
      */
     protected boolean commodityCodeIsRequired() {

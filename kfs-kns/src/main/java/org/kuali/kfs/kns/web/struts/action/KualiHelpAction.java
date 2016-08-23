@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -54,8 +54,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * This class handles requests for help text.
- * 
- * 
+ *
+ *
  */
 public class KualiHelpAction extends KualiAction {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(KualiHelpAction.class);
@@ -64,7 +64,7 @@ public class KualiHelpAction extends KualiAction {
     private static final String NO = "No";
     private static final String YES = "Yes";
     static final String DEFAULT_LOOKUP_HELP_TEXT_RESOURCE_KEY = "lookupHelpText";
-    
+
     private static DataDictionaryService dataDictionaryService;
     private static ConfigurationService kualiConfigurationService;
     private static ParameterService parameterService;
@@ -95,10 +95,10 @@ public class KualiHelpAction extends KualiAction {
         }
         return maintenanceDocumentDictionaryService;
     }
-    
+
     /**
      * Convenience method for accessing <code>{@link DataDictionaryEntry}</code> for the given business object
-     * 
+     *
      * @param businessObjectClassName
      * @return DataDictionaryEntry
      */
@@ -109,7 +109,7 @@ public class KualiHelpAction extends KualiAction {
     /**
      * Convenience method for accessing the <code>{@link AttributeDefinition}</code> for a specific business object attribute
      * defined in the DataDictionary.
-     * 
+     *
      * @param businessObjectClassName
      * @param attributeName
      * @return AttributeDefinition
@@ -153,7 +153,7 @@ public class KualiHelpAction extends KualiAction {
 
     /**
      * Retrieves help information from the data dictionary for the business object attribute.
-     * 
+     *
      * @return ActionForward
      */
     public ActionForward getAttributeHelpText(ActionMapping mapping, KualiHelpForm helpForm, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -169,7 +169,7 @@ public class KualiHelpAction extends KualiAction {
             LOG.debug( "Request for help on: " + helpForm.getBusinessObjectClassName() + " -- " + helpForm.getAttributeName() );
             LOG.debug( "  attribute: " + attribute );
         }
-                
+
         if (attribute == null || StringUtils.isBlank(attribute.getSummary())) {
             helpForm.setResourceKey(RiceKeyConstants.MESSAGE_NO_HELP_TEXT);
             return getResourceHelpText(mapping, helpForm, request, response);
@@ -196,7 +196,7 @@ public class KualiHelpAction extends KualiAction {
             // do nothing
             LOG.warn( "Unable to obtain maintainable field for BO property.", ex );
         }
-        
+
         helpForm.setHelpLabel(attribute.getLabel());
         helpForm.setHelpSummary(attribute.getSummary());
         helpForm.setHelpDescription(attribute.getDescription());
@@ -209,7 +209,7 @@ public class KualiHelpAction extends KualiAction {
 
     /**
      * Retrieves help information from the data dictionary for the business object attribute.
-     * 
+     *
      * @return ActionForward
      */
     public ActionForward getAttributeHelpText(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -295,7 +295,7 @@ public class KualiHelpAction extends KualiAction {
 
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }
-    
+
     /**
      * Retrieves help information from the data dictionary for the document type.
      */
@@ -308,7 +308,7 @@ public class KualiHelpAction extends KualiAction {
         if (StringUtils.isBlank(documentTypeName)) {
             throw new RuntimeException("Document type name not specified.");
         }
-        
+
         if (StringUtils.isBlank(pageName)) {
             throw new RuntimeException("Page name not specified.");
         }
@@ -339,21 +339,21 @@ public class KualiHelpAction extends KualiAction {
 
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }
-    
+
     /**
      * Retrieves help content to link to based on security group/parameter
      */
     public ActionForward getStoredHelpUrl(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         KualiHelpForm helpForm = (KualiHelpForm) form;
-        
+
         String helpParameterNamespace = helpForm.getHelpParameterNamespace();
         String helpParameterDetailType = helpForm.getHelpParameterDetailType();
         String helpParameterName = helpForm.getHelpParameterName();
-        
+
         if (StringUtils.isBlank(helpParameterNamespace)) {
             throw new RuntimeException("Parameter Namespace not specified.");
         }
-        
+
         if (StringUtils.isBlank(helpParameterDetailType)) {
             throw new RuntimeException("Detail Type not specified.");
         }
@@ -361,14 +361,14 @@ public class KualiHelpAction extends KualiAction {
         if (StringUtils.isBlank(helpParameterName)) {
             throw new RuntimeException("Parameter Name not specified.");
         }
-        
+
         String apcHelpUrl = getHelpUrl(helpParameterNamespace, helpParameterDetailType, helpParameterName);
-        
+
         if ( !StringUtils.isBlank(apcHelpUrl) ) {
             response.sendRedirect(apcHelpUrl);
             return null;
         }
-        
+
         helpForm.setHelpDescription("No help content available.");
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }
@@ -384,7 +384,7 @@ public class KualiHelpAction extends KualiAction {
 
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }
-    
+
     /**
      * Utility method that populates a KualiHelpForm with the description from a given resource key
      * @param helpForm the KualiHelpForm to populate with help text
@@ -399,7 +399,7 @@ public class KualiHelpAction extends KualiAction {
         helpForm.setHelpSummary("");
         helpForm.setHelpDescription(getConfigurationService().getPropertyValueAsString(resourceKey));
     }
-    
+
     /**
      * Retrieves help for a lookup
      */
@@ -424,11 +424,11 @@ public class KualiHelpAction extends KualiAction {
     		final DataDictionary dataDictionary = getDataDictionaryService().getDataDictionary();
     		final BusinessObjectEntry entry = (BusinessObjectEntry) dataDictionary.getBusinessObjectEntry(lookupBusinessObjectClassName);
     		final LookupDefinition lookupDefinition = entry.getLookupDefinition();
-    		
+
     		if (lookupDefinition != null) {
     			if (lookupDefinition.getHelpDefinition() != null && !StringUtils.isBlank(lookupDefinition.getHelpDefinition().getParameterNamespace()) && !StringUtils.isBlank(lookupDefinition.getHelpDefinition().getParameterDetailType()) && !StringUtils.isBlank(lookupDefinition.getHelpDefinition().getParameterName())) {
     				final String apcHelpUrl = getHelpUrl(lookupDefinition.getHelpDefinition().getParameterNamespace(), lookupDefinition.getHelpDefinition().getParameterDetailType(), lookupDefinition.getHelpDefinition().getParameterName());
-    		        
+
     		        if ( !StringUtils.isBlank(apcHelpUrl) ) {
     		            response.sendRedirect(apcHelpUrl);
     		            return null;
@@ -440,12 +440,12 @@ public class KualiHelpAction extends KualiAction {
     			}
     		}
     	}
-    	
+
     	// still here?  guess we're defaulting...
     	populateHelpFormForResourceText(helpForm, getDefaultLookupHelpResourceKey());
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }
-    
+
     /**
      * @return the key of the default lookup help resource text
      */
@@ -455,13 +455,13 @@ public class KualiHelpAction extends KualiAction {
 
     private String getHelpUrl(String parameterNamespace, String parameterDetailTypeCode, String parameterName) {
         return WebUtils.toAbsoluteURL(getConfigurationService().getPropertyValueAsString(KRADConstants.EXTERNALIZABLE_HELP_URL_KEY), getParameterService().getParameterValueAsString(parameterNamespace, parameterDetailTypeCode, parameterName));
-    }    
-    
+    }
+
     /**
      * Retrieves help content to link to based on parameterNamespace and parameterName
      */
     public ActionForward getHelpUrlByNamespace(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         KualiHelpForm helpForm = (KualiHelpForm) form;
-       return getStoredHelpUrl(mapping, form, request, response); 
+       return getStoredHelpUrl(mapping, form, request, response);
     }
 }

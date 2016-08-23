@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,15 +32,15 @@ import org.kuali.kfs.krad.util.KRADPropertyConstants;
 public class AccountDelegateGlobalDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDelegateGlobalDao {
 
    /**
-    * 
+    *
     * @see org.kuali.kfs.coa.dataaccess.AccountDelegateGlobalDao#getLockingDocumentNumber(java.lang.String, java.lang.String)
     */
-    
+
     public String getLockingDocumentNumber(String lockingRepresentation, String documentNumber) {
         String lockingDocNumber = "";
 
         lockingRepresentation = convertForLikeCriteria(lockingRepresentation);
-        
+
         // build the query criteria
         Criteria criteria = new Criteria();
         criteria.addLike("lockingRepresentation", lockingRepresentation);
@@ -61,14 +61,14 @@ public class AccountDelegateGlobalDaoOjb extends PlatformAwareDaoBaseOjb impleme
         }
         return lockingDocNumber;
     }
-    
+
     /**
      * Parses the lockingRepresentation and replaces the document type with a wild card.
-     * 
+     *
      * @param lockingRepresentation The String representation of the MaintenanceLock created by this record
      * @return The String representation of MaintenanceLock with the financialDocumentTypeCode replaced with a wildcard(%).
      */
-    
+
     protected String convertForLikeCriteria(String lockingRepresentation) {
         //org.kuali.kfs.coa.businessobject.AccountDelegate!!chartOfAccountsCode^^BL::accountNumber^^1031400::financialDocumentTypeCode^^IB::accountsDelegatePrmrtIndicator^^true
         String[] values = StringUtils.split(lockingRepresentation, "::");
@@ -84,7 +84,7 @@ public class AccountDelegateGlobalDaoOjb extends PlatformAwareDaoBaseOjb impleme
                 sb.append(val+"::");
             }
         }
-        
+
         return sb.toString();
     }
 }

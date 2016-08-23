@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -54,9 +54,9 @@ import org.kuali.kfs.krad.util.UrlFactory;
  */
 public abstract class AbstractGeneralLedgerInquirableImpl extends KualiInquirableImpl {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AbstractGeneralLedgerInquirableImpl.class);
-    
-    private BusinessObject businessObject; 
-    
+
+    private BusinessObject businessObject;
+
     /**
      * @see org.kuali.kfs.kns.inquiry.KualiInquirableImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject, java.lang.String, boolean)
      */
@@ -67,7 +67,7 @@ public abstract class AbstractGeneralLedgerInquirableImpl extends KualiInquirabl
 
     /**
      * Helper method to build an inquiry url for a result field.
-     * 
+     *
      * @param businessObject the business object instance to build the urls for
      * @param attributeName the attribute name which links to an inquirable
      * @return String url to inquiry
@@ -208,21 +208,21 @@ public abstract class AbstractGeneralLedgerInquirableImpl extends KualiInquirabl
 
     /**
      * This method builds the inquiry url for user-defined attribute
-     * 
+     *
      * @return a List of attribute keys for the inquiry url
      */
     protected abstract List buildUserDefinedAttributeKeyList();
 
     /**
      * This method defines the user-defined attribute map
-     * 
+     *
      * @return the user-defined attribute map
      */
     protected abstract Map getUserDefinedAttributeMap();
 
     /**
      * This method finds the matching attribute name of given one
-     * 
+     *
      * @param attributeName the given attribute name
      * @return the attribute name from the given one
      */
@@ -230,7 +230,7 @@ public abstract class AbstractGeneralLedgerInquirableImpl extends KualiInquirabl
 
     /**
      * This method finds the matching the key value of the given one
-     * 
+     *
      * @param keyName the given key name
      * @param keyValue the given key value
      * @return the key value from the given key value
@@ -239,7 +239,7 @@ public abstract class AbstractGeneralLedgerInquirableImpl extends KualiInquirabl
 
     /**
      * This method finds the matching the key name of the given one
-     * 
+     *
      * @param keyName the given key name
      * @return the key value from the given key name
      */
@@ -247,35 +247,35 @@ public abstract class AbstractGeneralLedgerInquirableImpl extends KualiInquirabl
 
     /**
      * This method defines the lookupable implementation attribute name
-     * 
+     *
      * @return the lookupable implementation attribute name
      */
     protected abstract String getLookupableImplAttributeName();
 
     /**
      * This method defines the base inquiry url
-     * 
+     *
      * @return the base inquiry url
      */
     protected abstract String getBaseUrl();
 
     /**
      * This method gets the class name of the inquiry business object for a given attribute.
-     * 
+     *
      * @return the class name of the inquiry business object for a given attribute
      */
     protected abstract Class getInquiryBusinessObjectClass(String attributeName);
 
     /**
      * This method adds more parameters into the curren parameter map
-     * 
+     *
      * @param parameter the current parameter map
      */
     protected abstract void addMoreParameters(Properties parameter, String attributeName);
 
     /**
      * This method determines whether the input name-value pair is exclusive from the processing
-     * 
+     *
      * @param keyName the name of the name-value pair
      * @param keyValue the value of the name-value pair
      * @return true if the input key is in the exclusive list; otherwise, false
@@ -309,7 +309,7 @@ public abstract class AbstractGeneralLedgerInquirableImpl extends KualiInquirabl
 
     /**
      * This method recovers the values of the given keys
-     * 
+     *
      * @param fieldValues unconsolidated values
      * @param keyName a key name that may be in the fieldValues map
      * @param keyValue a key value that may be in the fieldValues map
@@ -338,7 +338,7 @@ public abstract class AbstractGeneralLedgerInquirableImpl extends KualiInquirabl
 
     /**
      * Utility method to get the value of the given key from the field values
-     * 
+     *
      * @param fieldValues a Map of key values
      * @param keyName the name of the key to retrieve the value from
      * @return the value for the key, or, if not found, an empty String
@@ -355,7 +355,7 @@ public abstract class AbstractGeneralLedgerInquirableImpl extends KualiInquirabl
     /**
      * This takes a map of field values and then returns it without processing it, making this a sort
      * of identity method for Maps
-     * 
+     *
      * @param fieldValues field values to return to the user
      * @return the Map you sent in as a parameter
      */
@@ -365,7 +365,7 @@ public abstract class AbstractGeneralLedgerInquirableImpl extends KualiInquirabl
 
     /**
      * Given the nested name of an attribute in an object, returns the class that attribute will return
-     * 
+     *
      * @param businessObject the business object to find the propery class for
      * @param attributeName the nested name of the attribute to find the class for
      * @return the class of the nested attribute
@@ -376,7 +376,7 @@ public abstract class AbstractGeneralLedgerInquirableImpl extends KualiInquirabl
         String entryName = businessObject.getClass().getName();
         if (LOG.isDebugEnabled()) {
             LOG.debug("businessObject: " + entryName);
-            LOG.debug("attributeName: " + attributeName);    
+            LOG.debug("attributeName: " + attributeName);
         }
         DataDictionaryService dataDictionary = SpringContext.getBean(DataDictionaryService.class);
         AttributeDefinition attributeDefinition = null;
@@ -407,10 +407,10 @@ public abstract class AbstractGeneralLedgerInquirableImpl extends KualiInquirabl
 
         return inquiryBusinessObjectClass;
     }
-    
+
     /**
      * Builds URL to document type inquiry based on a given document type code
-     * 
+     *
      * @param docTypeCode - document type code to inquiry on
      * @return {@link HtmlData} representing inquiry URL
      */
@@ -434,7 +434,7 @@ public abstract class AbstractGeneralLedgerInquirableImpl extends KualiInquirabl
     }
 
     /**
-     * Gets the businessObject attribute. 
+     * Gets the businessObject attribute.
      * @return Returns the businessObject.
      */
     public BusinessObject getBusinessObject() {

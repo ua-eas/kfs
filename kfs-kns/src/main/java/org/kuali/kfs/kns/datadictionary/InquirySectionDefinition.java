@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,29 +31,29 @@ import java.util.Map;
  *                  inquirySection defines the format and content of
                  one section of the inquiry.
                  DD:  See InquirySectionDefinition.java
-                 
+
                 numberOfColumns = the number of fields to be displayed in each row of the inquiry section.
                 For example, numberOfColumns = 2 indicates that the label and values for two fields will be
                 displayed in each row as follows:
                     field1label field1value  |   field2label field2value
                     field3label field3value  |   field4label field4value
                 etc.
-                 
+
  * Contains section-related information for inquiry sections
  * Note: the setters do copious amounts of validation, to facilitate generating errors during the parsing process.
  */
 @Deprecated
 public class InquirySectionDefinition extends DataDictionaryDefinitionBase {
     private static final long serialVersionUID = 1565114894539391362L;
-    
+
 	protected String title;
     protected List<FieldDefinition> inquiryFields = new ArrayList<FieldDefinition>();
     protected Map<String, FieldDefinition> inquiryFieldMap = new LinkedHashMap<String, FieldDefinition>();
     protected Map inquiryCollections;
-    
+
     protected Integer numberOfColumns = 2;
     protected boolean defaultOpen = true;
-    
+
     public InquirySectionDefinition() {}
 
 
@@ -66,7 +66,7 @@ public class InquirySectionDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * Sets title to the given value.
-     * 
+     *
      * @param title
      * @throws IllegalArgumentException if the given title is blank
      */
@@ -95,7 +95,7 @@ public class InquirySectionDefinition extends DataDictionaryDefinitionBase {
 
     /**
      * Directly validate simple fields, call completeValidation on Definition fields.
-     * 
+     *
      * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Object)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -200,7 +200,7 @@ public class InquirySectionDefinition extends DataDictionaryDefinitionBase {
                 throw new DuplicateEntryException("duplicate itemName entry for item '" + itemName + "'");
             }
 
-            inquiryFieldMap.put(itemName, inquiryField);        
+            inquiryFieldMap.put(itemName, inquiryField);
         }
         this.inquiryFields = inquiryFields;
     }

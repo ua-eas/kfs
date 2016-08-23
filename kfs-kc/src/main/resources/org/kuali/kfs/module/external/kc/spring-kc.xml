@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -27,7 +27,7 @@
                            http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
                            http://www.springframework.org/schema/aop
                            http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
-                           
+
  	<bean id="cgModuleConfiguration" parent="cgModuleConfiguration-parentBean" />
     <bean id="cgModuleConfiguration-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.KcFinancialSystemModuleConfiguration" abstract="true">
         <property name="namespaceCode" value="KFS-CG" />
@@ -40,7 +40,7 @@
         </property>
         <property name="externalizableBusinessObjectImplementations">
             <map>
-	            <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsUnit" value="org.kuali.kfs.module.external.kc.businessobject.UnitDTO" /> 
+	            <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsUnit" value="org.kuali.kfs.module.external.kc.businessobject.UnitDTO" />
        			<entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsBudgetCategory" value="org.kuali.kfs.module.external.kc.businessobject.BudgetCategoryDTO" />
                 <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsCfda" value="org.kuali.kfs.module.external.kc.businessobject.CfdaDTO" />
                 <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsAward" value="org.kuali.kfs.module.external.kc.businessobject.Award"/>
@@ -87,7 +87,7 @@
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFund" value="org.kuali.kra.award.cgb.LetterOfCreditFund"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.AwardProjectDirector" value="org.kuali.kra.award.home.Award" />
              </map>
-        </property>        
+        </property>
         <property name="kfsToKcInquiryUrlParameterMapping">
              <map>
 	              <entry key="org.kuali.kfs.module.external.kc.businessobject.Award.proposalNumber" value="awardId"/>
@@ -102,7 +102,7 @@
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFund" value="fundCode"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.AwardProjectDirector.proposalNumber" value="awardId" />
              </map>
-        </property>        
+        </property>
  		<property name="dataDictionaryPackages">
 			<list>
                 <value>classpath:org/kuali/kfs/module/external/kc/businessobject/datadictionary/*.xml</value>
@@ -110,7 +110,7 @@
                 <value>classpath:org/kuali/kfs/module/external/kc/document/datadictionary/*.xml</value>
                 <value>classpath:org/kuali/kfs/module/external/kc/document/datadictionary/overrides/*.xml</value>
 			</list>
-		</property> 	
+		</property>
 		<property name="databaseRepositoryFilePaths">
 			<list>
 				<value>org/kuali/kfs/module/external/kc/ojb-kc.xml</value>
@@ -118,13 +118,13 @@
 		</property>
  	</bean>
     <bean id="cgModuleService" parent="cgModuleService-parentBean"/>
- 
+
     <bean id="cgModuleService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.KcKfsModuleServiceImpl" abstract="true">
 		<property name="moduleConfiguration" ref="cgModuleConfiguration" />
 		<property name="dataDictionaryService" ref="dataDictionaryService" />
     	<property name="configurationService" ref="kualiConfigurationService" />
 	</bean>
-	
+
 	<bean id="contractsAndGrantsModuleService" parent="contractsAndGrantsModuleService-parentBean"/>
 	<bean id="contractsAndGrantsModuleService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.ContractsAndGrantsModuleServiceImpl" abstract="true">
 		<property name="businessObjectService" ref="businessObjectService" />
@@ -132,7 +132,7 @@
 		<property name="personService" ref="personService" />
 		<property name="parameterService" ref="parameterService" />
 	</bean>
-	       
+
     <bean id="accountCreationService" parent="accountCreationService-parentBean"/>
     <bean id="accountCreationService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.AccountCreationServiceImpl" abstract="true">
         <property name="documentService" ref="documentService" />
@@ -146,7 +146,7 @@
         <property name="chartService" ref="chartService"/>
         <property name="personService" ref="personService"/>
     </bean>
-    
+
     <bean id="budgetAdjustmentService" parent="budgetAdjustmentService-parentBean"/>
     <bean id="budgetAdjustmentService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.BudgetAdjustmentServiceImpl" abstract="true">
         <property name="documentService" ref="documentService" />
@@ -160,59 +160,59 @@
         <property name="personService" ref="personService" />
         <property name="maintenanceDocumentDictionaryService" ref="maintenanceDocumentDictionaryService" />
     </bean>
-    
+
     <bean id="accountDefaultsService" parent="accountDefaultsService-parentBean"/>
     <bean id="accountDefaultsService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.AccountDefaultServiceImpl" abstract="true">
       	<property name="businessObjectService" ref="businessObjectService" />
       	<property name="contractsAndGrantsModuleService" ref="contractsAndGrantsModuleService" />
     </bean>
-    
+
     <bean id="billingFrequencyService" parent="billingFrequencyService-parentBean"/>
     <bean id="billingFrequencyService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.BillingFrequencyServiceImpl" abstract="true"/>
-    
+
     <bean id="dunningCampaignService" parent="dunningCampaignService-parentBean"/>
     <bean id="dunningCampaignService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.DunningCampaignServiceImpl" abstract="true"/>
-    
+
     <bean id="customerCreationService" parent="customerCreationService-parentBean"/>
     <bean id="customerCreationService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.CustomerCreationServiceImpl" abstract="true">
     	<property name="configurationService" ref="kualiConfigurationService" />
     	<property name="accountsReceivableModuleService" ref="accountsReceivableModuleService"/>
     </bean>
-    
+
     <bean id="kcObjectCodeService" parent="kcObjectCodeService-parentBean"/>
 	<bean id="kcObjectCodeService-parentBean" class = "org.kuali.kfs.module.external.kc.service.impl.KcObjectCodeServiceImpl" abstract="true">
     	<property name="businessObjectService" ref="businessObjectService" />
         <property name="objectCodeService" ref="objectCodeService" />
 	</bean>
-	
+
     <bean id="budgetCategoryService" parent="budgetCategoryService-parentBean"/>
 	<bean id="budgetCategoryService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.BudgetCategoryServiceImpl" abstract="true">
 		<property name="configurationService" ref="configurationService"/>
 	</bean>
-	
+
     <bean id="institutionalUnitService" parent="institutionalUnitService-parentBean"/>
 	<bean id="institutionalUnitService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.UnitServiceImpl" abstract="true">
 		<property name="configurationService" ref="configurationService"/>
 	</bean>
-		 	  	  	
+
     <bean id="cfdaNumberService" parent="cfdaNumberService-parentBean"/>
 	<bean id="cfdaNumberService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.CfdaServiceImpl" abstract="true">
 		<property name="configurationService" ref="configurationService"/>
 	</bean>
-		 	  	  	
+
     <bean id="awardAccountService" parent="awardAccountService-parentBean"/>
   	<bean id="awardAccountService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.AwardAccountServiceImpl" abstract="true"/>
-    
+
     <bean id="sponsorWebService" parent="sponsorWebService-parentBean"/>
     <bean id="sponsorWebService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.SponsorServiceImpl" abstract="true">
     	<property name="configurationService" ref="configurationService"/>
     </bean>
-    
+
     <bean id="sponsorAddressWebService" parent="sponsorAddressWebService-parentBean"/>
     <bean id="sponsorAddressWebService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.SponsorAddressServiceImpl" abstract="true">
     	<property name="sponsorService" ref="sponsorWebService"/>
     </bean>
-    
+
     <bean id="awardWebService" parent="awardWebService-parentBean"/>
     <bean id="awardWebService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.AwardServiceImpl" abstract="true">
       <property name="accountDefaultsService" ref="accountDefaultsService"/>
@@ -226,17 +226,17 @@
     <bean id="awardTypeWebService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.AwardTypeServiceImpl" abstract="true">
     	<property name="configurationService" ref="configurationService"/>
     </bean>
-    
+
     <bean id="letterOfCreditFundGroupService" parent="letterOfCreditFundGroupService-parentBean"/>
     <bean id="letterOfCreditFundGroupService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.LetterOfCreditFundGroupServiceImpl" abstract="true">
     	<property name="configurationService" ref="configurationService"/>
     </bean>
-    
+
     <bean id="letterOfCreditFundService" parent="letterOfCreditFundService-parentBean"/>
     <bean id="letterOfCreditFundService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.LetterOfCreditFundServiceImpl" abstract="true">
     	<property name="configurationService" ref="configurationService"/>
     </bean>
-    
+
     <bean id="awardProjectDirectorService" parent="awardProjectDirectorService-parentBean"/>
     <bean id="awardProjectDirectorService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.AwardProjectDirectorServiceImpl" abstract="true">
     	<property name="awardService" ref="awardWebService"/>
@@ -246,7 +246,7 @@
   <bean id="awardFundManagerService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.AwardFundManagerServiceImpl" abstract="true">
     <property name="awardService" ref="awardWebService"/>
   </bean>
-    
+
     <bean id="contractsAndGrantsModuleBillingService" parent="contractsAndGrantsModuleBillingService-parentBean"/>
     <bean id="contractsAndGrantsModuleBillingService-parentBean" abstract="true" class="org.kuali.kfs.module.external.kc.service.impl.ContractsAndGrantsModuleBillingServiceImpl">
     	<property name="awardService" ref="awardWebService"/>
@@ -268,33 +268,33 @@
 
     <bean id="externalLookupableHelperService" abstract="true" parent="externalLookupableHelperService-parentBean" />
     <bean id="externalLookupableHelperService-parentBean" abstract="true" parent="cf.lookupableHelperService"
-    	class="org.kuali.kfs.module.external.kc.service.impl.ExternalizableLookupableHelperServiceImpl"/>    
-    
+    	class="org.kuali.kfs.module.external.kc.service.impl.ExternalizableLookupableHelperServiceImpl"/>
+
     <bean id="awardLookupable" parent="awardLookupable-parentBean"/>
     <bean id="awardLookupable-parentBean" abstract="true" scope="prototype" parent="cf.kualiLookupable">
     	<property name="lookupableHelperService" ref="awardLookupableHelperService"/>
     </bean>
-    
+
     <bean id="awardLookupableHelperService" parent="awardLookupableHelperService-parentBean"/>
     <bean id="awardLookupableHelperService-parentBean" abstract="true" parent="externalLookupableHelperService">
     	<property name="eboLookupableService" ref="awardWebService"/>
     </bean>
-    
+
     <bean id="unitLookupable" parent="unitLookupable-parentBean"/>
     <bean id="unitLookupable-parentBean" abstract="true" scope="prototype" parent="cf.kualiLookupable">
     	<property name="lookupableHelperService" ref="unitLookupableHelperService"/>
     </bean>
-    
+
     <bean id="unitLookupableHelperService" parent="unitLookupableHelperService-parentBean"/>
     <bean id="unitLookupableHelperService-parentBean" abstract="true" parent="externalLookupableHelperService">
     	<property name="eboLookupableService" ref="institutionalUnitService"/>
     </bean>
-    
+
     <bean id="cfdaLookupable" parent="cfdaLookupable-parentBean"/>
     <bean id="cfdaLookupable-parentBean" abstract="true" scope="prototype" parent="cf.kualiLookupable">
     	<property name="lookupableHelperService" ref="cfdaLookupableHelperService"/>
     </bean>
-    
+
     <bean id="cfdaLookupableHelperService" parent="cfdaLookupableHelperService-parentBean"/>
     <bean id="cfdaLookupableHelperService-parentBean" abstract="true" parent="externalLookupableHelperService">
     	<property name="eboLookupableService" ref="cfdaNumberService"/>
@@ -304,11 +304,11 @@
     <bean id="sponsorLookupable-parentBean" abstract="true" scope="prototype" parent="cf.kualiLookupable">
     	<property name="lookupableHelperService" ref="sponsorLookupableHelperService"/>
     </bean>
-    
+
     <bean id="sponsorLookupableHelperService" parent="sponsorLookupableHelperService-parentBean"/>
     <bean id="sponsorLookupableHelperService-parentBean" abstract="true" parent="externalLookupableHelperService">
     	<property name="eboLookupableService" ref="sponsorWebService"/>
-    </bean>      
-    
+    </bean>
+
   	<import resource="spring-kc-bus-exports.xml"/>
 </beans>

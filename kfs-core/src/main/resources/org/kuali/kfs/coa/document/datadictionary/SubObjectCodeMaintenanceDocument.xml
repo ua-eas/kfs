@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -51,8 +51,8 @@
         <value>../dwr/interface/AccountService.js</value>
         <value>../scripts/coa/accountDocument.js</value>
       </list>
-    </property>    
-    
+    </property>
+
     <property name="documentTypeName" value="SOBJ"/>
     <property name="businessRulesClass" value="org.kuali.kfs.coa.document.validation.impl.SubObjCdRule"/>
     <property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase"/>
@@ -79,8 +79,8 @@
 				<list>
 					<value>chartOfAccountsCode</value>
 				</list>
-			</property> 
-		</bean> 
+			</property>
+		</bean>
         <bean parent="MaintainableFieldDefinition" p:name="financialObjectCode" p:required="true"/>
         <bean parent="MaintainableFieldDefinition" p:name="financialSubObjectCode" p:required="true"/>
         <bean parent="MaintainableFieldDefinition" p:name="financialSubObjectCodeName" p:required="true"/>
@@ -92,7 +92,7 @@
 
 <!-- workflow attributes -->
   	<bean id="SubObjectCodeMaintenanceDocument-workflowAttributes" parent="SubObjectCodeMaintenanceDocument-workflowAttributes-parentBean"/>
-  
+
 	<bean id="SubObjectCodeMaintenanceDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
 		<property name="routingTypeDefinitions">
     		<map>
@@ -100,5 +100,5 @@
     			<entry key="OrganizationHierarchy" value-ref="RoutingType-MaintenanceDocument-OrganizationHierarchy-OrgFromAccount"/>
     		</map>
 		</property>
-	</bean>	
+	</bean>
 </beans>

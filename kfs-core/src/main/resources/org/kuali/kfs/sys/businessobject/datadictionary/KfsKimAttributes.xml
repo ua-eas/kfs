@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -56,35 +56,35 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
       <list merge="true">
         <dd:relationship objectAttribute="chart">
             <dd:primitiveAttribute source="chartOfAccountsCode" target="chartOfAccountsCode" />
-        </dd:relationship>      
+        </dd:relationship>
         <dd:relationship objectAttribute="account">
             <dd:primitiveAttribute source="chartOfAccountsCode" target="chartOfAccountsCode" />
             <dd:primitiveAttribute source="accountNumber" target="accountNumber" />
-        </dd:relationship>      
+        </dd:relationship>
         <dd:relationship objectAttribute="subAccount">
             <dd:primitiveAttribute source="chartOfAccountsCode" target="chartOfAccountsCode" />
             <dd:primitiveAttribute source="accountNumber" target="accountNumber" />
             <dd:primitiveAttribute source="subAccountNumber" target="subAccountNumber" />
-        </dd:relationship>      
+        </dd:relationship>
         <dd:relationship objectAttribute="organization">
             <dd:primitiveAttribute source="chartOfAccountsCode" target="chartOfAccountsCode" />
             <dd:primitiveAttribute source="organizationCode" target="organizationCode" />
-        </dd:relationship>      
+        </dd:relationship>
         <dd:relationship objectAttribute="subFundGroup">
             <dd:primitiveAttribute source="subFundGroupCode" target="subFundGroupCode" />
-        </dd:relationship>      
+        </dd:relationship>
         <dd:relationship objectAttribute="contractManager">
             <dd:primitiveAttribute source="contractManagerCode" target="contractManagerCode" />
-        </dd:relationship>      
+        </dd:relationship>
         <dd:relationship objectAttribute="commodityCode">
             <dd:primitiveAttribute source="purchasingCommodityCode" target="purchasingCommodityCode" />
-        </dd:relationship>      
+        </dd:relationship>
         <dd:relationship objectAttribute="customerProfile">
             <dd:primitiveAttribute source="customerProfileId" target="id" />
-        </dd:relationship>      
+        </dd:relationship>
         <dd:relationship objectAttribute="vendorType">
             <dd:primitiveAttribute source="vendorTypeCode" target="vendorTypeCode" />
-        </dd:relationship>      
+        </dd:relationship>
       </list>
     </property>
   </bean>
@@ -100,8 +100,8 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
   <bean id="KfsKimAttributes-organizationCode" parent="Organization-organizationCode" />
 
   <bean id="KfsKimAttributes-accountingLineOverrideCode" parent="KfsKimAttributes-accountingLineOverrideCode-parentBean" />
-  <bean id="KfsKimAttributes-accountingLineOverrideCode-parentBean" abstract="true" parent="SourceAccountingLine-overrideCode" 
-  	p:name="accountingLineOverrideCode" 
+  <bean id="KfsKimAttributes-accountingLineOverrideCode-parentBean" abstract="true" parent="SourceAccountingLine-overrideCode"
+  	p:name="accountingLineOverrideCode"
 	p:label="Accounting Line Override Code"
     p:shortLabel="Override Code" />
 
@@ -115,14 +115,14 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
 
   <bean id="KfsKimAttributes-customerProfileId" parent="KfsKimAttributes-customerProfileId-parentBean" />
   <bean id="KfsKimAttributes-customerProfileId-parentBean" abstract="true" parent="CustomerProfile-id"
-  	p:name="customerProfileId" 
+  	p:name="customerProfileId"
 	p:label="Customer Profile Id"
-    p:shortLabel="Id" 
+    p:shortLabel="Id"
     p:required = "false" />
 
   <bean id="KfsKimAttributes-achTransactionTypeCode" parent="KfsKimAttributes-achTransactionTypeCode-parentBean" />
   <bean id="KfsKimAttributes-achTransactionTypeCode-parentBean" abstract="true" parent="PayeeACHAccount-achTransactionType"
-  	p:name="achTransactionTypeCode" 
+  	p:name="achTransactionTypeCode"
     p:required = "false" >
     <property name="control">
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.pdp.businessobject.options.AchTransactionTypeCodeValuesFinder"
@@ -150,13 +150,13 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
 
   <bean id="KfsKimAttributes-fromAmount" parent="KfsKimAttributes-fromAmount-parentBean" />
   <bean id="KfsKimAttributes-fromAmount-parentBean" abstract="true" parent="FinancialSystemDocumentHeader-financialDocumentTotalAmount"
-  	p:name="fromAmount" 
+  	p:name="fromAmount"
 	p:label="From Amount"
     p:shortLabel="From Amount" />
 
   <bean id="KfsKimAttributes-toAmount" parent="KfsKimAttributes-toAmount-parentBean" />
-  <bean id="KfsKimAttributes-toAmount-parentBean" abstract="true" parent="FinancialSystemDocumentHeader-financialDocumentTotalAmount" 
-  	p:name="toAmount" 
+  <bean id="KfsKimAttributes-toAmount-parentBean" abstract="true" parent="FinancialSystemDocumentHeader-financialDocumentTotalAmount"
+  	p:name="toAmount"
 	p:label="To Amount"
     p:shortLabel="To Amount" />
 
@@ -169,12 +169,12 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
     p:forceUppercase="true"
     p:maxLength="1"
     p:control-ref="IndicatorYNSelectControl" />
-    
-  <bean id="KfsKimAttributes-filePath" parent="BatchFile-path" 
-  	p:name="filePath" 
+
+  <bean id="KfsKimAttributes-filePath" parent="BatchFile-path"
+  	p:name="filePath"
 	p:label="File Path"
     p:shortLabel="File Path" />
-    
+
     <bean id="KfsKimAttributes-profilePrincipalId" parent="KfsKimAttributes-profilePrincipalId-parentBean" />
 	<bean id="KfsKimAttributes-profilePrincipalId-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="profilePrincipalId" />

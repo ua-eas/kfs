@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -54,7 +54,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * Defers to the DAO to find the consolidated account balances, based on the keys given in the Map parameter
-     * 
+     *
      * @param fieldValues the input fields and values
      * @return the summary records of account balance entries
      * @see org.kuali.kfs.gl.service.AccountBalanceService#findConsolidatedAvailableAccountBalance(java.util.Map)
@@ -67,7 +67,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * Given the map of parameters, constructs a query to find all qualifying account balance records
-     * 
+     *
      * @param fieldValues the input fields and values
      * @param isConsolidated determine whether the search results are consolidated
      * @return a collection of account balance entries
@@ -81,7 +81,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * This finds account balances grouped by consolidation
-     * 
+     *
      * @param universityFiscalYear the fiscal year account to find account balances for
      * @param chartOfAccountsCode the chart of accounts code to find account balances for
      * @param accountNumber the account number to find account balances for
@@ -261,7 +261,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * Finds account balances grouped by object level
-     * 
+     *
      * @param universityFiscalYear the fiscal year account to find account balances for
      * @param chartOfAccountsCode the chart of accounts code to find account balances for
      * @param accountNumber the account number to find account balances for
@@ -310,7 +310,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * Finds account balances that match the qualifying parameters, grouped by object code
-     * 
+     *
      * @param universityFiscalYear the fiscal year account to find account balances for
      * @param chartOfAccountsCode the chart of accounts code to find account balances for
      * @param accountNumber the account number to find account balances for
@@ -360,7 +360,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * Defers to the DAO to save the account balance.
-     * 
+     *
      * @param ab account balance record to save
      * @see org.kuali.kfs.gl.service.AccountBalanceService#save(org.kuali.kfs.gl.businessobject.AccountBalance)
      */
@@ -370,7 +370,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * Purge an entire fiscal year for a single chart.
-     * 
+     *
      * @param chartOfAccountsCode the chart of accounts of account balances to purge
      * @param year the fiscal year of account balances to purge
      */
@@ -382,7 +382,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * This method gets the number of the available account balances according to input fields and values
-     * 
+     *
      * @param fieldValues the input fields and values
      * @param isConsolidated determine whether the search results are consolidated
      * @return the number of the available account balances
@@ -425,7 +425,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     /**
      * Sets the optionsService.
-     * 
+     *
      * @param optionsService
      */
     public void setOptionsService(OptionsService optionsService) {

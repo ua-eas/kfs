@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -236,72 +236,72 @@ public class BeanPropertyComparatorTest {
         int inequal = sensitive.compare(greater, lesser);
         Assert.assertTrue(inequal != 0);
     }
-    
+
     @Test public void testCompare_differentDates() throws ParseException {
     	List propertiesD = Arrays.asList(new String[] { "d" });
-    	
+
     	DateFormat dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
-    	
+
     	BeanPropertyComparator comparator = new BeanPropertyComparator(propertiesD);
-    	
+
     	D lesser = new D(dateFormat.parse("01/01/1990"));
     	D greater = new D(dateFormat.parse("01/02/1990"));
-    	
+
     	int result = comparator.compare(greater, lesser);
     	Assert.assertEquals(1, result);
-    	
+
     	result = comparator.compare(lesser, greater);
     	Assert.assertEquals(-1, result);
-    	
+
     	result = comparator.compare(lesser, lesser);
     	Assert.assertEquals(0, result);
-    	
+
     	result = comparator.compare(greater, greater);
     	Assert.assertEquals(0, result);
     }
-    
+
     @Test public void testCompare_firstNullDates() throws ParseException {
     	List propertiesD = Arrays.asList(new String[] { "d" });
-    	
+
     	DateFormat dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
-    	
+
     	BeanPropertyComparator comparator = new BeanPropertyComparator(propertiesD);
-    	
+
     	D lesser = new D(null);
     	D greater = new D(dateFormat.parse("01/02/1990"));
-    	
+
     	int result = comparator.compare(greater, lesser);
     	Assert.assertEquals(1, result);
-    	
+
     	result = comparator.compare(lesser, greater);
     	Assert.assertEquals(-1, result);
-    	
+
     	result = comparator.compare(lesser, lesser);
     	Assert.assertEquals(0, result);
-    	
+
     	result = comparator.compare(greater, greater);
     	Assert.assertEquals(0, result);
     }
-    
+
     @Test public void testCompare_secondNullDates() throws ParseException {
     	List propertiesD = Arrays.asList(new String[] { "d" });
-    	
+
     	DateFormat dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
-    	
+
     	BeanPropertyComparator comparator = new BeanPropertyComparator(propertiesD);
-    	
+
     	D lesser = new D(dateFormat.parse("01/02/1990"));
     	D greater = new D(null);
-    	
+
     	int result = comparator.compare(greater, lesser);
     	Assert.assertEquals(-1, result);
-    	
+
     	result = comparator.compare(lesser, greater);
     	Assert.assertEquals(1, result);
-    	
+
     	result = comparator.compare(lesser, lesser);
     	Assert.assertEquals(0, result);
-    	
+
     	result = comparator.compare(greater, greater);
     	Assert.assertEquals(0, result);
     }
@@ -383,14 +383,14 @@ public class BeanPropertyComparatorTest {
             return b;
         }
     }
-    
+
     public static class D {
     	private Date d;
-    	
+
     	public D(Date d) {
     		this.d = d;
     	}
-    	
+
     	public Date getD() {
     		return d;
     	}

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -63,7 +63,7 @@
               <bean parent="SupportAttributeDefinition" p:sourceName="collector.principalName" p:targetName="principalName"/>
               <bean parent="SupportAttributeDefinition" p:sourceName="collector.name" p:targetName="name"/>
               <bean parent="SupportAttributeDefinition" p:sourceName="userLookupRoleNamespaceCode" p:targetName="lookupRoleNamespaceCode"/>
-              <bean parent="SupportAttributeDefinition" p:sourceName="userLookupRoleName" p:targetName="lookupRoleName"/>                    
+              <bean parent="SupportAttributeDefinition" p:sourceName="userLookupRoleName" p:targetName="lookupRoleName"/>
             </list>
           </property>
         </bean>
@@ -97,22 +97,22 @@
 								p:targetName="accountNumber" />
 								<bean parent="PrimitiveAttributeDefinition" p:sourceName="chartOfAccountsCode" p:targetName="chartOfAccountsCode"/>
 						</list>
-						
+
 					</property>
 					<property name="supportAttributes">
 						<list>
 							<bean parent="SupportAttributeDefinition" p:sourceName="accountNumber"
-								p:targetName="accountNumber" />						
+								p:targetName="accountNumber" />
 						</list>
 					</property>
 		</bean>
       </list>
     </property>
-		
+
 	</bean>
 
 	<!-- Attribute Definitions -->
-	
+
   <bean id="CollectionActivityReport-collector.principalName" parent="CollectionActivityReport-collector.principalName-parentBean"/>
   <bean id="CollectionActivityReport-collector.principalName-parentBean" abstract="true" parent="PersonImpl-principalName">
     <property name="name" value="collector.principalName"/>
@@ -134,7 +134,7 @@
 		<property name="required" value="false" />
 		<property name="maxLength"><null/></property>
 	</bean>
-	
+
   <bean id="CollectionActivityReport-principalId" parent="CollectionActivityReport-principalId-parentBean"/>
   <bean id="CollectionActivityReport-principalId-parentBean" abstract="true" parent="PersonImpl-principalId">
     <property name="name" value="principalId"/>
@@ -146,7 +146,7 @@
        <ref bean="HiddenControl" />
      </property>
   </bean>
-	
+
 	<bean id="CollectionActivityReport-proposalNumber"
 		parent="CollectionActivityReport-proposalNumber-parentBean" />
 	<bean id="CollectionActivityReport-proposalNumber-parentBean"
@@ -170,7 +170,7 @@
 		<property name="name" value="agencyNumber" />
 		<property name="forceUppercase" value="true" />
 	</bean>
-	
+
   <bean id="CollectionActivityReport-chartOfAccountsCode" parent="CollectionActivityReport-chartOfAccountsCode-parentBean" />
   <bean id="CollectionActivityReport-chartOfAccountsCode-parentBean"
 		abstract="true" parent="Chart-chartOfAccountsCode">
@@ -178,7 +178,7 @@
 			<bean parent="TextControlDefinition" p:size="4" />
 		</property>
   </bean>
-		
+
   <bean id="CollectionActivityReport-accountNumber" parent="CollectionActivityReport-accountNumber-parentBean" />
   <bean id="CollectionActivityReport-accountNumber-parentBean"
 		abstract="true" parent="Account-accountNumber">
@@ -186,7 +186,7 @@
 			<bean parent="TextControlDefinition" p:size="9" />
 		</property>
   </bean>
- 
+
   <bean id="CollectionActivityReport-invoiceNumber" parent="CollectionActivityReport-invoiceNumber-parentBean"/>
   <bean id="CollectionActivityReport-invoiceNumber-parentBean" abstract="true" parent="CustomerInvoiceDocument-organizationInvoiceNumber">
     <property name="name" value="invoiceNumber"/>
@@ -211,7 +211,7 @@
 			<bean parent="TextControlDefinition" p:size="50" />
 		</property>
 	</bean>
-	
+
   <bean id="CollectionActivityReport-activityType" parent="CollectionActivityReport-activityType-parentBean"/>
   <bean id="CollectionActivityReport-activityType-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="activityType"/>
@@ -267,7 +267,7 @@
     <property name="label" value="Completed Date"/>
     <property name="description" value="A free-form text field that identifies the completed date."/>
   </bean>
-  
+
   <bean id="CollectionActivityReport-userPrincipalId" parent="CollectionActivityReport-userPrincipalId-parentBean"/>
   <bean id="CollectionActivityReport-userPrincipalId-parentBean" abstract="true" parent="PersonImpl-name">
     <property name="shortLabel" value="User"/>
@@ -278,14 +278,14 @@
   </bean>
 
 	<!-- Business Object Lookup Definition -->
-	
+
 	<bean id="CollectionActivityReport-lookupDefinition"
 		parent="CollectionActivityReport-lookupDefinition-parentBean" />
 	<bean id="CollectionActivityReport-lookupDefinition-parentBean"
 		abstract="true" parent="LookupDefinition">
 		<property name="title" value="Collection Activity Report" />
 		<property name="lookupableID"
-			value="collectionActivityReportLookupResultLookupable" /> 
+			value="collectionActivityReportLookupResultLookupable" />
 		<property name="defaultSort">
 			<bean parent="SortDefinition">
 			</bean>
@@ -300,7 +300,7 @@
 				<bean parent="FieldDefinition" p:attributeName="activityType"/>
 				<bean parent="FieldDefinition" p:attributeName="collector.principalName" />
 				<bean parent="FieldDefinition" p:attributeName="principalId" />
-				
+
 			</list>
 		</property>
 		<property name="resultFields">
@@ -319,5 +319,5 @@
 				</list>
 		</property>
 	</bean>
-	
+
 </beans>

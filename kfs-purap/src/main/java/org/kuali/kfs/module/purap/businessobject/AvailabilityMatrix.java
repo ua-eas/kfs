@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,7 +27,7 @@ public enum AvailabilityMatrix {
     TRAN_TYPE_IND_MOD ("capitalAssetTransactionTypeCode", PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL, PurapConstants.CapitalAssetSystemStates.MODIFY, PurapConstants.CapitalAssetAvailability.EACH),
     TRAN_TYPE_MULT_NEW ("capitalAssetTransactionTypeCode", PurapConstants.CapitalAssetSystemTypes.MULTIPLE, PurapConstants.CapitalAssetSystemStates.NEW, PurapConstants.CapitalAssetAvailability.EACH),
     TRAN_TYPE_MULT_MOD ("capitalAssetTransactionTypeCode", PurapConstants.CapitalAssetSystemTypes.MULTIPLE, PurapConstants.CapitalAssetSystemStates.MODIFY, PurapConstants.CapitalAssetAvailability.EACH),
-    
+
     ASSET_NUMBER_ONE_NEW ("itemCapitalAssets.capitalAssetNumber", PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM, PurapConstants.CapitalAssetSystemStates.NEW, PurapConstants.CapitalAssetAvailability.NONE),
     ASSET_NUMBER_ONE_MOD ("itemCapitalAssets.capitalAssetNumber", PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM, PurapConstants.CapitalAssetSystemStates.MODIFY, PurapConstants.CapitalAssetAvailability.ONCE),
     ASSET_NUMBER_IND_NEW ("itemCapitalAssets.capitalAssetNumber", PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL, PurapConstants.CapitalAssetSystemStates.NEW, PurapConstants.CapitalAssetAvailability.NONE),
@@ -48,7 +48,7 @@ public enum AvailabilityMatrix {
     NOT_CURRENT_FY_IND_MOD ("capitalAssetNotReceivedCurrentFiscalYearIndicator", PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL, PurapConstants.CapitalAssetSystemStates.MODIFY, PurapConstants.CapitalAssetAvailability.NONE),
     NOT_CURRENT_FY_MULT_NEW ("capitalAssetNotReceivedCurrentFiscalYearIndicator", PurapConstants.CapitalAssetSystemTypes.MULTIPLE, PurapConstants.CapitalAssetSystemStates.NEW, PurapConstants.CapitalAssetAvailability.NONE),
     NOT_CURRENT_FY_MULT_MOD ("capitalAssetNotReceivedCurrentFiscalYearIndicator", PurapConstants.CapitalAssetSystemTypes.MULTIPLE, PurapConstants.CapitalAssetSystemStates.MODIFY, PurapConstants.CapitalAssetAvailability.NONE),
-    
+
     ASSET_TYPE_ONE_NEW ("capitalAssetTypeCode", PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM, PurapConstants.CapitalAssetSystemStates.NEW, PurapConstants.CapitalAssetAvailability.ONCE),
     ASSET_TYPE_ONE_MOD ("capitalAssetTypeCode", PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM, PurapConstants.CapitalAssetSystemStates.MODIFY, PurapConstants.CapitalAssetAvailability.NONE),
     ASSET_TYPE_IND_NEW ("capitalAssetTypeCode", PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL, PurapConstants.CapitalAssetSystemStates.NEW, PurapConstants.CapitalAssetAvailability.EACH),
@@ -76,7 +76,7 @@ public enum AvailabilityMatrix {
     DESCRIPTION_IND_MOD ("capitalAssetSystemDescription", PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL, PurapConstants.CapitalAssetSystemStates.MODIFY, PurapConstants.CapitalAssetAvailability.NONE),
     DESCRIPTION_MULT_NEW ("capitalAssetSystemDescription", PurapConstants.CapitalAssetSystemTypes.MULTIPLE, PurapConstants.CapitalAssetSystemStates.NEW, PurapConstants.CapitalAssetAvailability.ONCE),
     DESCRIPTION_MULT_MOD ("capitalAssetSystemDescription", PurapConstants.CapitalAssetSystemTypes.MULTIPLE, PurapConstants.CapitalAssetSystemStates.MODIFY, PurapConstants.CapitalAssetAvailability.NONE),
-    
+
     LOC_QUANTITY_ONE_NEW ("capitalAssetLocations.itemQuantity", PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM, PurapConstants.CapitalAssetSystemStates.NEW, PurapConstants.CapitalAssetAvailability.ONCE),
     LOC_QUANTITY_ONE_MOD ("capitalAssetLocations.itemQuantity", PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM, PurapConstants.CapitalAssetSystemStates.MODIFY, PurapConstants.CapitalAssetAvailability.NONE),
     LOC_QUANTITY_IND_NEW ("capitalAssetLocations.itemQuantity", PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL, PurapConstants.CapitalAssetSystemStates.NEW, PurapConstants.CapitalAssetAvailability.EACH),
@@ -97,14 +97,14 @@ public enum AvailabilityMatrix {
     HOW_MANY_ASSETS_IND_MOD ("capitalAssetCountAssetNumber", PurapConstants.CapitalAssetSystemTypes.INDIVIDUAL, PurapConstants.CapitalAssetSystemStates.MODIFY, PurapConstants.CapitalAssetAvailability.NONE),
     HOW_MANY_ASSETS_MULT_NEW ("capitalAssetCountAssetNumber", PurapConstants.CapitalAssetSystemTypes.MULTIPLE, PurapConstants.CapitalAssetSystemStates.NEW, PurapConstants.CapitalAssetAvailability.NONE),
     HOW_MANY_ASSETS_MULT_MOD ("capitalAssetCountAssetNumber", PurapConstants.CapitalAssetSystemTypes.MULTIPLE, PurapConstants.CapitalAssetSystemStates.MODIFY, PurapConstants.CapitalAssetAvailability.NONE),
-    
+
     ;
-        
+
     public final String fieldName;
     public final String systemType;
     public final String systemState;
     public final String availableValue;
-    
+
 
     private AvailabilityMatrix(String fieldName, String systemType, String systemState, String value) {
         this.fieldName = fieldName;
@@ -112,5 +112,5 @@ public enum AvailabilityMatrix {
         this.systemState = systemState;
         this.availableValue = value;
     }
-    
+
 }

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -51,28 +51,28 @@
   <bean id="AssetRepairHistory-capitalAssetNumber" parent="AssetRepairHistory-capitalAssetNumber-parentBean"/>
   <bean id="AssetRepairHistory-capitalAssetNumber-parentBean" abstract="true" parent="Asset-capitalAssetNumber">
   </bean>
-  
+
   <bean id="AssetRepairHistory-estimatedRepairDate" parent="AssetRepairHistory-estimatedRepairDate-parentBean"/>
   <bean id="AssetRepairHistory-estimatedRepairDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
     <property name="name" value="estimatedRepairDate"/>
     <property name="label" value="Estimated Repair Date"/>
     <property name="shortLabel" value="Date"/>
   </bean>
-  
+
   <bean id="AssetRepairHistory-incidentDate" parent="AssetRepairHistory-incidentDate-parentBean"/>
   <bean id="AssetRepairHistory-incidentDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
     <property name="name" value="incidentDate"/>
     <property name="label" value="Incident Date"/>
     <property name="shortLabel" value="Date"/>
   </bean>
-  
+
   <bean id="AssetRepairHistory-repairDate" parent="AssetRepairHistory-repairDate-parentBean"/>
   <bean id="AssetRepairHistory-repairDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
     <property name="name" value="repairDate"/>
     <property name="label" value="Repair Date"/>
     <property name="shortLabel" value="Date"/>
   </bean>
-  
+
   <bean id="AssetRepairHistory-problemDescription" parent="AssetRepairHistory-problemDescription-parentBean"/>
   <bean id="AssetRepairHistory-problemDescription-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="problemDescription"/>
@@ -87,7 +87,7 @@
       <bean parent="TextareaControlDefinition" p:rows="5" p:cols="80"/>
     </property>
   </bean>
-  
+
   <bean id="AssetRepairHistory-repairAmount" parent="AssetRepairHistory-repairAmount-parentBean"/>
   <bean id="AssetRepairHistory-repairAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
     <property name="name" value="repairAmount"/>
@@ -95,7 +95,7 @@
     <property name="shortLabel" value="Amount"/>
     <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
   </bean>
-  
+
   <bean id="AssetRepairHistory-repairContactName" parent="AssetRepairHistory-repairContactName-parentBean"/>
   <bean id="AssetRepairHistory-repairContactName-parentBean" abstract="true" parent="PersonImpl-name">
     <property name="name" value="repairContactName"/>
@@ -109,7 +109,7 @@
       <bean parent="TextControlDefinition" p:size="42"/>
     </property>
   </bean>
-  
+
   <bean id="AssetRepairHistory-repairNoteText" parent="AssetRepairHistory-repairNoteText-parentBean"/>
   <bean id="AssetRepairHistory-repairNoteText-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="repairNoteText"/>
@@ -124,7 +124,7 @@
       <bean parent="TextareaControlDefinition" p:rows="5" p:cols="80"/>
     </property>
   </bean>
-  
+
   <bean id="AssetRepairHistory-repairSolutionDescription" parent="AssetRepairHistory-repairSolutionDescription-parentBean"/>
   <bean id="AssetRepairHistory-repairSolutionDescription-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="repairSolutionDescription"/>
@@ -139,11 +139,11 @@
       <bean parent="TextareaControlDefinition" p:rows="5" p:cols="80"/>
     </property>
   </bean>
-  
+
   <bean id="AssetRepairHistory-newCollectionRecord" parent="AssetRepairHistory-newCollectionRecord-parentBean"/>
   <bean id="AssetRepairHistory-newCollectionRecord-parentBean" abstract="true" parent="GenericAttributes-newCollectionRecord">
   </bean>
-  
+
   <bean id="AssetRepairHistory-active" parent="AssetRepairHistory-active-parentBean"/>
   <bean id="AssetRepairHistory-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="active"/>
@@ -182,7 +182,7 @@
   <bean id="AssetRepairHistory-lookupDefinition" parent="AssetRepairHistory-lookupDefinition-parentBean"/>
   <bean id="AssetRepairHistory-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Asset Repair History Lookup"/>
-    
+
     <property name="defaultSort">
       <bean parent="SortDefinition">
       </bean>

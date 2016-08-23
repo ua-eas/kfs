@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,35 +44,35 @@ import org.kuali.rice.kim.api.permission.PermissionContract;
         "permissionNameAndNamespace", "permissionTemplateId", "permissionDescription", "active", "permissionDetails"
 })
 public class PermissionXmlDTO implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     @XmlTransient
     private String permissionId;
-    
+
     @XmlElement(name="permissionName")
     @XmlJavaTypeAdapter(NameAndNamespacePairValidatingAdapter.class)
     private NameAndNamespacePair permissionNameAndNamespace;
-    
+
     @XmlElement(name="templateName")
     @XmlJavaTypeAdapter(NameAndNamespacePairToPermTemplateIdAdapter.class)
     private String permissionTemplateId;
-    
+
     @XmlElement(name="description")
     @XmlJavaTypeAdapter(StringTrimmingAdapter.class)
     private String permissionDescription;
-    
+
     @XmlElement(name="active")
     private Boolean active;
-    
+
     @XmlElement(name="permissionDetails")
     @XmlJavaTypeAdapter(PermissionDetailListAdapter.class)
     private Map<String, String> permissionDetails;
-    
+
     public PermissionXmlDTO() {
         this.active = Boolean.TRUE;
     }
-    
+
     public PermissionXmlDTO(PermissionContract permission) {
         this.permissionNameAndNamespace = new NameAndNamespacePair(permission.getNamespaceCode(), permission.getName());
         this.permissionTemplateId = permission.getTemplate().getId();
@@ -81,7 +81,7 @@ public class PermissionXmlDTO implements Serializable {
         this.permissionDetails = (permission.getAttributes() != null) ?
                 new HashMap<String, String>(permission.getAttributes()) : new HashMap<String, String>();
     }
-    
+
     /**
      * @return the permissionId
      */
@@ -168,7 +168,7 @@ public class PermissionXmlDTO implements Serializable {
 
     /**
      * Retrieves the permission's name from the permission-name-and-namespace combo.
-     * 
+     *
      * @return The name of the permission, or null if the permission-name-and-namespace combo is null.
      */
     public String getPermissionName() {
@@ -177,7 +177,7 @@ public class PermissionXmlDTO implements Serializable {
 
     /**
      * Retrieves the permission's namespace code from the permission-name-and-namespace combo.
-     * 
+     *
      * @return The namespace code of the permission, or null if the permission-name-and-namespace combo is null.
      */
     public String getNamespaceCode() {

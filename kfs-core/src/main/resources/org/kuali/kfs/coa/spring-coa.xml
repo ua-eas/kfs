@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -28,8 +28,8 @@
                            http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
     <bean id="coaModuleConfiguration" parent="coaModuleConfiguration-parentBean" />
-	
-	
+
+
 	<bean id="coaModuleConfiguration-parentBean" class="org.kuali.kfs.sys.FinancialSystemModuleConfiguration"
 		abstract="true">
     	<property name="namespaceCode" value="KFS-COA" />
@@ -71,7 +71,7 @@
             <ref bean="accountingPeriodFiscalYearMaker" />
             <ref bean="indirectCostRecoveryRateDetailFiscalYearMaker" />
             <ref bean="indirectCostRecoveryRateFiscalYearMaker" />
-          </list>	
+          </list>
         </property>
         <property name="batchFileDirectories">
           	<list>
@@ -95,7 +95,7 @@
 		<property name="documentTypeService" ref="rice.kew.documentTypeService" />
 		<property name="businessObjectService" ref="businessObjectService" />
 	</bean>
-	
+
 	<bean id="AccountReferenceExemption" abstract="true" parent="AccountReferenceExemption-parentBean"/>
 	<bean id="AccountReferenceExemption-parentBean" abstract="true" class="org.kuali.kfs.coa.service.impl.AccountReferencePersistenceExemption">
 		<property name="chartOfAccountsCodePropertyName" value="chartOfAccountsCode"/>
@@ -103,13 +103,13 @@
 	</bean>
 
 	<bean id="AccountPersistenceStructureService" parent="AccountPersistenceStructureService-parentBean" />
-	
+
 	<bean id="AccountPersistenceStructureService-parentBean" abstract="true" class="org.kuali.kfs.coa.service.impl.AccountPersistenceStructureServiceImpl">
     	<property name="persistenceStructureServiceOjb" ref="persistenceStructureServiceOjb" />
     	<property name="maintenanceDocumentDictionaryService" ref="maintenanceDocumentDictionaryService" />
     	<property name="accountReferencePersistenceExemptions">
     		<list>
-    			<bean parent="AccountReferenceExemption" p:parentBusinessObjectClass="org.kuali.kfs.coa.businessobject.Organization" p:accountNumberPropertyName="organizationDefaultAccountNumber"/> 
+    			<bean parent="AccountReferenceExemption" p:parentBusinessObjectClass="org.kuali.kfs.coa.businessobject.Organization" p:accountNumberPropertyName="organizationDefaultAccountNumber"/>
     		</list>
     	</property>
 	</bean>
@@ -142,15 +142,15 @@
 			<ref bean="universityDateService" />
 		</property>
 	</bean>
-	
+
 	<bean id="objectLevelService"  parent="objectLevelService-parentBean"/>
 	<bean id="objectLevelService-parentBean" class="org.kuali.kfs.coa.service.impl.ObjectLevelServiceImpl" abstract="true">
 		<property name="businessObjectService" ref="businessObjectService"/>
 	</bean>
-	
+
 	<bean id="objectConsService"  parent="objectConsService-parentBean"/>
 	<bean id="objectConsService-parentBean" class="org.kuali.kfs.coa.service.impl.ObjectConsServiceImpl" abstract="true"/>
-		
+
 	<bean id="chartService"  parent="chartService-parentBean"/>
 	<bean id="chartService-parentBean" class="org.kuali.kfs.coa.service.impl.ChartServiceImpl" abstract="true">
 		<property name="businessObjectService" ref="businessObjectService" />
@@ -182,10 +182,10 @@
 			<ref bean="priorYearOrganizationDao" />
 		</property>
 	</bean>
-	
+
 	<bean id="offsetDefinitionService"  parent="offsetDefinitionService-parentBean"/>
 	<bean id="offsetDefinitionService-parentBean" class="org.kuali.kfs.coa.service.impl.OffsetDefinitionServiceImpl" abstract="true"/>
-		
+
 	<bean id="balanceTypService"  parent="balanceTypService-parentBean"/>
 	<bean id="balanceTypService-parentBean" class="org.kuali.kfs.coa.service.impl.BalanceTypeServiceImpl" abstract="true">
 		<property name="businessObjectService">
@@ -238,19 +238,19 @@
 		<property name="parameterService" ref="parameterService" />
 		<property name="businessObjectService" ref="businessObjectService" />
 	</bean>
-	
+
 	<bean id="responsibilityCenterService" parent="responsibilityCenterService-parentBean"/>
-	
+
 	<bean id="responsibilityCenterService-parentBean" class="org.kuali.kfs.coa.service.impl.ResponsibilityCenterServiceImpl" abstract="true">
         <property name="businessObjectService" ref="businessObjectService" />
 	</bean>
 
 	<bean id="accountDao" parent="platformAwareDao"
 		class="org.kuali.kfs.coa.dataaccess.impl.AccountDaoOjb"/>
-	
+
 	<bean id="accountDelegateDao" parent="platformAwareDao"
 		class="org.kuali.kfs.coa.dataaccess.impl.AccountDelegateDaoOjb"/>
-		
+
 	<bean id="accountDelegateGlobalDao" parent="platformAwareDao"
 		class="org.kuali.kfs.coa.dataaccess.impl.AccountDelegateGlobalDaoOjb" />
 
@@ -274,9 +274,9 @@
 
 	<bean id="a21SubAccountDao" parent="platformAwareDao"
 		class="org.kuali.kfs.coa.dataaccess.impl.A21SubAccountDaoOjb" />
-		
-	<bean id="accountLookupableHelperService" parent="accountLookupableHelperService-parentBean" scope="prototype" />		
-	<bean id="accountLookupableHelperService-parentBean" abstract="true" 
+
+	<bean id="accountLookupableHelperService" parent="accountLookupableHelperService-parentBean" scope="prototype" />
+	<bean id="accountLookupableHelperService-parentBean" abstract="true"
 		class="org.kuali.kfs.coa.businessobject.lookup.KualiAccountLookupableHelperServiceImpl"
 		scope="prototype" parent="cf.lookupableHelperService" />
 
@@ -289,7 +289,7 @@
 	</bean>
 
 	<bean id="organizationRoutingModelLookupableHelperService" parent="organizationRoutingModelLookupableHelperService-parentBean" scope="prototype" />
-	<bean id="organizationRoutingModelLookupableHelperService-parentBean" abstract="true" 
+	<bean id="organizationRoutingModelLookupableHelperService-parentBean" abstract="true"
 		class="org.kuali.kfs.coa.businessobject.lookup.OrganizationRoutingModelNameLookupableHelperServiceImpl"
 		scope="prototype" parent="cf.lookupableHelperService" />
 
@@ -300,9 +300,9 @@
 			<ref bean="organizationRoutingModelLookupableHelperService" />
 		</property>
 	</bean>
-	
+
 	<bean id="indirectCostRecoveryExclusionByTypeLookupableHelperService" parent="indirectCostRecoveryExclusionByTypeLookupableHelperService-parentBean" scope="prototype" />
-	<bean id="indirectCostRecoveryExclusionByTypeLookupableHelperService-parentBean" abstract="true" 
+	<bean id="indirectCostRecoveryExclusionByTypeLookupableHelperService-parentBean" abstract="true"
 		class="org.kuali.kfs.coa.businessobject.lookup.IndirectCostRecoveryExclusionTypeLookupableHelperServiceImpl"
 		scope="prototype" parent="cf.lookupableHelperService" />
 
@@ -313,7 +313,7 @@
 			<ref bean="indirectCostRecoveryExclusionByTypeLookupableHelperService" />
 		</property>
 	</bean>
-	
+
 	<bean id="updatePriorYearDataStep" class="org.kuali.kfs.coa.batch.UpdatePriorYearDataStep" parent="step">
 		<property name="priorYearOrganizationService">
 			<ref bean="priorYearOrganizationService" />
@@ -322,7 +322,7 @@
 			<ref bean="priorYearAccountService" />
 		</property>
 	</bean>
-	
+
 	<bean id="populatePriorYearDataJob" parent="scheduledJobDescriptor">
 		<property name="steps">
 			<list>
@@ -338,13 +338,13 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="addPriorYearAccountsStep" class="org.kuali.kfs.coa.batch.AddPriorYearAccountsStep" parent="wrappedStep">
 		<property name="wrappingBatchServices">
 			<list>
 				<ref bean="addPriorYearAccountsReportWriterService" />
 			</list>
-		</property>    	
+		</property>
 		<property name="priorYearAccountService">
 			<ref bean="priorYearAccountService" />
 		</property>
@@ -360,8 +360,8 @@
         		<entry key="org.kuali.kfs.coa.businessobject.PriorYearAccount" value="addPriorYearAccountsReportHelper" />
         	</map>
         </property>
-	</bean>	
-	
+	</bean>
+
 	<bean id="addPriorYearAccountsReportHelper" parent="businessObjectReportHelper">
 		<property name="dataDictionaryBusinessObjectClass" value="org.kuali.kfs.coa.businessobject.PriorYearAccount" />
 		<property name="orderedPropertyNameToHeaderLabelMap">
@@ -371,10 +371,10 @@
 			</map>
 		</property>
 		<property name="columnCount" value="2" />
-	</bean>			
-	
+	</bean>
+
 	<bean name="subAccountTrickleDownInactivationService" parent="subAccountTrickleDownInactivationService-parentBean" />
-	<bean name="subAccountTrickleDownInactivationService-parentBean" abstract="true" 
+	<bean name="subAccountTrickleDownInactivationService-parentBean" abstract="true"
 		class="org.kuali.kfs.coa.service.impl.SubAccountTrickleDownInactivationServiceImpl">
 		<property name="maintenanceDocumentDictionaryService">
 			<ref bean="maintenanceDocumentDictionaryService" />
@@ -392,9 +392,9 @@
 			<ref bean="documentHeaderService" />
 		</property>
     </bean>
-    
+
     <bean name="subObjectTrickleDownInactivationService" parent="subObjectTrickleDownInactivationService-parentBean" />
-	<bean name="subObjectTrickleDownInactivationService-parentBean" abstract="true" 
+	<bean name="subObjectTrickleDownInactivationService-parentBean" abstract="true"
 		class="org.kuali.kfs.coa.service.impl.SubObjectTrickleDownInactivationServiceImpl">
     	<property name="businessObjectService">
     		<ref bean="businessObjectService"/>
@@ -418,9 +418,9 @@
     		<ref bean="kualiConfigurationService"/>
     	</property>
     </bean>
-    
+
     <bean name="organizationReversionDetailTrickleDownInactivationService" parent="organizationReversionDetailTrickleDownInactivationService-parentBean"/>
-    <bean name="organizationReversionDetailTrickleDownInactivationService-parentBean" abstract="true" 
+    <bean name="organizationReversionDetailTrickleDownInactivationService-parentBean" abstract="true"
 		class="org.kuali.kfs.coa.service.impl.OrganizationReversionDetailTrickleDownInactivationServiceImpl">
     	<property name="businessObjectService">
     		<ref bean="businessObjectService"/>
@@ -435,10 +435,10 @@
     		<ref bean="kualiConfigurationService"/>
     	</property>
     </bean>
-    
+
     <bean name="indirectCostRecoveryRateDetailInactivationBlockingDetectionService" parent="indirectCostRecoveryRateDetailInactivationBlockingDetectionService-parentBean"/>
 	<bean
-		name="indirectCostRecoveryRateDetailInactivationBlockingDetectionService-parentBean" abstract="true" 
+		name="indirectCostRecoveryRateDetailInactivationBlockingDetectionService-parentBean" abstract="true"
 		class="org.kuali.kfs.coa.service.impl.IndirectCostRecoveryRateDetailInactivationBlockingDetectionServiceImpl">
         <property name="businessObjectService">
     		<ref bean="businessObjectService"/>
@@ -450,9 +450,9 @@
             <ref bean="persistenceService" />
         </property>
     </bean>
-    
+
     <bean name="objectCodeCurrentInactivationBlockingDetectionService" parent="objectCodeCurrentInactivationBlockingDetectionService-parentBean"/>
-	<bean name="objectCodeCurrentInactivationBlockingDetectionService-parentBean" abstract="true" 
+	<bean name="objectCodeCurrentInactivationBlockingDetectionService-parentBean" abstract="true"
 		class="org.kuali.kfs.coa.service.impl.ObjectCodeCurrentInactivationBlockingDetectionServiceImpl">
         <property name="businessObjectService">
     		<ref bean="businessObjectService"/>
@@ -464,9 +464,9 @@
 			<ref bean="universityDateService" />
 		</property>
     </bean>
-    
+
     <bean name="offsetDefinitionInactivationBlockingDetectionService" parent="offsetDefinitionInactivationBlockingDetectionService-parentBean"/>
-    <bean name="offsetDefinitionInactivationBlockingDetectionService-parentBean" abstract="true" 
+    <bean name="offsetDefinitionInactivationBlockingDetectionService-parentBean" abstract="true"
     	class="org.kuali.kfs.coa.service.impl.OffsetDefinitionInactivationBlockingDetectionServiceImpl">
         <property name="businessObjectService">
     		<ref bean="businessObjectService"/>
@@ -475,36 +475,36 @@
     		<ref bean="businessObjectMetaDataService"/>
     	</property>
     </bean>
-    
+
     <bean name="chartRoleTypeService" parent="chartRoleTypeService-parentBean"/>
 	<bean name="chartRoleTypeService-parentBean" abstract="true"  class="org.kuali.kfs.coa.identity.ChartRoleTypeServiceImpl" />
 
 	<bean name="organizationRoleTypeService" parent="organizationRoleTypeService-parentBean"/>
-	<bean name="organizationRoleTypeService-parentBean" abstract="true" 
+	<bean name="organizationRoleTypeService-parentBean" abstract="true"
 		class="org.kuali.kfs.coa.identity.OrganizationRoleTypeServiceImpl" />
-    
+
 	<bean id="organizationHierarchyAwareRoleTypeService" abstract="true">
 		<property name="chartService" ref="chartService" />
     	<property name="organizationService" ref="organizationService" />
     </bean>
 	<bean id="organizationOptionalHierarchyQualifierRoleTypeService" parent="organizationOptionalHierarchyQualifierRoleTypeService-parentBean"/>
-	<bean id="organizationOptionalHierarchyQualifierRoleTypeService-parentBean" abstract="true" 
+	<bean id="organizationOptionalHierarchyQualifierRoleTypeService-parentBean" abstract="true"
 		class="org.kuali.kfs.coa.identity.OrganizationOptionalHierarchyRoleTypeServiceImpl"
 		parent="organizationHierarchyAwareRoleTypeService" />
 
 	<bean id="organizationHierarchyReviewRoleTypeService" parent="organizationHierarchyReviewRoleTypeService-parentBean"/>
-	<bean id="organizationHierarchyReviewRoleTypeService-parentBean" abstract="true" 
+	<bean id="organizationHierarchyReviewRoleTypeService-parentBean" abstract="true"
 		class="org.kuali.kfs.coa.identity.OrganizationHierarchyReviewRoleTypeServiceImpl"
 		parent="organizationHierarchyAwareRoleTypeService" />
-    
+
     <bean id="accountingOrganizationHierarchyReviewRoleTypeService" parent="accountingOrganizationHierarchyReviewRoleTypeService-parentBean"/>
-	<bean id="accountingOrganizationHierarchyReviewRoleTypeService-parentBean" abstract="true" 
+	<bean id="accountingOrganizationHierarchyReviewRoleTypeService-parentBean" abstract="true"
 		class="org.kuali.kfs.coa.identity.AccountingOrganizationHierarchyReviewRoleTypeServiceImpl"
 		parent="organizationHierarchyAwareRoleTypeService" />
-	
-    <bean id="accountRoleTypeService" parent="accountRoleTypeService-parentBean"/>	
+
+    <bean id="accountRoleTypeService" parent="accountRoleTypeService-parentBean"/>
     <bean id="accountRoleTypeService-parentBean" abstract="true"  class="org.kuali.kfs.coa.identity.AccountRoleTypeServiceImpl"/>
-	
+
 	<bean id="accountDerivedRoleTypeService" parent="accountDerivedRoleTypeService-parentBean"/>
 	<bean id="accountDerivedRoleTypeService-parentBean"
 		class="org.kuali.kfs.coa.identity.AccountDerivedRoleTypeServiceImpl" abstract="true">
@@ -529,69 +529,69 @@
 			<ref bean="organizationService" />
 		</property>
 	</bean>
-    	
+
 	<bean id="organizationGroupTypeService" parent="organizationGroupTypeService-parentBean"/>
 	<bean id="organizationGroupTypeService-parentBean"
 		class="org.kuali.kfs.coa.identity.OrganizationGroupTypeServiceImpl" abstract="true" />
-	
+
 	<bean id="contractsAndGrantsResponsibilityRoleTypeService"  parent="contractsAndGrantsResponsibilityRoleTypeService-parentBean"/>
 	<bean id="contractsAndGrantsResponsibilityRoleTypeService-parentBean" class="org.kuali.kfs.coa.identity.ContractsAndGrantsResponsibilityRoleTypeServiceImpl" abstract="true" />
 
 	<bean id="organizationReversionFiscalYearMaker" parent="FiscalYearMaker">
-		<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.OrganizationReversion" /> 
+		<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.OrganizationReversion" />
 		<property name="fiscalYearOneBehind" value="true" />
 	</bean>
-	
+
 	<bean id="organizationReversionDetailFiscalYearMaker" parent="FiscalYearMaker">
-		<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.OrganizationReversionDetail" /> 
+		<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.OrganizationReversionDetail" />
 		<property name="parentClasses">
 		  <set>
 		    <value>org.kuali.kfs.coa.businessobject.ObjectCode</value>
 		    <value>org.kuali.kfs.coa.businessobject.OrganizationReversion</value>
 		  </set>
-		</property>	
+		</property>
 		<property name="fiscalYearOneBehind" value="true" />
-	</bean>	
-	
+	</bean>
+
 	<bean id="subObjectCodeFiscalYearMaker" parent="FiscalYearMaker">
-		<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.SubObjectCode" /> 
+		<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.SubObjectCode" />
 		<property name="parentClasses">
 		  <set>
 		    <value>org.kuali.kfs.coa.businessobject.ObjectCode</value>
 		  </set>
-		</property>	
-	</bean>	
-	
+		</property>
+	</bean>
+
 	<bean id="objectCodeFiscalYearMaker" class="org.kuali.kfs.coa.batch.dataaccess.impl.ObjectCodeFiscalYearMakerImpl" parent="FiscalYearMaker">
-		<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.ObjectCode" /> 
-	</bean>		
-	
+		<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.ObjectCode" />
+	</bean>
+
 	<bean id="offsetDefinitionFiscalYearMaker" parent="FiscalYearMaker">
-		<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.OffsetDefinition" /> 
+		<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.OffsetDefinition" />
 		<property name="parentClasses">
 		  <set>
 		    <value>org.kuali.kfs.coa.businessobject.ObjectCode</value>
 		  </set>
-		</property>	
-	</bean>	
-	
+		</property>
+	</bean>
+
 	<bean id="accountingPeriodFiscalYearMaker" class="org.kuali.kfs.coa.batch.dataaccess.impl.AccountingPeriodFiscalYearMakerImpl" parent="FiscalYearMaker">
-		<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.AccountingPeriod" /> 
+		<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.AccountingPeriod" />
         <property name="twoYearCopy" value="true" />
-	</bean>	
-	
+	</bean>
+
 	<bean id="indirectCostRecoveryRateDetailFiscalYearMaker" parent="FiscalYearMaker">
-		<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.IndirectCostRecoveryRateDetail" /> 
+		<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.IndirectCostRecoveryRateDetail" />
 		<property name="parentClasses">
 		  <set>
 		    <value>org.kuali.kfs.coa.businessobject.IndirectCostRecoveryRate</value>
 		  </set>
-		</property>	
-	</bean>	
-	
+		</property>
+	</bean>
+
 	<bean id="indirectCostRecoveryRateFiscalYearMaker" parent="FiscalYearMaker">
-		<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.IndirectCostRecoveryRate" /> 
-	</bean>	
+		<property name="businessObjectClass" value="org.kuali.kfs.coa.businessobject.IndirectCostRecoveryRate" />
+	</bean>
 
     <bean id="orgReviewRoleLookupableHelperService" parent="orgReviewRoleLookupableHelperService-parentBean" />
     <bean id="orgReviewRoleLookupableHelperService-parentBean" class="org.kuali.kfs.coa.identity.OrgReviewRoleLookupableHelperServiceImpl" parent="cf.lookupableHelperService" abstract="true">
@@ -601,7 +601,7 @@
 	<bean id="orgReviewRoleLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" parent="cf.kualiLookupable" scope="prototype">
         <property name="lookupableHelperService" ref="orgReviewRoleLookupableHelperService" />
     </bean>
-    
+
     <bean id="accountDelegateService"  parent="accountDelegateService-parentBean"/>
     <bean id="accountDelegateService-parentBean" class="org.kuali.kfs.coa.service.impl.AccountDelegateServiceImpl" abstract="true">
     	<property name="accountDelegateDao">
@@ -614,7 +614,7 @@
         <property name="businessObjectService" ref="businessObjectService" />
         <property name="dateTimeService" ref="dateTimeService" />
     </bean>
-    	
+
 	<bean id="chartLedgerReferenceValuePreparedStatementCachingDao" parent="preparedStatementCachingDao" class="org.kuali.kfs.coa.batch.dataaccess.impl.LedgerReferenceValuePreparedStatementCachingDaoJdbc" />
 
 	<bean id="orgReviewRoleService" parent="orgReviewRoleService-parentBean" />

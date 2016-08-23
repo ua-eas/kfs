@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -131,12 +131,12 @@ public abstract class XmlBatchInputFileTypeBase extends BatchInputFileTypeBase {
             throw new ParseException("Error parsing xml contents: " + e.getMessage(), e);
         }
 
-        return parsedContents;    
+        return parsedContents;
     }
-    
+
     /**
      * Validates the xml contents against the batch input type schema using the java 1.5 validation package.
-     * 
+     *
      * @param schemaLocation - location of the schema file
      * @param fileContents - xml contents to validate against the schema
      */
@@ -155,7 +155,7 @@ public abstract class XmlBatchInputFileTypeBase extends BatchInputFileTypeBase {
             LOG.error("error getting schema stream from url: " + e2.getMessage());
             throw new RuntimeException("error getting schema stream from url:   " + e2.getMessage(), e2);
         }
-        
+
         Schema schema = null;
         try {
             schema = factory.newSchema(schemaSource);
@@ -163,7 +163,7 @@ public abstract class XmlBatchInputFileTypeBase extends BatchInputFileTypeBase {
         catch (SAXException e) {
             LOG.error("error occured while setting schema file: " + e.getMessage());
             throw new RuntimeException("error occured while setting schema file: " + e.getMessage(), e);
-        }    
+        }
 
         // create a Validator instance, which can be used to validate an instance document
         Validator validator = schema.newValidator();
@@ -182,7 +182,7 @@ public abstract class XmlBatchInputFileTypeBase extends BatchInputFileTypeBase {
             throw new RuntimeException("error occured while validating file contents: " + e1.getMessage(), e1);
         }
     }
-    
+
 
     /**
      * @return fully-initialized Digester used to process entry XML files

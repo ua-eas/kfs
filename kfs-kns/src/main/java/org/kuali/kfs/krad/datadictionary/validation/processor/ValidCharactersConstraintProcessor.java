@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,34 +42,34 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * This class defines a constraint processor to ensure that attribute values are constrained to valid characters, as defined by some regular expression. Of the 
+ * This class defines a constraint processor to ensure that attribute values are constrained to valid characters, as defined by some regular expression. Of the
  * constraint processors written for this version, this one is potentially the most difficult to understand because it holds on to a lot of legacy processing.
- * 
- *  
+ *
+ *
  */
 public class ValidCharactersConstraintProcessor extends MandatoryElementConstraintProcessor<ValidCharactersConstraint> {
 
 	public static final String VALIDATE_METHOD = "validate";
-	
+
 	private static final Logger LOG = Logger.getLogger(ValidCharactersConstraintProcessor.class);
 	private static final String[] DATE_RANGE_ERROR_PREFIXES = { KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX, KRADConstants.LOOKUP_RANGE_UPPER_BOUND_PROPERTY_PREFIX };
-    
+
 	private static final String CONSTRAINT_NAME = "valid characters constraint";
-	
+
 	/**
 	 * @see ConstraintProcessor#process(DictionaryValidationResult, Object, org.kuali.rice.krad.datadictionary.validation.capability.Validatable, AttributeValueReader)
 	 */
 	@Override
 	public ProcessorResult process(DictionaryValidationResult result, Object value, ValidCharactersConstraint constraint, AttributeValueReader attributeValueReader)	throws AttributeValidationException {
-		
+
     	return new ProcessorResult(processSingleValidCharacterConstraint(result, value, constraint, attributeValueReader));
 	}
 
-	@Override 
+	@Override
 	public String getName() {
 		return CONSTRAINT_NAME;
 	}
-	
+
 	/**
 	 * @see ConstraintProcessor#getConstraintType()
 	 */
@@ -77,53 +77,53 @@ public class ValidCharactersConstraintProcessor extends MandatoryElementConstrai
 	public Class<? extends Constraint> getConstraintType() {
 		return ValidCharactersConstraint.class;
 	}
-	
-	
+
+
 	protected ConstraintValidationResult processSingleValidCharacterConstraint(DictionaryValidationResult result, Object value, ValidCharactersConstraint constraint, AttributeValueReader attributeValueReader) throws AttributeValidationException {
-		
-		if (constraint == null) 
+
+		if (constraint == null)
 			return result.addNoConstraint(attributeValueReader, CONSTRAINT_NAME);
-		
+
 		if (ValidationUtils.isNullOrEmpty(value))
 			return result.addSkipped(attributeValueReader, CONSTRAINT_NAME);
-		
+
 		// This mix-in interface is here to allow some definitions to avoid the extra processing that goes on in KNS
 		// to decipher and validate things like date range strings -- something that looks like "02/02/2002..03/03/2003"
 		Constrainable definition = attributeValueReader.getDefinition(attributeValueReader.getAttributeName());
     	if (definition instanceof Formatable) {
     		return doProcessFormattableValidCharConstraint(result, constraint, (Formatable)definition, value, attributeValueReader);
-    	} 
-    	
+    	}
+
     	ConstraintValidationResult constraintValidationResult = doProcessValidCharConstraint(constraint, value);
     	if (constraintValidationResult == null)
     		return result.addSuccess(attributeValueReader, CONSTRAINT_NAME);
-    	
+
     	result.addConstraintValidationResult(attributeValueReader, constraintValidationResult);
         constraintValidationResult.setConstraintLabelKey(constraint.getLabelKey());
         constraintValidationResult.setErrorParameters(constraint.getValidationMessageParamsArray());
     	return constraintValidationResult;
 	}
-	
+
     protected ConstraintValidationResult doProcessFormattableValidCharConstraint(DictionaryValidationResult result, ValidCharactersConstraint validCharsConstraint, Formatable definition, Object value, AttributeValueReader attributeValueReader) throws AttributeValidationException {
     	String entryName = attributeValueReader.getEntryName();
     	String attributeName = attributeValueReader.getAttributeName();
-    	
+
     	// This is a strange KNS thing for validating searchable fields -- they sometimes come in a date range format, for example 2/12/2010..2/14/2010, and need to be split up
 		List<String> parsedAttributeValues = attributeValueReader.getCleanSearchableValues(attributeName);
-		
+
 		if (parsedAttributeValues != null) {
-			
+
 			Class<?> formatterClass = null;
 			Boolean doValidateDateRangeOrder = null;
-			
+
 			// It can't be a date range if it's more than two fields, for example "a .. b | c" is not a date range -- this saves us a tiny bit of processing later
 			if (parsedAttributeValues.size() != 2)
 				doValidateDateRangeOrder = Boolean.FALSE;
-			
+
 			// Use integer to iterate since we need to track which field we're looking at
 			for (int i=0;i<parsedAttributeValues.size();i++) {
 				String parsedAttributeValue = parsedAttributeValues.get(i);
-				
+
 				ConstraintValidationResult constraintValidationResult = doProcessValidCharConstraint(validCharsConstraint, parsedAttributeValue);
 
 				// If this is an error then some non-null validation result will be returned
@@ -136,7 +136,7 @@ public class ValidCharactersConstraintProcessor extends MandatoryElementConstrai
     					if (formatterClassName != null)
     						formatterClass = ClassLoaderUtils.getClass(formatterClassName);
 					}
-					
+
 					if (formatterClass != null) {
 						// Use the Boolean value being null to ensure we only do this once
 						if (doValidateDateRangeOrder == null) {
@@ -144,9 +144,9 @@ public class ValidCharactersConstraintProcessor extends MandatoryElementConstrai
     						doValidateDateRangeOrder = Boolean.valueOf(DateFormatter.class.isAssignableFrom(formatterClass) && StringUtils.contains(ValidationUtils.getString(value), SearchOperator
                                     .BETWEEN.toString()));
 						}
-						
+
 						constraintValidationResult = processFormatterValidation(result, formatterClass, entryName, attributeName, parsedAttributeValue, DATE_RANGE_ERROR_PREFIXES[i]);
-						
+
 						if (constraintValidationResult != null) {
 							result.addConstraintValidationResult(attributeValueReader, constraintValidationResult);
 							return constraintValidationResult;
@@ -158,21 +158,21 @@ public class ValidCharactersConstraintProcessor extends MandatoryElementConstrai
 					}
 				}
 			}
-			
+
 	    	if (doValidateDateRangeOrder != null && doValidateDateRangeOrder.booleanValue()) {
 	    		ConstraintValidationResult dateOrderValidationResult = validateDateOrder(parsedAttributeValues.get(0), parsedAttributeValues.get(1), entryName, attributeName);
-	    		
+
 	    		if (dateOrderValidationResult != null) {
 	    			result.addConstraintValidationResult(attributeValueReader, dateOrderValidationResult);
 					return dateOrderValidationResult;
 	    		}
 	    	}
-	    	
+
 	    	return result.addSuccess(attributeValueReader, CONSTRAINT_NAME);
 		}
 		return result.addSkipped(attributeValueReader, CONSTRAINT_NAME);
     }
-	
+
     protected ConstraintValidationResult doProcessValidCharConstraint(ValidCharactersConstraint validCharsConstraint, Object value) {
 
         StringBuilder fieldValue = new StringBuilder();
@@ -196,22 +196,22 @@ public class ValidCharactersConstraintProcessor extends MandatoryElementConstrai
             		// FIXME: This shouldn't surface label key itself to the user - it should look up the label key, but this needs to be implemented in Rice
             		constraintValidationResult.setError(RiceKeyConstants.ERROR_CUSTOM, validCharsConstraint.getLabelKey());
             		return constraintValidationResult;
-            	} 
-            	
+            	}
+
             	constraintValidationResult.setError(RiceKeyConstants.ERROR_INVALID_FORMAT, fieldValue.toString());
                 constraintValidationResult.setConstraintLabelKey(validCharsConstraint.getLabelKey());
                 constraintValidationResult.setErrorParameters(validCharsConstraint.getValidationMessageParamsArray());
             	return constraintValidationResult;
             }
 //        }
-        
+
         return null;
     }
 
     protected ConstraintValidationResult processFormatterValidation(DictionaryValidationResult result, Class<?> formatterClass, String entryName, String attributeName, String parsedAttributeValue, String errorKeyPrefix) {
-    	
+
     	boolean isError = false;
-    	
+
     	try {
     		Method validatorMethod = formatterClass.getDeclaredMethod(VALIDATE_METHOD, new Class<?>[] {String.class});
     		Object o = validatorMethod.invoke(formatterClass.newInstance(), parsedAttributeValue);
@@ -219,7 +219,7 @@ public class ValidCharactersConstraintProcessor extends MandatoryElementConstrai
     			isError = !((Boolean)o).booleanValue();
     		}
     	} catch (Exception e) {
-    		if ( LOG.isDebugEnabled() ) 
+    		if ( LOG.isDebugEnabled() )
     			LOG.debug(e.getMessage(), e);
 
     		isError = true;
@@ -228,18 +228,18 @@ public class ValidCharactersConstraintProcessor extends MandatoryElementConstrai
     	if (isError) {
     		String errorMessageKey = getDataDictionaryService().getAttributeValidatingErrorMessageKey(entryName, attributeName);
     		String[] errorMessageParameters = getDataDictionaryService().getAttributeValidatingErrorMessageParameters(entryName, attributeName);
-    		
+
     		ConstraintValidationResult constraintValidationResult = new ConstraintValidationResult(CONSTRAINT_NAME);
 			constraintValidationResult.setEntryName(entryName);
 			constraintValidationResult.setAttributeName(errorKeyPrefix + attributeName);
 			constraintValidationResult.setError(errorMessageKey, errorMessageParameters);
-    		
+
 			return constraintValidationResult;
     	}
-			
+
 		return null;
     }
-    
+
 	protected ConstraintValidationResult validateDateOrder(String firstDateTime, String secondDateTime, String entryName, String attributeName) {
 		// this means that we only have 2 values and it's a date range.
 		java.sql.Timestamp lVal = null;
@@ -269,8 +269,8 @@ public class ValidCharactersConstraintProcessor extends MandatoryElementConstrai
 			constraintValidationResult.setError(errorMessageKey + ".range", errorMessageParameters);
 			return constraintValidationResult;
 		}
-		
+
 		return null;
 	}
-    
+
 }

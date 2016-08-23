@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 
   <bean id="OrgReviewRoleMaintenanceDocument" parent="OrgReviewRoleMaintenanceDocument-parentBean"/>
 
-  <bean id="OrgReviewRoleMaintenanceDocument-parentBean" abstract="true" parent="MaintenanceDocumentEntry" 
-  		p:businessObjectClass="org.kuali.kfs.coa.identity.OrgReviewRole" 
+  <bean id="OrgReviewRoleMaintenanceDocument-parentBean" abstract="true" parent="MaintenanceDocumentEntry"
+  		p:businessObjectClass="org.kuali.kfs.coa.identity.OrgReviewRole"
   		p:maintainableClass="org.kuali.kfs.coa.document.OrgReviewRoleMaintainableImpl">
     <property name="maintainableSections">
       <list>
@@ -40,8 +40,8 @@
     </property>
     <property name="defaultExistenceChecks">
       <list>
-      	<bean parent="ReferenceDefinition" p:attributeName="chart" p:attributeToHighlightOnFail="chartOfAccountsCode" /> 
-      	<bean parent="ReferenceDefinition" p:attributeName="organization" p:attributeToHighlightOnFail="organizationCode" /> 
+      	<bean parent="ReferenceDefinition" p:attributeName="chart" p:attributeToHighlightOnFail="chartOfAccountsCode" />
+      	<bean parent="ReferenceDefinition" p:attributeName="organization" p:attributeToHighlightOnFail="organizationCode" />
       </list>
     </property>
 
@@ -69,7 +69,7 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="OrgReviewRoleMaintenanceDocument-RoleMemberOrDelegation" parent="OrgReviewRoleMaintenanceDocument-RoleMemberOrDelegation-parentBean"/>
   <bean id="OrgReviewRoleMaintenanceDocument-RoleMemberOrDelegation-parentBean" abstract="true" parent="MaintainableSectionDefinition">
     <property name="title" value="Assignee / Delegation"/>
@@ -98,7 +98,7 @@
 
 	<!-- workflow attributes -->
   	<bean id="OrgReviewRoleMaintenanceDocument-workflowAttributes" parent="OrgReviewRoleMaintenanceDocument-workflowAttributes-parentBean"/>
-  
+
 	<bean id="OrgReviewRoleMaintenanceDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
 		<property name="routingTypeDefinitions">
     		<map>

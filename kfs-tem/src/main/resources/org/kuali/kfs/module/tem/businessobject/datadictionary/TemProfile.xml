@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -78,7 +78,7 @@
 		</property>
 		<property name="collections">
 			<list>
- 				<bean parent="CollectionDefinition" p:name="boNotes" p:label="Notes" 
+ 				<bean parent="CollectionDefinition" p:name="boNotes" p:label="Notes"
                     p:shortLabel="Notes" p:elementLabel="Notes"/>
             </list>
 		</property>
@@ -127,7 +127,7 @@
 	<bean id="TemProfile-principalId-parentBean" abstract="true" parent="KimBaseBeans-principalId">
 		<property name="label" value="KIM Principal Id" />
 	</bean>
-	
+
 	<bean id="TemProfile-principal.principalName" parent="TemProfile-principal.principalName-parentBean" />
 	<bean id="TemProfile-principal.principalName-parentBean" abstract="true" parent="PersonImpl-principalName">
 		<property name="label" value="KIM Principal Name" />
@@ -417,7 +417,7 @@
 		<property name="summary" value="Non Resident Alien" />
 		<property name="description" value="Non Resident Alien" />
 		<property name="control">
-			<bean parent="RadioControlDefinition" 
+			<bean parent="RadioControlDefinition"
 				p:valuesFinderClass="org.kuali.kfs.krad.keyvalues.IndicatorYNOnlyValuesFinder"
 				p:includeKeyInLabel="false" />
 		</property>
@@ -495,7 +495,7 @@
 
 	<bean id="TemProfile-employeeId" parent="TemProfile-employeeId-parentBean" />
 	<bean id="TemProfile-employeeId-parentBean" abstract="true" parent="PersonImpl-employeeId" />
-	
+
 	<bean id="TemProfile-homeDepartment" parent="TemProfile-homeDepartment-parentBean" />
 	<bean id="TemProfile-homeDepartment-parentBean" abstract="true" parent="PersonImpl-primaryDepartmentCode">
 		<property name="name" value="homeDepartment" />
@@ -551,7 +551,7 @@
 		<property name="name" value="defaultProjectCode" />
 		<property name="required" value="false" />
 	</bean>
-	
+
 	<bean id="TemProfile-onlyArrangeesInLookup" parent="TemProfile-onlyArrangeesInLookup-parentBean"/>
 	<bean id="TemProfile-onlyArrangeesInLookup-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
 		<property name="name" value="onlyArrangeesInLookup"/>

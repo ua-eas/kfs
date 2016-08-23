@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,35 +28,35 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * A class that implements the required accessor for label keys. This provides a convenient base class
  * from which other constraints can be derived.
- * 
- * This class is a direct copy of one that was in Kuali Student. 
- * 
- * 
+ *
+ * This class is a direct copy of one that was in Kuali Student.
+ *
+ *
  * @since 1.1
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BaseConstraint implements Constraint {
     @XmlElement
-    protected String labelKey; 
+    protected String labelKey;
     @XmlElement
     protected Boolean applyClientSide;
-    
+
     List<String> validationMessageParams;
-    
+
     public BaseConstraint(){
     	applyClientSide = Boolean.valueOf(true);
     }
-    
+
 	/**
 	 * LabelKey should be a single word key.  This key is used to find a message to use for this
 	 * constraint from available messages.  The key is also used for defining/retrieving validation method
 	 * names when applicable for ValidCharactersContraints.
-	 * 
+	 *
 	 * If a comma separated list of keys is used, a message will be generated that is a comma separated list of
 	 * the messages retrieved for each key.
-	 * 
+	 *
 	 * @see ValidCharactersConstraint
-	 * 
+	 *
 	 * @return
 	 */
 	public String getLabelKey() {
@@ -82,7 +82,7 @@ public class BaseConstraint implements Constraint {
 	public void setApplyClientSide(Boolean applyClientSide) {
 		this.applyClientSide = applyClientSide;
 	}
-	
+
 
     /**
      * Parameters to be used in the string retrieved by this constraint's labelKey, ordered by number of
@@ -92,7 +92,7 @@ public class BaseConstraint implements Constraint {
     public List<String> getValidationMessageParams() {
         return this.validationMessageParams;
     }
-    
+
     /**
      * Parameters to be used in the string retrieved by this constraint's labelKey, ordered by number of
      * the param
@@ -114,6 +114,6 @@ public class BaseConstraint implements Constraint {
     public void setValidationMessageParams(List<String> validationMessageParams) {
         this.validationMessageParams = validationMessageParams;
     }
-	
+
 
 }
