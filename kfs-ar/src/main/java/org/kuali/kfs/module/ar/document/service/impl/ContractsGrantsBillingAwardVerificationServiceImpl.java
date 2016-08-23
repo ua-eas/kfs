@@ -222,9 +222,11 @@ public class ContractsGrantsBillingAwardVerificationServiceImpl implements Contr
      */
     @Override
     public boolean isChartAndOrgSetupForInvoicing(ContractsAndGrantsBillingAward award) {
+        if (award.getPrimaryAwardOrganization() == null) {
+            return false;
+        }
         String coaCode = award.getPrimaryAwardOrganization().getChartOfAccountsCode();
         String orgCode = award.getPrimaryAwardOrganization().getOrganizationCode();
-        String procCoaCode = null, procOrgCode = null;
         Integer currentYear = universityDateService.getCurrentFiscalYear();
 
         Map<String, Object> criteria = new HashMap<String, Object>();
