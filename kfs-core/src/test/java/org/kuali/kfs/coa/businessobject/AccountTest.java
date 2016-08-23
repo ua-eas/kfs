@@ -18,43 +18,32 @@
  */
 package org.kuali.kfs.coa.businessobject;
 
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
-/**
- * This class...
- */
-@ConfigureContext
-public class AccountTest extends KualiTestBase {
+public class AccountTest {
+    private static final String TEST_DATE_1_TODAY = "04/22/2002 19:48";
 
-    private static final String TEST_DATE_1_TODAY = "04/22/2002 07:48 PM";
-    private static final String TEST_DATE_1_YESTERDAY = "04/21/2002 07:48 PM";
-    private static final String TEST_DATE_1_TOMORROW = "04/23/2002 07:48 PM";
+    private static final String TEST_DATE_2_TODAY = "04/22/2002 10:23";
+    private static final String TEST_DATE_2_YESTERDAY = "04/21/2002 10:23";
+    private static final String TEST_DATE_2_TOMORROW = "04/23/2002 10:23";
 
-    private static final String TEST_DATE_2_TODAY = "04/22/2002 10:23 AM";
-    private static final String TEST_DATE_2_YESTERDAY = "04/21/2002 10:23 AM";
-    private static final String TEST_DATE_2_TOMORROW = "04/23/2002 10:23 AM";
-
-    private static final String TEST_DATE_3_TODAY = "04/22/2002 06:14 AM";
-    private static final String TEST_DATE_3_YESTERDAY = "04/21/2002 06:14 AM";
-    private static final String TEST_DATE_3_TOMORROW = "04/23/2002 06:14 AM";
+    private static final String TEST_DATE_3_TODAY = "04/22/2002 06:14";
 
     // pass this a name, and it returns a setup timestamp instance
     private Timestamp getTimestamp(String timestampString) {
-        Timestamp timestamp;
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
         try {
-            timestamp = SpringContext.getBean(DateTimeService.class).convertToSqlTimestamp(timestampString);
+            return new Timestamp((sdf.parse(timestampString)).getTime());
         } catch (ParseException e) {
-            assertNull("Timestamp String was not parseable", e);
-            return null;
+            Assert.assertNull("Timestamp String was not parseable", e);
         }
-        return timestamp;
+        return null;
     }
 
     private Date getDate(String dateString) {
@@ -63,7 +52,6 @@ public class AccountTest extends KualiTestBase {
 
     // since all the tests are doing the same thing, this is centralized
     private void doTest(String expirationDateString, String testDateString, boolean expectedResult) {
-
         Date expirationDate = getDate(expirationDateString);
         Date testDate = getDate(testDateString);
 
@@ -72,32 +60,35 @@ public class AccountTest extends KualiTestBase {
         account.setAccountExpirationDate(expirationDate);
 
         // test against isExpired, and get the result
-        boolean actualResult = account.isExpired(SpringContext.getBean(DateTimeService.class).getCalendar(testDate));
+        boolean actualResult = account.isExpired(testDate);
 
         // compare the result to what was expected
-        assertEquals(expectedResult, actualResult);
+        Assert.assertEquals(expectedResult, actualResult);
     }
 
     // if date of expiration and date of today is the same date (time excluded)
     // then the account is not considered expired
+    @Test
     public void testIsExpiredToday_ExpirationDateToday_ExpirationDateEarlierTime() {
         doTest(TEST_DATE_2_TODAY, TEST_DATE_1_TODAY, false);
     }
 
     // if date of expiration and date of today is the same date (time excluded)
     // then the account is not considered expired
+    @Test
     public void testIsExpiredToday_ExpirationDateToday_ExpirationDateLaterTime() {
         doTest(TEST_DATE_2_TODAY, TEST_DATE_3_TODAY, false);
     }
 
     // if date of expiration is one day later than day of testDate, fail
+    @Test
     public void testIsExpiredToday_ExpirationDateTomorrow() {
         doTest(TEST_DATE_2_TOMORROW, TEST_DATE_1_TODAY, false);
     }
 
     // if date of expiration is one day earlier than day of testDate, succeed
+    @Test
     public void testIsExpiredToday_ExpirationDateYesterday() {
         doTest(TEST_DATE_2_YESTERDAY, TEST_DATE_1_TODAY, true);
     }
-
 }
