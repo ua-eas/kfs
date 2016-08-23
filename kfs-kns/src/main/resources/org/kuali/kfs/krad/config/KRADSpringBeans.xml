@@ -214,7 +214,7 @@
         <property name="incidentMailingList" value="${kr.incident.mailing.list}"/>
     </bean>
 
-    <bean id="kradFeedbackService" class="org.kuali.kfs.krad.service.impl.KualiFeedbackServiceImpl">
+    <bean id="cf.kradFeedbackService" class="org.kuali.kfs.krad.service.impl.KualiFeedbackServiceImpl">
         <property name="mailer" ref="cf.mailer"/>
         <property name="messageTemplate">
             <bean class="org.kuali.rice.core.api.mail.MailMessage">
