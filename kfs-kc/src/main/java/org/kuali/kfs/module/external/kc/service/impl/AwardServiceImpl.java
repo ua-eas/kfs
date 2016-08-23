@@ -173,14 +173,14 @@ public class AwardServiceImpl implements ExternalizableLookupableBusinessObjectS
         award.setProposalNumber(kcAward.getAwardNumber());
         award.setAwardNumber(kcAward.getAwardNumber());
         award.setAwardId(kcAward.getAwardId());
-        award.setAwardBeginningDate(kcAward.getAwardStartDate() == null ? null : new java.sql.Date(kcAward.getAwardStartDate().getDate()));
-        award.setAwardEndingDate(kcAward.getAwardEndDate() == null ? null : new java.sql.Date(kcAward.getAwardEndDate().getDate()));
+        award.setAwardBeginningDate(kcAward.getObligationStartDate() == null ? null : new java.sql.Date(kcAward.getObligationStartDate().getTime()));
+        award.setAwardEndingDate(kcAward.getObligationEndDate() == null ? null : new java.sql.Date(kcAward.getObligationEndDate().getTime()));
         award.setAwardTotalAmount(new KualiDecimal(kcAward.getAwardTotalAmount()));
         award.setAwardDirectCostAmount(new KualiDecimal(kcAward.getAwardDirectCostAmount()));
         award.setAwardIndirectCostAmount(new KualiDecimal(kcAward.getAwardIndirectCostAmount()));
         award.setAwardDocumentNumber(kcAward.getAwardDocumentNumber());
-        award.setAwardLastUpdateDate(kcAward.getAwardLastUpdateDate() == null ? null : new java.sql.Timestamp(kcAward.getAwardLastUpdateDate().getDate()));
-        award.setAwardCreateTimestamp(kcAward.getAwardCreateTimestamp() == null ? null : new java.sql.Timestamp(kcAward.getAwardCreateTimestamp().getDate()));
+        award.setAwardLastUpdateDate(kcAward.getAwardLastUpdateDate() == null ? null : new java.sql.Timestamp(kcAward.getAwardLastUpdateDate().getTime()));
+        award.setAwardCreateTimestamp(kcAward.getAwardCreateTimestamp() == null ? null : new java.sql.Timestamp(kcAward.getAwardCreateTimestamp().getTime()));
         award.setProposalAwardTypeCode(kcAward.getProposalAwardTypeCode());
         award.setAwardStatusCode(kcAward.getAwardStatusCode());
         award.setActive(kcAward.isActive());

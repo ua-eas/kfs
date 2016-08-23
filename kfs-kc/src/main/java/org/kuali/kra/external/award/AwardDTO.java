@@ -69,6 +69,8 @@ import java.util.List;
     "excludedFromInvoicingReason",
     "sequenceNumber",
     "sequenceStatus",
+    "obligationStartDate",
+    "obligationEndDate",
     "awardAccounts",
     "locFund",
     "locFundCode",
@@ -120,6 +122,8 @@ public class AwardDTO implements Serializable {
     private String invoiceBillingFrequency;
     private Integer sequenceNumber;
     private String sequenceStatus;
+    private Date obligationStartDate;
+    private Date obligationEndDate;
     private List<AwardAccountDTO> awardAccounts;
 
     private String locFund;
@@ -435,6 +439,22 @@ public class AwardDTO implements Serializable {
         this.sequenceStatus = sequenceStatus;
     }
 
+    public Date getObligationStartDate() {
+        return obligationStartDate;
+    }
+    
+    public void setObligationStartDate(Date obligationStartDate) {
+        this.obligationStartDate = obligationStartDate;
+    }
+    
+    public Date getObligationEndDate() {
+        return obligationEndDate;
+    }
+    
+    public void setObligationEndDate(Date obligationEndDate) {
+        this.obligationEndDate = obligationEndDate;
+    }
+    
     public List<AwardAccountDTO> getAwardAccounts() {
         return awardAccounts;
     }
