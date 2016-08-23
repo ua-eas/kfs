@@ -114,6 +114,7 @@
         <servlet-name>dwr-invoker</servlet-name>
         <servlet-name>batchFileUpload</servlet-name>
         <servlet-name>remote</servlet-name>
+        <servlet-name>goto</servlet-name>
         <url-pattern>/monitoring/*</url-pattern>
         <url-pattern>/purap/*</url-pattern>
         <url-pattern>/app/*</url-pattern>
@@ -126,6 +127,7 @@
         <servlet-name>dwr-invoker</servlet-name>
         <servlet-name>batchFileUpload</servlet-name>
         <servlet-name>remote</servlet-name>
+        <servlet-name>goto</servlet-name>
         <url-pattern>/monitoring/*</url-pattern>
         <url-pattern>/purap/*</url-pattern>
         <url-pattern>/app/*</url-pattern>
@@ -156,6 +158,7 @@
         <filter-name>UserLoginFilter</filter-name>
         <servlet-name>action</servlet-name>
         <servlet-name>remote</servlet-name>
+        <servlet-name>goto</servlet-name>
         <url-pattern>/index.jsp</url-pattern>
     </filter-mapping>
 
@@ -276,6 +279,11 @@
         <jsp-file>/WEB-INF/jsp/remote.jsp</jsp-file>
     </servlet>
 
+    <servlet>
+        <servlet-name>goto</servlet-name>
+        <jsp-file>/WEB-INF/jsp/goto.jsp</jsp-file>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>remoting</servlet-name>
         <url-pattern>/remoting/*</url-pattern>
@@ -326,6 +334,10 @@
     <servlet-mapping>
         <servlet-name>remote</servlet-name>
         <url-pattern>/remote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>goto</servlet-name>
+        <url-pattern>/goto</url-pattern>
     </servlet-mapping>
 
 
