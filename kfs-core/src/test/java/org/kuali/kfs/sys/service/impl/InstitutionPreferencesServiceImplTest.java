@@ -241,7 +241,7 @@ public class InstitutionPreferencesServiceImplTest {
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertTrue("Preferences should always include a doc search url", preferences.containsKey("actionListUrl"));
-        Assert.assertEquals("We should know what doc search is", "http://tst.kfs.kuali.org/kfs-tst/kew/DocumentSearch.do?docFormKey=88888888&hideReturnLink=true&returnLocation=http://tst.kfs.kuali.org/kfs-tst/index.jsp", preferences.get("docSearchUrl"));
+        Assert.assertEquals("We should know what doc search is", "http://tst.kfs.kuali.org/kfs-tst/kew/DocumentSearch.do?docFormKey=88888888&hideReturnLink=true&returnLocation=http://tst.kfs.kuali.org/kfs-tst/goto?url=http://tst.kfs.kuali.org/kfs-tst/index.jsp", preferences.get("docSearchUrl"));
     }
 
     @Test
