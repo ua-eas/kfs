@@ -211,7 +211,10 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     }
 
     protected void appendDocSearchUrl(Map<String, Object> institutionPreferences) {
-        final String docSearchUrl = configurationService.getPropertyValueAsString(KRADConstants.WORKFLOW_URL_KEY) + "/DocumentSearch.do?docFormKey=88888888&hideReturnLink=true&returnLocation=" + configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY) + "/index.jsp";
+        final String docSearchUrl = configurationService.getPropertyValueAsString(KRADConstants.WORKFLOW_URL_KEY)+"/DocumentSearch.do?" +
+            "docFormKey=88888888&hideReturnLink=true&returnLocation=" +
+            configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY) + "/goto?url=" +
+            configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY) + "/index.jsp";
         institutionPreferences.put(KFSPropertyConstants.DOC_SEARCH_URL, docSearchUrl);
     }
 
