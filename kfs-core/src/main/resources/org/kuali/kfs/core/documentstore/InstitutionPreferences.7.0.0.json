@@ -1868,8 +1868,7 @@
           },
           {
             "businessObjectClass": "org.kuali.kfs.coreservice.impl.namespace.NamespaceBo",
-            "linkType": "kfs",
-            "newTarget": true
+            "linkType": "kfs"
           },
           {
             "documentTypeCode": "PARM",
@@ -1877,13 +1876,11 @@
           },
           {
             "businessObjectClass": "org.kuali.kfs.coreservice.impl.component.ComponentBo",
-            "linkType": "kfs",
-            "newTarget": true
+            "linkType": "kfs"
           },
           {
             "businessObjectClass": "org.kuali.kfs.coreservice.impl.parameter.ParameterTypeBo",
-            "linkType": "kfs",
-            "newTarget": true
+            "linkType": "kfs"
           },
           {
             "documentTypeCode": "FFD",

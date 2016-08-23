@@ -1,0 +1,46 @@
+{
+  "changeLog": [
+    {
+      "jira": "FINI-2308",
+      "id": "Add newTarget to Shop Catalogs link",
+      "changes": [
+        {
+          "changeType": "updateNode",
+          "collectionName": "InstitutionPreferences",
+          "query": {
+            "institutionId": "1232413535"
+          },
+          "path": "$.linkGroups[?(@.label=='System')].links.administration[?(@.businessObjectClass=='org.kuali.kfs.coreservice.impl.namespace.NamespaceBo')]",
+          "value": {
+            "businessObjectClass": "org.kuali.kfs.coreservice.impl.namespace.NamespaceBo",
+            "linkType": "kfs"
+          }
+        },
+        {
+          "changeType": "updateNode",
+          "collectionName": "InstitutionPreferences",
+          "query": {
+            "institutionId": "1232413535"
+          },
+          "path": "$.linkGroups[?(@.label=='System')].links.administration[?(@.businessObjectClass=='org.kuali.kfs.coreservice.impl.component.ComponentBo')]",
+          "value": {
+            "businessObjectClass": "org.kuali.kfs.coreservice.impl.component.ComponentBo",
+            "linkType": "kfs"
+          }
+        },
+        {
+          "changeType": "updateNode",
+          "collectionName": "InstitutionPreferences",
+          "query": {
+            "institutionId": "1232413535"
+          },
+          "path": "$.linkGroups[?(@.label=='System')].links.administration[?(@.businessObjectClass=='org.kuali.kfs.coreservice.impl.parameter.ParameterTypeBo')]",
+          "value": {
+            "businessObjectClass": "org.kuali.kfs.coreservice.impl.parameter.ParameterTypeBo",
+            "linkType": "kfs"
+          }
+        }
+      ]
+    }
+  ]
+}
