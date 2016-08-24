@@ -1,8 +1,8 @@
 {
   "changeLog": [
     {
-      "jira": "FINI-2308",
-      "id": "Add newTarget to Shop Catalogs link",
+      "jira": "FINI-2435",
+      "id": "Remove newTarget from coreservice links",
       "changes": [
         {
           "changeType": "updateNode",
