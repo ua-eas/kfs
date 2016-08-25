@@ -27,5 +27,11 @@
             <where>FS_FUNC_CTRL_CD not in ('BASEAD','BAACTV')</where>
         </update>
     </changeSet>
+    
+    <changeSet author="KFS601" id="FINI-2501_REMOVE_UNNECESSARY_NAMESPACES" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_NMSPC_T">
+            <where>NMSPC_CD in ('KR-BUS','KR-KRAD','KR-LOC','KR-NTFCN','KR-RULE','KR-RULE-TEST','KR-SAP')</where>
+        </delete>
+    </changeSet>
 
 </databaseChangeLog>
