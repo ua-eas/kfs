@@ -635,5 +635,5 @@ public final class KRADConstants {
     }
 
 
-    public static final String TARGET_SPEC = "targetSpec=KFS:_top,*:_blank";
+    public static final String TARGET_SPEC = "documentTargetSpec=KFS:_top,*:_blank&routeLogTargetSpec=*:_self";
 }
