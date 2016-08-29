@@ -26,7 +26,7 @@
         <property name="lookupDefinition" ref="TemProfileAccount-lookupDefinition"/>
         <property name="inquiryDefinition" ref="TemProfileAccount-inquiryDefinition"/>
         <property name="titleAttribute" value="accountId"/>
-        <property name="objectLabel" value="TemProfileAccount"/>
+        <property name="objectLabel" value="TEM Cardholder"/>
         <property name="attributes">
             <list>
                 <ref bean="TemProfileAccount-accountId"/>
