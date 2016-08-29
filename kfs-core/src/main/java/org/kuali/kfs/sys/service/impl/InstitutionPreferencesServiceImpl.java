@@ -193,6 +193,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         appendDocSearchUrl(institutionPreferences);
         appendSignoutUrl(institutionPreferences);
         appendRemoteViewUrl(institutionPreferences);
+        appendAboutVersion(institutionPreferences);
     }
 
     protected void appendActionListUrl(Map<String, Object> institutionPreferences) {
@@ -216,6 +217,13 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
             configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY) + "/goto?url=" +
             configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY) + "/index.jsp";
         institutionPreferences.put(KFSPropertyConstants.DOC_SEARCH_URL, docSearchUrl);
+    }
+
+    protected void appendAboutVersion(Map<String, Object> institutionPreferences) {
+        Map<String, String> versions = new HashMap<>();
+        versions.put("kfs", "7.0.0-14321");
+        versions.put("rice", "2.5.11-4321432");
+        institutionPreferences.put(KFSPropertyConstants.VERSIONS, versions);
     }
 
     protected void transformLinks(Map<String, Object> institutionPreferences, Person person) {

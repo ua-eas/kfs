@@ -210,6 +210,23 @@ header.navbar .navbar-brand .logo-right {
     margin-left: 25px;
 }
 
+.content.about {
+    text-align: left;
+    margin-left: calc(50% - 250px);
+    margin-top: 200px;
+    width: 500px;
+}
+
+.content.about #view_div {
+    padding: 0 20px 20px 20px;
+    border-radius: 6px;
+}
+
+.content.about ul {
+    list-style: none;
+    padding: 10px 30px 30px 30px;
+}
+
 #content-overlay {
     background-color: rgba(0, 0, 0, 0.5);
     width: 100%;
