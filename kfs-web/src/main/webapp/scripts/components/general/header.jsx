@@ -132,6 +132,25 @@ var Header = React.createClass({
             }.bind(this)
         });
     },
+    openAboutModal(versions) {
+        let versionHtml = '';
+        versionHtml += '<div class="content about">';
+        versionHtml += '    <div class="modal-header">';
+        versionHtml += '        <button type="button" data-remodal-action="close" class="close remodal-close"><span aria-hidden="true">&times;</span></button>';
+        versionHtml += '    </div>';
+        versionHtml += '    <div id="view_div">';
+        versionHtml += '        <div class="main-panel">';
+        versionHtml += '            <div class="headerarea-small"><h2>ABOUT</h2></div>';
+        versionHtml += '            <ul>';
+        Object.keys(versions).map(key => {
+            versionHtml += '            <li>' + key + ': ' + versions[key] + '</li>';
+        });
+        versionHtml += '            </ul>';
+        versionHtml += '        </div>';
+        versionHtml += '    </div>';
+        versionHtml += '</div>';
+        $('.remodal-content').html(versionHtml);
+    },
     render() {
         let logoutButton;
         if (this.state.backdoorId && this.state.backdoorId !== '') {
@@ -145,6 +164,10 @@ var Header = React.createClass({
                 var target = "_blank";
                 return <li key={i}><Link url={link.link} label={link.label} target={target}/></li>;
             });
+        }
+
+        if (prefs.versions) {
+            menuLinks.push(<li key="about-item"><a data-remodal-target="modal" onClick={this.openAboutModal.bind(null, prefs.versions)}>About</a></li>)
         }
 
         let logoUrl = prefs.logoUrl;
