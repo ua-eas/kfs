@@ -1,0 +1,33 @@
+{
+  "changeLog": [
+    {
+      "jira": "FINI-2640",
+      "id": "Add cache length document and index",
+      "changes": [
+        {
+          "changeType": "addDocument",
+          "collectionName": "InstitutionPreferencesCacheLength",
+          "query": {
+            "_id": "cacheLength"
+          },
+          "document": {
+            "_id" : "cacheLength",
+            "_class" : "org.kuali.kfs.sys.dataaccess.impl.PreferencesDaoMongo$CacheLength",
+            "expireSeconds" : 87000
+          }
+        },
+        {
+          "changeType": "addIndex",
+          "collectionName": "InstitutionPreferencesCache",
+          "key": {
+            "createdAt": 1
+          },
+          "options": {
+            "name": "expireIndex",
+            "expireAfterSeconds": 87000
+          }
+        }
+      ]
+    }
+  ]
+}
