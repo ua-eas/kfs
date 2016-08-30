@@ -47,10 +47,6 @@ public class AddIndexHandler extends AbstractNodeChangeHandler implements Docume
         JsonNode keys = change.get(KEY);
         JsonNode options = change.get(OPTIONS);
 
-        LOG.error("makeChange() collectionName: " + collectionName);
-        LOG.error("makeChange() keys: " + keys);
-        LOG.error("makeChange() options: " + options);
-
         IndexDefinition newIndex = new IndexDefinition() {
             @Override
             public DBObject getIndexKeys() {
