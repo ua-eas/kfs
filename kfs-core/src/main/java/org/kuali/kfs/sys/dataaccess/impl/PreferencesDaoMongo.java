@@ -152,8 +152,8 @@ public class PreferencesDaoMongo implements PreferencesDao {
 
         mongoTemplate.indexOps(INSTITUTION_PREFERENCES_CACHE).ensureIndex(expireIndex);
 
-        // Spring doesn't retrieve all index options so we need to save/get it using another way
-        // rather than looking at the index itself.
+        // Spring doesn't retrieve all index options so we need to save/get the expiration time value of
+        // it using another way rather than looking at the index itself.
         CacheLength cl = new CacheLength();
         cl.expireSeconds = seconds;
         mongoTemplate.save(cl, INSTITUTION_PREFERENCES_CACHE_LENGTH);

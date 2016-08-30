@@ -22,6 +22,13 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
+    <bean id="documentStoreAddIndexHandler" parent="documentStoreAddIndexHandler-parentBean"/>
+    <bean id="documentStoreAddIndexHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.AddIndexHandler">
+        <property name="mongoTemplate">
+            <ref bean="mongoTemplate"/>
+        </property>
+    </bean>
+
     <bean id="documentStoreAddDocumentHandler" parent="documentStoreAddDocumentHandler-parentBean"/>
     <bean id="documentStoreAddDocumentHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.AddDocumentHandler">
         <property name="mongoTemplate">
@@ -86,6 +93,7 @@
                 <ref bean="documentStoreAddNodeHandler"/>
                 <ref bean="documentStoreUpdateNodeHandler"/>
                 <ref bean="documentStoreDeleteNodeHandler"/>
+                <ref bean="documentStoreAddIndexHandler"/>
             </list>
         </property>
     </bean>
