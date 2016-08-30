@@ -70,6 +70,7 @@ public class KRADServiceLocatorWeb {
     public static final String VIEW_VALIDATION_SERVICE = "viewValidationService";
     public static final String ATTRIBUTE_QUERY_SERVICE = "attributeQueryService";
     public static final String MAINTAINABLE_XML_CONVERSION_SERVICE = "cf.maintainableXMLConversionService";
+    public static final String CSRF_SERVICE = "cf.csrfService";
 
     public static <T extends Object> T getService(String serviceName) {
         return GlobalResourceLoader.<T>getService(serviceName);
@@ -177,5 +178,9 @@ public class KRADServiceLocatorWeb {
 
     public static final MaintainableXMLConversionService getMaintainableXMLConversionService() {
         return getService(MAINTAINABLE_XML_CONVERSION_SERVICE);
+    }
+
+    public static CsrfService getCsrfService() {
+        return getService(CSRF_SERVICE);
     }
 }
