@@ -62,6 +62,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -220,7 +221,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     }
 
     protected void appendAboutVersion(Map<String, Object> institutionPreferences) {
-        Map<String, String> versions = new HashMap<>();
+        Map<String, String> versions = new LinkedHashMap<>();
         versions.put("Kuali Financials", configurationService.getPropertyValueAsString("kfs.version"));
         versions.put("Kuali Rice", configurationService.getPropertyValueAsString("rice.version"));
         institutionPreferences.put(KFSPropertyConstants.VERSIONS, versions);
