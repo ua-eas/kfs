@@ -221,8 +221,8 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
 
     protected void appendAboutVersion(Map<String, Object> institutionPreferences) {
         Map<String, String> versions = new HashMap<>();
-        versions.put("kfs", configurationService.getPropertyValueAsString("kfs.version"));
-        versions.put("rice", configurationService.getPropertyValueAsString("rice.version"));
+        versions.put("Kuali Financials", configurationService.getPropertyValueAsString("kfs.version"));
+        versions.put("Kuali Rice", configurationService.getPropertyValueAsString("rice.version"));
         institutionPreferences.put(KFSPropertyConstants.VERSIONS, versions);
     }
 

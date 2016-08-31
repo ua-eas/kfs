@@ -215,16 +215,31 @@ header.navbar .navbar-brand .logo-right {
     margin-left: calc(50% - 250px);
     margin-top: 200px;
     width: 500px;
+    background-color: #ffffff;
 }
 
-.content.about #view_div {
-    padding: 0 20px 20px 20px;
-    border-radius: 6px;
+.content.about .modal-header {
+    background-color: #ffffff;
+    padding: 5px 15px;
 }
 
-.content.about ul {
+.content.about .modal-header h2 {
+    margin: 0px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    color: #767676;
+    float: left;
+    text-transform: uppercase;
+    padding-left: 10px;
+}
+
+.content.about ul.versions {
     list-style: none;
-    padding: 10px 30px 30px 30px;
+    padding: 30px 30px 30px 30px;
+}
+.content.about ul.versions li {
+    color: #555;
 }
 
 #content-overlay {

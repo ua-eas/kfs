@@ -133,23 +133,21 @@ var Header = React.createClass({
         });
     },
     openAboutModal(versions) {
-        let versionHtml = '';
-        versionHtml += '<div class="content about">';
-        versionHtml += '    <div class="modal-header">';
-        versionHtml += '        <button type="button" data-remodal-action="close" class="close remodal-close"><span aria-hidden="true">&times;</span></button>';
-        versionHtml += '    </div>';
-        versionHtml += '    <div id="view_div">';
-        versionHtml += '        <div class="main-panel">';
-        versionHtml += '            <div class="headerarea-small"><h2>ABOUT</h2></div>';
-        versionHtml += '            <ul>';
+        let aboutHtml = '';
+        aboutHtml += '<div class="content about">';
+        aboutHtml += '    <div class="modal-header">';
+        aboutHtml += '        <h2>ABOUT</h2>';
+        aboutHtml += '        <button type="button" data-remodal-action="close" class="close remodal-close">';
+        aboutHtml += '          <span aria-hidden="true">&times;</span>';
+        aboutHtml += '        </button>';
+        aboutHtml += '    </div>';
+        aboutHtml += '    <ul class="versions">';
         Object.keys(versions).map(key => {
-            versionHtml += '            <li>' + key + ': ' + versions[key] + '</li>';
+            aboutHtml += '    <li>' + key + ': ' + versions[key] + '</li>';
         });
-        versionHtml += '            </ul>';
-        versionHtml += '        </div>';
-        versionHtml += '    </div>';
-        versionHtml += '</div>';
-        $('.remodal-content').html(versionHtml);
+        aboutHtml += '    </ul>';
+        aboutHtml += '</div>';
+        $('.remodal-content').html(aboutHtml);
     },
     render() {
         let logoutButton;
