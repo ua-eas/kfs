@@ -48,9 +48,10 @@ import org.kuali.kfs.kns.web.struts.form.pojo.PojoForm;
 import org.kuali.kfs.krad.UserSession;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.CsrfService;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KRADServiceLocatorInternal;
-import org.kuali.kfs.krad.util.CsrfValidator;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADUtils;
@@ -83,7 +84,7 @@ public class KualiRequestProcessor extends RequestProcessor {
 
     private SessionDocumentService sessionDocumentService;
     private PlatformTransactionManager transactionManager;
-    private ConfigurationService configurationService;
+    private CsrfService csrfService;
 
     public void process(final HttpServletRequest request,
                         final HttpServletResponse response) throws IOException, ServletException {
@@ -227,7 +228,7 @@ public class KualiRequestProcessor extends RequestProcessor {
         // need to make sure that we don't check CSRF until after the form is populated so that Struts will parse the
         // multipart parameters into the request if it's a multipart request
         LOG.debug("context path = " + request.getRequestURI());
-        if (!isCsrfExemptPath(request.getRequestURI()) && !CsrfValidator.validateCsrf(request, response)) {
+        if (!getCsrfService().validateCsrfIfNecessary(request, response)) {
             LOG.error("Did not pass CSRF validation");
             return;
         }
@@ -249,18 +250,6 @@ public class KualiRequestProcessor extends RequestProcessor {
             }
         }
     }
-
-    private boolean isCsrfExemptPath(String requestUri) {
-        String exemptPathsString = getConfigurationService().getPropertyValueAsString(KNSConstants.CSRF_EXEMPT_PATHS);
-        for (String path : exemptPathsString.split(",")) {
-            if (requestUri.contains(path)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
 
     /**
      * This method gets the document number from the request.  The request should have been processed already
@@ -763,12 +752,11 @@ public class KualiRequestProcessor extends RequestProcessor {
         return this.transactionManager;
     }
 
-    public ConfigurationService getConfigurationService() {
-        if (configurationService == null) {
-            configurationService = KRADServiceLocator.getKualiConfigurationService();
+    public CsrfService getCsrfService() {
+        if (csrfService == null) {
+            csrfService = KRADServiceLocatorWeb.getCsrfService();
         }
-
-        return configurationService;
+        return csrfService;
     }
 
     private ActionForm createNewActionForm(ActionMapping mapping, HttpServletRequest request) {

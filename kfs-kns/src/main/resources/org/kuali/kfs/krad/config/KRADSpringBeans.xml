@@ -876,4 +876,9 @@
         </property>
     </bean>
 
+    <bean id="cf.csrfService" class="org.kuali.kfs.krad.service.impl.CsrfServiceImpl">
+          <property name="configurationService" ref="cf.kualiConfigurationService"/>
+          <property name="parameterService" ref="cf.parameterService"/>
+    </bean>
+
 </beans>

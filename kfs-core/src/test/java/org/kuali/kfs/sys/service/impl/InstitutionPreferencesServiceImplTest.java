@@ -1145,6 +1145,11 @@ public class InstitutionPreferencesServiceImplTest {
         }
 
         @Override
+        public boolean getPropertyValueAsBoolean(String s, boolean defValue) {
+            return defValue;
+        }
+
+        @Override
         public Map<String, String> getAllProperties() {
             return null;
         }
