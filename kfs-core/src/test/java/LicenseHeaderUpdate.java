@@ -110,6 +110,9 @@ public class LicenseHeaderUpdate {
         System.out.println(results);
     }
 
+    /**
+     * Do not add vm files to this set.  Velocity files do not support comments.
+     */
     public static void handlePropertyStyleComments(String baseDir) throws Exception {
         IOFileFilter sourceFileFilter = FileFilterUtils.orFileFilter(
             FileFilterUtils.suffixFileFilter("properties"),
@@ -117,9 +120,6 @@ public class LicenseHeaderUpdate {
         sourceFileFilter = FileFilterUtils.orFileFilter(
             sourceFileFilter,
             FileFilterUtils.suffixFileFilter("sh"));
-        sourceFileFilter = FileFilterUtils.orFileFilter(
-            sourceFileFilter,
-            FileFilterUtils.suffixFileFilter("vm"));
         sourceFileFilter = FileFilterUtils.makeFileOnly(sourceFileFilter);
 
         LicensableFileDirectoryWalker dw = new LicensableFileDirectoryWalker(sourceFileFilter, "########################################", "# ", "########################################");
