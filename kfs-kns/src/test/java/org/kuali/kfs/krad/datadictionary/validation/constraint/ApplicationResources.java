@@ -25,7 +25,7 @@ import java.util.Properties;
 public class ApplicationResources {
     static String getProperty(String key) {
         String value = null;
-        String filePath = "org/kuali/kfs/krad/ApplicationResources.properties";
+        String filePath = "org/kuali/rice/krad/ApplicationResources.properties";
         Properties properties = new Properties();
         try {
             InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(filePath);
