@@ -96,6 +96,7 @@ public class ArKeyConstants {
     static final public String CGINVOICE_CREATION_AWARD_AGENCY_NO_CUSTOMER_RECORD = "error.cginvoice.award.not.valid.customer";
     static final public String CGINVOICE_CREATION_SYS_INFO_OADF_NOT_SETUP = "error.cginvoice.sys.info.not.setup";
     static final public String CGINVOICE_CREATION_AWARD_OFFSET_DEF_NOT_SETUP = "error.cginvoice.award.offset.not.setup";
+    static final public String CGINVOICE_CREATION_ACCOUNT_AUTO_CREATION_DEFAULTS_NOT_SETUP = "error.cginvoice.account.auto.creation.not.setup";
 
     // Organization Accounting Defaults errors
     public static final class OrganizationAccountingDefaultErrors {

@@ -110,6 +110,7 @@ public class KFSConstants {
     public static final String BATCH_FILE_LOOKUP_ROOT_DIRECTORIES = "batch.file.lookup.root.directories";
     public static final String BATCH_UPLOAD_HELP_SYS_PARAM_NAME = "BATCH_UPLOAD_HELP_URL";
     public static final String CONTRACTS_GRANTS_BILLING_ENABLED = "contracts.grants.billing.enabled";
+    public static final String MODULE_EXTERNAL_KUALI_COEUS_ENABLED = "module.external.kuali.coeus.enabled";
 
     public static final String LOOKUP_RESULTS_LIMIT_URL_KEY = "RESULTS_LIMIT";
 

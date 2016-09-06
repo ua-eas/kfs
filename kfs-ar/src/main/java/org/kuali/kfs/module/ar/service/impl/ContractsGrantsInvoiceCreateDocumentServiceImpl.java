@@ -1574,7 +1574,15 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImpl implements Contract
             errorList.add(configurationService.getPropertyValueAsString(errorString.get(0)).replace("{0}", errorString.get(1)));
         }
 
-        // 14. System Information and ORganization Accounting Default not setup.
+        // 14. Account auto-creation defaults not defined
+        if (award.getPrimaryAwardOrganization() == null
+                && configurationService.getPropertyValueAsBoolean(KFSConstants.MODULE_EXTERNAL_KUALI_COEUS_ENABLED)) {
+            errorList.add(configurationService.getPropertyValueAsString(
+                    ArKeyConstants.CGINVOICE_CREATION_ACCOUNT_AUTO_CREATION_DEFAULTS_NOT_SETUP));
+            return;
+        }
+
+        // 15. System Information and Organization Accounting Default not setup.
         if (!getContractsGrantsBillingAwardVerificationService().isChartAndOrgSetupForInvoicing(award)) {
             errorList.add(configurationService.getPropertyValueAsString(ArKeyConstants.CGINVOICE_CREATION_SYS_INFO_OADF_NOT_SETUP));
         }
