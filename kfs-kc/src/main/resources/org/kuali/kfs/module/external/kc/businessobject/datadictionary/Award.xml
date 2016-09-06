@@ -127,7 +127,7 @@
         <property name="shortLabel" value="Award ID"/>
         <property name="maxLength" value="12"/>
         <property name="validationPattern">
-            <ref bean="NumericValidation"/>
+            <ref bean="AnyCharacterWithWhitespaceValidation"/>
         </property>
         <property name="control">
             <bean parent="TextControlDefinition" p:size="14"/>
