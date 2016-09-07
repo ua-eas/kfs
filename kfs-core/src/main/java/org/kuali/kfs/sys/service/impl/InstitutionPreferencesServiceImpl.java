@@ -65,6 +65,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -102,11 +103,11 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     }
 
     @Override
-    public Map<String, Object> findInstitutionPreferencesNoLinks() {
+    public Map<String, Object> findInstitutionPreferencesNoLinks(Optional<String> riceVersion) {
         LOG.debug("findInstitutionPreferencesNoLinks() started");
 
         final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
-        appendMenuProperties(institutionPreferences);
+        appendMenuProperties(institutionPreferences,riceVersion.isPresent() ? riceVersion.get() : "Unknown");
         institutionPreferences.remove(KFSPropertyConstants.LINK_GROUPS);
 
         return institutionPreferences;
@@ -189,12 +190,12 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
             .collect(Collectors.toList());
     }
 
-    protected void appendMenuProperties(Map<String, Object> institutionPreferences) {
+    protected void appendMenuProperties(Map<String, Object> institutionPreferences,String riceVersion) {
         appendActionListUrl(institutionPreferences);
         appendDocSearchUrl(institutionPreferences);
         appendSignoutUrl(institutionPreferences);
         appendRemoteViewUrl(institutionPreferences);
-        appendAboutVersion(institutionPreferences);
+        appendAboutVersion(institutionPreferences,riceVersion);
     }
 
     protected void appendActionListUrl(Map<String, Object> institutionPreferences) {
@@ -220,10 +221,10 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         institutionPreferences.put(KFSPropertyConstants.DOC_SEARCH_URL, docSearchUrl);
     }
 
-    protected void appendAboutVersion(Map<String, Object> institutionPreferences) {
+    protected void appendAboutVersion(Map<String, Object> institutionPreferences,String riceVersion) {
         Map<String, String> versions = new LinkedHashMap<>();
         versions.put("Kuali Financials", configurationService.getPropertyValueAsString("kfs.version"));
-        versions.put("Kuali Rice", configurationService.getPropertyValueAsString("rice.version"));
+        versions.put("Kuali Rice", riceVersion);
         institutionPreferences.put(KFSPropertyConstants.VERSIONS, versions);
     }
 

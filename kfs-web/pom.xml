@@ -132,6 +132,11 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <rice-version>${rice.version}</rice-version>
+                        </manifestEntries>
+                    </archive>
                     <webResources>
                         <resource>
                             <directory>${rice.web.sources}</directory>
