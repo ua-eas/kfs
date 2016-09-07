@@ -23,11 +23,12 @@ import org.kuali.rice.kim.api.identity.Person;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface InstitutionPreferencesService {
     Map<String, Object> findInstitutionPreferencesLinks(Person person, boolean useCache);
 
-    Map<String, Object> findInstitutionPreferencesNoLinks();
+    Map<String, Object> findInstitutionPreferencesNoLinks(Optional<String> riceVersion);
 
     void saveInstitutionPreferences(String institutionId, String linkGroups);
 

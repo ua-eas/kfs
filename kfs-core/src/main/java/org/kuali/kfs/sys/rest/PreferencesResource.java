@@ -26,6 +26,7 @@ import org.kuali.kfs.sys.service.InstitutionPreferencesService;
 import org.kuali.kfs.sys.service.UserPreferencesService;
 import org.kuali.rice.kim.api.identity.Person;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -39,9 +40,13 @@ import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Path("/preferences")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -54,6 +59,9 @@ public class PreferencesResource {
 
     @Context
     private HttpServletRequest servletRequest;
+
+    @Context
+    private ServletContext servletContext;
 
     @GET
     @Path("/institution-links/{principalName}")
@@ -79,8 +87,24 @@ public class PreferencesResource {
     public Response getInstitutionNoLinks() {
         LOG.debug("getInstitutionNoLinks() started");
 
-        Map<String, Object> preferences = getInstitutionPreferencesService().findInstitutionPreferencesNoLinks();
+        Map<String, Object> preferences = getInstitutionPreferencesService().findInstitutionPreferencesNoLinks(getRiceVersion());
         return Response.ok(preferences).build();
+    }
+
+    private Optional<String> getRiceVersion() {
+        try (InputStream input = servletContext.getResourceAsStream("/META-INF/MANIFEST.MF")) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(input));
+            String line;
+
+            while((line = in.readLine()) != null) {
+                if ( line.startsWith("rice-version:") ) {
+                    return Optional.of(line.substring("rice-version: ".length()));
+                }
+            }
+        } catch (IOException e) {
+            LOG.error("getRiceVersion() Unable to read manifest.mf file",e);
+        }
+        return Optional.empty();
     }
 
     @PUT
