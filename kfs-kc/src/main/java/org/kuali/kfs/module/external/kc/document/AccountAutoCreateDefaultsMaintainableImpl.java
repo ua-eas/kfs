@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.module.external.kc.document;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.Maintainable;
 import org.kuali.kfs.kns.web.ui.Field;
@@ -25,6 +26,7 @@ import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.kfs.kns.web.ui.Section;
 import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.module.external.kc.businessobject.AccountAutoCreateDefaults;
+import org.kuali.kfs.module.external.kc.businessobject.IndirectCostRecoveryAutoDefAccount;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 
 import java.util.ArrayList;
@@ -87,6 +89,13 @@ public class AccountAutoCreateDefaultsMaintainableImpl extends FinancialSystemMa
         AccountAutoCreateDefaults newAcctAuto = (AccountAutoCreateDefaults) document.getNewMaintainableObject().getBusinessObject();
         newAcctAuto.setKcUnit("");
         newAcctAuto.setKcUnitName("");
+        // clear the id's on any ICR accounts so that they are resaved
+        if (!CollectionUtils.isEmpty(newAcctAuto.getIndirectCostRecoveryAutoDefAccounts())) {
+            for (IndirectCostRecoveryAutoDefAccount icrAutoDefAccount : newAcctAuto.getIndirectCostRecoveryAutoDefAccounts()) {
+                icrAutoDefAccount.setAccountDefaultId(null);
+                icrAutoDefAccount.setIndirectCostRecoveryAccountGeneratedIdentifier(null);
+            }
+        }
     }
 
 }
