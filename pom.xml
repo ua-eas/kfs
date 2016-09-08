@@ -66,7 +66,7 @@
         <maven.require.version>3.0</maven.require.version>
         <enforcer.phase>validate</enforcer.phase>
         <project.build.timestamp>${maven.build.timestamp}</project.build.timestamp>
-        <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm z</maven.build.timestamp.format>
 
         <!-- release properties -->
         <kuali.release.arguments>-DskipTests</kuali.release.arguments>

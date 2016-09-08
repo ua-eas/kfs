@@ -1,6 +1,6 @@
 {
   "name": "financials-web",
-  "version": "6.0.0",
+  "version": "7.0.0",
   "description": "Frontend resources for Kuali Financials",
   "main": "index.js",
   "scripts": {
