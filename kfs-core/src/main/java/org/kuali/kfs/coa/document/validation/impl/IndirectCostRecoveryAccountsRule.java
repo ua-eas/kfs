@@ -25,12 +25,10 @@ import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryAccount;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.impl.KfsMaintenanceDocumentRuleBase;
 
 import java.math.BigDecimal;
@@ -47,6 +45,7 @@ abstract public class IndirectCostRecoveryAccountsRule extends KfsMaintenanceDoc
 
     protected static final BigDecimal BD100 = new BigDecimal(100);
     private List<? extends IndirectCostRecoveryAccount> activeIndirectCostRecoveryAccountList;
+    private List<? extends IndirectCostRecoveryAccount> indirectCostRecoveryAccountList;
     protected String boFieldPath;
 
     /**
@@ -73,8 +72,7 @@ abstract public class IndirectCostRecoveryAccountsRule extends KfsMaintenanceDoc
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
-        boolean success = true;
-        return success = checkIndirectCostRecoveryAccountDistributions();
+        return checkIndirectCostRecoveryAccountDistributions();
     }
 
     /**
@@ -85,9 +83,7 @@ abstract public class IndirectCostRecoveryAccountsRule extends KfsMaintenanceDoc
      * @return
      */
     protected boolean checkICRCollectionExist(boolean expectFilled) {
-        boolean success = true;
-
-        success = expectFilled != activeIndirectCostRecoveryAccountList.isEmpty();
+        boolean success = expectFilled != activeIndirectCostRecoveryAccountList.isEmpty();
 
         //double check each of the account/coa codes are not blank
         if (!success && expectFilled) {
@@ -111,8 +107,7 @@ abstract public class IndirectCostRecoveryAccountsRule extends KfsMaintenanceDoc
      * @return
      */
     protected boolean checkICRCollectionExistWithErrorMessage(boolean expectFilled, String errorMessage, String... args) {
-        boolean success = true;
-        success = checkICRCollectionExist(expectFilled);
+        boolean success = checkICRCollectionExist(expectFilled);
         if (!success) {
             putFieldError(boFieldPath, errorMessage, args);
         }
@@ -125,19 +120,14 @@ abstract public class IndirectCostRecoveryAccountsRule extends KfsMaintenanceDoc
      * @return
      */
     protected boolean checkIndirectCostRecoveryAccount(IndirectCostRecoveryAccount icrAccount) {
-
-        boolean success = true;
-
-        //check for empty values on the ICR account
-
-        // The chart and account  must exist in the database.
         String chartOfAccountsCode = icrAccount.getIndirectCostRecoveryFinCoaCode();
         String accountNumber = icrAccount.getIndirectCostRecoveryAccountNumber();
         BigDecimal icraAccountLinePercentage = ObjectUtils.isNotNull(icrAccount.getAccountLinePercent()) ? icrAccount.getAccountLinePercent() : BigDecimal.ZERO;
-        return checkIndirectCostRecoveryAccount(chartOfAccountsCode, accountNumber, icraAccountLinePercentage);
+        boolean accountIsActive = icrAccount.isActive();
+        return checkIndirectCostRecoveryAccount(chartOfAccountsCode, accountNumber, icraAccountLinePercentage, accountIsActive);
     }
 
-    protected boolean checkIndirectCostRecoveryAccount(String chartOfAccountsCode, String accountNumber, BigDecimal icraAccountLinePercentage) {
+    protected boolean checkIndirectCostRecoveryAccount(String chartOfAccountsCode, String accountNumber, BigDecimal icraAccountLinePercentage, boolean accountIsActive) {
         boolean success = true;
         if (StringUtils.isBlank(chartOfAccountsCode)) {
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ICR_CHART_OF_ACCOUNTS_CODE, KFSKeyConstants.ERROR_REQUIRED,
@@ -152,21 +142,28 @@ abstract public class IndirectCostRecoveryAccountsRule extends KfsMaintenanceDoc
         }
 
         if (StringUtils.isNotBlank(chartOfAccountsCode) && StringUtils.isNotBlank(accountNumber)) {
-            Map<String, String> chartAccountMap = new HashMap<String, String>();
+            Map<String, String> chartAccountMap = new HashMap<>();
             chartAccountMap.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, chartOfAccountsCode);
-            if (SpringContext.getBean(BusinessObjectService.class).countMatching(Chart.class, chartAccountMap) < 1) {
+            if (getBoService().countMatching(Chart.class, chartAccountMap) < 1) {
                 GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ICR_CHART_OF_ACCOUNTS_CODE, KFSKeyConstants.ERROR_EXISTENCE, chartOfAccountsCode);
                 success &= false;
             }
             chartAccountMap.put(KFSPropertyConstants.ACCOUNT_NUMBER, accountNumber);
-            if (SpringContext.getBean(BusinessObjectService.class).countMatching(Account.class, chartAccountMap) < 1) {
+            if (getBoService().countMatching(Account.class, chartAccountMap) < 1) {
                 GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ICR_ACCOUNT_NUMBER, KFSKeyConstants.ERROR_EXISTENCE, chartOfAccountsCode + "-" + accountNumber);
                 success &= false;
             }
+
+            if (success && accountIsActive) {
+                Account icrAccount = getBoService().findByPrimaryKey(Account.class, chartAccountMap);
+
+                if (ObjectUtils.isNotNull(icrAccount) && icrAccount.isClosed()) {
+                    GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ICR_ACCOUNT_NUMBER, KFSKeyConstants.ERROR_INACTIVE, chartOfAccountsCode + "-" + accountNumber);
+                    success &= false;
+                }
+            }
         }
 
-
-        //check the percent line
         if (icraAccountLinePercentage.compareTo(BigDecimal.ZERO) <= 0 || icraAccountLinePercentage.compareTo(BD100) == 1) {
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.ICR_ACCOUNT_LINE_PERCENT,
                 KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_ICR_ACCOUNT_INVALID_LINE_PERCENT);
@@ -182,8 +179,6 @@ abstract public class IndirectCostRecoveryAccountsRule extends KfsMaintenanceDoc
      * 1. Check each account with rule: checkIndirectCostRecoveryAccount
      * 2. Total distributions from all the account should be 100
      *
-     * @param activeIndirectCostRecoveryAccountList
-     * @param document
      * @return
      */
     protected boolean checkIndirectCostRecoveryAccountDistributions() {
@@ -195,18 +190,17 @@ abstract public class IndirectCostRecoveryAccountsRule extends KfsMaintenanceDoc
         int i = 0;
         BigDecimal totalDistribution = BigDecimal.ZERO;
 
-        for (IndirectCostRecoveryAccount icra : activeIndirectCostRecoveryAccountList) {
+        for (IndirectCostRecoveryAccount icra : indirectCostRecoveryAccountList) {
             String errorPath = MAINTAINABLE_ERROR_PREFIX + boFieldPath + "[" + i++ + "]";
             GlobalVariables.getMessageMap().addToErrorPath(errorPath);
             checkIndirectCostRecoveryAccount(icra);
             GlobalVariables.getMessageMap().removeFromErrorPath(errorPath);
 
-            if (!ObjectUtils.isNull(icra.getAccountLinePercent())) {
+            if (!ObjectUtils.isNull(icra.getAccountLinePercent()) && icra.isActive()) {
                 totalDistribution = totalDistribution.add(icra.getAccountLinePercent());
             }
         }
 
-        //check the total distribution is 100
         if (totalDistribution.compareTo(BD100) != 0) {
             putFieldError(boFieldPath, KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_ICR_ACCOUNT_TOTAL_NOT_100_PERCENT);
             result &= false;
@@ -229,8 +223,16 @@ abstract public class IndirectCostRecoveryAccountsRule extends KfsMaintenanceDoc
         return activeIndirectCostRecoveryAccountList;
     }
 
-    public void setActiveIndirectCostRecoveryAccountList(List<? extends IndirectCostRecoveryAccount> indirectCostRecoveryAccountList) {
-        this.activeIndirectCostRecoveryAccountList = indirectCostRecoveryAccountList;
+    public void setActiveIndirectCostRecoveryAccountList(List<? extends IndirectCostRecoveryAccount> activeIndirectCostRecoveryAccountList) {
+        this.activeIndirectCostRecoveryAccountList = activeIndirectCostRecoveryAccountList;
+    }
+
+    public List<? extends IndirectCostRecoveryAccount> getIndirectCostRecoveryAccountList() {
+        return indirectCostRecoveryAccountList;
+    }
+
+    public void setIndirectCostRecoveryAccountList(List<? extends IndirectCostRecoveryAccount> indirectCostRecoveryAccountList) {
+        this.indirectCostRecoveryAccountList = indirectCostRecoveryAccountList;
     }
 
     public String getBoFieldPath() {
@@ -240,6 +242,5 @@ abstract public class IndirectCostRecoveryAccountsRule extends KfsMaintenanceDoc
     public void setBoFieldPath(String boFieldPath) {
         this.boFieldPath = boFieldPath;
     }
-
 }
 

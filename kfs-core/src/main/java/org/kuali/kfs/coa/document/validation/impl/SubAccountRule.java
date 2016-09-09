@@ -53,7 +53,6 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
     /**
      * This performs rules checks on document approve
      * <ul>
-     * <li>{@link SubAccountRule#setCgAuthorized(boolean)}</li>
      * <li>{@link SubAccountRule#checkForPartiallyEnteredReportingFields()}</li>
      * <li>{@link SubAccountRule#checkCgRules(MaintenanceDocument)}</li>
      * </ul>
@@ -76,7 +75,6 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
     /**
      * This performs rules checks on document route
      * <ul>
-     * <li>{@link SubAccountRule#setCgAuthorized(boolean)}</li>
      * <li>{@link SubAccountRule#checkForPartiallyEnteredReportingFields()}</li>
      * <li>{@link SubAccountRule#checkCgRules(MaintenanceDocument)}</li>
      * </ul>
@@ -102,7 +100,6 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
     /**
      * This performs rules checks on document save
      * <ul>
-     * <li>{@link SubAccountRule#setCgAuthorized(boolean)}</li>
      * <li>{@link SubAccountRule#checkForPartiallyEnteredReportingFields()}</li>
      * <li>{@link SubAccountRule#checkCgRules(MaintenanceDocument)}</li>
      * </ul>
@@ -129,8 +126,6 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
      * This method sets the convenience objects like newAccount and oldAccount, so you have short and easy handles to the new and
      * old objects contained in the maintenance document. It also calls the BusinessObjectBase.refresh(), which will attempt to load
      * all sub-objects from the DB by their primary keys, if available.
-     *
-     * @param document - the maintenanceDocument being evaluated
      */
     public void setupConvenienceObjects() {
 
@@ -144,9 +139,12 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
 
         //icr rule checking setup
         if (newSubAccount.getA21SubAccount() != null) {
-            List<IndirectCostRecoveryAccount> icrAccountList = new ArrayList<IndirectCostRecoveryAccount>(
+            List<IndirectCostRecoveryAccount> activeIcrAccountList = new ArrayList<IndirectCostRecoveryAccount>(
                 newSubAccount.getA21SubAccount().getA21ActiveIndirectCostRecoveryAccounts());
-            setActiveIndirectCostRecoveryAccountList(icrAccountList);
+            setActiveIndirectCostRecoveryAccountList(activeIcrAccountList);
+            List<IndirectCostRecoveryAccount> icrAccountList = new ArrayList<IndirectCostRecoveryAccount>(
+                newSubAccount.getA21SubAccount().getA21IndirectCostRecoveryAccounts());
+            setIndirectCostRecoveryAccountList(icrAccountList);
             setBoFieldPath(KFSPropertyConstants.A21INDIRECT_COST_RECOVERY_ACCOUNTS);
         }
     }
@@ -207,7 +205,7 @@ public class SubAccountRule extends IndirectCostRecoveryAccountsRule {
      * This checks to make sure that if cgAuthorized is false it succeeds immediately, otherwise it checks that all the information
      * for CG is correctly entered and identified including:
      * <ul>
-     * <li>If the {@link SubFundGroup} isn't for Contracts and Grants then check to make sure that the cost share and ICR fields are
+     * <li>If the {@link org.kuali.kfs.coa.businessobject.SubFundGroup} isn't for Contracts and Grants then check to make sure that the cost share and ICR fields are
      * not empty</li>
      * <li>If it isn't a child of CG, then the SubAccount must be of type ICR</li>
      * </ul>

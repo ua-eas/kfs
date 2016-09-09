@@ -118,6 +118,7 @@ public class AccountRule extends IndirectCostRecoveryAccountsRule {
         refreshSubObjects(newAccount);
 
         setActiveIndirectCostRecoveryAccountList(newAccount.getActiveIndirectCostRecoveryAccounts());
+        setIndirectCostRecoveryAccountList(newAccount.getIndirectCostRecoveryAccounts());
         setBoFieldPath(KFSPropertyConstants.INDIRECT_COST_RECOVERY_ACCOUNTS);
     }
 
@@ -570,7 +571,7 @@ public class AccountRule extends IndirectCostRecoveryAccountsRule {
      * This method is a helper method for checking if the supervisor user is the same as the fiscal officer Calls
      * {@link AccountRule#areTwoUsersTheSame(Person, Person)}
      *
-     * @param accountGlobals
+     * @param account
      * @return true if the two users are the same
      */
     protected boolean isSupervisorSameAsFiscalOfficer(Account account) {
@@ -581,7 +582,7 @@ public class AccountRule extends IndirectCostRecoveryAccountsRule {
      * This method is a helper method for checking if the supervisor user is the same as the manager Calls
      * {@link AccountRule#areTwoUsersTheSame(Person, Person)}
      *
-     * @param accountGlobals
+     * @param account
      * @return true if the two users are the same
      */
     protected boolean isSupervisorSameAsManager(Account account) {
@@ -1159,7 +1160,6 @@ public class AccountRule extends IndirectCostRecoveryAccountsRule {
     /**
      * the income stream account is required if account's sub fund group code's fund group code is either GF or CG.
      *
-     * @param newAccount
      * @return true if fund group code (obtained through sub fund group) is in the system parameter INCOME_STREAM_ACCOUNT_REQUIRING_FUND_GROUPS (values GF;CG)
      * else return false.
      */

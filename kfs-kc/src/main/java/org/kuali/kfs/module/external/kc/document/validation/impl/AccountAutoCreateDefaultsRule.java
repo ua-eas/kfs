@@ -137,7 +137,7 @@ public class AccountAutoCreateDefaultsRule extends org.kuali.kfs.coa.document.va
     }
 
     /**
-     * @see org.kuali.kfs.coa.document.validation.impl.IndirectCostRecoveryAccountsRule#processCustomAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument, java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * @see org.kuali.kfs.coa.document.validation.impl.IndirectCostRecoveryAccountsRule#processCustomAddCollectionLineBusinessRules(MaintenanceDocument, String, PersistableBusinessObject)
      */
     @Override
     public boolean processCustomAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject bo) {
@@ -483,7 +483,6 @@ public class AccountAutoCreateDefaultsRule extends org.kuali.kfs.coa.document.va
     }
 
     /**
-     * @param activeIndirectCostRecoveryAccountList
      * @see org.kuali.kfs.coa.document.validation.impl.IndirectCostRecoveryAccountsRule#checkIndirectCostRecoveryAccountDistributions()
      */
     @Override
@@ -517,14 +516,11 @@ public class AccountAutoCreateDefaultsRule extends org.kuali.kfs.coa.document.va
     }
 
     protected boolean checkIndirectCostRecoveryAccount(IndirectCostRecoveryAutoDefAccount icra) {
-        boolean success = true;
-        //check for empty values on the ICR account
-
-        // The chart and account  must exist in the database.
         String chartOfAccountsCode = icra.getIndirectCostRecoveryFinCoaCode();
         String accountNumber = icra.getIndirectCostRecoveryAccountNumber();
         BigDecimal icraAccountLinePercentage = ObjectUtils.isNotNull(icra.getAccountLinePercent()) ? icra.getAccountLinePercent() : BigDecimal.ZERO;
-        return checkIndirectCostRecoveryAccount(chartOfAccountsCode, accountNumber, icraAccountLinePercentage);
+        boolean active = icra.isActive();
+        return checkIndirectCostRecoveryAccount(chartOfAccountsCode, accountNumber, icraAccountLinePercentage, active);
     }
 
 }
