@@ -1063,4 +1063,6 @@ public class KFSKeyConstants {
         public static final String FAILURE_ENTRY = "message.detectDocumentsMissingPLEsJob.failure.entry";
         public static final String EMAIL_SUBJECT = "message.detectDocumentsMissingPLEsJob.failure.email.subject";
     }
+    
+    public static final String ERROR_ICRACCOUNT_CONTINUATION_ACCOUNT_CLOSED ="error.icrAccount.continuationAccount.closed";
 }
