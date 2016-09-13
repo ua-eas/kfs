@@ -260,6 +260,23 @@ public class KualiDocumentActionBase extends KualiAction {
             // Pull in the pending action requests for the document and attach them to the form
             List<ActionRequest> actionRequests = KewApiServiceLocator.getWorkflowDocumentService().getPendingActionRequests(formBase.getDocId());
             formBase.setActionRequests(actionRequests);
+
+            if (LOG.isDebugEnabled()) {
+                StringBuilder message = new StringBuilder();
+
+                message.append("Running action ");
+                message.append(((KualiDocumentFormBase)form).getMethodToCall());
+                if (!StringUtils.isBlank(((KualiDocumentFormBase)form).getDocId())) {
+                    message.append(" on document ");
+                    message.append(((KualiDocumentFormBase) form).getDocId());
+                    if (((KualiDocumentFormBase) form).isHasWorkflowDocument()) {
+                        message.append(" for document at route level(s) ");
+                        message.append(StringUtils.join(((KualiDocumentFormBase) form).getWorkflowDocument().getCurrentNodeNames(),", "));
+                    }
+                }
+
+                LOG.debug(message.toString());
+            }
         }
 
         return returnForward;
