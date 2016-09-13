@@ -85,7 +85,7 @@ public class DebarredVendorDaoJdbc extends PlatformAwareDaoBaseJdbc implements D
             ", VNDR_EXCL_ST_CD, VNDR_EXCL_PRVN_NM, VNDR_EXCL_ZIP_CD, VNDR_EXCL_OTHR_NM, VNDR_EXCL_DESC_TXT";
         String select = "SELECT " + selectFields + max;
         String subqr = sqlName + " UNION " + sqlAlias + " UNION " + sqlAddr;
-        String from = " FROM (" + subqr + ")";
+        String from = " FROM (" + subqr + ") SUBQR ";
         String group = " GROUP BY " + selectFields;
         String sql = select + from + group;
 
