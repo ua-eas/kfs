@@ -131,7 +131,7 @@
 
                                         <c:choose>
 
-                                            <c:when test="${column.propertyURL != \"\"}">
+                                            <c:when test="${column.propertyURL != '' && !exporting}">
                                                 <a href="<c:out value="${column.propertyURL}"/>"
                                                    title="<c:out value="${title}" />" target="blank"><c:out
                                                         value="${column.propertyValue}"/></a>
@@ -149,7 +149,7 @@
 
                                     <c:choose>
 
-                                        <c:when test="${column.propertyURL != \"\"}">
+                                        <c:when test="${column.propertyURL != '' && !exporting}">
 
                                             <display:column class="infocell" sortable="${column.sortable}"
                                                             decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
