@@ -28,7 +28,9 @@ import javax.servlet.jsp.tagext.Tag;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.AccountingLineViewAction;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kns.web.taglib.html.KNSImageTag;
 
 /**
@@ -105,7 +107,10 @@ public class ActionsRenderer implements Renderer {
      * @throws JspException thrown if the actionButton cannot uphold its duties to render the 
      */
     protected void renderAction(AccountingLineViewAction action) throws JspException {
-        actionButton.setProperty(KFSConstants.DISPATCH_REQUEST_PARAMETER+"."+action.getActionMethod());
+        String basePath = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
+        actionButton.setProperty(
+                basePath+"/"+
+                KFSConstants.DISPATCH_REQUEST_PARAMETER+"."+action.getActionMethod());
         actionButton.setSrc(action.getImageName());
         actionButton.setTitle(action.getActionLabel());
         actionButton.setAlt(action.getActionLabel());
