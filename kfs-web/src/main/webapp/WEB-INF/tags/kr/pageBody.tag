@@ -349,6 +349,7 @@
                 <kul:csrf />
 
             </html:form>
+            </div>
         </c:when>
         <c:when test="${renderInnerDiv}">
             <jsp:doBody/>
