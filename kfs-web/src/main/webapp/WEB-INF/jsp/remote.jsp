@@ -27,13 +27,8 @@
 
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Financials :: <c:out value="${title}"/></title>
-</head>
-<body>
-<kul:page docTitle="" showDocumentInfo="false" transactionalDocument="false" renderInnerDiv="true">
-    <iframe src="<c:out value="${pageContext.request.getParameter('url')}"/>" name="remote-iframe" title="Financials Remote View" style="height: calc(100% - 60px);" width="100%" frameborder="0"></iframe>
+<kul:page docTitle="${title}" showDocumentInfo="false" transactionalDocument="false" renderInnerDiv="true">
+    <div style="height: calc(100vh - 160px);">
+        <iframe src="<c:out value="${pageContext.request.getParameter('url')}"/>" name="remote-iframe" title="Financials Remote View" style="height: 100%;" width="100%" frameborder="0"></iframe>
+    </div>
 </kul:page>
-</body>
-</html>
