@@ -221,7 +221,6 @@
 
 	   	<c:if test="${displayReceivingAddress}">
 
-    	<!---- Receiving Address ---->
             <h3>Receiving Address</h3>
 
 		<table cellpadding="0" cellspacing="0" class="datatable" summary="Receiving Address Section">
@@ -255,7 +254,6 @@
             </tr>
         </table>
 
-    	<!---- Address To Vendor ---->
             <h3>Address To Vendor</h3>
 
 		<table cellpadding="0" cellspacing="0" class="datatable" summary="Address To Vendor Section">
@@ -275,18 +273,6 @@
 				<td class="datacell">
                     <kul:htmlControlAttribute attributeEntry="${documentAttributes.addressToVendorIndicator}" property="document.addressToVendorIndicator"
                     	readOnly="${!(fullEntryMode || amendmentEntry) || lockAddressToVendor}" tabindexOverride="${tabindexOverrideBase + 5}"/><br>
-					<!--
-					<c:choose>
-						<c:when test="${KualiForm.document.addressToVendorIndicator == 'true'}">
-							&nbsp;<input type=radio title="${documentAttributes.addressToVendorIndicator.label} - Receiving Address" name="document.addressToVendorIndicator" value="true" checked />&nbsp;Receiving Address&nbsp;
-							&nbsp;<input type=radio title="${documentAttributes.addressToVendorIndicator.label} - Final Delivery Address" name="document.addressToVendorIndicator" value="false" />&nbsp;Final Delivery Address&nbsp;
-						</c:when>
-						<c:otherwise>
-							&nbsp;<input type=radio title="${documentAttributes.addressToVendorIndicator.label} - Receiving Address" name="document.addressToVendorIndicator" value="false" />&nbsp;Receiving Address&nbsp;
-							&nbsp;<input type=radio title="${documentAttributes.addressToVendorIndicator.label} - Final Delivery Address" name="document.addressToVendorIndicator" value="true" checked />&nbsp;Final Delivery Address&nbsp;
-						</c:otherwise>
-					</c:choose>
-					-->
             	</td>
             </tr>
         </table>
