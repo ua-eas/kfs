@@ -242,6 +242,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
                 urlBuffer.append(inquiryUrl);
                 urlBuffer.append("' ");
                 urlBuffer.append("target='_blank'");
+                urlBuffer.append(" ");
                 urlBuffer.append("title='Person Inquiry'>");
                 urlBuffer.append(linkBody);
                 urlBuffer.append("</a>");

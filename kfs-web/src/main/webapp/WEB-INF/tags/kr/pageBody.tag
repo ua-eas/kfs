@@ -348,7 +348,10 @@
                 <kul:csrf />
 
             </html:form>
-            </div>
+
+            <c:if test="${not lookup}" >
+                </div>
+            </c:if>
         </c:when>
         <c:when test="${renderInnerDiv}">
             <jsp:doBody/>
