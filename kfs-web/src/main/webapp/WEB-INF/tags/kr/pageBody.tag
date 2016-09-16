@@ -350,9 +350,7 @@
 
             </html:form>
 
-            <c:if test="${not lookup}" >
-                </div>
-            </c:if>
+            </div>
         </c:when>
         <c:when test="${renderInnerDiv}">
             <jsp:doBody/>
