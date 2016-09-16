@@ -185,7 +185,6 @@
             </tr>
         </c:if>
     </table>
-    </div>
 
     <c:if test="${!empty reqSearchResultsActualSize and reqSearchResultsActualSize < 1 and empty reqSearchResults}">
         <div class="search-message"><bean-el:message key="error.no.matching.invoice"/></div>
