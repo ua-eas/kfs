@@ -69,6 +69,7 @@
         <c:when test="${empty htmlFormAction and not renderInnerDiv}">
             <main class="content">
                 <div id="content-overlay"></div>
+                <div>
         </c:when>
         <c:otherwise>
             <c:choose>
@@ -359,7 +360,7 @@
     </c:choose>
 
     <div id="formComplete"></div>
-
+    </div>
 </main>
 <c:if test="${param.mode ne 'standalone' and param.mode ne 'modal'}">
     <c:if test="${(not empty htmlFormAction or renderInnerDiv) and !openNav}">
