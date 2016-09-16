@@ -153,5 +153,4 @@
 
 		<kul:stayOnPage active="${transactionalDocument || maintenanceDocument}"/>
 	</body>
-	<!--a3VhbGkK-->
 </html:html>
