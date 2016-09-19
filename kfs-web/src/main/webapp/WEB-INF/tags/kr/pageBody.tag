@@ -358,7 +358,10 @@
     </c:choose>
 
     <div id="formComplete"></div>
-    </div>
+    <c:if test="${not maintenanceDocument}">
+        </div>
+    </c:if>
+
 </main>
 <c:if test="${param.mode ne 'standalone' and param.mode ne 'modal'}">
     <c:if test="${(not empty htmlFormAction or renderInnerDiv) and !openNav}">
