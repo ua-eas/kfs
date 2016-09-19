@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="UAF-2492-1" author="Natalia Ibanez">
+        <comment>
+            UAF-2492 Adding missing columns to the PCard Holder Table - FP_PRCRMNT_CARD_DFLT_T
+        </comment>
+        <addColumn tableName="FP_PRCRMNT_CARD_DFLT_T">
+            <column name="CARD_MONTHLY_NUMBER" type="number(12,0)"/>
+            <column name="ORG_CD" type="varchar(4)"/>
+            <column name="CARD_HLDR_NET_ID" type="varchar(40)"/>
+            <column name="CARD_GRP_ID" type="varchar(40)"/>
+            <column name="CARD_CANCEL_CD" type="varchar(1)"/>
+            <column name="CARD_OPEN_DT" type="date"/>
+            <column name="CARD_CANCEL_DT" type="date"/>
+            <column name="CARD_EXPIRE_DT" type="date"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

@@ -19,6 +19,7 @@
 package org.kuali.kfs.fp.businessobject;
 
 import java.util.LinkedHashMap;
+import java.sql.Date;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
@@ -26,6 +27,11 @@ import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.ProjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.impl.group.GroupBo;
+import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
@@ -38,7 +44,9 @@ import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 public class ProcurementCardDefault extends PersistableBusinessObjectBase implements MutableInactivatable {
     private Long id;
 
-    private String creditCardNumber;
+
+    private String cardHolderSystemId;
+    private Person cardholderUser;
     private String cardHolderName;
     private String cardHolderAlternateName;
     private String cardHolderLine1Address;
@@ -47,19 +55,25 @@ public class ProcurementCardDefault extends PersistableBusinessObjectBase implem
     private String cardHolderStateCode;
     private String cardHolderZipCode;
     private String cardHolderWorkPhoneNumber;
+
+    private String creditCardNumber;
     private KualiDecimal cardLimit;
     private KualiDecimal cardCycleAmountLimit;
     private KualiDecimal cardCycleVolumeLimit;
+    private KualiDecimal cardMonthlyNumber;
     private String cardStatusCode;
+    private String cardCancelCode;
+    private Date cardOpenDate;
+    private Date cardCancelDate;
+    private Date cardExpireDate;
     private String cardNoteText;
-
     private String chartOfAccountsCode;
     private String accountNumber;
     private String subAccountNumber;
     private String financialObjectCode;
     private String financialSubObjectCode;
+    private String organizationCode;
     private String projectCode;
-
     private boolean active;
 
     private Account account;
@@ -68,6 +82,10 @@ public class ProcurementCardDefault extends PersistableBusinessObjectBase implem
     private ObjectCode objectCode;
     private SubObjectCode subObjectCode;
     private ProjectCode project;
+    private Organization organization;
+    private String reconcilerGroupId;
+    private String reconcilerGroupName;
+    private GroupBo reconcilerGroup;
 
     /**
      * Default constructor.
@@ -301,6 +319,25 @@ public class ProcurementCardDefault extends PersistableBusinessObjectBase implem
     }
 
     /**
+     * Gets the cardMonthlyNumber attribute.
+     *
+     * @return Returns the cardLimit
+     */
+    public KualiDecimal getCardMonthlyNumber() {
+        return cardMonthlyNumber;
+    }
+
+    /**
+     * Sets the cardMonthlyNumber attribute.
+     *
+     * @param cardMonthlyNumber The cardMonthlyNumber to set.
+     */
+    public void setCardMonthlyNumber(KualiDecimal cardMonthlyNumber) {
+        this.cardMonthlyNumber = cardMonthlyNumber;
+    }
+
+
+    /**
      * Gets the cardStatusCode attribute.
      *
      * @return Returns the cardStatusCode
@@ -317,6 +354,79 @@ public class ProcurementCardDefault extends PersistableBusinessObjectBase implem
     public void setCardStatusCode(String cardStatusCode) {
         this.cardStatusCode = cardStatusCode;
     }
+
+    /**
+     * Gets the cardCancelCode attribute.
+     *
+     * @return Returns the cardCancelCode
+     */
+    public String getCardCancelCode() {
+        return cardCancelCode;
+    }
+
+    /**
+     * Sets the cardCancelCode attribute.
+     *
+     * @param cardCancelCode The cardCancelCode to set.
+     */
+    public void setCardCancelCode(String cardCancelCode) {
+        this.cardCancelCode = cardCancelCode;
+    }
+
+
+    /**
+     * Gets the cardOpenDate attribute.
+     * @return Returns the cardOpenDate.
+     */
+    public Date getCardOpenDate() {
+        return cardOpenDate;
+    }
+
+    /**
+     * Sets the cardOpenDate attribute value.
+     * @param cardOpenDate The cardOpenDate to set.
+     */
+    public void setCardOpenDate(Date cardOpenDate) {
+        this.cardOpenDate = cardOpenDate;
+    }
+
+    /**
+     * Gets the cardCancelDate attribute.
+     *
+     * @return Returns the cardCancelDate
+     */
+    public Date getCardCancelDate() {
+        return cardCancelDate;
+    }
+
+    /**
+     * Sets the cardCancelDate attribute.
+     *
+     * @param cardCancelDate The cardCancelDate to set.
+     */
+    public void setCardCancelDate(Date cardCancelDate) {
+        this.cardCancelDate = cardCancelDate;
+    }
+
+    /**
+     * Gets the cardExpireDate attribute.
+     *
+     * @return Returns the cardExpireDate
+     */
+    public Date getCardExpireDate() {
+        return cardExpireDate;
+    }
+
+    /**
+     * Sets the cardExpireDate attribute.
+     *
+     * @param cardExpireDate The cardExpireDate to set.
+     */
+    public void setCardExpireDate(Date cardExpireDate) {
+        this.cardExpireDate = cardExpireDate;
+    }
+
+
 
     /**
      * Gets the cardNoteText attribute.
@@ -426,6 +536,64 @@ public class ProcurementCardDefault extends PersistableBusinessObjectBase implem
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
         this.financialSubObjectCode = financialSubObjectCode;
     }
+
+    /**
+     * Gets the cardholderUser attribute.
+     *
+     * @return Returns the cardholderUser
+     */
+    public Person getCardholderUser() {
+        cardholderUser = SpringContext.getBean(PersonService.class).updatePersonIfNecessary(cardHolderSystemId, cardholderUser);
+        return cardholderUser;
+    }
+
+    /**
+     * Sets the cardholderUser attribute.
+     *
+     * @param cardholderUser The cardholderUser to set.
+     * @deprecated
+     */
+    public void setCardholderUser(Person cardholderUser) {
+        this.cardholderUser = cardholderUser;
+    }
+
+
+    /**
+     * Gets the organizationCode attribute.
+     *
+     * @return Returns the organizationCode
+     */
+    public String getOrganizationCode() {
+        return organizationCode;
+    }
+
+    /**
+     * Sets the organizationCode attribute.
+     *
+     * @param organizationCode The organizationCode to set.
+     */
+    public void setOrganizationCode(String organizationCode) {
+        this.organizationCode = organizationCode;
+    }
+
+    /**
+     * Gets the cardHolderSystemId attribute.
+     *
+     * @return Returns the cardHolderSystemId
+     */
+    public String getCardHolderSystemId() {
+        return cardHolderSystemId;
+    }
+
+    /**
+     * Sets the cardHolderSystemId attribute.
+     *
+     * @param cardHolderSystemId The cardHolderSystemId to set.
+     */
+    public void setCardHolderSystemId(String cardHolderSystemId) {
+        this.cardHolderSystemId = cardHolderSystemId;
+    }
+
 
     /**
      * @return the project code associated with this card holder
@@ -574,6 +742,84 @@ public class ProcurementCardDefault extends PersistableBusinessObjectBase implem
     public void setProject(ProjectCode project) {
         this.project = project;
     }
+
+    /**
+     * Gets the reconcilerGroup attribute.
+     *
+     * @return Returns the reconcilerGroup
+     */
+    public GroupBo getReconcilerGroup() {
+        return reconcilerGroup;
+    }
+
+    /**
+     * Sets the reconcilerGroup attribute.
+     *
+     * @param reconcilerGroup The reconcilerGroup to set.
+     * @deprecated
+     */
+    public void setReconcilerGroup(GroupBo reconcilerGroup) {
+        this.reconcilerGroup = reconcilerGroup;
+    }
+
+
+    /**
+     * Gets the reconciler GroupId attribute.
+     *
+     * @return Returns the cardGroupId
+     */
+    public String getReconcilerGroupId() {
+        return reconcilerGroupId;
+    }
+
+    /**
+     * Sets the reconciler GroupId attribute.
+     *
+     * @param groupId The cardGroupId to set.
+     */
+    public void setReconcilerGroupId(String groupId) {
+        this.reconcilerGroupId = groupId;
+    }
+
+    /**
+     * Gets the reconciler GroupName
+     *
+     * @return Returns the reconciler GroupName
+     */
+    public String getReconcilerGroupName() {
+        return reconcilerGroupName;
+    }
+
+    /**
+     * Sets the reconciler GroupName attribute.
+     *
+     * @param groupName The reconcilerGroupName to set.
+     */
+    public void setReconcilerGroupName(String groupName) {
+        this.reconcilerGroupName = groupName;
+    }
+
+    /**
+     * Gets the organization attribute.
+     *
+     * @return Returns the organization
+     */
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    /**
+     * Sets the organization attribute.
+     *
+     * @param organization The organization to set.
+     * @deprecated
+     */
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+
+
 
     /**
      * @see org.kuali.rice.kns.bo.BusinessObjectBase#toStringMapper()

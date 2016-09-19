@@ -51,7 +51,8 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
         <ref bean="ProcurementCardDefault-cardHolderWorkPhoneNumber" />
         <ref bean="ProcurementCardDefault-cardLimit" />
         <ref bean="ProcurementCardDefault-cardCycleAmountLimit" />        
-        <ref bean="ProcurementCardDefault-cardCycleVolumeLimit" /> 
+        <ref bean="ProcurementCardDefault-cardCycleVolumeLimit" />
+        <ref bean="ProcurementCardDefault-cardMonthlyNumber" />
         <ref bean="ProcurementCardDefault-cardStatusCode" /> 
         <ref bean="ProcurementCardDefault-cardNoteText" /> 
         <ref bean="ProcurementCardDefault-chartOfAccountsCode" />
@@ -60,9 +61,33 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
         <ref bean="ProcurementCardDefault-financialObjectCode" />
         <ref bean="ProcurementCardDefault-financialSubObjectCode" />  
         <ref bean="ProcurementCardDefault-projectCode" />
-        <ref bean="ProcurementCardDefault-active" />           
+        <ref bean="ProcurementCardDefault-active" />
+        <ref bean="ProcurementCardDefault-organizationCode"/>
+        <ref bean="ProcurementCardDefault-cardHolderSystemId"/>
+        <ref bean="ProcurementCardDefault-cardholderUser.principalName"/>
+        <ref bean="ProcurementCardDefault-cardholderUser.name"/>
+        <ref bean="ProcurementCardDefault-reconcilerGroupId"/>
+        <ref bean="ProcurementCardDefault-reconcilerGroup.id"/>
+        <ref bean="ProcurementCardDefault-reconcilerGroup.name"/>
+        <ref bean="ProcurementCardDefault-cardCancelCode"/>
+        <ref bean="ProcurementCardDefault-cardOpenDate"/>
+        <ref bean="ProcurementCardDefault-cardCancelDate"/>
+        <ref bean="ProcurementCardDefault-cardExpireDate"/>
       </list>
     </property>
+      <property name="relationships">
+          <list>
+              <dd:relationship objectAttribute="cardholderUser">
+                  <dd:primitiveAttribute source="cardHolderSystemId" target="principalId"/>
+                  <dd:supportAttribute source="cardholderUser.principalName" target="principalName" identifier="true"/>
+                  <dd:supportAttribute source="cardholderUser.name" target="name"/>
+              </dd:relationship>
+              <dd:relationship objectAttribute="reconcilerGroup">
+                  <dd:primitiveAttribute source="reconcilerGroup.id" target="id"/>
+                  <dd:supportAttribute source="reconcilerGroup.name" target="name" identifier="true"/>
+              </dd:relationship>
+          </list>
+      </property>
   </bean>
 
 <!-- Attribute Definitions -->
@@ -80,7 +105,7 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
   <bean id="ProcurementCardDefault-creditCardNumber" parent="ProcurementCardDefault-creditCardNumber-parentBean" />
   <bean id="ProcurementCardDefault-creditCardNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="creditCardNumber" />
-    <property name="label" value="Procurement Card Number" />
+    <property name="label" value="Procurement Card Number Last Four" />
     <property name="shortLabel" value="Number" />
     <property name="maxLength" value="16" />
     <property name="validationPattern" >
@@ -95,85 +120,96 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
 		<bean parent="AttributeSecurity">
   			<property name="mask" value="true" /> 
 			<property name="maskFormatter">
-  				<bean parent="MaskFormatterSubString" p:maskCharacter="*" p:maskLength="13" />
+  				<bean parent="MaskFormatterSubString" p:maskCharacter="*" p:maskLength="12" />
   			</property>
   		</bean>
   	</property>  	
-  </bean>	
+  </bean>
   
   <bean id="ProcurementCardDefault-cardHolderName" parent="ProcurementCardDefault-cardHolderName-parentBean" />
-  
-   <bean id="ProcurementCardDefault-cardHolderName-parentBean" abstract="true" parent="ProcurementCardHolder-cardHolderName-parentBean">
+  <bean id="ProcurementCardDefault-cardHolderName-parentBean" abstract="true" parent="ProcurementCardHolder-cardHolderName-parentBean">
     <property name="label" value="Cardholder Name" />      
   </bean>
   
   <bean id="ProcurementCardDefault-cardHolderAlternateName" parent="ProcurementCardDefault-cardHolderAlternateName-parentBean" />
-
   <bean id="ProcurementCardDefault-cardHolderAlternateName-parentBean" abstract="true" parent="ProcurementCardHolder-cardHolderAlternateName-parentBean">
    <property name="label" value="Cardholder Alternate Name" />     
   </bean>
   
   <bean id="ProcurementCardDefault-cardHolderLine1Address" parent="ProcurementCardDefault-cardHolderLine1Address-parentBean" />
-
   <bean id="ProcurementCardDefault-cardHolderLine1Address-parentBean" abstract="true" parent="ProcurementCardHolder-cardHolderLine1Address-parentBean">
     <property name="label" value="Delivery Address 1" />        
   </bean> 
   
   <bean id="ProcurementCardDefault-cardHolderLine2Address" parent="ProcurementCardDefault-cardHolderLine2Address-parentBean" />
-  
   <bean id="ProcurementCardDefault-cardHolderLine2Address-parentBean" abstract="true" parent="ProcurementCardHolder-cardHolderLine2Address-parentBean">
     <property name="label" value="Delivery Address 2" />        
   </bean> 
   
   <bean id="ProcurementCardDefault-cardHolderCityName" parent="ProcurementCardDefault-cardHolderCityName-parentBean" />
-  
   <bean id="ProcurementCardDefault-cardHolderCityName-parentBean" abstract="true" parent="ProcurementCardHolder-cardHolderCityName-parentBean" />
   
   <bean id="ProcurementCardDefault-cardHolderStateCode" parent="ProcurementCardDefault-cardHolderStateCode-parentBean" />
-  
   <bean id="ProcurementCardDefault-cardHolderStateCode-parentBean" abstract="true" parent="ProcurementCardHolder-cardHolderStateCode-parentBean" />
   
   <bean id="ProcurementCardDefault-cardHolderZipCode" parent="ProcurementCardDefault-cardHolderZipCode-parentBean" />
-  
   <bean id="ProcurementCardDefault-cardHolderZipCode-parentBean" abstract="true" parent="ProcurementCardHolder-cardHolderZipCode-parentBean" />
   
   <bean id="ProcurementCardDefault-cardHolderWorkPhoneNumber" parent="ProcurementCardDefault-cardHolderWorkPhoneNumber-parentBean" />
-  
   <bean id="ProcurementCardDefault-cardHolderWorkPhoneNumber-parentBean" abstract="true" parent="ProcurementCardHolder-cardHolderWorkPhoneNumber-parentBean" />
 
   <bean id="ProcurementCardDefault-cardLimit" parent="ProcurementCardDefault-cardLimit-parentBean" />
-  
   <bean id="ProcurementCardDefault-cardLimit-parentBean" abstract="true" parent="ProcurementCardHolder-cardLimit-parentBean">
     <property name="label" value="Monthly Spend Limit" />
     <property name="shortLabel" value="Mnth Spend Lim" />
   </bean>
   
   <bean id="ProcurementCardDefault-cardCycleAmountLimit" parent="ProcurementCardDefault-cardCycleAmountLimit-parentBean" />
-  
   <bean id="ProcurementCardDefault-cardCycleAmountLimit-parentBean" abstract="true" parent="ProcurementCardHolder-cardCycleAmountLimit-parentBean">
-	<property name="label" value="Single Transaction Limit" />
+	  <property name="label" value="Single Transaction Limit" />
     <property name="shortLabel" value="Single Trans Lim" />
   </bean> 
   
   <bean id="ProcurementCardDefault-cardCycleVolumeLimit" parent="ProcurementCardDefault-cardCycleVolumeLimit-parentBean" />
-	
-  <bean id="ProcurementCardDefault-cardCycleVolumeLimit-parentBean" abstract="true" parent="ProcurementCardHolder-cardCycleVolumeLimit"/>
-  
-  <bean id="ProcurementCardDefault-cardStatusCode" parent="ProcurementCardDefault-cardStatusCode-parentBean" />
-  
-  <bean id="ProcurementCardDefault-cardStatusCode-parentBean" abstract="true" parent="ProcurementCardHolder-cardStatusCode-parentBean">
-    <property name="required" value="false" />
+  <bean id="ProcurementCardDefault-cardCycleVolumeLimit-parentBean" abstract="true" parent="ProcurementCardHolder-cardCycleVolumeLimit">
+    <property name="label" value="Daily Number" />
+    <property name="shortLabel" value="Daily Number" />
   </bean>
-  
+
+  <bean id="ProcurementCardDefault-cardStatusCode" parent="ProcurementCardDefault-cardStatusCode-parentBean" />
+  <bean id="ProcurementCardDefault-cardStatusCode-parentBean" abstract="true" parent="ProcurementCardHolder-cardStatusCode-parentBean">
+    <property name="validationPattern" >
+      <bean parent="AlphaValidationPattern" p:exactLength="1" />
+    </property>
+    <property name="required" value="false" />
+    <property name="control" >
+      <bean parent="SelectControlDefinition"
+            p:valuesFinderClass="edu.arizona.kfs.fp.businessobject.options.ProcurementCardStatusValuesFinder"
+            p:includeKeyInLabel="true" />
+    </property>
+  </bean>
+
+  <bean id="ProcurementCardDefault-cardMonthlyNumber" parent="ProcurementCardDefault-cardMonthlyNumber-parentBean" />
+  <bean id="ProcurementCardDefault-cardMonthlyNumber-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardMonthlyNumber" />
+    <property name="label" value="Monthly Number" />
+    <property name="shortLabel" value="Monthly Num" />
+    <property name="validationPattern" >
+      <bean parent="NumericValidationPattern" />
+    </property>
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="16" />
+    </property>
+  </bean>
+
   <bean id="ProcurementCardDefault-cardNoteText" parent="ProcurementCardDefault-cardNoteText-parentBean" />
-  
   <bean id="ProcurementCardDefault-cardNoteText-parentBean" abstract="true" parent="ProcurementCardHolder-cardNoteText-parentBean">
     <property name="label" value="MCC Groups" />
     <property name="shortLabel" value="MCC Groups" />    
   </bean>
   
   <bean id="ProcurementCardDefault-chartOfAccountsCode" parent="ProcurementCardDefault-chartOfAccountsCode-parentBean" />
-     
   <bean id="ProcurementCardDefault-chartOfAccountsCode-parentBean" abstract="true" parent="Chart-chartOfAccountsCode">
     <property name="label" value="Default Chart" />
     <property name="shortLabel" value="Dflt Chrt" />
@@ -185,29 +221,24 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
   </bean>
   
   <bean id="ProcurementCardDefault-accountNumber" parent="ProcurementCardDefault-accountNumber-parentBean"/>
-  
   <bean id="ProcurementCardDefault-accountNumber-parentBean" abstract="true" parent="ProcurementCardHolder-accountNumber-parentBean" />  
 
   <bean id="ProcurementCardDefault-subAccountNumber" parent="ProcurementCardDefault-subAccountNumber-parentBean" />
-  
   <bean id="ProcurementCardDefault-subAccountNumber-parentBean" abstract="true" parent="ProcurementCardHolder-subAccountNumber-parentBean" />
     	
   <bean id="ProcurementCardDefault-financialObjectCode" parent="ProcurementCardDefault-financialObjectCode-parentBean" />
-  
   <bean id="ProcurementCardDefault-financialObjectCode-parentBean" abstract="true" parent="ObjectCode-financialObjectCode">
     <property name="label" value="Default Object Code" />
     <property name="required" value="false" />    
   </bean> 
   
   <bean id="ProcurementCardDefault-financialSubObjectCode" parent="ProcurementCardDefault-financialSubObjectCode-parentBean" />
-
   <bean id="ProcurementCardDefault-financialSubObjectCode-parentBean" abstract="true" parent="SubObjectCode-financialSubObjectCode">
     <property name="label" value="Default Sub-Object Code" />    
     <property name="required" value="false" />    
   </bean>
   
   <bean id="ProcurementCardDefault-projectCode" parent="ProcurementCardDefault-projectCode-parentBean" />
-  
   <bean id="ProcurementCardDefault-projectCode-parentBean" abstract="true" parent="ProjectCode-code">
     <property name="name" value="projectCode" />       
   </bean>
@@ -216,12 +247,113 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
   <bean id="ProcurementCardDefault-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
     <property name="name" value="active"/>
     <property name="shortLabel" value="Active"/>
+
   </bean>
-  
+
+  <bean id="ProcurementCardDefault-organizationCode" parent="ProcurementCardDefault-organizationCode-parentBean" />
+  <bean id="ProcurementCardDefault-organizationCode-parentBean" abstract="true" parent="Organization-organizationCode">
+    <property name="label" value="Default Org Code" />
+  </bean>
+
+  <bean id="ProcurementCardDefault-cardHolderSystemId" parent="ProcurementCardDefault-cardHolderSystemId-parentBean" />
+  <bean id="ProcurementCardDefault-cardHolderSystemId-parentBean" abstract="true" parent="PersonImpl-principalId">
+    <property name="name" value="cardHolderSystemId" />
+    <property name="label" value="Cardholders Net ID" />
+    <property name="shortLabel" value="CardHoldId" />
+    <property name="control" >
+      <bean parent="HiddenControlDefinition" />
+    </property>
+  </bean>
+
+  <bean id="ProcurementCardDefault-cardholderUser.principalName" parent="ProcurementCardDefault-cardholderUser.principalName-parentBean" />
+    <dd:boAttributeRef id="ProcurementCardDefault-cardholderUser.principalName-parentBean" parent="PersonImpl-principalName" abstract="true"
+                     attributeName="cardholderUser.principalName"
+                     label="Cardholders Net ID"
+                     shortLabel="NetID"
+                     required="true">
+      <dd:user universalIdAttribute="cardHolderSystemId" userObjectAttribute="cardholderUser" />
+    </dd:boAttributeRef>
+
+  <bean id="ProcurementCardDefault-cardholderUser.name" parent="ProcurementCardDefault-cardholderUser.name-parentBean" />
+  <bean id="ProcurementCardDefault-cardholderUser.name-parentBean" abstract="true" parent="PersonImpl-name">
+    <property name="name" value="cardholderUser.name" />
+    <property name="label" value="Cardholder Name" />
+    <property name="required" value="false" />
+  </bean>
+
+  <bean id="ProcurementCardDefault-reconcilerGroupId" parent="ProcurementCardDefault-reconcilerGroupId-parentBean" />
+  <bean id="ProcurementCardDefault-reconcilerGroupId-parentBean" parent="Group-id" abstract="true" >
+    <property name="name" value="reconcilerGroupId" />
+    <property name="label" value="Reconcilers Group ID" />
+    <property name="shortLabel" value="Rec Group" />
+    <property name="control" >
+      <bean parent="HiddenControlDefinition" />
+    </property>
+  </bean>
+
+  <bean id="ProcurementCardDefault-reconcilerGroup.id" parent="ProcurementCardDefault-reconcilerGroup.id-parentBean" />
+  <bean id="ProcurementCardDefault-reconcilerGroup.id-parentBean" parent="Group-id" abstract="true" >
+    <property name="name" value="reconcilerGroup.id" />
+    <property name="label" value="Reconcilers Group ID" />
+    <property name="shortLabel" value="Rec Group" />
+    <property name="control" >
+      <bean parent="HiddenControlDefinition" />
+    </property>
+  </bean>
+
+  <bean id="ProcurementCardDefault-reconcilerGroup.name" parent="ProcurementCardDefault-reconcilerGroup.name-parentBean" />
+  <bean id="ProcurementCardDefault-reconcilerGroup.name-parentBean" parent="Group-name" abstract="true">
+    <property name="name" value="reconcilerGroup.name" />
+    <property name="label" value="Reconcilers Group" />
+    <property name="required" value="true" />
+  </bean>
+
+  <bean id="ProcurementCardDefault-cardCancelCode" parent="ProcurementCardDefault-cardCancelCode-parentBean" />
+  <bean id="ProcurementCardDefault-cardCancelCode-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardCancelCode" />
+    <property name="forceUppercase" value="true" />
+    <property name="label" value="Card Cancel Status" />
+    <property name="shortLabel" value="Cancel Status" />
+    <property name="maxLength" value="1" />
+    <property name="validationPattern" >
+      <bean parent="AlphaValidationPattern"
+            p:exactLength="1" />
+    </property>
+    <property name="required" value="false" />
+    <property name="control" >
+      <bean parent="SelectControlDefinition"
+            p:valuesFinderClass="edu.arizona.kfs.fp.businessobject.options.ProcurementCardCancelCodesValuesFinder"
+            p:includeKeyInLabel="true" />
+    </property>
+  </bean>
+
+  <bean id="ProcurementCardDefault-cardOpenDate" parent="ProcurementCardDefault-cardOpenDate-parentBean" />
+  <bean id="ProcurementCardDefault-cardOpenDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
+    <property name="name" value="cardOpenDate" />
+    <property name="label" value="Open Date" />
+    <property name="shortLabel" value="Open Date" />
+    <property name="required" value="false" />
+  </bean>
+
+  <bean id="ProcurementCardDefault-cardCancelDate" parent="ProcurementCardDefault-cardCancelDate-parentBean" />
+  <bean id="ProcurementCardDefault-cardCancelDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
+    <property name="name" value="cardCancelDate" />
+    <property name="label" value="Close Date" />
+    <property name="shortLabel" value="Close Date" />
+    <property name="required" value="false" />
+  </bean>
+
+  <bean id="ProcurementCardDefault-cardExpireDate" parent="ProcurementCardDefault-cardExpireDate-parentBean" />
+  <bean id="ProcurementCardDefault-cardExpireDate-parentBean" abstract="true" parent="GenericAttributes-genericDate">
+    <property name="name" value="cardExpireDate" />
+    <property name="label" value="Card Expire Date" />
+    <property name="shortLabel" value="Expire Date" />
+    <property name="required" value="false" />
+  </bean>
+
   <!-- Business Object Inquiry Definition -->
 
   <bean id="ProcurementCardDefault-inquiryDefinition" parent="ProcurementCardDefault-inquiryDefinition-parentBean" />
-
   <bean id="ProcurementCardDefault-inquiryDefinition-parentBean" abstract="true" parent="InquiryDefinition">
     <property name="title" value="Procurement Cardholder Inquiry" />
     <property name="inquirySections" >
@@ -230,13 +362,13 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
           <property name="title" value="Bearer of the Card of Procurement" />
           <property name="numberOfColumns" value="1" />
           <property name="inquiryFields" >
-            <list> 
-            	<bean parent="FieldDefinition"
-            		p:attributeName="id"/>       
-               	<bean parent="FieldDefinition"
-                    p:attributeName="creditCardNumber" /> 
-              	<bean parent="FieldDefinition"
-                    p:attributeName="cardHolderName" />          
+            <list>
+              <bean parent="FieldDefinition"
+                    p:attributeName="id"/>
+              <bean parent="FieldDefinition"
+                    p:attributeName="creditCardNumber" />
+              <bean parent="FieldDefinition"
+                    p:attributeName="cardHolderName" />
             </list>
           </property>
         </bean>
@@ -244,52 +376,65 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
         	<property name="title" value="Card Holder Default Information" />
           	<property name="numberOfColumns" value="1" />
           	<property name="inquiryFields" >
-            	<list>
-            		<bean parent="FieldDefinition"
-                    		p:attributeName="cardHolderAlternateName" />   
-					<bean parent="FieldDefinition"
-		                    p:attributeName="cardHolderLine1Address" />
-					<bean parent="FieldDefinition"
-		                    p:attributeName="cardHolderLine2Address" />   
-					<bean parent="FieldDefinition"
-		                    p:attributeName="cardHolderCityName" />              
-					<bean parent="FieldDefinition"
-		                    p:attributeName="cardHolderStateCode" />  
-					<bean parent="FieldDefinition"
-		                    p:attributeName="cardHolderZipCode" />  
-					<bean parent="FieldDefinition"
-		                    p:attributeName="cardHolderWorkPhoneNumber" />   
-					<bean parent="FieldDefinition"
-		                    p:attributeName="cardLimit" />                   
-					<bean parent="FieldDefinition"              
-		                    p:attributeName="cardCycleAmountLimit" />              
-					<bean parent="FieldDefinition"
-		                    p:attributeName="cardCycleVolumeLimit" />             
-					<bean parent="FieldDefinition"
-		                    p:attributeName="cardStatusCode" />              
-					<bean parent="FieldDefinition"
-		                    p:attributeName="cardNoteText" />
-            	</list>
-            </property>  
+              <list>
+                <bean parent="FieldDefinition"
+                      p:attributeName="cardholderUser.principalName" />
+                <bean parent="FieldDefinition"
+                      p:attributeName="cardHolderAlternateName" />
+                <bean parent="FieldDefinition"
+                      p:attributeName="cardHolderLine1Address" />
+                <bean parent="FieldDefinition"
+                      p:attributeName="cardHolderLine2Address" />
+                <bean parent="FieldDefinition"
+                      p:attributeName="cardHolderCityName" />
+                <bean parent="FieldDefinition"
+                      p:attributeName="cardHolderStateCode" />
+                <bean parent="FieldDefinition"
+                      p:attributeName="cardHolderZipCode" />
+                <bean parent="FieldDefinition"
+                      p:attributeName="cardHolderWorkPhoneNumber" />
+                <bean parent="FieldDefinition"
+                      p:attributeName="cardLimit" />
+                <bean parent="FieldDefinition"
+                      p:attributeName="cardCycleAmountLimit" />
+                <bean parent="FieldDefinition"
+                      p:attributeName="cardCycleVolumeLimit" />
+                <bean parent="FieldDefinition"
+                      p:attributeName="cardStatusCode" />
+                <bean parent="FieldDefinition"
+                      p:attributeName="cardNoteText" />
+                <bean parent="FieldDefinition"
+                      p:attributeName="cardOpenDate" />
+                <bean parent="FieldDefinition"
+                      p:attributeName="cardExpireDate" />
+                <bean parent="FieldDefinition"
+                      p:attributeName="organizationCode" />
+                <bean parent="FieldDefinition"
+                      p:attributeName="reconcilerGroup.name" />
+              </list>
+            </property>
         </bean>
         <bean parent="InquirySectionDefinition">
-        	<property name="title" value="Accounting Default Information" />
-          	<property name="numberOfColumns" value="1" />
-          	<property name="inquiryFields" >
-            	<list>
-            		<bean parent="FieldDefinition"
-						p:attributeName="chartOfAccountsCode" />
-					<bean parent="FieldDefinition"
-						p:attributeName="accountNumber" />
-					<bean parent="FieldDefinition"
-						p:attributeName="subAccountNumber" />
-					<bean parent="FieldDefinition"
-						p:attributeName="financialObjectCode" />
-					<bean parent="FieldDefinition"
-						p:attributeName="financialSubObjectCode" />
-					<bean parent="FieldDefinition"
- 						p:attributeName="projectCode" />                                           
-					<bean parent="FieldDefinition" p:attributeName="active" />
+          <property name="title" value="Accounting Default Information" />
+          <property name="numberOfColumns" value="1" />
+          <property name="inquiryFields" >
+            <list>
+              <bean parent="FieldDefinition"
+                    p:attributeName="chartOfAccountsCode" />
+              <bean parent="FieldDefinition"
+                    p:attributeName="accountNumber" />
+              <bean parent="FieldDefinition"
+                    p:attributeName="subAccountNumber" />
+              <bean parent="FieldDefinition"
+                    p:attributeName="financialObjectCode" />
+              <bean parent="FieldDefinition"
+                    p:attributeName="financialSubObjectCode" />
+              <bean parent="FieldDefinition"
+                    p:attributeName="projectCode" />
+              <bean parent="FieldDefinition"
+                    p:attributeName="active" />
+              <bean parent="FieldDefinition"
+                    p:attributeName="organizationCode" />
             	</list>
             </property>
         </bean>
@@ -300,10 +445,8 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
   <!-- Business Object Lookup Definition -->
 
   <bean id="ProcurementCardDefault-lookupDefinition" parent="ProcurementCardDefault-lookupDefinition-parentBean" />
-  
   <bean id="ProcurementCardDefault-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
     <property name="title" value="Procurement Cardholder Lookup" />
-    <!-- property name="instructions" value="Lookup a Procurement Cardholder" / -->
     <property name="defaultSort" >
       <bean parent="SortDefinition">
         <property name="attributeNames" >
@@ -317,43 +460,60 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
       <list>
       	<bean parent="FieldDefinition"
               p:attributeName="id"/>
-        <bean parent="FieldDefinition"        
+        <bean parent="FieldDefinition"
+              p:attributeName="cardholderUser.principalName" p:forceLookup="true"/>
+        <bean parent="FieldDefinition"
               p:attributeName="cardHolderName" />
         <bean parent="FieldDefinition"
-              p:attributeName="cardHolderAlternateName" /> 
+              p:attributeName="cardHolderAlternateName" />
         <bean parent="FieldDefinition"
-              p:attributeName="chartOfAccountsCode" />
+              p:attributeName="organizationCode" />
         <bean parent="FieldDefinition"
-              p:attributeName="accountNumber" /> 
+              p:attributeName="chartOfAccountsCode" p:forceLookup="true" />
+        <bean parent="FieldDefinition"
+              p:attributeName="accountNumber" p:forceLookup="true"/>
         <bean parent="FieldDefinition"
               p:attributeName="cardStatusCode" />
-        <bean parent="FieldDefinition" p:attributeName="active" />           
+        <bean parent="FieldDefinition"
+              p:attributeName="cardOpenDate" />
+        <bean parent="FieldDefinition"
+              p:attributeName="reconcilerGroup.name" p:forceLookup="true"/>
+        <bean parent="FieldDefinition"
+              p:attributeName="active" />
       </list>
     </property>
     <property name="resultFields" >
       <list>
-      	<bean parent="FieldDefinition"
+        <bean parent="FieldDefinition"
               p:attributeName="id"/>
         <bean parent="FieldDefinition"
-              p:attributeName="creditCardNumber"  />      
+              p:attributeName="creditCardNumber"  />
         <bean parent="FieldDefinition"
-              p:attributeName="cardStatusCode" /> 
-        <bean parent="FieldDefinition"        
+              p:attributeName="cardStatusCode" />
+        <bean parent="FieldDefinition"
               p:attributeName="cardHolderName" />
         <bean parent="FieldDefinition"
-              p:attributeName="cardHolderAlternateName" /> 
+              p:attributeName="cardHolderAlternateName" />
         <bean parent="FieldDefinition"
-              p:attributeName="cardCycleVolumeLimit" />   
-        <bean parent="FieldDefinition"              
-              p:attributeName="cardCycleAmountLimit" />   
+              p:attributeName="organizationCode" />
         <bean parent="FieldDefinition"
-              p:attributeName="cardLimit" />             
+              p:attributeName="cardCycleVolumeLimit" />
+        <bean parent="FieldDefinition"
+              p:attributeName="cardMonthlyNumber" />
+        <bean parent="FieldDefinition"
+              p:attributeName="cardCycleAmountLimit" />
+        <bean parent="FieldDefinition"
+              p:attributeName="cardLimit" />
+        <bean parent="FieldDefinition"
+              p:attributeName="reconcilerGroup.name" />
         <bean parent="FieldDefinition"
               p:attributeName="chartOfAccountsCode" />
         <bean parent="FieldDefinition"
               p:attributeName="accountNumber" />
         <bean parent="FieldDefinition"
-        	  p:attributeName="active" />                          
+              p:attributeName="cardOpenDate" />
+        <bean parent="FieldDefinition"
+              p:attributeName="active" />
       </list>
     </property>
   </bean>
