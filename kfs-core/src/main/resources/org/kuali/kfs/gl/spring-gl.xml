@@ -1308,7 +1308,6 @@
         </property>
         <property name="dependencies">
             <map>
-                <entry key="autoClosePurchaseOrdersJob" value="softDependency"/>
                 <entry key="autoCloseRecurringOrdersJob" value="softDependency"/>
                 <entry key="processPdpCancelsAndPaidJob" value="hardDependency"/>
                 <entry key="assetDepreciationBatchJob" value="hardDependency"/>
@@ -1466,6 +1465,7 @@
             <map>
                 <entry key="posterJob" value="hardDependency"/>
                 <entry key="detectDocumentsMissingPLEsJob" value="hardDependency"/>
+                <entry key="autoClosePurchaseOrdersJob" value="softDependency"/>
             </map>
         </property>
     </bean>
