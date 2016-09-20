@@ -35,6 +35,17 @@
         </insert>
     </changeSet>
 
+    <changeSet author="KFS601" id="FINP-696_ADD_MISSING_NMSPC" context="unit">
+        <insert tableName="krcr_nmspc_t">
+            <column name="NMSPC_CD"><![CDATA[KR-LOC]]></column>
+            <column name="OBJ_ID"><![CDATA[0738DD6D96C83105E0506E0AC31D4281]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="NM"><![CDATA[Kuali Location]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+            <column name="APPL_ID"><![CDATA[RICE]]></column>
+        </insert>
+    </changeSet>
+
     <changeSet author="KFS601" id="FINI-2191_ADD_MISSING_LOCATION_COMPONENT" context="bootstrap,demo,unit">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">select count(*) from krcr_cmpnt_t where nmspc_cd = 'KR-LOC' and cmpnt_cd = 'All'</sqlCheck>
