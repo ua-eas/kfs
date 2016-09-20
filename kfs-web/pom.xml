@@ -193,6 +193,15 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>npm install auditjs</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install auditjs</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>webpack build</id>
                         <goals>
                             <goal>webpack</goal>
@@ -208,6 +217,30 @@
                     <execution>
                         <goals>
                             <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.5.0</version>
+                <executions>
+                    <execution>
+                        <id>audit</id>
+                        <configuration>
+                            <executable>auditjs</executable>
+                            <arguments>
+                                <argument>-p</argument>
+                                <argument>src/main/webapp/package.json</argument>
+                            </arguments>
+                        <!--<successCodes>-->
+                            <!--<successCode>0</successCode>-->
+                            <!--<successCode>1</successCode>-->
+                        <!--</successCodes>-->
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
                         </goals>
                     </execution>
                 </executions>
