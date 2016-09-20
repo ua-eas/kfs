@@ -39,6 +39,7 @@ public class IndirectCostRecoveryAccountDistributionMetadata {
     private String indirectCostRecoveryFinCoaCode;
     private String indirectCostRecoveryAccountNumber;
     private BigDecimal accountLinePercent;
+    private boolean replacedIcrAccount;
 
     public IndirectCostRecoveryAccountDistributionMetadata(IndirectCostRecoveryAccount icrAccount) {
         indirectCostRecoveryFinCoaCode = icrAccount.getIndirectCostRecoveryFinCoaCode();
@@ -62,6 +63,7 @@ public class IndirectCostRecoveryAccountDistributionMetadata {
                     LOG.error("IndirectCostRecoveryAccountDistributionMetadata: passed in icrAccount: " + icrAccount.getAccountNumber() + " and found replacementICRA:" + replacementICRA.getAccountNumber() + " but it is closed, throw an error");
                     throw new UnsupportedOperationException(buildErrorText(icrAccount));
                 } else {
+                    setReplacedIcrAccount(true);
                     setIndirectCostRecoveryFinCoaCode(replacementICRA.getChartOfAccountsCode());
                     setIndirectCostRecoveryAccountNumber(replacementICRA.getAccountNumber());
                 }
@@ -127,4 +129,11 @@ public class IndirectCostRecoveryAccountDistributionMetadata {
         this.configurationService = configurationService;
     }
 
+    public boolean isReplacedIcrAccount() {
+        return replacedIcrAccount;
+    }
+
+    public void setReplacedIcrAccount(boolean replacedIcrAccount) {
+        this.replacedIcrAccount = replacedIcrAccount;
+    }
 }
