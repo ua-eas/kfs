@@ -103,7 +103,7 @@ public class KFSConstants {
     public static final String RICE_EXTERNALIZABLE_IMAGES_URL_KEY = KRADConstants.EXTERNALIZABLE_IMAGES_URL_KEY;
     public static final String RICE_SERVER_URL_KEY = "rice.server.url";
     public static final String KC_APPLICATION_URL_KEY = "kc.application.url";
-    public static final String REMOTE_VIEW_URL_KEY = "remote.view.url";
+    public static final String REPORTS_URL = "reports.url";
     public static final String REPORTS_DIRECTORY_KEY = "reports.directory";
     public static final String WORKFLOW_URL_KEY = Config.KEW_URL;
     public static final String PROD_ENVIRONMENT_CODE_KEY = Config.PROD_ENVIRONMENT_CODE;

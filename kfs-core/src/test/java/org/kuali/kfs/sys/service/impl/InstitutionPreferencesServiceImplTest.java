@@ -1164,8 +1164,6 @@ public class InstitutionPreferencesServiceImplTest {
                 return "http://tst.kfs.kuali.org/kfs-tst/kew";
             } else if (StringUtils.equals(s, KFSConstants.RICE_SERVER_URL_KEY)) {
                 return "http://tst.rice.kuali.org/kr-tst";
-            } else if (StringUtils.equals(s, KFSConstants.REMOTE_VIEW_URL_KEY)) {
-                return "http://tst.rice.kuali.org/kr-tst/remote";
             }
             return null;
         }

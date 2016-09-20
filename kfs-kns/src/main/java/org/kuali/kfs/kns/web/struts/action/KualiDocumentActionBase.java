@@ -1647,8 +1647,8 @@ public class KualiDocumentActionBase extends KualiAction {
         final ActionForward dest;
         if (form.isReturnToActionList()) {
             String workflowBase = getKualiConfigurationService().getPropertyValueAsString(KRADConstants.WORKFLOW_URL_KEY);
-            String remoteViewUrl = getKualiConfigurationService().getPropertyValueAsString(KRADConstants.REMOTE_VIEW_URL_KEY);
-            String actionListUrl = remoteViewUrl + "?url=" + URLEncoder.encode(workflowBase + "/ActionList.do?" + KRADConstants.TARGET_SPEC);
+            String applicationUrl = getKualiConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY);
+            String actionListUrl = applicationUrl + "/remote?url=" + URLEncoder.encode(workflowBase + "/ActionList.do?" + KRADConstants.TARGET_SPEC);
 
             dest = new ActionForward(actionListUrl, true);
         } else if (StringUtils.isNotBlank(form.getBackLocation())) {
