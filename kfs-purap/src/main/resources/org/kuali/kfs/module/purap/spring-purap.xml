@@ -517,6 +517,11 @@
                 <ref bean="autoClosePurchaseOrdersStep"/>
             </list>
         </property>
+        <property name="dependencies">
+            <map>
+                <entry key="clearPendingEntriesJob" value="softDependency"/>
+            </map>
+        </property>
     </bean>
 
     <bean id="autoCloseRecurringOrdersJob" parent="scheduledJobDescriptor">
@@ -524,6 +529,11 @@
             <list>
                 <ref bean="autoCloseRecurringOrdersStep"/>
             </list>
+        </property>
+        <property name="dependencies">
+            <map>
+                <entry key="clearPendingEntriesJob" value="softDependency"/>
+            </map>
         </property>
     </bean>
 
