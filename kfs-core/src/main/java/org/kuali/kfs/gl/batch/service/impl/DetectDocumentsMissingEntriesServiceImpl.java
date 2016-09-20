@@ -43,10 +43,9 @@ import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.businessobject.DocumentHeaderData;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.mail.MailMessage;
+import org.springframework.transaction.annotation.Transactional;
 
-/**
- * 
- */
+@Transactional
 public class DetectDocumentsMissingEntriesServiceImpl implements DetectDocumentsMissingEntriesService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger
             .getLogger(DetectDocumentsMissingEntriesServiceImpl.class);
