@@ -63,6 +63,7 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.Message;
+import org.kuali.kfs.sys.MessageBuilder;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -686,7 +687,6 @@ public class PosterServiceImpl implements PosterService {
      * Generate a transfer transaction and an offset transaction
      *
      * @param et                         an expenditure transaction
-     * @param icrEntry                   the indirect cost recovery entry
      * @param generatedTransactionAmount the amount of the transaction
      * @param runDate                    the transaction date for the newly created origin entry
      * @param group                      the group to save the origin entry to
@@ -840,7 +840,6 @@ public class PosterServiceImpl implements PosterService {
      * set up for ICR
      *
      * @param et
-     * @param reportErrors
      * @return null if the ET does not have a SubAccount properly set up for ICR
      */
     protected IndirectCostRecoveryGenerationMetadata retrieveSubAccountIndirectCostRecoveryMetadata(ExpenditureTransaction et) {
@@ -907,7 +906,11 @@ public class PosterServiceImpl implements PosterService {
 
                 List<IndirectCostRecoveryAccountDistributionMetadata> icrAccountList = metadata.getAccountLists();
                 for (A21IndirectCostRecoveryAccount a21 : activeICRAccounts) {
-                    icrAccountList.add(new IndirectCostRecoveryAccountDistributionMetadata(a21));
+                    IndirectCostRecoveryAccountDistributionMetadata indirectCostRecoveryAccountDistributionMetadata = new IndirectCostRecoveryAccountDistributionMetadata(a21);
+                    if (indirectCostRecoveryAccountDistributionMetadata.isReplacedIcrAccount()) {
+                        reportWriterService.writeError(et, MessageBuilder.buildMessage(KFSKeyConstants.MSG_ACCOUNT_CLOSED_TO, indirectCostRecoveryAccountDistributionMetadata.getIndirectCostRecoveryFinCoaCode() + indirectCostRecoveryAccountDistributionMetadata.getIndirectCostRecoveryAccountNumber(), Message.TYPE_WARNING));
+                    }
+                    icrAccountList.add(indirectCostRecoveryAccountDistributionMetadata);
                 }
                 return metadata;
             }
@@ -924,7 +927,11 @@ public class PosterServiceImpl implements PosterService {
 
         List<IndirectCostRecoveryAccountDistributionMetadata> icrAccountList = metadata.getAccountLists();
         for (IndirectCostRecoveryAccount icr : account.getActiveIndirectCostRecoveryAccounts()) {
-            icrAccountList.add(new IndirectCostRecoveryAccountDistributionMetadata(icr));
+            IndirectCostRecoveryAccountDistributionMetadata indirectCostRecoveryAccountDistributionMetadata = new IndirectCostRecoveryAccountDistributionMetadata(icr);
+            if (indirectCostRecoveryAccountDistributionMetadata.isReplacedIcrAccount()) {
+                reportWriterService.writeError(et, MessageBuilder.buildMessage(KFSKeyConstants.MSG_ACCOUNT_CLOSED_TO, indirectCostRecoveryAccountDistributionMetadata.getIndirectCostRecoveryFinCoaCode() + indirectCostRecoveryAccountDistributionMetadata.getIndirectCostRecoveryAccountNumber(), Message.TYPE_WARNING));
+            }
+            icrAccountList.add(indirectCostRecoveryAccountDistributionMetadata);
         }
 
         return metadata;
