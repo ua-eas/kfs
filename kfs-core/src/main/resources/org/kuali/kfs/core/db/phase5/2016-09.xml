@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns='http://www.liquibase.org/xml/ns/dbchangelog'
+                   xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+                   xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
+
+    <changeSet author="KFS601" id="FINP-684_DETECT_MISSING_ENTRIES_JOB" context="bootstrap,demo,unit">
+        <insert tableName="krcr_parm_t">
+            <column name="NMSPC_CD"><![CDATA[KFS-GL]]></column>
+            <column name="CMPNT_CD"><![CDATA[DetectDocumentsMissingEntriesStep]]></column>
+            <column name="PARM_NM"><![CDATA[NOTIFICATION_EMAIL_ADDRESSES]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-684A]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="VAL"><![CDATA[]]></column>
+            <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+            <column name="PARM_DESC_TXT"><![CDATA[The e-mail address to send notifications to when documents missing ledger entries are found.  If left blank, the job will simply log the document information.]]></column>
+            <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+            <column name="APPL_ID"><![CDATA[KFS]]></column>
+        </insert>
+        <insert tableName="krcr_parm_t">
+            <column name="NMSPC_CD"><![CDATA[KFS-GL]]></column>
+            <column name="CMPNT_CD"><![CDATA[DetectDocumentsMissingEntriesStep]]></column>
+            <column name="PARM_NM"><![CDATA[ENTRY_GENERATING_DOCUMENT_TYPES]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-684B]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="VAL"><![CDATA[CTRL;CINV;LCR;CRM;INV;INVW;APP;MPAY;AT;AD;AV;BA;CR;CCR;DV;DI;YEBA;YEDI;YEGE;YETF;GEC;ICA;IB;IAA;JV;ND;PE;PCDO;SB;TF;CM;PO;POSP;POV;ENT;RELO;TA;TEM;TAA;TAC;TR;BT;LLJV;YEBT;YEST;ST]]></column>
+            <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+            <column name="PARM_DESC_TXT"><![CDATA[Document types, which - once documents of these types achieve "processed" workflow status - are expected to generate general ledger entries.]]></column>
+            <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+            <column name="APPL_ID"><![CDATA[KFS]]></column>
+        </insert>
+        <insert tableName="krcr_parm_t">
+            <column name="NMSPC_CD"><![CDATA[KFS-GL]]></column>
+            <column name="CMPNT_CD"><![CDATA[DetectDocumentsMissingEntriesStep]]></column>
+            <column name="PARM_NM"><![CDATA[LOOK_BACK_DAYS]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-684C]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="VAL"><![CDATA[7]]></column>
+            <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+            <column name="PARM_DESC_TXT"><![CDATA[Number of days back to look for documents that have not generated ledger entries.]]></column>
+            <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+            <column name="APPL_ID"><![CDATA[KFS]]></column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

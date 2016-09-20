@@ -18,13 +18,21 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
+import java.sql.Timestamp;
+
 public class DocumentHeaderData {
     private String documentNumber;
     private String workflowDocumentTypeName;
+    private Timestamp processedDate;
 
     public DocumentHeaderData(String documentNumber, String workflowDocumentTypeName) {
+        this(documentNumber, workflowDocumentTypeName, null);
+    }
+
+    public DocumentHeaderData(String documentNumber, String workflowDocumentTypeName, Timestamp processedDate) {
         this.documentNumber = documentNumber;
         this.workflowDocumentTypeName = workflowDocumentTypeName;
+        this.processedDate = processedDate;
     }
 
     public String getDocumentNumber() {
@@ -33,5 +41,9 @@ public class DocumentHeaderData {
 
     public String getWorkflowDocumentTypeName() {
         return workflowDocumentTypeName;
+    }
+
+    public Timestamp getProcessedDate() {
+        return processedDate;
     }
 }
