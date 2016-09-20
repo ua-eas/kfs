@@ -1464,8 +1464,6 @@
             <map>
                 <entry key="posterJob" value="hardDependency"/>
                 <entry key="detectDocumentsMissingPLEsJob" value="hardDependency"/>
-                <entry key="autoClosePurchaseOrdersJob" value="softDependency"/>
-                <entry key="autoCloseRecurringOrdersJob" value="softDependency"/>
             </map>
         </property>
     </bean>
