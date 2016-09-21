@@ -61,6 +61,7 @@
                 <value>organizationReversionCurrentYearAccountJob</value>
                 <value>manualPurgeJob</value>
                 <value>posterBalancingHistorySyncJob</value>
+                <value>detectDocumentsMissingEntriesJob</value>
             </list>
         </property>
         <property name="batchFileDirectories">
@@ -2887,6 +2888,36 @@
     <bean id="glcpPreScrubberReportWriterService" parent="glcpPreScrubberReportWriterService-parentBean"/>
     <bean id="glcpPreScrubberReportWriterService-parentBean" abstract="true" parent="preScrubberReportWriterService">
         <property name="fileNamePrefix" value="glcp-scrubberReports-02-preScrubber"/>
+    </bean>
+    
+    <bean id="detectDocumentsMissingEntriesDao" parent="detectDocumentsMissingEntriesDao-parentBean"/>
+    <bean id="detectDocumentsMissingEntriesDao-parentBean" abstract="true" parent="platformAwareDaoJdbc" class="org.kuali.kfs.gl.batch.dataaccess.impl.DetectDocumentsMissingEntriesDaoJdbc"/>
+
+    <bean id="detectDocumentsMissingEntriesService" parent="detectDocumentsMissingEntriesService-parentBean"/>
+    <bean id="detectDocumentsMissingEntriesService-parentBean" abstract="true" class="org.kuali.kfs.gl.batch.service.impl.DetectDocumentsMissingEntriesServiceImpl">
+        <property name="parameterService" ref="parameterService"/>
+        <property name="detectDocumentsMissingEntriesDao" ref="detectDocumentsMissingEntriesDao"/>
+        <property name="mailService" ref="mailService"/>
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <bean id="detectDocumentsMissingEntriesStep" parent="detectDocumentsMissingEntriesStep-parentBean"/>
+    <bean id="detectDocumentsMissingEntriesStep-parentBean" abstract="true" parent="step" class="org.kuali.kfs.gl.batch.DetectDocumentsMissingEntriesStep">
+        <property name="detectDocumentsMissingEntriesService" ref="detectDocumentsMissingEntriesService"/>
+    </bean>
+
+    <bean id="detectDocumentsMissingEntriesJob" parent="detectDocumentsMissingEntriesJob-parentBean"/>
+    <bean id="detectDocumentsMissingEntriesJob-parentBean" abstract="true" parent="scheduledJobDescriptor">
+        <property name="steps">
+            <list>
+                <ref bean="detectDocumentsMissingEntriesStep"/>
+            </list>
+        </property>
+        <property name="dependencies">
+            <map>
+                <entry key="nightlyOutJob" value="hardDependency"/>
+            </map>
+        </property>
     </bean>
 
     <bean id="generalLedgerLookupableHelperService-parentBean" abstract="true" class="org.kuali.kfs.gl.businessobject.lookup.AbstractGeneralLedgerLookupableHelperServiceImpl">

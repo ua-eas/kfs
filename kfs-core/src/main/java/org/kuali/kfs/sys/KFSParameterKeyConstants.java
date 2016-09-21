@@ -102,4 +102,10 @@ public class KFSParameterKeyConstants {
         public final static String LEDGER_ENTRY_GENERATING_DOCUMENT_TYPES = "LEDGER_ENTRY_GENERATING_DOCUMENT_TYPES";
         public final static String MISSING_PLES_NOTIFICATION_EMAIL_ADDRESSES = "MISSING_PLES_NOTIFICATION_EMAIL_ADDRESSES";
     }
+
+    public static class DetectDocumentsMissingEntriesConstants {
+        public final static String ENTRY_GENERATING_DOCUMENT_TYPES = "ENTRY_GENERATING_DOCUMENT_TYPES";
+        public final static String NOTIFICATION_EMAIL_ADDRESSES = "NOTIFICATION_EMAIL_ADDRESSES";
+        public final static String LOOK_BACK_DAYS = "LOOK_BACK_DAYS";
+    }
 }
