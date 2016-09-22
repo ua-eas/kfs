@@ -59,4 +59,16 @@
             <column name="APPL_ID"><![CDATA[KFS]]></column>
         </insert>
     </changeSet>
+
+    <changeSet author="KFS700" id="FINI-2819-REMOVE_UNNEEDED_PARAMETERS" context="bootstrap,demo,unit">
+        <delete tableName="krcr_parm_t">
+            <where>nmspc_cd = 'KFS-SYS' and cmpnt_cd = 'Batch' and parm_nm = 'MISSING_PLES_NOTIFICATION_EMAIL_ADDRESSES'</where>
+        </delete>
+        <delete tableName="krcr_parm_t">
+            <where>nmspc_cd = 'KFS-GL' and cmpnt_cd = 'Batch' and parm_nm = 'LEDGER_ENTRY_GENERATING_DOCUMENT_TYPES'</where>
+        </delete>
+        <delete tableName="krcr_parm_t">
+            <where>nmspc_cd = 'KFS-LD' and cmpnt_cd = 'Batch' and parm_nm = 'LEDGER_ENTRY_GENERATING_DOCUMENT_TYPES'</where>
+        </delete>
+    </changeSet>
 </databaseChangeLog>

@@ -1040,7 +1040,6 @@
         <property name="dependencies">
             <map>
                 <entry key="laborFeedJob" value="hardDependency"/>
-                <entry key="detectDocumentsMissingPLEsJob" value="hardDependency"/>
             </map>
         </property>
     </bean>
@@ -1988,14 +1987,4 @@
         <property name="nightlyOutFileName" value="ld_labentry_kfs"/>
         <property name="backupFileName" value="ld_ldbackup"/>
     </bean>
-
-    <bean id="detectDocumentsMissingLaborPendingEntriesDao" parent="detectDocumentsMissingLaborPendingEntriesDao-parentBean"/>
-    <bean id="detectDocumentsMissingLaborPendingEntriesDao-parentBean" abstract="true" parent="platformAwareDaoJdbc" class="org.kuali.kfs.module.ld.batch.dataaccess.impl.DetectDocumentsMissingLaborLedgerPendingEntriesDaoJdbc"/>
-
-    <bean id="detectDocumentsMissingLaborPendingEntriesService" parent="detectDocumentsMissingLaborPendingEntriesService-parentBean"/>
-    <bean id="detectDocumentsMissingLaborPendingEntriesService-parentBean" abstract="true" class="org.kuali.kfs.module.ld.batch.service.impl.DetectDocumentsMissingLaborPendingEntriesServiceImpl">
-        <property name="parameterService" ref="parameterService"/>
-        <property name="detectDocumentsMissingPendingEntriesDao" ref="detectDocumentsMissingLaborPendingEntriesDao"/>
-    </bean>
-
 </beans>

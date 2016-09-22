@@ -25,14 +25,12 @@ import org.kuali.kfs.integration.UnimplementedKfsModuleServiceImpl;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.AccountingLineOverride;
-import org.kuali.kfs.sys.businessobject.DocumentHeaderData;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -180,12 +178,6 @@ public class LaborModuleServiceNoOp extends UnimplementedKfsModuleServiceImpl im
     @Override
     @Deprecated
     public AccountingLineOverride determineNeededOverrides(AccountingLine line) {
-        LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
-        return null;
-    }
-
-    @Override
-    public List<DocumentHeaderData> discoverLaborLedgerDocumentsWithoutPendingEntries(Date earliestProcessingDate) {
         LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return null;
     }
