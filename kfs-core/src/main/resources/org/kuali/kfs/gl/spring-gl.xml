@@ -1464,7 +1464,6 @@
         <property name="dependencies">
             <map>
                 <entry key="posterJob" value="hardDependency"/>
-                <entry key="detectDocumentsMissingPLEsJob" value="hardDependency"/>
             </map>
         </property>
     </bean>
@@ -2889,7 +2888,7 @@
     <bean id="glcpPreScrubberReportWriterService-parentBean" abstract="true" parent="preScrubberReportWriterService">
         <property name="fileNamePrefix" value="glcp-scrubberReports-02-preScrubber"/>
     </bean>
-    
+
     <bean id="detectDocumentsMissingEntriesDao" parent="detectDocumentsMissingEntriesDao-parentBean"/>
     <bean id="detectDocumentsMissingEntriesDao-parentBean" abstract="true" parent="platformAwareDaoJdbc" class="org.kuali.kfs.gl.batch.dataaccess.impl.DetectDocumentsMissingEntriesDaoJdbc"/>
 

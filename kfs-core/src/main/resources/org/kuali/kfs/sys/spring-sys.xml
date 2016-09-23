@@ -71,7 +71,6 @@
                 <value>modulesLockJob</value>
                 <value>modulesUnlockJob</value>
                 <value>populateFinancialSystemDocumentHeadersFromKewJob</value>
-                <value>detectDocumentsMissingPLEsJob</value>
             </list>
         </property>
         <property name="fiscalYearMakers">
