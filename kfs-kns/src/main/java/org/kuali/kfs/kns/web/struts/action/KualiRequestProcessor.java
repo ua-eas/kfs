@@ -519,6 +519,10 @@ public class KualiRequestProcessor extends RequestProcessor {
                         ActionForward actionForward = null;
                         try {
                             actionForward = action.execute(mapping, form, request, response);
+                            if (GlobalVariables.getMessageMap().containsMessageKey(RiceKeyConstants.ERROR_OPTIMISTIC_LOCK)) {
+                                // always rollback if we have an OLE, KualiDocumentActionBase was attempting to swallow the exception
+                                status.setRollbackOnly();
+                            }
                         } catch (Exception e) {
                             if (e.getMessage() != null && e.getMessage().equals(KRADConstants.KRAD_INITIATED_DOCUMENT_VIEW_NAME)) {
                                 ConfigurationService kualiConfigurationService = KRADServiceLocator.getKualiConfigurationService();
