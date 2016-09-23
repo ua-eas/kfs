@@ -1058,12 +1058,6 @@ public class KFSKeyConstants {
 
     public static final String MESSAGE_CORRECTION_DOCUMENT_HAS_BEEN_CREATED = "message.correction.document.has.been.created";
 
-    public static final class DetectMissingPendingEntriesMessages {
-        public static final String FAILURE_HEADER = "message.detectDocumentsMissingPLEsJob.failure.header";
-        public static final String FAILURE_ENTRY = "message.detectDocumentsMissingPLEsJob.failure.entry";
-        public static final String EMAIL_SUBJECT = "message.detectDocumentsMissingPLEsJob.failure.email.subject";
-    }
-    
     public static final class DetectMissingEntriesMessages {
         public static final String FAILURE_HEADER = "message.detectDocumentsMissingGLEsJob.failure.header";
         public static final String FAILURE_ENTRY = "message.detectDocumentsMissingGLEsJob.failure.entry";

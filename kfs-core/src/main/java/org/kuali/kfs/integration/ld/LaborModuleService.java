@@ -215,6 +215,4 @@ public interface LaborModuleService {
      */
     @Deprecated
     public AccountingLineOverride determineNeededOverrides(AccountingLine line);
-
-    public List<DocumentHeaderData> discoverLaborLedgerDocumentsWithoutPendingEntries(java.util.Date earliestProcessingDate);
 }
