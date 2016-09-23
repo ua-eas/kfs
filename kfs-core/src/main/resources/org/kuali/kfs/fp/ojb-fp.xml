@@ -1798,11 +1798,12 @@
     </reference-descriptor>
 </class-descriptor>
 
-<class-descriptor class="org.kuali.kfs.fp.businessobject.ProcurementCardDefault" table="FP_PRCRMNT_CARD_DFLT_T">
-	<field-descriptor name="id" column="ID" jdbc-type="BIGINT" primarykey="true" index="true"/>
+<class-descriptor class="edu.arizona.kfs.fp.businessobject.ProcurementCardDefault" table="FP_PRCRMNT_CARD_DFLT_T">
+    <field-descriptor name="id" column="ID" jdbc-type="BIGINT" primarykey="true" index="true"/>
     <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
     <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
     <field-descriptor name="creditCardNumber" column="CC_NBR" jdbc-type="VARCHAR" index="true"/>
+    <field-descriptor name="creditCardLastFour" column="CC_LAST_FOUR" jdbc-type="VARCHAR" index="true"/>
     <field-descriptor name="cardHolderSystemId" column="CARD_HLDR_NET_ID" jdbc-type="VARCHAR"/>
     <field-descriptor name="cardHolderName" column="CARD_HLDR_NM" jdbc-type="VARCHAR" />
     <field-descriptor name="cardHolderAlternateName" column="CARD_HLDR_ALTRNT_NM" jdbc-type="VARCHAR" />
@@ -1814,7 +1815,7 @@
     <field-descriptor name="cardHolderWorkPhoneNumber" column="CARD_HLDR_WRK_PHN_NBR" jdbc-type="VARCHAR" />
     <field-descriptor name="cardLimit" column="CARD_LMT" jdbc-type="DECIMAL" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion" />
     <field-descriptor name="cardCycleAmountLimit" column="CARD_CYCLE_AMT_LMT" jdbc-type="DECIMAL" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion" />
-    <field-descriptor name="cardCycleVolumeLimit" column="CARD_CYCLE_VOL_LMT" jdbc-type="DECIMAL" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion"/>
+    <field-descriptor name="cardCycleVolumeLimit" column="CARD_CYCLE_VOL_LMT" jdbc-type="INTEGER" />
     <field-descriptor name="cardMonthlyNumber" column="CARD_MONTHLY_NUMBER" jdbc-type="INTEGER" />
     <field-descriptor name="cardStatusCode" column="CARD_STAT_CD" jdbc-type="VARCHAR" />
     <field-descriptor name="cardCancelCode" column="CARD_CANCEL_CD" jdbc-type="VARCHAR" />

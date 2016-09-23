@@ -28,7 +28,7 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
   <bean id="ProcurementCardDefault" parent="ProcurementCardDefault-parentBean" />
 
   <bean id="ProcurementCardDefault-parentBean" abstract="true" parent="BusinessObjectEntry">
-    <property name="businessObjectClass" value="org.kuali.kfs.fp.businessobject.ProcurementCardDefault" />
+    <property name="businessObjectClass" value="edu.arizona.kfs.fp.businessobject.ProcurementCardDefault" />
     <property name="inquiryDefinition" >
       <ref bean="ProcurementCardDefault-inquiryDefinition" />
     </property>
@@ -41,6 +41,7 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
       <list>
         <ref bean="ProcurementCardDefault-id"/>
         <ref bean="ProcurementCardDefault-creditCardNumber" />
+        <ref bean="ProcurementCardDefault-creditCardLastFour" />
         <ref bean="ProcurementCardDefault-cardHolderName" />
         <ref bean="ProcurementCardDefault-cardHolderAlternateName" />        
         <ref bean="ProcurementCardDefault-cardHolderLine1Address" />
@@ -105,26 +106,42 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
   <bean id="ProcurementCardDefault-creditCardNumber" parent="ProcurementCardDefault-creditCardNumber-parentBean" />
   <bean id="ProcurementCardDefault-creditCardNumber-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="creditCardNumber" />
-    <property name="label" value="Procurement Card Number Last Four" />
+    <property name="label" value="Procurement Card Number" />
     <property name="shortLabel" value="Number" />
     <property name="maxLength" value="16" />
     <property name="validationPattern" >
     <bean parent="AlphaNumericValidationPattern"
-            p:exactLength="16" />     
+            p:exactLength="16" />
     </property>
     <property name="control">
       <bean parent="TextControlDefinition"
             p:size="16" />
     </property>
-     <property name="attributeSecurity">
-		<bean parent="AttributeSecurity">
-  			<property name="mask" value="true" /> 
-			<property name="maskFormatter">
+    <property name="attributeSecurity">
+		  <bean parent="AttributeSecurity">
+        <property name="mask" value="true" />
+			  <property name="maskFormatter">
   				<bean parent="MaskFormatterSubString" p:maskCharacter="*" p:maskLength="12" />
   			</property>
   		</bean>
-  	</property>  	
+     </property>
   </bean>
+
+
+  <bean id="ProcurementCardDefault-creditCardLastFour" parent="ProcurementCardDefault-creditCardLastFour-parentBean" />
+  <bean id="ProcurementCardDefault-creditCardLastFour-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="creditCardLastFour" />
+    <property name="forceUppercase" value="false" />
+    <property name="label" value="Card Number Last Four" />
+    <property name="shortLabel" value="Num Last Four" />
+    <property name="maxLength" value="4" />
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="8" />
+    </property>
+  </bean>
+
+
   
   <bean id="ProcurementCardDefault-cardHolderName" parent="ProcurementCardDefault-cardHolderName-parentBean" />
   <bean id="ProcurementCardDefault-cardHolderName-parentBean" abstract="true" parent="ProcurementCardHolder-cardHolderName-parentBean">
@@ -171,21 +188,16 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
   </bean> 
   
   <bean id="ProcurementCardDefault-cardCycleVolumeLimit" parent="ProcurementCardDefault-cardCycleVolumeLimit-parentBean" />
-  <bean id="ProcurementCardDefault-cardCycleVolumeLimit-parentBean" abstract="true" parent="ProcurementCardHolder-cardCycleVolumeLimit">
+  <bean id="ProcurementCardDefault-cardCycleVolumeLimit-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardCycleVolLimit" />
     <property name="label" value="Daily Number" />
-    <property name="shortLabel" value="Daily Number" />
-  </bean>
-
-  <bean id="ProcurementCardDefault-cardStatusCode" parent="ProcurementCardDefault-cardStatusCode-parentBean" />
-  <bean id="ProcurementCardDefault-cardStatusCode-parentBean" abstract="true" parent="ProcurementCardHolder-cardStatusCode-parentBean">
+    <property name="shortLabel" value="Daily Num" />
     <property name="validationPattern" >
-      <bean parent="AlphaValidationPattern" p:exactLength="1" />
+      <bean parent="NumericValidationPattern" />
     </property>
-    <property name="required" value="false" />
     <property name="control" >
-      <bean parent="SelectControlDefinition"
-            p:valuesFinderClass="edu.arizona.kfs.fp.businessobject.options.ProcurementCardStatusValuesFinder"
-            p:includeKeyInLabel="true" />
+      <bean parent="TextControlDefinition"
+            p:size="16" />
     </property>
   </bean>
 
@@ -199,7 +211,21 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
     </property>
     <property name="control" >
       <bean parent="TextControlDefinition"
-            p:size="16" />
+        p:size="16" />
+    </property>
+  </bean>
+
+
+  <bean id="ProcurementCardDefault-cardStatusCode" parent="ProcurementCardDefault-cardStatusCode-parentBean" />
+  <bean id="ProcurementCardDefault-cardStatusCode-parentBean" abstract="true" parent="ProcurementCardHolder-cardStatusCode-parentBean">
+    <property name="validationPattern" >
+      <bean parent="AlphaValidationPattern" p:exactLength="1" />
+    </property>
+    <property name="required" value="false" />
+    <property name="control" >
+      <bean parent="SelectControlDefinition"
+            p:valuesFinderClass="edu.arizona.kfs.fp.businessobject.options.ProcurementCardStatusValuesFinder"
+            p:includeKeyInLabel="true" />
     </property>
   </bean>
 
@@ -459,7 +485,7 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
     <property name="lookupFields" >
       <list>
       	<bean parent="FieldDefinition"
-              p:attributeName="id"/>
+              p:attributeName="creditCardLastFour"/>
         <bean parent="FieldDefinition"
               p:attributeName="cardholderUser.principalName" p:forceLookup="true"/>
         <bean parent="FieldDefinition"
