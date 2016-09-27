@@ -18,80 +18,20 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.math.BigDecimal;
-import java.text.MessageFormat;
-
-import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryAccount;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
+
+import java.math.BigDecimal;
 
 public class IndirectCostRecoveryAccountDistributionMetadata {
-
-    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(IndirectCostRecoveryAccountDistributionMetadata.class);
-
-    private static final int MAXIMUM_CONTINUATION_ACCOUNT_ITERATIONS = 10;
-
-    protected ConfigurationService configurationService;
 
     private String indirectCostRecoveryFinCoaCode;
     private String indirectCostRecoveryAccountNumber;
     private BigDecimal accountLinePercent;
-    private boolean replacedIcrAccount;
 
     public IndirectCostRecoveryAccountDistributionMetadata(IndirectCostRecoveryAccount icrAccount) {
-        indirectCostRecoveryFinCoaCode = icrAccount.getIndirectCostRecoveryFinCoaCode();
-        indirectCostRecoveryAccountNumber = icrAccount.getIndirectCostRecoveryAccountNumber();
-        accountLinePercent = icrAccount.getAccountLinePercent();
-
-        processContinuationAccounts(icrAccount);
-
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("IndirectCostRecoveryAccountDistributionMetadata For passed in icrAccount " + icrAccount.getAccountNumber() +
-                    " calculated  IndirectCostRecoveryAccountNumber:" + getIndirectCostRecoveryAccountNumber() + " and IndirectCostRecoveryFinCoaCode:" + getIndirectCostRecoveryFinCoaCode());
-        }
-    }
-
-    private void processContinuationAccounts(IndirectCostRecoveryAccount icrAccount) {
-
-        if (ObjectUtils.isNotNull(icrAccount) && ObjectUtils.isNotNull(icrAccount.getIndirectCostRecoveryAccount()) && icrAccount.getIndirectCostRecoveryAccount().isClosed()) {
-            Account replacementICRA = findReplacementICRAAccount(icrAccount);
-            if (ObjectUtils.isNotNull(replacementICRA) && isReplacementDifferentThanIndirectCostRecoverAccount(icrAccount, replacementICRA)) {
-                if (replacementICRA.isClosed()) {
-                    LOG.error("IndirectCostRecoveryAccountDistributionMetadata: passed in icrAccount: " + icrAccount.getAccountNumber() + " and found replacementICRA:" + replacementICRA.getAccountNumber() + " but it is closed, throw an error");
-                    throw new UnsupportedOperationException(buildErrorText(icrAccount));
-                } else {
-                    setReplacedIcrAccount(true);
-                    setIndirectCostRecoveryFinCoaCode(replacementICRA.getChartOfAccountsCode());
-                    setIndirectCostRecoveryAccountNumber(replacementICRA.getAccountNumber());
-                }
-            }
-        }
-    }
-
-    private Account findReplacementICRAAccount(IndirectCostRecoveryAccount icrAccount) {
-        Account replacementICRA = icrAccount.getIndirectCostRecoveryAccount();
-        int i = 0;
-
-        while ((i < MAXIMUM_CONTINUATION_ACCOUNT_ITERATIONS) && ObjectUtils.isNotNull(replacementICRA) && replacementICRA.isClosed()) {
-            replacementICRA = replacementICRA.getContinuationAccount();
-            i++;
-        }
-        return replacementICRA;
-    }
-
-    private String buildErrorText(IndirectCostRecoveryAccount icrAccount) {
-        String errorText = getConfigurationService().getPropertyValueAsString(KFSKeyConstants.ERROR_ICRACCOUNT_CONTINUATION_ACCOUNT_CLOSED);
-        Object[] args = { icrAccount.getIndirectCostRecoveryFinCoaCode(), icrAccount.getIndirectCostRecoveryAccountNumber(), MAXIMUM_CONTINUATION_ACCOUNT_ITERATIONS };
-        errorText = MessageFormat.format(errorText, args);
-        LOG.debug("buildErrorText() generated error: " + errorText);
-        return errorText;
-    }
-
-    private boolean isReplacementDifferentThanIndirectCostRecoverAccount(IndirectCostRecoveryAccount icrAccount, Account replacementICRA) {
-        return !replacementICRA.equals(icrAccount.getIndirectCostRecoveryAccount());
+        this.indirectCostRecoveryFinCoaCode = icrAccount.getIndirectCostRecoveryFinCoaCode();
+        this.indirectCostRecoveryAccountNumber = icrAccount.getIndirectCostRecoveryAccountNumber();
+        this.accountLinePercent = icrAccount.getAccountLinePercent();
     }
 
     public String getIndirectCostRecoveryFinCoaCode() {
@@ -116,24 +56,5 @@ public class IndirectCostRecoveryAccountDistributionMetadata {
 
     public void setAccountLinePercent(BigDecimal accountLinePercent) {
         this.accountLinePercent = accountLinePercent;
-    }
-
-    public ConfigurationService getConfigurationService() {
-        if (configurationService == null) {
-            configurationService = SpringContext.getBean(ConfigurationService.class);
-        }
-        return configurationService;
-    }
-
-    public void setConfigurationService(ConfigurationService configurationService) {
-        this.configurationService = configurationService;
-    }
-
-    public boolean isReplacedIcrAccount() {
-        return replacedIcrAccount;
-    }
-
-    public void setReplacedIcrAccount(boolean replacedIcrAccount) {
-        this.replacedIcrAccount = replacedIcrAccount;
     }
 }

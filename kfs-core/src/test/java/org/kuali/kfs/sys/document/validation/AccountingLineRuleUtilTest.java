@@ -39,10 +39,10 @@ import static org.kuali.kfs.sys.fixture.AccountFixture.ACCOUNT_PRESENCE_ACCOUNT_
 import static org.kuali.kfs.sys.fixture.AccountFixture.ACCOUNT_PRESENCE_ACCOUNT_WITH_EXPIRED;
 import static org.kuali.kfs.sys.fixture.AccountFixture.ACTIVE_ACCOUNT;
 import static org.kuali.kfs.sys.fixture.AccountFixture.CLOSED_ACCOUNT;
-import static org.kuali.kfs.sys.fixture.AccountFixture.EXPIRIED_ACCOUNT;
-import static org.kuali.kfs.sys.fixture.AccountFixture.EXPIRIED_ACCOUNT_EXPIRIED_AND_CLOSED_CONTINUATION;
-import static org.kuali.kfs.sys.fixture.AccountFixture.EXPIRIED_ACCOUNT_EXPIRIED_AND_OPEN_CONTINUATION;
-import static org.kuali.kfs.sys.fixture.AccountFixture.EXPIRIED_ACCOUNT_NO_CONTINUATION;
+import static org.kuali.kfs.sys.fixture.AccountFixture.EXPIRED_ACCOUNT;
+import static org.kuali.kfs.sys.fixture.AccountFixture.EXPIRED_ACCOUNT_EXPIRED_AND_CLOSED_CONTINUATION;
+import static org.kuali.kfs.sys.fixture.AccountFixture.EXPIRED_ACCOUNT_EXPIRED_AND_OPEN_CONTINUATION;
+import static org.kuali.kfs.sys.fixture.AccountFixture.EXPIRED_ACCOUNT_NO_CONTINUATION;
 import static org.kuali.kfs.sys.fixture.ObjectCodeFixture.OBJECT_CODE_BUDGETED_OBJECT_CODE;
 import static org.kuali.kfs.sys.fixture.ObjectCodeFixture.OBJECT_CODE_NON_BUDGET_OBJECT_CODE;
 
@@ -108,31 +108,31 @@ public class AccountingLineRuleUtilTest extends KualiTestBase {
     }
 
     public void testHasRequiredOverrides_expired() {
-        testHasRequiredOverrides(EXPIRIED_ACCOUNT.createAccount(), AccountingLineOverride.CODE.NONE, KFSKeyConstants.ERROR_DOCUMENT_ACCOUNT_EXPIRED, new String[]{EXPIRIED_ACCOUNT.accountNumber, EXPIRIED_ACCOUNT.chartOfAccountsCode, EXPIRIED_ACCOUNT.continuationAccountNumber});
+        testHasRequiredOverrides(EXPIRED_ACCOUNT.createAccount(), AccountingLineOverride.CODE.NONE, KFSKeyConstants.ERROR_DOCUMENT_ACCOUNT_EXPIRED, new String[]{EXPIRED_ACCOUNT.accountNumber, EXPIRED_ACCOUNT.chartOfAccountsCode, EXPIRED_ACCOUNT.continuationAccountNumber});
     }
 
     public void testHasRequiredOverrides_expiredContinuationsClosedAndExpired() {
-        testHasRequiredOverrides(EXPIRIED_ACCOUNT_EXPIRIED_AND_CLOSED_CONTINUATION.createAccount(), AccountingLineOverride.CODE.NONE, KFSKeyConstants.ERROR_DOCUMENT_ACCOUNT_EXPIRED, new String[]{EXPIRIED_ACCOUNT_EXPIRIED_AND_CLOSED_CONTINUATION.accountNumber, EXPIRIED_ACCOUNT_EXPIRIED_AND_CLOSED_CONTINUATION.continuationFinChrtOfAcctCd, EXPIRIED_ACCOUNT.continuationAccountNumber});
+        testHasRequiredOverrides(EXPIRED_ACCOUNT_EXPIRED_AND_CLOSED_CONTINUATION.createAccount(), AccountingLineOverride.CODE.NONE, KFSKeyConstants.ERROR_DOCUMENT_ACCOUNT_EXPIRED, new String[]{EXPIRED_ACCOUNT_EXPIRED_AND_CLOSED_CONTINUATION.accountNumber, EXPIRED_ACCOUNT_EXPIRED_AND_CLOSED_CONTINUATION.continuationFinChrtOfAcctCd, EXPIRED_ACCOUNT.continuationAccountNumber});
     }
 
     public void testHasRequiredOverrides_expiredContinuationExpired() {
-        testHasRequiredOverrides(EXPIRIED_ACCOUNT_EXPIRIED_AND_OPEN_CONTINUATION.createAccount(), AccountingLineOverride.CODE.NONE, KFSKeyConstants.ERROR_DOCUMENT_ACCOUNT_EXPIRED, new String[]{EXPIRIED_ACCOUNT_EXPIRIED_AND_OPEN_CONTINUATION.accountNumber, EXPIRIED_ACCOUNT_EXPIRIED_AND_OPEN_CONTINUATION.continuationFinChrtOfAcctCd, EXPIRIED_ACCOUNT.continuationAccountNumber});
+        testHasRequiredOverrides(EXPIRED_ACCOUNT_EXPIRED_AND_OPEN_CONTINUATION.createAccount(), AccountingLineOverride.CODE.NONE, KFSKeyConstants.ERROR_DOCUMENT_ACCOUNT_EXPIRED, new String[]{EXPIRED_ACCOUNT_EXPIRED_AND_OPEN_CONTINUATION.accountNumber, EXPIRED_ACCOUNT_EXPIRED_AND_OPEN_CONTINUATION.continuationFinChrtOfAcctCd, EXPIRED_ACCOUNT.continuationAccountNumber});
     }
 
     public void testHasRequiredOverrides_expiredNoContinuation() {
-        testHasRequiredOverrides(EXPIRIED_ACCOUNT_NO_CONTINUATION.createAccount(), AccountingLineOverride.CODE.NONE, KFSKeyConstants.ERROR_DOCUMENT_ACCOUNT_EXPIRED_NO_CONTINUATION, null);
+        testHasRequiredOverrides(EXPIRED_ACCOUNT_NO_CONTINUATION.createAccount(), AccountingLineOverride.CODE.NONE, KFSKeyConstants.ERROR_DOCUMENT_ACCOUNT_EXPIRED_NO_CONTINUATION, null);
     }
 
     public void testHasRequiredOverrides_expiredButOverridden() {
-        testHasRequiredOverrides(EXPIRIED_ACCOUNT.createAccount(), AccountingLineOverride.CODE.EXPIRED_ACCOUNT, null, null);
+        testHasRequiredOverrides(EXPIRED_ACCOUNT.createAccount(), AccountingLineOverride.CODE.EXPIRED_ACCOUNT, null, null);
     }
 
     public void testHasRequiredOverrides_expiredNoContinuationButOverridden() {
-        testHasRequiredOverrides(EXPIRIED_ACCOUNT_NO_CONTINUATION.createAccount(), AccountingLineOverride.CODE.EXPIRED_ACCOUNT, null, null);
+        testHasRequiredOverrides(EXPIRED_ACCOUNT_NO_CONTINUATION.createAccount(), AccountingLineOverride.CODE.EXPIRED_ACCOUNT, null, null);
     }
 
     public void testHasRequiredOverrides_expiredButMultipleOverridden() {
-        testHasRequiredOverrides(EXPIRIED_ACCOUNT.createAccount(), AccountingLineOverride.CODE.EXPIRED_ACCOUNT_AND_NON_FRINGE_ACCOUNT_USED, null, null);
+        testHasRequiredOverrides(EXPIRED_ACCOUNT.createAccount(), AccountingLineOverride.CODE.EXPIRED_ACCOUNT_AND_NON_FRINGE_ACCOUNT_USED, null, null);
     }
 
     // public void testHasRequiredOverrides_AccountPresenceBudgetedObject() {

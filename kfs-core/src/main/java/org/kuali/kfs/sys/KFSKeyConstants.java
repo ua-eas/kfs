@@ -543,6 +543,9 @@ public class KFSKeyConstants {
     public static final String ERROR_EMPTY_LABOR_BENEFIT_CATEGORY_CODE = "error.labor.laborBenefitRateCategoryEmpty";
     public static final String ERROR_LABOR_BENEFIT_CATEGORY_CODE = "error.labor.laborBenefitRateCategory";
 
+    public static final String ERROR_ICRACCOUNT_CONTINUATION_ACCOUNT_CLOSED ="error.icrAccount.continuationAccount.closed";
+    public static final String WARNING_ICRACCOUNT_CONTINUATION_ACCOUNT_USED = "warning.icrAccount.continuationAccount.used";
+
     public static final String WARNING_ICR_GENERATION_PROBLEM_WITH_A21SUBACCOUNT_FIELD_BLANK_INVALID = "warning.gl.IndirectCostRecoveryGeneration.A21SubAccount.icrField.blankInvalid";
 
     public static final String MSG_DEDIT_CREDIT_CODE_MUST_BE = "message.gl.DebitCreditCodeMustBe";
@@ -1063,6 +1066,4 @@ public class KFSKeyConstants {
         public static final String FAILURE_ENTRY = "message.detectDocumentsMissingGLEsJob.failure.entry";
         public static final String EMAIL_SUBJECT = "message.detectDocumentsMissingGLEsJob.failure.email.subject";
     }
-
-    public static final String ERROR_ICRACCOUNT_CONTINUATION_ACCOUNT_CLOSED ="error.icrAccount.continuationAccount.closed";
 }

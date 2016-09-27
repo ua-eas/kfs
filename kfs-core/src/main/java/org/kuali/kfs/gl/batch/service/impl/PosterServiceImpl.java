@@ -102,6 +102,7 @@ import java.util.Map;
 public class PosterServiceImpl implements PosterService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PosterServiceImpl.class);
 
+    private static final int CONTINUATION_ACCOUNT_DEPTH_LIMIT = 10;
     public static final KualiDecimal WARNING_MAX_DIFFERENCE = new KualiDecimal("0.03");
     public static final String DATE_FORMAT_STRING = "yyyyMMdd";
 
@@ -441,8 +442,12 @@ public class PosterServiceImpl implements PosterService {
                 ps.retrieveNonKeyFields(reversal);
                 tran = reversal;
             } else {
+                if (mode == PosterService.MODE_ICR) {
+                    tran.setAccount(getAccountWithPotentialContinuation(tran, errors));
+                } else {
+                    tran.setAccount(accountingCycleCachingService.getAccount(tran.getChartOfAccountsCode(), tran.getAccountNumber()));
+                }
                 tran.setChart(accountingCycleCachingService.getChart(tran.getChartOfAccountsCode()));
-                tran.setAccount(accountingCycleCachingService.getAccount(tran.getChartOfAccountsCode(), tran.getAccountNumber()));
                 tran.setObjectType(accountingCycleCachingService.getObjectType(tran.getFinancialObjectTypeCode()));
                 tran.setBalanceType(accountingCycleCachingService.getBalanceType(tran.getFinancialBalanceTypeCode()));
                 tran.setOption(accountingCycleCachingService.getSystemOptions(tran.getUniversityFiscalYear()));
@@ -526,6 +531,49 @@ public class PosterServiceImpl implements PosterService {
             LOG.error("PosterServiceImpl Stopped: " + re.getMessage(), re);
             throw new RuntimeException("PosterServiceImpl Stopped: " + re.getMessage(), re);
         }
+    }
+
+    /**
+     * Helper method for retrieving the account for an ICR transaction, or its continuation account
+     * if the base account is closed. May update the transaction's chart code and account number
+     * if continuation account usage is necessary. Will return just the regular account if a valid
+     * continuation one could not be found, but will also update the errors list accordingly.
+     *
+     * As with similar handling in the Scrubber job, closed continuation accounts will trigger
+     * further traversal of the continuation account hierarchy, up to a depth defined by the
+     * CONTINUATION_ACCOUNT_DEPTH_LIMIT constant.
+     *
+     * @param tran The transaction to process.
+     * @param errors The list of errors for this transaction.
+     * @return The transaction's account, or the descendant continuation account up to a depth to 10.
+     */
+    protected Account getAccountWithPotentialContinuation(Transaction tran, List<Message> errors) {
+        Account account = accountingCycleCachingService.getAccount(tran.getChartOfAccountsCode(), tran.getAccountNumber());
+
+        if (ObjectUtils.isNotNull(account) && account.isClosed()) {
+            Account contAccount = account;
+            for (int i = 0; i < CONTINUATION_ACCOUNT_DEPTH_LIMIT && ObjectUtils.isNotNull(contAccount) && contAccount.isClosed(); i++) {
+                contAccount = accountingCycleCachingService.getAccount(
+                    contAccount.getContinuationFinChrtOfAcctCd(), contAccount.getContinuationAccountNumber());
+            }
+            if (ObjectUtils.isNull(contAccount) || contAccount == account || contAccount.isClosed()) {
+                errors.add(new Message(MessageFormat.format(
+                    configurationService.getPropertyValueAsString(KFSKeyConstants.ERROR_ICRACCOUNT_CONTINUATION_ACCOUNT_CLOSED),
+                    tran.getChartOfAccountsCode(), tran.getAccountNumber(), CONTINUATION_ACCOUNT_DEPTH_LIMIT), Message.TYPE_WARNING));
+            } else {
+                final String formattedErrorMessage = MessageFormat.format(
+                    configurationService.getPropertyValueAsString(KFSKeyConstants.WARNING_ICRACCOUNT_CONTINUATION_ACCOUNT_USED),
+                    tran.getChartOfAccountsCode(), tran.getAccountNumber(),
+                    contAccount.getChartOfAccountsCode(), contAccount.getAccountNumber());
+                errors.add(new Message(formattedErrorMessage, Message.TYPE_WARNING));
+                LOG.warn(formattedErrorMessage);
+                account = contAccount;
+                ((OriginEntryInformation) tran).setChartOfAccountsCode(contAccount.getChartOfAccountsCode());
+                ((OriginEntryInformation) tran).setAccountNumber(contAccount.getAccountNumber());
+            }
+        }
+
+        return account;
     }
 
     /**
@@ -687,6 +735,7 @@ public class PosterServiceImpl implements PosterService {
      * Generate a transfer transaction and an offset transaction
      *
      * @param et                         an expenditure transaction
+     * @param icrEntry                   the indirect cost recovery entry
      * @param generatedTransactionAmount the amount of the transaction
      * @param runDate                    the transaction date for the newly created origin entry
      * @param group                      the group to save the origin entry to
@@ -840,6 +889,7 @@ public class PosterServiceImpl implements PosterService {
      * set up for ICR
      *
      * @param et
+     * @param reportErrors
      * @return null if the ET does not have a SubAccount properly set up for ICR
      */
     protected IndirectCostRecoveryGenerationMetadata retrieveSubAccountIndirectCostRecoveryMetadata(ExpenditureTransaction et) {
@@ -906,11 +956,7 @@ public class PosterServiceImpl implements PosterService {
 
                 List<IndirectCostRecoveryAccountDistributionMetadata> icrAccountList = metadata.getAccountLists();
                 for (A21IndirectCostRecoveryAccount a21 : activeICRAccounts) {
-                    IndirectCostRecoveryAccountDistributionMetadata indirectCostRecoveryAccountDistributionMetadata = new IndirectCostRecoveryAccountDistributionMetadata(a21);
-                    if (indirectCostRecoveryAccountDistributionMetadata.isReplacedIcrAccount()) {
-                        reportWriterService.writeError(et, MessageBuilder.buildMessage(KFSKeyConstants.MSG_ACCOUNT_CLOSED_TO, indirectCostRecoveryAccountDistributionMetadata.getIndirectCostRecoveryFinCoaCode() + indirectCostRecoveryAccountDistributionMetadata.getIndirectCostRecoveryAccountNumber(), Message.TYPE_WARNING));
-                    }
-                    icrAccountList.add(indirectCostRecoveryAccountDistributionMetadata);
+                    icrAccountList.add(new IndirectCostRecoveryAccountDistributionMetadata(a21));
                 }
                 return metadata;
             }
@@ -927,11 +973,7 @@ public class PosterServiceImpl implements PosterService {
 
         List<IndirectCostRecoveryAccountDistributionMetadata> icrAccountList = metadata.getAccountLists();
         for (IndirectCostRecoveryAccount icr : account.getActiveIndirectCostRecoveryAccounts()) {
-            IndirectCostRecoveryAccountDistributionMetadata indirectCostRecoveryAccountDistributionMetadata = new IndirectCostRecoveryAccountDistributionMetadata(icr);
-            if (indirectCostRecoveryAccountDistributionMetadata.isReplacedIcrAccount()) {
-                reportWriterService.writeError(et, MessageBuilder.buildMessage(KFSKeyConstants.MSG_ACCOUNT_CLOSED_TO, indirectCostRecoveryAccountDistributionMetadata.getIndirectCostRecoveryFinCoaCode() + indirectCostRecoveryAccountDistributionMetadata.getIndirectCostRecoveryAccountNumber(), Message.TYPE_WARNING));
-            }
-            icrAccountList.add(indirectCostRecoveryAccountDistributionMetadata);
+            icrAccountList.add(new IndirectCostRecoveryAccountDistributionMetadata(icr));
         }
 
         return metadata;
