@@ -1118,10 +1118,6 @@ public class PurchaseOrderAction extends PurchasingActionBase {
 
         String retransmitHeader = request.getParameter("retransmitHeader");
 
-        // setting the isItemSelectedForRetransmitIndicator items of the PO obtained from the database based on its value from
-        // the po from the form
-
-        setItemSelectedForRetransmitIndicatorFromPOInForm(itemIndexesBuffer.toString(), po.getItems());
         po.setRetransmitHeader(retransmitHeader);
         ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
         try {
@@ -1130,6 +1126,12 @@ public class PurchaseOrderAction extends PurchasingActionBase {
             // Yes, this looks weird. I know and am sorry. We need to retrieve the PORT from the DB again or else we will get an OLE.
             // I am open to suggestions if you have them.
             PurchaseOrderDocument poDoc = SpringContext.getBean(PurchaseOrderService.class).getPurchaseOrderByDocumentNumber(documentNumber);
+
+            // setting the isItemSelectedForRetransmitIndicator items of the PO
+            // obtained from the database based on its value from
+            // the po from the form
+            setItemSelectedForRetransmitIndicatorFromPOInForm(itemIndexesBuffer.toString(), poDoc.getItems());
+            poDoc.setRetransmitHeader(retransmitHeader);
 
             SpringContext.getBean(PurchaseOrderService.class).retransmitPurchaseOrderPDF(poDoc, baosPDF);
 
