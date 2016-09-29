@@ -451,9 +451,9 @@ public class ArConstants {
 
     public static final String INCOME_ACCOUNT = "Income";
     public static final String AR_ACCOUNT = "Accounts Receivable";
-    public static final String INV_AWARD = "1";
-    public static final String INV_ACCOUNT = "2";
-    public static final String INV_CONTRACT_CONTROL_ACCOUNT = "3";
+    public static final String INV_AWARD = ArIntegrationConstants.AwardInvoicingOptions.INV_AWARD;
+    public static final String INV_ACCOUNT = ArIntegrationConstants.AwardInvoicingOptions.INV_ACCOUNT;
+    public static final String INV_CONTRACT_CONTROL_ACCOUNT = ArIntegrationConstants.AwardInvoicingOptions.INV_CONTRACT_CONTROL_ACCOUNT;
     public static final String INVOICE_AMOUNT_LABEL = "Invoice Amount";
     public static final String PRINT_INVOICES_FROM_LABEL = "Print Invoices From";
     public static final String PRINT_INVOICES_TO_LABEL = "Print Invoices To";

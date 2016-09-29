@@ -21,6 +21,7 @@ package org.kuali.kfs.module.external.kc.businessobject;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
+import org.kuali.kfs.integration.ar.ArIntegrationConstants;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
@@ -37,6 +38,8 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Defines a financial award object.
@@ -800,11 +803,52 @@ public class Award implements ContractsAndGrantsBillingAward {
     public List<ContractsAndGrantsBillingAwardAccount> getActiveAwardAccounts() {
         List<ContractsAndGrantsBillingAwardAccount> activeAwardAccounts = new ArrayList<>();
         for (AwardAccount awardAccount : awardAccounts) {
-            if (awardAccount.isActive()) {
+            if (awardAccount.isActive() && awardAccountMatchesInvoicingOption(awardAccount)) {
                 activeAwardAccounts.add(awardAccount);
             }
         }
         return activeAwardAccounts;
+    }
+
+    /**
+     * KC delivers all awards within the hierarchy as award accounts for each
+     * award in the hierarchy, potentially leading to multiple-counting; here we
+     * choose which ones to use based on the award invoicing option.
+     * 
+     * @param awardAccount
+     * @return
+     */
+    private boolean awardAccountMatchesInvoicingOption(AwardAccount awardAccount) {
+        switch (invoicingOptionCode) {
+        case ArIntegrationConstants.AwardInvoicingOptions.INV_ACCOUNT:
+            // When invoicing by account, only the award account matching the
+            // award gets billed.
+            return (StringUtils.equals(awardNumber, awardAccount.getAward().getAwardNumber()));
+
+        case ArIntegrationConstants.AwardInvoicingOptions.INV_AWARD:
+        case ArIntegrationConstants.AwardInvoicingOptions.INV_CONTRACT_CONTROL_ACCOUNT:
+            // When invoicing by award hierarchy or contract control account,
+            // the primary award in the hierarchy
+            // controls all options for the underlying award accounts.
+            return isPrimaryAwardInHierarchy();
+
+        default:
+            // This would be unexpected; let the calling routine decide what to
+            // make of it.
+            return true;
+        }
+    }
+
+    /**
+     * The primary award in the hierarchy is the first in the list of award
+     * accounts.
+     * 
+     * @return
+     */
+    private boolean isPrimaryAwardInHierarchy() {
+        Optional<String> primaryAwardNumber = awardAccounts.stream().map(a -> a.getAward().getAwardNumber()).sorted()
+                .findFirst();
+        return (primaryAwardNumber.isPresent() && StringUtils.equals(awardNumber, primaryAwardNumber.get()));
     }
 
     @Override

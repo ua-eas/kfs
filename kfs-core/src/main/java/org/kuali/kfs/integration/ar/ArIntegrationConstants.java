@@ -29,4 +29,10 @@ public class ArIntegrationConstants {
         public final static String ANNUALLY = "ANNU";
         public final static String LETTER_OF_CREDIT = "LOCB";
     }
+
+    public static class AwardInvoicingOptions {
+        public static final String INV_AWARD = "1";
+        public static final String INV_ACCOUNT = "2";
+        public static final String INV_CONTRACT_CONTROL_ACCOUNT = "3";
+    }
 }
