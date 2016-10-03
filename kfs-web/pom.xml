@@ -199,7 +199,7 @@
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <arguments>install auditjs -g</arguments>
+                            <arguments>install auditjs</arguments>
                         </configuration>
                     </execution>
                     <execution>
