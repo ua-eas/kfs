@@ -230,7 +230,7 @@
                     <execution>
                         <id>audit</id>
                         <configuration>
-                            <executable>src/main/webapp/node_modules/.bin/auditjs</executable>
+                            <executable>kfs-web/src/main/webapp/node_modules/.bin/auditjs</executable>
                             <arguments>
                                 <argument>-p</argument>
                                 <argument>src/main/webapp/package.json</argument>
