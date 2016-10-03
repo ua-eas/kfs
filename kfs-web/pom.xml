@@ -193,12 +193,13 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>npm install auditjs</id>
+                        <id>auditjs</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
+                        <phase>generate-resources</phase>
                         <configuration>
-                            <arguments>install auditjs</arguments>
+                            <arguments>install auditjs -g</arguments>
                         </configuration>
                     </execution>
                     <execution>
@@ -229,7 +230,7 @@
                     <execution>
                         <id>audit</id>
                         <configuration>
-                            <executable>auditjs</executable>
+                            <executable>src/main/webapp/node_modules/.bin/auditjs</executable>
                             <arguments>
                                 <argument>-p</argument>
                                 <argument>src/main/webapp/package.json</argument>
