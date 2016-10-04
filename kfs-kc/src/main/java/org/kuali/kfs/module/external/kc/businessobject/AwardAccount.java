@@ -82,6 +82,7 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
         award.setAwardTitle(awardAccountDTO.getAwardTitle());
         award.setGrantNumber(awardAccountDTO.getGrantNumber());
         award.setCfdaNumber("");
+        award.setAwardNumber(awardAccountDTO.getAwardNumber());
 
         Proposal proposal = new Proposal();
         proposal.setFederalPassThroughAgencyNumber(awardAccountDTO.getProposalFederalPassThroughAgencyNumber());
