@@ -99,7 +99,7 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
         AwardFieldValuesDto dto = new AwardFieldValuesDto();
         dto.setAccountNumber((String) criteria.get(KFSPropertyConstants.ACCOUNT_NUMBER));
         dto.setChartOfAccounts((String) criteria.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE));
-        dto.setAwardId((Long) criteria.get(KFSPropertyConstants.PROPOSAL_NUMBER));
+        dto.setAwardNumber((String) criteria.get(KFSPropertyConstants.PROPOSAL_NUMBER));
         return dto;
 
     }
@@ -110,7 +110,7 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
         updateDto.setDoLastBillDateUpdate(true);
         updateDto.setLastBillDate(lastBilledDate);
         AwardFieldValuesDto searchDto = new AwardFieldValuesDto();
-        searchDto.setAwardId(Long.parseLong(proposalNumber));
+        searchDto.setAwardNumber(proposalNumber);
         handleBillingStatusResult(getAwardWebService().updateAwardBillingStatus(searchDto, updateDto));
     }
 
