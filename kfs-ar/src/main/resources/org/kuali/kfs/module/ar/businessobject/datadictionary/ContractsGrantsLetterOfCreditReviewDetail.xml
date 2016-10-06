@@ -60,7 +60,7 @@
           p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward"
           p:sourceAttributeName="proposalNumber">
         <property name="name" value="proposalNumber"/>
-        <property name="maxLength" value="10"/>
+        <property name="maxLength" value="12"/>
         <property name="required" value="false"/>
         <property name="control">
             <bean parent="TextControlDefinition" p:size="12"/>
