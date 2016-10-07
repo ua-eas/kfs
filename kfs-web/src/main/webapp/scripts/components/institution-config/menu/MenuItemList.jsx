@@ -16,24 +16,26 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import React from 'react';
+import React, {Component} from 'react';
 import Immutable from 'immutable';
 import MenuItem from  './MenuItem.jsx';
 import {buildGroupSortableDropHandler, validateForm} from '../institutionConfigUtils.js';
 
-let MenuItemList = React.createClass({
-    contextTypes: {
-        updateMenu: React.PropTypes.func,
-        addNewMenuItem: React.PropTypes.func,
-        openAddNewMenuItem: React.PropTypes.func
-    },
-    getInitialState() {
-        return {'errors': [], 'errorMessages': []};
-    },
+export default class MenuItemList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {'errors': [], 'errorMessages': []};
+
+        this.openAddNewMenuItem = this.openAddNewMenuItem.bind(this);
+        this.addNewMenuItem = this.addNewMenuItem.bind(this);
+        this.updateValue = this.updateValue.bind(this);
+    }
+
     componentDidMount() {
         let self = this;
-        buildGroupSortableDropHandler('item-list', self, 'menu', 'updateMenu');
-    },
+        buildGroupSortableDropHandler('item-list', self, 'menu', 'stateUpdateMenu');
+    }
+
     openAddNewMenuItem() {
         this.setState({
             'newItem': new Immutable.Map(),
@@ -41,32 +43,42 @@ let MenuItemList = React.createClass({
             'errorMessages': []
         });
         if (this.props.addNew) {
-            this.context.openAddNewMenuItem(false);
+            this.props.stateMaintenance.stateOpenAddNewMenuItem(false);
         } else {
-            this.context.openAddNewMenuItem(true);
+            this.props.stateMaintenance.stateOpenAddNewMenuItem(true);
         }
-    },
+    }
+
     addNewMenuItem() {
         let errorObj = validateForm(this.state.newItem.get('label') || '', this.state.newItem.get('link') || '');
 
         if (errorObj.errors.length < 1) {
             this.setState({errors: [], errorMessages: []});
-            this.context.addNewMenuItem(this.state.newItem);
+            this.props.stateMaintenance.stateAddNewMenuItem(this.state.newItem);
         } else {
             this.setState(errorObj);
         }
-    },
+    }
+
     updateValue(key, event) {
         let value = $(event.target).val();
         let updatedNewItem = this.state.newItem.set(key, value);
         this.setState({'newItem': updatedNewItem});
-    },
+    }
+
     render() {
         let items = [];
         for (let i = 0; i < this.props.menu.size; i++) {
             let item = this.props.menu.get(i);
             items.push(
-                <MenuItem key={'menu-item-' + i} index={i} item={item} editing={this.props.editing} deleting={this.props.deleting}/>
+                <MenuItem
+                    key={'menu-item-' + i}
+                    index={i}
+                    item={item}
+                    editing={this.props.editing}
+                    deleting={this.props.deleting}
+                    stateMaintenance={this.props.stateMaintenance}
+                />
             );
         }
 
@@ -110,6 +122,4 @@ let MenuItemList = React.createClass({
             </ul>
         )
     }
-});
-
-export default MenuItemList;
+}

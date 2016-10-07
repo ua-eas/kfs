@@ -16,19 +16,21 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import React from 'react';
+import React, {Component} from 'react';
 import {validateForm} from '../institutionConfigUtils.js';
 
-let MenuItem = React.createClass({
-    contextTypes: {
-        updateMenuItem: React.PropTypes.func,
-        openUpdateMenuItem: React.PropTypes.func,
-        deleteMenuItem: React.PropTypes.func,
-        openDeleteMenuItem: React.PropTypes.func
-    },
-    getInitialState() {
-        return {'errors': [], 'errorMessages': []};
-    },
+export default class MenuItem extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {'errors': [], 'errorMessages': []};
+
+        this.editMenuItem = this.editMenuItem.bind(this);
+        this.updateMenuItem = this.updateMenuItem.bind(this);
+        this.openDeleteMenuItem = this.openDeleteMenuItem.bind(this);
+        this.deleteMenuItem = this.deleteMenuItem.bind(this);
+        this.updateValue = this.updateValue.bind(this);
+    }
+
     editMenuItem() {
         this.setState({
             'updatedItem': this.props.item,
@@ -36,36 +38,41 @@ let MenuItem = React.createClass({
             'errorMessages': []
         });
         if (this.props.editing === this.props.item.get('label')) {
-            this.context.openUpdateMenuItem(this.props.item.get(null));
+            this.props.stateMaintenance.stateOpenUpdateMenuItem(this.props.item.get(null));
         } else {
-            this.context.openUpdateMenuItem(this.props.item.get('label'));
+            this.props.stateMaintenance.stateOpenUpdateMenuItem(this.props.item.get('label'));
         }
-    },
+    }
+
     updateMenuItem() {
         let errorObj = validateForm(this.state.updatedItem.get('label') || '', this.state.updatedItem.get('link') || '');
 
         if (errorObj.errors.length < 1) {
             this.setState({errors: [], errorMessages: []});
-            this.context.updateMenuItem(this.state.updatedItem, this.props.index);
+            this.props.stateMaintenance.stateUpdateMenuItem(this.state.updatedItem, this.props.index);
         } else {
             this.setState(errorObj);
         }
-    },
+    }
+
     openDeleteMenuItem() {
         if (this.props.deleting === this.props.item.get('label')) {
-            this.context.openDeleteMenuItem(this.props.item.get(null));
+            this.props.stateMaintenance.stateOpenDeleteMenuItem(this.props.item.get(null));
         } else {
-            this.context.openDeleteMenuItem(this.props.item.get('label'));
+            this.props.stateMaintenance.stateOpenDeleteMenuItem(this.props.item.get('label'));
         }
-    },
+    }
+
     deleteMenuItem() {
-        this.context.deleteMenuItem(this.props.index);
-    },
+        this.props.stateMaintenance.stateDeleteMenuItem(this.props.index);
+    }
+
     updateValue(key, event) {
         let value = $(event.target).val();
         let updatedNewLink = this.state.updatedItem.set(key, value);
         this.setState({'updatedItem': updatedNewLink});
-    },
+    }
+
     render() {
         let errorMessage;
         if (this.state.errorMessages && this.state.errorMessages.length > 0) {
@@ -116,6 +123,4 @@ let MenuItem = React.createClass({
             </li>
         )
     }
-});
-
-export default MenuItem;
+}

@@ -42,7 +42,7 @@ function moveLinkElement(list, fromIndex, toIndex, fromType, toType) {
     return updatedList;
 };
 
-export function buildLinkSortableDropHandler(elementId, connectWithClass, component, sortableElementsPropertyName, updatingFunctionPropertyName) {
+export function buildLinkSortableDropHandler(elementId, connectWithClass, component, sortableElementsPropertyName, updatingFunctionPropertyName, groupLabel) {
     let ele = $("#"+elementId);
     if (ele) {
         ele.sortable({
@@ -59,7 +59,7 @@ export function buildLinkSortableDropHandler(elementId, connectWithClass, compon
                     if (newIndex !== startIndex || startType !== newType) {
                         let updatedLinkGroups = moveLinkElement(component.props[sortableElementsPropertyName], startIndex, newIndex, startType, newType);
                         $("#" + elementId).sortable('cancel');
-                        component.context[updatingFunctionPropertyName](updatedLinkGroups);
+                        component.props.stateMaintenance[updatingFunctionPropertyName](updatedLinkGroups, groupLabel);
                     }
                 }
             }
@@ -90,7 +90,7 @@ export function buildGroupSortableDropHandler(elementId, component, sortableElem
                 if (newIndex != startIndex) {
                     let updatedLinkGroups = moveGroupElement(component.props[sortableElementsPropertyName], startIndex, newIndex);
                     $("#"+elementId).sortable('cancel');
-                    component.context[updatingFunctionPropertyName](updatedLinkGroups);
+                    component.props.stateMaintenance[updatingFunctionPropertyName](updatedLinkGroups);
                 }
             }
         });

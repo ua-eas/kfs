@@ -20,6 +20,11 @@ import React, {Component} from 'react';
 import { render } from 'react-dom';
 import { hashHistory, Router, Route, IndexRoute, Link } from 'react-router';
 
+/*
+    Don't remove these. It appears that they are not used but by importing
+    them they create React components that are rendered into specific
+    elements on the page. Without them there will be no header or sidebar/nav.
+ */
 import Header from '../general/header.jsx';
 import InstitutionConfigSidebar from './InstitutionConfigSidebar.jsx';
 

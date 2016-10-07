@@ -19,13 +19,13 @@
 <%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 <%@ taglib uri="/WEB-INF/tlds/institutionConfigWebFunctions.tld" prefix="icwf" %>
 
-<kul:institutionConfigPage/>
-
-<c:choose>
-    <c:when test="${icwf:hasPermission()}">
-        <script src="${pageContext.request.contextPath}/build/institutionconfig.bundle.js?${cachingTimestamp}"></script>
-    </c:when>
-    <c:otherwise>
-        <script src="${pageContext.request.contextPath}/build/accessdenied.bundle.js?${cachingTimestamp}"></script>
-    </c:otherwise>
-</c:choose>
+<kul:institutionConfigPage>
+    <c:choose>
+        <c:when test="${icwf:hasPermission()}">
+            <script src="${pageContext.request.contextPath}/build/institutionconfig.bundle.js?${cachingTimestamp}"></script>
+        </c:when>
+        <c:otherwise>
+            <script src="${pageContext.request.contextPath}/build/accessdenied.bundle.js?${cachingTimestamp}"></script>
+        </c:otherwise>
+    </c:choose>
+</kul:institutionConfigPage>

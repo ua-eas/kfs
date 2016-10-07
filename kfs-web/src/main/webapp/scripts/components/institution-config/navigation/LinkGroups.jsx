@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import React from 'react';
+import React, {Component} from 'react';
 import {buildGroupSortableDropHandler} from '../institutionConfigUtils.js';
 import {buildKeyFromLabel} from '../../../sys/utils.js';
 
@@ -30,30 +30,27 @@ let determinePanelClassName = function(expandedLinkGroup, label) {
 };
 
 
-let LinkGroups = React.createClass({
-    contextTypes: {
-        updateLinkGroups: React.PropTypes.func,
-        addNewLinkGroup: React.PropTypes.func
-    },
-    childContextTypes: {
-        openDeleteGroup: React.PropTypes.func
-    },
-    getChildContext() {
-        return {
-            openDeleteGroup: this.openDeleteGroup
-        }
-    },
-    getInitialState() {
-        return {'deleting': null};
-    },
+export default class LinkGroups extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {'deleting': null};
+
+        this.stateOpenDeleteGroup = this.stateOpenDeleteGroup.bind(this);
+    }
+
     componentDidMount() {
         let self = this;
-        buildGroupSortableDropHandler('item-list', self, 'linkGroups', 'updateLinkGroups');
-    },
-    openDeleteGroup(label) {
+        buildGroupSortableDropHandler('item-list', self, 'linkGroups', 'stateUpdateLinkGroups');
+    }
+
+    stateOpenDeleteGroup(label) {
         this.setState({'deleting': label});
-    },
+    }
+
     render() {
+        let stateMaintenance = this.props.stateMaintenance;
+        stateMaintenance["stateOpenDeleteGroup"] = this.stateOpenDeleteGroup;
+
         let linkGroupElements = [];
         for (let idx = 0; idx < this.props.linkGroups.size; idx++) {
             let linkGroup = this.props.linkGroups.get(idx);
@@ -62,80 +59,86 @@ let LinkGroups = React.createClass({
                            key={buildKeyFromLabel(linkGroup.get('label'))}
                            deleting={this.state.deleting}
                            expandedLinkGroup={this.props.expandedLinkGroup}
-                           linkGroupIndex={idx}/>
+                           linkGroupIndex={idx}
+                           stateMaintenance={stateMaintenance}/>
             );
         }
         return (
             <ul id="item-list">
                 {linkGroupElements}
-                <li className="item new" onClick={this.context.addNewLinkGroup}>
+                <li className="item new" onClick={stateMaintenance.stateAddNewLinkGroup}>
                     <div className="add-new-button"><span className="glyphicon glyphicon-plus"></span>Add New</div>
                 </li>
             </ul>
         )
     }
-});
+}
 
-let LinkGroup = React.createClass({
-    contextTypes: {
-        toggleLinkGroup: React.PropTypes.func,
-        updateLinkGroupName: React.PropTypes.func,
-        deleteLinkGroup: React.PropTypes.func,
-        cancelAddNewLinkGroup: React.PropTypes.func,
-        openDeleteGroup: React.PropTypes.func
-    },
-    childContextTypes: {
-        updateLinkGroupLabel: React.PropTypes.func
-    },
-    getChildContext() {
-        return {
-            updateLinkGroupLabel: this.updateLinkGroupLabel
-        }
-    },
-    getInitialState() {
+class LinkGroup extends Component {
+    constructor(props) {
+        super(props);
         let editing = this.props.linkGroup.get('label') ? false : true;
-        return {linkGroupEditing: editing, linkGroupName: this.props.linkGroup.get('label')};
-    },
+        this.state = {linkGroupEditing: editing, linkGroupName: this.props.linkGroup.get('label')};
+
+        this.editLabel = this.editLabel.bind(this);
+        this.cancelEditLabel = this.cancelEditLabel.bind(this);
+        this.openDeleteGroup = this.openDeleteGroup.bind(this);
+        this.deleteGroup = this.deleteGroup.bind(this);
+        this.saveLinkGroupName = this.saveLinkGroupName.bind(this);
+        this.stateUpdateLinkGroupLabel = this.stateUpdateLinkGroupLabel.bind(this);
+        this.toggleLinkGroup = this.toggleLinkGroup.bind(this);
+    }
+
     editLabel(event) {
         event.stopPropagation();
         this.setState({linkGroupEditing: true});
-    },
+    }
+
     cancelEditLabel(event) {
         event.stopPropagation();
         if (this.props.linkGroup.get('label')) {
             this.setState({linkGroupName: this.props.linkGroup.get('label'), linkGroupEditing: false});
         } else {
-            this.context.cancelAddNewLinkGroup();
+            this.props.stateMaintenance.stateCancelAddNewLinkGroup();
         }
-    },
+    }
+
     openDeleteGroup(event) {
         event.stopPropagation();
         if (this.props.deleting === this.props.linkGroup.get('label')) {
-            this.context.openDeleteGroup(this.props.linkGroup.get(null));
+            this.props.stateMaintenance.stateOpenDeleteGroup(this.props.linkGroup.get(null));
         } else {
-            this.context.openDeleteGroup(this.props.linkGroup.get('label'));
+            this.props.stateMaintenance.stateOpenDeleteGroup(this.props.linkGroup.get('label'));
         }
-    },
+    }
+
     deleteGroup(event) {
         event.stopPropagation();
         let index = $(event.target).closest('li').index();
-        this.context.deleteLinkGroup(index);
-    },
+        this.props.stateMaintenance.stateDeleteLinkGroup(index);
+    }
+
     saveLinkGroupName(event) {
         event.stopPropagation();
         let newLabel = $('#groupLabelInput').val();
         let index = $(event.target).closest('li').index();
         this.setState({linkGroupName: newLabel, linkGroupEditing: false});
-        this.context.updateLinkGroupName(index, newLabel);
-    },
-    updateLinkGroupLabel(event) {
+        this.props.stateMaintenance.stateUpdateLinkGroupName(index, newLabel);
+    }
+
+    stateUpdateLinkGroupLabel(event) {
         this.setState({linkGroupName: event.target.value});
-    },
+    }
+
     toggleLinkGroup(event) {
         let index = $(event.target).closest('li').index();
-        this.context.toggleLinkGroup(index, this.props.linkGroup.get('label'));
-    },
+        this.props.stateMaintenance.stateToggleLinkGroup(index, this.props.linkGroup.get('label'));
+    }
+
     render() {
+        let stateMaintenance = this.props.stateMaintenance;
+        stateMaintenance["stateUpdateLinkGroupLabel"] = this.stateUpdateLinkGroupLabel;
+
         let label = this.state.linkGroupName;
         let panelClassName = determinePanelClassName(this.props.expandedLinkGroup, label);
 
@@ -190,27 +193,28 @@ let LinkGroup = React.createClass({
         return (
             <li className={panelClassName} onClick={this.toggleLinkGroup}>
                 <span className="move"></span>
-                <LinkGroupLabel label={label} linkGroupEditing={this.state.linkGroupEditing}/>
+                <LinkGroupLabel stateMaintenance={stateMaintenance} label={label} linkGroupEditing={this.state.linkGroupEditing}/>
                 {buttons}
                 {dialog}
             </li>
         )
     }
-});
+}
 
-let LinkGroupLabel = React.createClass({
-    contextTypes: {
-        updateLinkGroupLabel: React.PropTypes.func
-    },
+class LinkGroupLabel extends Component {
+    constructor(props) {
+        super(props);
+        this.editLabelClick = this.editLabelClick.bind(this);
+    }
+
     editLabelClick(event) {
         event.stopPropagation();
-    },
+    }
+
     render() {
         let content = (this.props.linkGroupEditing)
-            ? <input id="groupLabelInput" type="text" value={this.props.label} onChange={this.context.updateLinkGroupLabel} onClick={this.editLabelClick}/>
+            ? <input id="groupLabelInput" type="text" value={this.props.label} onChange={this.props.stateMaintenance.stateUpdateLinkGroupLabel} onClick={this.editLabelClick}/>
             : <span>{this.props.label}</span>;
         return content
     }
-});
-
-export default LinkGroups;
+}
