@@ -255,7 +255,6 @@ public interface DisbursementVoucherConstants {
 
     public static final String PAYMENT_REASON_CODE_ROYALTIES_PARM_NM = "PAYMENT_REASON_CODE_ROYALTIES";
     public static final String PAYMENT_REASON_CODE_RENTAL_PAYMENT_PARM_NM = "PAYMENT_REASON_CODE_RENTAL_PAYMENT";
-    public static final String PAYMENT_REASON_CODE_TRAVEL_HONORARIUM_PARM_NM = "PAYMENT_REASON_CODE_TRAVEL_HONORARIUM";
 
 
     public static class RouteLevelNames {

@@ -51,7 +51,6 @@ public class PdpParameterConstants {
     public static String TAX_CANCEL_CONTACT = "TAX_CONTACT";
 
     public static String MAX_NOTE_LINES = "MAX_NOTE_LINES";
-    public static String FORMAT_SUMMARY_ROWS = "FORMAT_SUMMARY_REVIEW_RESULTS_PER_PAGE";
 
     public static class BatchConstants {
         public static final String BATCH_ID_PARAM = "batchId";

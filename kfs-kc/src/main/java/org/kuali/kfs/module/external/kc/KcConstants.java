@@ -27,7 +27,6 @@ public class KcConstants {
     public static final String KC_NAMESPACE_URI = "http://kc.kuali.org/kc-kfs/v2_0";
     public static final String KFS_NAMESPACE_URI = "http://kfs.kuali.org/kc-kfs/v2_0";
     public static final String MAXIMUM_ACCOUNT_RESPONSIBILITY_ID = "MAXIMUM_ACCOUNT_RESPONSIBILITY_ID";
-    public static final String FEDERAL_SPONSOR_TYPE_CODES = "FEDERAL_SPONSOR_TYPE_CODES";
     public static final String ACCOUNT_CREATE_DEFAULT_IDENTIFIER = "accountDefaultId";
     public static final String WEBSERVICE_UNREACHABLE = "Access to the web service is unreachable: ";
     public static final String FUND_MANAGER_ID = "fundManagerId";

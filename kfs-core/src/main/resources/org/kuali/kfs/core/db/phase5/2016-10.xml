@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns='http://www.liquibase.org/xml/ns/dbchangelog'
+                   xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+                   xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_CAM_NEW_ASSET_CONDITION_CODE" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'Asset' and PARM_NM = 'NEW_ASSET_CONDITION_CODE'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_COA_EMPLOYEE_STATUSES" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-COA' and CMPNT_CD = 'AccountDelegate' and PARM_NM = 'EMPLOYEE_STATUSES'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_EC_FEDERAL_SPONSOR_TYPE_CODES" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-EC' and CMPNT_CD = 'EffortCertification' and PARM_NM = 'FEDERAL_SPONSOR_TYPE_CODES'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_FP_PAYMENT_REASON_CODE_TRAVEL_HONORARIUM" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-FP' and CMPNT_CD = 'DisbursementVoucher' and PARM_NM = 'PAYMENT_REASON_CODE_TRAVEL_HONORARIUM'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_LD_FROM_EMAIL_ADDRESS" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-LD' and CMPNT_CD = 'Batch' and PARM_NM = 'FROM_EMAIL_ADDRESS'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_LD_CLOSED_FISCAL_PERIOD_BYPASS_BALANCE_TYPES" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-LD' and CMPNT_CD = 'LaborScrubberStep' and PARM_NM = 'CLOSED_FISCAL_PERIOD_BYPASS_BALANCE_TYPES'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_PDP_FORMAT_SUMMARY_REVIEW_RESULTS_PER_PAGE" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-PDP' and CMPNT_CD = 'Lookup' and PARM_NM = 'FORMAT_SUMMARY_REVIEW_RESULTS_PER_PAGE'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_PDP_RESULTS_LIMIT" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-PDP' and CMPNT_CD = 'Lookup' and PARM_NM = 'RESULTS_LIMIT'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_PDP_RESULTS_PER_PAGE" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-PDP' and CMPNT_CD = 'Lookup' and PARM_NM = 'RESULTS_PER_PAGE'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_PURAP_FROM_EMAIL_ADDRESS" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-PURAP' and CMPNT_CD = 'Batch' and PARM_NM = 'FROM_EMAIL_ADDRESS'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_PURAP_VALID_OBJECT_LEVELS_BY_OBJECT_TYPE" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-PURAP' and CMPNT_CD = 'PurchaseOrder' and PARM_NM = 'VALID_OBJECT_LEVELS_BY_OBJECT_TYPE'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_SYS_DEFAULT_NUMBER_OF_DAYS_OLD" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-SYS' and CMPNT_CD = 'FilePurgeStep' and PARM_NM = 'DEFAULT_NUMBER_OF_DAYS_OLD'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_SYS_TEMPORARY_FILES_NUMBER_OF_DAYS_OLD" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-SYS' and CMPNT_CD = 'FilePurgeStep' and PARM_NM = 'TEMPORARY_FILES_NUMBER_OF_DAYS_OLD'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_TEM_DOCUMENT_FINAL_NOTIFICATION_SUBJECT" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-TEM' and CMPNT_CD = 'Document' and PARM_NM = 'FINAL_NOTIFICATION_SUBJECT'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_TEM_TRAVEL_AUTHORIZATION_FINAL_NOTIFICATION_SUBJECT" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-TEM' and CMPNT_CD = 'TravelAuthorization' and PARM_NM = 'FINAL_NOTIFICATION_SUBJECT'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_TEM_MULTIPLE_CASH_ADVANCES_ALLOWED_IND" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-TEM' and CMPNT_CD = 'TravelAuthorization' and PARM_NM = 'MULTIPLE_CASH_ADVANCES_ALLOWED_IND'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_VND_LOOKUP_MINIMUM_NAME_LENGTH" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-VND' and CMPNT_CD = 'VendorDetail' and PARM_NM = 'LOOKUP_MINIMUM_NAME_LENGTH'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_VND_LOOKUP_MINIMUM_NUMBER_OF_CRITERIA" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KFS-VND' and CMPNT_CD = 'VendorDetail' and PARM_NM = 'LOOKUP_MINIMUM_NUMBER_OF_CRITERIA'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_KRNS_CHECK_ENCRYPTION_SERVICE_OVERRIDE_IND" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KR-NS' and CMPNT_CD = 'All' and PARM_NM = 'CHECK_ENCRYPTION_SERVICE_OVERRIDE_IND'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_KRNS_DATE_TO_STRING_FORMAT_FOR_USER_INTERFACE" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KR-NS' and CMPNT_CD = 'All' and PARM_NM = 'DATE_TO_STRING_FORMAT_FOR_USER_INTERFACE'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_KRNS_DEFAULT_COUNTRY" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KR-NS' and CMPNT_CD = 'All' and PARM_NM = 'DEFAULT_COUNTRY'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_KRNS_ACTIVE_FILE_TYPES" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KR-NS' and CMPNT_CD = 'Batch' and PARM_NM = 'ACTIVE_FILE_TYPES'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2651_REMOVE_UNUSED_PARAMETER_KRNS_SESSION_TIMEOUT_WARNING_MESSAGE_TIME" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>NMSPC_CD = 'KR-NS' and CMPNT_CD = 'Document' and PARM_NM = 'SESSION_TIMEOUT_WARNING_MESSAGE_TIME'</where>
+        </delete>
+    </changeSet>
+
+</databaseChangeLog>

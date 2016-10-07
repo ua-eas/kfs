@@ -415,7 +415,6 @@ public final class KRADConstants {
 
 
     // Pessimistic Locking Constants
-    public static final String SESSION_TIMEOUT_WARNING_MESSAGE_TIME_PARM_NM = "SESSION_TIMEOUT_WARNING_MESSAGE_TIME";
     public static final String SESSION_TIMEOUT_WARNING_MILLISECONDS = "SESSION_TIMEOUT_WARNING_MILLISECONDS";
     public static final String SESSION_TIMEOUT_WARNING_MINUTES = "SESSION_TIMEOUT_WARNING_MINUTES";
 
@@ -514,8 +513,6 @@ public final class KRADConstants {
 
     public static final String MULTIPLE_VALUE = "multipleValues";
 
-    // Agency type codes
-//    public static final String AGENCY_TYPE_CODE_FEDERAL = "F";
 
     // special chars that I don't know how to put into string literals in JSP expression language
     // below field used in tag files
@@ -526,11 +523,9 @@ public final class KRADConstants {
     public static final String SESSION_SCOPE = "session";
 
     public static final class SystemGroupParameterNames {
-        public static final String CHECK_ENCRYPTION_SERVICE_OVERRIDE_IND = "CHECK_ENCRYPTION_SERVICE_OVERRIDE_IND";
 
         public static final String LOOKUP_RESULTS_LIMIT = "RESULTS_LIMIT";
         public static final String MULTIPLE_VALUE_LOOKUP_RESULTS_PER_PAGE = "MULTIPLE_VALUE_RESULTS_PER_PAGE";
-//        public static final String MULTIPLE_VALUE_LOOKUP_RESULTS_EXPIRATION_AGE = "MULTIPLE_VALUE_RESULTS_EXPIRATION_SECONDS";
 
         public static final String DEFAULT_CAN_PERFORM_ROUTE_REPORT_IND = "DEFAULT_CAN_PERFORM_ROUTE_REPORT_IND";
         public static final String ALLOW_ENROUTE_BLANKET_APPROVE_WITHOUT_APPROVAL_REQUEST_IND = "ALLOW_ENROUTE_BLANKET_APPROVE_WITHOUT_APPROVAL_REQUEST_IND";
@@ -540,14 +535,7 @@ public final class KRADConstants {
          */
         public static final String ENABLE_FIELD_LEVEL_HELP_IND = "ENABLE_FIELD_LEVEL_HELP_IND";
 
-//        /**
-//         * Used by PurgePendingAttachmentsJob to compute the maximum amount of time a pending attachment is allowed to
-//         * persist on the file system before being deleted.
-//         */
-//        public static final String PURGE_PENDING_ATTACHMENTS_STEP_MAX_AGE = "purgePendingAttachmentsStepMaxAge";
-
         public static final String ENABLE_DIRECT_INQUIRIES_IND = "ENABLE_DIRECT_INQUIRIES_IND";
-        public static final String DEFAULT_COUNTRY = "DEFAULT_COUNTRY";
 
         public static final String SENSITIVE_DATA_PATTERNS = "SENSITIVE_DATA_PATTERNS";
         public static final String SENSITIVE_DATA_PATTERNS_WARNING_IND = "SENSITIVE_DATA_PATTERNS_WARNING_IND";
