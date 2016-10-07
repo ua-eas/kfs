@@ -16,40 +16,17 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import React from 'react';
+import React, {Component} from 'react';
 import LinkGroups from './LinkGroups.jsx';
 import LinkGroupLinks from './LinkGroupLinks.jsx';
 import {getUrlPathPrefix, ajaxCall} from '../../../sys/utils.js';
 import _ from 'lodash';
 import Immutable from 'immutable';
 
-let NavigationConfig = React.createClass({
-    childContextTypes: {
-        toggleLinkGroup: React.PropTypes.func,
-        updateLinkGroups: React.PropTypes.func,
-        updateLinkGroupName: React.PropTypes.func,
-        addNewLinkGroup: React.PropTypes.func,
-        cancelAddNewLinkGroup: React.PropTypes.func,
-        deleteLinkGroup: React.PropTypes.func,
-        addNewCustomLink: React.PropTypes.func,
-        updateExistingCustomLink: React.PropTypes.func,
-        deleteExistingCustomLink: React.PropTypes.func
-    },
-    getChildContext() {
-        return {
-            toggleLinkGroup: this.toggleLinkGroup,
-            updateLinkGroups: this.updateLinkGroups,
-            updateLinkGroupName: this.updateLinkGroupName,
-            addNewLinkGroup: this.addNewLinkGroup,
-            cancelAddNewLinkGroup: this.cancelAddNewLinkGroup,
-            deleteLinkGroup: this.deleteLinkGroup,
-            addNewCustomLink: this.addNewCustomLink,
-            updateExistingCustomLink: this.updateExistingCustomLink,
-            deleteExistingCustomLink: this.deleteExistingCustomLink
-        }
-    },
-    getInitialState() {
-        return {
+export default class NavigationConfig extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
             linkGroups: new Immutable.List(),
             expandedLinkGroup: undefined,
             topGroupSelected: false,
@@ -57,7 +34,19 @@ let NavigationConfig = React.createClass({
             saveButtonText: 'SAVE CHANGES',
             loading: true
         };
-    },
+
+        this.stateUpdateLinkGroups = this.stateUpdateLinkGroups.bind(this);
+        this.stateToggleLinkGroup = this.stateToggleLinkGroup.bind(this);
+        this.stateUpdateLinkGroupName = this.stateUpdateLinkGroupName.bind(this);
+        this.stateAddNewLinkGroup = this.stateAddNewLinkGroup.bind(this);
+        this.stateCancelAddNewLinkGroup = this.stateCancelAddNewLinkGroup.bind(this);
+        this.stateDeleteLinkGroup = this.stateDeleteLinkGroup.bind(this);
+        this.stateAddNewCustomLink = this.stateAddNewCustomLink.bind(this);
+        this.stateUpdateExistingCustomLink = this.stateUpdateExistingCustomLink.bind(this);
+        this.stateDeleteExistingCustomLink = this.stateDeleteExistingCustomLink.bind(this);
+        this.saveChanges = this.saveChanges.bind(this);
+    }
+
     componentWillMount() {
         let linkGroupPath = getUrlPathPrefix() + "api/v1/sys/preferences/config/groups";
         ajaxCall({
@@ -77,7 +66,8 @@ let NavigationConfig = React.createClass({
                 console.error(status, err.toString());
             }.bind(this)
         });
-    },
+    }
+
     componentDidUpdate() {
         if (this.state.expandedLinkGroup) {
             let item = $('#item-list .item.active');
@@ -102,8 +92,9 @@ let NavigationConfig = React.createClass({
                 subListItem.css('margin-top', (itemBottom - subListItemBottom) + 'px');
             }
         }
-    },
-    toggleLinkGroup(index, label) {
+    }
+
+    stateToggleLinkGroup(index, label) {
         if (this.state.expandedLinkGroup === label) {
             this.setState({expandedLinkGroup: undefined, topGroupSelected: false});
         } else if (label) {
@@ -113,33 +104,39 @@ let NavigationConfig = React.createClass({
             }
             this.setState({expandedLinkGroup: label, topGroupSelected: topGroupSelected});
         }
-    },
-    updateLinkGroups(linkGroups) {
+    }
+
+    stateUpdateLinkGroups(linkGroups) {
         this.setState({linkGroups: linkGroups, hasChanges: true});
-    },
-    updateLinkGroupName(linkGroupIndex, newName) {
+    }
+
+    stateUpdateLinkGroupName(linkGroupIndex, newName) {
         let linkGroup = this.state.linkGroups.get(linkGroupIndex);
         let updatedLinkGroup = linkGroup.set('label', newName);
         let updatedLinkGroups = this.state.linkGroups.set(linkGroupIndex, updatedLinkGroup);
         this.setState({linkGroups: updatedLinkGroups, hasChanges: true});
-    },
-    addNewLinkGroup() {
+    }
+
+    stateAddNewLinkGroup() {
         let linkGroups = this.state.linkGroups;
         let newLinkGroup = Immutable.fromJS({label: '', links: {}});
         let updatedLinkGroups = linkGroups.push(newLinkGroup);
         this.setState({linkGroups: updatedLinkGroups})
-    },
-    cancelAddNewLinkGroup() {
+    }
+
+    stateCancelAddNewLinkGroup() {
         let linkGroups = this.state.linkGroups;
         let updatedLinkGroups = linkGroups.pop();
         this.setState({linkGroups: updatedLinkGroups})
-    },
-    deleteLinkGroup(index) {
+    }
+
+    stateDeleteLinkGroup(index) {
         let linkGroups = this.state.linkGroups;
         let updatedLinkGroups = linkGroups.splice(index, 1);
         this.setState({linkGroups: updatedLinkGroups, hasChanges: true});
-    },
-    addNewCustomLink(groupIndex, newLink, newLinkType) {
+    }
+
+    stateAddNewCustomLink(groupIndex, newLink, newLinkType) {
         let linkGroups = this.state.linkGroups;
         let linkGroup = linkGroups.get(groupIndex);
         let linksTypes = linkGroup.get('links');
@@ -152,8 +149,9 @@ let NavigationConfig = React.createClass({
         let updatedLinkGroup = linkGroup.set('links', updatedLinkType);
         let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
         this.setState({'linkGroups': updatedLinkGroups, hasChanges: true});
-    },
-    updateExistingCustomLink(groupIndex, oldLink, oldLinkType, updatedGroupIndex, updatedLink, updatedLinkType) {
+    }
+
+    stateUpdateExistingCustomLink(groupIndex, oldLink, oldLinkType, updatedGroupIndex, updatedLink, updatedLinkType) {
         let linkGroups = this.state.linkGroups;
         let linkGroup = linkGroups.get(groupIndex);
         let linkTypes = linkGroup.get('links');
@@ -215,8 +213,9 @@ let NavigationConfig = React.createClass({
             let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
             this.setState({'linkGroups': updatedLinkGroups, hasChanges: true});
         }
-    },
-    deleteExistingCustomLink(groupIndex, type, oldLink) {
+    }
+
+    stateDeleteExistingCustomLink(groupIndex, type, oldLink) {
         let linkGroups = this.state.linkGroups;
         let linkGroup = linkGroups.get(groupIndex);
         let linkTypes = linkGroup.get('links');
@@ -241,7 +240,8 @@ let NavigationConfig = React.createClass({
         let updatedLinkGroup = linkGroup.set('links', updatedLinksType);
         let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
         this.setState({'linkGroups': updatedLinkGroups, hasChanges: true});
-    },
+    }
+
     saveChanges() {
         let institutionId = this.state.institutionId;
         let linkGroupPath = getUrlPathPrefix() + "api/v1/sys/preferences/institution/" + institutionId;
@@ -268,7 +268,8 @@ let NavigationConfig = React.createClass({
                 console.error(status, err.toString());
             }.bind(this)
         });
-    },
+    }
+
     render() {
         let navLoader;
         if (this.state.loading) {
@@ -287,6 +288,17 @@ let NavigationConfig = React.createClass({
         } else {
             saveButtonText = "SAVE CHANGES";
         }
+        let stateMaintenance = {
+            stateToggleLinkGroup: this.stateToggleLinkGroup,
+            stateUpdateLinkGroups: this.stateUpdateLinkGroups,
+            stateUpdateLinkGroupName: this.stateUpdateLinkGroupName,
+            stateAddNewLinkGroup: this.stateAddNewLinkGroup,
+            stateCancelAddNewLinkGroup: this.stateCancelAddNewLinkGroup,
+            stateDeleteLinkGroup: this.stateDeleteLinkGroup,
+            stateAddNewCustomLink: this.stateAddNewCustomLink,
+            stateUpdateExistingCustomLink: this.stateUpdateExistingCustomLink,
+            stateDeleteExistingCustomLink: this.stateDeleteExistingCustomLink
+        };
         return (
             <div>
                 {navLoader}
@@ -296,12 +308,15 @@ let NavigationConfig = React.createClass({
 
                 <div className="nav-config main">
                     <LinkGroups linkGroups={this.state.linkGroups}
-                                expandedLinkGroup={this.state.expandedLinkGroup}/>
+                                expandedLinkGroup={this.state.expandedLinkGroup}
+                                stateMaintenance={stateMaintenance}
+                    />
 
                     <LinkGroupLinks linkGroups={this.state.linkGroups}
                                     expandedLinkGroup={this.state.expandedLinkGroup}
-                                    topGroupSelected={this.state.topGroupSelected}/>
-
+                                    topGroupSelected={this.state.topGroupSelected}
+                                    stateMaintenance={stateMaintenance}
+                    />
                 </div>
 
                 <div className="buttonbar">
@@ -310,6 +325,4 @@ let NavigationConfig = React.createClass({
             </div>
         )
     }
-});
-
-export default NavigationConfig;
+}

@@ -16,21 +16,27 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import React from 'react';
+import React, {Component} from 'react';
 import Immutable from 'immutable';
 import KfsUtils from '../../../sys/utils.js';
 import Dropzone from 'react-dropzone';
 
 
-let LogoUpload = React.createClass({
-    getInitialState() {
-        return {
+export default class LogoUpload  extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
             logo: '',
             hasChanges: false,
             saveButtonText: 'SAVE CHANGES'
         };
-    },
-    componentWillMount() {
+
+        this.onDrop = this.onDrop.bind(this);
+        this.saveChanges = this.saveChanges.bind(this);
+    }
+
+    componentDidMount() {
         let logoPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/config/logo";
         KfsUtils.ajaxCall({
             url: logoPath,
@@ -46,8 +52,9 @@ let LogoUpload = React.createClass({
                 console.error(status, err.toString());
             }.bind(this)
         });
-    },
-    onDrop: function (files) {
+    }
+
+    onDrop(files) {
         let data = new FormData();
         data.append('logo', files[0]);
 
@@ -70,7 +77,8 @@ let LogoUpload = React.createClass({
                 console.error(status, err.toString());
             }.bind(this)
         });
-    },
+    }
+
     saveChanges() {
         let data = {'logoUrl': this.state.logo};
         let logoPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/config/logo";
@@ -97,7 +105,8 @@ let LogoUpload = React.createClass({
                 console.error(status, err.toString());
             }.bind(this)
         });
-    },
+    }
+
     render() {
         let logoUrl = this.state.logo;
         if (logoUrl && logoUrl.indexOf('data:') !== 0 && !logoUrl.startsWith('http')) {
@@ -146,6 +155,4 @@ let LogoUpload = React.createClass({
             </div>
         )
     }
-});
-
-export default LogoUpload;
+}

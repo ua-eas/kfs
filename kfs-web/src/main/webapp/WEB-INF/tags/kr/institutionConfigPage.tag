@@ -59,7 +59,7 @@
                     <div class="main-panel">
                         ${headerMenuBar}
                         <div id="page-content">
-                            <jsp:doBody/>
+
                         </div>
                     </div>
                 </div>
@@ -68,13 +68,12 @@
             <div id="sidebar"></div>
         </div>
 
-        <footer id="footer"></footer>
-
         <script src="${pageContext.request.contextPath}/scripts/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/scripts/jquery-ui.min.js"></script>
 
         <script src="${pageContext.request.contextPath}/scripts/polyfill.min.js"></script>
         <script src="${pageContext.request.contextPath}/scripts/notify.min.js"></script>
+        <jsp:doBody/>
     </body>
 </html:html>
