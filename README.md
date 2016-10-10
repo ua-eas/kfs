@@ -1,4 +1,4 @@
-# KFS Release 7.0 
+# KFS Release 7.0
 
 ## Documentation Links
 
@@ -6,7 +6,6 @@
 [https://wiki.kuali.org/x/UgACEw](https://wiki.kuali.org/x/UgACEw)
 
 ## Quick Start
-
 
 1. Ensure that you have Java 7+ and Maven 3+ installed
 2. Setup a local MySQL 5.5.x database (see technical document link above for details)
