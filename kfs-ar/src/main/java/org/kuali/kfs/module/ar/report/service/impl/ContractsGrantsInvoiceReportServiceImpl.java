@@ -76,12 +76,14 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
@@ -576,13 +578,10 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
      * @param returnStream    The output stream the federal form will be written to.
      */
     protected void stampPdfFormValues425(ContractsAndGrantsBillingAward award, String reportingPeriod, String year, OutputStream returnStream, Map<String, String> replacementList) {
-        String reportTemplateName = ArConstants.FF_425_TEMPLATE_NM + KFSConstants.ReportGeneration.PDF_FILE_EXTENSION;
         try {
-            String federalReportTemplatePath = configService.getPropertyValueAsString(KFSConstants.EXTERNALIZABLE_HELP_URL_KEY);
             populateListByAward(award, reportingPeriod, year, replacementList);
-            //final byte[] pdfBytes = renameFieldsIn(federalReportTemplatePath + reportTemplateName, replacementList);
-            URL template = new URL(federalReportTemplatePath + reportTemplateName);
-            final byte[] pdfBytes = PdfFormFillerUtil.populateTemplate(template.openStream(), replacementList);
+            ClassPathResource template = new ClassPathResource(ArConstants.FF_425_TEMPLATE_NM);
+            final byte[] pdfBytes = PdfFormFillerUtil.populateTemplate(template.getInputStream(), replacementList);
             returnStream.write(pdfBytes);
         } catch (IOException | DocumentException ex) {
             throw new RuntimeException("Troubles stamping the old 425!", ex);
@@ -598,10 +597,9 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
      * @param returnStream    The output stream the federal form will be written to.
      */
     protected void stampPdfFormValues425A(ContractsAndGrantsBillingAgency agency, String reportingPeriod, String year, OutputStream returnStream, Map<String, String> replacementList) {
-        String federalReportTemplatePath = configService.getPropertyValueAsString(KFSConstants.EXTERNALIZABLE_HELP_URL_KEY);
         try {
-            final String federal425ATemplateUrl = federalReportTemplatePath + ArConstants.FF_425A_TEMPLATE_NM + KFSConstants.ReportGeneration.PDF_FILE_EXTENSION;
-            final String federal425TemplateUrl = federalReportTemplatePath + ArConstants.FF_425_TEMPLATE_NM + KFSConstants.ReportGeneration.PDF_FILE_EXTENSION;
+            ClassPathResource federal425ATemplate = new ClassPathResource(ArConstants.FF_425A_TEMPLATE_NM);
+            ClassPathResource federal425Template = new ClassPathResource(ArConstants.FF_425_TEMPLATE_NM);
 
             Map<String, Object> fieldValues = new HashMap<>();
             fieldValues.put(KFSPropertyConstants.AGENCY_NUMBER, agency.getAgencyNumber());
@@ -641,13 +639,13 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
                     contractsGrantsBillingUtilityService.putValueOrEmptyString(replacementList, ArPropertyConstants.FederalFormReportFields.CASH_ON_HAND, contractsGrantsBillingUtilityService.formatForCurrency(sumCashControl.subtract(sumCumExp)));
                 }
                 // add a document
-                copy.addDocument(new PdfReader(renameFieldsIn(federal425ATemplateUrl, replacementList)));
+                copy.addDocument(new PdfReader(renameFieldsIn(federal425ATemplate.getInputStream(), replacementList)));
                 pageNumber++;
             }
             contractsGrantsBillingUtilityService.putValueOrEmptyString(replacementList, ArPropertyConstants.FederalFormReportFields.PAGE_NUMBER, "1");
 
             // add the FF425 form.
-            copy.addDocument(new PdfReader(renameFieldsIn(federal425TemplateUrl, replacementList)));
+            copy.addDocument(new PdfReader(renameFieldsIn(federal425Template.getInputStream(), replacementList)));
             // Close the PdfCopyFields object
             copy.close();
         } catch (DocumentException | IOException ex) {
@@ -662,7 +660,7 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
      * @throws IOException
      * @throws DocumentException
      */
-    protected byte[] renameFieldsIn(String template, Map<String, String> list) throws IOException, DocumentException {
+    protected byte[] renameFieldsIn(InputStream template, Map<String, String> list) throws IOException, DocumentException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         // Create the stamper
         PdfStamper stamper = new PdfStamper(new PdfReader(template), baos);
@@ -682,7 +680,6 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
      */
     @Override
     public byte[] combineInvoicePdfs(Collection<ContractsGrantsInvoiceDocument> list) throws DocumentException, IOException {
-        Date runDate = new Date(new java.util.Date().getTime());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         generateCombinedPdfForInvoices(list, baos);
         return baos.toByteArray();
@@ -693,7 +690,6 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
      */
     @Override
     public byte[] combineInvoicePdfEnvelopes(Collection<ContractsGrantsInvoiceDocument> list) throws DocumentException, IOException {
-        Date runDate = new Date(new java.util.Date().getTime());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         generateCombinedPdfForEnvelopes(list, baos);
         return baos.toByteArray();
