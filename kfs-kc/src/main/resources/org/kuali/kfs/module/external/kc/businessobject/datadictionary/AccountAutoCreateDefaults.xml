@@ -27,7 +27,7 @@
                   value="org.kuali.kfs.module.external.kc.businessobject.AccountAutoCreateDefaults"/>
         <property name="inquiryDefinition" ref="AccountAutoCreateDefaults-inquiryDefinition"/>
         <property name="lookupDefinition" ref="AccountAutoCreateDefaults-lookupDefinition"/>
-        <property name="titleAttribute" value="CG Account Default"/>
+        <property name="titleAttribute" value="Account Auto-Creation Defaults"/>
         <property name="objectLabel" value="AccountAutoCreateDefaults"/>
         <property name="attributes">
             <list>
@@ -222,10 +222,10 @@
 
     <bean id="AccountAutoCreateDefaults-inquiryDefinition-parentBean"
           abstract="true" parent="InquiryDefinition">
-        <property name="title" value="CG Account Defaults Inquiry"/>
+        <property name="title" value="Account Auto-Creation Defaults Inquiry"/>
         <property name="inquirySections">
             <list>
-                <bean parent="InquirySectionDefinition" p:title="CG Account Defaults Details">
+                <bean parent="InquirySectionDefinition" p:title="Account Auto-Creation Defaults Details">
                     <property name="inquiryFields">
                         <list>
                             <bean parent="FieldDefinition" p:attributeName="accountDefaultId"/>
@@ -248,7 +248,7 @@
                         </list>
                     </property>
                 </bean>
-                <bean parent="InquirySectionDefinition" p:title="CG Account Defaults Responsibility">
+                <bean parent="InquirySectionDefinition" p:title="Account Auto-Creation Defaults Responsibility">
                     <property name="inquiryFields">
                         <list>
                             <bean parent="FieldDefinition" p:attributeName="accountFiscalOfficerUser.principalName"/>
@@ -268,7 +268,7 @@
                         </list>
                     </property>
                 </bean>
-                <bean parent="InquirySectionDefinition" p:title="CG Account Defaults Contracts &amp; Grants">
+                <bean parent="InquirySectionDefinition" p:title="Account Auto-Creation Defaults Contracts &amp; Grants">
                     <property name="inquiryFields">
                         <list>
                             <bean parent="FieldDefinition" p:attributeName="contractsAndGrantsAccountResponsibilityId"/>
@@ -333,7 +333,7 @@
 
     <bean id="AccountAutoCreateDefaults-lookupDefinition-parentBean"
           abstract="true" parent="LookupDefinition">
-        <property name="title" value="CG Account Default Lookup"/>
+        <property name="title" value="Account Auto-Creation Defaults Lookup"/>
 
         <property name="defaultSort">
             <bean parent="SortDefinition">
