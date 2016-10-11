@@ -95,6 +95,7 @@ import java.math.RoundingMode;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -102,7 +103,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 /**
@@ -1473,8 +1477,15 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImpl implements Contract
      */
     protected void performAwardValidation(Collection<ContractsAndGrantsBillingAward> awards, Map<ContractsAndGrantsBillingAward, List<String>> invalidGroup, List<ContractsAndGrantsBillingAward> qualifiedAwards) {
 
+        Set<ContractsAndGrantsBillingAward> awardsWithDuplicateAccounts = findAwardsWithDuplicateAccounts(awards);
+
         for (ContractsAndGrantsBillingAward award : awards) {
             List<String> errorList = new ArrayList<String>();
+
+            if (awardsWithDuplicateAccounts.contains(award)) {
+                errorList.add(configurationService
+                        .getPropertyValueAsString(ArKeyConstants.CGINVOICE_CREATION_ACCOUNT_ON_MULTIPLE_AWARDS));
+            }
 
             if (award.getAwardBeginningDate() != null) {
                 if (award.getBillingFrequencyCode() != null && getContractsGrantsBillingAwardVerificationService().isValueOfBillingFrequencyValid(award)) {
@@ -1497,6 +1508,27 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImpl implements Contract
             }
 
         }
+    }
+
+    /**
+     * Determines which awards have accounts that are used in multiple awards.
+     * 
+     * @param awards
+     *            The list of awards to check.
+     * @return The set of awards with duplicate accounts.
+     */
+    protected Set<ContractsAndGrantsBillingAward> findAwardsWithDuplicateAccounts(
+            Collection<ContractsAndGrantsBillingAward> awards) {
+        // Get the list of awards associated with each account
+        Map<String, List<ContractsAndGrantsBillingAward>> accountMap = awards.stream()
+                .flatMap(award -> award.getActiveAwardAccounts().stream()
+                        .map(awardAccount -> new SimpleEntry<>(awardAccount.getAccountNumber(), award)))
+                .collect(
+                        Collectors.groupingBy(Entry::getKey, Collectors.mapping(Entry::getValue, Collectors.toList())));
+
+        // Return the awards that are in groups of more than one
+        return accountMap.entrySet().stream().filter(entry -> entry.getValue().size() > 1)
+                .flatMap(entry -> entry.getValue().stream()).collect(Collectors.toSet());
     }
 
 
