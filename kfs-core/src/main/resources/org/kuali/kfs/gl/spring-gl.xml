@@ -2914,7 +2914,7 @@
         </property>
         <property name="dependencies">
             <map>
-                <entry key="nightlyOutJob" value="hardDependency"/>
+                <entry key="clearPendingEntriesJob" value="hardDependency"/>
             </map>
         </property>
     </bean>
