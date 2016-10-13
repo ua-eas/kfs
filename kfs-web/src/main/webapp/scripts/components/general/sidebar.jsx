@@ -45,7 +45,12 @@ var Sidebar = React.createClass({
         UserPrefs.getBackdoorId((backdoorId) => {
             UserPrefs.getPrincipalName(function (principalName) {
                 thisComponent.setState({principalName: principalName});
-                let preferencesString = localStorage.getItem("institutionPreferences");
+                let preferencesString = null;
+                try {
+                    preferencesString = localStorage.getItem("institutionPreferences");
+                } catch(err) {
+                    // Ignore the error, some browsers don't support localStorage
+                }
                 if (preferencesString != null) {
                     let sessionId = KfsUtils.getKualiSessionId();
                     let prefs = JSON.parse(preferencesString);
@@ -53,7 +58,11 @@ var Sidebar = React.createClass({
                         found = true;
                         thisComponent.setState({backdoorId: backdoorId, institutionPreferences: prefs});
                     } else {
-                        localStorage.removeItem("institutionPreferences");
+                        try {
+                            localStorage.removeItem("institutionPreferences");
+                        } catch(err) {
+                            // Ignore the error, some browsers don't support localStorage
+                        }
                     }
                 }
 
@@ -67,7 +76,11 @@ var Sidebar = React.createClass({
                         success: function (preferences) {
                             thisComponent.setState({backdoorId: backdoorId, institutionPreferences: preferences});
                             preferences.sessionId = KfsUtils.getKualiSessionId();
-                            localStorage.setItem("institutionPreferences", JSON.stringify(preferences));
+                            try {
+                                localStorage.setItem("institutionPreferences", JSON.stringify(preferences));
+                            } catch(err) {
+                                // Ignore the error, some browsers don't support localStorage
+                            }
                         }.bind(this),
                         error: function (xhr, status, err) {
                             console.error(status, err.toString());
@@ -188,7 +201,11 @@ var Sidebar = React.createClass({
             success: function (preferences) {
                 thisComponent.setState({institutionPreferences: preferences});
                 preferences.sessionId = KfsUtils.getKualiSessionId();
-                localStorage.setItem("institutionPreferences", JSON.stringify(preferences));
+                try {
+                    localStorage.setItem("institutionPreferences", JSON.stringify(preferences));
+                } catch(err) {
+                    // Ignore the error, some browsers don't support localStorage
+                }
                 $('.cover').hide();
                 $('.sidebar-waiting').hide();
             }.bind(this),
