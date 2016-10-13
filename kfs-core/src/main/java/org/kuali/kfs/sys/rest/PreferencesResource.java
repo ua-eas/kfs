@@ -40,13 +40,12 @@ import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 
 @Path("/preferences")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -92,17 +91,12 @@ public class PreferencesResource {
     }
 
     private Optional<String> getRiceVersion() {
-        try (InputStream input = servletContext.getResourceAsStream("/META-INF/MANIFEST.MF")) {
-            BufferedReader in = new BufferedReader(new InputStreamReader(input));
-            String line;
-
-            while((line = in.readLine()) != null) {
-                if ( line.startsWith("rice-version:") ) {
-                    return Optional.of(line.substring("rice-version: ".length()));
-                }
-            }
+        Properties riceProperties = new Properties();
+        try (final InputStream stream = this.getClass().getResourceAsStream("/riceversion.properties")) {
+            riceProperties.load(stream);
+            return Optional.of(riceProperties.getProperty("rice.version"));
         } catch (IOException e) {
-            LOG.error("getRiceVersion() Unable to read manifest.mf file",e);
+            LOG.error("getRiceVersion() Unable to read riceversion.properties file",e);
         }
         return Optional.empty();
     }
