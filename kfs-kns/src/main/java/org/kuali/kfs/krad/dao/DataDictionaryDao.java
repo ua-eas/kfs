@@ -16,12 +16,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.kns.util;
 
+package org.kuali.kfs.krad.dao;
 
-public class KNSConstants {
-    public static final String AUDIT_ERRORS = "AuditErrors";
-    public static final String EXCEPTION_ON_MISSING_FIELD_CONVERSION_ATTRIBUTE = "rice.kns.exceptionOnMissingFieldConversionAttribute";
-    public static final String CSRF_EXEMPT_PATHS = "csrf.exempt.paths";
-    public static final String UPDATE_DOCUMENTSTORE_DATA_DICTIONARY_ON_STARTUP = "updateDocumentstoreDataDictionaryOnStartup";
+import java.util.Map;
+
+public interface DataDictionaryDao {
+    public Map<String, Object> retrieveBusinessObjectEntry(String className);
+    public Map<String, Object> retrieveDocumentEntry(String className);
+    public void saveBusinessObjectEntry(Map<String, Object> businessObjectEntry);
+    public void saveDocumentEntry(Map<String, Object> documentEntry);
 }
