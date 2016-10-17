@@ -219,7 +219,9 @@ public class AwardServiceImpl implements ExternalizableLookupableBusinessObjectS
         }
         if (kcAward.getMethodOfPayment() != null) {
             award.setLetterOfCreditFundCode(kcAward.getMethodOfPayment().getMethodOfPaymentCode());
-            award.setLetterOfCreditFund(new LetterOfCreditFund(kcAward.getMethodOfPayment().getMethodOfPaymentCode(), kcAward.getMethodOfPayment().getDescription()));
+            LetterOfCreditFund fund = new LetterOfCreditFund(kcAward.getMethodOfPayment().getMethodOfPaymentCode(), kcAward.getMethodOfPayment().getDescription());
+            fund.setLetterOfCreditFundAmount(new KualiDecimal(kcAward.getLocFundAmount()));
+            award.setLetterOfCreditFund(fund);
         }
         award.setBillingFrequencyCode(kcAward.getInvoiceBillingFrequency());
         award.setAwardPrimaryProjectDirector(getProjectDirector(kcAward));
