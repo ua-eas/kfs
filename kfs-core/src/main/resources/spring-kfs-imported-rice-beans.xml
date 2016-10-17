@@ -229,5 +229,4 @@
         </property>
     </bean>
 
-    <bean id="mongoTemplate" p:serviceName="mongoTemplate" parent="grlBeanImporter"/>
 </beans>

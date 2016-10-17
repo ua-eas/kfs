@@ -23,7 +23,6 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectExtension;
 import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 import org.kuali.kfs.krad.datadictionary.exception.CompletionException;
@@ -226,15 +225,20 @@ public class DataDictionary {
         }
         LOG.info("Completed DD XML File Load");
 
+        /*UifBeanFactoryPostProcessor factoryPostProcessor = new UifBeanFactoryPostProcessor();
+        factoryPostProcessor.postProcessBeanFactory(ddBeans);*/
+
         // indexing
         if (allowConcurrentValidation) {
             Thread t = new Thread(ddIndex);
             t.start();
+
+            /*Thread t2 = new Thread(uifIndex);
+            t2.start();*/
         } else {
             ddIndex.run();
+            //uifIndex.run();
         }
-        Thread mongoUpdate = new Thread(new DataDictionaryMongoUpdater(ddIndex, KNSServiceLocator.getDataDictionaryDao()));
-        mongoUpdate.run();
     }
 
     static boolean validateEBOs = false;
