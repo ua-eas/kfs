@@ -43,7 +43,7 @@ public class DocumentEntryMongoUpdater {
     }
 
     private void updateDocumentEntry(DocumentEntry documentEntry) {
-        Map<String, Object> mongoDocumentEntry = dataDictionaryDao.retrieveDocumentEntry(documentEntry.getDocumentClass().getName());
+        Map<String, Object> mongoDocumentEntry = dataDictionaryDao.retrieveDocumentEntryByType(documentEntry.getDocumentTypeName());
         if (mongoDocumentEntry == null) {
             mongoDocumentEntry = createMongoDocumentEntry(documentEntry);
         } else {
