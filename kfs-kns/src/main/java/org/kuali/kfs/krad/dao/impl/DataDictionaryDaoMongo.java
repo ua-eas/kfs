@@ -33,6 +33,7 @@ public class DataDictionaryDaoMongo implements DataDictionaryDao {
     private static final String BUSINESS_OBJECT_ENTRY_CLASS_NAME_KEY = "businessObjectClassName";
     private static final String DOCUMENT_ENTRIES_COLLECTION = "documentMetadata";
     private static final String DOCUMENT_ENTRY_CLASS_NAME_KEY = "documentClassName";
+    private static final String DOCUMENT_ENTRY_WORKFLOW_NAME_KEY = "workflowTypeName";
 
     private MongoTemplate mongoTemplate;
 
@@ -50,16 +51,25 @@ public class DataDictionaryDaoMongo implements DataDictionaryDao {
     }
 
     @Override
-    public Map<String, Object> retrieveDocumentEntry(String className) {
-        List<Map> documentEntries = mongoTemplate.find(buildQueryForDocumentEntry(className), Map.class, DOCUMENT_ENTRIES_COLLECTION);
+    public Map<String, Object> retrieveDocumentEntryByClassname(String className) {
+        List<Map> documentEntries = mongoTemplate.find(buildQueryForDocumentEntry(DOCUMENT_ENTRY_CLASS_NAME_KEY, className), Map.class, DOCUMENT_ENTRIES_COLLECTION);
         if (!CollectionUtils.isEmpty(documentEntries)) {
             return documentEntries.get(0);
         }
         return null;
     }
 
-    protected Query buildQueryForDocumentEntry(String className) {
-        return new BasicQuery("{ " + DOCUMENT_ENTRY_CLASS_NAME_KEY + " : \"" + className + "\"}");
+    @Override
+    public Map<String, Object> retrieveDocumentEntryByType(String type) {
+        List<Map> documentEntries = mongoTemplate.find(buildQueryForDocumentEntry(DOCUMENT_ENTRY_WORKFLOW_NAME_KEY, type), Map.class, DOCUMENT_ENTRIES_COLLECTION);
+        if (!CollectionUtils.isEmpty(documentEntries)) {
+            return documentEntries.get(0);
+        }
+        return null;
+    }
+
+    protected Query buildQueryForDocumentEntry(String collection, String className) {
+        return new BasicQuery("{ " + collection + " : \"" + className + "\"}");
     }
 
     @Override

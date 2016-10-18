@@ -23,7 +23,8 @@ import java.util.Map;
 
 public interface DataDictionaryDao {
     public Map<String, Object> retrieveBusinessObjectEntry(String className);
-    public Map<String, Object> retrieveDocumentEntry(String className);
+    public Map<String, Object> retrieveDocumentEntryByClassname(String className);
+    public Map<String, Object> retrieveDocumentEntryByType(String type);
     public void saveBusinessObjectEntry(Map<String, Object> businessObjectEntry);
     public void saveDocumentEntry(Map<String, Object> documentEntry);
 }
