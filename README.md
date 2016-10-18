@@ -1,4 +1,4 @@
-# KFS Release 7.0-SNAPSHOT
+# KFS Release 7.0
 
 ## Documentation Links
 
