@@ -60,12 +60,6 @@
              it difficult for developers to look at the overlayed resources
          -->
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources/rice</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

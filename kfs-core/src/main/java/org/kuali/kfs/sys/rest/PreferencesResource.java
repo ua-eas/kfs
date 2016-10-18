@@ -24,6 +24,7 @@ import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.InstitutionPreferencesService;
 import org.kuali.kfs.sys.service.UserPreferencesService;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.identity.Person;
 
 import javax.servlet.ServletContext;
@@ -90,15 +91,8 @@ public class PreferencesResource {
         return Response.ok(preferences).build();
     }
 
-    private Optional<String> getRiceVersion() {
-        Properties riceProperties = new Properties();
-        try (final InputStream stream = this.getClass().getResourceAsStream("/riceversion.properties")) {
-            riceProperties.load(stream);
-            return Optional.of(riceProperties.getProperty("rice.version"));
-        } catch (IOException e) {
-            LOG.error("getRiceVersion() Unable to read riceversion.properties file",e);
-        }
-        return Optional.empty();
+    protected Optional<String> getRiceVersion() {
+        return Optional.of(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("rice.version"));
     }
 
     @PUT
