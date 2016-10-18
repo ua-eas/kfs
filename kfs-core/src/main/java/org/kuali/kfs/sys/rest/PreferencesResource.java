@@ -41,12 +41,11 @@ import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Properties;
 
 @Path("/preferences")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -201,9 +200,14 @@ public class PreferencesResource {
 
         if (isAuthorized(principalName)) {
             Map<String, Object> preferences = getUserPreferencesService().getUserPreferences(principalName);
+
             if (preferences == null) {
                 return Response.status(Response.Status.NOT_FOUND).entity("User Preference Not Found").build();
             }
+            preferences.put("defaultFinancialsChartOfAccountsCode","");
+            preferences.put("defaultOrganizationCode","");
+            preferences.put("defaultAccounts",new ArrayList<ChartAccount>());
+
             return Response.ok(preferences).build();
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).entity("Unauthorized to retrieve preferences for this user").build();
@@ -248,6 +252,11 @@ public class PreferencesResource {
 
     protected Person getPerson() {
         return KRADUtils.getUserSessionFromRequest(servletRequest).getPerson();
+    }
+
+    class ChartAccount {
+        public String financialChartOfAccountsCode;
+        public String accountNumber;
     }
 
     protected UserPreferencesService getUserPreferencesService() {
