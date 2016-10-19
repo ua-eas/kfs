@@ -62,7 +62,7 @@ public class BusinessObjectEntryMongoUpdater {
         newEntry.put("module", apiNamesGenerator.convertBusinessObjectEntryToModuleName(businessObjectEntry));
         newEntry.put("businessObjectReferenceName", apiNamesGenerator.convertBusinessObjectEntryToUrlBoName(businessObjectEntry));
         newEntry.put("businessObjectClassName", businessObjectEntry.getBusinessObjectClass().getName());
-        newEntry.put("objectLabel", businessObjectEntry.getObjectLabel());
+        updateValues(businessObjectEntry, newEntry);
         return newEntry;
     }
 }

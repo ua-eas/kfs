@@ -20,6 +20,7 @@
 package org.kuali.kfs.krad.datadictionary;
 
 import org.kuali.kfs.krad.dao.DataDictionaryDao;
+import org.kuali.kfs.krad.document.TransactionalDocument;
 
 import java.util.Collection;
 import java.util.Map;
@@ -47,7 +48,7 @@ public class DocumentEntryMongoUpdater {
         if (mongoDocumentEntry == null) {
             mongoDocumentEntry = createMongoDocumentEntry(documentEntry);
         } else {
-            updateMongoDocumentEntry(mongoDocumentEntry, documentEntry);
+            updateMongoDocumentEntry(documentEntry, mongoDocumentEntry);
         }
         dataDictionaryDao.saveDocumentEntry(mongoDocumentEntry);
     }
@@ -59,10 +60,19 @@ public class DocumentEntryMongoUpdater {
         mongoDocumentEntry.put("documentReferenceName",apiNamesGenerator.convertDocumentEntryToUrlDocumentName(documentEntry));
         mongoDocumentEntry.put("documentClassName",documentEntry.getDocumentClass().getName());
         mongoDocumentEntry.put("workflowTypeName",documentEntry.getDocumentTypeName());
+        updateMongoDocumentEntry(documentEntry, mongoDocumentEntry);
         return mongoDocumentEntry;
     }
 
-    private void updateMongoDocumentEntry(Map<String, Object> mongoDocumentEntry, DocumentEntry documentEntry) {
-        // for now, no need to do anything - all the fields we're currently committing are invariant
+    private String determineFamily(DocumentEntry documentEntry) {
+        return (TransactionalDocument.class.isAssignableFrom(documentEntry.getDocumentClass())) ? "transactional" : "maintenance";
+    }
+
+    private void updateMongoDocumentEntry(DocumentEntry documentEntry, Map<String, Object> mongoDocumentEntry) {
+        mongoDocumentEntry.put("documentFamily", determineFamily(documentEntry));
+        if (documentEntry instanceof MaintenanceDocumentEntry) {
+            final MaintenanceDocumentEntry maintenanceDocumentEntry = (MaintenanceDocumentEntry)documentEntry;
+            mongoDocumentEntry.put("maintenanceBusinessObjectClass", maintenanceDocumentEntry.getDataObjectClass().getName());
+        }
     }
 }
