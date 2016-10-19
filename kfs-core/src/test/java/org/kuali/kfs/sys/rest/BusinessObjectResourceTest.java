@@ -419,7 +419,7 @@ public class BusinessObjectResourceTest {
         return result;
     }
 
-    private boolean mapsEqualEnough(Map<String, Object> map1, Map<String, Object> map2, String... properties) {
+    private boolean mapsEqualEnough(Map<String, Object> map1, BeanMap map2, String... properties) {
         for (String property : properties) {
             if (!ObjectUtils.equals(map1.get(property), map2.get(property))) {
                 return false;
