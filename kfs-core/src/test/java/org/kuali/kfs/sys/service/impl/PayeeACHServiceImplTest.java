@@ -143,6 +143,22 @@ public class PayeeACHServiceImplTest {
         }
 
         @Override
+        public <T extends BusinessObject> Collection<T> findMatching(
+            Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit, String[] orderBy) {
+
+            if (fieldValues.get(PdpPropertyConstants.PAYEE_ID_NUMBER) == null)
+                return null;
+            else if (((String) fieldValues.get(PdpPropertyConstants.PAYEE_ID_NUMBER)).equalsIgnoreCase("1234567890")) {
+                List list = new ArrayList();
+                list.add(new PayeeACHAccount());
+                return list;
+            }
+
+            // looks up send empty lists if nothing found.
+            return new ArrayList<T>();
+        }
+
+        @Override
         public int countMatching(Class clazz, Map<String, ?> fieldValues) {
             // TODO Auto-generated method stub
             return 0;

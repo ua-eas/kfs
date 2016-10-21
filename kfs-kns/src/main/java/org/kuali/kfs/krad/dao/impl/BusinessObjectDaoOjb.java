@@ -125,6 +125,29 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
         return (Collection<T>) getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(clazz, criteria));
     }
 
+    /**
+     * This is the default impl that comes with Kuali - uses OJB.
+     *
+     * @see BusinessObjectDao#findMatching(java.lang.Class, java.util.Map, int, int, String[])
+     */
+    public <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit, String[] orderBy) {
+        Criteria criteria = buildCriteria(fieldValues);
+
+        QueryByCriteria query = QueryFactory.newQuery(clazz, criteria);
+        query.setStartAtIndex(skip + 1);
+        query.setEndAtIndex(skip + limit);
+
+        for (String orderByItem : orderBy) {
+            if (orderByItem.startsWith("-")) {
+                query.addOrderByDescending(orderByItem.substring(1));
+            } else {
+                query.addOrderByAscending(orderByItem);
+            }
+        }
+
+        return (Collection<T>) getPersistenceBrokerTemplate().getCollectionByQuery(query);
+    }
+
 
     /**
      * Throws an UnsupportedOperationException
@@ -305,7 +328,7 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
     /**
      * OJB does not support this method
      *
-     * @see BusinessObjectDao#findByPrimaryKey(java.lang.Class, java.lang.Object)
+     * @see BusinessObjectDao#findByPrimaryKeyUsingKeyObject(java.lang.Class, java.lang.Object)
      */
     public <T extends BusinessObject> T findByPrimaryKeyUsingKeyObject(Class<T> clazz, Object pkObject) {
         throw new UnsupportedOperationException("OJB does not support this option");

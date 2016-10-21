@@ -23,4 +23,13 @@ public class Constants {
     public static String DAY_TOKEN = "day_token";
     public static String BUTT_TOKEN = "butt_token";
     public static String EAGLE_TOKEN = "eagle_token";
+
+    public static class Search {
+        public static final String LIMIT = "limit";
+        public static final String QUERY = "query";
+        public static final String RESULTS = "results";
+        public static final String SKIP = "skip";
+        public static final String SORT = "sort";
+        public static final String TOTAL_COUNT = "totalCount";
+    }
 }
