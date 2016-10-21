@@ -156,4 +156,36 @@ public class DataValidationTest {
         int versionNumber = (Integer)bo.get("versionNumber");
         Assert.assertEquals(2,versionNumber);
     }
+
+    @Test
+    public void validSearchWithoutLimit() throws IOException {
+        HttpResponse response = RestUtilities.makeRequest(SEARCH_API, Constants.KHUNTLEY_TOKEN);
+
+        Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
+
+        Map<String,Object> searchResults = RestUtilities.parse(RestUtilities.inputStreamToString(response.getEntity().getContent()));
+        List<Map<String, Object>> results = (List<Map<String, Object>>)searchResults.get(Constants.Search.RESULTS);
+        Map<String, Object> bo = results.get(0);
+
+        // Validate that the returned object is correct
+        Assert.assertEquals(new ArrayList(Arrays.asList("objectId")), searchResults.get(Constants.Search.SORT));
+        Assert.assertEquals(200, searchResults.get(Constants.Search.LIMIT));
+        Assert.assertEquals(0, searchResults.get(Constants.Search.SKIP));
+        Assert.assertEquals(60, searchResults.get(Constants.Search.TOTAL_COUNT));
+        Assert.assertEquals(new HashMap(), searchResults.get(Constants.Search.QUERY));
+
+        // Check a sample of fields returned
+        Assert.assertEquals(true,(Boolean)bo.get("active"));
+        Assert.assertEquals("9460",(String)bo.get("creditCardObjectCode"));
+        Assert.assertEquals("66255",(String)bo.get("lockboxNumber"));
+        Assert.assertEquals(false,(Boolean)bo.get("newCollectionRecord"));
+        Assert.assertEquals("026b0c29-04a8-4b4e-a6b0-c7dc8a641a44",(String)bo.get("objectId"));
+
+        Map<String,Object> processingChartOfAccount = (Map<String,Object>)bo.get("processingChartOfAccount");
+        String link = (String)processingChartOfAccount.get("link");
+        Assert.assertTrue(link.endsWith("/api/v1/business-object/coa/charts/014F3DAF748BA448E043814FD28EA448"));
+
+        int versionNumber = (Integer)bo.get("versionNumber");
+        Assert.assertEquals(2,versionNumber);
+    }
 }
