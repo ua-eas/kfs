@@ -30,8 +30,8 @@ import java.io.IOException;
 public class InvalidModuleNameTest {
     private static String BAD_API = "/api/v1/business-object/xxx/sub-accounts/0395AAE3A27C9478E043814FD8819478";
     private static String GOOD_API = "/api/v1/business-object/coa/sub-accounts/0395AAE3A27C9478E043814FD8819478";
-    private static String BAD_SEARCH_API = "/api/v1/business-object/xxx/sub-accounts";
-    private static String GOOD_SEARCH_API = "/api/v1/business-object/coa/sub-accounts";
+//    private static String BAD_SEARCH_API = "/api/v1/business-object/xxx/sub-accounts";
+//    private static String GOOD_SEARCH_API = "/api/v1/business-object/coa/sub-accounts";
 
     @Test
     public void invalidModuleName() throws IOException {
@@ -47,17 +47,17 @@ public class InvalidModuleNameTest {
         Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
     }
 
-    @Test
-    public void invalidSearchModuleName() throws IOException {
-        HttpResponse response = RestUtilities.makeRequest(BAD_SEARCH_API, Constants.KHUNTLEY_TOKEN);
-
-        Assert.assertEquals(HttpStatus.SC_NOT_FOUND,response.getStatusLine().getStatusCode());
-    }
-
-    @Test
-    public void validSearchModuleName() throws IOException {
-        HttpResponse response = RestUtilities.makeRequest(GOOD_SEARCH_API, Constants.KHUNTLEY_TOKEN);
-
-        Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
-    }
+//    @Test
+//    public void invalidSearchModuleName() throws IOException {
+//        HttpResponse response = RestUtilities.makeRequest(BAD_SEARCH_API, Constants.KHUNTLEY_TOKEN);
+//
+//        Assert.assertEquals(HttpStatus.SC_NOT_FOUND,response.getStatusLine().getStatusCode());
+//    }
+//
+//    @Test
+//    public void validSearchModuleName() throws IOException {
+//        HttpResponse response = RestUtilities.makeRequest(GOOD_SEARCH_API, Constants.KHUNTLEY_TOKEN);
+//
+//        Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
+//    }
 }

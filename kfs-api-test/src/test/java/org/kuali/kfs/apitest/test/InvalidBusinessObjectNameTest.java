@@ -30,8 +30,8 @@ import java.io.IOException;
 public class InvalidBusinessObjectNameTest {
     private static String BAD_API = "/api/v1/business-object/coa/xxx/EE235779-F59D-3BA4-52CB-F49355EB8E8B";
     private static String GOOD_API = "/api/v1/business-object/coa/project-codes/EE235779-F59D-3BA4-52CB-F49355EB8E8B";
-    private static String BAD_SEARCH_API = "/api/v1/business-object/coa/xxx";
-    private static String GOOD_SEARCH_API = "/api/v1/business-object/coa/project-codes";
+//    private static String BAD_SEARCH_API = "/api/v1/business-object/coa/xxx";
+//    private static String GOOD_SEARCH_API = "/api/v1/business-object/coa/project-codes";
 
     @Test
     public void invalidBusinessObjectName() throws IOException {
@@ -47,17 +47,17 @@ public class InvalidBusinessObjectNameTest {
         Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
     }
 
-    @Test
-    public void invalidSearchBusinessObjectName() throws IOException {
-        HttpResponse response = RestUtilities.makeRequest(BAD_SEARCH_API, Constants.KHUNTLEY_TOKEN);
-
-        Assert.assertEquals(HttpStatus.SC_NOT_FOUND,response.getStatusLine().getStatusCode());
-    }
-
-    @Test
-    public void validSearchBusinessObjectName() throws IOException {
-        HttpResponse response = RestUtilities.makeRequest(GOOD_SEARCH_API, Constants.KHUNTLEY_TOKEN);
-
-        Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
-    }
+//    @Test
+//    public void invalidSearchBusinessObjectName() throws IOException {
+//        HttpResponse response = RestUtilities.makeRequest(BAD_SEARCH_API, Constants.KHUNTLEY_TOKEN);
+//
+//        Assert.assertEquals(HttpStatus.SC_NOT_FOUND,response.getStatusLine().getStatusCode());
+//    }
+//
+//    @Test
+//    public void validSearchBusinessObjectName() throws IOException {
+//        HttpResponse response = RestUtilities.makeRequest(GOOD_SEARCH_API, Constants.KHUNTLEY_TOKEN);
+//
+//        Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
+//    }
 }
