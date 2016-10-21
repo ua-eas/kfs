@@ -22,6 +22,7 @@ import com.google.common.base.CaseFormat;
 import javassist.Modifier;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
@@ -37,6 +38,7 @@ import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sec.SecConstants;
 import org.kuali.kfs.sec.service.AccessSecurityService;
+import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
@@ -51,13 +53,17 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriInfo;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -66,6 +72,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Path("{moduleName}/{businessObjectName}")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -84,9 +91,38 @@ public class BusinessObjectResource {
     protected HttpServletRequest servletRequest;
 
     @GET
+    public Response searchObjects(@PathParam("moduleName") String moduleName,
+                                  @PathParam("businessObjectName") String businessObjectName,
+                                  @QueryParam("skip") Integer skip,
+                                  @QueryParam("limit") Integer limit,
+                                  @QueryParam("sort") String sort,
+                                  @Context UriInfo uriInfo) {
+        LOG.debug("searchObjects() started");
+
+        Class<PersistableBusinessObject> boClass = determineClass(moduleName, businessObjectName);
+        if (boClass == null) {
+            return Response.status(Status.NOT_FOUND).build();
+        }
+
+        if (!isAuthorized(KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS, boClass)) {
+            return Response.status(Status.FORBIDDEN).build();
+        }
+
+        Map<String, Object> results;
+        try {
+            results = searchBusinessObjects(boClass, uriInfo);
+        } catch (ReflectiveOperationException e) {
+            LOG.error("Could not serialize BO", e);
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+        }
+
+        return Response.ok(results).build();
+    }
+
+    @GET
     @Path("/{objectId}")
     public Response getSingleObject(@PathParam("moduleName") String moduleName, @PathParam("businessObjectName") String businessObjectName, @PathParam("objectId") String objectId) {
-        LOG.debug("processV1Request() started");
+        LOG.debug("getSingleObject() started");
 
         Class<PersistableBusinessObject> boClass = determineClass(moduleName, businessObjectName);
         if (boClass == null) {
@@ -106,21 +142,9 @@ public class BusinessObjectResource {
             return Response.status(Status.FORBIDDEN).build();
         }
 
-        ObjectUtils.materializeSubObjectsToDepth(businessObject, 3);
-
-        Map<String, Object> jsonObject = new LinkedHashMap<String, Object>();
+        Map<String, Object> jsonObject;
         try {
-            for (PropertyDescriptor propertyDescriptor : PropertyUtils.getPropertyDescriptors(businessObject)) {
-                Method readMethod = propertyDescriptor.getReadMethod();
-                if (readMethod != null && readMethod.getParameterCount() == 0 && Modifier.isPublic(readMethod.getModifiers())) {
-                    Object jsonValue = getJsonValue(businessObject, propertyDescriptor);
-
-                    if (jsonValue != null) {
-                        final Object possiblyMaskedJsonValue = maskJsonValueIfNecessary(boClass.getSimpleName(), propertyDescriptor.getName(), jsonValue);
-                        jsonObject.put(propertyDescriptor.getName(), possiblyMaskedJsonValue);
-                    }
-                }
-            }
+            jsonObject = businessObjectToJson(boClass, businessObject);
         } catch (ReflectiveOperationException e) {
             LOG.error("Could not serialize BO", e);
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
@@ -193,6 +217,85 @@ public class BusinessObjectResource {
             return null;
         }
         return queryResults.iterator().next();
+    }
+
+    protected <T extends PersistableBusinessObject> Map<String, Object> searchBusinessObjects(Class<T> boClass, UriInfo uriInfo) throws ReflectiveOperationException {
+        MultivaluedMap<String, String> params = uriInfo.getQueryParameters();
+        Map<String, String> queryCriteria = getSearchQueryCriteria(params);
+
+        int skip = getIntQueryParameter(KFSConstants.Search.SKIP, params);
+        int limit = getIntQueryParameter(KFSConstants.Search.LIMIT, params);
+        if (limit == 0) {
+            limit = LookupUtils.getSearchResultsLimit(boClass);
+        }
+
+        String orderByString = params.getFirst(KFSConstants.Search.SORT);
+        String[] orderBy = new String[]{"objectId"};
+        if (orderByString != null) {
+            orderBy = orderByString.split(",");
+        }
+
+        Map<String, Object> results = new HashMap<>();
+        results.put(KFSConstants.Search.SORT, orderBy);
+        results.put(KFSConstants.Search.SKIP, skip);
+        results.put(KFSConstants.Search.LIMIT, limit);
+        results.put(KFSConstants.Search.QUERY, queryCriteria);
+        results.put(KFSConstants.Search.TOTAL_COUNT, getBusinessObjectService().countMatching(boClass, queryCriteria));
+
+        Collection<T> queryResults = getBusinessObjectService().findMatching(boClass, queryCriteria, skip, limit, orderBy);
+        if (queryResults.size() < 1) {
+            results.put(KFSConstants.Search.RESULTS, new ArrayList<>());
+            return results;
+        }
+
+        List<Map<String, Object>> jsonResults = new ArrayList<>();
+        for (PersistableBusinessObject bo : queryResults) {
+            ObjectUtils.materializeSubObjectsToDepth(bo, 1);
+            // ^^^^^^^ Taking Super Long ^^^^^^^^^
+            Map<String, Object> jsonObject = businessObjectToJson(boClass, bo);
+            jsonResults.add(jsonObject);
+            // TODO: Check authorization
+        }
+
+        results.put(KFSConstants.Search.RESULTS, jsonResults);
+        return results;
+    }
+
+    private int getIntQueryParameter(String name, MultivaluedMap<String, String> params) {
+        String paramString = params.getFirst(name);
+        int value = 0;
+        try {
+            value = Integer.parseInt(paramString);
+        } catch (NumberFormatException nfe) {
+            LOG.debug(name + " parameter is invalid format", nfe);
+        }
+        return value;
+    }
+
+    private Map<String, String> getSearchQueryCriteria(MultivaluedMap<String, String> params) {
+        List<String> whiteList = new ArrayList<>(Arrays.asList(KFSConstants.Search.SORT, KFSConstants.Search.LIMIT, KFSConstants.Search.SKIP));
+        return params.entrySet().stream()
+            .filter(map -> !whiteList.contains(map.getKey().toLowerCase()))
+            .collect(Collectors.toMap(p -> p.getKey(), p -> params.getFirst(p.getKey())));
+    }
+
+    private <T extends PersistableBusinessObject> Map<String, Object> businessObjectToJson(Class<T> boClass, PersistableBusinessObject bo) throws ReflectiveOperationException {
+        ObjectUtils.materializeSubObjectsToDepth(bo, 3);
+
+        Map<String, Object> jsonObject = new LinkedHashMap<String, Object>();
+        for (PropertyDescriptor propertyDescriptor : PropertyUtils.getPropertyDescriptors(bo)) {
+            Method readMethod = propertyDescriptor.getReadMethod();
+            if (readMethod != null && readMethod.getParameterCount() == 0 && Modifier.isPublic(readMethod.getModifiers())) {
+                Object jsonValue = getJsonValue(bo, propertyDescriptor);
+
+                if (jsonValue != null) {
+                    final Object possiblyMaskedJsonValue = maskJsonValueIfNecessary(boClass.getSimpleName(), propertyDescriptor.getName(), jsonValue);
+                    jsonObject.put(propertyDescriptor.getName(), possiblyMaskedJsonValue);
+                }
+            }
+        }
+
+        return jsonObject;
     }
 
     @SuppressWarnings("unchecked")

@@ -128,6 +128,17 @@ public interface BusinessObjectService {
     public <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues);
 
     /**
+     * This method retrieves a collection of business objects populated with data, such that each record in the database populates a
+     * new object instance. This will retrieve business objects by class type and also by criteria passed in as key-value pairs,
+     * specifically attribute name and its expected value.
+     *
+     * @param clazz
+     * @param fieldValues
+     * @return
+     */
+    <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit, String[] orderBy);
+
+    /**
      * Finds all entities matching the passed in Rice JPA criteria
      *
      * @param <T> the type of the entity that will be returned

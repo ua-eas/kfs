@@ -944,6 +944,15 @@ public class KFSConstants {
         public static final String VIEWED_PAGE_NUMBER = "viewedPageNumber";
     }
 
+    public static class Search {
+        public static final String LIMIT = "limit";
+        public static final String QUERY = "query";
+        public static final String RESULTS = "results";
+        public static final String SKIP = "skip";
+        public static final String SORT = "sort";
+        public static final String TOTAL_COUNT = "totalCount";
+    }
+
     public static final String PCDO_FILE_TYPE_INDENTIFIER = "procurementCardInputFileType";
     public static final String COLLECTOR_XML_FILE_TYPE_INDENTIFIER = "collectorXmlInputFileType";
     public static final String COLLECTOR_FLAT_FILE_TYPE_INDENTIFIER = "collectorFlatFileInputFileType";

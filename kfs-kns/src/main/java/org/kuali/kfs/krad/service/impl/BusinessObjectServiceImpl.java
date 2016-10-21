@@ -178,6 +178,11 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
     }
 
     @Override
+    public <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit, String[] orderBy) {
+        return businessObjectDao.findMatching(clazz, fieldValues, skip, limit, orderBy);
+    }
+
+    @Override
     public int countMatching(Class clazz, Map<String, ?> fieldValues) {
         return businessObjectDao.countMatching(clazz, fieldValues);
     }
