@@ -22,6 +22,7 @@ import com.google.common.base.CaseFormat;
 import javassist.Modifier;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
 import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
@@ -82,6 +83,7 @@ public class BusinessObjectResource {
 
     protected static volatile KualiModuleService kualiModuleService;
     protected static volatile BusinessObjectService businessObjectService;
+    protected static volatile BusinessObjectAuthorizationService businessObjectAuthorizationService;
     protected static volatile ConfigurationService configurationService;
     protected static volatile PermissionService permissionService;
     protected static volatile AccessSecurityService accessSecurityService;
@@ -154,23 +156,38 @@ public class BusinessObjectResource {
         return Response.ok(jsonObject).build();
     }
 
-    /**
-     * Masks the
-     *
-     * @param businessObjectName
-     * @param attributeName
-     * @param jsonValue
-     * @return
-     */
+    protected MaskFormatter buildMaskFormatter(AttributeDefinition attributeDefinition) {
+        return (attributeDefinition.getAttributeSecurity().isMask())
+                ? attributeDefinition.getAttributeSecurity().getMaskFormatter()
+                : attributeDefinition.getAttributeSecurity().getPartialMaskFormatter();
+    }
+
     protected Object maskJsonValueIfNecessary(String businessObjectName, String attributeName, Object jsonValue) {
         final AttributeDefinition attributeDefinition = getDataDictionaryService().getAttributeDefinition(businessObjectName, attributeName);
         if (attributeDefinition == null || attributeDefinition.getAttributeSecurity() == null || (!attributeDefinition.getAttributeSecurity().isMask() && !attributeDefinition.getAttributeSecurity().isPartialMask())) {
             return jsonValue;
         }
-        final MaskFormatter maskFormatter = (attributeDefinition.getAttributeSecurity().isMask())
-            ? attributeDefinition.getAttributeSecurity().getMaskFormatter()
-            : attributeDefinition.getAttributeSecurity().getPartialMaskFormatter();
-        return maskFormatter.maskValue(jsonValue);
+        final MaskFormatter maskFormatter = buildMaskFormatter(attributeDefinition);
+        if (getBusinessObjectAuthorizationService().isNonProductionEnvAndUnmaskingTurnedOff()) {
+            return maskFormatter.maskValue(jsonValue); // it's non-production and unmasking is turned off, so let's always mask
+        } else {
+            final Class<? extends BusinessObject> businessObjectClass = getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(businessObjectName).getBusinessObjectClass();
+            return maskJsonValue(jsonValue, businessObjectClass, attributeDefinition, maskFormatter);
+        }
+    }
+
+    protected boolean shouldMask(Class<? extends BusinessObject> businessObjectClass, AttributeDefinition attributeDefinition) {
+        return (attributeDefinition.getAttributeSecurity().isMask()
+                    && !getBusinessObjectAuthorizationService().canFullyUnmaskField(getPerson(), businessObjectClass, attributeDefinition.getName(), null))
+                ||
+                (attributeDefinition.getAttributeSecurity().isPartialMask()
+                        && !getBusinessObjectAuthorizationService().canPartiallyUnmaskField(getPerson(), businessObjectClass, attributeDefinition.getName(), null));
+    }
+
+    protected Object maskJsonValue(Object jsonValue, Class<? extends BusinessObject> businessObjectClass, AttributeDefinition attributeDefinition, MaskFormatter maskFormatter) {
+        return (shouldMask(businessObjectClass, attributeDefinition))
+            ? maskFormatter.maskValue(jsonValue)
+            : jsonValue;
     }
 
     protected Object getJsonValue(PersistableBusinessObject businessObject, PropertyDescriptor propertyDescriptor) throws ReflectiveOperationException {
@@ -446,6 +463,13 @@ public class BusinessObjectResource {
         return businessObjectService;
     }
 
+    public static BusinessObjectAuthorizationService getBusinessObjectAuthorizationService() {
+        if (businessObjectAuthorizationService == null) {
+            businessObjectAuthorizationService = SpringContext.getBean(BusinessObjectAuthorizationService.class);
+        }
+        return businessObjectAuthorizationService;
+    }
+
     protected ConfigurationService getConfigurationService() {
         if (configurationService == null) {
             configurationService = SpringContext.getBean(ConfigurationService.class);
@@ -483,6 +507,10 @@ public class BusinessObjectResource {
 
     public static void setBusinessObjectService(BusinessObjectService businessObjectService) {
         BusinessObjectResource.businessObjectService = businessObjectService;
+    }
+
+    public static void setBusinessObjectAuthorizationService(BusinessObjectAuthorizationService businessObjectAuthorizationService) {
+        BusinessObjectResource.businessObjectAuthorizationService = businessObjectAuthorizationService;
     }
 
     public static void setConfigurationService(ConfigurationService configurationService) {
