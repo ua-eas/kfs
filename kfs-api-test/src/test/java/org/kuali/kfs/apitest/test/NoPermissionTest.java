@@ -29,6 +29,7 @@ import java.io.IOException;
 
 public class NoPermissionTest {
     private static String API = "/api/v1/business-object/sys/banks/684207EF61A57565E0404F8189D81EBF";
+    private static String SEARCH_API = "/api/v1/business-object/sys/banks";
 
     @Test
     public void noPermission() throws IOException {
@@ -40,6 +41,20 @@ public class NoPermissionTest {
     @Test
     public void hasPermission() throws IOException {
         HttpResponse response = RestUtilities.makeRequest(API,Constants.KHUNTLEY_TOKEN);
+
+        Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
+    }
+
+    @Test
+    public void noPermissionSearch() throws IOException {
+        HttpResponse response = RestUtilities.makeRequest(SEARCH_API, Constants.EAGLE_TOKEN);
+
+        Assert.assertEquals(HttpStatus.SC_FORBIDDEN,response.getStatusLine().getStatusCode());
+    }
+
+    @Test
+    public void hasPermissionSearch() throws IOException {
+        HttpResponse response = RestUtilities.makeRequest(SEARCH_API,Constants.KHUNTLEY_TOKEN);
 
         Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
     }
