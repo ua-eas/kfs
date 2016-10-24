@@ -34,7 +34,6 @@ import org.kuali.rice.krad.bo.BusinessObject;
  * <p>
  * TODO: refactor for general objects
  */
-@Deprecated
 public interface BusinessObjectAuthorizationService extends DataObjectAuthorizationService {
     public BusinessObjectRestrictions getLookupResultRestrictions(
         Object dataObject, Person user);
@@ -51,4 +50,5 @@ public interface BusinessObjectAuthorizationService extends DataObjectAuthorizat
     public boolean canPartiallyUnmaskField(
         Person user, Class<?> businessObjectClass, String fieldName, Document document);
 
+    public boolean isNonProductionEnvAndUnmaskingTurnedOff();
 }

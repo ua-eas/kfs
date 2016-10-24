@@ -263,7 +263,6 @@ public class DataDictionary {
      * @param className
      * @return BusinessObjectEntry for the named class, or null if none exists
      */
-    @Deprecated
     public BusinessObjectEntry getBusinessObjectEntry(String className) {
         return ddMapper.getBusinessObjectEntry(ddIndex, className);
     }

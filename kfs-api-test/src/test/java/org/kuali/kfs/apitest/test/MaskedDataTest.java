@@ -45,16 +45,16 @@ public class MaskedDataTest {
         Assert.assertEquals("*********",(String)bo.get("bankAccountNumber"));
     }
 
-//    @Test
-//    public void unmaskedBankData() throws IOException {
-//        HttpResponse response = RestUtilities.makeRequest(BANK_API, Constants.KHUNTLEY_TOKEN);
-//
-//        Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
-//
-//        Map<String,Object> bo = RestUtilities.parse(RestUtilities.inputStreamToString(response.getEntity().getContent()));
-//
-//        Assert.assertEquals("Bank 1",(String)bo.get("bankAccountNumber"));
-//    }
+    @Test
+    public void unmaskedBankData() throws IOException {
+        HttpResponse response = RestUtilities.makeRequest(BANK_API, Constants.KHUNTLEY_TOKEN);
+
+        Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
+
+        Map<String,Object> bo = RestUtilities.parse(RestUtilities.inputStreamToString(response.getEntity().getContent()));
+
+        Assert.assertEquals("Bank 1",(String)bo.get("bankAccountNumber"));
+    }
 
     @Test
     public void maskedVendorData() throws IOException {

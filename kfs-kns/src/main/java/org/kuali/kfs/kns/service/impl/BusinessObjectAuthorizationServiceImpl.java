@@ -751,7 +751,8 @@ public class BusinessObjectAuthorizationServiceImpl extends DataObjectAuthorizat
         return kualiConfigurationService;
     }
 
-    private boolean isNonProductionEnvAndUnmaskingTurnedOff() {
+    @Override
+    public boolean isNonProductionEnvAndUnmaskingTurnedOff() {
         return !getKualiConfigurationService().getPropertyValueAsString(KRADConstants.PROD_ENVIRONMENT_CODE_KEY)
             .equalsIgnoreCase(
                 getKualiConfigurationService().getPropertyValueAsString(KRADConstants.ENVIRONMENT_KEY)) &&

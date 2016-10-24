@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.kfs.fp.businessobject.Deposit;
 import org.kuali.kfs.fp.businessobject.DepositCashReceiptControl;
+import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
 import org.kuali.kfs.krad.UserSession;
 import org.kuali.kfs.krad.bo.ModuleConfiguration;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
@@ -91,6 +92,7 @@ public class BusinessObjectResourceTest {
     private KualiModuleService kualiModuleService;
     private ModuleService moduleService;
     private BusinessObjectService businessObjectService;
+    private BusinessObjectAuthorizationService businessObjectAuthorizationService;
     private PersistenceStructureService persistenceStructureService;
     private ConfigurationService configurationService;
     private DataDictionaryService dataDictionaryService;
@@ -102,6 +104,7 @@ public class BusinessObjectResourceTest {
     private Deposit deposit = getDeposit();
     private UnitOfMeasure uom = getUom();
     private Bank bank = getBank();
+    private Person testPerson = new TestPerson("testPrincipalId", "testPrincipalName");
 
     @Before
     public void setup() {
@@ -116,6 +119,7 @@ public class BusinessObjectResourceTest {
         permissionService = EasyMock.createMock(PermissionService.class);
         accessSecurityService = EasyMock.createMock(AccessSecurityService.class);
         userSession = EasyMock.createMock(UserSession.class);
+        businessObjectAuthorizationService = EasyMock.createMock(BusinessObjectAuthorizationService.class);
         PowerMock.mockStatic(KRADServiceLocator.class);
         PowerMock.mockStaticPartial(org.kuali.kfs.krad.util.ObjectUtils.class, "materializeSubObjectsToDepth");
         PowerMock.mockStatic(KRADUtils.class);
@@ -145,7 +149,6 @@ public class BusinessObjectResourceTest {
         String className = "UnitOfMeasure";
         Class clazz = UnitOfMeasure.class;
         String namespaceCode = "KFS-SYS";
-        Person person = getPerson();
 
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(moduleConfig).anyTimes();
@@ -153,7 +156,7 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(dataDictionaryService.getDictionaryObject(className)).andReturn(getDDEntry(clazz));
         EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession);
         EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, className));
-        EasyMock.expect(userSession.getPerson()).andReturn(person);
+        EasyMock.expect(userSession.getPerson()).andReturn(testPerson);
         EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS, makeMap(namespaceCode, className), Collections.<String, String>emptyMap()))
             .andReturn(false);
 
@@ -180,7 +183,6 @@ public class BusinessObjectResourceTest {
         String className = "UnitOfMeasure";
         Class clazz = UnitOfMeasure.class;
         String namespaceCode = "KFS-SYS";
-        Person person = getPerson();
         Collection collection = getUomCollection();
 
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
@@ -189,7 +191,7 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(dataDictionaryService.getDictionaryObject(className)).andReturn(getDDEntry(clazz));
         EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).times(2);
         EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, className));
-        EasyMock.expect(userSession.getPerson()).andReturn(person).times(2);
+        EasyMock.expect(userSession.getPerson()).andReturn(testPerson).times(2);
         EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS, makeMap(namespaceCode, className), Collections.<String, String>emptyMap()))
             .andReturn(true);
         Map<String, String> queryCriteria = new HashMap<String, String>();
@@ -198,7 +200,7 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(configurationService.getPropertyValueAsBoolean(SecConstants.ACCESS_SECURITY_MODULE_ENABLED_PROPERTY_NAME)).andReturn(true).anyTimes();
         EasyMock.expect(accessSecurityService.getInquiryWithFieldValueTemplate()).andReturn(null);
         EasyMock.expect(KRADUtils.getNamespaceCode(clazz)).andReturn(namespaceCode);
-        accessSecurityService.applySecurityRestrictions((List) collection, person, null, Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, namespaceCode));
+        accessSecurityService.applySecurityRestrictions((List) collection, testPerson, null, Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, namespaceCode));
         EasyMock.expectLastCall().andDelegateTo(new AccessSecurityServiceImpl() {
             @Override
             public void applySecurityRestrictions(List<? extends BusinessObject> results, Person person, Template permissionTemplate, Map<String, String> additionalPermissionDetails) {
@@ -299,7 +301,13 @@ public class BusinessObjectResourceTest {
     public void testSimpleMaskedBoReturned() throws Exception {
         commonTestPrep(Bank.class, "KFS-SYS", getBankCollection(), getModuleConfiguration());
 
-        EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService);
+        EasyMock.expect(businessObjectAuthorizationService.isNonProductionEnvAndUnmaskingTurnedOff()).andReturn(false).anyTimes();
+        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).anyTimes();
+        EasyMock.expect(dataDictionary.getBusinessObjectEntry("Bank")).andReturn(getDDEntry(Bank.class)).anyTimes();
+        EasyMock.expect(businessObjectAuthorizationService.canFullyUnmaskField(testPerson, Bank.class, "bankAccountNumber", null)).andReturn(false);
+        EasyMock.expect(businessObjectAuthorizationService.canPartiallyUnmaskField(testPerson, Bank.class, "bankRoutingNumber", null)).andReturn(false);
+
+        EasyMock.replay(kualiModuleService, moduleService, businessObjectService, businessObjectAuthorizationService, persistenceStructureService, dataDictionaryService, dataDictionary, permissionService, accessSecurityService, userSession, configurationService);
         PowerMock.replay(KRADServiceLocator.class);
         PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
         PowerMock.replay(KRADUtils.class);
@@ -309,9 +317,10 @@ public class BusinessObjectResourceTest {
         BusinessObjectResource.setAccessSecurityService(accessSecurityService);
         BusinessObjectResource.setDataDictionaryService(dataDictionaryService);
         BusinessObjectResource.setConfigurationService(configurationService);
+        BusinessObjectResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
 
         Response response = apiResource.getSingleObject("sys", "banks", "12345");
-        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService);
+        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, businessObjectAuthorizationService, persistenceStructureService, dataDictionaryService, dataDictionary, permissionService, accessSecurityService, userSession, configurationService);
         Assert.assertTrue("Should have returned OK", response.getStatus() == Status.OK.getStatusCode());
         Map<String, Object> entity = (Map<String, Object>) response.getEntity();
         BeanMap beanMap = new BeanMap(bank);
@@ -325,15 +334,14 @@ public class BusinessObjectResourceTest {
 
     private void commonTestPrep(Class clazz, String namespaceCode, Collection collection, ModuleConfiguration moduleConfig) {
         String className = clazz.getSimpleName();
-        Person person = getPerson();
         PersistableBusinessObject result = (PersistableBusinessObject) ((List) collection).get(0);
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(moduleConfig).anyTimes();
         EasyMock.expect(dataDictionaryService.containsDictionaryObject(className)).andReturn(true);
         EasyMock.expect(dataDictionaryService.getDictionaryObject(className)).andReturn(getDDEntry(clazz));
-        EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).times(2);
+        EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).anyTimes();
         EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, className));
-        EasyMock.expect(userSession.getPerson()).andReturn(person).times(2);
+        EasyMock.expect(userSession.getPerson()).andReturn(testPerson).anyTimes();
         EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS, makeMap(namespaceCode, className), Collections.<String, String>emptyMap()))
             .andReturn(true);
         Map<String, String> queryCriteria = new HashMap<String, String>();
@@ -342,7 +350,7 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(configurationService.getPropertyValueAsBoolean(SecConstants.ACCESS_SECURITY_MODULE_ENABLED_PROPERTY_NAME)).andReturn(true).anyTimes();
         EasyMock.expect(accessSecurityService.getInquiryWithFieldValueTemplate()).andReturn(null);
         EasyMock.expect(KRADUtils.getNamespaceCode(clazz)).andReturn(namespaceCode);
-        accessSecurityService.applySecurityRestrictions((List) collection, person, null, Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, namespaceCode));
+        accessSecurityService.applySecurityRestrictions((List) collection, testPerson, null, Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, namespaceCode));
         EasyMock.expectLastCall();
         EasyMock.expect(KRADServiceLocator.getPersistenceStructureService()).andReturn(persistenceStructureService);
         org.kuali.kfs.krad.util.ObjectUtils.materializeSubObjectsToDepth(result, 3);
