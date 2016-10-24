@@ -255,14 +255,12 @@ public class BusinessObjectResourceTest {
         commonTestPrep(Deposit.class, "KFS-FP", getDepositCollection(), getFpModuleConfiguration());
         EasyMock.expect(dataDictionaryService.getAttributeDefinition(Deposit.class.getSimpleName(), EasyMock.anyString())).andReturn(null).anyTimes();
 
-        EasyMock.expect(dataDictionary.getBusinessObjectEntryForConcreteClass(Bank.class.getName())).andReturn(getDDEntry(Bank.class));
         EasyMock.expect(dataDictionary.getBusinessObjectEntryForConcreteClass(DepositCashReceiptControl.class.getName()))
-            .andReturn(getDDEntry(DepositCashReceiptControl.class))
-            .times(2);
+                .andReturn(getDDEntry(DepositCashReceiptControl.class)).times(2);
+        EasyMock.expect(dataDictionary.getBusinessObjectEntryForConcreteClass(Bank.class.getName())).andReturn(getDDEntry(Bank.class));
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).anyTimes();
         EasyMock.expect(kualiModuleService.getResponsibleModuleService(Bank.class)).andReturn(moduleService);
-        EasyMock.expect(kualiModuleService.getResponsibleModuleService(DepositCashReceiptControl.class)).andReturn(moduleService);
-        EasyMock.expect(kualiModuleService.getResponsibleModuleService(DepositCashReceiptControl.class)).andReturn(moduleService);
+        EasyMock.expect(kualiModuleService.getResponsibleModuleService(DepositCashReceiptControl.class)).andReturn(moduleService).times(2);
         EasyMock.expect(configurationService.getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY)).andReturn("http://myapp").times(3);
 
         EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, configurationService, dataDictionaryService,
@@ -279,7 +277,7 @@ public class BusinessObjectResourceTest {
 
         Response response = apiResource.getSingleObject("fp", "deposits", "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, dataDictionary,
-            permissionService, accessSecurityService, userSession, configurationService);
+             permissionService, accessSecurityService, userSession, configurationService);
         Assert.assertTrue("Should have returned OK", response.getStatus() == Status.OK.getStatusCode());
         Map<String, Object> entity = (Map<String, Object>) response.getEntity();
         BeanMap beanMap = new BeanMap(deposit);
@@ -419,7 +417,7 @@ public class BusinessObjectResourceTest {
         return result;
     }
 
-    private boolean mapsEqualEnough(Map<String, Object> map1, Map<String, Object> map2, String... properties) {
+    private boolean mapsEqualEnough(Map<String, Object> map1, Map<Object, Object> map2, String... properties) {
         for (String property : properties) {
             if (!ObjectUtils.equals(map1.get(property), map2.get(property))) {
                 return false;

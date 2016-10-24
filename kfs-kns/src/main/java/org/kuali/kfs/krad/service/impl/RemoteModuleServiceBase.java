@@ -321,8 +321,9 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
         }
         Class clazz;
         try {
-            clazz = getExternalizableBusinessObjectImplementation(PropertyUtils.getPropertyType(businessObject,
-                externalizableRelationshipName));
+            Class<? extends ExternalizableBusinessObject> propertyType =
+                    (Class<? extends ExternalizableBusinessObject>)PropertyUtils.getPropertyType(businessObject, externalizableRelationshipName);
+            clazz = getExternalizableBusinessObjectImplementation(propertyType);
         } catch (Exception iex) {
             LOG.warn("Exception:"
                 + iex
