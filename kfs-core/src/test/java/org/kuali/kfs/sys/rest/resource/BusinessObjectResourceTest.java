@@ -16,18 +16,24 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.sys.rest;
+package org.kuali.kfs.sys.rest.resource;
 
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.apache.commons.beanutils.BeanMap;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.fp.businessobject.Deposit;
 import org.kuali.kfs.fp.businessobject.DepositCashReceiptControl;
+import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
 import org.kuali.kfs.krad.UserSession;
 import org.kuali.kfs.krad.bo.ModuleConfiguration;
@@ -60,6 +66,8 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.businessobject.UnitOfMeasure;
 import org.kuali.kfs.sys.identity.TestPerson;
+import org.kuali.kfs.sys.rest.ErrorMessage;
+import org.kuali.kfs.sys.rest.exception.ApiRequestException;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.Formatter;
@@ -72,17 +80,21 @@ import org.powermock.api.easymock.PowerMock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 @RunWith(PowerMockRunner.class)
@@ -105,6 +117,9 @@ public class BusinessObjectResourceTest {
     private UnitOfMeasure uom = getUom();
     private Bank bank = getBank();
     private Person testPerson = new TestPerson("testPrincipalId", "testPrincipalName");
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void setup() {
@@ -183,7 +198,7 @@ public class BusinessObjectResourceTest {
         String className = "UnitOfMeasure";
         Class clazz = UnitOfMeasure.class;
         String namespaceCode = "KFS-SYS";
-        Collection collection = getUomCollection();
+        Collection collection = Arrays.asList(getUom());
 
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(moduleConfig).anyTimes();
@@ -227,7 +242,7 @@ public class BusinessObjectResourceTest {
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testSimpleBoReturned() throws Exception {
-        commonTestPrep(UnitOfMeasure.class, "KFS-SYS", getUomCollection(), getModuleConfiguration());
+        commonSingleBusinessObjectTestPrep(UnitOfMeasure.class, "KFS-SYS", () -> getUom(), getModuleConfiguration());
 
         EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService);
         PowerMock.replay(KRADServiceLocator.class);
@@ -252,7 +267,7 @@ public class BusinessObjectResourceTest {
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testComplexBoReturned() throws Exception {
-        commonTestPrep(Deposit.class, "KFS-FP", getDepositCollection(), getFpModuleConfiguration());
+        commonSingleBusinessObjectTestPrep(Deposit.class, "KFS-FP", () -> getDeposit(), getFpModuleConfiguration());
         EasyMock.expect(dataDictionaryService.getAttributeDefinition(Deposit.class.getSimpleName(), EasyMock.anyString())).andReturn(null).anyTimes();
 
         EasyMock.expect(dataDictionary.getBusinessObjectEntryForConcreteClass(Bank.class.getName())).andReturn(getDDEntry(Bank.class));
@@ -299,7 +314,7 @@ public class BusinessObjectResourceTest {
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testSimpleMaskedBoReturned() throws Exception {
-        commonTestPrep(Bank.class, "KFS-SYS", getBankCollection(), getModuleConfiguration());
+        commonSingleBusinessObjectTestPrep(Bank.class, "KFS-SYS", () -> getBank(), getModuleConfiguration());
 
         EasyMock.expect(businessObjectAuthorizationService.isNonProductionEnvAndUnmaskingTurnedOff()).andReturn(false).anyTimes();
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).anyTimes();
@@ -332,9 +347,378 @@ public class BusinessObjectResourceTest {
         Assert.assertEquals("Bank account number should be fully masked", "XXXXZZZZ", entity.get(KFSPropertyConstants.BANK_ACCOUNT_NUMBER));
     }
 
-    private void commonTestPrep(Class clazz, String namespaceCode, Collection collection, ModuleConfiguration moduleConfig) {
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testGetSortCriteria() {
+        List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
+        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
+        apiResource.setPersistenceStructureService(persistenceStructureService);
+        EasyMock.replay(persistenceStructureService);
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("sort", "accountName");
+
+        String[] sort = apiResource.getSortCriteria(Account.class, params);
+
+        Assert.assertEquals(new String[]{"accountName"}, sort);
+        EasyMock.verify(persistenceStructureService);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testGetSortCriteria_Mutli() {
+        List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
+        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
+        apiResource.setPersistenceStructureService(persistenceStructureService);
+        EasyMock.replay(persistenceStructureService);
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("sort", "accountName,accountNumber");
+
+        String[] sort = apiResource.getSortCriteria(Account.class, params);
+
+        Assert.assertEquals(new String[]{"accountName", "accountNumber"}, sort);
+        EasyMock.verify(persistenceStructureService);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testGetSortCriteria_MutliBad() {
+        List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
+        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
+        apiResource.setPersistenceStructureService(persistenceStructureService);
+        EasyMock.replay(persistenceStructureService);
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("sort", "accountname,accountnumber");
+
+        try {
+            String[] sort = apiResource.getSortCriteria(Account.class, params);
+        } catch (ApiRequestException are) {
+            Response response = are.getResponse();
+
+            Assert.assertEquals(Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+
+            Map<String, Object> exceptionMap = new HashedMap();
+            exceptionMap.put("message", "Invalid Search Criteria");
+            List<ErrorMessage> errorMessages = new ArrayList<>();
+            errorMessages.add(new ErrorMessage("invalid sort field", "class"));
+            exceptionMap.put("details", errorMessages);
+            Map<String, Object> error = (Map<String, Object>)response.getEntity();
+            Assert.assertEquals("Invalid Search Criteria", error.get("message"));
+            Assert.assertEquals(2, ((List<ErrorMessage>)error.get("details")).size());
+            Assert.assertEquals("invalid sort field", ((List<ErrorMessage>)error.get("details")).get(0).getMessage());
+            Assert.assertEquals("accountname", ((List<ErrorMessage>)error.get("details")).get(0).getProperty());
+            Assert.assertEquals("invalid sort field", ((List<ErrorMessage>)error.get("details")).get(1).getMessage());
+            Assert.assertEquals("accountnumber", ((List<ErrorMessage>)error.get("details")).get(1).getProperty());
+        }
+
+        EasyMock.verify(persistenceStructureService);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testGetSortCriteria_Bad() {
+        List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
+        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
+        apiResource.setPersistenceStructureService(persistenceStructureService);
+        EasyMock.replay(persistenceStructureService);
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("sort", "class");
+
+        try {
+            String[] sort = apiResource.getSortCriteria(Account.class, params);
+        } catch (ApiRequestException are) {
+            Response response = are.getResponse();
+
+            Assert.assertEquals(Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+
+            Map<String, Object> exceptionMap = new HashedMap();
+            exceptionMap.put("message", "Invalid Search Criteria");
+            List<ErrorMessage> errorMessages = new ArrayList<>();
+            errorMessages.add(new ErrorMessage("invalid sort field", "class"));
+            exceptionMap.put("details", errorMessages);
+            Map<String, Object> error = (Map<String, Object>)response.getEntity();
+            Assert.assertEquals("Invalid Search Criteria", error.get("message"));
+            Assert.assertEquals(1, ((List<ErrorMessage>)error.get("details")).size());
+            Assert.assertEquals("invalid sort field", ((List<ErrorMessage>)error.get("details")).get(0).getMessage());
+            Assert.assertEquals("class", ((List<ErrorMessage>)error.get("details")).get(0).getProperty());
+        }
+
+        EasyMock.verify(persistenceStructureService);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testGetSearchQueryCriteria() {
+        List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
+        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
+        apiResource.setPersistenceStructureService(persistenceStructureService);
+        EasyMock.replay(persistenceStructureService);
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("accountName", "bob");
+
+        Map<String, String> criteria = apiResource.getSearchQueryCriteria(Account.class, params);
+
+        Map<String, String> validCriteria = new HashMap<>();
+        validCriteria.put("accountName", "bob");
+        Assert.assertEquals(validCriteria, criteria);
+        EasyMock.verify(persistenceStructureService);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testGetSearchQueryCriteria_Bad() {
+        List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
+        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
+        apiResource.setPersistenceStructureService(persistenceStructureService);
+        EasyMock.replay(persistenceStructureService);
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("accountname", "bob");
+
+        try {
+            Map<String, String> criteria = apiResource.getSearchQueryCriteria(Account.class, params);
+        } catch (ApiRequestException are) {
+            Response response = are.getResponse();
+
+            Assert.assertEquals(Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+
+            Map<String, Object> exceptionMap = new HashedMap();
+            exceptionMap.put("message", "Invalid Search Criteria");
+            List<ErrorMessage> errorMessages = new ArrayList<>();
+            errorMessages.add(new ErrorMessage("invalid query parameter name", "accountname"));
+            exceptionMap.put("details", errorMessages);
+            Map<String, Object> error = (Map<String, Object>)response.getEntity();
+            Assert.assertEquals("Invalid Search Criteria", error.get("message"));
+            Assert.assertEquals(1, ((List<ErrorMessage>)error.get("details")).size());
+            Assert.assertEquals("invalid query parameter name", ((List<ErrorMessage>)error.get("details")).get(0).getMessage());
+            Assert.assertEquals("accountname", ((List<ErrorMessage>)error.get("details")).get(0).getProperty());
+        }
+
+        EasyMock.verify(persistenceStructureService);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testGetSearchQueryCriteria_MultiBad() {
+        List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
+        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
+        apiResource.setPersistenceStructureService(persistenceStructureService);
+        EasyMock.replay(persistenceStructureService);
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("accountname", "bob");
+        params.add("accountnumber", "bfdsa5432adfdsaf");
+
+        try {
+            Map<String, String> criteria = apiResource.getSearchQueryCriteria(Account.class, params);
+        } catch (ApiRequestException are) {
+            Response response = are.getResponse();
+
+            Assert.assertEquals(Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+
+            Map<String, Object> exceptionMap = new HashedMap();
+            exceptionMap.put("message", "Invalid Search Criteria");
+            List<ErrorMessage> errorMessages = new ArrayList<>();
+            errorMessages.add(new ErrorMessage("invalid query parameter name", "accountname"));
+            exceptionMap.put("details", errorMessages);
+            Map<String, Object> error = (Map<String, Object>)response.getEntity();
+            Assert.assertEquals("Invalid Search Criteria", error.get("message"));
+            Assert.assertEquals(2, ((List<ErrorMessage>)error.get("details")).size());
+            Assert.assertEquals("invalid query parameter name", ((List<ErrorMessage>)error.get("details")).get(0).getMessage());
+            Assert.assertEquals("invalid query parameter name", ((List<ErrorMessage>)error.get("details")).get(1).getMessage());
+        }
+
+        EasyMock.verify(persistenceStructureService);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testGetIntQueryParameter_Bad() {
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("limit", "a");
+
+        try {
+            int limit = apiResource.getIntQueryParameter("limit", params);
+        } catch (ApiRequestException are) {
+            Response response = are.getResponse();
+
+            Assert.assertEquals(Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+
+            Map<String, Object> exceptionMap = new HashedMap();
+            exceptionMap.put("message", "Invalid Search Criteria");
+            List<ErrorMessage> errorMessages = new ArrayList<>();
+            errorMessages.add(new ErrorMessage("parameter is not a number", "limit"));
+            exceptionMap.put("details", errorMessages);
+            Map<String, Object> error = (Map<String, Object>)response.getEntity();
+            Assert.assertEquals("Invalid Search Criteria", error.get("message"));
+            Assert.assertEquals(1, ((List<ErrorMessage>)error.get("details")).size());
+            Assert.assertEquals("parameter is not a number", ((List<ErrorMessage>)error.get("details")).get(0).getMessage());
+            Assert.assertEquals("limit", ((List<ErrorMessage>)error.get("details")).get(0).getProperty());
+        }
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testGetIntQueryParameter() {
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("limit", "3");
+
+        int limit = apiResource.getIntQueryParameter("limit", params);
+        Assert.assertEquals(3, limit);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testSearchBusinessObjects() {
+        Map<String, String> queryCriteria = new HashMap<>();
+        queryCriteria.put("bankCode", "FW");
+
+        commonMultipleBusinessObjectTestPrep(Bank.class, () -> getBank(), queryCriteria, 1, 1, new String[] { "objectId" });
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("bankCode", "FW");
+        params.add("limit", "1");
+        params.add("skip", "1");
+
+        UriInfo uriInfo = EasyMock.createMock(UriInfo.class);
+        EasyMock.expect(uriInfo.getQueryParameters()).andReturn(params);
+
+        EasyMock.replay(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession);
+        PowerMock.replay(KRADServiceLocator.class);
+        PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
+        PowerMock.replay(KRADUtils.class);
+
+        BusinessObjectResource.setDataDictionaryService(dataDictionaryService);
+        BusinessObjectResource.setBusinessObjectService(businessObjectService);
+        BusinessObjectResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
+        BusinessObjectResource.setPersistenceStructureService(persistenceStructureService);
+        BusinessObjectResource.setDataDictionaryService(dataDictionaryService);
+
+        Map<String, Object> results = apiResource.searchBusinessObjects(Bank.class, uriInfo);
+
+        Assert.assertEquals(6, results.size());
+        Assert.assertTrue("results should specify limit", results.containsKey("limit"));
+        Assert.assertEquals(1, results.get("limit"));
+        Assert.assertTrue("results should specify skip", results.containsKey("skip"));
+        Assert.assertEquals(1, results.get("skip"));
+        Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
+        Assert.assertEquals(1, results.get("totalCount"));
+        Assert.assertTrue("results should specify query", results.containsKey("query"));
+        Map<String, String> query = new HashMap<>();
+        query.put("bankCode", "FW");
+        Assert.assertEquals(query, results.get("query"));
+        Assert.assertTrue("results should specify sort", results.containsKey("sort"));
+        Assert.assertEquals("objectId", ((String[])results.get("sort"))[0]);
+        Assert.assertTrue("results should specify results", results.containsKey("results"));
+        Assert.assertEquals(1, ((List<Object>)results.get("results")).size());
+        EasyMock.verify(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testSearchBusinessObjects_NoResults() {
+        Map<String, String> queryCriteria = new HashMap<>();
+        queryCriteria.put("bankCode", "FW");
+
+        commonMultipleBusinessObjectTestPrep(Bank.class, null, queryCriteria, 2, 3, new String[] { "objectId" });
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("bankCode", "FW");
+        params.add("limit", "3");
+        params.add("skip", "2");
+
+        UriInfo uriInfo = EasyMock.createMock(UriInfo.class);
+        EasyMock.expect(uriInfo.getQueryParameters()).andReturn(params);
+
+        EasyMock.replay(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession);
+        PowerMock.replay(KRADServiceLocator.class);
+        PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
+        PowerMock.replay(KRADUtils.class);
+
+        BusinessObjectResource.setDataDictionaryService(dataDictionaryService);
+        BusinessObjectResource.setBusinessObjectService(businessObjectService);
+        BusinessObjectResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
+        BusinessObjectResource.setPersistenceStructureService(persistenceStructureService);
+        BusinessObjectResource.setDataDictionaryService(dataDictionaryService);
+
+        Map<String, Object> results = apiResource.searchBusinessObjects(Bank.class, uriInfo);
+
+        Assert.assertEquals(6, results.size());
+        Assert.assertTrue("results should specify limit", results.containsKey("limit"));
+        Assert.assertEquals(3, results.get("limit"));
+        Assert.assertTrue("results should specify skip", results.containsKey("skip"));
+        Assert.assertEquals(2, results.get("skip"));
+        Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
+        Assert.assertEquals(0, results.get("totalCount"));
+        Assert.assertTrue("results should specify query", results.containsKey("query"));
+        Map<String, String> query = new HashMap<>();
+        query.put("bankCode", "FW");
+        Assert.assertEquals(query, results.get("query"));
+        Assert.assertTrue("results should specify sort", results.containsKey("sort"));
+        Assert.assertEquals("objectId", ((String[])results.get("sort"))[0]);
+        Assert.assertTrue("results should specify results", results.containsKey("results"));
+        Assert.assertEquals(0, ((List<Object>)results.get("results")).size());
+        EasyMock.verify(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class, LookupUtils.class})
+    public void testSearchBusinessObjects_NoLimitSpecified() {
+        Map<String, String> queryCriteria = new HashMap<>();
+        queryCriteria.put("bankCode", "FW");
+
+        commonMultipleBusinessObjectTestPrep(Bank.class, null, queryCriteria, 0, 200, new String[] { "objectId" });
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("bankCode", "FW");
+
+        UriInfo uriInfo = EasyMock.createMock(UriInfo.class);
+        EasyMock.expect(uriInfo.getQueryParameters()).andReturn(params);
+
+        PowerMock.mockStatic(LookupUtils.class);
+        EasyMock.expect(LookupUtils.getSearchResultsLimit(Bank.class)).andReturn(200);
+
+        EasyMock.replay(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession);
+        PowerMock.replay(KRADServiceLocator.class);
+        PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
+        PowerMock.replay(KRADUtils.class);
+        PowerMock.replay(LookupUtils.class);
+
+        BusinessObjectResource.setDataDictionaryService(dataDictionaryService);
+        BusinessObjectResource.setBusinessObjectService(businessObjectService);
+        BusinessObjectResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
+        BusinessObjectResource.setPersistenceStructureService(persistenceStructureService);
+        BusinessObjectResource.setDataDictionaryService(dataDictionaryService);
+
+        Map<String, Object> results = apiResource.searchBusinessObjects(Bank.class, uriInfo);
+
+        Assert.assertEquals(6, results.size());
+        Assert.assertTrue("results should specify limit", results.containsKey("limit"));
+        Assert.assertEquals(200, results.get("limit"));
+        Assert.assertTrue("results should specify skip", results.containsKey("skip"));
+        Assert.assertEquals(0, results.get("skip"));
+        Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
+        Assert.assertEquals(0, results.get("totalCount"));
+        Assert.assertTrue("results should specify query", results.containsKey("query"));
+        Map<String, String> query = new HashMap<>();
+        query.put("bankCode", "FW");
+        Assert.assertEquals(query, results.get("query"));
+        Assert.assertTrue("results should specify sort", results.containsKey("sort"));
+        Assert.assertEquals("objectId", ((String[])results.get("sort"))[0]);
+        Assert.assertTrue("results should specify results", results.containsKey("results"));
+        Assert.assertEquals(0, ((List<Object>)results.get("results")).size());
+        EasyMock.verify(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession);
+        PowerMock.verify(LookupUtils.class);
+    }
+
+    private void commonSingleBusinessObjectTestPrep(Class clazz, String namespaceCode, Supplier<? extends PersistableBusinessObject> boSupplier, ModuleConfiguration moduleConfig) {
         String className = clazz.getSimpleName();
-        PersistableBusinessObject result = (PersistableBusinessObject) ((List) collection).get(0);
+        PersistableBusinessObject result = boSupplier.get();
+        List<? extends PersistableBusinessObject> collection = Arrays.asList(result);
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(moduleConfig).anyTimes();
         EasyMock.expect(dataDictionaryService.containsDictionaryObject(className)).andReturn(true);
@@ -350,7 +734,7 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(configurationService.getPropertyValueAsBoolean(SecConstants.ACCESS_SECURITY_MODULE_ENABLED_PROPERTY_NAME)).andReturn(true).anyTimes();
         EasyMock.expect(accessSecurityService.getInquiryWithFieldValueTemplate()).andReturn(null);
         EasyMock.expect(KRADUtils.getNamespaceCode(clazz)).andReturn(namespaceCode);
-        accessSecurityService.applySecurityRestrictions((List) collection, testPerson, null, Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, namespaceCode));
+        accessSecurityService.applySecurityRestrictions(collection, testPerson, null, Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, namespaceCode));
         EasyMock.expectLastCall();
         EasyMock.expect(KRADServiceLocator.getPersistenceStructureService()).andReturn(persistenceStructureService);
         org.kuali.kfs.krad.util.ObjectUtils.materializeSubObjectsToDepth(result, 3);
@@ -359,10 +743,34 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(persistenceStructureService.getBusinessObjectAttributeClass(clazz, "extension")).andReturn(null);
     }
 
-    private Collection<UnitOfMeasure> getUomCollection() {
-        List<UnitOfMeasure> result = new ArrayList<>();
-        result.add(uom);
-        return result;
+    private void commonMultipleBusinessObjectTestPrep(Class clazz, Supplier<? extends PersistableBusinessObject> boSupplier, Map<String, String> queryCriteria, int skip, int limit, String[] sort) {
+        String className = clazz.getSimpleName();
+
+        PersistableBusinessObject result = null;
+        List<Bank> collection = new ArrayList<>();
+        if (boSupplier != null) {
+            result = boSupplier.get();
+            collection.add((Bank)result);
+        }
+        EasyMock.expect(businessObjectService.countMatching(clazz, queryCriteria)).andReturn(collection.size());
+        EasyMock.expect(businessObjectService.findMatching(EasyMock.eq(Bank.class), EasyMock.eq(queryCriteria), EasyMock.eq(skip), EasyMock.eq(limit), EasyMock.aryEq(sort))).andReturn(collection);
+
+        EasyMock.expect(businessObjectAuthorizationService.isNonProductionEnvAndUnmaskingTurnedOff()).andReturn(false).anyTimes();
+        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).anyTimes();
+        EasyMock.expect(dataDictionary.getBusinessObjectEntry(className)).andReturn(getDDEntry(Bank.class)).anyTimes();
+        EasyMock.expect(businessObjectAuthorizationService.canFullyUnmaskField(testPerson, Bank.class, "bankAccountNumber", null)).andReturn(false).anyTimes();
+        EasyMock.expect(businessObjectAuthorizationService.canPartiallyUnmaskField(testPerson, Bank.class, "bankRoutingNumber", null)).andReturn(false).anyTimes();
+        EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).anyTimes();
+        EasyMock.expect(userSession.getPerson()).andReturn(testPerson).anyTimes();
+
+        List<String> validFields = Arrays.asList("objectId", "bankCode", "bankName", "bankRountingNumber", "bankAccountNumber");
+        EasyMock.expect(persistenceStructureService.listFieldNames(clazz)).andReturn(validFields).anyTimes();
+
+        EasyMock.expect(KRADServiceLocator.getPersistenceStructureService()).andReturn(persistenceStructureService).anyTimes();
+        org.kuali.kfs.krad.util.ObjectUtils.materializeSubObjectsToDepth(result, 3);
+        PowerMock.expectLastCall();
+        EasyMock.expect(persistenceStructureService.isPersistable(clazz)).andReturn(true).anyTimes();
+        EasyMock.expect(persistenceStructureService.getBusinessObjectAttributeClass(clazz, "extension")).andReturn(null).anyTimes();
     }
 
     private UnitOfMeasure getUom() {
@@ -370,12 +778,6 @@ public class BusinessObjectResourceTest {
         uom.setItemUnitOfMeasureCode("DEV");
         uom.setItemUnitOfMeasureDescription("Developer");
         return uom;
-    }
-
-    private Collection<Deposit> getDepositCollection() {
-        List<Deposit> result = new ArrayList<>();
-        result.add(deposit);
-        return result;
     }
 
     private Deposit getDeposit() {
@@ -396,12 +798,6 @@ public class BusinessObjectResourceTest {
         return deposit;
     }
 
-    private Collection<Bank> getBankCollection() {
-        List<Bank> result = new ArrayList<>();
-        result.add(bank);
-        return result;
-    }
-
     private Bank getBank() {
         Bank bank = new Bank();
         bank.setBankCode("FW");
@@ -410,6 +806,10 @@ public class BusinessObjectResourceTest {
         bank.setBankAccountNumber("3333666644447777");
         bank.setObjectId("BK12345");
         return bank;
+    }
+
+    private Object getEmpty() {
+        return null;
     }
 
     private Map<String, String> makeMap(String namespaceCode, String className) {
@@ -434,6 +834,15 @@ public class BusinessObjectResourceTest {
         result.setNamespaceCode("KFS-SYS");
         result.setPackagePrefixes(new ArrayList<String>());
         result.getPackagePrefixes().add("org.kuali.kfs.sys");
+        result.setDataDictionaryService(dataDictionaryService);
+        return result;
+    }
+
+    private ModuleConfiguration getCoaModuleConfiguration() {
+        ModuleConfiguration result = new ModuleConfiguration();
+        result.setNamespaceCode("KFS-COA");
+        result.setPackagePrefixes(new ArrayList<String>());
+        result.getPackagePrefixes().add("org.kuali.kfs.coa");
         result.setDataDictionaryService(dataDictionaryService);
         return result;
     }

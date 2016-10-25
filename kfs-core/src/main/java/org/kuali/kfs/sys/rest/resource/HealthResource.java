@@ -16,41 +16,35 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.sys.rest;
+package org.kuali.kfs.sys.rest.resource;
 
-import org.kuali.rice.core.api.config.property.ConfigContext;
+import org.kuali.kfs.sys.businessobject.HealthReport;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-/**
- * This resource will have system related endpoints.
- */
-@Path("/system")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class SystemResource {
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SystemResource.class);
+@Path("/check")
+public class HealthResource {
+
 
     @GET
-    @Path("/environment")
-    public Response getEnvironment() {
-        LOG.debug("getEnvironment() started");
-
-        return Response.ok(new Environment()).build();
-    }
-
-    class Environment {
-        public boolean getProdMode() {
-            return ConfigContext.getCurrentContextConfig().isProductionEnvironment();
+    public Response health(@DefaultValue("false") @QueryParam("detail") boolean hasDetail) {
+        HealthReport hr = new HealthReport().checkHealth();
+        if (hr.getStatus().equals("OK") && hasDetail) {
+            return Response.ok(hr).build();
+        } else if (hr.getStatus().equals("OK")) {
+            return Response.status(Response.Status.NO_CONTENT).build();
         }
 
-        public String getEnvironment() {
-            return ConfigContext.getCurrentContextConfig().getEnvironment();
-        }
+        return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity(hr).build();
     }
 }
+

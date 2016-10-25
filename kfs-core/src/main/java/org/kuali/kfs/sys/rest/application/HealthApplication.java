@@ -16,28 +16,24 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.sys.rest;
+package org.kuali.kfs.sys.rest.application;
 
 import com.sun.jersey.api.container.filter.LoggingFilter;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.kfs.sys.rest.resource.HealthResource;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
 
-@ApplicationPath("api/v1/business-object")
-public class BusinessObjectApplication extends Application {
-
+@ApplicationPath("health")
+public class HealthApplication extends Application {
     protected Set<Object> singletons = new HashSet<>();
     private Set<Class<?>> clazzes = new HashSet<>();
 
-    public BusinessObjectApplication() {
-        if (SpringContext.getBean(ConfigurationService.class).getPropertyValueAsBoolean("apis.enabled")) {
-            singletons.add(new BusinessObjectResource());
-            clazzes.add(LoggingFilter.class);
-        }
+    public HealthApplication() {
+        singletons.add(new HealthResource());
+        clazzes.add(LoggingFilter.class);
     }
 
     @Override
