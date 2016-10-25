@@ -274,9 +274,11 @@ public class BusinessObjectResource {
             List<String> ojbFields = getPersistenceStructureService().listFieldNames(boClass);
             orderBy = orderByString.split(",");
             for (String sort : orderBy) {
-                if (ojbFields.contains(sort)) {
+                String cleanSort = sort.replaceFirst("^-", "");
+                if (ojbFields.contains(cleanSort)) {
                     validSortFields.add(sort);
                 } else {
+                    LOG.debug("invalid sort field: " + sort);
                     errorMessages.add(new ErrorMessage("invalid sort field", sort));
                 }
             }
@@ -315,6 +317,7 @@ public class BusinessObjectResource {
                     return true;
                 }
 
+                LOG.debug("invalid query parameter name: " + entry.getKey());
                 errorMessages.add(new ErrorMessage("invalid query parameter name", entry.getKey()));
                 return false;
             })
