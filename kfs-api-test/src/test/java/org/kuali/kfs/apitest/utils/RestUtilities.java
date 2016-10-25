@@ -23,14 +23,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.junit.Assert;
 import org.kuali.kfs.apitest.TestProperties;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RestUtilities {
@@ -59,5 +62,19 @@ public class RestUtilities {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void assertStatusOk(HttpResponse httpResponse) {
+        Assert.assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode());
+    }
+
+    public static SearchResult parseSearchResult(HttpResponse httpResponse) {
+        try {
+            final Map<String, Object> resultObject = RestUtilities.parse(RestUtilities.inputStreamToString(httpResponse.getEntity().getContent()));
+            return new SearchResult((Integer)resultObject.get("totalCount"), (Integer)resultObject.get("limit"), (Integer)resultObject.get("skip"), (List<Map<String, Object>>)resultObject.get("results"));
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe);
+        }
+
     }
 }

@@ -364,6 +364,60 @@ public class BusinessObjectResourceTest {
 
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testGetSortCriteria_NotSpecified() {
+        List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
+        List<String> primaryKeys = Arrays.asList("chartOfAccountsCode", "accountNumber");
+        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
+        EasyMock.expect(persistenceStructureService.listPrimaryKeyFieldNames(Account.class)).andReturn(primaryKeys);
+        apiResource.setPersistenceStructureService(persistenceStructureService);
+        EasyMock.replay(persistenceStructureService);
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+
+        String[] sort = apiResource.getSortCriteria(Account.class, params);
+
+        Assert.assertEquals(new String[]{"chartOfAccountsCode","accountNumber"}, sort);
+        EasyMock.verify(persistenceStructureService);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testGetSortCriteria_NotSpecified_NoPrimaryKey() {
+        List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
+        List<String> primaryKeys = new ArrayList<>();
+        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
+        EasyMock.expect(persistenceStructureService.listPrimaryKeyFieldNames(Account.class)).andReturn(primaryKeys);
+        apiResource.setPersistenceStructureService(persistenceStructureService);
+        EasyMock.replay(persistenceStructureService);
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+
+        String[] sort = apiResource.getSortCriteria(Account.class, params);
+
+        Assert.assertEquals(new String[]{"objectId"}, sort);
+        EasyMock.verify(persistenceStructureService);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testGetSortCriteria_NotSpecified_NoPrimaryKey_NoObjectId_NoNothing() {
+        List<String> validFields = Arrays.asList("accountName", "accountNumber", "chartOfAccountsCode");
+        List<String> primaryKeys = new ArrayList<>();
+        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
+        EasyMock.expect(persistenceStructureService.listPrimaryKeyFieldNames(Account.class)).andReturn(primaryKeys);
+        apiResource.setPersistenceStructureService(persistenceStructureService);
+        EasyMock.replay(persistenceStructureService);
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+
+        String[] sort = apiResource.getSortCriteria(Account.class, params);
+
+        Assert.assertEquals(new String[]{"accountName"}, sort);
+        EasyMock.verify(persistenceStructureService);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testGetSortCriteria_Descending() {
         List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
         EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
@@ -592,7 +646,7 @@ public class BusinessObjectResourceTest {
         Map<String, String> queryCriteria = new HashMap<>();
         queryCriteria.put("bankCode", "FW");
 
-        commonMultipleBusinessObjectTestPrep(Bank.class, () -> getBank(), queryCriteria, 1, 1, new String[] { "objectId" });
+        commonMultipleBusinessObjectTestPrep(Bank.class, () -> getBank(), queryCriteria, 1, 1, new String[] { "bankCode" });
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("bankCode", "FW");
@@ -627,7 +681,7 @@ public class BusinessObjectResourceTest {
         query.put("bankCode", "FW");
         Assert.assertEquals(query, results.get("query"));
         Assert.assertTrue("results should specify sort", results.containsKey("sort"));
-        Assert.assertEquals("objectId", ((String[])results.get("sort"))[0]);
+        Assert.assertEquals("bankCode", ((String[])results.get("sort"))[0]);
         Assert.assertTrue("results should specify results", results.containsKey("results"));
         Assert.assertEquals(1, ((List<Object>)results.get("results")).size());
         EasyMock.verify(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession);
@@ -639,7 +693,7 @@ public class BusinessObjectResourceTest {
         Map<String, String> queryCriteria = new HashMap<>();
         queryCriteria.put("bankCode", "FW");
 
-        commonMultipleBusinessObjectTestPrep(Bank.class, null, queryCriteria, 2, 3, new String[] { "objectId" });
+        commonMultipleBusinessObjectTestPrep(Bank.class, null, queryCriteria, 2, 3, new String[] { "bankCode" });
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("bankCode", "FW");
@@ -674,7 +728,7 @@ public class BusinessObjectResourceTest {
         query.put("bankCode", "FW");
         Assert.assertEquals(query, results.get("query"));
         Assert.assertTrue("results should specify sort", results.containsKey("sort"));
-        Assert.assertEquals("objectId", ((String[])results.get("sort"))[0]);
+        Assert.assertEquals("bankCode", ((String[])results.get("sort"))[0]);
         Assert.assertTrue("results should specify results", results.containsKey("results"));
         Assert.assertEquals(0, ((List<Object>)results.get("results")).size());
         EasyMock.verify(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession);
@@ -686,7 +740,7 @@ public class BusinessObjectResourceTest {
         Map<String, String> queryCriteria = new HashMap<>();
         queryCriteria.put("bankCode", "FW");
 
-        commonMultipleBusinessObjectTestPrep(Bank.class, null, queryCriteria, 0, 200, new String[] { "objectId" });
+        commonMultipleBusinessObjectTestPrep(Bank.class, null, queryCriteria, 0, 200, new String[] { "bankCode" });
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("bankCode", "FW");
@@ -723,7 +777,7 @@ public class BusinessObjectResourceTest {
         query.put("bankCode", "FW");
         Assert.assertEquals(query, results.get("query"));
         Assert.assertTrue("results should specify sort", results.containsKey("sort"));
-        Assert.assertEquals("objectId", ((String[])results.get("sort"))[0]);
+        Assert.assertEquals("bankCode", ((String[])results.get("sort"))[0]);
         Assert.assertTrue("results should specify results", results.containsKey("results"));
         Assert.assertEquals(0, ((List<Object>)results.get("results")).size());
         EasyMock.verify(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession);
@@ -780,6 +834,9 @@ public class BusinessObjectResourceTest {
 
         List<String> validFields = Arrays.asList("objectId", "bankCode", "bankName", "bankRountingNumber", "bankAccountNumber");
         EasyMock.expect(persistenceStructureService.listFieldNames(clazz)).andReturn(validFields).anyTimes();
+
+        List<String> primaryKeyFields = Arrays.asList("bankCode");
+        EasyMock.expect(persistenceStructureService.listPrimaryKeyFieldNames(clazz)).andReturn(primaryKeyFields).once();
 
         EasyMock.expect(KRADServiceLocator.getPersistenceStructureService()).andReturn(persistenceStructureService).anyTimes();
         org.kuali.kfs.krad.util.ObjectUtils.materializeSubObjectsToDepth(result, 3);
