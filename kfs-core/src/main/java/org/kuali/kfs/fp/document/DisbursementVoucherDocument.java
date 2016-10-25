@@ -1277,9 +1277,10 @@ public class DisbursementVoucherDocument extends AccountingDocumentBase implemen
     @Override
     public void toCopy() throws WorkflowException {
         super.toCopy();
-        initiateDocument();
 
         clearFieldsThatShouldNotBeCopied();
+
+        initiateDocument();
 
         getDisbursementVoucherTaxService().clearNRATaxLines(this);
         setDvNonResidentAlienTax(new DisbursementVoucherNonResidentAlienTax());
@@ -1304,6 +1305,8 @@ public class DisbursementVoucherDocument extends AccountingDocumentBase implemen
 
         if (!phoneNumberService.isDefaultFormatPhoneNumber(currentUser.getPhoneNumber())) {
             setDisbVchrContactPhoneNumber(phoneNumberService.formatNumberIfPossible(currentUser.getPhoneNumber()));
+        } else {
+            setDisbVchrContactPhoneNumber(currentUser.getPhoneNumber());
         }
 
         setDisbVchrContactEmailId(currentUser.getEmailAddress());

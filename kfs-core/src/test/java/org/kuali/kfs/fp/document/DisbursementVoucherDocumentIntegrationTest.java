@@ -85,8 +85,6 @@ public class DisbursementVoucherDocumentIntegrationTest extends KualiTestBase {
 
         // the dvParameter doc number needs to be resynced
         dvParameter.setDocumentNumber(document.getDocumentNumber());
-        dvParameter.setDisbVchrContactPhoneNumber("");
-        dvParameter.setDisbVchrContactEmailId("");
         dvParameter.getDvPayeeDetail().setDisbVchrPayeePersonName(null);
         dvParameter.getDvPayeeDetail().setDisbVchrAlienPaymentCode(false);
         dvParameter.getDvPayeeDetail().setDisbVchrPaymentReasonCode(null);
@@ -96,6 +94,9 @@ public class DisbursementVoucherDocumentIntegrationTest extends KualiTestBase {
         dvParameter.getDvPayeeDetail().setDisbVchrPayeeIdNumber("");
 
         dvParameter.setDisbVchrContactPersonName(GlobalVariables.getUserSession().getPerson().getName());
+        dvParameter.setDisbVchrContactPhoneNumber(GlobalVariables.getUserSession().getPerson().getPhoneNumber());
+        dvParameter.setDisbVchrContactEmailId(GlobalVariables.getUserSession().getPerson().getEmailAddress());
+
         // set to tomorrow
         Calendar calendar = SpringContext.getBean(DateTimeService.class).getCurrentCalendar();
         calendar.add(Calendar.DAY_OF_MONTH, 1);
