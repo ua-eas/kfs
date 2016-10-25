@@ -16,14 +16,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.sys.rest;
+package org.kuali.kfs.sys.rest.resource;
 
 import com.google.common.base.CaseFormat;
 import javassist.Modifier;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
 import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
@@ -33,6 +33,7 @@ import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.krad.util.KRADUtils;
@@ -42,6 +43,8 @@ import org.kuali.kfs.sec.service.AccessSecurityService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.rest.ErrorMessage;
+import org.kuali.kfs.sys.rest.exception.ApiRequestException;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
@@ -54,7 +57,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
@@ -62,6 +64,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,6 +91,7 @@ public class BusinessObjectResource {
     protected static volatile PermissionService permissionService;
     protected static volatile AccessSecurityService accessSecurityService;
     protected static volatile DataDictionaryService dataDictionaryService;
+    protected static volatile PersistenceStructureService persistenceStructureService;
 
     @Context
     protected HttpServletRequest servletRequest;
@@ -95,9 +99,6 @@ public class BusinessObjectResource {
     @GET
     public Response searchObjects(@PathParam("moduleName") String moduleName,
                                   @PathParam("businessObjectName") String businessObjectName,
-                                  @QueryParam("skip") Integer skip,
-                                  @QueryParam("limit") Integer limit,
-                                  @QueryParam("sort") String sort,
                                   @Context UriInfo uriInfo) {
         LOG.debug("searchObjects() started");
 
@@ -110,13 +111,7 @@ public class BusinessObjectResource {
             return Response.status(Status.FORBIDDEN).build();
         }
 
-        Map<String, Object> results;
-        try {
-            results = searchBusinessObjects(boClass, uriInfo);
-        } catch (ReflectiveOperationException e) {
-            LOG.error("Could not serialize BO", e);
-            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
-        }
+        Map<String, Object> results = searchBusinessObjects(boClass, uriInfo);
 
         return Response.ok(results).build();
     }
@@ -144,13 +139,7 @@ public class BusinessObjectResource {
             return Response.status(Status.FORBIDDEN).build();
         }
 
-        Map<String, Object> jsonObject;
-        try {
-            jsonObject = businessObjectToJson(boClass, businessObject);
-        } catch (ReflectiveOperationException e) {
-            LOG.error("Could not serialize BO", e);
-            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
-        }
+        Map<String, Object> jsonObject = businessObjectToJson(boClass, businessObject);
         // TODO: Check authorization
 
         return Response.ok(jsonObject).build();
@@ -190,40 +179,44 @@ public class BusinessObjectResource {
             : jsonValue;
     }
 
-    protected Object getJsonValue(PersistableBusinessObject businessObject, PropertyDescriptor propertyDescriptor) throws ReflectiveOperationException {
-        Object value = PropertyUtils.getSimpleProperty(businessObject, propertyDescriptor.getName());
-        if (ObjectUtils.isNull(value)) {
-            return null;
-        }
-        Class<?> propertyClass = propertyDescriptor.getPropertyType();
-
-        if (BusinessObject.class.isAssignableFrom(propertyClass)) {
-            return convertBoToUrl((BusinessObject) value);
-        }
-
-        if (Collection.class.isAssignableFrom(propertyClass)) {
-            Collection<?> collection = (Collection<?>) value;
-            Iterator<?> it = collection.iterator();
-            List<Object> newList = new ArrayList<Object>();
-            while (it.hasNext()) {
-                Object item = it.next();
-                if (item instanceof BusinessObject) {
-                    Map<String, Object> url = convertBoToUrl((BusinessObject) item);
-                    if (url != null) {
-                        newList.add(url);
-                    }
-                } else {
-                    newList.add(item);
-                }
+    protected Object getJsonValue(PersistableBusinessObject businessObject, PropertyDescriptor propertyDescriptor) {
+        try {
+            Object value = PropertyUtils.getSimpleProperty(businessObject, propertyDescriptor.getName());
+            if (ObjectUtils.isNull(value)) {
+                return null;
             }
-            return newList;
-        }
+            Class<?> propertyClass = propertyDescriptor.getPropertyType();
 
-        if (Date.class.isAssignableFrom(propertyClass)) {
-            return ((Date) value).getTime();
-        }
+            if (BusinessObject.class.isAssignableFrom(propertyClass)) {
+                return convertBoToUrl((BusinessObject) value);
+            }
 
-        return value;
+            if (Collection.class.isAssignableFrom(propertyClass)) {
+                Collection<?> collection = (Collection<?>) value;
+                Iterator<?> it = collection.iterator();
+                List<Object> newList = new ArrayList<Object>();
+                while (it.hasNext()) {
+                    Object item = it.next();
+                    if (item instanceof BusinessObject) {
+                        Map<String, Object> url = convertBoToUrl((BusinessObject) item);
+                        if (url != null) {
+                            newList.add(url);
+                        }
+                    } else {
+                        newList.add(item);
+                    }
+                }
+                return newList;
+            }
+
+            if (Date.class.isAssignableFrom(propertyClass)) {
+                return ((Date) value).getTime();
+            }
+
+            return value;
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            throw new ApiRequestException(Status.INTERNAL_SERVER_ERROR, "Could not serialize business object to json", new ErrorMessage("Property could not be retrieved from business object", propertyDescriptor.getName()));
+        }
     }
 
     protected <T extends PersistableBusinessObject> T findBusinessObject(Class<T> boClass, String objectId) {
@@ -236,9 +229,9 @@ public class BusinessObjectResource {
         return queryResults.iterator().next();
     }
 
-    protected <T extends PersistableBusinessObject> Map<String, Object> searchBusinessObjects(Class<T> boClass, UriInfo uriInfo) throws ReflectiveOperationException {
+    protected <T extends PersistableBusinessObject> Map<String, Object> searchBusinessObjects(Class<T> boClass, UriInfo uriInfo) {
         MultivaluedMap<String, String> params = uriInfo.getQueryParameters();
-        Map<String, String> queryCriteria = getSearchQueryCriteria(params);
+        Map<String, String> queryCriteria = getSearchQueryCriteria(boClass, params);
 
         int skip = getIntQueryParameter(KFSConstants.Search.SKIP, params);
         int limit = getIntQueryParameter(KFSConstants.Search.LIMIT, params);
@@ -246,11 +239,7 @@ public class BusinessObjectResource {
             limit = LookupUtils.getSearchResultsLimit(boClass);
         }
 
-        String orderByString = params.getFirst(KFSConstants.Search.SORT);
-        String[] orderBy = new String[]{"objectId"};
-        if (orderByString != null) {
-            orderBy = orderByString.split(",");
-        }
+        String[] orderBy = getSortCriteria(boClass, params);
 
         Map<String, Object> results = new HashMap<>();
         results.put(KFSConstants.Search.SORT, orderBy);
@@ -267,8 +256,6 @@ public class BusinessObjectResource {
 
         List<Map<String, Object>> jsonResults = new ArrayList<>();
         for (PersistableBusinessObject bo : queryResults) {
-            ObjectUtils.materializeSubObjectsToDepth(bo, 1);
-            // ^^^^^^^ Taking Super Long ^^^^^^^^^
             Map<String, Object> jsonObject = businessObjectToJson(boClass, bo);
             jsonResults.add(jsonObject);
             // TODO: Check authorization
@@ -278,25 +265,69 @@ public class BusinessObjectResource {
         return results;
     }
 
-    private int getIntQueryParameter(String name, MultivaluedMap<String, String> params) {
-        String paramString = params.getFirst(name);
-        int value = 0;
-        try {
-            value = Integer.parseInt(paramString);
-        } catch (NumberFormatException nfe) {
-            LOG.debug(name + " parameter is invalid format", nfe);
+    protected <T extends PersistableBusinessObject> String[] getSortCriteria(Class<T> boClass, MultivaluedMap<String, String> params) {
+        String orderByString = params.getFirst(KFSConstants.Search.SORT);
+        String[] orderBy = new String[]{"objectId"};
+        if (orderByString != null) {
+            List<ErrorMessage> errorMessages = new ArrayList<>();
+            List<String> validSortFields = new ArrayList<>();
+            List<String> ojbFields = getPersistenceStructureService().listFieldNames(boClass);
+            orderBy = orderByString.split(",");
+            for (String sort : orderBy) {
+                if (ojbFields.contains(sort)) {
+                    validSortFields.add(sort);
+                } else {
+                    errorMessages.add(new ErrorMessage("invalid sort field", sort));
+                }
+            }
+
+            if (errorMessages.size() > 0) {
+                throw new ApiRequestException("Invalid Search Criteria", errorMessages);
+            }
+
+            orderBy = validSortFields.toArray(new String[]{});
         }
-        return value;
+
+        return orderBy;
     }
 
-    private Map<String, String> getSearchQueryCriteria(MultivaluedMap<String, String> params) {
-        List<String> whiteList = new ArrayList<>(Arrays.asList(KFSConstants.Search.SORT, KFSConstants.Search.LIMIT, KFSConstants.Search.SKIP));
-        return params.entrySet().stream()
-            .filter(map -> !whiteList.contains(map.getKey().toLowerCase()))
-            .collect(Collectors.toMap(p -> p.getKey(), p -> params.getFirst(p.getKey())));
+    protected int getIntQueryParameter(String name, MultivaluedMap<String, String> params) {
+        String paramString = params.getFirst(name);
+        if (StringUtils.isNotBlank(paramString)) {
+            try {
+                return Integer.parseInt(paramString);
+            } catch (NumberFormatException nfe) {
+                LOG.debug(name + " parameter is not a number", nfe);
+                throw new ApiRequestException("Invalid Search Criteria", new ErrorMessage("parameter is not a number", name));
+            }
+        }
+        return 0;
     }
 
-    private <T extends PersistableBusinessObject> Map<String, Object> businessObjectToJson(Class<T> boClass, PersistableBusinessObject bo) throws ReflectiveOperationException {
+    protected <T extends PersistableBusinessObject> Map<String, String> getSearchQueryCriteria(Class<T> boClass, MultivaluedMap<String, String> params) {
+        List<String> reservedParams = Arrays.asList(KFSConstants.Search.SORT, KFSConstants.Search.LIMIT, KFSConstants.Search.SKIP);
+        List<String> ojbFields = getPersistenceStructureService().listFieldNames(boClass);
+        List<ErrorMessage> errorMessages = new ArrayList<>();
+        Map<String, String> validParams = params.entrySet().stream()
+            .filter(entry -> !reservedParams.contains(entry.getKey().toLowerCase()))
+            .filter(entry -> {
+                if(ojbFields.contains(entry.getKey())) {
+                    return true;
+                }
+
+                errorMessages.add(new ErrorMessage("invalid query parameter name", entry.getKey()));
+                return false;
+            })
+            .collect(Collectors.toMap(entry -> entry.getKey(), entry -> params.getFirst(entry.getKey())));
+
+        if (errorMessages.size() > 0) {
+            throw new ApiRequestException("Invalid Search Criteria", errorMessages);
+        }
+
+        return validParams;
+    }
+
+    private <T extends PersistableBusinessObject> Map<String, Object> businessObjectToJson(Class<T> boClass, PersistableBusinessObject bo) {
         ObjectUtils.materializeSubObjectsToDepth(bo, 3);
 
         Map<String, Object> jsonObject = new LinkedHashMap<String, Object>();
@@ -501,6 +532,13 @@ public class BusinessObjectResource {
         return dataDictionaryService;
     }
 
+    public PersistenceStructureService getPersistenceStructureService() {
+        if (persistenceStructureService == null) {
+            persistenceStructureService = SpringContext.getBean(PersistenceStructureService.class);
+        }
+        return persistenceStructureService;
+    }
+
     public static void setKualiModuleService(KualiModuleService kualiModuleService) {
         BusinessObjectResource.kualiModuleService = kualiModuleService;
     }
@@ -527,5 +565,9 @@ public class BusinessObjectResource {
 
     public static void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
         BusinessObjectResource.dataDictionaryService = dataDictionaryService;
+    }
+
+    public static void setPersistenceStructureService(PersistenceStructureService persistenceStructureService) {
+        BusinessObjectResource.persistenceStructureService = persistenceStructureService;
     }
 }

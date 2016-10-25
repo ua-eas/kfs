@@ -16,9 +16,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.sys.rest;
+package org.kuali.kfs.sys.rest.application;
 
 import com.sun.jersey.api.container.filter.LoggingFilter;
+import org.kuali.kfs.sys.rest.resource.AuthenticationResource;
+import org.kuali.kfs.sys.rest.resource.AuthorizationResource;
+import org.kuali.kfs.sys.rest.resource.BackdoorResource;
+import org.kuali.kfs.sys.rest.resource.PreferencesResource;
+import org.kuali.kfs.sys.rest.resource.SystemResource;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

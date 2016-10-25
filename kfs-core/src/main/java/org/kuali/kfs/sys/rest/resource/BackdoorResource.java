@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.sys.rest;
+package org.kuali.kfs.sys.rest.resource;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.kuali.kfs.kns.bo.AuthenticationValidationResponse;
