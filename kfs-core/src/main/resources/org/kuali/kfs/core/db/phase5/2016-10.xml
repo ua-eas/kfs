@@ -159,4 +159,18 @@
         </delete>
     </changeSet>
 
+    <changeSet author="KFS701" id="FINI-3014" context="bootstrap,demo,unit">
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
+            <column name="CMPNT_CD"><![CDATA[FilePurgeStep]]></column>
+            <column name="PARM_NM"><![CDATA[TEMPORARY_FILES_NUMBER_OF_DAYS_OLD]]></column>
+            <column name="OBJ_ID"><![CDATA[FINI-3014]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="VAL"><![CDATA[1]]></column>
+            <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+            <column name="PARM_DESC_TXT"><![CDATA[The FilePurgeStep will traverse the temporary files directory, deleting files with a last modified date more that this number of days prior to today.]]></column>
+            <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+            <column name="APPL_ID"><![CDATA[KFS]]></column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
