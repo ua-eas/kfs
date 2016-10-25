@@ -170,7 +170,7 @@ public class AttachmentServiceImpl implements AttachmentService {
         return this.getDocumentDirectory("");
     }
 
-    private String getDocumentDirectory(String objectId) {
+    protected String getDocumentDirectory(String objectId) {
         // Create a directory; all ancestor directories must exist
         File documentDirectory = new File(getDocumentFileStorageLocation(objectId));
         if (!documentDirectory.exists()) {
