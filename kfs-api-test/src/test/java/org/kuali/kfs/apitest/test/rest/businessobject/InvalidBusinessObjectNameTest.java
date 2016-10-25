@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.apitest.test;
+package org.kuali.kfs.apitest.test.rest.businessobject;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;

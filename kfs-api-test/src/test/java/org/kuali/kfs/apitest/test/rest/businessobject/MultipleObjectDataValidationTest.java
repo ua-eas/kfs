@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.apitest.test;
+package org.kuali.kfs.apitest.test.rest.businessobject;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -32,35 +32,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DataValidationTest {
-    private static String API = "/api/v1/business-object/ar/system-informations/5A691AF93B5A424DE0404F8189D80D73";
+public class MultipleObjectDataValidationTest {
     private static String SEARCH_API = "/api/v1/business-object/ar/system-informations";
 
     @Test
-    public void validModuleName() throws IOException {
-        HttpResponse response = RestUtilities.makeRequest(API, Constants.KHUNTLEY_TOKEN);
-
-        Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
-
-        Map<String,Object> bo = RestUtilities.parse(RestUtilities.inputStreamToString(response.getEntity().getContent()));
-
-        // Check a sample of fields returned
-        Assert.assertEquals(true,(Boolean)bo.get("active"));
-        Assert.assertEquals("9460",(String)bo.get("creditCardObjectCode"));
-        Assert.assertEquals("66255",(String)bo.get("lockboxNumber"));
-        Assert.assertEquals(false,(Boolean)bo.get("newCollectionRecord"));
-        Assert.assertEquals("5A691AF93B5A424DE0404F8189D80D73",(String)bo.get("objectId"));
-
-        Map<String,Object> processingChartOfAccount = (Map<String,Object>)bo.get("processingChartOfAccount");
-        String link = (String)processingChartOfAccount.get("link");
-        Assert.assertTrue(link.endsWith("/api/v1/business-object/coa/charts/014F3DAF748BA448E043814FD28EA448"));
-
-        int versionNumber = (Integer)bo.get("versionNumber");
-        Assert.assertEquals(1,versionNumber);
-    }
-
-    @Test
-    public void validSearchModuleName() throws IOException {
+    public void validSearchByObjectId() throws IOException {
         HttpResponse response = RestUtilities.makeRequest(SEARCH_API + "?objectId=5A691AF93B5A424DE0404F8189D80D73", Constants.KHUNTLEY_TOKEN);
 
         Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
@@ -126,7 +102,7 @@ public class DataValidationTest {
     }
 
     @Test
-    public void validSearchWithSort() throws IOException {
+    public void validSearchWithDescendingSort() throws IOException {
         HttpResponse response = RestUtilities.makeRequest(SEARCH_API + "?limit=1&sort=-objectId", Constants.KHUNTLEY_TOKEN);
 
         Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());

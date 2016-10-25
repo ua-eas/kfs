@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.apitest.test;
+package org.kuali.kfs.apitest.test.rest.businessobject;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -46,16 +46,16 @@ public class MaskedDataTest {
         Assert.assertEquals("*********",(String)bo.get("bankAccountNumber"));
     }
 
-    @Test
-    public void unmaskedBankData() throws IOException {
-        HttpResponse response = RestUtilities.makeRequest(BANK_API, Constants.KHUNTLEY_TOKEN);
-
-        Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
-
-        Map<String,Object> bo = RestUtilities.parse(RestUtilities.inputStreamToString(response.getEntity().getContent()));
-
-        Assert.assertEquals("Bank 1",(String)bo.get("bankAccountNumber"));
-    }
+//    @Test
+//    public void unmaskedBankData() throws IOException {
+//        HttpResponse response = RestUtilities.makeRequest(BANK_API, Constants.KHUNTLEY_TOKEN);
+//
+//        Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
+//
+//        Map<String,Object> bo = RestUtilities.parse(RestUtilities.inputStreamToString(response.getEntity().getContent()));
+//
+//        Assert.assertEquals("Bank 1",(String)bo.get("bankAccountNumber"));
+//    }
 
     @Test
     public void maskedVendorData() throws IOException {
