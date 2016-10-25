@@ -1182,7 +1182,7 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
         targetLine.setProjectCode(transaction.getProjectCode());
 
         if (getParameterService().getParameterValueAsBoolean(ProcurementCardCreateDocumentsStep.class, ProcurementCardCreateDocumentsStep.USE_ACCOUNTING_DEFAULT_PARAMETER_NAME)) {
-            final ProcurementCardDefault procurementCardDefault = retrieveProcurementCardDefault(transaction.getTransactionCreditCardNumber());
+            final edu.arizona.kfs.fp.businessobject.ProcurementCardDefault procurementCardDefault = (edu.arizona.kfs.fp.businessobject.ProcurementCardDefault) retrieveProcurementCardDefault(transaction.getTransactionCreditCardNumber());
             if (procurementCardDefault != null) {
                     targetLine.setChartOfAccountsCode(procurementCardDefault.getChartOfAccountsCode());
                     targetLine.setAccountNumber(procurementCardDefault.getAccountNumber());
@@ -1190,6 +1190,7 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
                     targetLine.setSubAccountNumber(procurementCardDefault.getSubAccountNumber());
                     targetLine.setFinancialSubObjectCode(procurementCardDefault.getFinancialSubObjectCode());
                     targetLine.setProjectCode(procurementCardDefault.getProjectCode());
+                    targetLine.setOrganizationReferenceId(procurementCardDefault.getOrganizationCode());
             }
         }
 
