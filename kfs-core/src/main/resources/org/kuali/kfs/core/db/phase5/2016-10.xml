@@ -172,6 +172,8 @@
             <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
             <column name="APPL_ID"><![CDATA[KFS]]></column>
         </insert>
+    </changeSet>
+    <changeSet author="KFS701" id="FINI-3019" context="bootstrap,demo,unit">
         <insert tableName="KRCR_PARM_T">
             <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
             <column name="CMPNT_CD"><![CDATA[FilePurgeStep]]></column>
