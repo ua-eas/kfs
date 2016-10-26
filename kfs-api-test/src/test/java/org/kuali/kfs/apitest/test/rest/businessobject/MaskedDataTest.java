@@ -92,18 +92,18 @@ public class MaskedDataTest {
         Assert.assertEquals("*********",(String)bo.get("bankAccountNumber"));
     }
 
-//    @Test
-//    public void unmaskedBankSearchData() throws IOException {
-//        HttpResponse response = RestUtilities.makeRequest(BANK_SEARCH_API, Constants.KHUNTLEY_TOKEN);
-//
-//        Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
-//
-//        Map<String,Object> searchResults = RestUtilities.parse(RestUtilities.inputStreamToString(response.getEntity().getContent()));
-//        List<Map<String, Object>> results = (List<Map<String, Object>>)searchResults.get("results");
-//        Map<String, Object> bo = results.get(0);
-//
-//        Assert.assertEquals("Bank 1",(String)bo.get("bankAccountNumber"));
-//    }
+    @Test
+    public void unmaskedBankSearchData() throws IOException {
+        HttpResponse response = RestUtilities.makeRequest(BANK_SEARCH_API, Constants.KHUNTLEY_TOKEN);
+
+        Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
+
+        Map<String,Object> searchResults = RestUtilities.parse(RestUtilities.inputStreamToString(response.getEntity().getContent()));
+        List<Map<String, Object>> results = (List<Map<String, Object>>)searchResults.get("results");
+        Map<String, Object> bo = results.get(0);
+
+        Assert.assertEquals("Bank 1",(String)bo.get("bankAccountNumber"));
+    }
 
     @Test
     public void maskedVendorSearchData() throws IOException {

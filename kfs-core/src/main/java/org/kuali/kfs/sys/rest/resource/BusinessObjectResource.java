@@ -21,6 +21,7 @@ package org.kuali.kfs.sys.rest.resource;
 import com.google.common.base.CaseFormat;
 import javassist.Modifier;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
@@ -266,13 +267,13 @@ public class BusinessObjectResource {
     }
 
     protected <T extends PersistableBusinessObject> String[] getSortCriteria(Class<T> boClass, MultivaluedMap<String, String> params) {
+        final List<String> ojbFields = getPersistenceStructureService().listFieldNames(boClass);
+
         String orderByString = params.getFirst(KFSConstants.Search.SORT);
-        String[] orderBy = new String[]{"objectId"};
         if (orderByString != null) {
             List<ErrorMessage> errorMessages = new ArrayList<>();
             List<String> validSortFields = new ArrayList<>();
-            List<String> ojbFields = getPersistenceStructureService().listFieldNames(boClass);
-            orderBy = orderByString.split(",");
+            String[] orderBy = orderByString.split(",");
             for (String sort : orderBy) {
                 String cleanSort = sort.replaceFirst("^-", "");
                 if (ojbFields.contains(cleanSort)) {
@@ -287,10 +288,17 @@ public class BusinessObjectResource {
                 throw new ApiRequestException("Invalid Search Criteria", errorMessages);
             }
 
-            orderBy = validSortFields.toArray(new String[]{});
+            return validSortFields.toArray(new String[]{});
+        } else {
+            final List<String> ojbPrimaryKeys = getPersistenceStructureService().listPrimaryKeyFieldNames(boClass);
+            if (!CollectionUtils.isEmpty(ojbPrimaryKeys)) {
+                return ojbPrimaryKeys.toArray(new String[] {});
+            } else if (ojbFields.contains("objectId")){
+                return new String[]{"objectId"};
+            }
         }
 
-        return orderBy;
+        return new String[] { ojbFields.get(0) }; // no other fields to check from...let's just sort on the first ojb column
     }
 
     protected int getIntQueryParameter(String name, MultivaluedMap<String, String> params) {
