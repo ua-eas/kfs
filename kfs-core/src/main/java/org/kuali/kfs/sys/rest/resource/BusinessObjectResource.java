@@ -235,10 +235,7 @@ public class BusinessObjectResource {
         Map<String, String> queryCriteria = getSearchQueryCriteria(boClass, params);
 
         int skip = getIntQueryParameter(KFSConstants.Search.SKIP, params);
-        int limit = getIntQueryParameter(KFSConstants.Search.LIMIT, params);
-        if (limit == 0) {
-            limit = LookupUtils.getSearchResultsLimit(boClass);
-        }
+        int limit = getLimit(boClass, params);
 
         String[] orderBy = getSortCriteria(boClass, params);
 
@@ -264,6 +261,17 @@ public class BusinessObjectResource {
 
         results.put(KFSConstants.Search.RESULTS, jsonResults);
         return results;
+    }
+
+    protected <T extends PersistableBusinessObject> int getLimit(Class<T> boClass, MultivaluedMap<String, String> params) {
+        int limit = getIntQueryParameter(KFSConstants.Search.LIMIT, params);
+        if (limit <= 0) {
+            limit = LookupUtils.getSearchResultsLimit(boClass);
+            if (limit <= 0) {
+                limit = LookupUtils.getApplicationSearchResultsLimit();
+            }
+        }
+        return limit;
     }
 
     protected <T extends PersistableBusinessObject> String[] getSortCriteria(Class<T> boClass, MultivaluedMap<String, String> params) {

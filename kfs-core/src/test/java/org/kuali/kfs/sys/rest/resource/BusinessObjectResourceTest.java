@@ -784,6 +784,49 @@ public class BusinessObjectResourceTest {
         PowerMock.verify(LookupUtils.class);
     }
 
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class, LookupUtils.class})
+    public void testGetLimit() {
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("limit", "5");
+
+        int limit = apiResource.getLimit(Bank.class, params);
+
+        Assert.assertEquals(5, limit);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class, LookupUtils.class})
+    public void testGetLimit_NegativeLimitSpecified() {
+        PowerMock.mockStatic(LookupUtils.class);
+        EasyMock.expect(LookupUtils.getSearchResultsLimit(Bank.class)).andReturn(200);
+        PowerMock.replay(LookupUtils.class);
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("limit", "-1");
+
+        int limit = apiResource.getLimit(Bank.class, params);
+
+        Assert.assertEquals(200, limit);
+        PowerMock.verify(LookupUtils.class);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class, LookupUtils.class})
+    public void testGetLimit_BusinessObjectResultsLimitNegative() {
+        PowerMock.mockStatic(LookupUtils.class);
+        EasyMock.expect(LookupUtils.getSearchResultsLimit(Bank.class)).andReturn(-1);
+        EasyMock.expect(LookupUtils.getApplicationSearchResultsLimit()).andReturn(200);
+        PowerMock.replay(LookupUtils.class);
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+
+        int limit = apiResource.getLimit(Bank.class, params);
+
+        Assert.assertEquals(200, limit);
+        PowerMock.verify(LookupUtils.class);
+    }
+
     private void commonSingleBusinessObjectTestPrep(Class clazz, String namespaceCode, Supplier<? extends PersistableBusinessObject> boSupplier, ModuleConfiguration moduleConfig) {
         String className = clazz.getSimpleName();
         PersistableBusinessObject result = boSupplier.get();
