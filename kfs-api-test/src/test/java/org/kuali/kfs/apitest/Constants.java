@@ -32,4 +32,10 @@ public class Constants {
         public static final String SORT = "sort";
         public static final String TOTAL_COUNT = "totalCount";
     }
+
+    public static class Error {
+        public static final String MESSAGE = "message";
+        public static final String DETAILS = "details";
+        public static final String PROPERTY = "property";
+    }
 }

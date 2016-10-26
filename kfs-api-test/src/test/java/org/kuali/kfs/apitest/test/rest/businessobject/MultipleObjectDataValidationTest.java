@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.apitest.test;
+package org.kuali.kfs.apitest.test.rest.businessobject;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -32,35 +32,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DataValidationTest {
-    private static String API = "/api/v1/business-object/ar/system-informations/5A691AF93B5A424DE0404F8189D80D73";
+public class MultipleObjectDataValidationTest {
     private static String SEARCH_API = "/api/v1/business-object/ar/system-informations";
 
     @Test
-    public void validModuleName() throws IOException {
-        HttpResponse response = RestUtilities.makeRequest(API, Constants.KHUNTLEY_TOKEN);
-
-        Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
-
-        Map<String,Object> bo = RestUtilities.parse(RestUtilities.inputStreamToString(response.getEntity().getContent()));
-
-        // Check a sample of fields returned
-        Assert.assertEquals(true,(Boolean)bo.get("active"));
-        Assert.assertEquals("9460",(String)bo.get("creditCardObjectCode"));
-        Assert.assertEquals("66255",(String)bo.get("lockboxNumber"));
-        Assert.assertEquals(false,(Boolean)bo.get("newCollectionRecord"));
-        Assert.assertEquals("5A691AF93B5A424DE0404F8189D80D73",(String)bo.get("objectId"));
-
-        Map<String,Object> processingChartOfAccount = (Map<String,Object>)bo.get("processingChartOfAccount");
-        String link = (String)processingChartOfAccount.get("link");
-        Assert.assertTrue(link.endsWith("/api/v1/business-object/coa/charts/014F3DAF748BA448E043814FD28EA448"));
-
-        int versionNumber = (Integer)bo.get("versionNumber");
-        Assert.assertEquals(1,versionNumber);
-    }
-
-    @Test
-    public void validSearchModuleName() throws IOException {
+    public void searchByObjectId() throws IOException {
         HttpResponse response = RestUtilities.makeRequest(SEARCH_API + "?objectId=5A691AF93B5A424DE0404F8189D80D73", Constants.KHUNTLEY_TOKEN);
 
         Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
@@ -94,7 +70,7 @@ public class DataValidationTest {
     }
 
     @Test
-    public void validSearchWithLimitAndSkip() throws IOException {
+    public void searchWithLimitAndSkip() throws IOException {
         HttpResponse response = RestUtilities.makeRequest(SEARCH_API + "?limit=2&skip=1", Constants.KHUNTLEY_TOKEN);
 
         Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
@@ -126,7 +102,7 @@ public class DataValidationTest {
     }
 
     @Test
-    public void validSearchWithSort() throws IOException {
+    public void searchWithDescendingSort() throws IOException {
         HttpResponse response = RestUtilities.makeRequest(SEARCH_API + "?limit=1&sort=-objectId", Constants.KHUNTLEY_TOKEN);
 
         Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
@@ -158,7 +134,7 @@ public class DataValidationTest {
     }
 
     @Test
-    public void validSearchWithoutLimit() throws IOException {
+    public void searchWithoutLimit() throws IOException {
         HttpResponse response = RestUtilities.makeRequest(SEARCH_API, Constants.KHUNTLEY_TOKEN);
 
         Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
@@ -187,5 +163,73 @@ public class DataValidationTest {
 
         int versionNumber = (Integer)bo.get("versionNumber");
         Assert.assertEquals(2,versionNumber);
+    }
+
+    @Test
+    public void searchWithInvalidLimit() throws IOException {
+        HttpResponse response = RestUtilities.makeRequest(SEARCH_API + "?limit=a", Constants.KHUNTLEY_TOKEN);
+
+        Assert.assertEquals(HttpStatus.SC_BAD_REQUEST,response.getStatusLine().getStatusCode());
+
+        Map<String,Object> error = RestUtilities.parse(RestUtilities.inputStreamToString(response.getEntity().getContent()));
+        Assert.assertEquals("Invalid Search Criteria", error.get(Constants.Error.MESSAGE));
+
+        List<Map<String, Object>> errorDetails = (List<Map<String, Object>>)error.get(Constants.Error.DETAILS);
+        Assert.assertEquals(1, errorDetails.size());
+
+        Map<String, Object> errorDetail = errorDetails.get(0);
+        Assert.assertEquals("limit", errorDetail.get(Constants.Error.PROPERTY));
+        Assert.assertEquals("parameter is not a number", errorDetail.get(Constants.Error.MESSAGE));
+    }
+
+    @Test
+    public void searchWithInvalidSkip() throws IOException {
+        HttpResponse response = RestUtilities.makeRequest(SEARCH_API + "?skip=a", Constants.KHUNTLEY_TOKEN);
+
+        Assert.assertEquals(HttpStatus.SC_BAD_REQUEST,response.getStatusLine().getStatusCode());
+
+        Map<String,Object> error = RestUtilities.parse(RestUtilities.inputStreamToString(response.getEntity().getContent()));
+        Assert.assertEquals("Invalid Search Criteria", error.get(Constants.Error.MESSAGE));
+
+        List<Map<String, Object>> errorDetails = (List<Map<String, Object>>)error.get(Constants.Error.DETAILS);
+        Assert.assertEquals(1, errorDetails.size());
+
+        Map<String, Object> errorDetail = errorDetails.get(0);
+        Assert.assertEquals("skip", errorDetail.get(Constants.Error.PROPERTY));
+        Assert.assertEquals("parameter is not a number", errorDetail.get(Constants.Error.MESSAGE));
+    }
+
+    @Test
+    public void searchWithInvalidSort() throws IOException {
+        HttpResponse response = RestUtilities.makeRequest(SEARCH_API + "?sort=invalidFieldName", Constants.KHUNTLEY_TOKEN);
+
+        Assert.assertEquals(HttpStatus.SC_BAD_REQUEST,response.getStatusLine().getStatusCode());
+
+        Map<String,Object> error = RestUtilities.parse(RestUtilities.inputStreamToString(response.getEntity().getContent()));
+        Assert.assertEquals("Invalid Search Criteria", error.get(Constants.Error.MESSAGE));
+
+        List<Map<String, Object>> errorDetails = (List<Map<String, Object>>)error.get(Constants.Error.DETAILS);
+        Assert.assertEquals(1, errorDetails.size());
+
+        Map<String, Object> errorDetail = errorDetails.get(0);
+        Assert.assertEquals("invalidFieldName", errorDetail.get(Constants.Error.PROPERTY));
+        Assert.assertEquals("invalid sort field", errorDetail.get(Constants.Error.MESSAGE));
+    }
+
+    @Test
+    public void searchWithInvalidSearchField() throws IOException {
+        HttpResponse response = RestUtilities.makeRequest(SEARCH_API + "?invalidFieldName=invalidFieldValue", Constants.KHUNTLEY_TOKEN);
+
+        Assert.assertEquals(HttpStatus.SC_BAD_REQUEST,response.getStatusLine().getStatusCode());
+
+        Map<String,Object> error = RestUtilities.parse(RestUtilities.inputStreamToString(response.getEntity().getContent()));
+        Assert.assertEquals("Invalid Search Criteria", error.get(Constants.Error.MESSAGE));
+
+        List<Map<String, Object>> errorDetails = (List<Map<String, Object>>)error.get(Constants.Error.DETAILS);
+        Assert.assertEquals(1, errorDetails.size());
+
+        Map<String, Object> errorDetail = errorDetails.get(0);
+        Assert.assertEquals("invalidFieldName", errorDetail.get(Constants.Error.PROPERTY));
+        Assert.assertEquals("invalid query parameter name", errorDetail.get(Constants.Error.MESSAGE));
     }
 }

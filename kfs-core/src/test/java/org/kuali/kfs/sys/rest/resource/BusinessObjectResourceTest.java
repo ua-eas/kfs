@@ -364,6 +364,23 @@ public class BusinessObjectResourceTest {
 
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testGetSortCriteria_Descending() {
+        List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
+        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
+        apiResource.setPersistenceStructureService(persistenceStructureService);
+        EasyMock.replay(persistenceStructureService);
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("sort", "-accountName");
+
+        String[] sort = apiResource.getSortCriteria(Account.class, params);
+
+        Assert.assertEquals(new String[]{"-accountName"}, sort);
+        EasyMock.verify(persistenceStructureService);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testGetSortCriteria_Mutli() {
         List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
         EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
