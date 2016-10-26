@@ -176,7 +176,7 @@
             <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
             <column name="CMPNT_CD"><![CDATA[FilePurgeStep]]></column>
             <column name="PARM_NM"><![CDATA[DEFAULT_NUMBER_OF_DAYS_OLD]]></column>
-            <column name="OBJ_ID"><![CDATA[FINI-3014]]></column>
+            <column name="OBJ_ID"><![CDATA[FINI-3014.1]]></column>
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="VAL"><![CDATA[30]]></column>
             <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
