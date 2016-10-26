@@ -22,6 +22,14 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
+    <bean id="nonResidentAlienInformationValidation" parent="DisbursementVoucher-nonResidentAlienInformationValidation" scope="prototype">
+        <property name="parameterProperties">
+            <list>
+                <bean parent="accountingDocumentFieldConversion"/>
+            </list>
+        </property>
+    </bean>
+
     <bean id="DisbursementVoucher-routeDocumentValidation" parent="DisbursementVoucher-routeDocumentValidation-parentBean"/>
     <bean id="DisbursementVoucher-routeDocumentValidation-parentBean" parent="CompositeValidation" scope="prototype" abstract="true">
         <property name="validations">
@@ -97,13 +105,6 @@
                         </list>
                     </property>
                 </bean>
-                <bean parent="DisbursementVoucher-nonResidentAlienInformationValidation" scope="prototype">
-                    <property name="parameterProperties">
-                        <list>
-                            <bean parent="accountingDocumentFieldConversion"/>
-                        </list>
-                    </property>
-                </bean>
                 <bean parent="DisbursementVoucher-nonEmployeeTravelValidation" scope="prototype">
                     <property name="parameterProperties">
                         <list>
@@ -139,6 +140,7 @@
                         </list>
                     </property>
                 </bean>
+                <ref bean="nonResidentAlienInformationValidation"/>
             </list>
         </property>
     </bean>
