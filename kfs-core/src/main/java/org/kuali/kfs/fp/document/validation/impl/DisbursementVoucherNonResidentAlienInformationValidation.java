@@ -19,6 +19,8 @@
 package org.kuali.kfs.fp.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherNonResidentAlienTax;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherPayeeDetail;
 import org.kuali.kfs.fp.businessobject.NonResidentAlienTaxPercent;
@@ -39,15 +41,21 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
+import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
 public class DisbursementVoucherNonResidentAlienInformationValidation extends GenericValidation implements DisbursementVoucherConstants {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DisbursementVoucherNonResidentAlienInformationValidation.class);
+
+    protected ParameterService parameterService;
+    protected ParameterEvaluatorService parameterEvaluatorService;
+    protected BusinessObjectService businessObjectService;
 
     protected AccountingDocument accountingDocumentForValidation;
     protected String validationType;
@@ -157,14 +165,14 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
                 taxPercent.setIncomeTaxTypeCode(FEDERAL_TAX_TYPE_CODE);
                 taxPercent.setIncomeTaxPercent(nonResidentAlienTax.getFederalIncomeTaxPercent());
 
-                NonResidentAlienTaxPercent retrievedPercent = (NonResidentAlienTaxPercent) SpringContext.getBean(BusinessObjectService.class).retrieve(taxPercent);
+                NonResidentAlienTaxPercent retrievedPercent = (NonResidentAlienTaxPercent) businessObjectService.retrieve(taxPercent);
                 if (retrievedPercent == null) {
                     errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_INVALID_FED_TAX_PERCENT, new String[]{nonResidentAlienTax.getFederalIncomeTaxPercent().toString(), nonResidentAlienTax.getIncomeClassCode()});
                     return false;
                 }
             }
         }
-        if (((nonResidentAlienTax.getStateIncomeTaxPercent() == null) || (nonResidentAlienTax.getStateIncomeTaxPercent().equals(KualiDecimal.ZERO))) && (nonResidentAlienTax.getIncomeClassCode().equals(NRA_TAX_INCOME_CLASS_NON_REPORTABLE))) {
+        if (checkAllowZeroStateIncomeTax(nonResidentAlienTax.getStateIncomeTaxPercent(), nonResidentAlienTax.getIncomeClassCode())) {
             nonResidentAlienTax.setStateIncomeTaxPercent(KualiDecimal.ZERO);
         } else {
             if (nonResidentAlienTax.getStateIncomeTaxPercent() == null) {
@@ -340,6 +348,53 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
         return isValid;
     }
 
+    /**
+     * Validate the specified state income tax using the specified income class code according to the rules defined below.
+     *
+     * <ul>
+     *     <li>
+     *         Returns false if state income tax is not null and non-zero.
+     *     </li>
+     *     <li>
+     *         Returns true if state income tax is null or zero and:
+     *     </li>
+     *     <li>
+     *         <ul>
+     *             <li>
+     *                 income class code is non-reportable or
+     *             </li>
+     *             <li>
+     *                 income class code is not in the list of income class codes that require state tax.
+     *                 For the default configuration this is royalty and independent contractor.
+     *             </li>
+     *         </ul>
+     *     </li>
+     * </ul>
+     *
+     * @param stateIncomeTaxPercent  KualiDecimal state income tax
+     * @param incomeClassCode  String income class code
+     *
+     * @return boolean result of validation logic.
+     */
+    protected boolean checkAllowZeroStateIncomeTax(KualiDecimal stateIncomeTaxPercent, String incomeClassCode) {
+        if (stateIncomeTaxPercent != null && !stateIncomeTaxPercent.equals(KualiDecimal.ZERO)) {
+            return false;
+        }
+
+        if (NRA_TAX_INCOME_CLASS_NON_REPORTABLE.equals(incomeClassCode)) {
+            return true;
+        }
+
+        Parameter incomeClassCodesRequiringStateTaxParam = parameterService.getParameter(DisbursementVoucherDocument.class, DisbursementVoucherConstants.INCOME_CLASS_CODES_REQUIRING_STATE_TAX_PARM_NM);
+
+        if (incomeClassCodesRequiringStateTaxParam == null ||
+            StringUtils.isEmpty(incomeClassCodesRequiringStateTaxParam.getValue())) {
+            return true;
+        }
+
+        return !parameterEvaluatorService.getParameterEvaluator(DisbursementVoucherDocument.class, DisbursementVoucherConstants.INCOME_CLASS_CODES_REQUIRING_STATE_TAX_PARM_NM, incomeClassCode).evaluationSucceeds();
+    }
+
     protected boolean stateAndFederalTaxesNotNull(DisbursementVoucherDocument document) {
         if ((document.getDvNonResidentAlienTax().getFederalIncomeTaxPercent() != null) && (document.getDvNonResidentAlienTax().getStateIncomeTaxPercent() != null)) {
             return true;
@@ -436,5 +491,17 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
             errors.removeFromErrorPath(KFSPropertyConstants.DV_NON_RESIDENT_ALIEN_TAX);
             return true;
         }
+    }
+
+    public void setParameterService(ParameterService parameterService) {
+        this.parameterService = parameterService;
+    }
+
+    public void setParameterEvaluatorService(ParameterEvaluatorService parameterEvaluatorService) {
+        this.parameterEvaluatorService = parameterEvaluatorService;
+    }
+
+    public void setBusinessObjectService(BusinessObjectService businessObjectService) {
+        this.businessObjectService = businessObjectService;
     }
 }

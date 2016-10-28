@@ -187,4 +187,19 @@
             <column name="APPL_ID"><![CDATA[KFS]]></column>
         </insert>
     </changeSet>
+
+    <changeSet author="KFS701" id="FINP-800" context="bootstrap,demo,unit">
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD"><![CDATA[KFS-FP]]></column>
+            <column name="CMPNT_CD"><![CDATA[DisbursementVoucher]]></column>
+            <column name="PARM_NM"><![CDATA[INCOME_CLASS_CODES_REQUIRING_STATE_TAX]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-800]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="VAL"><![CDATA[F]]></column>
+            <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+            <column name="PARM_DESC_TXT"><![CDATA[Identifies which income classes require a state tax value greater than 0.]]></column>
+            <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+            <column name="APPL_ID"><![CDATA[KFS]]></column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

@@ -35,6 +35,7 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.validation.Validation;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
@@ -422,7 +423,8 @@ public class DisbursementVoucherTaxServiceImpl implements DisbursementVoucherTax
     protected boolean validateNRATaxInformation(DisbursementVoucherDocument document) {
         MessageMap errors = GlobalVariables.getMessageMap();
 
-        DisbursementVoucherNonResidentAlienInformationValidation dvNRA = new DisbursementVoucherNonResidentAlienInformationValidation();
+        DisbursementVoucherNonResidentAlienInformationValidation dvNRA =
+            (DisbursementVoucherNonResidentAlienInformationValidation)SpringContext.getBean(Validation.class, "nonResidentAlienInformationValidation");
         dvNRA.setAccountingDocumentForValidation(document);
         dvNRA.setValidationType("GENERATE");
 
