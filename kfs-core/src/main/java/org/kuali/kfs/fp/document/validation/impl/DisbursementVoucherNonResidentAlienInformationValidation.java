@@ -46,7 +46,6 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -190,17 +189,8 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
                     errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_INVALID_STATE_TAX_PERCENT, nonResidentAlienTax.getStateIncomeTaxPercent().toString(), nonResidentAlienTax.getIncomeClassCode());
                     return false;
                 } else {
-                    if ((!document.getDvNonResidentAlienTax().getIncomeClassCode().equals(NRA_TAX_INCOME_CLASS_ROYALTIES)) && (!document.getDvNonResidentAlienTax().getIncomeClassCode().equals(NRA_TAX_INCOME_CLASS_INDEPENDENT_CONTRACTOR))) {
-                        // If fed tax rate is greater than zero, the state tax rate should be greater than zero.
-                        if ((document.getDvNonResidentAlienTax().getFederalIncomeTaxPercent().isGreaterThan(KualiDecimal.ZERO)) && (document.getDvNonResidentAlienTax().getStateIncomeTaxPercent().isZero())) {
-                            errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_STATE_INCOME_TAX_PERCENT_SHOULD_BE_GREATER_THAN_ZERO);
-                            return false;
-                        }
-                        // If fed tax rate is zero, the state tax rate should be zero.
-                        if ((document.getDvNonResidentAlienTax().getFederalIncomeTaxPercent().equals(KualiDecimal.ZERO)) && (!document.getDvNonResidentAlienTax().getStateIncomeTaxPercent().isZero())) {
-                            errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_STATE_TAX_SHOULD_BE_ZERO);
-                            return false;
-                        }
+                    if (!validateFederalStateTaxPercentsForIncomeClass(document.getDvNonResidentAlienTax().getFederalIncomeTaxPercent(), document.getDvNonResidentAlienTax().getStateIncomeTaxPercent(), taxPercent.getIncomeClassCode(), errors)) {
+                        return false;
                     }
                 }
             }
@@ -346,6 +336,49 @@ public class DisbursementVoucherNonResidentAlienInformationValidation extends Ge
         errors.removeFromErrorPath(KFSPropertyConstants.DOCUMENT);
 
         return isValid;
+    }
+
+    /**
+     * Validate the federal tax percent and state tax percent for the given income class code according to the rules below.
+     *
+     * <ul>
+     *     <li>
+     *         Returns true if the income class code is not one that requires a state income tax OR
+     *         the federal tax percent is zero and the state tax percent is zero OR
+     *         the federal tax percent is greater than zero and the state tax percent is greater than zero
+     *     </li>
+     *     <li>
+     *         Returns false if the income class code requires a state income tax AND:
+     *     </li>
+     *     <ul>
+     *         <li>Federal tax percent is greater than zero and state tax percent is zero OR</li>
+     *         <li>Federal tax percent is zero and state tax percent is greater than zero</li>
+     *     </ul>
+     * </ul>
+     *
+     * If the method returns false it will also set a relevant error message on the errors MessageMap
+     *
+     * @param fedTaxPercent KualiDecimal federal tax rate percentage
+     * @param stateTaxPercent KualiDecimal state tax rate percentage
+     * @param incomeClassCode String income class code
+     * @param errors MessageMap for returning error messages
+     *
+     * @return boolean indicating whether the validation was successful or not.
+     */
+    protected boolean validateFederalStateTaxPercentsForIncomeClass(KualiDecimal fedTaxPercent, KualiDecimal stateTaxPercent, String incomeClassCode, MessageMap errors) {
+        if (parameterEvaluatorService.getParameterEvaluator(DisbursementVoucherDocument.class, DisbursementVoucherConstants.INCOME_CLASS_CODES_REQUIRING_STATE_TAX_PARM_NM, incomeClassCode).evaluationSucceeds()) {
+            // If fed tax rate is greater than zero, the state tax rate should be greater than zero.
+            if ((fedTaxPercent.isGreaterThan(KualiDecimal.ZERO)) && (stateTaxPercent.isZero())) {
+                errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_STATE_INCOME_TAX_PERCENT_SHOULD_BE_GREATER_THAN_ZERO);
+                return false;
+            }
+            // If fed tax rate is zero, the state tax rate should be zero.
+            if ((fedTaxPercent.equals(KualiDecimal.ZERO)) && (!stateTaxPercent.isZero())) {
+                errors.putErrorWithoutFullErrorPath("DVNRATaxErrors", KFSKeyConstants.ERROR_DV_STATE_TAX_SHOULD_BE_ZERO);
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
