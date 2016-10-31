@@ -97,7 +97,7 @@
                 <bean parent="MaintainableSubSectionHeaderDefinition" p:name="Asset Detail Info"/>
                 <bean parent="MaintainableFieldDefinition" p:name="capitalAssetNumber" p:unconditionallyReadOnly="true"/>
                 <bean parent="MaintainableFieldDefinition" p:name="organizationOwnerChartOfAccountsCode" p:required="true"/>
-                <bean parent="MaintainableFieldDefinition" p:name="organizationOwnerAccountNumber" p:webUILeaveFieldFunction="onblur_accountNumber">
+                <bean parent="MaintainableFieldDefinition" p:name="organizationOwnerAccountNumber" p:webUILeaveFieldFunction="onblur_accountNumber" p:required="true">
                     <property name="webUILeaveFieldFunctionParameters">
                         <list>
                             <value>organizationOwnerChartOfAccountsCode</value>
