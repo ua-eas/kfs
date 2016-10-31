@@ -29,9 +29,13 @@ import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.impl.parameter.ParameterEvaluatorServiceImpl;
+import org.springframework.util.AutoPopulatingList;
 
 public class DisbursementVoucherDocumentNonResidentAlienInformationRuleTest {
     protected final static String[] INCOME_CLASS_CODES = new String[] {
@@ -415,4 +419,361 @@ public class DisbursementVoucherDocumentNonResidentAlienInformationRuleTest {
             validation.checkAllowZeroStateIncomeTax(stateIncomeTax, null)
         );
     }
+
+    @Test
+    public void testIsStateTaxValidWithFellowshipOnlyFedNonZeroStateZero() {
+        KualiDecimal fedIncomeTax = new KualiDecimal(30.0);
+        KualiDecimal stateIncomeTax = new KualiDecimal(0.0);
+
+        String conditionDesc = "fellowship only parameter, fedTaxPct > 0 & stateIncomeTaxPct = 0";
+
+        EasyMock.expect(
+            parameterService.getParameter(
+                DisbursementVoucherDocument.class,
+                DisbursementVoucherConstants.INCOME_CLASS_CODES_REQUIRING_STATE_TAX_PARM_NM
+            )
+        ).andReturn(fellowshipIncomeClassOnlyParameter).anyTimes();
+        EasyMock.replay(parameterService);
+
+        for (String incomeClassCode : INCOME_CLASS_CODES) {
+            MessageMap errors = new MessageMap();
+            if (incomeClassCode.equals(DisbursementVoucherConstants.NRA_TAX_INCOME_CLASS_FELLOWSHIP)) {
+                Assert.assertFalse(
+                    String.format("Expected validateFederalStateTaxPercentsForIncomeClass to return FALSE for income class code %s with %s", incomeClassCode, conditionDesc),
+                    validation.validateFederalStateTaxPercentsForIncomeClass(fedIncomeTax, stateIncomeTax, incomeClassCode, errors)
+                );
+                Assert.assertTrue(errors.getErrorMessages().containsKey("DVNRATaxErrors"));
+                AutoPopulatingList<ErrorMessage> errorMessages = errors.getErrorMessages().get("DVNRATaxErrors");
+                Assert.assertNotNull(String.format("Expected error message for key DVNRATaxErrors with %s", conditionDesc), errorMessages);
+                Assert.assertEquals(String.format("Expected 1 error message with %s", conditionDesc), 1, errorMessages.size());
+                Assert.assertEquals(String.format("Unexpected error message with %s", conditionDesc), KFSKeyConstants.ERROR_DV_STATE_INCOME_TAX_PERCENT_SHOULD_BE_GREATER_THAN_ZERO, errorMessages.get(0).getErrorKey());
+            } else {
+                Assert.assertTrue(
+                    String.format("Expected validateFederalStateTaxPercentsForIncomeClass to return TRUE for income class code %s with %s", incomeClassCode, conditionDesc),
+                    validation.validateFederalStateTaxPercentsForIncomeClass(fedIncomeTax, stateIncomeTax, incomeClassCode, errors)
+                );
+                Assert.assertFalse(errors.getErrorMessages().containsKey("DVNRATaxErrors"));
+            }
+        }
+    }
+
+    @Test
+    public void testIsStateTaxValidWithFellowshipOnlyFedZeroStateNonZero() {
+        KualiDecimal fedIncomeTax = new KualiDecimal(0.0);
+        KualiDecimal stateIncomeTax = new KualiDecimal(30.0);
+
+        String conditionDesc = "fellowship only parameter, fedTaxPct = 0 & stateIncomeTaxPct > 0";
+
+        EasyMock.expect(
+            parameterService.getParameter(
+                DisbursementVoucherDocument.class,
+                DisbursementVoucherConstants.INCOME_CLASS_CODES_REQUIRING_STATE_TAX_PARM_NM
+            )
+        ).andReturn(fellowshipIncomeClassOnlyParameter).anyTimes();
+        EasyMock.replay(parameterService);
+
+        for (String incomeClassCode : INCOME_CLASS_CODES) {
+            MessageMap errors = new MessageMap();
+            if (incomeClassCode.equals(DisbursementVoucherConstants.NRA_TAX_INCOME_CLASS_FELLOWSHIP)) {
+                Assert.assertFalse(
+                    String.format("Expected validateFederalStateTaxPercentsForIncomeClass to return FALSE for income class code %s with %s", incomeClassCode, conditionDesc),
+                    validation.validateFederalStateTaxPercentsForIncomeClass(fedIncomeTax, stateIncomeTax, incomeClassCode, errors)
+                );
+                Assert.assertTrue(errors.getErrorMessages().containsKey("DVNRATaxErrors"));
+                AutoPopulatingList<ErrorMessage> errorMessages = errors.getErrorMessages().get("DVNRATaxErrors");
+                Assert.assertNotNull(String.format("Expected error message for key DVNRATaxErrors with %s", conditionDesc), errorMessages);
+                Assert.assertEquals(String.format("Expected 1 error message with %s", conditionDesc), 1, errorMessages.size());
+                Assert.assertEquals(String.format("Expected error message with %s", conditionDesc), KFSKeyConstants.ERROR_DV_STATE_TAX_SHOULD_BE_ZERO, errorMessages.get(0).getErrorKey());
+            } else {
+                Assert.assertTrue(
+                    String.format("Expected validateFederalStateTaxPercentsForIncomeClass to return TRUE for income class code %s with %s", incomeClassCode, conditionDesc),
+                    validation.validateFederalStateTaxPercentsForIncomeClass(fedIncomeTax, stateIncomeTax, incomeClassCode, errors)
+                );
+                Assert.assertFalse(errors.getErrorMessages().containsKey("DVNRATaxErrors"));
+            }
+        }
+    }
+
+    @Test
+    public void testIsStateTaxValidWithFellowshipOnlyFedZeroStateZero() {
+        KualiDecimal fedIncomeTax = new KualiDecimal(0.0);
+        KualiDecimal stateIncomeTax = new KualiDecimal(0.0);
+
+        String conditionDesc = "fellowship only parameter, fedTaxPct = 0 & stateIncomeTaxPct = 0";
+
+        EasyMock.expect(
+            parameterService.getParameter(
+                DisbursementVoucherDocument.class,
+                DisbursementVoucherConstants.INCOME_CLASS_CODES_REQUIRING_STATE_TAX_PARM_NM
+            )
+        ).andReturn(fellowshipIncomeClassOnlyParameter).anyTimes();
+        EasyMock.replay(parameterService);
+
+        for (String incomeClassCode : INCOME_CLASS_CODES) {
+            MessageMap errors = new MessageMap();
+            Assert.assertTrue(
+                String.format("Expected validateFederalStateTaxPercentsForIncomeClass to return TRUE for income class code %s with %s", incomeClassCode, conditionDesc),
+                validation.validateFederalStateTaxPercentsForIncomeClass(fedIncomeTax, stateIncomeTax, incomeClassCode, errors)
+            );
+            Assert.assertFalse(errors.getErrorMessages().containsKey("DVNRATaxErrors"));
+        }
+    }
+
+    @Test
+    public void testIsStateTaxValidWithFellowshipOnlyFedNonZeroStateNonZero() {
+        KualiDecimal fedIncomeTax = new KualiDecimal(30.0);
+        KualiDecimal stateIncomeTax = new KualiDecimal(30.0);
+
+        String conditionDesc = "fellowship only parameter, fedTaxPct = 30 & stateIncomeTaxPct = 30";
+
+        EasyMock.expect(
+            parameterService.getParameter(
+                DisbursementVoucherDocument.class,
+                DisbursementVoucherConstants.INCOME_CLASS_CODES_REQUIRING_STATE_TAX_PARM_NM
+            )
+        ).andReturn(fellowshipIncomeClassOnlyParameter).anyTimes();
+        EasyMock.replay(parameterService);
+
+        for (String incomeClassCode : INCOME_CLASS_CODES) {
+            MessageMap errors = new MessageMap();
+            Assert.assertTrue(
+                String.format("Expected validateFederalStateTaxPercentsForIncomeClass to return TRUE for income class code %s with %s", incomeClassCode, conditionDesc),
+                validation.validateFederalStateTaxPercentsForIncomeClass(fedIncomeTax, stateIncomeTax, incomeClassCode, errors)
+            );
+            Assert.assertFalse(errors.getErrorMessages().containsKey("DVNRATaxErrors"));
+        }
+    }
+
+    @Test
+    public void testIsStateTaxValidWithAllFedNonZeroStateZero() {
+        KualiDecimal fedIncomeTax = new KualiDecimal(30.0);
+        KualiDecimal stateIncomeTax = new KualiDecimal(0.0);
+
+        String conditionDesc = "all parameters, fedTaxPct > 0 & stateIncomeTaxPct = 0";
+
+        EasyMock.expect(
+            parameterService.getParameter(
+                DisbursementVoucherDocument.class,
+                DisbursementVoucherConstants.INCOME_CLASS_CODES_REQUIRING_STATE_TAX_PARM_NM
+            )
+        ).andReturn(allIncomeClassParameter).anyTimes();
+        EasyMock.replay(parameterService);
+
+        for (String incomeClassCode : INCOME_CLASS_CODES) {
+            MessageMap errors = new MessageMap();
+            if (!incomeClassCode.equals(DisbursementVoucherConstants.NRA_TAX_INCOME_CLASS_NON_REPORTABLE)) {
+                Assert.assertFalse(
+                    String.format("Expected validateFederalStateTaxPercentsForIncomeClass to return FALSE for income class code %s with %s", incomeClassCode, conditionDesc),
+                    validation.validateFederalStateTaxPercentsForIncomeClass(fedIncomeTax, stateIncomeTax, incomeClassCode, errors)
+                );
+                Assert.assertTrue(errors.getErrorMessages().containsKey("DVNRATaxErrors"));
+                AutoPopulatingList<ErrorMessage> errorMessages = errors.getErrorMessages().get("DVNRATaxErrors");
+                Assert.assertNotNull(String.format("Expected error message for key DVNRATaxErrors with %s", conditionDesc), errorMessages);
+                Assert.assertEquals(String.format("Expected 1 error message with %s", conditionDesc), 1, errorMessages.size());
+                Assert.assertEquals(String.format("Unexpected error message with %s", conditionDesc), KFSKeyConstants.ERROR_DV_STATE_INCOME_TAX_PERCENT_SHOULD_BE_GREATER_THAN_ZERO, errorMessages.get(0).getErrorKey());
+            } else {
+                Assert.assertTrue(
+                    String.format("Expected validateFederalStateTaxPercentsForIncomeClass to return TRUE for income class code %s with %s", incomeClassCode, conditionDesc),
+                    validation.validateFederalStateTaxPercentsForIncomeClass(fedIncomeTax, stateIncomeTax, incomeClassCode, errors)
+                );
+                Assert.assertFalse(errors.getErrorMessages().containsKey("DVNRATaxErrors"));
+            }
+        }
+    }
+
+    @Test
+    public void testIsStateTaxValidWithAllFedZeroStateNonZero() {
+        KualiDecimal fedIncomeTax = new KualiDecimal(0.0);
+        KualiDecimal stateIncomeTax = new KualiDecimal(30.0);
+
+        String conditionDesc = "all parameters, fedTaxPct = 0 & stateIncomeTaxPct > 0";
+
+        EasyMock.expect(
+            parameterService.getParameter(
+                DisbursementVoucherDocument.class,
+                DisbursementVoucherConstants.INCOME_CLASS_CODES_REQUIRING_STATE_TAX_PARM_NM
+            )
+        ).andReturn(allIncomeClassParameter).anyTimes();
+        EasyMock.replay(parameterService);
+
+        for (String incomeClassCode : INCOME_CLASS_CODES) {
+            MessageMap errors = new MessageMap();
+            if (!incomeClassCode.equals(DisbursementVoucherConstants.NRA_TAX_INCOME_CLASS_NON_REPORTABLE)) {
+                Assert.assertFalse(
+                    String.format("Expected validateFederalStateTaxPercentsForIncomeClass to return FALSE for income class code %s with %s", incomeClassCode, conditionDesc),
+                    validation.validateFederalStateTaxPercentsForIncomeClass(fedIncomeTax, stateIncomeTax, incomeClassCode, errors)
+                );
+                Assert.assertTrue(errors.getErrorMessages().containsKey("DVNRATaxErrors"));
+                AutoPopulatingList<ErrorMessage> errorMessages = errors.getErrorMessages().get("DVNRATaxErrors");
+                Assert.assertNotNull(String.format("Expected error message for key DVNRATaxErrors with %s", conditionDesc), errorMessages);
+                Assert.assertEquals(String.format("Expected 1 error message with %s", conditionDesc), 1, errorMessages.size());
+                Assert.assertEquals(String.format("Expected error message with %s", conditionDesc), KFSKeyConstants.ERROR_DV_STATE_TAX_SHOULD_BE_ZERO, errorMessages.get(0).getErrorKey());
+            } else {
+                Assert.assertTrue(
+                    String.format("Expected validateFederalStateTaxPercentsForIncomeClass to return TRUE for income class code %s with %s", incomeClassCode, conditionDesc),
+                    validation.validateFederalStateTaxPercentsForIncomeClass(fedIncomeTax, stateIncomeTax, incomeClassCode, errors)
+                );
+                Assert.assertFalse(errors.getErrorMessages().containsKey("DVNRATaxErrors"));
+            }
+        }
+    }
+
+    @Test
+    public void testIsStateTaxValidWithAllFedZeroStateZero() {
+        KualiDecimal fedIncomeTax = new KualiDecimal(0.0);
+        KualiDecimal stateIncomeTax = new KualiDecimal(0.0);
+
+        String conditionDesc = "all parameters, fedTaxPct = 0 & stateIncomeTaxPct = 0";
+
+        EasyMock.expect(
+            parameterService.getParameter(
+                DisbursementVoucherDocument.class,
+                DisbursementVoucherConstants.INCOME_CLASS_CODES_REQUIRING_STATE_TAX_PARM_NM
+            )
+        ).andReturn(allIncomeClassParameter).anyTimes();
+        EasyMock.replay(parameterService);
+
+        for (String incomeClassCode : INCOME_CLASS_CODES) {
+            MessageMap errors = new MessageMap();
+            Assert.assertTrue(
+                String.format("Expected validateFederalStateTaxPercentsForIncomeClass to return TRUE for income class code %s with %s", incomeClassCode, conditionDesc),
+                validation.validateFederalStateTaxPercentsForIncomeClass(fedIncomeTax, stateIncomeTax, incomeClassCode, errors)
+            );
+            Assert.assertFalse(errors.getErrorMessages().containsKey("DVNRATaxErrors"));
+        }
+    }
+
+    @Test
+    public void testIsStateTaxValidWithAllFedNonZeroStateNonZero() {
+        KualiDecimal fedIncomeTax = new KualiDecimal(30.0);
+        KualiDecimal stateIncomeTax = new KualiDecimal(30.0);
+
+        String conditionDesc = "all parameters, fedTaxPct = 30 & stateIncomeTaxPct = 30";
+
+        EasyMock.expect(
+            parameterService.getParameter(
+                DisbursementVoucherDocument.class,
+                DisbursementVoucherConstants.INCOME_CLASS_CODES_REQUIRING_STATE_TAX_PARM_NM
+            )
+        ).andReturn(allIncomeClassParameter).anyTimes();
+        EasyMock.replay(parameterService);
+
+        for (String incomeClassCode : INCOME_CLASS_CODES) {
+            MessageMap errors = new MessageMap();
+            Assert.assertTrue(
+                String.format("Expected validateFederalStateTaxPercentsForIncomeClass to return TRUE for income class code %s with %s", incomeClassCode, conditionDesc),
+                validation.validateFederalStateTaxPercentsForIncomeClass(fedIncomeTax, stateIncomeTax, incomeClassCode, errors)
+            );
+            Assert.assertFalse(errors.getErrorMessages().containsKey("DVNRATaxErrors"));
+        }
+    }
+
+    @Test
+    public void testIsStateTaxValidWithEmptyFedNonZeroStateZero() {
+        KualiDecimal fedIncomeTax = new KualiDecimal(30.0);
+        KualiDecimal stateIncomeTax = new KualiDecimal(0.0);
+
+        String conditionDesc = "all parameters, fedTaxPct > 0 & stateIncomeTaxPct = 0";
+
+        validateEmptyBlankStateTax(fedIncomeTax, stateIncomeTax, conditionDesc, emptyIncomeClassParameter);
+    }
+
+    @Test
+    public void testIsStateTaxValidWithEmptyFedZeroStateNonZero() {
+        KualiDecimal fedIncomeTax = new KualiDecimal(0.0);
+        KualiDecimal stateIncomeTax = new KualiDecimal(30.0);
+
+        String conditionDesc = "all parameters, fedTaxPct = 0 & stateIncomeTaxPct > 0";
+
+        validateEmptyBlankStateTax(fedIncomeTax, stateIncomeTax, conditionDesc, emptyIncomeClassParameter);
+    }
+
+    @Test
+    public void testIsStateTaxValidWithEmptyAllFedZeroStateZero() {
+        KualiDecimal fedIncomeTax = new KualiDecimal(0.0);
+        KualiDecimal stateIncomeTax = new KualiDecimal(0.0);
+
+        String conditionDesc = "all parameters, fedTaxPct = 0 & stateIncomeTaxPct = 0";
+
+        validateEmptyBlankStateTax(fedIncomeTax, stateIncomeTax, conditionDesc, emptyIncomeClassParameter);
+    }
+
+    @Test
+    public void testIsStateTaxValidWithEmptyAllFedNonZeroStateNonZero() {
+        KualiDecimal fedIncomeTax = new KualiDecimal(30.0);
+        KualiDecimal stateIncomeTax = new KualiDecimal(30.0);
+
+        String conditionDesc = "empty parameters, fedTaxPct = 30 & stateIncomeTaxPct = 30";
+
+        validateEmptyBlankStateTax(fedIncomeTax, stateIncomeTax, conditionDesc, emptyIncomeClassParameter);
+    }
+
+    @Test
+    public void testIsStateTaxValidWithBlankFedNonZeroStateZero() {
+        KualiDecimal fedIncomeTax = new KualiDecimal(30.0);
+        KualiDecimal stateIncomeTax = new KualiDecimal(0.0);
+
+        String conditionDesc = "all parameters, fedTaxPct > 0 & stateIncomeTaxPct = 0";
+
+        validateEmptyBlankStateTax(fedIncomeTax, stateIncomeTax, conditionDesc, blankIncomeClassParameter);
+    }
+
+    @Test
+    public void testIsStateTaxValidWithBlankFedZeroStateNonZero() {
+        KualiDecimal fedIncomeTax = new KualiDecimal(0.0);
+        KualiDecimal stateIncomeTax = new KualiDecimal(30.0);
+
+        String conditionDesc = "all parameters, fedTaxPct = 0 & stateIncomeTaxPct > 0";
+
+        validateEmptyBlankStateTax(fedIncomeTax, stateIncomeTax, conditionDesc, blankIncomeClassParameter);
+    }
+
+    @Test
+    public void testIsStateTaxValidWithBlankAllFedZeroStateZero() {
+        KualiDecimal fedIncomeTax = new KualiDecimal(0.0);
+        KualiDecimal stateIncomeTax = new KualiDecimal(0.0);
+
+        String conditionDesc = "all parameters, fedTaxPct = 0 & stateIncomeTaxPct = 0";
+
+        validateEmptyBlankStateTax(fedIncomeTax, stateIncomeTax, conditionDesc, blankIncomeClassParameter);
+    }
+
+    @Test
+    public void testIsStateTaxValidWithBlankAllFedNonZeroStateNonZero() {
+        KualiDecimal fedIncomeTax = new KualiDecimal(30.0);
+        KualiDecimal stateIncomeTax = new KualiDecimal(30.0);
+
+        String conditionDesc = "empty parameters, fedTaxPct = 30 & stateIncomeTaxPct = 30";
+
+        validateEmptyBlankStateTax(fedIncomeTax, stateIncomeTax, conditionDesc, blankIncomeClassParameter);
+    }
+
+    /**
+     * Assert true for the given inputs and the specified Parameter class and check that no error messages were
+     * created.
+     *
+     * @param fedIncomeTax
+     * @param stateIncomeTax
+     * @param conditionDesc
+     * @param emptyOrBlankIncomeClassParameter
+     */
+    private void validateEmptyBlankStateTax(KualiDecimal fedIncomeTax, KualiDecimal stateIncomeTax, String conditionDesc, Parameter emptyOrBlankIncomeClassParameter) {
+        EasyMock.expect(
+            parameterService.getParameter(
+                DisbursementVoucherDocument.class,
+                DisbursementVoucherConstants.INCOME_CLASS_CODES_REQUIRING_STATE_TAX_PARM_NM
+            )
+        ).andReturn(emptyOrBlankIncomeClassParameter).anyTimes();
+        EasyMock.replay(parameterService);
+
+        for (String incomeClassCode : INCOME_CLASS_CODES) {
+            MessageMap errors = new MessageMap();
+            Assert.assertTrue(
+                String.format("Expected validateFederalStateTaxPercentsForIncomeClass to return TRUE for income class code %s with %s", incomeClassCode, conditionDesc),
+                validation.validateFederalStateTaxPercentsForIncomeClass(fedIncomeTax, stateIncomeTax, incomeClassCode, errors)
+            );
+            Assert.assertFalse(errors.getErrorMessages().containsKey("DVNRATaxErrors"));
+        }
+    }
+
 }
