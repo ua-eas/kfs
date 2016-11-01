@@ -18,7 +18,7 @@ public class KFSKeyConstants extends org.kuali.kfs.sys.KFSKeyConstants {
     public static final String ERROR_ERROR_CERT_DATE_PARAM_TRIGGERED = "error.errorCert.dateParamTriggered";
     public static final String QUESTION_ERROR_CERTIFICATION_STMT = "question.gec.errorCertStmt";
 
-    //CM
+    // CM
     public static final String WARNING_BANK_NOT_REQUIRED = "warning.document.disbursementvoucher.bank.not.required";
     public static final String ERROR_BANK_REQUIRED_PER_PAYMENT_METHOD = "error.document.disbursementvoucher.bank.required";
     
@@ -27,5 +27,8 @@ public class KFSKeyConstants extends org.kuali.kfs.sys.KFSKeyConstants {
     
     //DV NonEmployee
     public static final String ERROR_DV_PER_DIEM_START_DT_AFTER_END_DT = "error.dv.perDiemStartDtBeforeAfterEndDt";
+
+    // Procurement Cardholder
+    public static final String MESSAGE_BATCH_UPLOAD_TITLE_PCDH = "message.batchUpload.title.procurementCardHolder";
 
 }

@@ -1,0 +1,326 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:dd="http://rice.kuali.org/dd"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
+
+  <bean id="ProcurementCardHolderLoad" parent="ProcurementCardHolderLoad-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-parentBean" abstract="true" parent="BusinessObjectEntry">
+    <property name="businessObjectClass" value="edu.arizona.kfs.fp.businessobject.ProcurementCardHolderLoad" />
+    <property name="objectLabel" value="Procurement Card Holder Load" />
+    <property name="attributes" >
+      <list>
+        <ref bean="ProcurementCardHolderLoad-accountNumber" />
+        <ref bean="ProcurementCardHolderLoad-cardCancelDate" />
+        <ref bean="ProcurementCardHolderLoad-cardCycleAmountLimit" />
+        <ref bean="ProcurementCardHolderLoad-cardCycleVolumeLimit" />
+        <ref bean="ProcurementCardHolderLoad-cardExpireDate" />
+        <ref bean="ProcurementCardHolderLoad-cardHolderAlternateName" />
+        <ref bean="ProcurementCardHolderLoad-cardHolderCityName" />
+        <ref bean="ProcurementCardHolderLoad-cardHolderLine1Address" />
+        <ref bean="ProcurementCardHolderLoad-cardHolderLine2Address" />
+        <ref bean="ProcurementCardHolderLoad-cardHolderName" />
+        <ref bean="ProcurementCardHolderLoad-cardHolderStateCode" />
+        <ref bean="ProcurementCardHolderLoad-cardHolderSystemId" />
+        <ref bean="ProcurementCardHolderLoad-cardHolderWorkPhoneNumber" />
+        <ref bean="ProcurementCardHolderLoad-cardHolderZipCode" />
+        <ref bean="ProcurementCardHolderLoad-cardLimit" />
+        <ref bean="ProcurementCardHolderLoad-cardMonthlyNumber" />
+        <ref bean="ProcurementCardHolderLoad-cardNoteText" />
+        <ref bean="ProcurementCardHolderLoad-cardOpenDate" />
+        <ref bean="ProcurementCardHolderLoad-cardStatusCode" />
+        <ref bean="ProcurementCardHolderLoad-chartOfAccountsCode" />
+        <ref bean="ProcurementCardHolderLoad-creditCardNumber" />
+        <ref bean="ProcurementCardHolderLoad-financialObjectCode" />
+        <ref bean="ProcurementCardHolderLoad-organizationCode" />
+      </list>
+    </property>
+  </bean>
+
+<!-- Attribute Definitions -->
+
+  <bean id="ProcurementCardHolderLoad-accountNumber" parent="ProcurementCardHolderLoad-accountNumber-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-accountNumber-parentBean" abstract="true" parent="Account-accountNumber">
+    <property name="label" value="Default Account" />
+    <property name="shortLabel" value="Dflt Acct" />
+  </bean>
+  <bean id="ProcurementCardHolderLoad-cardCancelDate" parent="ProcurementCardHolderLoad-cardCancelDate-parentBean"/>
+  
+  <bean id="ProcurementCardHolderLoad-cardCancelDate-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardCancelDate" />
+    <property name="label" value="Card Cancel Date" />
+    <property name="shortLabel" value="Cancel Date" />
+    <property name="maxLength" value="10" />
+    <property name="validationPattern" >
+      <bean parent="DateValidationPattern" />
+    </property>
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="12" />
+    </property>    
+  </bean>
+  <bean id="ProcurementCardHolderLoad-cardCycleAmountLimit" parent="ProcurementCardHolderLoad-cardCycleAmountLimit-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-cardCycleAmountLimit-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardCycleAmountLimit" />
+    <property name="forceUppercase" value="true" />
+    <property name="label" value="Single Transaction Limit" />
+    <property name="shortLabel" value="Limit" />
+    <property name="maxLength" value="19" />
+    <property name="validationPattern" >
+      <bean parent="FloatingPointValidationPattern" />
+    </property>
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="21" />
+    </property>
+  </bean>
+  <bean id="ProcurementCardHolderLoad-cardCycleVolumeLimit" parent="ProcurementCardHolderLoad-cardCycleVolumeLimit-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-cardCycleVolumeLimit-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardCycleVolumeLimit" />
+    <property name="label" value="Daily Number" />
+    <property name="shortLabel" value="Daily Number" />
+    <property name="validationPattern" >
+      <bean parent="NumericValidationPattern" />
+    </property>
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="16" />
+    </property>
+  </bean>
+  
+  <bean id="ProcurementCardHolderLoad-cardExpireDate" parent="ProcurementCardHolderLoad-cardExpireDate-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-cardExpireDate-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardExpireDate" />
+    <property name="label" value="Expiration Date" />
+    <property name="shortLabel" value="Expire Date" />
+    <property name="maxLength" value="4" />
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="6" />
+    </property>     
+  </bean>
+  <bean id="ProcurementCardHolderLoad-cardHolderAlternateName" parent="ProcurementCardHolderLoad-cardHolderAlternateName-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-cardHolderAlternateName-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardHolderAlternateName" />
+    <property name="forceUppercase" value="false" />
+    <property name="label" value="Card Holder Alternate Name" />
+    <property name="shortLabel" value="Name" />
+    <property name="maxLength" value="45" />
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="47" />
+    </property>
+  </bean>
+  <bean id="ProcurementCardHolderLoad-cardHolderCityName" parent="ProcurementCardHolderLoad-cardHolderCityName-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-cardHolderCityName-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardHolderCityName" />
+    <property name="forceUppercase" value="false" />
+    <property name="label" value="Card Holder City Name" />
+    <property name="shortLabel" value="Name" />
+    <property name="maxLength" value="45" />
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="47" />
+    </property>
+  </bean>
+  <bean id="ProcurementCardHolderLoad-cardHolderLine1Address" parent="ProcurementCardHolderLoad-cardHolderLine1Address-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-cardHolderLine1Address-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardHolderLine1Address" />
+    <property name="forceUppercase" value="false" />
+    <property name="label" value="Card Holder Line1 Address" />
+    <property name="shortLabel" value="Address" />
+    <property name="maxLength" value="45" />
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="47" />
+    </property>
+  </bean>
+  <bean id="ProcurementCardHolderLoad-cardHolderLine2Address" parent="ProcurementCardHolderLoad-cardHolderLine2Address-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-cardHolderLine2Address-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardHolderLine2Address" />
+    <property name="forceUppercase" value="false" />
+    <property name="label" value="Card Holder Line2 Address" />
+    <property name="shortLabel" value="Address" />
+    <property name="maxLength" value="45" />
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="47" />
+    </property>
+  </bean>
+  <bean id="ProcurementCardHolderLoad-cardHolderName" parent="ProcurementCardHolderLoad-cardHolderName-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-cardHolderName-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardHolderName" />
+    <property name="forceUppercase" value="false" />
+    <property name="label" value="Card Holder Name" />
+    <property name="shortLabel" value="Name" />
+    <property name="maxLength" value="35" />
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="37" />
+    </property>
+  </bean>
+  <bean id="ProcurementCardHolderLoad-cardHolderStateCode" parent="ProcurementCardHolderLoad-cardHolderStateCode-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-cardHolderStateCode-parentBean" abstract="true" parent="ExternalizableAttributeDefinitionProxy"
+   p:sourceExternalizableBusinessObjectInterface="org.kuali.rice.kns.bo.State"
+   p:sourceAttributeName="postalStateCode">
+    <property name="name" value="cardHolderStateCode" />
+    <property name="forceUppercase" value="false" />
+    <property name="label" value="Card Holder State Code" />
+    <property name="shortLabel" value="Code" />
+    <property name="maxLength" value="2" />
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="4" />
+    </property>
+  </bean>
+  <bean id="ProcurementCardHolderLoad-cardHolderSystemId" parent="ProcurementCardHolderLoad-cardHolderSystemId-parentBean" />
+ 
+  <bean id="ProcurementCardHolderLoad-cardHolderSystemId-parentBean" parent="AttributeDefinition">
+    <property name="name" value="cardHolderSystemId" />
+    <property name="forceUppercase" value="false" />
+    <property name="label" value="Card Holder System ID" />
+    <property name="shortLabel" value="Holder ID" />
+    <property name="maxLength" value="40" />
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="42" />
+    </property>  
+  </bean>       
+  <bean id="ProcurementCardHolderLoad-cardHolderWorkPhoneNumber" parent="ProcurementCardHolderLoad-cardHolderWorkPhoneNumber-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-cardHolderWorkPhoneNumber-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardHolderWorkPhoneNumber" />
+    <property name="forceUppercase" value="false" />
+    <property name="label" value="Card Holder Work Phone Number" />
+    <property name="shortLabel" value="Number" />
+    <property name="maxLength" value="10" />
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="12" />
+    </property>
+  </bean>
+  <bean id="ProcurementCardHolderLoad-cardHolderZipCode" parent="ProcurementCardHolderLoad-cardHolderZipCode-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-cardHolderZipCode-parentBean" abstract="true" parent="ExternalizableAttributeDefinitionProxy"
+   p:sourceExternalizableBusinessObjectInterface="org.kuali.rice.kns.bo.PostalCode"
+   p:sourceAttributeName="postalCode">
+    <property name="name" value="cardHolderZipCode" />
+    <property name="label" value="Card Holder Postal (ZIP) Code" />
+    <property name="shortLabel" value="Code" />
+  </bean>
+  <bean id="ProcurementCardHolderLoad-cardLimit" parent="ProcurementCardHolderLoad-cardLimit-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-cardLimit-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardLimit" />
+    <property name="forceUppercase" value="true" />
+    <property name="label" value="Monthly Spend Limit " />
+    <property name="shortLabel" value="Limit" />
+    <property name="maxLength" value="19" />
+    <property name="validationPattern" >
+      <bean parent="FloatingPointValidationPattern" />
+    </property>
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="21" />
+    </property>
+  </bean>
+  <bean id="ProcurementCardHolderLoad-cardMonthlyNumber" parent="ProcurementCardHolderLoad-cardMonthlyNumber-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-cardMonthlyNumber-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardMonthlyNumber" />
+    <property name="label" value="Monthly Number" />
+    <property name="shortLabel" value="Monthly Num" />
+    <property name="validationPattern" >
+      <bean parent="NumericValidationPattern" />
+    </property>
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="16" />
+    </property>
+  </bean>  
+  <bean id="ProcurementCardHolderLoad-cardNoteText" parent="ProcurementCardHolderLoad-cardNoteText-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-cardNoteText-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardNoteText" />
+    <property name="forceUppercase" value="false" />
+    <property name="label" value="Card Note Text" />
+    <property name="shortLabel" value="Text" />
+    <property name="maxLength" value="50" />
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="52" />
+    </property>
+  </bean>
+  <bean id="ProcurementCardHolderLoad-cardOpenDate" parent="ProcurementCardHolderLoad-cardOpenDate-parentBean" />
+  
+  <bean id="ProcurementCardHolderLoad-cardOpenDate-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardOpenDate" />
+    <property name="label" value="Open Date" />
+    <property name="shortLabel" value="Open Date" />
+    <property name="maxLength" value="10" />
+    <property name="validationPattern" >
+      <bean parent="DateValidationPattern" />
+    </property>
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="12" />
+    </property>  
+  </bean>
+  <bean id="ProcurementCardHolderLoad-cardStatusCode" parent="ProcurementCardHolderLoad-cardStatusCode-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-cardStatusCode-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="cardStatusCode" />
+    <property name="forceUppercase" value="false" />
+    <property name="label" value="Card Status Code" />
+    <property name="shortLabel" value="Code" />
+    <property name="maxLength" value="50" />
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="52" />
+    </property>
+  </bean>
+  <bean id="ProcurementCardHolderLoad-chartOfAccountsCode" parent="ProcurementCardHolderLoad-chartOfAccountsCode-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-chartOfAccountsCode-parentBean" abstract="true" parent="Chart-chartOfAccountsCode">
+    <property name="label" value="Default Chart" />
+    <property name="shortLabel" value="Dflt Chrt" />
+  </bean>
+  <bean id="ProcurementCardHolderLoad-creditCardNumber" parent="ProcurementCardHolderLoad-creditCardNumber-parentBean" />
+  
+  <bean id="ProcurementCardHolderLoad-creditCardNumber-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="creditCardNumber" />
+    <property name="forceUppercase" value="false" />
+    <property name="label" value="Transaction Credit Card Number" />
+    <property name="shortLabel" value="Number" />
+    <property name="maxLength" value="16" />
+    <property name="control" >
+      <bean parent="TextControlDefinition"
+            p:size="16" />
+    </property>
+     <property name="attributeSecurity">
+       <bean parent="AttributeSecurity">
+           <property name="mask" value="true" /> 
+           <property name="maskFormatter">
+               <bean parent="MaskFormatterSubString" p:maskCharacter="*" p:maskLength="13" />
+           </property>
+       </bean>
+   </property>    
+  </bean>
+  <bean id="ProcurementCardHolderLoad-financialObjectCode" parent="ProcurementCardHolderLoad-financialObjectCode-parentBean" />
+
+  <bean id="ProcurementCardHolderLoad-financialObjectCode-parentBean" parent="ObjectCode-financialObjectCode" />
+  <bean id="ProcurementCardHolderLoad-organizationCode" parent="ProcurementCardHolderLoad-organizationCode-parentBean"/>
+
+  <bean id="ProcurementCardHolderLoad-organizationCode-parentBean" parent="Organization-organizationCode"/>
+</beans>
