@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.kfs.sys.batch.BatchInputFileType;
 import org.kuali.kfs.sys.batch.service.BatchInputFileService;
+import org.kuali.kfs.sys.context.SpringContext;
 
 import edu.arizona.kfs.fp.batch.service.ProcurementCardHolderLoadService;
 
@@ -30,13 +31,20 @@ public class ProcurementCardHolderLoadStep extends AbstractStep {
     private BatchInputFileService batchInputFileService;
     private BatchInputFileType procurementCardHolderInputFileType;
 
+    public BatchInputFileService getBatchInputFileService() {
+        if (batchInputFileService == null) {
+            batchInputFileService = SpringContext.getBean(BatchInputFileService.class);
+        }
+        return batchInputFileService;
+    }
+
     /**
      * Controls the procurement cardholder load process.
      */
     public boolean execute(String jobName, Date jobRunDate) throws InterruptedException {
         procurementCardHolderLoadService.cleanTransactionsTable();
 
-        List<String> fileNamesToLoad = batchInputFileService.listInputFileNamesWithDoneFile(procurementCardHolderInputFileType);
+        List<String> fileNamesToLoad = getBatchInputFileService().listInputFileNamesWithDoneFile(procurementCardHolderInputFileType);
 
         boolean processSuccess = true;
         List<String> processedFiles = new ArrayList();
@@ -62,13 +70,6 @@ public class ProcurementCardHolderLoadStep extends AbstractStep {
                 doneFile.delete();
             }
         }
-    }
-
-    /**
-     * Sets the batchInputFileService attribute value.
-     */
-    public void setBatchInputFileService(BatchInputFileService batchInputFileService) {
-        this.batchInputFileService = batchInputFileService;
     }
 
     /**

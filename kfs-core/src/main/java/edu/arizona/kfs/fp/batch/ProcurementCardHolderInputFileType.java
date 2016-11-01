@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.batch.XmlBatchInputFileTypeBase;
+import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 
 import edu.arizona.kfs.sys.KFSConstants;
@@ -17,6 +18,13 @@ public class ProcurementCardHolderInputFileType extends XmlBatchInputFileTypeBas
 
     private DateTimeService dateTimeService;
 
+    public DateTimeService getDateTimeService() {
+        if (dateTimeService == null) {
+            dateTimeService = SpringContext.getBean(DateTimeService.class);
+        }
+        return dateTimeService;
+    }
+
     /**
      * No additional information is added to procurement cardholder batch files.
      * 
@@ -27,7 +35,7 @@ public class ProcurementCardHolderInputFileType extends XmlBatchInputFileTypeBas
         if (StringUtils.isNotBlank(userIdentifier)) {
             fileName += "_" + userIdentifier;
         }
-        fileName += "_" + dateTimeService.toDateTimeStringForFilename(dateTimeService.getCurrentDate());
+        fileName += "_" + getDateTimeService().toDateTimeStringForFilename(getDateTimeService().getCurrentDate());
 
         // remove spaces in filename
         fileName = StringUtils.remove(fileName, " ");
@@ -61,17 +69,4 @@ public class ProcurementCardHolderInputFileType extends XmlBatchInputFileTypeBas
         return KFSKeyConstants.MESSAGE_BATCH_UPLOAD_TITLE_PCDH;
     }
 
-    /**
-     * Gets the dateTimeService attribute.
-     */
-    public DateTimeService getDateTimeService() {
-        return dateTimeService;
-    }
-
-    /**
-     * Sets the dateTimeService attribute value.
-     */
-    public void setDateTimeService(DateTimeService dateTimeService) {
-        this.dateTimeService = dateTimeService;
-    }
 }

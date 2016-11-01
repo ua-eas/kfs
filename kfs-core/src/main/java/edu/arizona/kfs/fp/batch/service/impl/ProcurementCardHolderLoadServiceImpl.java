@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.kuali.kfs.sys.batch.BatchInputFileType;
 import org.kuali.kfs.sys.batch.service.BatchInputFileService;
+import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.rice.krad.service.BusinessObjectService;
 
@@ -27,11 +28,25 @@ public class ProcurementCardHolderLoadServiceImpl implements ProcurementCardHold
     private BatchInputFileService batchInputFileService;
     private BatchInputFileType procurementCardHolderInputFileType;
 
+    public BusinessObjectService getBusinessObjectService() {
+        if (businessObjectService == null) {
+            businessObjectService = SpringContext.getBean(BusinessObjectService.class);
+        }
+        return businessObjectService;
+    }
+
+    public BatchInputFileService getBatchInputFileService() {
+        if (batchInputFileService == null) {
+            batchInputFileService = SpringContext.getBean(BatchInputFileService.class);
+        }
+        return batchInputFileService;
+    }
+
     /**
      * Calls businessObjectService to remove all the procurement cardholder rows from the load table.
      */
     public void cleanTransactionsTable() {
-        businessObjectService.deleteMatching(ProcurementCardHolderLoad.class, new HashMap());
+        getBusinessObjectService().deleteMatching(ProcurementCardHolderLoad.class, new HashMap());
     }
 
     /**
@@ -53,7 +68,7 @@ public class ProcurementCardHolderLoadServiceImpl implements ProcurementCardHold
         Collection pcardHolders = null;
         try {
             byte[] fileByteContent = IOUtils.toByteArray(fileContents);
-            pcardHolders = (Collection) batchInputFileService.parse(procurementCardHolderInputFileType, fileByteContent);
+            pcardHolders = (Collection) getBatchInputFileService().parse(procurementCardHolderInputFileType, fileByteContent);
         } catch (IOException e) {
             LOG.error("error while getting file bytes:  " + e.getMessage(), e);
             throw new RuntimeException("Error encountered while attempting to get file bytes: " + e.getMessage(), e);
@@ -79,27 +94,7 @@ public class ProcurementCardHolderLoadServiceImpl implements ProcurementCardHold
      *            List of Procurement Cardholders to load.
      */
     protected void loadTransactions(List holders) {
-        businessObjectService.save(holders);
-    }
-
-    /**
-     * Sets the businessObjectService attribute value.
-     * 
-     * @param businessObjectService
-     *            The businessObjectService to set.
-     */
-    public void setBusinessObjectService(BusinessObjectService businessObjectService) {
-        this.businessObjectService = businessObjectService;
-    }
-
-    /**
-     * Sets the batchInputFileService attribute value.
-     * 
-     * @param batchInputFileService
-     *            The batchInputFileService to set.
-     */
-    public void setBatchInputFileService(BatchInputFileService batchInputFileService) {
-        this.batchInputFileService = batchInputFileService;
+        getBusinessObjectService().save(holders);
     }
 
     /**
