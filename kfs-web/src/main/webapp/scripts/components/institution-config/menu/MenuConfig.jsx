@@ -45,7 +45,7 @@ export default class MenuConfig extends Component {
     }
 
     componentDidMount() {
-        let menuPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/config/menu";
+        let menuPath = KfsUtils.getUrlPathPrefix() + "sys/api/v1/preferences/config/menu";
         KfsUtils.ajaxCall({
             url: menuPath,
             dataType: 'json',
@@ -101,7 +101,7 @@ export default class MenuConfig extends Component {
     }
 
     saveChanges() {
-        let menuPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/config/menu";
+        let menuPath = KfsUtils.getUrlPathPrefix() + "sys/api/v1/preferences/config/menu";
         KfsUtils.ajaxCall({
             url: menuPath,
             dataType: 'json',

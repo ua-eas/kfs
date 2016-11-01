@@ -30,7 +30,7 @@ import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
 
-@ApplicationPath("api/v1/sys")
+@ApplicationPath("sys/api/v1")
 public class SysApplication extends Application {
     protected Set<Object> singletons = new HashSet<>();
     private Set<Class<?>> clazzes = new HashSet<>();

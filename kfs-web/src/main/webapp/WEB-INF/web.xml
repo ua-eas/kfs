@@ -144,6 +144,11 @@
 
     <filter-mapping>
         <filter-name>ResourceLoginFilter</filter-name>
+        <url-pattern>/sys/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>ResourceLoginFilter</filter-name>
         <url-pattern>/api/*</url-pattern>
     </filter-mapping>
 

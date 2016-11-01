@@ -20,7 +20,7 @@ import KfsUtils from "./utils.js";
 
 export function getPrincipalName(success, fail) {
     KfsUtils.ajaxCall({
-        url: KfsUtils.getUrlPathPrefix() + "api/v1/sys/authentication/id",
+        url: KfsUtils.getUrlPathPrefix() + "sys/api/v1/authentication/id",
         dataType: 'json',
         cache: false,
         type: 'GET',
@@ -38,7 +38,7 @@ export function getUserPreferences(success, fail) {
 
     p1.then(function (principalName) {
         KfsUtils.ajaxCall({
-            url: KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/users/" + principalName,
+            url: KfsUtils.getUrlPathPrefix() + "sys/api/v1/preferences/users/" + principalName,
             dataType: 'json',
             cache: false,
             type: 'GET',
@@ -59,7 +59,7 @@ export function putUserPreferences(userPreferences) {
 
     p1.then(function (principalName) {
         KfsUtils.ajaxCall({
-            url: KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/users/" + principalName,
+            url: KfsUtils.getUrlPathPrefix() + "sys/api/v1/preferences/users/" + principalName,
             dataType: 'json',
             contentType: 'application/json',
             data: JSON.stringify(userPreferences),
@@ -75,7 +75,7 @@ export function putUserPreferences(userPreferences) {
 }
 
 export function getBackdoorId(success, fail) {
-    let backdoorIdPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/backdoor/id";
+    let backdoorIdPath = KfsUtils.getUrlPathPrefix() + "sys/api/v1/backdoor/id";
     KfsUtils.ajaxCall({
         url: backdoorIdPath,
         dataType: 'json',

@@ -37,7 +37,7 @@ export default class LogoUpload  extends Component {
     }
 
     componentDidMount() {
-        let logoPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/config/logo";
+        let logoPath = KfsUtils.getUrlPathPrefix() + "sys/api/v1/preferences/config/logo";
         KfsUtils.ajaxCall({
             url: logoPath,
             dataType: 'json',
@@ -58,7 +58,7 @@ export default class LogoUpload  extends Component {
         let data = new FormData();
         data.append('logo', files[0]);
 
-        let logoPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/config/logo";
+        let logoPath = KfsUtils.getUrlPathPrefix() + "sys/api/v1/preferences/config/logo";
         KfsUtils.ajaxCall({
             url: logoPath,
             dataType: 'json',
@@ -81,7 +81,7 @@ export default class LogoUpload  extends Component {
 
     saveChanges() {
         let data = {'logoUrl': this.state.logo};
-        let logoPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/config/logo";
+        let logoPath = KfsUtils.getUrlPathPrefix() + "sys/api/v1/preferences/config/logo";
         KfsUtils.ajaxCall({
             url: logoPath,
             dataType: 'json',

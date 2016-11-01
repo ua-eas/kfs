@@ -48,7 +48,7 @@ export default class NavigationConfig extends Component {
     }
 
     componentWillMount() {
-        let linkGroupPath = getUrlPathPrefix() + "api/v1/sys/preferences/config/groups";
+        let linkGroupPath = getUrlPathPrefix() + "sys/api/v1/preferences/config/groups";
         ajaxCall({
             url: linkGroupPath,
             dataType: 'json',
@@ -244,7 +244,7 @@ export default class NavigationConfig extends Component {
 
     saveChanges() {
         let institutionId = this.state.institutionId;
-        let linkGroupPath = getUrlPathPrefix() + "api/v1/sys/preferences/institution/" + institutionId;
+        let linkGroupPath = getUrlPathPrefix() + "sys/api/v1/preferences/institution/" + institutionId;
         ajaxCall({
             url: linkGroupPath,
             dataType: 'json',

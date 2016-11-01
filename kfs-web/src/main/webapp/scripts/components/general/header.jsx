@@ -26,7 +26,7 @@ var Header = React.createClass({
         return {preferences: {}, user: {}, environment: {}, backdoorId: ""};
     },
     componentWillMount() {
-        let userPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/authentication/logged-in-user";
+        let userPath = KfsUtils.getUrlPathPrefix() + "sys/api/v1/authentication/logged-in-user";
         KfsUtils.ajaxCall({
             url: userPath,
             dataType: 'json',
@@ -40,7 +40,7 @@ var Header = React.createClass({
             }.bind(this)
         });
 
-        let preferencesPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/institution";
+        let preferencesPath = KfsUtils.getUrlPathPrefix() + "sys/api/v1/preferences/institution";
         KfsUtils.ajaxCall({
             url: preferencesPath,
             dataType: 'json',
@@ -54,7 +54,7 @@ var Header = React.createClass({
             }.bind(this)
         });
 
-        let environmentPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/system/environment";
+        let environmentPath = KfsUtils.getUrlPathPrefix() + "sys/api/v1/system/environment";
         KfsUtils.ajaxCall({
             url: environmentPath,
             dataType: 'json',
@@ -73,7 +73,7 @@ var Header = React.createClass({
             }.bind(this)
         });
 
-        let backdoorPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/backdoor/id";
+        let backdoorPath = KfsUtils.getUrlPathPrefix() + "sys/api/v1/backdoor/id";
         KfsUtils.ajaxCall({
             url: backdoorPath,
             dataType: 'json',
@@ -95,7 +95,7 @@ var Header = React.createClass({
     },
     backdoorLogin(event) {
         event.preventDefault();
-        let path = KfsUtils.getUrlPathPrefix() + "api/v1/sys/backdoor/login";
+        let path = KfsUtils.getUrlPathPrefix() + "sys/api/v1/backdoor/login";
 
         let backdoorId = $("#backdoorId").val();
         if (backdoorId !== '') {
@@ -117,7 +117,7 @@ var Header = React.createClass({
         }
     },
     backdoorLogout() {
-        let path = KfsUtils.getUrlPathPrefix() + "api/v1/sys/backdoor/logout";
+        let path = KfsUtils.getUrlPathPrefix() + "sys/api/v1/backdoor/logout";
         KfsUtils.ajaxCall({
             url: path,
             dataType: 'json',
