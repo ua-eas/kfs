@@ -538,20 +538,13 @@ public class VendorHeader extends PersistableBusinessObjectBase {
             return "";
         }
 
-        StringBuilder sb = new StringBuilder("vendorSupplierDiversities=[");
-
-        boolean first = true;
-        for (VendorSupplierDiversity vsd : vendorSupplierDiversities) {
-            if (vsd.isActive()) {
-                if (!first) {
-                    sb.append(", ");
-                } else {
-                    first = false;
-                }
-                sb.append(vsd.getVendorSupplierDiversity().getVendorSupplierDiversityDescription().toString());
+        StringBuilder sb = new StringBuilder();
+        vendorSupplierDiversities.stream().filter(VendorSupplierDiversity::isActive).forEach(vsd -> {
+            if (sb.length() > 0) {
+                sb.append(", ");
             }
-        }
-        sb.append(']');
+            sb.append(vsd.getVendorSupplierDiversity().getVendorSupplierDiversityDescription().toString());
+        });
 
         return sb.toString();
     }
