@@ -534,6 +534,10 @@ public class VendorHeader extends PersistableBusinessObjectBase {
      * @return the vendor supplier diversities as a single attribute
      */
     public String getVendorSupplierDiversitiesAsString() {
+        if (vendorSupplierDiversities.isEmpty()) {
+            return "";
+        }
+
         StringBuilder sb = new StringBuilder("vendorSupplierDiversities=[");
 
         boolean first = true;
