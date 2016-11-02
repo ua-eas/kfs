@@ -44,6 +44,7 @@ public class VendorPropertyConstants {
     public static final String VENDOR_ADDRESS_COUNTRY = "vendorCountryCode";
     public static final String VENDOR_ADDRESS_EMAIL = "vendorAddresses.vendorAddressEmailAddress";
     public static final String VENDOR_DEFAULT_ADDRESS_INDICATOR = "vendorDefaultAddressIndicator";
+    public static final String VENDOR_ADDRESS_ACTIVE_INDICATOR = "active";
     public static final String VENDOR_DEFAULT_ADDRESS_CAMPUS = "vendorCampusCode";
     public static final String VENDOR_SUPPLIER_DIVERSITY_CODE = "vendorSupplierDiversities.vendorSupplierDiversityCode";
     public static final String VENDOR_SUPPLIER_DIVERSITY_ACTIVE = "vendorSupplierDiversities.active";

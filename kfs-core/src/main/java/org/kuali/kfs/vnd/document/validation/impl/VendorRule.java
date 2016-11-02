@@ -777,6 +777,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
             }
 
             valid &= checkAddressCountryEmptyStateZip(address);
+            valid &= checkInactiveAllowed(address);
 
             GlobalVariables.getMessageMap().clearErrorPath();
         }
@@ -850,6 +851,21 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
     protected boolean checkAddressCountryEmptyStateZip(VendorAddress address) {
         boolean valid = SpringContext.getBean(PostalCodeValidationService.class).validateAddress(address.getVendorCountryCode(), address.getVendorStateCode(), address.getVendorZipCode(), VendorPropertyConstants.VENDOR_ADDRESS_STATE, VendorPropertyConstants.VENDOR_ADDRESS_ZIP);
         return valid;
+    }
+
+    /**
+     * Validates that the specified address is active or is not the default vendor address.
+     *
+     * @param address VendorAddress being validated
+     * @return boolean false if the vendor address is the default and it is not active
+     */
+    protected boolean checkInactiveAllowed(VendorAddress address) {
+        if (address.isActive() || !address.isVendorDefaultAddressIndicator()) {
+            return true;
+        } else {
+            GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_ADDRESS_ACTIVE_INDICATOR, VendorKeyConstants.ERROR_ADDRESS_DEFAULT_ADDRESS_MUST_BE_ACTIVE);
+            return false;
+        }
     }
 
     /**

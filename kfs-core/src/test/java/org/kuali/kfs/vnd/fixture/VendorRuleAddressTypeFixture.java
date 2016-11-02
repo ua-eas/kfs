@@ -69,6 +69,7 @@ public enum VendorRuleAddressTypeFixture {
         addr1.setVendorStateCode(StatesZips.stateCd);
         addr1.setVendorZipCode(StatesZips.zipCode);
         addr1.setVendorCountryCode(KFSConstants.COUNTRY_CODE_UNITED_STATES);
+        addr1.setActive(true);
 
         addr2.setVendorAddressTypeCode(this.addrTypeCode2);
         addr2.setVendorDefaultAddressIndicator(this.defaultAddr2);
@@ -77,6 +78,7 @@ public enum VendorRuleAddressTypeFixture {
         addr2.setVendorStateCode(StatesZips.stateCd);
         addr2.setVendorZipCode(StatesZips.zipCode);
         addr2.setVendorCountryCode(KFSConstants.COUNTRY_CODE_UNITED_STATES);
+        addr2.setActive(true);
 
         addrList.add(addr1);
         addrList.add(addr2);

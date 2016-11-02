@@ -78,6 +78,7 @@ public class VendorKeyConstants {
     public static final String ERROR_ADDRESS_DEFAULT_INDICATOR = "error.vendorMaint.vendorAddress.vendorDefaultAddressIndicator";
     public static final String ERROR_ADDRESS_DEFAULT_CAMPUS_NOT_ALLOWED = "error.vendorMaint.vendorDefaultCampus.notAllowed";
     public static final String ERROR_ADDRESS_DEFAULT_ADDRESS_NOT_ALLOWED = "error.vendorMaint.vendorDefaultAddress.notAllowed";
+    public static final String ERROR_ADDRESS_DEFAULT_ADDRESS_MUST_BE_ACTIVE = "error.vendorMaint.vendorDefaultAddress.must.be.active";
 
 
     // Vendor Maintenance Contract
