@@ -18,39 +18,29 @@
  */
 package org.kuali.kfs.sys.rest.application;
 
-import com.sun.jersey.api.container.filter.LoggingFilter;
+import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.rest.resource.AuthenticationResource;
 import org.kuali.kfs.sys.rest.resource.AuthorizationResource;
 import org.kuali.kfs.sys.rest.resource.BackdoorResource;
+import org.kuali.kfs.sys.rest.resource.BusinessObjectApiResource;
 import org.kuali.kfs.sys.rest.resource.PreferencesResource;
 import org.kuali.kfs.sys.rest.resource.SystemResource;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
-import java.util.HashSet;
-import java.util.Set;
 
 @ApplicationPath("sys/api/v1")
-public class SysApplication extends Application {
-    protected Set<Object> singletons = new HashSet<>();
-    private Set<Class<?>> clazzes = new HashSet<>();
+public class SysApiApplication extends BaseApiApplication {
 
-    public SysApplication() {
-        singletons.add(new PreferencesResource());
-        singletons.add(new BackdoorResource());
-        singletons.add(new AuthenticationResource());
-        singletons.add(new SystemResource());
-        singletons.add(new AuthorizationResource());
-        clazzes.add(LoggingFilter.class);
-    }
-
-    @Override
-    public Set<Class<?>> getClasses() {
-        return clazzes;
-    }
-
-    @Override
-    public Set<Object> getSingletons() {
-        return singletons;
+    public SysApiApplication() {
+        super();
+        if (SpringContext.getBean(ConfigurationService.class).getPropertyValueAsBoolean("apis.enabled")) {
+            singletons.add(new PreferencesResource());
+            singletons.add(new BackdoorResource());
+            singletons.add(new AuthenticationResource());
+            singletons.add(new SystemResource());
+            singletons.add(new AuthorizationResource());
+            singletons.add(new BusinessObjectApiResource("sys"));
+        }
     }
 }
