@@ -38,7 +38,6 @@ import java.util.List;
  * title (String)
  * maintainableItems (Map)
  */
-@Deprecated
 public class MaintainableSectionDefinition extends DataDictionaryDefinitionBase {
     private static final long serialVersionUID = -8615694293159113523L;
 

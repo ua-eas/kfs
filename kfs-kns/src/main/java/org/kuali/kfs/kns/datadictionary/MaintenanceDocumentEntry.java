@@ -40,7 +40,6 @@ import java.util.List;
 import java.util.Map;
 
 
-@Deprecated
 public class MaintenanceDocumentEntry extends org.kuali.kfs.krad.datadictionary.MaintenanceDocumentEntry implements KNSDocumentEntry {
     protected List<MaintainableSectionDefinition> maintainableSections = new ArrayList<MaintainableSectionDefinition>();
     protected List<String> lockingKeys = new ArrayList<String>();
