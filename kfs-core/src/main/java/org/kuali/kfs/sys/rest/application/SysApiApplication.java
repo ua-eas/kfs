@@ -33,13 +33,12 @@ import javax.ws.rs.ApplicationPath;
 public class SysApiApplication extends BaseApiApplication {
 
     public SysApiApplication() {
-        super();
+        singletons.add(new PreferencesResource());
+        singletons.add(new BackdoorResource());
+        singletons.add(new AuthenticationResource());
+        singletons.add(new SystemResource());
+        singletons.add(new AuthorizationResource());
         if (SpringContext.getBean(ConfigurationService.class).getPropertyValueAsBoolean("apis.enabled")) {
-            singletons.add(new PreferencesResource());
-            singletons.add(new BackdoorResource());
-            singletons.add(new AuthenticationResource());
-            singletons.add(new SystemResource());
-            singletons.add(new AuthorizationResource());
             singletons.add(new BusinessObjectApiResource("sys"));
         }
     }
