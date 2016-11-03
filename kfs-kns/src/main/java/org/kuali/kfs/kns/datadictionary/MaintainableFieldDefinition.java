@@ -60,7 +60,6 @@ import java.util.List;
  * This is used to indicate that the field is read-only after the record has been
  * initially created.
  */
-@Deprecated
 public class MaintainableFieldDefinition extends MaintainableItemDefinition implements FieldDefinitionI {
     private static final long serialVersionUID = -1176087424343479963L;
 

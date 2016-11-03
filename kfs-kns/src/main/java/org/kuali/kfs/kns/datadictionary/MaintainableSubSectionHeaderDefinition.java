@@ -24,7 +24,6 @@ import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinition;
  * The subSectionHeader allows the section to be separated
  * into sub-sections, each with its own name.
  */
-@Deprecated
 public class MaintainableSubSectionHeaderDefinition extends MaintainableItemDefinition implements SubSectionHeaderDefinitionI {
     private static final long serialVersionUID = 3752757590555028866L;
 

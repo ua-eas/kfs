@@ -18,10 +18,12 @@
  */
 package org.kuali.kfs.sys.rest.resource;
 
-import javassist.Modifier;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
+import org.kuali.kfs.kns.datadictionary.MaintainableItemDefinition;
+import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry;
 import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
@@ -64,7 +66,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -102,11 +103,16 @@ public class BusinessObjectApiResource {
     }
 
     @GET
-    public Response searchBusinessObjects(@PathParam("documentTypeName") String documentTypeName, @Context UriInfo uriInfo) {
+    public Response findMultipleBusinessObjects(@PathParam("documentTypeName") String documentTypeName, @Context UriInfo uriInfo) {
 
         LOG.debug("searchObjects() started");
 
-        Class<PersistableBusinessObject> boClass = determineClass(moduleName, documentTypeName);
+        MaintenanceDocumentEntry maintenanceDocumentEntry = getMaintenanceDocumentEntry(documentTypeName);
+        if (maintenanceDocumentEntry == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        Class<PersistableBusinessObject> boClass = determineClass(moduleName, maintenanceDocumentEntry);
         if (boClass == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -115,7 +121,7 @@ public class BusinessObjectApiResource {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
 
-        Map<String, Object> results = searchBusinessObjects(boClass, uriInfo);
+        Map<String, Object> results = searchBusinessObjects(boClass, uriInfo, maintenanceDocumentEntry);
 
         return Response.ok(results).build();
     }
@@ -126,7 +132,12 @@ public class BusinessObjectApiResource {
                                              @PathParam("objectId") String objectId) {
         LOG.debug("getSingleObject() started");
 
-        Class<PersistableBusinessObject> boClass = determineClass(moduleName, documentTypeName);
+        MaintenanceDocumentEntry maintenanceDocumentEntry = getMaintenanceDocumentEntry(documentTypeName);
+        if (maintenanceDocumentEntry == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        Class<PersistableBusinessObject> boClass = determineClass(moduleName, maintenanceDocumentEntry);
         if (boClass == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -144,7 +155,7 @@ public class BusinessObjectApiResource {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
 
-        Map<String, Object> jsonObject = businessObjectToJson(boClass, businessObject);
+        Map<String, Object> jsonObject = businessObjectToJson(boClass, businessObject, maintenanceDocumentEntry);
         // TODO: Check authorization
 
         return Response.ok(jsonObject).build();
@@ -234,7 +245,8 @@ public class BusinessObjectApiResource {
         return queryResults.iterator().next();
     }
 
-    protected <T extends PersistableBusinessObject> Map<String, Object> searchBusinessObjects(Class<T> boClass, UriInfo uriInfo) {
+    protected <T extends PersistableBusinessObject> Map<String, Object> searchBusinessObjects(Class<T> boClass, UriInfo uriInfo,
+                                                                                              MaintenanceDocumentEntry maintenanceDocumentEntry) {
         MultivaluedMap<String, String> params = uriInfo.getQueryParameters();
         Map<String, String> queryCriteria = getSearchQueryCriteria(boClass, params);
 
@@ -258,7 +270,7 @@ public class BusinessObjectApiResource {
 
         List<Map<String, Object>> jsonResults = new ArrayList<>();
         for (PersistableBusinessObject bo : queryResults) {
-            Map<String, Object> jsonObject = businessObjectToJson(boClass, bo);
+            Map<String, Object> jsonObject = businessObjectToJson(boClass, bo, maintenanceDocumentEntry);
             jsonResults.add(jsonObject);
             // TODO: Check authorization
         }
@@ -350,41 +362,57 @@ public class BusinessObjectApiResource {
         return validParams;
     }
 
-    protected <T extends PersistableBusinessObject> Map<String, Object> businessObjectToJson(Class<T> boClass, PersistableBusinessObject bo) {
-        ObjectUtils.materializeSubObjectsToDepth(bo, 3);
+    protected <T extends PersistableBusinessObject> Map<String, Object> businessObjectToJson(Class<T> boClass, PersistableBusinessObject bo,
+                                                                                             MaintenanceDocumentEntry maintenanceDocumentEntry) {
 
-        Map<String, Object> jsonObject = new LinkedHashMap<String, Object>();
-        for (PropertyDescriptor propertyDescriptor : PropertyUtils.getPropertyDescriptors(bo)) {
-            Method readMethod = propertyDescriptor.getReadMethod();
-            if (readMethod != null && readMethod.getParameterCount() == 0 && Modifier.isPublic(readMethod.getModifiers())) {
-                Object jsonValue = getJsonValue(bo, propertyDescriptor);
+        List<String> fields = findBusinessObjectFields(maintenanceDocumentEntry);
 
-                if (jsonValue != null) {
-                    final Object possiblyMaskedJsonValue = maskJsonValueIfNecessary(boClass.getSimpleName(), propertyDescriptor.getName(), jsonValue);
-                    jsonObject.put(propertyDescriptor.getName(), possiblyMaskedJsonValue);
+        Map<String, Object> jsonObject = new LinkedHashMap<>();
+        for (String field : fields) {
+            try {
+                Object value = PropertyUtils.getProperty(bo, field);
+                if (value != null) {
+                    final Object possiblyMaskedJsonValue = maskJsonValueIfNecessary(boClass.getSimpleName(), field, value);
+                    jsonObject.put(field, possiblyMaskedJsonValue);
                 }
+            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                throw new RuntimeException("Failed to get " + field + " from business object", e);
             }
         }
+        jsonObject.put(KFSPropertyConstants.OBJECT_ID, bo.getObjectId());
 
         return jsonObject;
     }
 
-    protected Class<PersistableBusinessObject> determineClass(String moduleName, String documentTypeName) {
+    private List<String> findBusinessObjectFields(MaintenanceDocumentEntry maintenanceDocumentEntry) {
+        List<String> fields = new ArrayList<>();
+        List<MaintainableSectionDefinition> maintainableSections = maintenanceDocumentEntry.getMaintainableSections();
+        for (MaintainableSectionDefinition section : maintainableSections) {
+            List<MaintainableItemDefinition> itemDefinitions = section.getMaintainableItems();
+            for(MaintainableItemDefinition itemDefinition : itemDefinitions) {
+                if (itemDefinition instanceof MaintainableFieldDefinition) {
+                    String name = itemDefinition.getName();
+                    if (name.indexOf(".") < 0) {
+                        fields.add(name);
+                    }
+                }
+            }
+        }
+        return fields;
+    }
+
+    protected Class<PersistableBusinessObject> determineClass(String moduleName, MaintenanceDocumentEntry maintenanceDocumentEntry) {
         ModuleService moduleService = determineModuleService(moduleName);
         if (moduleService == null) {
             return null;
         }
 
-        // Search for class in module.
-        DataDictionary dataDictionary = getDataDictionaryService().getDataDictionary();
-        MaintenanceDocumentEntry entry = (MaintenanceDocumentEntry)dataDictionary.getDocumentEntry(documentTypeName.toUpperCase());
-        if (entry == null) {
-            return null;
-        }
-
-        Class<? extends BusinessObject> boClass = (Class<? extends BusinessObject>)entry.getDataObjectClass();
+        Class<? extends BusinessObject> boClass = (Class<? extends BusinessObject>)maintenanceDocumentEntry.getDataObjectClass();
         // Fail if this class is not part of the requested module
-        if (!boClass.getName().contains(moduleName)) {
+        final boolean validModule = moduleService.getModuleConfiguration().getPackagePrefixes().stream()
+            .anyMatch(packagePrefix -> boClass.getName().startsWith(packagePrefix));
+
+        if (!validModule) {
             return null;
         }
 
@@ -392,6 +420,16 @@ public class BusinessObjectApiResource {
             return null;
         }
         return (Class<PersistableBusinessObject>) boClass;
+    }
+
+    private MaintenanceDocumentEntry getMaintenanceDocumentEntry(String documentTypeName) {
+        // Search for class in module.
+        DataDictionary dataDictionary = getDataDictionaryService().getDataDictionary();
+        MaintenanceDocumentEntry entry = (MaintenanceDocumentEntry)dataDictionary.getDocumentEntry(documentTypeName.toUpperCase());
+        if (entry == null) {
+            return null;
+        }
+        return entry;
     }
 
     protected ModuleService determineModuleService(String moduleName) {
@@ -444,8 +482,7 @@ public class BusinessObjectApiResource {
         String url = getBaseUrl()
             + "/"
             + moduleName
-            + "/api/v1/"
-            + "reference/"
+            + "/api/v1/reference/"
             + urlBoName
             + "/"
             + persistableBo.getObjectId();
