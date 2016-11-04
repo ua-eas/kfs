@@ -68,8 +68,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.kuali.kfs.sys.rest.service.SerializationService.findBusinessObjectFields;
-
 @Path("reference/{documentTypeName}")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -147,7 +145,7 @@ public class BusinessObjectApiResource {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
 
-        Map<String, Object> fields = findBusinessObjectFields(maintenanceDocumentEntry);
+        Map<String, Object> fields = SerializationService.findBusinessObjectFields(maintenanceDocumentEntry);
 
         Map<String, Object> jsonObject = SerializationService.businessObjectToJson(boClass, businessObject, fields, getPerson(),
                                             getPersistenceStructureService(), getDataDictionaryService(), getBusinessObjectAuthorizationService());
