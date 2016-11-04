@@ -31,6 +31,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.coa.businessobject.OrganizationExtension;
 import org.kuali.kfs.fp.businessobject.Deposit;
 import org.kuali.kfs.fp.businessobject.DepositCashReceiptControl;
 import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
@@ -102,6 +104,8 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
+import static org.kuali.kfs.sys.rest.resource.BusinessObjectApiResource.FIELDS_KEY;
+
 @RunWith(PowerMockRunner.class)
 public class BusinessObjectApiResourceTest {
 
@@ -121,6 +125,7 @@ public class BusinessObjectApiResourceTest {
     private Date now = new Date(System.currentTimeMillis());
     private Deposit deposit = getDeposit();
     private UnitOfMeasure uom = getUom();
+    private Organization org = getOrganization();
     private Bank bank = getBank();
     private Person testPerson = new TestPerson("testPrincipalId", "testPrincipalName");
 
@@ -274,6 +279,43 @@ public class BusinessObjectApiResourceTest {
         Assert.assertTrue("Beans should have matching values " + beanMap.toString() + " and " + entity.toString(),
             mapsEqualEnough(entity, beanMap, "itemUnitOfMeasureCode", "itemUnitOfMeasureDescription", "active", "objectId"));
         Assert.assertFalse("Entity should not contain field", entity.containsKey("I should not be here!"));
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testNestedBoReturned() throws Exception {
+        apiResource = new BusinessObjectApiResource("coa");
+
+        String objectTypeName = "ORGN";
+        commonSingleBusinessObjectTestPrep(Organization.class, objectTypeName, "KFS-COA", () -> getOrganization(), getCoaModuleConfiguration());
+
+        addOrganizationMaintainbleSections();
+
+        EasyMock.expect(persistenceStructureService.hasReference(Organization.class, "organizationExtension")).andReturn(false).anyTimes();
+
+        EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService, maintenanceDocumentEntry, dataDictionary);
+        PowerMock.replay(KRADServiceLocator.class);
+        PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
+        PowerMock.replay(KRADUtils.class);
+        BusinessObjectApiResource.setKualiModuleService(kualiModuleService);
+        BusinessObjectApiResource.setBusinessObjectService(businessObjectService);
+        BusinessObjectApiResource.setPermissionService(permissionService);
+        BusinessObjectApiResource.setAccessSecurityService(accessSecurityService);
+        BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
+        BusinessObjectApiResource.setConfigurationService(configurationService);
+        BusinessObjectApiResource.setPersistenceStructureService(persistenceStructureService);
+
+        Response response = apiResource.findSingleBusinessObject(objectTypeName.toLowerCase(), "12345");
+        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService);
+        Assert.assertTrue("Should have returned OK", response.getStatus() == Status.OK.getStatusCode());
+        Map<String, Object> entity = (Map<String, Object>) response.getEntity();
+        BeanMap beanMap = new BeanMap(org);
+        Assert.assertTrue("Beans should have matching values " + beanMap.toString() + " and " + entity.toString(),
+            mapsDeeplyEqualEnough(entity, beanMap, "chartOfAccountsCode",
+                "organizationCode","responsibilityCenterCode","organizationName",
+                "organizationExtension.chartOfAccountsCode","organizationExtension.organizationCode",
+                "organizationExtension.hrmsCompany","organizationExtension.hrmsIuPositionAllowedFlag",
+                "organizationExtension.hrmsIuTenureAllowedFlag"));
     }
 
 //    @Test
@@ -846,23 +888,40 @@ public class BusinessObjectApiResourceTest {
         PowerMock.verify(LookupUtils.class);
     }
 
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class, LookupUtils.class})
+    public void testBusinessObjectFieldsToMap() {
+        List<String> fields = Arrays.asList(
+            "accountName",
+            "organization.responsibilityCenterCode",
+            "organization.responsibilityCenterCode2",
+            "organization.responsibilityCenter.responsibilityCenterName",
+            "organization.responsibilityCenter.responsibilityCenterName2"
+        );
+
+        Map<String, Object> results = apiResource.businessObjectFieldsToMap(fields);
+        Assert.assertEquals(2, results.size());
+        Assert.assertEquals(1, ((List<String>)results.get(FIELDS_KEY)).size());
+        Assert.assertEquals("accountName", ((List<String>)results.get(FIELDS_KEY)).get(0));
+        Map<String, Object> organization = (Map<String, Object>)results.get("organization");
+        Assert.assertEquals(2, organization.size());
+        Assert.assertEquals(2, ((List<String>)organization.get(FIELDS_KEY)).size());
+        Assert.assertEquals("responsibilityCenterCode", ((List<String>)organization.get(FIELDS_KEY)).get(0));
+        Map<String, Object> responsibilityCenter = (Map<String, Object>)organization.get("responsibilityCenter");
+        Assert.assertEquals(1, responsibilityCenter.size());
+        Assert.assertEquals(2, ((List<String>)responsibilityCenter.get(FIELDS_KEY)).size());
+        Assert.assertEquals("responsibilityCenterName", ((List<String>)responsibilityCenter.get(FIELDS_KEY)).get(0));
+    }
+
     private void addUnitOfMeasureMaintainbleSections() {
         List<MaintainableSectionDefinition> maintainableSections = new ArrayList<>();
         MaintainableSectionDefinition maintainableSectionDefinition = new MaintainableSectionDefinition();
         maintainableSections.add(maintainableSectionDefinition);
-        List<MaintainableItemDefinition> maintainableItemDefinitions = new ArrayList<>();
-        MaintainableItemDefinition itemDef1 = new MaintainableFieldDefinition();
-        itemDef1.setName("itemUnitOfMeasureCode");
-        maintainableItemDefinitions.add(itemDef1);
-        MaintainableItemDefinition itemDef2 = new MaintainableFieldDefinition();
-        itemDef2.setName("itemUnitOfMeasureDescription");
-        maintainableItemDefinitions.add(itemDef2);
-        MaintainableItemDefinition itemDef3 = new MaintainableFieldDefinition();
-        itemDef3.setName("active");
-        maintainableItemDefinitions.add(itemDef3);
-        MaintainableItemDefinition itemDef4 = new MaintainableSubSectionHeaderDefinition();
-        itemDef4.setName("I should not be here!");
-        maintainableItemDefinitions.add(itemDef4);
+        List<MaintainableItemDefinition> maintainableItemDefinitions = createFieldDefinitions("itemUnitOfMeasureCode",
+            "itemUnitOfMeasureDescription","active");
+        MaintainableItemDefinition itemDef = new MaintainableSubSectionHeaderDefinition();
+        itemDef.setName("I should not be here!");
+        maintainableItemDefinitions.add(itemDef);
         maintainableSectionDefinition.setMaintainableItems(maintainableItemDefinitions);
         EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
     }
@@ -871,21 +930,37 @@ public class BusinessObjectApiResourceTest {
         List<MaintainableSectionDefinition> maintainableSections = new ArrayList<>();
         MaintainableSectionDefinition maintainableSectionDefinition = new MaintainableSectionDefinition();
         maintainableSections.add(maintainableSectionDefinition);
-        List<MaintainableItemDefinition> maintainableItemDefinitions = new ArrayList<>();
-        MaintainableItemDefinition itemDef1 = new MaintainableFieldDefinition();
-        itemDef1.setName("bankCode");
-        maintainableItemDefinitions.add(itemDef1);
-        MaintainableItemDefinition itemDef2 = new MaintainableFieldDefinition();
-        itemDef2.setName("bankName");
-        maintainableItemDefinitions.add(itemDef2);
-        MaintainableItemDefinition itemDef3 = new MaintainableFieldDefinition();
-        itemDef3.setName("bankRoutingNumber");
-        maintainableItemDefinitions.add(itemDef3);
-        MaintainableItemDefinition itemDef4 = new MaintainableFieldDefinition();
-        itemDef4.setName("bankAccountNumber");
-        maintainableItemDefinitions.add(itemDef4);
+        List<MaintainableItemDefinition> maintainableItemDefinitions = createFieldDefinitions("bankCode",
+            "bankName","bankRoutingNumber","bankAccountNumber");
         maintainableSectionDefinition.setMaintainableItems(maintainableItemDefinitions);
         EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
+    }
+
+    private void addOrganizationMaintainbleSections() {
+        List<MaintainableSectionDefinition> maintainableSections = new ArrayList<>();
+        MaintainableSectionDefinition maintainableSectionDefinition = new MaintainableSectionDefinition();
+        maintainableSections.add(maintainableSectionDefinition);
+        List<MaintainableItemDefinition> maintainableItemDefinitions = createFieldDefinitions("chartOfAccountsCode",
+            "organizationCode","responsibilityCenterCode","organizationName",
+            "organizationExtension.chartOfAccountsCode","organizationExtension.organizationCode",
+            "organizationExtension.hrmsCompany","organizationExtension.hrmsIuPositionAllowedFlag",
+            "organizationExtension.hrmsIuTenureAllowedFlag");
+        maintainableSectionDefinition.setMaintainableItems(maintainableItemDefinitions);
+        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
+    }
+
+    private void addFieldDefinition(List<MaintainableItemDefinition> maintainableItemDefinitions, String fieldName) {
+        MaintainableItemDefinition itemDef = new MaintainableFieldDefinition();
+        itemDef.setName(fieldName);
+        maintainableItemDefinitions.add(itemDef);
+    }
+
+    private List<MaintainableItemDefinition> createFieldDefinitions(String... fieldNames) {
+        List<MaintainableItemDefinition> maintainableItemDefinitions = new ArrayList<>();
+        for (String fieldName : fieldNames) {
+            addFieldDefinition(maintainableItemDefinitions, fieldName);
+        }
+        return maintainableItemDefinitions;
     }
 
     private void commonSingleBusinessObjectTestPrep(Class clazz, String objectTypeName, String namespaceCode, Supplier<? extends PersistableBusinessObject> boSupplier, ModuleConfiguration moduleConfig) {
@@ -894,7 +969,7 @@ public class BusinessObjectApiResourceTest {
         List<? extends PersistableBusinessObject> collection = Arrays.asList(result);
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(moduleConfig).anyTimes();
-        EasyMock.expect(maintenanceDocumentEntry.getDataObjectClass()).andReturn(clazz);
+        EasyMock.expect(maintenanceDocumentEntry.getDataObjectClass()).andReturn(clazz).anyTimes();
         EasyMock.expect(dataDictionary.getDocumentEntry(objectTypeName)).andReturn(maintenanceDocumentEntry);
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary);
         EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).anyTimes();
@@ -911,8 +986,6 @@ public class BusinessObjectApiResourceTest {
         accessSecurityService.applySecurityRestrictions(collection, testPerson, null, Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, namespaceCode));
         EasyMock.expectLastCall();
         EasyMock.expect(KRADServiceLocator.getPersistenceStructureService()).andReturn(persistenceStructureService);
-        org.kuali.kfs.krad.util.ObjectUtils.materializeSubObjectsToDepth(result, 3);
-        PowerMock.expectLastCall();
     }
 
     private void commonMultipleBusinessObjectTestPrep(Class clazz, Supplier<? extends PersistableBusinessObject> boSupplier, Map<String, String> queryCriteria, int skip, int limit, String[] sort) {
@@ -981,6 +1054,26 @@ public class BusinessObjectApiResourceTest {
         return bank;
     }
 
+    private Organization getOrganization() {
+        Organization org = new Organization();
+        org.setObjectId("ORG12345");
+        org.setChartOfAccountsCode("BL");
+        org.setOrganizationCode("ANTH");
+        org.setResponsibilityCenterCode("04");
+        org.setOrganizationName("Anthropology");
+
+        OrganizationExtension orgExt = new OrganizationExtension();
+        orgExt.setObjectId("ORGEXT12345");
+        orgExt.setChartOfAccountsCode("BL");
+        orgExt.setOrganizationCode("ANTH");
+        orgExt.setHrmsCompany("IU");
+        orgExt.setHrmsIuPositionAllowedFlag(false);
+        orgExt.setHrmsIuTenureAllowedFlag(false);
+
+        org.setOrganizationExtension(orgExt);
+        return org;
+    }
+
     private Object getEmpty() {
         return null;
     }
@@ -993,13 +1086,38 @@ public class BusinessObjectApiResourceTest {
     }
 
     private boolean mapsEqualEnough(Map<String, Object> map1, Map<Object, Object> map2, String... properties) {
+        return Arrays.stream(properties).allMatch(property -> propertyEquals(map1, map2, property));
+    }
+
+    private boolean mapsDeeplyEqualEnough(Map<String, Object> map1, Map<Object, Object> map2, String... properties) {
         for (String property : properties) {
-            if (!ObjectUtils.equals(map1.get(property), map2.get(property))) {
-                return false;
+            if (property.indexOf(".") < 0) {
+                if (!propertyEquals(map1, map2, property)) {
+                    return false;
+                }
+            } else {
+                final String head = property.substring(0, property.indexOf('.'));
+                final String tail = property.substring(property.indexOf('.') + 1);
+                Object head1 = map1.get(head);
+                Object head2 = map2.get(head);
+                if (!(head1 instanceof Map)) {
+                    head1 = new BeanMap(head1);
+                }
+                if (!(head2 instanceof Map)) {
+                    head2 = new BeanMap(head2);
+                }
+                return (mapsDeeplyEqualEnough((Map<String, Object>)head1, (Map<Object, Object>)head2, tail));
             }
         }
 
         return true;
+    }
+
+    private boolean propertyEquals(Map<String, Object> map1, Map<Object, Object> map2, String property) {
+        if (map1.get(property) == null && map2.get(property) == null) {
+            return false;
+        }
+        return ObjectUtils.equals(map1.get(property), map2.get(property));
     }
 
     private ModuleConfiguration getModuleConfiguration() {

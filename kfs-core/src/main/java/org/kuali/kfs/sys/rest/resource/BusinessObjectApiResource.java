@@ -84,6 +84,8 @@ import java.util.stream.Collectors;
 public class BusinessObjectApiResource {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BusinessObjectApiResource.class);
 
+    protected static final String FIELDS_KEY = "topLevelFields";
+
     private String moduleName;
 
     private static volatile KualiModuleService kualiModuleService;
@@ -155,7 +157,9 @@ public class BusinessObjectApiResource {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
 
-        Map<String, Object> jsonObject = businessObjectToJson(boClass, businessObject, maintenanceDocumentEntry);
+        Map<String, Object> fields = findBusinessObjectFields(maintenanceDocumentEntry);
+
+        Map<String, Object> jsonObject = businessObjectToJson(boClass, businessObject, fields);
         // TODO: Check authorization
 
         return Response.ok(jsonObject).build();
@@ -269,8 +273,9 @@ public class BusinessObjectApiResource {
         }
 
         List<Map<String, Object>> jsonResults = new ArrayList<>();
+        Map<String, Object> fields = findBusinessObjectFields(maintenanceDocumentEntry);
         for (PersistableBusinessObject bo : queryResults) {
-            Map<String, Object> jsonObject = businessObjectToJson(boClass, bo, maintenanceDocumentEntry);
+            Map<String, Object> jsonObject = businessObjectToJson(boClass, bo, fields);
             jsonResults.add(jsonObject);
             // TODO: Check authorization
         }
@@ -363,42 +368,92 @@ public class BusinessObjectApiResource {
     }
 
     protected <T extends PersistableBusinessObject> Map<String, Object> businessObjectToJson(Class<T> boClass, PersistableBusinessObject bo,
-                                                                                             MaintenanceDocumentEntry maintenanceDocumentEntry) {
+                                                                                             Map<String, Object> fields) {
 
-        List<String> fields = findBusinessObjectFields(maintenanceDocumentEntry);
+
 
         Map<String, Object> jsonObject = new LinkedHashMap<>();
-        for (String field : fields) {
-            try {
-                Object value = PropertyUtils.getProperty(bo, field);
-                if (value != null) {
-                    final Object possiblyMaskedJsonValue = maskJsonValueIfNecessary(boClass.getSimpleName(), field, value);
-                    jsonObject.put(field, possiblyMaskedJsonValue);
+        for (String key : fields.keySet()) {
+            if (key.equals(FIELDS_KEY)) {
+                for (String field : (List<String>)fields.get(FIELDS_KEY)) {
+                    try {
+                        Object value = PropertyUtils.getProperty(bo, field);
+                        if (value != null) {
+                            final Object possiblyMaskedJsonValue = maskJsonValueIfNecessary(boClass.getSimpleName(), field, value);
+                            jsonObject.put(field, possiblyMaskedJsonValue);
+                        }
+                    } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                        throw new RuntimeException("Failed to get " + field + " from business object", e);
+                    }
                 }
-            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                throw new RuntimeException("Failed to get " + field + " from business object", e);
+            } else {
+                try {
+                    if (getPersistenceStructureService().hasReference(boClass, key)) {
+                        bo.refreshReferenceObject(key);
+                    }
+                    PropertyDescriptor descriptor = PropertyUtils.getPropertyDescriptor(bo, key);
+                    if (PersistableBusinessObject.class.isAssignableFrom(descriptor.getPropertyType())) {
+                        PersistableBusinessObject childBusinessObject = (PersistableBusinessObject) PropertyUtils.getProperty(bo, key);
+                        if (!ObjectUtils.isNull(childBusinessObject)) {
+                            Map<String, Object> childSerialized = businessObjectToJson(childBusinessObject.getClass(),
+                                childBusinessObject, (Map<String, Object>) fields.get(key));
+                            jsonObject.put(key, childSerialized);
+                        }
+                    }
+                } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                    throw new RuntimeException("Could not retrieve child business object "+key, e);
+                }
             }
         }
+
         jsonObject.put(KFSPropertyConstants.OBJECT_ID, bo.getObjectId());
+
+
 
         return jsonObject;
     }
 
-    private List<String> findBusinessObjectFields(MaintenanceDocumentEntry maintenanceDocumentEntry) {
+    protected Map<String, Object> findBusinessObjectFields(MaintenanceDocumentEntry maintenanceDocumentEntry) {
         List<String> fields = new ArrayList<>();
         List<MaintainableSectionDefinition> maintainableSections = maintenanceDocumentEntry.getMaintainableSections();
         for (MaintainableSectionDefinition section : maintainableSections) {
             List<MaintainableItemDefinition> itemDefinitions = section.getMaintainableItems();
             for(MaintainableItemDefinition itemDefinition : itemDefinitions) {
                 if (itemDefinition instanceof MaintainableFieldDefinition) {
-                    String name = itemDefinition.getName();
-                    if (name.indexOf(".") < 0) {
-                        fields.add(name);
-                    }
+                    fields.add(itemDefinition.getName());
                 }
             }
         }
-        return fields;
+
+        return businessObjectFieldsToMap(fields);
+    }
+
+    protected Map<String, Object> businessObjectFieldsToMap(List<String> fields) {
+        Map<String, Object> fieldsMap = createBusinessObjectFieldsMap();
+        for (String field: fields) {
+            populateFieldsMapWithField(fieldsMap, field);
+        }
+        return fieldsMap;
+    }
+
+    protected void populateFieldsMapWithField(Map<String, Object> fieldsMap, String field) {
+        if (field.indexOf(".") < 0) {
+            ((List<String>)fieldsMap.get(FIELDS_KEY)).add(field);
+        } else {
+            final String head = field.substring(0, field.indexOf('.'));
+            final String tail = field.substring(field.indexOf('.') + 1);
+            Map<String, Object> childFieldsMap = fieldsMap.containsKey(head)
+                ? (Map<String, Object>)fieldsMap.get(head)
+                : createBusinessObjectFieldsMap();
+            fieldsMap.put(head, childFieldsMap);
+            populateFieldsMapWithField(childFieldsMap, tail);
+        }
+    }
+
+    protected Map<String, Object> createBusinessObjectFieldsMap() {
+        Map<String, Object> fieldsMap = new HashMap<>();
+        fieldsMap.put(FIELDS_KEY, new ArrayList<String>());
+        return fieldsMap;
     }
 
     protected Class<PersistableBusinessObject> determineClass(String moduleName, MaintenanceDocumentEntry maintenanceDocumentEntry) {
