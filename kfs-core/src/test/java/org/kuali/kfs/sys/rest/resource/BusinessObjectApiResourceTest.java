@@ -31,6 +31,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryExclusionType;
+import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryType;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.businessobject.OrganizationExtension;
 import org.kuali.kfs.fp.businessobject.Deposit;
@@ -129,6 +131,7 @@ public class BusinessObjectApiResourceTest {
     private UnitOfMeasure uom = getUom();
     private Organization org = getOrganization();
     private Bank bank = getBank();
+    private IndirectCostRecoveryType indirectCostRecoveryType = getIndirectCostRecoveryType();
     private Person testPerson = new TestPerson("testPrincipalId", "testPrincipalName");
 
     @Rule
@@ -174,19 +177,19 @@ public class BusinessObjectApiResourceTest {
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testNotAuthorized() throws Exception {
         ModuleConfiguration moduleConfig = getModuleConfiguration();
-        String objectTypeName = "PMUM";
+        String documentTypeName = "PMUM";
         Class clazz = UnitOfMeasure.class;
         String namespaceCode = "KFS-SYS";
 
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(moduleConfig).anyTimes();
         EasyMock.expect(maintenanceDocumentEntry.getDataObjectClass()).andReturn(clazz);
-        EasyMock.expect(dataDictionary.getDocumentEntry(objectTypeName)).andReturn(maintenanceDocumentEntry);
+        EasyMock.expect(dataDictionary.getDocumentEntry(documentTypeName)).andReturn(maintenanceDocumentEntry);
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary);
         EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession);
-        EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, objectTypeName));
+        EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, documentTypeName));
         EasyMock.expect(userSession.getPerson()).andReturn(testPerson);
-        EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS, makeMap(namespaceCode, objectTypeName), Collections.emptyMap()))
+        EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS, makeMap(namespaceCode, documentTypeName), Collections.emptyMap()))
             .andReturn(false);
 
 
@@ -200,7 +203,7 @@ public class BusinessObjectApiResourceTest {
         BusinessObjectApiResource.setAccessSecurityService(accessSecurityService);
         BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
 
-        Response response = apiResource.findSingleBusinessObject(objectTypeName.toLowerCase(), "12345");
+        Response response = apiResource.findSingleBusinessObject(documentTypeName.toLowerCase(), "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, maintenanceDocumentEntry, dataDictionary);
         Assert.assertTrue("Should have returned Forbidden", response.getStatus() == Status.FORBIDDEN.getStatusCode());
     }
@@ -209,7 +212,7 @@ public class BusinessObjectApiResourceTest {
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testNoAccessSecurity() throws Exception {
         ModuleConfiguration moduleConfig = getModuleConfiguration();
-        String objectTypeName = "PMUM";
+        String documentTypeName = "PMUM";
         Class clazz = UnitOfMeasure.class;
         String namespaceCode = "KFS-SYS";
         Collection collection = Arrays.asList(getUom());
@@ -217,12 +220,12 @@ public class BusinessObjectApiResourceTest {
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(moduleConfig).anyTimes();
         EasyMock.expect(maintenanceDocumentEntry.getDataObjectClass()).andReturn(clazz);
-        EasyMock.expect(dataDictionary.getDocumentEntry(objectTypeName)).andReturn(maintenanceDocumentEntry);
+        EasyMock.expect(dataDictionary.getDocumentEntry(documentTypeName)).andReturn(maintenanceDocumentEntry);
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary);
         EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).times(2);
-        EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, objectTypeName));
+        EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, documentTypeName));
         EasyMock.expect(userSession.getPerson()).andReturn(testPerson).times(2);
-        EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS, makeMap(namespaceCode, objectTypeName), Collections.emptyMap()))
+        EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS, makeMap(namespaceCode, documentTypeName), Collections.emptyMap()))
             .andReturn(true);
         Map<String, String> queryCriteria = new HashMap<>();
         queryCriteria.put(KRADPropertyConstants.OBJECT_ID, "12345");
@@ -249,7 +252,7 @@ public class BusinessObjectApiResourceTest {
         BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
         BusinessObjectApiResource.setConfigurationService(configurationService);
 
-        Response response = apiResource.findSingleBusinessObject(objectTypeName.toLowerCase(), "12345");
+        Response response = apiResource.findSingleBusinessObject(documentTypeName.toLowerCase(), "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, maintenanceDocumentEntry, dataDictionary);
         Assert.assertTrue("Should have returned Forbidden", response.getStatus() == Status.FORBIDDEN.getStatusCode());
     }
@@ -257,8 +260,8 @@ public class BusinessObjectApiResourceTest {
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testSimpleBoReturned() throws Exception {
-        String objectTypeName = "PMUM";
-        commonSingleBusinessObjectTestPrep(UnitOfMeasure.class, objectTypeName, "KFS-SYS", () -> getUom(), getModuleConfiguration());
+        String documentTypeName = "PMUM";
+        commonSingleBusinessObjectTestPrep(UnitOfMeasure.class, documentTypeName, "KFS-SYS", () -> getUom(), getModuleConfiguration());
 
         addUnitOfMeasureMaintainbleSections();
 
@@ -275,7 +278,7 @@ public class BusinessObjectApiResourceTest {
         BusinessObjectApiResource.setPersistenceStructureService(persistenceStructureService);
         BusinessObjectApiResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
 
-        Response response = apiResource.findSingleBusinessObject(objectTypeName.toLowerCase(), "12345");
+        Response response = apiResource.findSingleBusinessObject(documentTypeName.toLowerCase(), "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService, businessObjectAuthorizationService);
         Assert.assertTrue("Should have returned OK", response.getStatus() == Status.OK.getStatusCode());
         Map<String, Object> entity = (Map<String, Object>) response.getEntity();
@@ -290,8 +293,8 @@ public class BusinessObjectApiResourceTest {
     public void testNestedBoReturned() throws Exception {
         apiResource = new BusinessObjectApiResource("coa");
 
-        String objectTypeName = "ORGN";
-        commonSingleBusinessObjectTestPrep(Organization.class, objectTypeName, "KFS-COA", () -> getOrganization(), getCoaModuleConfiguration());
+        String documentTypeName = "ORGN";
+        commonSingleBusinessObjectTestPrep(Organization.class, documentTypeName, "KFS-COA", () -> getOrganization(), getCoaModuleConfiguration());
 
         addOrganizationMaintainbleSections();
 
@@ -310,7 +313,7 @@ public class BusinessObjectApiResourceTest {
         BusinessObjectApiResource.setPersistenceStructureService(persistenceStructureService);
         BusinessObjectApiResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
 
-        Response response = apiResource.findSingleBusinessObject(objectTypeName.toLowerCase(), "12345");
+        Response response = apiResource.findSingleBusinessObject(documentTypeName.toLowerCase(), "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService, businessObjectAuthorizationService);
         Assert.assertTrue("Should have returned OK", response.getStatus() == Status.OK.getStatusCode());
         Map<String, Object> entity = (Map<String, Object>) response.getEntity();
@@ -326,15 +329,49 @@ public class BusinessObjectApiResourceTest {
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testBoWithCollectionReturned() throws Exception {
-        
+        apiResource = new BusinessObjectApiResource("coa");
+        String documentTypeName = "ITYP";
+        commonSingleBusinessObjectTestPrep(IndirectCostRecoveryType.class, documentTypeName, "KFS-COA", () -> getIndirectCostRecoveryType(), getCoaModuleConfiguration());
+        addIndirectCostRecoveryTypeMaintainbleSections();
+        EasyMock.expect(persistenceStructureService.hasReference(IndirectCostRecoveryType.class, "indirectCostRecoveryExclusionTypeDetails")).andReturn(false).anyTimes();
+        EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService, maintenanceDocumentEntry, dataDictionary, businessObjectAuthorizationService);
+        PowerMock.replay(KRADServiceLocator.class);
+        PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
+        PowerMock.replay(KRADUtils.class);
+        BusinessObjectApiResource.setKualiModuleService(kualiModuleService);
+        BusinessObjectApiResource.setBusinessObjectService(businessObjectService);
+        BusinessObjectApiResource.setPermissionService(permissionService);
+        BusinessObjectApiResource.setAccessSecurityService(accessSecurityService);
+        BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
+        BusinessObjectApiResource.setConfigurationService(configurationService);
+        BusinessObjectApiResource.setPersistenceStructureService(persistenceStructureService);
+        BusinessObjectApiResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
+
+        Response response = apiResource.findSingleBusinessObject(documentTypeName.toLowerCase(), "12345");
+        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService, businessObjectAuthorizationService);
+        Assert.assertTrue("Should have returned OK", response.getStatus() == Status.OK.getStatusCode());
+        Map<String, Object> entity = (Map<String, Object>) response.getEntity();
+        BeanMap beanMap = new BeanMap(indirectCostRecoveryType);
+        Assert.assertTrue("Beans should have matching values " + beanMap.toString() + " and " + entity.toString(),
+            mapsEqualEnough(entity, beanMap, "code", "name", "active"));
+
+        List<Object> beanMapCollectionObjects = (List<Object>)beanMap.get("indirectCostRecoveryExclusionTypeDetails");
+        List<Map<String, Object>> entityCollections = (List<Map<String, Object>>)entity.get("indirectCostRecoveryExclusionTypeDetails");
+        Assert.assertEquals("Serialized indirectCostRecoveryExclusionTypeDetails collections should be the same size", beanMapCollectionObjects.size(), entityCollections.size());
+        for (int i = 0; i < beanMapCollectionObjects.size(); i++) {
+            BeanMap beanMapCollectionObject = new BeanMap(beanMapCollectionObjects.get(i));
+            Map<String, Object> entityCollectionObject = entityCollections.get(i);
+            Assert.assertTrue("Beans should have matching values " + beanMapCollectionObject.toString() + " and " + entityCollectionObject.toString(),
+                mapsEqualEnough(entityCollectionObject, beanMapCollectionObject, "chartOfAccountsCode", "financialObjectCode", "active"));
+        }
     }
 
 //    @Test
 //    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
 //    public void testComplexBoReturned() throws Exception {
 //        apiResource = new BusinessObjectApiResource("fp");
-//        String objectTypeName = "DPST";
-//        commonSingleBusinessObjectTestPrep(Deposit.class, objectTypeName, "KFS-FP", () -> getDeposit(), getFpModuleConfiguration());
+//        String documentTypeName = "DPST";
+//        commonSingleBusinessObjectTestPrep(Deposit.class, documentTypeName, "KFS-FP", () -> getDeposit(), getFpModuleConfiguration());
 //
 //        EasyMock.expect(maintenanceDocumentEntry.getDocumentTypeName()).andReturn("BANK");
 //        EasyMock.expect(dataDictionary.getMaintenanceDocumentEntryForBusinessObjectClass(Bank.class)).andReturn((MaintenanceDocumentEntry)maintenanceDocumentEntry);
@@ -358,7 +395,7 @@ public class BusinessObjectApiResourceTest {
 //        BusinessObjectApiResource.setAccessSecurityService(accessSecurityService);
 //        BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
 //
-//        Response response = apiResource.findSingleBusinessObject(objectTypeName.toLowerCase(), "12345");
+//        Response response = apiResource.findSingleBusinessObject(documentTypeName.toLowerCase(), "12345");
 //        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, dataDictionary,
 //             permissionService, accessSecurityService, userSession, configurationService, maintenanceDocumentEntry, dcrMaintDocEntry);
 //        Assert.assertTrue("Should have returned OK", response.getStatus() == Status.OK.getStatusCode());
@@ -380,8 +417,8 @@ public class BusinessObjectApiResourceTest {
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testSimpleMaskedBoReturned() throws Exception {
-        String objectTypeName = "BANK";
-        commonSingleBusinessObjectTestPrep(Bank.class, objectTypeName, "KFS-SYS", () -> getBank(), getModuleConfiguration());
+        String documentTypeName = "BANK";
+        commonSingleBusinessObjectTestPrep(Bank.class, documentTypeName, "KFS-SYS", () -> getBank(), getModuleConfiguration());
 
         addBankMaintainbleSections();
 
@@ -404,7 +441,7 @@ public class BusinessObjectApiResourceTest {
         BusinessObjectApiResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
         BusinessObjectApiResource.setPersistenceStructureService(persistenceStructureService);
 
-        Response response = apiResource.findSingleBusinessObject(objectTypeName.toLowerCase(), "12345");
+        Response response = apiResource.findSingleBusinessObject(documentTypeName.toLowerCase(), "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, businessObjectAuthorizationService, persistenceStructureService, dataDictionaryService, dataDictionary, permissionService, accessSecurityService, userSession, configurationService, maintenanceDocumentEntry);
         Assert.assertTrue("Should have returned OK", response.getStatus() == Status.OK.getStatusCode());
         Map<String, Object> entity = (Map<String, Object>) response.getEntity();
@@ -1006,6 +1043,23 @@ public class BusinessObjectApiResourceTest {
         EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
     }
 
+    private void addIndirectCostRecoveryTypeMaintainbleSections() {
+        List<MaintainableSectionDefinition> maintainableSections = new ArrayList<>();
+        MaintainableSectionDefinition maintainableSectionDefinition = new MaintainableSectionDefinition();
+        maintainableSections.add(maintainableSectionDefinition);
+        List<MaintainableItemDefinition> maintainableItemDefinitions = createItemDefinitions("code","name","active");
+
+        MaintainableCollectionDefinition maintainableCollectionDefinition = new MaintainableCollectionDefinition();
+        maintainableCollectionDefinition.setName("indirectCostRecoveryExclusionTypeDetails");
+        maintainableCollectionDefinition.setBusinessObjectClass(TaxRegionRate.class);
+        List<MaintainableFieldDefinition> collectionFieldDefinitions = createFieldDefinitions("chartOfAccountsCode","financialObjectCode","newCollectionRecord","active");
+
+        maintainableCollectionDefinition.setMaintainableFields(collectionFieldDefinitions);
+        maintainableItemDefinitions.add(maintainableCollectionDefinition);
+        maintainableSectionDefinition.setMaintainableItems(maintainableItemDefinitions);
+        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
+    }
+
     private void addItemDefinition(List<MaintainableItemDefinition> maintainableItemDefinitions, String fieldName) {
         MaintainableItemDefinition itemDef = new MaintainableFieldDefinition();
         itemDef.setName(fieldName);
@@ -1034,14 +1088,14 @@ public class BusinessObjectApiResourceTest {
         return maintainableItemDefinitions;
     }
 
-    private void commonSingleBusinessObjectTestPrep(Class clazz, String objectTypeName, String namespaceCode, Supplier<? extends PersistableBusinessObject> boSupplier, ModuleConfiguration moduleConfig) {
+    private void commonSingleBusinessObjectTestPrep(Class clazz, String documentTypeName, String namespaceCode, Supplier<? extends PersistableBusinessObject> boSupplier, ModuleConfiguration moduleConfig) {
         String className = clazz.getSimpleName();
         PersistableBusinessObject result = boSupplier.get();
         List<? extends PersistableBusinessObject> collection = Arrays.asList(result);
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(moduleConfig).anyTimes();
         EasyMock.expect(maintenanceDocumentEntry.getDataObjectClass()).andReturn(clazz).anyTimes();
-        EasyMock.expect(dataDictionary.getDocumentEntry(objectTypeName)).andReturn(maintenanceDocumentEntry);
+        EasyMock.expect(dataDictionary.getDocumentEntry(documentTypeName)).andReturn(maintenanceDocumentEntry);
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary);
         EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).anyTimes();
         EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, className));
@@ -1145,6 +1199,24 @@ public class BusinessObjectApiResourceTest {
         return org;
     }
 
+    private IndirectCostRecoveryType getIndirectCostRecoveryType() {
+        IndirectCostRecoveryType icrt = new IndirectCostRecoveryType();
+        icrt.setName("IndirectCostRecoveryType");
+        icrt.setCode("ICRT");
+        icrt.setActive(true);
+
+        List<IndirectCostRecoveryExclusionType> icretDetails = new ArrayList<>();
+        icrt.setIndirectCostRecoveryExclusionTypeDetails(icretDetails);
+        IndirectCostRecoveryExclusionType icret = new IndirectCostRecoveryExclusionType();
+        icret.setChartOfAccountsCode("BL");
+        icret.setFinancialObjectCode("FOC");
+        icret.setNewCollectionRecord(false);
+        icret.setActive(true);
+        icretDetails.add(icret);
+
+        return icrt;
+    }
+
     private Object getEmpty() {
         return null;
     }
@@ -1194,7 +1266,7 @@ public class BusinessObjectApiResourceTest {
     private ModuleConfiguration getModuleConfiguration() {
         ModuleConfiguration result = new ModuleConfiguration();
         result.setNamespaceCode("KFS-SYS");
-        result.setPackagePrefixes(new ArrayList<String>());
+        result.setPackagePrefixes(new ArrayList<>());
         result.getPackagePrefixes().add("org.kuali.kfs.sys");
         result.setDataDictionaryService(dataDictionaryService);
         return result;
@@ -1203,7 +1275,7 @@ public class BusinessObjectApiResourceTest {
     private ModuleConfiguration getCoaModuleConfiguration() {
         ModuleConfiguration result = new ModuleConfiguration();
         result.setNamespaceCode("KFS-COA");
-        result.setPackagePrefixes(new ArrayList<String>());
+        result.setPackagePrefixes(new ArrayList<>());
         result.getPackagePrefixes().add("org.kuali.kfs.coa");
         result.setDataDictionaryService(dataDictionaryService);
         return result;
