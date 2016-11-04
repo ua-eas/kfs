@@ -18,19 +18,13 @@
  */
 package org.kuali.kfs.sys.rest.resource;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
-import org.kuali.kfs.kns.datadictionary.MaintainableItemDefinition;
-import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry;
 import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
-import org.kuali.kfs.krad.datadictionary.mask.MaskFormatter;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KualiModuleService;
@@ -39,7 +33,6 @@ import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.krad.util.KRADUtils;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sec.SecConstants;
 import org.kuali.kfs.sec.service.AccessSecurityService;
 import org.kuali.kfs.sys.KFSConstants;
@@ -47,6 +40,7 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.rest.ErrorMessage;
 import org.kuali.kfs.sys.rest.exception.ApiRequestException;
+import org.kuali.kfs.sys.rest.service.SerializationService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
@@ -64,27 +58,23 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static org.kuali.kfs.sys.rest.service.SerializationService.findBusinessObjectFields;
 
 @Path("reference/{documentTypeName}")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class BusinessObjectApiResource {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BusinessObjectApiResource.class);
-
-    protected static final String FIELDS_KEY = "topLevelFields";
 
     private String moduleName;
 
@@ -159,84 +149,11 @@ public class BusinessObjectApiResource {
 
         Map<String, Object> fields = findBusinessObjectFields(maintenanceDocumentEntry);
 
-        Map<String, Object> jsonObject = businessObjectToJson(boClass, businessObject, fields);
+        Map<String, Object> jsonObject = SerializationService.businessObjectToJson(boClass, businessObject, fields, getPerson(),
+                                            getPersistenceStructureService(), getDataDictionaryService(), getBusinessObjectAuthorizationService());
         // TODO: Check authorization
 
         return Response.ok(jsonObject).build();
-    }
-
-    protected MaskFormatter buildMaskFormatter(AttributeDefinition attributeDefinition) {
-        return (attributeDefinition.getAttributeSecurity().isMask())
-            ? attributeDefinition.getAttributeSecurity().getMaskFormatter()
-            : attributeDefinition.getAttributeSecurity().getPartialMaskFormatter();
-    }
-
-    protected Object maskJsonValueIfNecessary(String businessObjectName, String attributeName, Object jsonValue) {
-        final AttributeDefinition attributeDefinition = getDataDictionaryService().getAttributeDefinition(businessObjectName, attributeName);
-        if (attributeDefinition == null || attributeDefinition.getAttributeSecurity() == null || (!attributeDefinition.getAttributeSecurity().isMask() && !attributeDefinition.getAttributeSecurity().isPartialMask())) {
-            return jsonValue;
-        }
-        final MaskFormatter maskFormatter = buildMaskFormatter(attributeDefinition);
-        if (getBusinessObjectAuthorizationService().isNonProductionEnvAndUnmaskingTurnedOff()) {
-            return maskFormatter.maskValue(jsonValue); // it's non-production and unmasking is turned off, so let's always mask
-        } else {
-            final Class<? extends BusinessObject> businessObjectClass = getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(businessObjectName).getBusinessObjectClass();
-            return maskJsonValue(jsonValue, businessObjectClass, attributeDefinition, maskFormatter);
-        }
-    }
-
-    protected boolean shouldMask(Class<? extends BusinessObject> businessObjectClass, AttributeDefinition attributeDefinition) {
-        return (attributeDefinition.getAttributeSecurity().isMask()
-            && !getBusinessObjectAuthorizationService().canFullyUnmaskField(getPerson(), businessObjectClass, attributeDefinition.getName(), null))
-            ||
-            (attributeDefinition.getAttributeSecurity().isPartialMask()
-                && !getBusinessObjectAuthorizationService().canPartiallyUnmaskField(getPerson(), businessObjectClass, attributeDefinition.getName(), null));
-    }
-
-    protected Object maskJsonValue(Object jsonValue, Class<? extends BusinessObject> businessObjectClass, AttributeDefinition attributeDefinition, MaskFormatter maskFormatter) {
-        return (shouldMask(businessObjectClass, attributeDefinition))
-            ? maskFormatter.maskValue(jsonValue)
-            : jsonValue;
-    }
-
-    protected Object getJsonValue(PersistableBusinessObject businessObject, PropertyDescriptor propertyDescriptor) {
-        try {
-            Object value = PropertyUtils.getSimpleProperty(businessObject, propertyDescriptor.getName());
-            if (ObjectUtils.isNull(value)) {
-                return null;
-            }
-            Class<?> propertyClass = propertyDescriptor.getPropertyType();
-
-            if (BusinessObject.class.isAssignableFrom(propertyClass)) {
-                return convertBoToUrl((BusinessObject) value);
-            }
-
-            if (Collection.class.isAssignableFrom(propertyClass)) {
-                Collection<?> collection = (Collection<?>) value;
-                Iterator<?> it = collection.iterator();
-                List<Object> newList = new ArrayList<Object>();
-                while (it.hasNext()) {
-                    Object item = it.next();
-                    if (item instanceof BusinessObject) {
-                        Map<String, Object> url = convertBoToUrl((BusinessObject) item);
-                        if (url != null) {
-                            newList.add(url);
-                        }
-                    } else {
-                        newList.add(item);
-                    }
-                }
-                return newList;
-            }
-
-            if (Date.class.isAssignableFrom(propertyClass)) {
-                return ((Date) value).getTime();
-            }
-
-            return value;
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            throw new ApiRequestException(Response.Status.INTERNAL_SERVER_ERROR, "Could not serialize business object to json", new ErrorMessage("Property could not be retrieved from business object", propertyDescriptor.getName()));
-        }
     }
 
     protected <T extends PersistableBusinessObject> T findBusinessObject(Class<T> boClass, String objectId) {
@@ -273,9 +190,10 @@ public class BusinessObjectApiResource {
         }
 
         List<Map<String, Object>> jsonResults = new ArrayList<>();
-        Map<String, Object> fields = findBusinessObjectFields(maintenanceDocumentEntry);
+        Map<String, Object> fields = SerializationService.findBusinessObjectFields(maintenanceDocumentEntry);
         for (PersistableBusinessObject bo : queryResults) {
-            Map<String, Object> jsonObject = businessObjectToJson(boClass, bo, fields);
+            Map<String, Object> jsonObject = SerializationService.businessObjectToJson(boClass, bo, fields, getPerson(),
+                                                getPersistenceStructureService(), getDataDictionaryService(), getBusinessObjectAuthorizationService());
             jsonResults.add(jsonObject);
             // TODO: Check authorization
         }
@@ -365,95 +283,6 @@ public class BusinessObjectApiResource {
         }
 
         return validParams;
-    }
-
-    protected <T extends PersistableBusinessObject> Map<String, Object> businessObjectToJson(Class<T> boClass, PersistableBusinessObject bo,
-                                                                                             Map<String, Object> fields) {
-
-
-
-        Map<String, Object> jsonObject = new LinkedHashMap<>();
-        for (String key : fields.keySet()) {
-            if (key.equals(FIELDS_KEY)) {
-                for (String field : (List<String>)fields.get(FIELDS_KEY)) {
-                    try {
-                        Object value = PropertyUtils.getProperty(bo, field);
-                        if (value != null) {
-                            final Object possiblyMaskedJsonValue = maskJsonValueIfNecessary(boClass.getSimpleName(), field, value);
-                            jsonObject.put(field, possiblyMaskedJsonValue);
-                        }
-                    } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                        throw new RuntimeException("Failed to get " + field + " from business object", e);
-                    }
-                }
-            } else {
-                try {
-                    if (getPersistenceStructureService().hasReference(boClass, key)) {
-                        bo.refreshReferenceObject(key);
-                    }
-                    PropertyDescriptor descriptor = PropertyUtils.getPropertyDescriptor(bo, key);
-                    if (PersistableBusinessObject.class.isAssignableFrom(descriptor.getPropertyType())) {
-                        PersistableBusinessObject childBusinessObject = (PersistableBusinessObject) PropertyUtils.getProperty(bo, key);
-                        if (!ObjectUtils.isNull(childBusinessObject)) {
-                            Map<String, Object> childSerialized = businessObjectToJson(childBusinessObject.getClass(),
-                                childBusinessObject, (Map<String, Object>) fields.get(key));
-                            jsonObject.put(key, childSerialized);
-                        }
-                    }
-                } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                    throw new RuntimeException("Could not retrieve child business object "+key, e);
-                }
-            }
-        }
-
-        jsonObject.put(KFSPropertyConstants.OBJECT_ID, bo.getObjectId());
-
-
-
-        return jsonObject;
-    }
-
-    protected Map<String, Object> findBusinessObjectFields(MaintenanceDocumentEntry maintenanceDocumentEntry) {
-        List<String> fields = new ArrayList<>();
-        List<MaintainableSectionDefinition> maintainableSections = maintenanceDocumentEntry.getMaintainableSections();
-        for (MaintainableSectionDefinition section : maintainableSections) {
-            List<MaintainableItemDefinition> itemDefinitions = section.getMaintainableItems();
-            for(MaintainableItemDefinition itemDefinition : itemDefinitions) {
-                if (itemDefinition instanceof MaintainableFieldDefinition) {
-                    fields.add(itemDefinition.getName());
-                }
-            }
-        }
-
-        return businessObjectFieldsToMap(fields);
-    }
-
-    protected Map<String, Object> businessObjectFieldsToMap(List<String> fields) {
-        Map<String, Object> fieldsMap = createBusinessObjectFieldsMap();
-        for (String field: fields) {
-            populateFieldsMapWithField(fieldsMap, field);
-        }
-        return fieldsMap;
-    }
-
-    protected void populateFieldsMapWithField(Map<String, Object> fieldsMap, String field) {
-        if (field.indexOf(".") < 0) {
-            ((List<String>)fieldsMap.get(FIELDS_KEY)).add(field);
-        } else {
-            final String head = field.substring(0, field.indexOf('.'));
-            final String tail = field.substring(field.indexOf('.') + 1);
-            Map<String, Object> childFieldsMap = fieldsMap.containsKey(head)
-                ? (Map<String, Object>)fieldsMap.get(head)
-                : createBusinessObjectFieldsMap();
-            fieldsMap.put(head, childFieldsMap);
-            populateFieldsMapWithField(childFieldsMap, tail);
-        }
-    }
-
-    protected Map<String, Object> createBusinessObjectFieldsMap() {
-        Map<String, Object> fieldsMap = new HashMap<>();
-        fieldsMap.put(FIELDS_KEY, new ArrayList<String>());
-        return fieldsMap;
     }
 
     protected Class<PersistableBusinessObject> determineClass(String moduleName, MaintenanceDocumentEntry maintenanceDocumentEntry) {

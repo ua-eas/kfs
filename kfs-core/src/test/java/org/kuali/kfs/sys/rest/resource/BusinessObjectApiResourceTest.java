@@ -35,6 +35,7 @@ import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.businessobject.OrganizationExtension;
 import org.kuali.kfs.fp.businessobject.Deposit;
 import org.kuali.kfs.fp.businessobject.DepositCashReceiptControl;
+import org.kuali.kfs.kns.datadictionary.MaintainableCollectionDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableItemDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
@@ -71,10 +72,13 @@ import org.kuali.kfs.sec.service.AccessSecurityService;
 import org.kuali.kfs.sec.service.impl.AccessSecurityServiceImpl;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
+import org.kuali.kfs.sys.businessobject.TaxRegionRate;
 import org.kuali.kfs.sys.businessobject.UnitOfMeasure;
 import org.kuali.kfs.sys.identity.TestPerson;
 import org.kuali.kfs.sys.rest.ErrorMessage;
 import org.kuali.kfs.sys.rest.exception.ApiRequestException;
+import org.kuali.kfs.sys.rest.helper.CollectionSerializationHelper;
+import org.kuali.kfs.sys.rest.service.SerializationService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.Formatter;
@@ -103,8 +107,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
-
-import static org.kuali.kfs.sys.rest.resource.BusinessObjectApiResource.FIELDS_KEY;
 
 @RunWith(PowerMockRunner.class)
 public class BusinessObjectApiResourceTest {
@@ -260,7 +262,7 @@ public class BusinessObjectApiResourceTest {
 
         addUnitOfMeasureMaintainbleSections();
 
-        EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService, maintenanceDocumentEntry, dataDictionary);
+        EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService, maintenanceDocumentEntry, dataDictionary, businessObjectAuthorizationService);
         PowerMock.replay(KRADServiceLocator.class);
         PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
         PowerMock.replay(KRADUtils.class);
@@ -270,9 +272,11 @@ public class BusinessObjectApiResourceTest {
         BusinessObjectApiResource.setAccessSecurityService(accessSecurityService);
         BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
         BusinessObjectApiResource.setConfigurationService(configurationService);
+        BusinessObjectApiResource.setPersistenceStructureService(persistenceStructureService);
+        BusinessObjectApiResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
 
         Response response = apiResource.findSingleBusinessObject(objectTypeName.toLowerCase(), "12345");
-        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService);
+        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService, businessObjectAuthorizationService);
         Assert.assertTrue("Should have returned OK", response.getStatus() == Status.OK.getStatusCode());
         Map<String, Object> entity = (Map<String, Object>) response.getEntity();
         BeanMap beanMap = new BeanMap(uom);
@@ -293,7 +297,7 @@ public class BusinessObjectApiResourceTest {
 
         EasyMock.expect(persistenceStructureService.hasReference(Organization.class, "organizationExtension")).andReturn(false).anyTimes();
 
-        EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService, maintenanceDocumentEntry, dataDictionary);
+        EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService, maintenanceDocumentEntry, dataDictionary, businessObjectAuthorizationService);
         PowerMock.replay(KRADServiceLocator.class);
         PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
         PowerMock.replay(KRADUtils.class);
@@ -304,9 +308,10 @@ public class BusinessObjectApiResourceTest {
         BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
         BusinessObjectApiResource.setConfigurationService(configurationService);
         BusinessObjectApiResource.setPersistenceStructureService(persistenceStructureService);
+        BusinessObjectApiResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
 
         Response response = apiResource.findSingleBusinessObject(objectTypeName.toLowerCase(), "12345");
-        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService);
+        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService, businessObjectAuthorizationService);
         Assert.assertTrue("Should have returned OK", response.getStatus() == Status.OK.getStatusCode());
         Map<String, Object> entity = (Map<String, Object>) response.getEntity();
         BeanMap beanMap = new BeanMap(org);
@@ -316,6 +321,12 @@ public class BusinessObjectApiResourceTest {
                 "organizationExtension.chartOfAccountsCode","organizationExtension.organizationCode",
                 "organizationExtension.hrmsCompany","organizationExtension.hrmsIuPositionAllowedFlag",
                 "organizationExtension.hrmsIuTenureAllowedFlag"));
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testBoWithCollectionReturned() throws Exception {
+        
     }
 
 //    @Test
@@ -391,6 +402,7 @@ public class BusinessObjectApiResourceTest {
         BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
         BusinessObjectApiResource.setConfigurationService(configurationService);
         BusinessObjectApiResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
+        BusinessObjectApiResource.setPersistenceStructureService(persistenceStructureService);
 
         Response response = apiResource.findSingleBusinessObject(objectTypeName.toLowerCase(), "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, businessObjectAuthorizationService, persistenceStructureService, dataDictionaryService, dataDictionary, permissionService, accessSecurityService, userSession, configurationService, maintenanceDocumentEntry);
@@ -899,25 +911,51 @@ public class BusinessObjectApiResourceTest {
             "organization.responsibilityCenter.responsibilityCenterName2"
         );
 
-        Map<String, Object> results = apiResource.businessObjectFieldsToMap(fields);
+        Map<String, Object> results = SerializationService.businessObjectFieldsToMap(fields);
         Assert.assertEquals(2, results.size());
-        Assert.assertEquals(1, ((List<String>)results.get(FIELDS_KEY)).size());
-        Assert.assertEquals("accountName", ((List<String>)results.get(FIELDS_KEY)).get(0));
+        Assert.assertEquals(1, ((List<String>)results.get(SerializationService.FIELDS_KEY)).size());
+        Assert.assertEquals("accountName", ((List<String>)results.get(SerializationService.FIELDS_KEY)).get(0));
         Map<String, Object> organization = (Map<String, Object>)results.get("organization");
         Assert.assertEquals(2, organization.size());
-        Assert.assertEquals(2, ((List<String>)organization.get(FIELDS_KEY)).size());
-        Assert.assertEquals("responsibilityCenterCode", ((List<String>)organization.get(FIELDS_KEY)).get(0));
+        Assert.assertEquals(2, ((List<String>)organization.get(SerializationService.FIELDS_KEY)).size());
+        Assert.assertEquals("responsibilityCenterCode", ((List<String>)organization.get(SerializationService.FIELDS_KEY)).get(0));
         Map<String, Object> responsibilityCenter = (Map<String, Object>)organization.get("responsibilityCenter");
         Assert.assertEquals(1, responsibilityCenter.size());
-        Assert.assertEquals(2, ((List<String>)responsibilityCenter.get(FIELDS_KEY)).size());
-        Assert.assertEquals("responsibilityCenterName", ((List<String>)responsibilityCenter.get(FIELDS_KEY)).get(0));
+        Assert.assertEquals(2, ((List<String>)responsibilityCenter.get(SerializationService.FIELDS_KEY)).size());
+        Assert.assertEquals("responsibilityCenterName", ((List<String>)responsibilityCenter.get(SerializationService.FIELDS_KEY)).get(0));
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class, LookupUtils.class})
+    public void testFindBusinessObjectFields() {
+        addTaxRegionMaintainbleSections();
+        EasyMock.replay(maintenanceDocumentEntry);
+        Map<String, Object> fields = SerializationService.findBusinessObjectFields(maintenanceDocumentEntry);
+        Assert.assertEquals(2, fields.size());
+        Assert.assertEquals(8, ((List<String>)fields.get(SerializationService.FIELDS_KEY)).size());
+        Assert.assertEquals("taxRegionCode", ((List<String>)fields.get(SerializationService.FIELDS_KEY)).get(0));
+        List<CollectionSerializationHelper> serializationHelpers = (List< CollectionSerializationHelper>)fields.get(SerializationService.COLLECTIONS_KEY);
+        Assert.assertEquals(1, serializationHelpers.size());
+        CollectionSerializationHelper serializationHelper = serializationHelpers.get(0);
+        Assert.assertEquals("taxRegionRates", serializationHelper.getCollectionName());
+        Assert.assertEquals(3, serializationHelper.getFields().size());
+        Assert.assertEquals(2, serializationHelper.getTranslatedFields().size());
+        List<String> collectionTopLevelFields = (List<String>)serializationHelper.getTranslatedFields().get(SerializationService.FIELDS_KEY);
+        Assert.assertEquals(2, collectionTopLevelFields.size());
+        Assert.assertEquals("effectiveDate", collectionTopLevelFields.get(0));
+        Map<String, Object> taxRate = (Map<String, Object>)serializationHelper.getTranslatedFields().get("taxRate");
+        Assert.assertEquals(1, taxRate.size());
+        List<String> taxRateTopLevelFields = (List<String>)taxRate.get(SerializationService.FIELDS_KEY);
+        Assert.assertEquals(1, taxRateTopLevelFields.size());
+        Assert.assertEquals("name", taxRateTopLevelFields.get(0));
+        EasyMock.verify(maintenanceDocumentEntry);
     }
 
     private void addUnitOfMeasureMaintainbleSections() {
         List<MaintainableSectionDefinition> maintainableSections = new ArrayList<>();
         MaintainableSectionDefinition maintainableSectionDefinition = new MaintainableSectionDefinition();
         maintainableSections.add(maintainableSectionDefinition);
-        List<MaintainableItemDefinition> maintainableItemDefinitions = createFieldDefinitions("itemUnitOfMeasureCode",
+        List<MaintainableItemDefinition> maintainableItemDefinitions = createItemDefinitions("itemUnitOfMeasureCode",
             "itemUnitOfMeasureDescription","active");
         MaintainableItemDefinition itemDef = new MaintainableSubSectionHeaderDefinition();
         itemDef.setName("I should not be here!");
@@ -930,7 +968,7 @@ public class BusinessObjectApiResourceTest {
         List<MaintainableSectionDefinition> maintainableSections = new ArrayList<>();
         MaintainableSectionDefinition maintainableSectionDefinition = new MaintainableSectionDefinition();
         maintainableSections.add(maintainableSectionDefinition);
-        List<MaintainableItemDefinition> maintainableItemDefinitions = createFieldDefinitions("bankCode",
+        List<MaintainableItemDefinition> maintainableItemDefinitions = createItemDefinitions("bankCode",
             "bankName","bankRoutingNumber","bankAccountNumber");
         maintainableSectionDefinition.setMaintainableItems(maintainableItemDefinitions);
         EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
@@ -940,7 +978,7 @@ public class BusinessObjectApiResourceTest {
         List<MaintainableSectionDefinition> maintainableSections = new ArrayList<>();
         MaintainableSectionDefinition maintainableSectionDefinition = new MaintainableSectionDefinition();
         maintainableSections.add(maintainableSectionDefinition);
-        List<MaintainableItemDefinition> maintainableItemDefinitions = createFieldDefinitions("chartOfAccountsCode",
+        List<MaintainableItemDefinition> maintainableItemDefinitions = createItemDefinitions("chartOfAccountsCode",
             "organizationCode","responsibilityCenterCode","organizationName",
             "organizationExtension.chartOfAccountsCode","organizationExtension.organizationCode",
             "organizationExtension.hrmsCompany","organizationExtension.hrmsIuPositionAllowedFlag",
@@ -949,14 +987,47 @@ public class BusinessObjectApiResourceTest {
         EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
     }
 
-    private void addFieldDefinition(List<MaintainableItemDefinition> maintainableItemDefinitions, String fieldName) {
+    private void addTaxRegionMaintainbleSections() {
+        List<MaintainableSectionDefinition> maintainableSections = new ArrayList<>();
+        MaintainableSectionDefinition maintainableSectionDefinition = new MaintainableSectionDefinition();
+        maintainableSections.add(maintainableSectionDefinition);
+        List<MaintainableItemDefinition> maintainableItemDefinitions = createItemDefinitions("taxRegionCode",
+            "taxRegionName","taxRegionTypeCode","chartOfAccountsCode", "accountNumber","financialObjectCode",
+            "taxRegionUseTaxIndicator","active");
+
+        MaintainableCollectionDefinition maintainableCollectionDefinition = new MaintainableCollectionDefinition();
+        maintainableCollectionDefinition.setName("taxRegionRates");
+        maintainableCollectionDefinition.setBusinessObjectClass(TaxRegionRate.class);
+        List<MaintainableFieldDefinition> taxRegionRatesFieldDefinitions = createFieldDefinitions("effectiveDate","taxRateCode","taxRate.name");
+
+        maintainableCollectionDefinition.setMaintainableFields(taxRegionRatesFieldDefinitions);
+        maintainableItemDefinitions.add(maintainableCollectionDefinition);
+        maintainableSectionDefinition.setMaintainableItems(maintainableItemDefinitions);
+        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
+    }
+
+    private void addItemDefinition(List<MaintainableItemDefinition> maintainableItemDefinitions, String fieldName) {
         MaintainableItemDefinition itemDef = new MaintainableFieldDefinition();
         itemDef.setName(fieldName);
         maintainableItemDefinitions.add(itemDef);
     }
 
-    private List<MaintainableItemDefinition> createFieldDefinitions(String... fieldNames) {
+    private List<MaintainableItemDefinition> createItemDefinitions(String... fieldNames) {
         List<MaintainableItemDefinition> maintainableItemDefinitions = new ArrayList<>();
+        for (String fieldName : fieldNames) {
+            addItemDefinition(maintainableItemDefinitions, fieldName);
+        }
+        return maintainableItemDefinitions;
+    }
+
+    private void addFieldDefinition(List<MaintainableFieldDefinition> maintainableItemDefinitions, String fieldName) {
+        MaintainableFieldDefinition itemDef = new MaintainableFieldDefinition();
+        itemDef.setName(fieldName);
+        maintainableItemDefinitions.add(itemDef);
+    }
+
+    private List<MaintainableFieldDefinition> createFieldDefinitions(String... fieldNames) {
+        List<MaintainableFieldDefinition> maintainableItemDefinitions = new ArrayList<>();
         for (String fieldName : fieldNames) {
             addFieldDefinition(maintainableItemDefinitions, fieldName);
         }
