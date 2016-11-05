@@ -53,7 +53,6 @@ import java.util.Map;
  * if two records in the collection are the same based on the
  * duplicateIdentificationFields element.
  */
-@Deprecated
 public class MaintainableCollectionDefinition extends MaintainableItemDefinition implements CollectionDefinitionI {
     private static final long serialVersionUID = -5617868782623587053L;
 
