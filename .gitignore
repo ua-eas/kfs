@@ -2,6 +2,7 @@
 .classpath
 .project
 .settings/
+.recommenders
 # ignore intellij
 .metadata
 .idea
