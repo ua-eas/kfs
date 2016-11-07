@@ -18,10 +18,8 @@
  */
 package org.kuali.kfs.sys.rest.resource;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry;
-import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
@@ -38,8 +36,7 @@ import org.kuali.kfs.sec.service.AccessSecurityService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.rest.ErrorMessage;
-import org.kuali.kfs.sys.rest.exception.ApiRequestException;
+import org.kuali.kfs.sys.rest.service.SearchParameterService;
 import org.kuali.kfs.sys.rest.service.SerializationService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.KimConstants;
@@ -59,14 +56,12 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Path("reference/{documentTypeName}")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -167,12 +162,12 @@ public class BusinessObjectApiResource {
     protected <T extends PersistableBusinessObject> Map<String, Object> searchBusinessObjects(Class<T> boClass, UriInfo uriInfo,
                                                                                               MaintenanceDocumentEntry maintenanceDocumentEntry) {
         MultivaluedMap<String, String> params = uriInfo.getQueryParameters();
-        Map<String, String> queryCriteria = getSearchQueryCriteria(boClass, params);
+        Map<String, String> queryCriteria = SearchParameterService.getSearchQueryCriteria(boClass, params, getPersistenceStructureService());
 
-        int skip = getIntQueryParameter(KFSConstants.Search.SKIP, params);
-        int limit = getLimit(boClass, params);
+        int skip = SearchParameterService.getIntQueryParameter(KFSConstants.Search.SKIP, params);
+        int limit = SearchParameterService.getLimit(boClass, params);
 
-        String[] orderBy = getSortCriteria(boClass, params);
+        String[] orderBy = SearchParameterService.getSortCriteria(boClass, params, getPersistenceStructureService());
 
         Map<String, Object> results = new HashMap<>();
         results.put(KFSConstants.Search.SORT, orderBy);
@@ -198,89 +193,6 @@ public class BusinessObjectApiResource {
 
         results.put(KFSConstants.Search.RESULTS, jsonResults);
         return results;
-    }
-
-    protected <T extends PersistableBusinessObject> int getLimit(Class<T> boClass, MultivaluedMap<String, String> params) {
-        int limit = getIntQueryParameter(KFSConstants.Search.LIMIT, params);
-        if (limit <= 0) {
-            limit = LookupUtils.getSearchResultsLimit(boClass);
-            if (limit <= 0) {
-                limit = LookupUtils.getApplicationSearchResultsLimit();
-            }
-        }
-        return limit;
-    }
-
-    protected <T extends PersistableBusinessObject> String[] getSortCriteria(Class<T> boClass, MultivaluedMap<String, String> params) {
-        final List<String> ojbFields = getPersistenceStructureService().listFieldNames(boClass);
-
-        String orderByString = params.getFirst(KFSConstants.Search.SORT);
-        if (orderByString != null) {
-            List<ErrorMessage> errorMessages = new ArrayList<>();
-            List<String> validSortFields = new ArrayList<>();
-            String[] orderBy = orderByString.split(",");
-            for (String sort : orderBy) {
-                String cleanSort = sort.replaceFirst("^-", "");
-                if (ojbFields.contains(cleanSort)) {
-                    validSortFields.add(sort);
-                } else {
-                    LOG.debug("invalid sort field: " + sort);
-                    errorMessages.add(new ErrorMessage("invalid sort field", sort));
-                }
-            }
-
-            if (errorMessages.size() > 0) {
-                throw new ApiRequestException("Invalid Search Criteria", errorMessages);
-            }
-
-            return validSortFields.toArray(new String[]{});
-        } else {
-            final List<String> ojbPrimaryKeys = getPersistenceStructureService().listPrimaryKeyFieldNames(boClass);
-            if (!CollectionUtils.isEmpty(ojbPrimaryKeys)) {
-                return ojbPrimaryKeys.toArray(new String[] {});
-            } else if (ojbFields.contains("objectId")){
-                return new String[]{"objectId"};
-            }
-        }
-
-        return new String[] { ojbFields.get(0) }; // no other fields to check from...let's just sort on the first ojb column
-    }
-
-    protected int getIntQueryParameter(String name, MultivaluedMap<String, String> params) {
-        String paramString = params.getFirst(name);
-        if (StringUtils.isNotBlank(paramString)) {
-            try {
-                return Integer.parseInt(paramString);
-            } catch (NumberFormatException nfe) {
-                LOG.debug(name + " parameter is not a number", nfe);
-                throw new ApiRequestException("Invalid Search Criteria", new ErrorMessage("parameter is not a number", name));
-            }
-        }
-        return 0;
-    }
-
-    protected <T extends PersistableBusinessObject> Map<String, String> getSearchQueryCriteria(Class<T> boClass, MultivaluedMap<String, String> params) {
-        List<String> reservedParams = Arrays.asList(KFSConstants.Search.SORT, KFSConstants.Search.LIMIT, KFSConstants.Search.SKIP);
-        List<String> ojbFields = getPersistenceStructureService().listFieldNames(boClass);
-        List<ErrorMessage> errorMessages = new ArrayList<>();
-        Map<String, String> validParams = params.entrySet().stream()
-            .filter(entry -> !reservedParams.contains(entry.getKey().toLowerCase()))
-            .filter(entry -> {
-                if(ojbFields.contains(entry.getKey())) {
-                    return true;
-                }
-
-                LOG.debug("invalid query parameter name: " + entry.getKey());
-                errorMessages.add(new ErrorMessage("invalid query parameter name", entry.getKey()));
-                return false;
-            })
-            .collect(Collectors.toMap(entry -> entry.getKey(), entry -> params.getFirst(entry.getKey())));
-
-        if (errorMessages.size() > 0) {
-            throw new ApiRequestException("Invalid Search Criteria", errorMessages);
-        }
-
-        return validParams;
     }
 
     protected Class<PersistableBusinessObject> determineClass(String moduleName, MaintenanceDocumentEntry maintenanceDocumentEntry) {
