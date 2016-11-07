@@ -66,10 +66,10 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.businessobject.UnitOfMeasure;
 import org.kuali.kfs.sys.identity.TestPerson;
+import org.kuali.kfs.sys.rest.BusinessObjectApiResourceTestHelper;
 import org.kuali.kfs.sys.rest.ErrorMessage;
 import org.kuali.kfs.sys.rest.exception.ApiRequestException;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.common.template.Template;
@@ -97,6 +97,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
+
 @RunWith(PowerMockRunner.class)
 public class BusinessObjectResourceTest {
 
@@ -113,9 +114,9 @@ public class BusinessObjectResourceTest {
     private AccessSecurityService accessSecurityService;
     private UserSession userSession;
     private Date now = new Date(System.currentTimeMillis());
-    private Deposit deposit = getDeposit();
-    private UnitOfMeasure uom = getUom();
-    private Bank bank = getBank();
+    private Deposit deposit = BusinessObjectApiResourceTestHelper.getDeposit(now);
+    private UnitOfMeasure uom = BusinessObjectApiResourceTestHelper.getUom();
+    private Bank bank = BusinessObjectApiResourceTestHelper.getBank();
     private Person testPerson = new TestPerson("testPrincipalId", "testPrincipalName");
 
     @Rule
@@ -198,7 +199,7 @@ public class BusinessObjectResourceTest {
         String className = "UnitOfMeasure";
         Class clazz = UnitOfMeasure.class;
         String namespaceCode = "KFS-SYS";
-        Collection collection = Arrays.asList(getUom());
+        Collection collection = Arrays.asList(BusinessObjectApiResourceTestHelper.getUom());
 
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(moduleConfig).anyTimes();
@@ -242,7 +243,7 @@ public class BusinessObjectResourceTest {
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testSimpleBoReturned() throws Exception {
-        commonSingleBusinessObjectTestPrep(UnitOfMeasure.class, "KFS-SYS", () -> getUom(), getModuleConfiguration());
+        commonSingleBusinessObjectTestPrep(UnitOfMeasure.class, "KFS-SYS", () -> BusinessObjectApiResourceTestHelper.getUom(), getModuleConfiguration());
 
         EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService);
         PowerMock.replay(KRADServiceLocator.class);
@@ -267,7 +268,7 @@ public class BusinessObjectResourceTest {
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testComplexBoReturned() throws Exception {
-        commonSingleBusinessObjectTestPrep(Deposit.class, "KFS-FP", () -> getDeposit(), getFpModuleConfiguration());
+        commonSingleBusinessObjectTestPrep(Deposit.class, "KFS-FP", () -> BusinessObjectApiResourceTestHelper.getDeposit(now), getFpModuleConfiguration());
         EasyMock.expect(dataDictionaryService.getAttributeDefinition(Deposit.class.getSimpleName(), EasyMock.anyString())).andReturn(null).anyTimes();
 
         EasyMock.expect(dataDictionary.getBusinessObjectEntryForConcreteClass(DepositCashReceiptControl.class.getName()))
@@ -312,7 +313,7 @@ public class BusinessObjectResourceTest {
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testSimpleMaskedBoReturned() throws Exception {
-        commonSingleBusinessObjectTestPrep(Bank.class, "KFS-SYS", () -> getBank(), getModuleConfiguration());
+        commonSingleBusinessObjectTestPrep(Bank.class, "KFS-SYS", () -> BusinessObjectApiResourceTestHelper.getBank(), getModuleConfiguration());
 
         EasyMock.expect(businessObjectAuthorizationService.isNonProductionEnvAndUnmaskingTurnedOff()).andReturn(false).anyTimes();
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).anyTimes();
@@ -646,7 +647,7 @@ public class BusinessObjectResourceTest {
         Map<String, String> queryCriteria = new HashMap<>();
         queryCriteria.put("bankCode", "FW");
 
-        commonMultipleBusinessObjectTestPrep(Bank.class, () -> getBank(), queryCriteria, 1, 1, new String[] { "bankCode" });
+        commonMultipleBusinessObjectTestPrep(Bank.class, () -> BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, new String[] { "bankCode" });
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("bankCode", "FW");
@@ -886,45 +887,6 @@ public class BusinessObjectResourceTest {
         PowerMock.expectLastCall();
         EasyMock.expect(persistenceStructureService.isPersistable(clazz)).andReturn(true).anyTimes();
         EasyMock.expect(persistenceStructureService.getBusinessObjectAttributeClass(clazz, "extension")).andReturn(null).anyTimes();
-    }
-
-    private UnitOfMeasure getUom() {
-        UnitOfMeasure uom = new UnitOfMeasure();
-        uom.setItemUnitOfMeasureCode("DEV");
-        uom.setItemUnitOfMeasureDescription("Developer");
-        return uom;
-    }
-
-    private Deposit getDeposit() {
-        Deposit deposit = new Deposit();
-        deposit.setDepositBankCode("FellsWargo");
-        Bank bank = new Bank();
-        bank.setObjectId("B123");
-        deposit.setBank(bank);
-        deposit.setDepositDate(now);
-        deposit.setDepositAmount(new KualiDecimal(100.02));
-
-        DepositCashReceiptControl receiptControl1 = new DepositCashReceiptControl();
-        receiptControl1.setObjectId("DC001");
-        DepositCashReceiptControl receiptControl2 = new DepositCashReceiptControl();
-        receiptControl2.setObjectId("DC002");
-        deposit.getDepositCashReceiptControl().add(receiptControl1);
-        deposit.getDepositCashReceiptControl().add(receiptControl2);
-        return deposit;
-    }
-
-    private Bank getBank() {
-        Bank bank = new Bank();
-        bank.setBankCode("FW");
-        bank.setBankName("Fells Wargo");
-        bank.setBankRoutingNumber("7777444477774444");
-        bank.setBankAccountNumber("3333666644447777");
-        bank.setObjectId("BK12345");
-        return bank;
-    }
-
-    private Object getEmpty() {
-        return null;
     }
 
     private Map<String, String> makeMap(String namespaceCode, String className) {
