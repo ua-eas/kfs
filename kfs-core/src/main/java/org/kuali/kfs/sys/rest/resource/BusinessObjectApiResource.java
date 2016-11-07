@@ -161,13 +161,15 @@ public class BusinessObjectApiResource {
 
     protected <T extends PersistableBusinessObject> Map<String, Object> searchBusinessObjects(Class<T> boClass, UriInfo uriInfo,
                                                                                               MaintenanceDocumentEntry maintenanceDocumentEntry) {
+        Map<String, Object> fields = SerializationService.findBusinessObjectFields(maintenanceDocumentEntry);
+
         MultivaluedMap<String, String> params = uriInfo.getQueryParameters();
-        Map<String, String> queryCriteria = SearchParameterService.getSearchQueryCriteria(boClass, params, getPersistenceStructureService());
+        Map<String, String> queryCriteria = SearchParameterService.getSearchQueryCriteria(params, (List<String>)fields.get(SerializationService.FIELDS_KEY));
 
         int skip = SearchParameterService.getIntQueryParameter(KFSConstants.Search.SKIP, params);
         int limit = SearchParameterService.getLimit(boClass, params);
 
-        String[] orderBy = SearchParameterService.getSortCriteria(boClass, params, getPersistenceStructureService());
+        String[] orderBy = SearchParameterService.getSortCriteria(params, (List<String>)fields.get(SerializationService.FIELDS_KEY));
 
         Map<String, Object> results = new HashMap<>();
         results.put(KFSConstants.Search.SORT, orderBy);
@@ -183,7 +185,6 @@ public class BusinessObjectApiResource {
         }
 
         List<Map<String, Object>> jsonResults = new ArrayList<>();
-        Map<String, Object> fields = SerializationService.findBusinessObjectFields(maintenanceDocumentEntry);
         for (PersistableBusinessObject bo : queryResults) {
             Map<String, Object> jsonObject = SerializationService.businessObjectToJson(boClass, bo, fields, getPerson(),
                                                 getPersistenceStructureService(), getDataDictionaryService(), getBusinessObjectAuthorizationService());
