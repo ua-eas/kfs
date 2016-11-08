@@ -31,7 +31,6 @@ import org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry;
 import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
 import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.DataDictionaryService;
@@ -62,7 +61,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 
 @RunWith(PowerMockRunner.class)
 public class BusinessObjectApiResourceMultipleObjectsTest {
@@ -102,7 +100,7 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         Map<String, String> queryCriteria = new HashMap<>();
         queryCriteria.put("bankCode", "FW");
 
-        commonMultipleBankBusinessObjectTestPrep(() -> BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, new String[] { "bankCode" });
+        commonMultipleBankBusinessObjectTestPrep(BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, new String[] { "bankCode" });
 
         List<MaintainableSectionDefinition> maintainableSections = BusinessObjectApiResourceTestHelper.createBankMaintainbleSections();
         EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
@@ -258,7 +256,7 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         Map<String, String> queryCriteria = new HashMap<>();
         queryCriteria.put("bankCode", "FW");
 
-        commonMultipleBankBusinessObjectTestPrep(() -> BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, new String[]{"bankCode"});
+        commonMultipleBankBusinessObjectTestPrep(BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, new String[]{"bankCode"});
 
         List<MaintainableSectionDefinition> maintainableSections = BusinessObjectApiResourceTestHelper.createBankMaintainbleSections();
         EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
@@ -410,15 +408,14 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         EasyMock.verify(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession);
     }
 
-    private void commonMultipleBankBusinessObjectTestPrep(Supplier<? extends PersistableBusinessObject> boSupplier, Map<String, String> queryCriteria, int skip, int limit, String[] sort) {
+    private void commonMultipleBankBusinessObjectTestPrep(Bank result, Map<String, String> queryCriteria, int skip, int limit, String[] sort) {
         String className = Bank.class.getSimpleName();
 
-        PersistableBusinessObject result;
         List<Bank> collection = new ArrayList<>();
-        if (boSupplier != null) {
-            result = boSupplier.get();
-            collection.add((Bank)result);
+        if (result != null) {
+            collection.add(result);
         }
+
         EasyMock.expect(businessObjectService.countMatching(Bank.class, queryCriteria)).andReturn(collection.size());
         EasyMock.expect(businessObjectService.findMatching(EasyMock.eq(Bank.class), EasyMock.eq(queryCriteria), EasyMock.eq(skip), EasyMock.eq(limit), EasyMock.aryEq(sort))).andReturn(collection);
 

@@ -95,7 +95,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 
@@ -244,7 +243,7 @@ public class BusinessObjectResourceTest {
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testSimpleBoReturned() throws Exception {
-        commonSingleBusinessObjectTestPrep(UnitOfMeasure.class, "KFS-SYS", () -> BusinessObjectApiResourceTestHelper.getUom(), getModuleConfiguration());
+        commonSingleBusinessObjectTestPrep(UnitOfMeasure.class, "KFS-SYS", BusinessObjectApiResourceTestHelper.getUom(), getModuleConfiguration());
 
         EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, permissionService, accessSecurityService, userSession, configurationService);
         PowerMock.replay(KRADServiceLocator.class);
@@ -269,7 +268,7 @@ public class BusinessObjectResourceTest {
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testComplexBoReturned() throws Exception {
-        commonSingleBusinessObjectTestPrep(Deposit.class, "KFS-FP", () -> BusinessObjectApiResourceTestHelper.getDeposit(now), getFpModuleConfiguration());
+        commonSingleBusinessObjectTestPrep(Deposit.class, "KFS-FP", BusinessObjectApiResourceTestHelper.getDeposit(now), getFpModuleConfiguration());
         EasyMock.expect(dataDictionaryService.getAttributeDefinition(Deposit.class.getSimpleName(), EasyMock.anyString())).andReturn(null).anyTimes();
 
         EasyMock.expect(dataDictionary.getBusinessObjectEntryForConcreteClass(DepositCashReceiptControl.class.getName()))
@@ -314,7 +313,7 @@ public class BusinessObjectResourceTest {
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
     public void testSimpleMaskedBoReturned() throws Exception {
-        commonSingleBusinessObjectTestPrep(Bank.class, "KFS-SYS", () -> BusinessObjectApiResourceTestHelper.getBank(), getModuleConfiguration());
+        commonSingleBusinessObjectTestPrep(Bank.class, "KFS-SYS", BusinessObjectApiResourceTestHelper.getBank(), getModuleConfiguration());
 
         EasyMock.expect(businessObjectAuthorizationService.isNonProductionEnvAndUnmaskingTurnedOff()).andReturn(false).anyTimes();
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).anyTimes();
@@ -650,7 +649,7 @@ public class BusinessObjectResourceTest {
         Map<String, String> queryCriteria = new HashMap<>();
         queryCriteria.put("bankCode", "FW");
 
-        commonMultipleBusinessObjectTestPrep(Bank.class, () -> BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, new String[] { "bankCode" });
+        commonMultipleBankBusinessObjectTestPrep(BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, new String[] { "bankCode" });
         EasyMock.expect(kualiModuleService.getResponsibleModuleService(Chart.class)).andReturn(moduleService);
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(BusinessObjectApiResourceTestHelper.getCoaModuleConfiguration(dataDictionaryService));
         EasyMock.expect(dataDictionary.getBusinessObjectEntryForConcreteClass("org.kuali.kfs.coa.businessobject.Chart")).andReturn(null);
@@ -701,7 +700,7 @@ public class BusinessObjectResourceTest {
         Map<String, String> queryCriteria = new HashMap<>();
         queryCriteria.put("bankCode", "FW");
 
-        commonMultipleBusinessObjectTestPrep(Bank.class, null, queryCriteria, 2, 3, new String[] { "bankCode" });
+        commonMultipleBankBusinessObjectTestPrep(null, queryCriteria, 2, 3, new String[] { "bankCode" });
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("bankCode", "FW");
@@ -748,7 +747,7 @@ public class BusinessObjectResourceTest {
         Map<String, String> queryCriteria = new HashMap<>();
         queryCriteria.put("bankCode", "FW");
 
-        commonMultipleBusinessObjectTestPrep(Bank.class, null, queryCriteria, 0, 200, new String[] { "bankCode" });
+        commonMultipleBankBusinessObjectTestPrep(null, queryCriteria, 0, 200, new String[] { "bankCode" });
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("bankCode", "FW");
@@ -835,9 +834,8 @@ public class BusinessObjectResourceTest {
         PowerMock.verify(LookupUtils.class);
     }
 
-    private void commonSingleBusinessObjectTestPrep(Class clazz, String namespaceCode, Supplier<? extends PersistableBusinessObject> boSupplier, ModuleConfiguration moduleConfig) {
+    private void commonSingleBusinessObjectTestPrep(Class clazz, String namespaceCode, PersistableBusinessObject result, ModuleConfiguration moduleConfig) {
         String className = clazz.getSimpleName();
-        PersistableBusinessObject result = boSupplier.get();
         List<? extends PersistableBusinessObject> collection = Arrays.asList(result);
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(moduleConfig).anyTimes();
@@ -863,16 +861,14 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(persistenceStructureService.getBusinessObjectAttributeClass(clazz, "extension")).andReturn(null);
     }
 
-    private void commonMultipleBusinessObjectTestPrep(Class clazz, Supplier<? extends PersistableBusinessObject> boSupplier, Map<String, String> queryCriteria, int skip, int limit, String[] sort) {
-        String className = clazz.getSimpleName();
+    private void commonMultipleBankBusinessObjectTestPrep(Bank result, Map<String, String> queryCriteria, int skip, int limit, String[] sort) {
+        String className = Bank.class.getSimpleName();
 
-        PersistableBusinessObject result = null;
         List<Bank> collection = new ArrayList<>();
-        if (boSupplier != null) {
-            result = boSupplier.get();
-            collection.add((Bank)result);
+        if (result != null) {
+            collection.add(result);
         }
-        EasyMock.expect(businessObjectService.countMatching(clazz, queryCriteria)).andReturn(collection.size());
+        EasyMock.expect(businessObjectService.countMatching(Bank.class, queryCriteria)).andReturn(collection.size());
         EasyMock.expect(businessObjectService.findMatching(EasyMock.eq(Bank.class), EasyMock.eq(queryCriteria), EasyMock.eq(skip), EasyMock.eq(limit), EasyMock.aryEq(sort))).andReturn(collection);
 
         EasyMock.expect(businessObjectAuthorizationService.isNonProductionEnvAndUnmaskingTurnedOff()).andReturn(false).anyTimes();
@@ -884,16 +880,16 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(userSession.getPerson()).andReturn(testPerson).anyTimes();
 
         List<String> validFields = Arrays.asList("objectId", "bankCode", "bankName", "bankRountingNumber", "bankAccountNumber");
-        EasyMock.expect(persistenceStructureService.listFieldNames(clazz)).andReturn(validFields).anyTimes();
+        EasyMock.expect(persistenceStructureService.listFieldNames(Bank.class)).andReturn(validFields).anyTimes();
 
         List<String> primaryKeyFields = Arrays.asList("bankCode");
-        EasyMock.expect(persistenceStructureService.listPrimaryKeyFieldNames(clazz)).andReturn(primaryKeyFields).once();
+        EasyMock.expect(persistenceStructureService.listPrimaryKeyFieldNames(Bank.class)).andReturn(primaryKeyFields).once();
 
         EasyMock.expect(KRADServiceLocator.getPersistenceStructureService()).andReturn(persistenceStructureService).anyTimes();
         org.kuali.kfs.krad.util.ObjectUtils.materializeSubObjectsToDepth(result, 3);
         PowerMock.expectLastCall();
-        EasyMock.expect(persistenceStructureService.isPersistable(clazz)).andReturn(true).anyTimes();
-        EasyMock.expect(persistenceStructureService.getBusinessObjectAttributeClass(clazz, "extension")).andReturn(null).anyTimes();
+        EasyMock.expect(persistenceStructureService.isPersistable(Bank.class)).andReturn(true).anyTimes();
+        EasyMock.expect(persistenceStructureService.getBusinessObjectAttributeClass(Bank.class, "extension")).andReturn(null).anyTimes();
     }
 
     private Map<String, String> makeMap(String namespaceCode, String className) {
@@ -916,17 +912,8 @@ public class BusinessObjectResourceTest {
     private ModuleConfiguration getModuleConfiguration() {
         ModuleConfiguration result = new ModuleConfiguration();
         result.setNamespaceCode("KFS-SYS");
-        result.setPackagePrefixes(new ArrayList<String>());
+        result.setPackagePrefixes(new ArrayList<>());
         result.getPackagePrefixes().add("org.kuali.kfs.sys");
-        result.setDataDictionaryService(dataDictionaryService);
-        return result;
-    }
-
-    private ModuleConfiguration getCoaModuleConfiguration() {
-        ModuleConfiguration result = new ModuleConfiguration();
-        result.setNamespaceCode("KFS-COA");
-        result.setPackagePrefixes(new ArrayList<String>());
-        result.getPackagePrefixes().add("org.kuali.kfs.coa");
         result.setDataDictionaryService(dataDictionaryService);
         return result;
     }
@@ -934,14 +921,14 @@ public class BusinessObjectResourceTest {
     private ModuleConfiguration getFpModuleConfiguration() {
         ModuleConfiguration result = new ModuleConfiguration();
         result.setNamespaceCode("KFS-FP");
-        result.setPackagePrefixes(new ArrayList<String>());
+        result.setPackagePrefixes(new ArrayList<>());
         result.getPackagePrefixes().add("org.kuali.kfs.fp");
         result.setDataDictionaryService(dataDictionaryService);
         return result;
     }
 
     private List<ModuleService> getInstalledModuleServices() {
-        List<ModuleService> result = new ArrayList<ModuleService>();
+        List<ModuleService> result = new ArrayList<>();
         result.add(moduleService);
         return result;
     }
@@ -950,10 +937,6 @@ public class BusinessObjectResourceTest {
         BusinessObjectEntry result = new BusinessObjectEntry();
         result.setBusinessObjectClass(clazz);
         return result;
-    }
-
-    private Person getPerson() {
-        return new TestPerson("testPrincipalId", "testPrincipalName");
     }
 
     class MockDataDictionaryService implements DataDictionaryService {
