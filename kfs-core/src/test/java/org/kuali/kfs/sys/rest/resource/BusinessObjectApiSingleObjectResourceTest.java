@@ -360,54 +360,6 @@ public class BusinessObjectApiSingleObjectResourceTest {
         }
     }
 
-//    @Test
-//    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
-//    public void testComplexBoReturned() throws Exception {
-//        apiResource = new BusinessObjectApiResource("fp");
-//        String documentTypeName = "DPST";
-//        commonSingleBusinessObjectTestPrep(Deposit.class, documentTypeName, "KFS-FP", () -> getDeposit(), getFpModuleConfiguration());
-//
-//        EasyMock.expect(maintenanceDocumentEntry.getDocumentTypeName()).andReturn("BANK");
-//        EasyMock.expect(dataDictionary.getMaintenanceDocumentEntryForBusinessObjectClass(Bank.class)).andReturn((MaintenanceDocumentEntry)maintenanceDocumentEntry);
-//        MaintenanceDocumentEntry dcrMaintDocEntry = EasyMock.createMock(MaintenanceDocumentEntry.class);
-//        EasyMock.expect(dcrMaintDocEntry.getDocumentTypeName()).andReturn("DCRC").times(2);
-//        EasyMock.expect(dataDictionary.getMaintenanceDocumentEntryForBusinessObjectClass(DepositCashReceiptControl.class)).andReturn((MaintenanceDocumentEntry)dcrMaintDocEntry).times(2);
-//        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).anyTimes();
-//        EasyMock.expect(kualiModuleService.getResponsibleModuleService(Bank.class)).andReturn(moduleService);
-//        EasyMock.expect(kualiModuleService.getResponsibleModuleService(DepositCashReceiptControl.class)).andReturn(moduleService).times(2);
-//        EasyMock.expect(configurationService.getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY)).andReturn("http://myapp").times(3);
-//
-//        EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, configurationService, dataDictionaryService,
-//            dataDictionary, permissionService, accessSecurityService, userSession, maintenanceDocumentEntry, dcrMaintDocEntry);
-//        PowerMock.replay(KRADServiceLocator.class);
-//        PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
-//        PowerMock.replay(KRADUtils.class);
-//        BusinessObjectApiResource.setKualiModuleService(kualiModuleService);
-//        BusinessObjectApiResource.setBusinessObjectService(businessObjectService);
-//        BusinessObjectApiResource.setConfigurationService(configurationService);
-//        BusinessObjectApiResource.setPermissionService(permissionService);
-//        BusinessObjectApiResource.setAccessSecurityService(accessSecurityService);
-//        BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
-//
-//        Response response = apiResource.findSingleBusinessObject(documentTypeName.toLowerCase(), "12345");
-//        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, dataDictionary,
-//             permissionService, accessSecurityService, userSession, configurationService, maintenanceDocumentEntry, dcrMaintDocEntry);
-//        Assert.assertTrue("Should have returned OK", response.getStatus() == Status.OK.getStatusCode());
-//        Map<String, Object> entity = (Map<String, Object>) response.getEntity();
-//        BeanMap beanMap = new BeanMap(deposit);
-//        Assert.assertTrue("Beans should have matching values " + beanMap.toString() + " and " + entity.toString(),
-//            mapsEqualEnough(entity, beanMap, "depositBankCode", "depositAmount"));
-//        Map<String, Object> bankMap = (Map<String, Object>) entity.get("bank");
-//        String bankLink = (String) bankMap.get("link");
-//        Assert.assertEquals("Bank link incorrect: " + bankLink, "http://myapp/fp/api/v1/reference/bank/B123", bankLink);
-//        List<Map<String, Object>> depositCashReceiptControl = (List<Map<String, Object>>) entity.get("depositCashReceiptControl");
-//        Assert.assertEquals("Should be 2 depositCashReceiptControl", 2, depositCashReceiptControl.size());
-//        String dcLink = (String) depositCashReceiptControl.get(0).get("link");
-//        Assert.assertEquals("depositCashReceiptControl link incorrect", "http://myapp/fp/api/v1/reference/dcrc/DC001", dcLink);
-//        Long depositDate = (Long) entity.get("depositDate");
-//        Assert.assertEquals("depositDate incorrect", now.getTime(), depositDate.longValue());
-//    }
-
     @Test
     @PrepareForTest({KRADServiceLocator.class, KRADUtils.class})
     public void testSimpleMaskedBoReturned() throws Exception {
@@ -422,6 +374,11 @@ public class BusinessObjectApiSingleObjectResourceTest {
         EasyMock.expect(businessObjectAuthorizationService.canFullyUnmaskField(testPerson, Bank.class, "bankAccountNumber", null)).andReturn(false);
         EasyMock.expect(businessObjectAuthorizationService.canPartiallyUnmaskField(testPerson, Bank.class, "bankRoutingNumber", null)).andReturn(false);
         EasyMock.expect(persistenceStructureService.isPersistable(Bank.class)).andReturn(false);
+        EasyMock.expect(kualiModuleService.getResponsibleModuleService(Chart.class)).andReturn(moduleService);
+        MaintenanceDocumentEntry chartMaintenanceDocumentEntry = new MaintenanceDocumentEntry();
+        chartMaintenanceDocumentEntry.setDocumentTypeName("COAT");
+        EasyMock.expect(dataDictionary.getMaintenanceDocumentEntryForBusinessObjectClass(Chart.class)).andReturn(chartMaintenanceDocumentEntry);
+        EasyMock.expect(configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY)).andReturn("https://kuali.co/fin");
 
         EasyMock.replay(kualiModuleService, moduleService, businessObjectService, businessObjectAuthorizationService,
                         persistenceStructureService, dataDictionaryService, dataDictionary, permissionService,
