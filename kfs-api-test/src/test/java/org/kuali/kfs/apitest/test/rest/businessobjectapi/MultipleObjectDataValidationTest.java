@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.apitest.test.rest.businessobject;
+package org.kuali.kfs.apitest.test.rest.businessobjectapi;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -33,41 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MultipleObjectDataValidationTest {
-    private static String SEARCH_API = "/api/v1/business-object/ar/system-informations";
-
-    @Test
-    public void searchByObjectId() throws IOException {
-        HttpResponse response = RestUtilities.makeRequest(SEARCH_API + "?objectId=5A691AF93B5A424DE0404F8189D80D73", Constants.KHUNTLEY_TOKEN);
-
-        Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
-
-        Map<String,Object> searchResults = RestUtilities.parse(RestUtilities.inputStreamToString(response.getEntity().getContent()));
-        List<Map<String, Object>> results = (List<Map<String, Object>>)searchResults.get(Constants.Search.RESULTS);
-        Map<String, Object> bo = results.get(0);
-
-        // Validate that the returned object is correct
-        Assert.assertEquals(new ArrayList(Arrays.asList("universityFiscalYear", "processingChartOfAccountCode", "processingOrganizationCode")), searchResults.get(Constants.Search.SORT));
-        Assert.assertEquals(200, searchResults.get(Constants.Search.LIMIT));
-        Assert.assertEquals(0, searchResults.get(Constants.Search.SKIP));
-        Assert.assertEquals(1, searchResults.get(Constants.Search.TOTAL_COUNT));
-        Map<String, String> query = new HashMap<String, String>();
-        query.put("objectId", "5A691AF93B5A424DE0404F8189D80D73");
-        Assert.assertEquals(query, searchResults.get(Constants.Search.QUERY));
-
-        // Check a sample of fields returned
-        Assert.assertEquals(true,(Boolean)bo.get("active"));
-        Assert.assertEquals("9460",(String)bo.get("creditCardObjectCode"));
-        Assert.assertEquals("66255",(String)bo.get("lockboxNumber"));
-        Assert.assertEquals(false,(Boolean)bo.get("newCollectionRecord"));
-        Assert.assertEquals("5A691AF93B5A424DE0404F8189D80D73",(String)bo.get("objectId"));
-
-        Map<String,Object> processingChartOfAccount = (Map<String,Object>)bo.get("processingChartOfAccount");
-        String link = (String)processingChartOfAccount.get("link");
-        Assert.assertTrue(link.endsWith("/api/v1/business-object/coa/charts/014F3DAF748BA448E043814FD28EA448"));
-
-        int versionNumber = (Integer)bo.get("versionNumber");
-        Assert.assertEquals(1,versionNumber);
-    }
+    private static String SEARCH_API = "/ar/api/v1/reference/arsi";
 
     @Test
     public void searchWithLimitAndSkip() throws IOException {
@@ -90,20 +56,17 @@ public class MultipleObjectDataValidationTest {
         Assert.assertEquals(true,(Boolean)bo.get("active"));
         Assert.assertEquals("9460",(String)bo.get("creditCardObjectCode"));
         Assert.assertEquals("66278",(String)bo.get("lockboxNumber"));
-        Assert.assertEquals(false,(Boolean)bo.get("newCollectionRecord"));
+        Assert.assertNull(bo.get("newCollectionRecord"));
         Assert.assertEquals("5A691AF93B5B424DE0404F8189D80D73",(String)bo.get("objectId"));
 
         Map<String,Object> processingChartOfAccount = (Map<String,Object>)bo.get("processingChartOfAccount");
         String link = (String)processingChartOfAccount.get("link");
-        Assert.assertTrue(link.endsWith("/api/v1/business-object/coa/charts/014F3DAF748FA448E043814FD28EA448"));
-
-        int versionNumber = (Integer)bo.get("versionNumber");
-        Assert.assertEquals(1,versionNumber);
+        Assert.assertTrue(link.endsWith("/coa/api/v1/reference/coat/014F3DAF748FA448E043814FD28EA448"));
     }
 
     @Test
     public void searchWithDescendingSort() throws IOException {
-        HttpResponse response = RestUtilities.makeRequest(SEARCH_API + "?limit=1&sort=-objectId", Constants.KHUNTLEY_TOKEN);
+        HttpResponse response = RestUtilities.makeRequest(SEARCH_API + "?limit=1&sort=-universityFiscalYear,processingChartOfAccountCode,processingOrganizationCode", Constants.KHUNTLEY_TOKEN);
 
         Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
 
@@ -112,7 +75,7 @@ public class MultipleObjectDataValidationTest {
         Map<String, Object> bo = results.get(0);
 
         // Validate that the returned object is correct
-        Assert.assertEquals(new ArrayList(Arrays.asList("-objectId")), searchResults.get(Constants.Search.SORT));
+        Assert.assertEquals(new ArrayList(Arrays.asList("-universityFiscalYear", "processingChartOfAccountCode", "processingOrganizationCode")), searchResults.get(Constants.Search.SORT));
         Assert.assertEquals(1, searchResults.get(Constants.Search.LIMIT));
         Assert.assertEquals(0, searchResults.get(Constants.Search.SKIP));
         Assert.assertEquals(60, searchResults.get(Constants.Search.TOTAL_COUNT));
@@ -121,16 +84,13 @@ public class MultipleObjectDataValidationTest {
         // Check a sample of fields returned
         Assert.assertEquals(true,(Boolean)bo.get("active"));
         Assert.assertEquals("1599",(String)bo.get("creditCardObjectCode"));
-        Assert.assertEquals("66248",(String)bo.get("lockboxNumber"));
-        Assert.assertEquals(false,(Boolean)bo.get("newCollectionRecord"));
-        Assert.assertEquals("fde14bd6-73b1-48c3-8939-20909f0f3459",(String)bo.get("objectId"));
+        Assert.assertEquals("12345",(String)bo.get("lockboxNumber"));
+        Assert.assertNull(bo.get("newCollectionRecord"));
+        Assert.assertEquals("f54d1bdf-fd0e-4a48-b9d2-42ad8086e256",(String)bo.get("objectId"));
 
         Map<String,Object> processingChartOfAccount = (Map<String,Object>)bo.get("processingChartOfAccount");
         String link = (String)processingChartOfAccount.get("link");
-        Assert.assertTrue(link.endsWith("/api/v1/business-object/coa/charts/014F3DAF7495A448E043814FD28EA448"));
-
-        int versionNumber = (Integer)bo.get("versionNumber");
-        Assert.assertEquals(2,versionNumber);
+        Assert.assertTrue(link.endsWith("/coa/api/v1/reference/coat/014F3DAF748AA448E043814FD28EA448"));
     }
 
     @Test
@@ -154,15 +114,12 @@ public class MultipleObjectDataValidationTest {
         Assert.assertEquals(true,(Boolean)bo.get("active"));
         Assert.assertEquals("9460",(String)bo.get("creditCardObjectCode"));
         Assert.assertEquals("66255",(String)bo.get("lockboxNumber"));
-        Assert.assertEquals(false,(Boolean)bo.get("newCollectionRecord"));
+        Assert.assertNull(bo.get("newCollectionRecord"));
         Assert.assertEquals("5A691AF93B5A424DE0404F8189D80D73",(String)bo.get("objectId"));
 
         Map<String,Object> processingChartOfAccount = (Map<String,Object>)bo.get("processingChartOfAccount");
         String link = (String)processingChartOfAccount.get("link");
-        Assert.assertTrue(link.endsWith("/api/v1/business-object/coa/charts/014F3DAF748BA448E043814FD28EA448"));
-
-        int versionNumber = (Integer)bo.get("versionNumber");
-        Assert.assertEquals(1,versionNumber);
+        Assert.assertTrue(link.endsWith("/coa/api/v1/reference/coat/014F3DAF748BA448E043814FD28EA448"));
     }
 
     @Test
