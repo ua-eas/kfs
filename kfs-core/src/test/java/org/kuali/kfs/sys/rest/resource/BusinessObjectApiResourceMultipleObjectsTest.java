@@ -24,6 +24,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry;
 import org.kuali.kfs.kns.lookup.LookupUtils;
@@ -34,12 +35,17 @@ import org.kuali.kfs.krad.datadictionary.DataDictionary;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.krad.util.KRADUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.identity.TestPerson;
 import org.kuali.kfs.sys.rest.BusinessObjectApiResourceTestHelper;
 import org.kuali.kfs.sys.rest.MockDataDictionaryService;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.powermock.api.easymock.PowerMock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -55,8 +61,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 @RunWith(PowerMockRunner.class)
-public class BusinessObjectApiResourceSearchTest {
-
+public class BusinessObjectApiResourceMultipleObjectsTest {
     private BusinessObjectApiResource apiResource;
     private PersistenceStructureService persistenceStructureService;
     private BusinessObjectAuthorizationService businessObjectAuthorizationService;
@@ -65,6 +70,9 @@ public class BusinessObjectApiResourceSearchTest {
     private MaintenanceDocumentEntry maintenanceDocumentEntry;
     private DataDictionary dataDictionary;
     private UserSession userSession;
+    private KualiModuleService kualiModuleService;
+    private ConfigurationService configurationService;
+    private ModuleService moduleService;
     private Person testPerson = new TestPerson("testPrincipalId", "testPrincipalName");
 
     @Before
@@ -77,6 +85,9 @@ public class BusinessObjectApiResourceSearchTest {
         maintenanceDocumentEntry = EasyMock.createMock(MaintenanceDocumentEntry.class);
         dataDictionary = EasyMock.createMock(DataDictionary.class);
         userSession = EasyMock.createMock(UserSession.class);
+        kualiModuleService = EasyMock.createMock(KualiModuleService.class);
+        configurationService = EasyMock.createMock(ConfigurationService.class);
+        moduleService = EasyMock.createMock(ModuleService.class);
         PowerMock.mockStatic(KRADUtils.class);
         PowerMock.mockStatic(KRADServiceLocator.class);
     }
@@ -99,6 +110,7 @@ public class BusinessObjectApiResourceSearchTest {
 
         UriInfo uriInfo = EasyMock.createMock(UriInfo.class);
         EasyMock.expect(uriInfo.getQueryParameters()).andReturn(params);
+        EasyMock.expect(persistenceStructureService.isPersistable(Bank.class)).andReturn(false);
 
         EasyMock.replay(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession, maintenanceDocumentEntry);
         PowerMock.replay(KRADServiceLocator.class);
@@ -110,6 +122,8 @@ public class BusinessObjectApiResourceSearchTest {
         BusinessObjectApiResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
         BusinessObjectApiResource.setPersistenceStructureService(persistenceStructureService);
         BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
+        BusinessObjectApiResource.setKualiModuleService(kualiModuleService);
+        BusinessObjectApiResource.setConfigurationService(configurationService);
 
         Map<String, Object> results = apiResource.searchBusinessObjects(Bank.class, uriInfo, maintenanceDocumentEntry);
 
@@ -226,6 +240,71 @@ public class BusinessObjectApiResourceSearchTest {
         Assert.assertEquals(0, ((List<Object>)results.get("results")).size());
         EasyMock.verify(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession);
         PowerMock.verify(LookupUtils.class);
+    }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testSearchBusinessObjects_checkChildLinks() {
+        Map<String, String> queryCriteria = new HashMap<>();
+        queryCriteria.put("bankCode", "FW");
+
+        commonMultipleBusinessObjectTestPrep(Bank.class, () -> BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, new String[] { "bankCode" });
+
+        List<MaintainableSectionDefinition> maintainableSections = BusinessObjectApiResourceTestHelper.createBankMaintainbleSections();
+        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("bankCode", "FW");
+        params.add("limit", "1");
+        params.add("skip", "1");
+
+        UriInfo uriInfo = EasyMock.createMock(UriInfo.class);
+        EasyMock.expect(uriInfo.getQueryParameters()).andReturn(params);
+        EasyMock.expect(persistenceStructureService.isPersistable(Bank.class)).andReturn(false);
+        EasyMock.expect(kualiModuleService.getResponsibleModuleService(Chart.class)).andReturn(moduleService);
+        EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(BusinessObjectApiResourceTestHelper.getCoaModuleConfiguration(dataDictionaryService));
+        MaintenanceDocumentEntry chartMaintenanceDocumentEntry = new MaintenanceDocumentEntry();
+        chartMaintenanceDocumentEntry.setDocumentTypeName("COAT");
+        EasyMock.expect(dataDictionary.getMaintenanceDocumentEntryForBusinessObjectClass(Chart.class)).andReturn(chartMaintenanceDocumentEntry);
+        EasyMock.expect(configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY)).andReturn("https://kuali.co/fin");
+
+        EasyMock.replay(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession,
+                        maintenanceDocumentEntry, kualiModuleService, moduleService, configurationService);
+        PowerMock.replay(KRADServiceLocator.class);
+        PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
+        PowerMock.replay(KRADUtils.class);
+
+        BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
+        BusinessObjectApiResource.setBusinessObjectService(businessObjectService);
+        BusinessObjectApiResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
+        BusinessObjectApiResource.setPersistenceStructureService(persistenceStructureService);
+        BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
+        BusinessObjectApiResource.setKualiModuleService(kualiModuleService);
+        BusinessObjectApiResource.setConfigurationService(configurationService);
+
+        Map<String, Object> results = apiResource.searchBusinessObjects(Bank.class, uriInfo, maintenanceDocumentEntry);
+
+        Assert.assertEquals(6, results.size());
+        Assert.assertTrue("results should specify limit", results.containsKey("limit"));
+        Assert.assertEquals(1, results.get("limit"));
+        Assert.assertTrue("results should specify skip", results.containsKey("skip"));
+        Assert.assertEquals(1, results.get("skip"));
+        Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
+        Assert.assertEquals(1, results.get("totalCount"));
+        Assert.assertTrue("results should specify query", results.containsKey("query"));
+        Map<String, String> query = new HashMap<>();
+        query.put("bankCode", "FW");
+        Assert.assertEquals(query, results.get("query"));
+        Assert.assertTrue("results should specify sort", results.containsKey("sort"));
+        Assert.assertEquals("bankCode", ((String[])results.get("sort"))[0]);
+        Assert.assertTrue("results should specify results", results.containsKey("results"));
+        Assert.assertEquals(1, ((List<Object>)results.get("results")).size());
+        final Map<String, Object> serializedBank = ((List<Map<String,Object>>)results.get("results")).get(0);
+        Assert.assertTrue("Serialized bank should have a key for cashOffsetFinancialChartOfAccount", serializedBank.containsKey(KFSPropertyConstants.CASH_OFFSET_FINANCIAL_CHART_OF_ACCOUNT));
+        Assert.assertTrue("Cash Offset Financial Chart should have a link key", ((Map<String,Object>)serializedBank.get(KFSPropertyConstants.CASH_OFFSET_FINANCIAL_CHART_OF_ACCOUNT)).containsKey(KFSPropertyConstants.LINK));
+        Assert.assertEquals("Cash Offset Financial Chart should have a proper link", "https://kuali.co/fin/coa/api/v1/reference/coat/BNKCHART5554455", ((Map<String,Object>)serializedBank.get(KFSPropertyConstants.CASH_OFFSET_FINANCIAL_CHART_OF_ACCOUNT)).get(KFSPropertyConstants.LINK));
+        EasyMock.verify(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession,
+                maintenanceDocumentEntry, kualiModuleService, moduleService, configurationService);
     }
 
     private void commonMultipleBusinessObjectTestPrep(Class clazz, Supplier<? extends PersistableBusinessObject> boSupplier, Map<String, String> queryCriteria, int skip, int limit, String[] sort) {

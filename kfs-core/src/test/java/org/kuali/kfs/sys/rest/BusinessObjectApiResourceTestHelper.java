@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.sys.rest;
 
+import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryExclusionType;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryType;
 import org.kuali.kfs.coa.businessobject.Organization;
@@ -29,7 +31,9 @@ import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableItemDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableSubSectionHeaderDefinition;
+import org.kuali.kfs.krad.bo.ModuleConfiguration;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.businessobject.TaxRegionRate;
 import org.kuali.kfs.sys.businessobject.UnitOfMeasure;
@@ -144,6 +148,10 @@ public class BusinessObjectApiResourceTestHelper {
         bank.setBankRoutingNumber("7777444477774444");
         bank.setBankAccountNumber("3333666644447777");
         bank.setObjectId("BK12345");
+
+        Chart cashOffsetFinancialChartOfAccount = new Chart();
+        cashOffsetFinancialChartOfAccount.setObjectId("BNKCHART5554455");
+        bank.setCashOffsetFinancialChartOfAccount(cashOffsetFinancialChartOfAccount);
         return bank;
     }
 
@@ -164,6 +172,14 @@ public class BusinessObjectApiResourceTestHelper {
         orgExt.setHrmsIuTenureAllowedFlag(false);
 
         org.setOrganizationExtension(orgExt);
+
+        Account organizationPlantAccount = new Account();
+        organizationPlantAccount.setObjectId("ACCT777444");
+        org.setOrganizationPlantAccount(organizationPlantAccount);
+
+        Chart organizationPlantChart = new Chart();
+        organizationPlantChart.setObjectId("CHART777444");
+        org.setOrganizationPlantChart(organizationPlantChart);
         return org;
     }
 
@@ -203,4 +219,21 @@ public class BusinessObjectApiResourceTestHelper {
         return deposit;
     }
 
+    public static ModuleConfiguration getSysModuleConfiguration(DataDictionaryService dataDictionaryService) {
+        ModuleConfiguration result = new ModuleConfiguration();
+        result.setNamespaceCode("KFS-SYS");
+        result.setPackagePrefixes(new ArrayList<>());
+        result.getPackagePrefixes().add("org.kuali.kfs.sys");
+        result.setDataDictionaryService(dataDictionaryService);
+        return result;
+    }
+
+    public static ModuleConfiguration getCoaModuleConfiguration(DataDictionaryService dataDictionaryService) {
+        ModuleConfiguration result = new ModuleConfiguration();
+        result.setNamespaceCode("KFS-COA");
+        result.setPackagePrefixes(new ArrayList<>());
+        result.getPackagePrefixes().add("org.kuali.kfs.coa");
+        result.setDataDictionaryService(dataDictionaryService);
+        return result;
+    }
 }

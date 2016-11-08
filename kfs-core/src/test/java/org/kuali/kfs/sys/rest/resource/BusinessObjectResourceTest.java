@@ -31,6 +31,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.fp.businessobject.Deposit;
 import org.kuali.kfs.fp.businessobject.DepositCashReceiptControl;
 import org.kuali.kfs.kns.lookup.LookupUtils;
@@ -320,6 +321,8 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(dataDictionary.getBusinessObjectEntry("Bank")).andReturn(getDDEntry(Bank.class)).anyTimes();
         EasyMock.expect(businessObjectAuthorizationService.canFullyUnmaskField(testPerson, Bank.class, "bankAccountNumber", null)).andReturn(false);
         EasyMock.expect(businessObjectAuthorizationService.canPartiallyUnmaskField(testPerson, Bank.class, "bankRoutingNumber", null)).andReturn(false);
+        EasyMock.expect(kualiModuleService.getResponsibleModuleService(Chart.class)).andReturn(moduleService);
+        EasyMock.expect(dataDictionary.getBusinessObjectEntryForConcreteClass("org.kuali.kfs.coa.businessobject.Chart")).andReturn(null);
 
         EasyMock.replay(kualiModuleService, moduleService, businessObjectService, businessObjectAuthorizationService, persistenceStructureService, dataDictionaryService, dataDictionary, permissionService, accessSecurityService, userSession, configurationService);
         PowerMock.replay(KRADServiceLocator.class);
@@ -648,6 +651,9 @@ public class BusinessObjectResourceTest {
         queryCriteria.put("bankCode", "FW");
 
         commonMultipleBusinessObjectTestPrep(Bank.class, () -> BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, new String[] { "bankCode" });
+        EasyMock.expect(kualiModuleService.getResponsibleModuleService(Chart.class)).andReturn(moduleService);
+        EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(BusinessObjectApiResourceTestHelper.getCoaModuleConfiguration(dataDictionaryService));
+        EasyMock.expect(dataDictionary.getBusinessObjectEntryForConcreteClass("org.kuali.kfs.coa.businessobject.Chart")).andReturn(null);
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("bankCode", "FW");
@@ -657,7 +663,7 @@ public class BusinessObjectResourceTest {
         UriInfo uriInfo = EasyMock.createMock(UriInfo.class);
         EasyMock.expect(uriInfo.getQueryParameters()).andReturn(params);
 
-        EasyMock.replay(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession);
+        EasyMock.replay(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession, kualiModuleService, moduleService);
         PowerMock.replay(KRADServiceLocator.class);
         PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
         PowerMock.replay(KRADUtils.class);
@@ -667,6 +673,7 @@ public class BusinessObjectResourceTest {
         BusinessObjectResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
         BusinessObjectResource.setPersistenceStructureService(persistenceStructureService);
         BusinessObjectResource.setDataDictionaryService(dataDictionaryService);
+        BusinessObjectResource.setKualiModuleService(kualiModuleService);
 
         Map<String, Object> results = apiResource.searchBusinessObjects(Bank.class, uriInfo);
 
@@ -685,7 +692,7 @@ public class BusinessObjectResourceTest {
         Assert.assertEquals("bankCode", ((String[])results.get("sort"))[0]);
         Assert.assertTrue("results should specify results", results.containsKey("results"));
         Assert.assertEquals(1, ((List<Object>)results.get("results")).size());
-        EasyMock.verify(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession);
+        EasyMock.verify(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession, kualiModuleService, moduleService);
     }
 
     @Test

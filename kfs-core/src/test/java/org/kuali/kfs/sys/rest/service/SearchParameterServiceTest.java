@@ -208,7 +208,7 @@ public class SearchParameterServiceTest {
         params.add("sort", "accountname,accountnumber");
 
         try {
-            String[] sort = SearchParameterService.getSortCriteria(Account.class, params, persistenceStructureService);
+            SearchParameterService.getSortCriteria(Account.class, params, persistenceStructureService);
         } catch (ApiRequestException are) {
             Response response = are.getResponse();
 
@@ -242,7 +242,7 @@ public class SearchParameterServiceTest {
         params.add("sort", "class");
 
         try {
-            String[] sort = SearchParameterService.getSortCriteria(Account.class, params, persistenceStructureService);
+            SearchParameterService.getSortCriteria(Account.class, params, persistenceStructureService);
         } catch (ApiRequestException are) {
             Response response = are.getResponse();
 
@@ -325,7 +325,7 @@ public class SearchParameterServiceTest {
         params.add("accountnumber", "bfdsa5432adfdsaf");
 
         try {
-            Map<String, String> criteria = SearchParameterService.getSearchQueryCriteria(Account.class, params, persistenceStructureService);
+            SearchParameterService.getSearchQueryCriteria(Account.class, params, persistenceStructureService);
         } catch (ApiRequestException are) {
             Response response = are.getResponse();
 
@@ -352,7 +352,7 @@ public class SearchParameterServiceTest {
         params.add("limit", "a");
 
         try {
-            int limit = SearchParameterService.getIntQueryParameter("limit", params);
+            SearchParameterService.getIntQueryParameter("limit", params);
         } catch (ApiRequestException are) {
             Response response = are.getResponse();
 
