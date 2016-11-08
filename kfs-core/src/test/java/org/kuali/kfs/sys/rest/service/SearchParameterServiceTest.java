@@ -36,6 +36,7 @@ import org.powermock.api.easymock.PowerMock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import javax.ws.rs.HEAD;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
@@ -101,114 +102,84 @@ public class SearchParameterServiceTest {
     @Test
     public void testGetSortCriteria() {
         List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
-        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
-        apiResource.setPersistenceStructureService(persistenceStructureService);
-        EasyMock.replay(persistenceStructureService);
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("sort", "accountName");
 
-        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, persistenceStructureService);
+        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
 
         Assert.assertEquals(new String[]{"accountName"}, sort);
-        EasyMock.verify(persistenceStructureService);
     }
 
     @Test
     public void testGetSortCriteria_NotSpecified() {
         List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
-        List<String> primaryKeys = Arrays.asList("chartOfAccountsCode", "accountNumber");
-        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
-        EasyMock.expect(persistenceStructureService.listPrimaryKeyFieldNames(Account.class)).andReturn(primaryKeys);
-        apiResource.setPersistenceStructureService(persistenceStructureService);
-        EasyMock.replay(persistenceStructureService);
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        PersistenceStructureService persistenceStructureService = EasyMock.createMock(PersistenceStructureService.class);
+        EasyMock.expect(persistenceStructureService.listPrimaryKeyFieldNames(Account.class)).andReturn(Arrays.asList("chartOfAccountsCode", "accountName"));
+        EasyMock.replay(persistenceStructureService);
 
-        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, persistenceStructureService);
+        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
 
-        Assert.assertEquals(new String[]{"chartOfAccountsCode","accountNumber"}, sort);
+        Assert.assertEquals(new String[]{"chartOfAccountsCode","accountName"}, sort);
         EasyMock.verify(persistenceStructureService);
     }
 
     @Test
     public void testGetSortCriteria_NotSpecified_NoPrimaryKey() {
         List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
-        List<String> primaryKeys = new ArrayList<>();
-        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
-        EasyMock.expect(persistenceStructureService.listPrimaryKeyFieldNames(Account.class)).andReturn(primaryKeys);
-        apiResource.setPersistenceStructureService(persistenceStructureService);
-        EasyMock.replay(persistenceStructureService);
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
 
-        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, persistenceStructureService);
+        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
 
         Assert.assertEquals(new String[]{"objectId"}, sort);
-        EasyMock.verify(persistenceStructureService);
     }
 
     @Test
     public void testGetSortCriteria_NotSpecified_NoPrimaryKey_NoObjectId_NoNothing() {
         List<String> validFields = Arrays.asList("accountName", "accountNumber", "chartOfAccountsCode");
-        List<String> primaryKeys = new ArrayList<>();
-        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
-        EasyMock.expect(persistenceStructureService.listPrimaryKeyFieldNames(Account.class)).andReturn(primaryKeys);
-        apiResource.setPersistenceStructureService(persistenceStructureService);
-        EasyMock.replay(persistenceStructureService);
-
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
 
-        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, persistenceStructureService);
+        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
 
         Assert.assertEquals(new String[]{"accountName"}, sort);
-        EasyMock.verify(persistenceStructureService);
     }
 
     @Test
     public void testGetSortCriteria_Descending() {
         List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
-        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
-        apiResource.setPersistenceStructureService(persistenceStructureService);
-        EasyMock.replay(persistenceStructureService);
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("sort", "-accountName");
 
-        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, persistenceStructureService);
+        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
 
         Assert.assertEquals(new String[]{"-accountName"}, sort);
-        EasyMock.verify(persistenceStructureService);
     }
 
     @Test
     public void testGetSortCriteria_Mutli() {
         List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
-        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
-        apiResource.setPersistenceStructureService(persistenceStructureService);
-        EasyMock.replay(persistenceStructureService);
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("sort", "accountName,accountNumber");
 
-        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, persistenceStructureService);
+        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
 
         Assert.assertEquals(new String[]{"accountName", "accountNumber"}, sort);
-        EasyMock.verify(persistenceStructureService);
     }
 
     @Test
     public void testGetSortCriteria_MutliBad() {
         List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
-        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
-        apiResource.setPersistenceStructureService(persistenceStructureService);
-        EasyMock.replay(persistenceStructureService);
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("sort", "accountname,accountnumber");
 
         try {
-            SearchParameterService.getSortCriteria(Account.class, params, persistenceStructureService);
+            SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
         } catch (ApiRequestException are) {
             Response response = are.getResponse();
 
@@ -228,21 +199,17 @@ public class SearchParameterServiceTest {
             Assert.assertEquals("accountnumber", ((List<ErrorMessage>)error.get("details")).get(1).getProperty());
         }
 
-        EasyMock.verify(persistenceStructureService);
     }
 
     @Test
     public void testGetSortCriteria_Bad() {
         List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
-        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
-        apiResource.setPersistenceStructureService(persistenceStructureService);
-        EasyMock.replay(persistenceStructureService);
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("sort", "class");
 
         try {
-            SearchParameterService.getSortCriteria(Account.class, params, persistenceStructureService);
+            SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
         } catch (ApiRequestException are) {
             Response response = are.getResponse();
 
@@ -259,40 +226,61 @@ public class SearchParameterServiceTest {
             Assert.assertEquals("invalid sort field", ((List<ErrorMessage>)error.get("details")).get(0).getMessage());
             Assert.assertEquals("class", ((List<ErrorMessage>)error.get("details")).get(0).getProperty());
         }
+    }
 
-        EasyMock.verify(persistenceStructureService);
+    @Test
+    public void testGetSortCriteria_SortByMaintainableFieldInvalidOjbField() {
+        List<String> maitainableFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode", "closed");
+        List<String> ojbFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
+        List<String> validFields = new ArrayList<>(maitainableFields);
+        validFields.retainAll(ojbFields);
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("sort", "closed");
+
+        try {
+            SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
+        } catch (ApiRequestException are) {
+            Response response = are.getResponse();
+
+            Assert.assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+
+            Map<String, Object> exceptionMap = new HashedMap();
+            exceptionMap.put("message", "Invalid Search Criteria");
+            List<ErrorMessage> errorMessages = new ArrayList<>();
+            errorMessages.add(new ErrorMessage("invalid sort field", "closed"));
+            exceptionMap.put("details", errorMessages);
+            Map<String, Object> error = (Map<String, Object>)response.getEntity();
+            Assert.assertEquals("Invalid Search Criteria", error.get("message"));
+            Assert.assertEquals(1, ((List<ErrorMessage>)error.get("details")).size());
+            Assert.assertEquals("invalid sort field", ((List<ErrorMessage>)error.get("details")).get(0).getMessage());
+            Assert.assertEquals("closed", ((List<ErrorMessage>)error.get("details")).get(0).getProperty());
+        }
     }
 
     @Test
     public void testGetSearchQueryCriteria() {
         List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
-        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
-        apiResource.setPersistenceStructureService(persistenceStructureService);
-        EasyMock.replay(persistenceStructureService);
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("accountName", "bob");
 
-        Map<String, String> criteria = SearchParameterService.getSearchQueryCriteria(Account.class, params, persistenceStructureService);
+        Map<String, String> criteria = SearchParameterService.getSearchQueryCriteria(params, validFields);
 
         Map<String, String> validCriteria = new HashMap<>();
         validCriteria.put("accountName", "bob");
         Assert.assertEquals(validCriteria, criteria);
-        EasyMock.verify(persistenceStructureService);
     }
 
     @Test
     public void testGetSearchQueryCriteria_Bad() {
         List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
-        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
-        apiResource.setPersistenceStructureService(persistenceStructureService);
-        EasyMock.replay(persistenceStructureService);
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("accountname", "bob");
 
         try {
-            Map<String, String> criteria = SearchParameterService.getSearchQueryCriteria(Account.class, params, persistenceStructureService);
+            SearchParameterService.getSearchQueryCriteria(params, validFields);
         } catch (ApiRequestException are) {
             Response response = are.getResponse();
 
@@ -309,23 +297,18 @@ public class SearchParameterServiceTest {
             Assert.assertEquals("invalid query parameter name", ((List<ErrorMessage>)error.get("details")).get(0).getMessage());
             Assert.assertEquals("accountname", ((List<ErrorMessage>)error.get("details")).get(0).getProperty());
         }
-
-        EasyMock.verify(persistenceStructureService);
     }
 
     @Test
     public void testGetSearchQueryCriteria_MultiBad() {
         List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
-        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(validFields);
-        apiResource.setPersistenceStructureService(persistenceStructureService);
-        EasyMock.replay(persistenceStructureService);
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("accountname", "bob");
         params.add("accountnumber", "bfdsa5432adfdsaf");
 
         try {
-            SearchParameterService.getSearchQueryCriteria(Account.class, params, persistenceStructureService);
+            SearchParameterService.getSearchQueryCriteria(params, validFields);
         } catch (ApiRequestException are) {
             Response response = are.getResponse();
 
@@ -342,8 +325,6 @@ public class SearchParameterServiceTest {
             Assert.assertEquals("invalid query parameter name", ((List<ErrorMessage>)error.get("details")).get(0).getMessage());
             Assert.assertEquals("invalid query parameter name", ((List<ErrorMessage>)error.get("details")).get(1).getMessage());
         }
-
-        EasyMock.verify(persistenceStructureService);
     }
 
     @Test

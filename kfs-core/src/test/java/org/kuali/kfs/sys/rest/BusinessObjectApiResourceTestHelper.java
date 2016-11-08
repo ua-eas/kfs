@@ -98,6 +98,16 @@ public class BusinessObjectApiResourceTestHelper {
         return maintainableSections;
     }
 
+    public static List<MaintainableSectionDefinition> createAccountMaintainbleSections() {
+        List<MaintainableSectionDefinition> maintainableSections = new ArrayList<>();
+        MaintainableSectionDefinition maintainableSectionDefinition = new MaintainableSectionDefinition();
+        maintainableSections.add(maintainableSectionDefinition);
+        List<MaintainableItemDefinition> maintainableItemDefinitions = BusinessObjectApiResourceTestHelper.createItemDefinitions("chartOfAccountsCode",
+            "accountNumber","accountName","closed");
+        maintainableSectionDefinition.setMaintainableItems(maintainableItemDefinitions);
+        return maintainableSections;
+    }
+
     public static void addItemDefinition(List<MaintainableItemDefinition> maintainableItemDefinitions, String fieldName) {
         MaintainableItemDefinition itemDef = new MaintainableFieldDefinition();
         itemDef.setName(fieldName);
@@ -217,6 +227,15 @@ public class BusinessObjectApiResourceTestHelper {
         deposit.getDepositCashReceiptControl().add(receiptControl1);
         deposit.getDepositCashReceiptControl().add(receiptControl2);
         return deposit;
+    }
+
+    public static Account getAccount() {
+        Account account = new Account();
+        account.setChartOfAccountsCode("BL");
+        account.setAccountNumber("12345");
+        account.setAccountName("MyAccount");
+        account.setClosed(false);
+        return account;
     }
 
     public static ModuleConfiguration getSysModuleConfiguration(DataDictionaryService dataDictionaryService) {

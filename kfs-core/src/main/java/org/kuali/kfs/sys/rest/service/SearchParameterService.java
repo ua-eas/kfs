@@ -49,9 +49,7 @@ public class SearchParameterService {
     }
 
     public static <T extends PersistableBusinessObject> String[] getSortCriteria(Class<T> boClass, MultivaluedMap<String, String> params,
-                                                                                    PersistenceStructureService persistenceStructureService) {
-        final List<String> ojbFields = persistenceStructureService.listFieldNames(boClass);
-
+                                                                                 List<String> boFields, PersistenceStructureService persistenceStructureService) {
         String orderByString = params.getFirst(KFSConstants.Search.SORT);
         if (orderByString != null) {
             List<ErrorMessage> errorMessages = new ArrayList<>();
@@ -59,7 +57,7 @@ public class SearchParameterService {
             String[] orderBy = orderByString.split(",");
             for (String sort : orderBy) {
                 String cleanSort = sort.replaceFirst("^-", "");
-                if (ojbFields.contains(cleanSort)) {
+                if (boFields.contains(cleanSort)) {
                     validSortFields.add(sort);
                 } else {
                     LOG.debug("invalid sort field: " + sort);
@@ -76,12 +74,12 @@ public class SearchParameterService {
             final List<String> ojbPrimaryKeys = persistenceStructureService.listPrimaryKeyFieldNames(boClass);
             if (!CollectionUtils.isEmpty(ojbPrimaryKeys)) {
                 return ojbPrimaryKeys.toArray(new String[] {});
-            } else if (ojbFields.contains("objectId")){
+            } else if (boFields.contains("objectId")){
                 return new String[]{"objectId"};
             }
         }
 
-        return new String[] { ojbFields.get(0) }; // no other fields to check from...let's just sort on the first ojb column
+        return new String[] { boFields.get(0) }; // no other fields to check from...let's just sort on the first ojb column
     }
 
     public static int getIntQueryParameter(String name, MultivaluedMap<String, String> params) {
@@ -97,15 +95,13 @@ public class SearchParameterService {
         return 0;
     }
 
-    public static <T extends PersistableBusinessObject> Map<String, String> getSearchQueryCriteria(Class<T> boClass, MultivaluedMap<String, String> params,
-                                                                                                      PersistenceStructureService persistenceStructureService) {
+    public static Map<String, String> getSearchQueryCriteria(MultivaluedMap<String, String> params, List<String> boFields) {
         List<String> reservedParams = Arrays.asList(KFSConstants.Search.SORT, KFSConstants.Search.LIMIT, KFSConstants.Search.SKIP);
-        List<String> ojbFields = persistenceStructureService.listFieldNames(boClass);
         List<ErrorMessage> errorMessages = new ArrayList<>();
         Map<String, String> validParams = params.entrySet().stream()
             .filter(entry -> !reservedParams.contains(entry.getKey().toLowerCase()))
             .filter(entry -> {
-                if(ojbFields.contains(entry.getKey())) {
+                if(boFields.contains(entry.getKey())) {
                     return true;
                 }
 
