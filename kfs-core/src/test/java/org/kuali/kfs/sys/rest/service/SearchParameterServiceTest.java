@@ -25,6 +25,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.sys.businessobject.Bank;
@@ -104,7 +105,7 @@ public class SearchParameterServiceTest {
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("sort", "accountName");
 
-        String[] sort = SearchParameterService.getSortCriteria(params, validFields);
+        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
 
         Assert.assertEquals(new String[]{"accountName"}, sort);
     }
@@ -114,10 +115,14 @@ public class SearchParameterServiceTest {
         List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        PersistenceStructureService persistenceStructureService = EasyMock.createMock(PersistenceStructureService.class);
+        EasyMock.expect(persistenceStructureService.listPrimaryKeyFieldNames(Account.class)).andReturn(Arrays.asList("chartOfAccountsCode", "accountName"));
+        EasyMock.replay(persistenceStructureService);
 
-        String[] sort = SearchParameterService.getSortCriteria(params, validFields);
+        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
 
-        Assert.assertEquals(new String[]{"chartOfAccountsCode","accountNumber"}, sort);
+        Assert.assertEquals(new String[]{"chartOfAccountsCode","accountName"}, sort);
+        EasyMock.verify(persistenceStructureService);
     }
 
     @Test
@@ -126,7 +131,7 @@ public class SearchParameterServiceTest {
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
 
-        String[] sort = SearchParameterService.getSortCriteria(params, validFields);
+        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
 
         Assert.assertEquals(new String[]{"objectId"}, sort);
     }
@@ -136,7 +141,7 @@ public class SearchParameterServiceTest {
         List<String> validFields = Arrays.asList("accountName", "accountNumber", "chartOfAccountsCode");
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
 
-        String[] sort = SearchParameterService.getSortCriteria(params, validFields);
+        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
 
         Assert.assertEquals(new String[]{"accountName"}, sort);
     }
@@ -148,7 +153,7 @@ public class SearchParameterServiceTest {
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("sort", "-accountName");
 
-        String[] sort = SearchParameterService.getSortCriteria(params, validFields);
+        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
 
         Assert.assertEquals(new String[]{"-accountName"}, sort);
     }
@@ -160,7 +165,7 @@ public class SearchParameterServiceTest {
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("sort", "accountName,accountNumber");
 
-        String[] sort = SearchParameterService.getSortCriteria(params, validFields);
+        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
 
         Assert.assertEquals(new String[]{"accountName", "accountNumber"}, sort);
     }
@@ -173,7 +178,7 @@ public class SearchParameterServiceTest {
         params.add("sort", "accountname,accountnumber");
 
         try {
-            SearchParameterService.getSortCriteria(params, validFields);
+            SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
         } catch (ApiRequestException are) {
             Response response = are.getResponse();
 
@@ -203,7 +208,7 @@ public class SearchParameterServiceTest {
         params.add("sort", "class");
 
         try {
-            SearchParameterService.getSortCriteria(params, validFields);
+            SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
         } catch (ApiRequestException are) {
             Response response = are.getResponse();
 
@@ -219,6 +224,36 @@ public class SearchParameterServiceTest {
             Assert.assertEquals(1, ((List<ErrorMessage>)error.get("details")).size());
             Assert.assertEquals("invalid sort field", ((List<ErrorMessage>)error.get("details")).get(0).getMessage());
             Assert.assertEquals("class", ((List<ErrorMessage>)error.get("details")).get(0).getProperty());
+        }
+    }
+
+    @Test
+    public void testGetSortCriteria_SortByMaintainableFieldInvalidOjbField() {
+        List<String> maitainableFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode", "closed");
+        List<String> ojbFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
+        List<String> validFields = new ArrayList<>(maitainableFields);
+        validFields.retainAll(ojbFields);
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("sort", "closed");
+
+        try {
+            SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
+        } catch (ApiRequestException are) {
+            Response response = are.getResponse();
+
+            Assert.assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+
+            Map<String, Object> exceptionMap = new HashedMap();
+            exceptionMap.put("message", "Invalid Search Criteria");
+            List<ErrorMessage> errorMessages = new ArrayList<>();
+            errorMessages.add(new ErrorMessage("invalid sort field", "closed"));
+            exceptionMap.put("details", errorMessages);
+            Map<String, Object> error = (Map<String, Object>)response.getEntity();
+            Assert.assertEquals("Invalid Search Criteria", error.get("message"));
+            Assert.assertEquals(1, ((List<ErrorMessage>)error.get("details")).size());
+            Assert.assertEquals("invalid sort field", ((List<ErrorMessage>)error.get("details")).get(0).getMessage());
+            Assert.assertEquals("closed", ((List<ErrorMessage>)error.get("details")).get(0).getProperty());
         }
     }
 

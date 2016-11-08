@@ -22,6 +22,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.rest.ErrorMessage;
 import org.kuali.kfs.sys.rest.exception.ApiRequestException;
@@ -47,7 +48,8 @@ public class SearchParameterService {
         return limit;
     }
 
-    public static <T extends PersistableBusinessObject> String[] getSortCriteria(MultivaluedMap<String, String> params, List<String> boFields) {
+    public static <T extends PersistableBusinessObject> String[] getSortCriteria(Class<T> boClass, MultivaluedMap<String, String> params,
+                                                                                 List<String> boFields, PersistenceStructureService persistenceStructureService) {
         String orderByString = params.getFirst(KFSConstants.Search.SORT);
         if (orderByString != null) {
             List<ErrorMessage> errorMessages = new ArrayList<>();
@@ -69,11 +71,9 @@ public class SearchParameterService {
 
             return validSortFields.toArray(new String[]{});
         } else {
-//            final List<String> ojbPrimaryKeys = persistenceStructureService.listPrimaryKeyFieldNames(boClass);
-//            if (!CollectionUtils.isEmpty(ojbPrimaryKeys)) {
-//                return ojbPrimaryKeys.toArray(new String[] {});
-            if (!CollectionUtils.isEmpty(boFields)) {
-                return boFields.toArray(new String[] {});
+            final List<String> ojbPrimaryKeys = persistenceStructureService.listPrimaryKeyFieldNames(boClass);
+            if (!CollectionUtils.isEmpty(ojbPrimaryKeys)) {
+                return ojbPrimaryKeys.toArray(new String[] {});
             } else if (boFields.contains("objectId")){
                 return new String[]{"objectId"};
             }

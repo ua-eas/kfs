@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.sys.rest;
 
+import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryExclusionType;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryType;
 import org.kuali.kfs.coa.businessobject.Organization;
@@ -90,6 +91,16 @@ public class BusinessObjectApiResourceTestHelper {
 
         maintainableCollectionDefinition.setMaintainableFields(collectionFieldDefinitions);
         maintainableItemDefinitions.add(maintainableCollectionDefinition);
+        maintainableSectionDefinition.setMaintainableItems(maintainableItemDefinitions);
+        return maintainableSections;
+    }
+
+    public static List<MaintainableSectionDefinition> createAccountMaintainbleSections() {
+        List<MaintainableSectionDefinition> maintainableSections = new ArrayList<>();
+        MaintainableSectionDefinition maintainableSectionDefinition = new MaintainableSectionDefinition();
+        maintainableSections.add(maintainableSectionDefinition);
+        List<MaintainableItemDefinition> maintainableItemDefinitions = BusinessObjectApiResourceTestHelper.createItemDefinitions("chartOfAccountsCode",
+            "accountNumber","accountName","closed");
         maintainableSectionDefinition.setMaintainableItems(maintainableItemDefinitions);
         return maintainableSections;
     }
@@ -203,4 +214,12 @@ public class BusinessObjectApiResourceTestHelper {
         return deposit;
     }
 
+    public static Account getAccount() {
+        Account account = new Account();
+        account.setChartOfAccountsCode("BL");
+        account.setAccountNumber("12345");
+        account.setAccountName("MyAccount");
+        account.setClosed(false);
+        return account;
+    }
 }
