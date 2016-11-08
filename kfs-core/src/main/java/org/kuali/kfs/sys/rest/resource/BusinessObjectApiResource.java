@@ -34,7 +34,6 @@ import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.sec.SecConstants;
 import org.kuali.kfs.sec.service.AccessSecurityService;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.rest.service.SearchParameterService;
 import org.kuali.kfs.sys.rest.service.SerializationService;
@@ -59,7 +58,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -143,7 +141,8 @@ public class BusinessObjectApiResource {
         Map<String, Object> fields = SerializationService.findBusinessObjectFields(maintenanceDocumentEntry);
 
         Map<String, Object> jsonObject = SerializationService.businessObjectToJson(boClass, businessObject, fields, getPerson(),
-                                            getPersistenceStructureService(), getDataDictionaryService(), getBusinessObjectAuthorizationService());
+                                            getPersistenceStructureService(), getDataDictionaryService(), getBusinessObjectAuthorizationService(),
+                                            getKualiModuleService(), getConfigurationService());
         // TODO: Check authorization
 
         return Response.ok(jsonObject).build();
@@ -191,7 +190,8 @@ public class BusinessObjectApiResource {
         List<Map<String, Object>> jsonResults = new ArrayList<>();
         for (PersistableBusinessObject bo : queryResults) {
             Map<String, Object> jsonObject = SerializationService.businessObjectToJson(boClass, bo, fields, getPerson(),
-                                                getPersistenceStructureService(), getDataDictionaryService(), getBusinessObjectAuthorizationService());
+                                                getPersistenceStructureService(), getDataDictionaryService(), getBusinessObjectAuthorizationService(),
+                                                getKualiModuleService(), getConfigurationService());
             jsonResults.add(jsonObject);
             // TODO: Check authorization
         }
@@ -239,67 +239,6 @@ public class BusinessObjectApiResource {
             }
         }
         return null;
-    }
-
-    protected String convertClassToUrlBoName(Class clazz) {
-        DataDictionary dd = getDataDictionaryService().getDataDictionary();
-        MaintenanceDocumentEntry maintenanceDocumentEntry = (MaintenanceDocumentEntry) dd.getMaintenanceDocumentEntryForBusinessObjectClass(clazz);
-        if (maintenanceDocumentEntry == null) {
-            return null;
-        }
-
-        return maintenanceDocumentEntry.getDocumentTypeName().toLowerCase();
-    }
-
-    protected Map<String, Object> convertBoToUrl(BusinessObject businessObject) {
-        if (!(businessObject instanceof PersistableBusinessObject)) {
-            return null;
-        }
-
-        PersistableBusinessObject persistableBo = (PersistableBusinessObject) businessObject;
-        String objectID = persistableBo.getObjectId();
-        if (objectID == null) {
-            return null;
-        }
-
-        ModuleService moduleService = kualiModuleService.getResponsibleModuleService(businessObject.getClass());
-        if (moduleService == null) {
-            return null;
-        }
-
-        String moduleName = getModuleName(moduleService);
-        if (moduleName == null) {
-            return null;
-        }
-
-        String urlBoName = convertClassToUrlBoName(persistableBo.getClass());
-        if (urlBoName == null) {
-            return null;
-        }
-
-        Map<String, Object> result = new LinkedHashMap<>();
-        String url = getBaseUrl()
-            + "/"
-            + moduleName
-            + "/api/v1/reference/"
-            + urlBoName
-            + "/"
-            + persistableBo.getObjectId();
-        result.put(KFSPropertyConstants.LINK, url);
-
-        return result;
-    }
-
-    protected String getBaseUrl() {
-        return getConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY);
-    }
-
-    protected String getModuleName(ModuleService moduleService) {
-        String moduleServiceName = moduleService.getModuleConfiguration().getNamespaceCode().toLowerCase();
-        if (moduleServiceName.contains("-")) {
-            moduleServiceName = StringUtils.substringAfter(moduleServiceName, "-");
-        }
-        return moduleServiceName;
     }
 
     protected boolean isAuthorized(Class<PersistableBusinessObject> boClass) {
