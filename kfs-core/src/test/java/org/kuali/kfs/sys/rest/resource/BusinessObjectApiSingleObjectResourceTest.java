@@ -59,6 +59,7 @@ import org.kuali.kfs.sys.businessobject.UnitOfMeasure;
 import org.kuali.kfs.sys.identity.TestPerson;
 import org.kuali.kfs.sys.rest.BusinessObjectApiResourceTestHelper;
 import org.kuali.kfs.sys.rest.MockDataDictionaryService;
+import org.kuali.kfs.sys.rest.service.SerializationService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.common.template.Template;
@@ -95,6 +96,7 @@ public class BusinessObjectApiSingleObjectResourceTest {
     private MaintenanceDocumentEntry maintenanceDocumentEntry;
     private PermissionService permissionService;
     private AccessSecurityService accessSecurityService;
+    private SerializationService serializationService;
     private UserSession userSession;
     private UnitOfMeasure uom = BusinessObjectApiResourceTestHelper.getUom();
     private Organization org = BusinessObjectApiResourceTestHelper.getOrganization();
@@ -120,6 +122,12 @@ public class BusinessObjectApiSingleObjectResourceTest {
         accessSecurityService = EasyMock.createMock(AccessSecurityService.class);
         userSession = EasyMock.createMock(UserSession.class);
         businessObjectAuthorizationService = EasyMock.createMock(BusinessObjectAuthorizationService.class);
+        serializationService = new SerializationService();
+        serializationService.setPersistenceStructureService(persistenceStructureService);
+        serializationService.setDataDictionaryService(dataDictionaryService);
+        serializationService.setKualiModuleService(kualiModuleService);
+        serializationService.setConfigurationService(configurationService);
+        serializationService.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
         PowerMock.mockStatic(KRADServiceLocator.class);
         PowerMock.mockStatic(KRADUtils.class);
     }
@@ -245,6 +253,7 @@ public class BusinessObjectApiSingleObjectResourceTest {
         BusinessObjectApiResource.setConfigurationService(configurationService);
         BusinessObjectApiResource.setPersistenceStructureService(persistenceStructureService);
         BusinessObjectApiResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
+        BusinessObjectApiResource.setSerializationService(serializationService);
 
         Response response = apiResource.findSingleBusinessObject(documentTypeName.toLowerCase(), "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, dataDictionaryService,
@@ -297,6 +306,7 @@ public class BusinessObjectApiSingleObjectResourceTest {
         BusinessObjectApiResource.setConfigurationService(configurationService);
         BusinessObjectApiResource.setPersistenceStructureService(persistenceStructureService);
         BusinessObjectApiResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
+        BusinessObjectApiResource.setSerializationService(serializationService);
 
         Response response = apiResource.findSingleBusinessObject(documentTypeName.toLowerCase(), "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService,
@@ -337,6 +347,7 @@ public class BusinessObjectApiSingleObjectResourceTest {
         BusinessObjectApiResource.setConfigurationService(configurationService);
         BusinessObjectApiResource.setPersistenceStructureService(persistenceStructureService);
         BusinessObjectApiResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
+        BusinessObjectApiResource.setSerializationService(serializationService);
 
         Response response = apiResource.findSingleBusinessObject(documentTypeName.toLowerCase(), "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService,
@@ -392,6 +403,7 @@ public class BusinessObjectApiSingleObjectResourceTest {
         BusinessObjectApiResource.setConfigurationService(configurationService);
         BusinessObjectApiResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
         BusinessObjectApiResource.setPersistenceStructureService(persistenceStructureService);
+        BusinessObjectApiResource.setSerializationService(serializationService);
 
         Response response = apiResource.findSingleBusinessObject(documentTypeName.toLowerCase(), "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, businessObjectAuthorizationService, persistenceStructureService,
@@ -447,6 +459,7 @@ public class BusinessObjectApiSingleObjectResourceTest {
         BusinessObjectApiResource.setConfigurationService(configurationService);
         BusinessObjectApiResource.setPersistenceStructureService(persistenceStructureService);
         BusinessObjectApiResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
+        BusinessObjectApiResource.setSerializationService(serializationService);
 
         Response response = apiResource.findSingleBusinessObject(documentTypeName.toLowerCase(), "12345");
         EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService,
@@ -470,6 +483,8 @@ public class BusinessObjectApiSingleObjectResourceTest {
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(moduleConfig).anyTimes();
         EasyMock.expect(maintenanceDocumentEntry.getDataObjectClass()).andReturn(clazz).anyTimes();
+        Map<String, Object> fieldsMap = new HashMap<>();
+        fieldsMap.put(SerializationService.FIELDS_KEY, null);
         EasyMock.expect(dataDictionary.getDocumentEntry(documentTypeName)).andReturn(maintenanceDocumentEntry);
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).anyTimes();
         EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).anyTimes();

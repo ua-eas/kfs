@@ -34,6 +34,7 @@ import org.kuali.kfs.kns.datadictionary.MaintainableSubSectionHeaderDefinition;
 import org.kuali.kfs.krad.bo.ModuleConfiguration;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.businessobject.TaxRegionRate;
 import org.kuali.kfs.sys.businessobject.UnitOfMeasure;
@@ -41,7 +42,9 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BusinessObjectApiResourceTestHelper {
 
@@ -163,6 +166,22 @@ public class BusinessObjectApiResourceTestHelper {
         cashOffsetFinancialChartOfAccount.setObjectId("BNKCHART5554455");
         bank.setCashOffsetFinancialChartOfAccount(cashOffsetFinancialChartOfAccount);
         return bank;
+    }
+
+    public static Map<String, Object> getSerializedBank() {
+        Bank bank = getBank();
+
+        Map<String, Object> bankMap = new HashMap<>();
+        bankMap.put(KFSPropertyConstants.BANK_CODE, bank.getBankCode());
+        bankMap.put(KFSPropertyConstants.BANK_NAME, bank.getBankName());
+        bankMap.put(KFSPropertyConstants.BANK_ROUTING_NUMBER, bank.getBankRoutingNumber());
+        bankMap.put(KFSPropertyConstants.BANK_ACCOUNT_NUMBER, bank.getBankAccountNumber());
+        bankMap.put(KFSPropertyConstants.OBJECT_ID, bank.getObjectId());
+
+        Map<String, Object> chartMap = new HashMap<>();
+        chartMap.put(KFSPropertyConstants.LINK, "https://kuali.co/fin/coa/api/v1/reference/coat/"+bank.getCashOffsetFinancialChartOfAccount().getObjectId());
+        bankMap.put(KFSPropertyConstants.CASH_OFFSET_FINANCIAL_CHART_OF_ACCOUNT, chartMap);
+        return bankMap;
     }
 
     public static Organization getOrganization() {

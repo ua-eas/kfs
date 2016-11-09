@@ -56,6 +56,8 @@ import java.util.Map;
 @RunWith(PowerMockRunner.class)
 public class SerializationServiceTest {
 
+    private SerializationService serializationService;
+
     private MaintenanceDocumentEntry maintenanceDocumentEntry;
     private KualiModuleService kualiModuleService;
     private ModuleService moduleService;
@@ -66,6 +68,8 @@ public class SerializationServiceTest {
 
     @Before
     public void setup() {
+        serializationService = new SerializationService();
+
         maintenanceDocumentEntry = EasyMock.createMock(MaintenanceDocumentEntry.class);
         kualiModuleService = EasyMock.createMock(KualiModuleService.class);
         moduleService = EasyMock.createMock(ModuleService.class);
@@ -74,6 +78,11 @@ public class SerializationServiceTest {
         dataDictionaryService = EasyMock.createMock(DataDictionaryService.class);
         persistenceStructureService = EasyMock.createMock(PersistenceStructureService.class);
         PowerMock.mockStatic(KRADServiceLocator.class);
+
+        serializationService.setPersistenceStructureService(persistenceStructureService);
+        serializationService.setKualiModuleService(kualiModuleService);
+        serializationService.setConfigurationService(configurationService);
+        serializationService.setDataDictionaryService(dataDictionaryService);
     }
 
     @Test
@@ -86,7 +95,7 @@ public class SerializationServiceTest {
             "organization.responsibilityCenter.responsibilityCenterName2"
         );
 
-        Map<String, Object> results = SerializationService.businessObjectFieldsToMap(fields);
+        Map<String, Object> results = serializationService.businessObjectFieldsToMap(fields);
         Assert.assertEquals(2, results.size());
         Assert.assertEquals(1, ((List<String>)results.get(SerializationService.FIELDS_KEY)).size());
         Assert.assertEquals("accountName", ((List<String>)results.get(SerializationService.FIELDS_KEY)).get(0));
@@ -104,7 +113,7 @@ public class SerializationServiceTest {
     public void testFindBusinessObjectFields() {
         addTaxRegionMaintainbleSections();
         EasyMock.replay(maintenanceDocumentEntry);
-        Map<String, Object> fields = SerializationService.findBusinessObjectFields(maintenanceDocumentEntry);
+        Map<String, Object> fields = serializationService.findBusinessObjectFields(maintenanceDocumentEntry);
         Assert.assertEquals(2, fields.size());
         Assert.assertEquals(8, ((List<String>)fields.get(SerializationService.FIELDS_KEY)).size());
         Assert.assertEquals("taxRegionCode", ((List<String>)fields.get(SerializationService.FIELDS_KEY)).get(0));
@@ -171,11 +180,12 @@ public class SerializationServiceTest {
         EasyMock.expect(dataDictionary.getMaintenanceDocumentEntryForBusinessObjectClass(EasyMock.eq(Chart.class))).andReturn(chartMaintDocEntry);
         EasyMock.expect(dataDictionary.getMaintenanceDocumentEntryForBusinessObjectClass(EasyMock.eq(Account.class))).andReturn(accountMaintDocEntry);
         EasyMock.expect(configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY)).andReturn("https://kuali.co/fin").times(2);
+        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).times(2);
 
         EasyMock.replay(dataDictionary, configurationService, kualiModuleService, moduleService, dataDictionaryService, chartMaintDocEntry, accountMaintDocEntry);
         PowerMock.replay(KRADServiceLocator.class);
 
-        SerializationService.populateRelatedBusinessObjectFields(taxRegion, serializedTaxRegion, kualiModuleService, configurationService, dataDictionary);
+        serializationService.populateRelatedBusinessObjectFields(taxRegion, serializedTaxRegion);
 
         EasyMock.verify(dataDictionary, configurationService, kualiModuleService, moduleService, dataDictionaryService, chartMaintDocEntry, accountMaintDocEntry);
         Assert.assertEquals("Serialized TaxRegion should have size of 2", 2, serializedTaxRegion.size());
@@ -220,11 +230,12 @@ public class SerializationServiceTest {
         EasyMock.expect(dataDictionary.getMaintenanceDocumentEntryForBusinessObjectClass(EasyMock.eq(Chart.class))).andReturn(chartMaintDocEntry);
         EasyMock.expect(dataDictionary.getMaintenanceDocumentEntryForBusinessObjectClass(EasyMock.eq(Account.class))).andReturn(accountMaintDocEntry);
         EasyMock.expect(configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY)).andReturn("https://kuali.co/fin").times(2);
+        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).times(2);
 
         EasyMock.replay(dataDictionary, configurationService, kualiModuleService, moduleService, dataDictionaryService, chartMaintDocEntry, accountMaintDocEntry);
         PowerMock.replay(KRADServiceLocator.class);
 
-        SerializationService.populateRelatedBusinessObjectFields(taxRegion, serializedTaxRegion, kualiModuleService, configurationService, dataDictionary);
+        serializationService.populateRelatedBusinessObjectFields(taxRegion, serializedTaxRegion);
 
         EasyMock.verify(dataDictionary, configurationService, kualiModuleService, moduleService, dataDictionaryService, chartMaintDocEntry, accountMaintDocEntry);
         Assert.assertEquals("Serialized TaxRegion should have size of 2", 2, serializedTaxRegion.size());
@@ -266,11 +277,12 @@ public class SerializationServiceTest {
         EasyMock.expect(taxRegionRateMaintDocEntry.getDocumentTypeName()).andReturn("TRRT").times(2);
         EasyMock.expect(dataDictionary.getMaintenanceDocumentEntryForBusinessObjectClass(EasyMock.eq(TaxRegionRate.class))).andReturn(taxRegionRateMaintDocEntry).times(2);
         EasyMock.expect(configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY)).andReturn("https://kuali.co/fin").times(2);
+        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).times(2);
 
         EasyMock.replay(dataDictionary, configurationService, kualiModuleService, moduleService, dataDictionaryService, taxRegionRateMaintDocEntry);
         PowerMock.replay(KRADServiceLocator.class);
 
-        SerializationService.populateRelatedBusinessObjectFields(taxRegion, serializedTaxRegion, kualiModuleService, configurationService, dataDictionary);
+        serializationService.populateRelatedBusinessObjectFields(taxRegion, serializedTaxRegion);
 
         EasyMock.verify(dataDictionary, configurationService, kualiModuleService, moduleService, dataDictionaryService, taxRegionRateMaintDocEntry);
         Assert.assertEquals("Serialized TaxRegion should have size of 1", 1, serializedTaxRegion.size());
@@ -316,13 +328,14 @@ public class SerializationServiceTest {
         EasyMock.expect(persistenceStructureService.getBusinessObjectAttributeClass(EasyMock.anyObject(), EasyMock.matches("extension"))).andReturn(null).anyTimes();
         MaintenanceDocumentEntry taxRegionRateMaintDocEntry = EasyMock.createMock(MaintenanceDocumentEntry.class); // no, it doesn't exist; but that's the beauty of mocking
         EasyMock.expect(taxRegionRateMaintDocEntry.getDocumentTypeName()).andReturn("TRRT").times(2);
+        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).times(2);
         EasyMock.expect(dataDictionary.getMaintenanceDocumentEntryForBusinessObjectClass(EasyMock.eq(TaxRegionRate.class))).andReturn(taxRegionRateMaintDocEntry).times(2);
         EasyMock.expect(configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY)).andReturn("https://kuali.co/fin").times(2);
 
         EasyMock.replay(dataDictionary, configurationService, kualiModuleService, moduleService, dataDictionaryService, taxRegionRateMaintDocEntry);
         PowerMock.replay(KRADServiceLocator.class);
 
-        SerializationService.populateRelatedBusinessObjectFields(taxRegion, serializedTaxRegion, kualiModuleService, configurationService, dataDictionary);
+        serializationService.populateRelatedBusinessObjectFields(taxRegion, serializedTaxRegion);
 
         EasyMock.verify(dataDictionary, configurationService, kualiModuleService, moduleService, dataDictionaryService, taxRegionRateMaintDocEntry);
         Assert.assertEquals("Serialized TaxRegion should have size of 1", 1, serializedTaxRegion.size());

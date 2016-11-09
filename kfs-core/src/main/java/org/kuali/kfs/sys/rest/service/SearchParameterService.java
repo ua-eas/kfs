@@ -37,7 +37,9 @@ import java.util.stream.Collectors;
 public class SearchParameterService {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SearchParameterService.class);
 
-    public static <T extends PersistableBusinessObject> int getLimit(Class<T> boClass, MultivaluedMap<String, String> params) {
+    private PersistenceStructureService persistenceStructureService;
+
+    public <T extends PersistableBusinessObject> int getLimit(Class<T> boClass, MultivaluedMap<String, String> params) {
         int limit = getIntQueryParameter(KFSConstants.Search.LIMIT, params);
         if (limit <= 0) {
             limit = LookupUtils.getSearchResultsLimit(boClass);
@@ -48,8 +50,8 @@ public class SearchParameterService {
         return limit;
     }
 
-    public static <T extends PersistableBusinessObject> String[] getSortCriteria(Class<T> boClass, MultivaluedMap<String, String> params,
-                                                                                 List<String> boFields, PersistenceStructureService persistenceStructureService) {
+    public <T extends PersistableBusinessObject> String[] getSortCriteria(Class<T> boClass, MultivaluedMap<String, String> params,
+                                                                                 List<String> boFields) {
         String orderByString = params.getFirst(KFSConstants.Search.SORT);
         if (orderByString != null) {
             List<ErrorMessage> errorMessages = new ArrayList<>();
@@ -82,7 +84,7 @@ public class SearchParameterService {
         return new String[] { boFields.get(0) }; // no other fields to check from...let's just sort on the first ojb column
     }
 
-    public static int getIntQueryParameter(String name, MultivaluedMap<String, String> params) {
+    public int getIntQueryParameter(String name, MultivaluedMap<String, String> params) {
         String paramString = params.getFirst(name);
         if (StringUtils.isNotBlank(paramString)) {
             try {
@@ -95,7 +97,7 @@ public class SearchParameterService {
         return 0;
     }
 
-    public static Map<String, String> getSearchQueryCriteria(MultivaluedMap<String, String> params, List<String> boFields) {
+    public Map<String, String> getSearchQueryCriteria(MultivaluedMap<String, String> params, List<String> boFields) {
         List<String> reservedParams = Arrays.asList(KFSConstants.Search.SORT, KFSConstants.Search.LIMIT, KFSConstants.Search.SKIP);
         List<ErrorMessage> errorMessages = new ArrayList<>();
         Map<String, String> validParams = params.entrySet().stream()
@@ -116,5 +118,13 @@ public class SearchParameterService {
         }
 
         return validParams;
+    }
+
+    public PersistenceStructureService getPersistenceStructureService() {
+        return persistenceStructureService;
+    }
+
+    public void setPersistenceStructureService(PersistenceStructureService persistenceStructureService) {
+        this.persistenceStructureService = persistenceStructureService;
     }
 }
