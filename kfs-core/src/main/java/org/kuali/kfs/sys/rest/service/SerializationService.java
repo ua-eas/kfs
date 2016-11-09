@@ -30,7 +30,6 @@ import org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry;
 import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
-import org.kuali.kfs.krad.datadictionary.DataDictionary;
 import org.kuali.kfs.krad.datadictionary.mask.MaskFormatter;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KualiModuleService;
@@ -58,7 +57,13 @@ public class SerializationService {
     public static final String FIELDS_KEY = "!topLevelFields!";
     public static final String COLLECTIONS_KEY = "!collectionsFields!";
 
-    public static Map<String, Object> findBusinessObjectFields(MaintenanceDocumentEntry maintenanceDocumentEntry) {
+    private PersistenceStructureService persistenceStructureService;
+    private DataDictionaryService dataDictionaryService;
+    private BusinessObjectAuthorizationService businessObjectAuthorizationService;
+    private KualiModuleService kualiModuleService;
+    private ConfigurationService configurationService;
+
+    public Map<String, Object> findBusinessObjectFields(MaintenanceDocumentEntry maintenanceDocumentEntry) {
         List<String> fields = new ArrayList<>();
         List<CollectionSerializationHelper> collectionSerializationHelpers = new ArrayList<>();
         List<MaintainableSectionDefinition> maintainableSections = maintenanceDocumentEntry.getMaintainableSections();
@@ -80,15 +85,15 @@ public class SerializationService {
         return businessObjectFieldsMap;
     }
 
-    protected static CollectionSerializationHelper buildCollectionSerializationHelper(MaintainableCollectionDefinition maintainableCollectionDefinition) {
-        CollectionSerializationHelper helper = new CollectionSerializationHelper(maintainableCollectionDefinition.getName(), maintainableCollectionDefinition.getBusinessObjectClass());
+    protected CollectionSerializationHelper buildCollectionSerializationHelper(MaintainableCollectionDefinition maintainableCollectionDefinition) {
+        CollectionSerializationHelper helper = new CollectionSerializationHelper(maintainableCollectionDefinition.getName(), maintainableCollectionDefinition.getBusinessObjectClass(), this);
         for (MaintainableFieldDefinition fieldDefinition : maintainableCollectionDefinition.getMaintainableFields()) {
             helper.addField(fieldDefinition.getName());
         }
         return helper;
     }
 
-    public static Map<String, Object> businessObjectFieldsToMap(List<String> fields) {
+    public Map<String, Object> businessObjectFieldsToMap(List<String> fields) {
         Map<String, Object> fieldsMap = createBusinessObjectFieldsMap();
         for (String field: fields) {
             populateFieldsMapWithField(fieldsMap, field);
@@ -96,7 +101,7 @@ public class SerializationService {
         return fieldsMap;
     }
 
-    protected static void populateFieldsMapWithField(Map<String, Object> fieldsMap, String field) {
+    protected void populateFieldsMapWithField(Map<String, Object> fieldsMap, String field) {
         if (field.indexOf(".") < 0) {
             ((List<String>)fieldsMap.get(FIELDS_KEY)).add(field);
         } else {
@@ -110,20 +115,15 @@ public class SerializationService {
         }
     }
 
-    protected static Map<String, Object> createBusinessObjectFieldsMap() {
+    protected Map<String, Object> createBusinessObjectFieldsMap() {
         Map<String, Object> fieldsMap = new HashMap<>();
         fieldsMap.put(FIELDS_KEY, new ArrayList<String>());
         return fieldsMap;
     }
 
-    public static <T extends PersistableBusinessObject> Map<String, Object> businessObjectToJson(Class<T> boClass, PersistableBusinessObject bo,
+    public <T extends PersistableBusinessObject> Map<String, Object> businessObjectToJson(Class<T> boClass, PersistableBusinessObject bo,
                                                                                                  Map<String, Object> fields,
-                                                                                                 Person person,
-                                                                                                 PersistenceStructureService persistenceStructureService,
-                                                                                                 DataDictionaryService dataDictionaryService,
-                                                                                                 BusinessObjectAuthorizationService businessObjectAuthorizationService,
-                                                                                                 KualiModuleService kualiModuleService,
-                                                                                                 ConfigurationService configurationService) {
+                                                                                                 Person person) {
         Map<String, Object> jsonObject = new LinkedHashMap<>();
         for (String key : fields.keySet()) {
             if (key.equals(FIELDS_KEY)) {
@@ -131,8 +131,7 @@ public class SerializationService {
                     try {
                         Object value = PropertyUtils.getProperty(bo, field);
                         if (value != null) {
-                            final Object possiblyMaskedJsonValue = maskJsonValueIfNecessary(boClass.getSimpleName(), field, value, person,
-                                                                    dataDictionaryService, businessObjectAuthorizationService);
+                            final Object possiblyMaskedJsonValue = maskJsonValueIfNecessary(boClass.getSimpleName(), field, value, person);
                             jsonObject.put(field, possiblyMaskedJsonValue);
                         }
                     } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
@@ -154,8 +153,7 @@ public class SerializationService {
                                 List<Map<String, Object>> collectionJsonObjects = new ArrayList<>();
                                 for (PersistableBusinessObject childBusinessObject : childrenBusinessObjects) {
                                     Map<String, Object> childSerialized = businessObjectToJson(childBusinessObject.getClass(),
-                                        childBusinessObject, collectionSerializationHelper.getTranslatedFields(), person, persistenceStructureService,
-                                        dataDictionaryService, businessObjectAuthorizationService, kualiModuleService, configurationService);
+                                        childBusinessObject, collectionSerializationHelper.getTranslatedFields(), person);
                                     collectionJsonObjects.add(childSerialized);
                                 }
                                 jsonObject.put(name, collectionJsonObjects);
@@ -175,8 +173,7 @@ public class SerializationService {
                         PersistableBusinessObject childBusinessObject = (PersistableBusinessObject) PropertyUtils.getProperty(bo, key);
                         if (!ObjectUtils.isNull(childBusinessObject)) {
                             Map<String, Object> childSerialized = businessObjectToJson(childBusinessObject.getClass(),
-                                childBusinessObject, (Map<String, Object>) fields.get(key), person, persistenceStructureService,
-                                dataDictionaryService, businessObjectAuthorizationService, kualiModuleService, configurationService);
+                                childBusinessObject, (Map<String, Object>) fields.get(key), person);
                             jsonObject.put(key, childSerialized);
                         }
                     }
@@ -188,21 +185,20 @@ public class SerializationService {
 
         jsonObject.put(KFSPropertyConstants.OBJECT_ID, bo.getObjectId());
 
-        populateRelatedBusinessObjectFields(bo, jsonObject, kualiModuleService, configurationService, dataDictionaryService.getDataDictionary());
+        populateRelatedBusinessObjectFields(bo, jsonObject);
         return jsonObject;
     }
 
-    protected static MaskFormatter buildMaskFormatter(AttributeDefinition attributeDefinition) {
+    protected MaskFormatter buildMaskFormatter(AttributeDefinition attributeDefinition) {
         return (attributeDefinition.getAttributeSecurity().isMask())
             ? attributeDefinition.getAttributeSecurity().getMaskFormatter()
             : attributeDefinition.getAttributeSecurity().getPartialMaskFormatter();
     }
 
-    protected static Object maskJsonValueIfNecessary(String businessObjectName, String attributeName, Object jsonValue,
-                                                     Person person, DataDictionaryService dataDictionaryService,
-                                                     BusinessObjectAuthorizationService businessObjectAuthorizationService) {
+    protected Object maskJsonValueIfNecessary(String businessObjectName, String attributeName, Object jsonValue, Person person) {
         final AttributeDefinition attributeDefinition = dataDictionaryService.getAttributeDefinition(businessObjectName, attributeName);
-        if (attributeDefinition == null || attributeDefinition.getAttributeSecurity() == null || (!attributeDefinition.getAttributeSecurity().isMask() && !attributeDefinition.getAttributeSecurity().isPartialMask())) {
+        if (attributeDefinition == null || attributeDefinition.getAttributeSecurity() == null
+                || (!attributeDefinition.getAttributeSecurity().isMask() && !attributeDefinition.getAttributeSecurity().isPartialMask())) {
             return jsonValue;
         }
         final MaskFormatter maskFormatter = buildMaskFormatter(attributeDefinition);
@@ -210,12 +206,11 @@ public class SerializationService {
             return maskFormatter.maskValue(jsonValue); // it's non-production and unmasking is turned off, so let's always mask
         } else {
             final Class<? extends BusinessObject> businessObjectClass = dataDictionaryService.getDataDictionary().getBusinessObjectEntry(businessObjectName).getBusinessObjectClass();
-            return maskJsonValue(jsonValue, businessObjectClass, attributeDefinition, maskFormatter, person, businessObjectAuthorizationService);
+            return maskJsonValue(jsonValue, businessObjectClass, attributeDefinition, maskFormatter, person);
         }
     }
 
-    protected static boolean shouldMask(Class<? extends BusinessObject> businessObjectClass, AttributeDefinition attributeDefinition,
-                                        Person person, BusinessObjectAuthorizationService businessObjectAuthorizationService) {
+    protected boolean shouldMask(Class<? extends BusinessObject> businessObjectClass, AttributeDefinition attributeDefinition, Person person) {
         return (attributeDefinition.getAttributeSecurity().isMask()
             && !businessObjectAuthorizationService.canFullyUnmaskField(person, businessObjectClass, attributeDefinition.getName(), null))
             ||
@@ -223,16 +218,14 @@ public class SerializationService {
                 && !businessObjectAuthorizationService.canPartiallyUnmaskField(person, businessObjectClass, attributeDefinition.getName(), null));
     }
 
-    protected static Object maskJsonValue(Object jsonValue, Class<? extends BusinessObject> businessObjectClass,
-                                          AttributeDefinition attributeDefinition, MaskFormatter maskFormatter,
-                                          Person person, BusinessObjectAuthorizationService businessObjectAuthorizationService) {
-        return (shouldMask(businessObjectClass, attributeDefinition, person, businessObjectAuthorizationService))
+    protected Object maskJsonValue(Object jsonValue, Class<? extends BusinessObject> businessObjectClass,
+                                          AttributeDefinition attributeDefinition, MaskFormatter maskFormatter, Person person) {
+        return (shouldMask(businessObjectClass, attributeDefinition, person))
             ? maskFormatter.maskValue(jsonValue)
             : jsonValue;
     }
 
-    protected static void populateRelatedBusinessObjectFields(PersistableBusinessObject businessObject, Map<String, Object> serializedBusinessObject, KualiModuleService kualiModuleService,
-                                                              ConfigurationService configurationService, DataDictionary dataDictionary) {
+    protected void populateRelatedBusinessObjectFields(PersistableBusinessObject businessObject, Map<String, Object> serializedBusinessObject) {
         try {
             for (PropertyDescriptor propertyDescriptor : PropertyUtils.getPropertyDescriptors(businessObject)) {
                 Method readMethod = propertyDescriptor.getReadMethod();
@@ -240,7 +233,7 @@ public class SerializationService {
                     final Class<?> propertyClass = propertyDescriptor.getPropertyType();
 
                     if (PersistableBusinessObject.class.isAssignableFrom(propertyClass)) {
-                        Map<String, Object> linkObject = convertBoToUrl((PersistableBusinessObject)PropertyUtils.getProperty(businessObject, propertyDescriptor.getName()), kualiModuleService, configurationService, dataDictionary);
+                        Map<String, Object> linkObject = convertBoToUrl((PersistableBusinessObject)PropertyUtils.getProperty(businessObject, propertyDescriptor.getName()));
                         if (linkObject != null) {
                             if (serializedBusinessObject.containsKey(propertyDescriptor.getName())) {
                                 ((Map<String, Object>)serializedBusinessObject.get(propertyDescriptor.getName())).putAll(linkObject);
@@ -256,7 +249,7 @@ public class SerializationService {
                                                                              : new ArrayList<>();
                             for (int i = 0; i < collection.size(); i++) {
                                 final Object member = collection.get(i);
-                                final Map<String, Object> memberMap = convertBoToUrl((PersistableBusinessObject)member, kualiModuleService, configurationService, dataDictionary);
+                                final Map<String, Object> memberMap = convertBoToUrl((PersistableBusinessObject)member);
                                 if (memberMap != null) {
                                     if (i < serializedCollection.size() && serializedCollection.get(i) != null) {
                                         serializedCollection.get(i).putAll(memberMap);
@@ -275,7 +268,7 @@ public class SerializationService {
         }
     }
 
-    protected static Map<String, Object> convertBoToUrl(PersistableBusinessObject businessObject, KualiModuleService kualiModuleService, ConfigurationService configurationService, DataDictionary dataDictionary) {
+    protected Map<String, Object> convertBoToUrl(PersistableBusinessObject businessObject) {
         if (ObjectUtils.isNull(businessObject)) {
             return null;
         }
@@ -295,13 +288,13 @@ public class SerializationService {
             return null;
         }
 
-        String urlBoName = lookupMaintenanceDocumentTypeForClass(ObjectUtils.materializeClassForProxiedObject(businessObject), dataDictionary);
+        String urlBoName = lookupMaintenanceDocumentTypeForClass(ObjectUtils.materializeClassForProxiedObject(businessObject));
         if (urlBoName == null) {
             return null;
         }
 
         Map<String, Object> result = new LinkedHashMap<>();
-        String url = getBaseUrl(configurationService)
+        String url = getBaseUrl()
                 + "/"
                 + moduleName
                 + "/api/v1/reference/"
@@ -313,7 +306,7 @@ public class SerializationService {
         return result;
     }
 
-    protected static String getBaseUrl(ConfigurationService configurationService) {
+    protected String getBaseUrl() {
         return configurationService.getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY);
     }
 
@@ -325,12 +318,52 @@ public class SerializationService {
         return moduleServiceName;
     }
 
-    protected static String lookupMaintenanceDocumentTypeForClass(Class clazz, DataDictionary dataDictionary) {
-        MaintenanceDocumentEntry maintenanceDocumentEntry = (MaintenanceDocumentEntry) dataDictionary.getMaintenanceDocumentEntryForBusinessObjectClass(clazz);
+    protected String lookupMaintenanceDocumentTypeForClass(Class clazz) {
+        MaintenanceDocumentEntry maintenanceDocumentEntry = (MaintenanceDocumentEntry) getDataDictionaryService().getDataDictionary().getMaintenanceDocumentEntryForBusinessObjectClass(clazz);
         if (maintenanceDocumentEntry == null) {
             return null;
         }
 
         return maintenanceDocumentEntry.getDocumentTypeName().toLowerCase();
+    }
+
+    public PersistenceStructureService getPersistenceStructureService() {
+        return persistenceStructureService;
+    }
+
+    public void setPersistenceStructureService(PersistenceStructureService persistenceStructureService) {
+        this.persistenceStructureService = persistenceStructureService;
+    }
+
+    public DataDictionaryService getDataDictionaryService() {
+        return dataDictionaryService;
+    }
+
+    public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
+        this.dataDictionaryService = dataDictionaryService;
+    }
+
+    public BusinessObjectAuthorizationService getBusinessObjectAuthorizationService() {
+        return businessObjectAuthorizationService;
+    }
+
+    public void setBusinessObjectAuthorizationService(BusinessObjectAuthorizationService businessObjectAuthorizationService) {
+        this.businessObjectAuthorizationService = businessObjectAuthorizationService;
+    }
+
+    public KualiModuleService getKualiModuleService() {
+        return kualiModuleService;
+    }
+
+    public void setKualiModuleService(KualiModuleService kualiModuleService) {
+        this.kualiModuleService = kualiModuleService;
+    }
+
+    public ConfigurationService getConfigurationService() {
+        return configurationService;
+    }
+
+    public void setConfigurationService(ConfigurationService configurationService) {
+        this.configurationService = configurationService;
     }
 }

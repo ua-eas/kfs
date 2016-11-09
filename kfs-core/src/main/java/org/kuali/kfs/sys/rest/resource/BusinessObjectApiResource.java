@@ -77,6 +77,8 @@ public class BusinessObjectApiResource {
     private static volatile AccessSecurityService accessSecurityService;
     private static volatile DataDictionaryService dataDictionaryService;
     private static volatile PersistenceStructureService persistenceStructureService;
+    private static volatile SearchParameterService searchParameterService;
+    private static volatile SerializationService serializationService;
 
     @Context
     protected HttpServletRequest servletRequest;
@@ -138,11 +140,9 @@ public class BusinessObjectApiResource {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
 
-        Map<String, Object> fields = SerializationService.findBusinessObjectFields(maintenanceDocumentEntry);
+        Map<String, Object> fields = getSerializationService().findBusinessObjectFields(maintenanceDocumentEntry);
 
-        Map<String, Object> jsonObject = SerializationService.businessObjectToJson(boClass, businessObject, fields, getPerson(),
-                                            getPersistenceStructureService(), getDataDictionaryService(), getBusinessObjectAuthorizationService(),
-                                            getKualiModuleService(), getConfigurationService());
+        Map<String, Object> jsonObject = getSerializationService().businessObjectToJson(boClass, businessObject, fields, getPerson());
         // TODO: Check authorization
 
         return Response.ok(jsonObject).build();
@@ -161,18 +161,18 @@ public class BusinessObjectApiResource {
     protected <T extends PersistableBusinessObject> Map<String, Object> searchBusinessObjects(Class<T> boClass, UriInfo uriInfo,
                                                                                               MaintenanceDocumentEntry maintenanceDocumentEntry) {
         List<String> ojbFields = getPersistenceStructureService().listFieldNames(boClass);
-        Map<String, Object> fields = SerializationService.findBusinessObjectFields(maintenanceDocumentEntry);
+        Map<String, Object> fields = getSerializationService().findBusinessObjectFields(maintenanceDocumentEntry);
 
         List<String> validFields = new ArrayList<>((List<String>)fields.get(SerializationService.FIELDS_KEY));
         validFields.retainAll(ojbFields);
 
         MultivaluedMap<String, String> params = uriInfo.getQueryParameters();
-        Map<String, String> queryCriteria = SearchParameterService.getSearchQueryCriteria(params, validFields);
+        Map<String, String> queryCriteria = getSearchParameterService().getSearchQueryCriteria(params, validFields);
 
-        int skip = SearchParameterService.getIntQueryParameter(KFSConstants.Search.SKIP, params);
-        int limit = SearchParameterService.getLimit(boClass, params);
+        int skip = getSearchParameterService().getIntQueryParameter(KFSConstants.Search.SKIP, params);
+        int limit = getSearchParameterService().getLimit(boClass, params);
 
-        String[] orderBy = SearchParameterService.getSortCriteria(boClass, params, validFields, persistenceStructureService);
+        String[] orderBy = getSearchParameterService().getSortCriteria(boClass, params, validFields);
 
         Map<String, Object> results = new HashMap<>();
         results.put(KFSConstants.Search.SORT, orderBy);
@@ -189,9 +189,7 @@ public class BusinessObjectApiResource {
 
         List<Map<String, Object>> jsonResults = new ArrayList<>();
         for (PersistableBusinessObject bo : queryResults) {
-            Map<String, Object> jsonObject = SerializationService.businessObjectToJson(boClass, bo, fields, getPerson(),
-                                                getPersistenceStructureService(), getDataDictionaryService(), getBusinessObjectAuthorizationService(),
-                                                getKualiModuleService(), getConfigurationService());
+            Map<String, Object> jsonObject = getSerializationService().businessObjectToJson(boClass, bo, fields, getPerson());
             jsonResults.add(jsonObject);
             // TODO: Check authorization
         }
@@ -332,6 +330,20 @@ public class BusinessObjectApiResource {
         return persistenceStructureService;
     }
 
+    protected SearchParameterService getSearchParameterService() {
+        if (searchParameterService == null) {
+            searchParameterService = SpringContext.getBean(SearchParameterService.class);
+        }
+        return searchParameterService;
+    }
+
+    protected SerializationService getSerializationService() {
+        if (serializationService == null) {
+            serializationService = SpringContext.getBean(SerializationService.class);
+        }
+        return serializationService;
+    }
+
     public static void setKualiModuleService(KualiModuleService kualiModuleService) {
         BusinessObjectApiResource.kualiModuleService = kualiModuleService;
     }
@@ -362,5 +374,13 @@ public class BusinessObjectApiResource {
 
     public static void setPersistenceStructureService(PersistenceStructureService persistenceStructureService) {
         BusinessObjectApiResource.persistenceStructureService = persistenceStructureService;
+    }
+
+    public static void setSearchParameterService(SearchParameterService searchParameterService) {
+        BusinessObjectApiResource.searchParameterService = searchParameterService;
+    }
+
+    public static void setSerializationService(SerializationService serializationService) {
+        BusinessObjectApiResource.serializationService = serializationService;
     }
 }

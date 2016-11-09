@@ -30,11 +30,13 @@ public class CollectionSerializationHelper {
     private Class<? extends BusinessObject> collectionItemClass;
     private List<String> fields;
     private Map<String, Object> translatedFields;
+    private SerializationService serializationService;
 
-    public CollectionSerializationHelper(String collectionName, Class<? extends BusinessObject> collectionItemClass) {
+    public CollectionSerializationHelper(String collectionName, Class<? extends BusinessObject> collectionItemClass, SerializationService serializationService) {
         this.collectionName = collectionName;
         this.collectionItemClass = collectionItemClass;
         this.fields = new ArrayList<>();
+        this.serializationService = serializationService;
     }
 
     public String getCollectionName() {
@@ -55,7 +57,7 @@ public class CollectionSerializationHelper {
 
     public Map<String, Object> getTranslatedFields() {
         if (translatedFields == null) {
-            translatedFields = SerializationService.businessObjectFieldsToMap(fields);
+            translatedFields = serializationService.businessObjectFieldsToMap(fields);
         }
         return translatedFields;
     }

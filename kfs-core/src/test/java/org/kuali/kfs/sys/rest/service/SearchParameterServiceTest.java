@@ -36,7 +36,6 @@ import org.powermock.api.easymock.PowerMock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import javax.ws.rs.HEAD;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
@@ -50,11 +49,13 @@ public class SearchParameterServiceTest {
 
     private BusinessObjectApiResource apiResource;
     private PersistenceStructureService persistenceStructureService;
+    private SearchParameterService searchParameterService = new SearchParameterService();
 
     @Before
     public void setup() {
         apiResource = new BusinessObjectApiResource("sys");
         persistenceStructureService = EasyMock.createMock(PersistenceStructureService.class);
+        searchParameterService.setPersistenceStructureService(persistenceStructureService);
     }
 
     @Test
@@ -62,7 +63,7 @@ public class SearchParameterServiceTest {
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("limit", "5");
 
-        int limit = SearchParameterService.getLimit(Bank.class, params);
+        int limit = searchParameterService.getLimit(Bank.class, params);
 
         Assert.assertEquals(5, limit);
     }
@@ -77,7 +78,7 @@ public class SearchParameterServiceTest {
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("limit", "-1");
 
-        int limit = SearchParameterService.getLimit(Bank.class, params);
+        int limit = searchParameterService.getLimit(Bank.class, params);
 
         Assert.assertEquals(200, limit);
         PowerMock.verify(LookupUtils.class);
@@ -93,7 +94,7 @@ public class SearchParameterServiceTest {
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
 
-        int limit = SearchParameterService.getLimit(Bank.class, params);
+        int limit = searchParameterService.getLimit(Bank.class, params);
 
         Assert.assertEquals(200, limit);
         PowerMock.verify(LookupUtils.class);
@@ -106,7 +107,7 @@ public class SearchParameterServiceTest {
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("sort", "accountName");
 
-        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
+        String[] sort = searchParameterService.getSortCriteria(Account.class, params, validFields);
 
         Assert.assertEquals(new String[]{"accountName"}, sort);
     }
@@ -116,11 +117,10 @@ public class SearchParameterServiceTest {
         List<String> validFields = Arrays.asList("objectId", "accountName", "accountNumber", "chartOfAccountsCode");
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
-        PersistenceStructureService persistenceStructureService = EasyMock.createMock(PersistenceStructureService.class);
         EasyMock.expect(persistenceStructureService.listPrimaryKeyFieldNames(Account.class)).andReturn(Arrays.asList("chartOfAccountsCode", "accountName"));
         EasyMock.replay(persistenceStructureService);
 
-        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
+        String[] sort = searchParameterService.getSortCriteria(Account.class, params, validFields);
 
         Assert.assertEquals(new String[]{"chartOfAccountsCode","accountName"}, sort);
         EasyMock.verify(persistenceStructureService);
@@ -132,7 +132,7 @@ public class SearchParameterServiceTest {
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
 
-        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
+        String[] sort = searchParameterService.getSortCriteria(Account.class, params, validFields);
 
         Assert.assertEquals(new String[]{"objectId"}, sort);
     }
@@ -142,7 +142,7 @@ public class SearchParameterServiceTest {
         List<String> validFields = Arrays.asList("accountName", "accountNumber", "chartOfAccountsCode");
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
 
-        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
+        String[] sort = searchParameterService.getSortCriteria(Account.class, params, validFields);
 
         Assert.assertEquals(new String[]{"accountName"}, sort);
     }
@@ -154,7 +154,7 @@ public class SearchParameterServiceTest {
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("sort", "-accountName");
 
-        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
+        String[] sort = searchParameterService.getSortCriteria(Account.class, params, validFields);
 
         Assert.assertEquals(new String[]{"-accountName"}, sort);
     }
@@ -166,7 +166,7 @@ public class SearchParameterServiceTest {
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("sort", "accountName,accountNumber");
 
-        String[] sort = SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
+        String[] sort = searchParameterService.getSortCriteria(Account.class, params, validFields);
 
         Assert.assertEquals(new String[]{"accountName", "accountNumber"}, sort);
     }
@@ -179,7 +179,7 @@ public class SearchParameterServiceTest {
         params.add("sort", "accountname,accountnumber");
 
         try {
-            SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
+            searchParameterService.getSortCriteria(Account.class, params, validFields);
         } catch (ApiRequestException are) {
             Response response = are.getResponse();
 
@@ -209,7 +209,7 @@ public class SearchParameterServiceTest {
         params.add("sort", "class");
 
         try {
-            SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
+            searchParameterService.getSortCriteria(Account.class, params, validFields);
         } catch (ApiRequestException are) {
             Response response = are.getResponse();
 
@@ -239,7 +239,7 @@ public class SearchParameterServiceTest {
         params.add("sort", "closed");
 
         try {
-            SearchParameterService.getSortCriteria(Account.class, params, validFields, persistenceStructureService);
+            searchParameterService.getSortCriteria(Account.class, params, validFields);
         } catch (ApiRequestException are) {
             Response response = are.getResponse();
 
@@ -265,7 +265,7 @@ public class SearchParameterServiceTest {
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("accountName", "bob");
 
-        Map<String, String> criteria = SearchParameterService.getSearchQueryCriteria(params, validFields);
+        Map<String, String> criteria = searchParameterService.getSearchQueryCriteria(params, validFields);
 
         Map<String, String> validCriteria = new HashMap<>();
         validCriteria.put("accountName", "bob");
@@ -280,7 +280,7 @@ public class SearchParameterServiceTest {
         params.add("accountname", "bob");
 
         try {
-            SearchParameterService.getSearchQueryCriteria(params, validFields);
+            searchParameterService.getSearchQueryCriteria(params, validFields);
         } catch (ApiRequestException are) {
             Response response = are.getResponse();
 
@@ -308,7 +308,7 @@ public class SearchParameterServiceTest {
         params.add("accountnumber", "bfdsa5432adfdsaf");
 
         try {
-            SearchParameterService.getSearchQueryCriteria(params, validFields);
+            searchParameterService.getSearchQueryCriteria(params, validFields);
         } catch (ApiRequestException are) {
             Response response = are.getResponse();
 
@@ -333,7 +333,7 @@ public class SearchParameterServiceTest {
         params.add("limit", "a");
 
         try {
-            SearchParameterService.getIntQueryParameter("limit", params);
+            searchParameterService.getIntQueryParameter("limit", params);
         } catch (ApiRequestException are) {
             Response response = are.getResponse();
 
@@ -357,7 +357,7 @@ public class SearchParameterServiceTest {
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("limit", "3");
 
-        int limit = SearchParameterService.getIntQueryParameter("limit", params);
+        int limit = searchParameterService.getIntQueryParameter("limit", params);
         Assert.assertEquals(3, limit);
     }
 }

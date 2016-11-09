@@ -1353,5 +1353,19 @@
         <property name="configurationService" ref="configurationService"/>
     </bean>
 
+    <bean id="searchParameterService" parent="searchParameterService-parentBean"/>
+    <bean id="searchParameterService-parentBean" abstract="true" class="org.kuali.kfs.sys.rest.service.SearchParameterService">
+        <property name="persistenceStructureService" ref="persistenceStructureService"/>
+    </bean>
+
+    <bean id="serializationService" parent="serializationService-parentBean"/>
+    <bean id="serializationService-parentBean" abstract="true" class="org.kuali.kfs.sys.rest.service.SerializationService">
+        <property name="persistenceStructureService" ref="persistenceStructureService"/>
+        <property name="dataDictionaryService" ref="dataDictionaryService"/>
+        <property name="businessObjectAuthorizationService" ref="businessObjectAuthorizationService"/>
+        <property name="kualiModuleService" ref="kualiModuleService"/>
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
     <import resource="spring-sys-bus-exports.xml"/>
 </beans>
