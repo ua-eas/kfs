@@ -20,7 +20,7 @@ package org.kuali.kfs.gl.rest.application;
 
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.rest.application.BaseApiApplication;
-import org.kuali.kfs.sys.rest.resource.BusinessObjectApiResource;
+import org.kuali.kfs.sys.rest.resource.FourOhFourResource;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 import javax.ws.rs.ApplicationPath;
@@ -31,7 +31,7 @@ public class GlApiApplication extends BaseApiApplication {
     public GlApiApplication() {
         super();
         if (SpringContext.getBean(ConfigurationService.class).getPropertyValueAsBoolean("apis.enabled")) {
-            singletons.add(new BusinessObjectApiResource("gl"));
+            singletons.add(new FourOhFourResource());
         }
     }
 }
