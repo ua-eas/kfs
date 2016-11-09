@@ -996,9 +996,13 @@ public class FormatServiceImpl implements FormatService {
     }
 
     protected void sendFailureEmail(String toAddress, int processId) {
+        MailService mailService = SpringContext.getBean(MailService.class);
         MailMessage message = new MailMessage();
         message.setFromAddress(SpringContext.getBean(ParameterService.class).getParameterValueAsString(KFSConstants.CoreModuleNamespaces.PDP, KfsParameterConstants.BATCH_COMPONENT, KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM));
         message.setSubject("PDP Format Failed for Process ID " + processId);
+        if (StringUtils.isBlank(toAddress)) {
+            toAddress = mailService.getBatchMailingList();
+        }
         message.setToAddresses(new HashSet());
         message.addToAddress(toAddress);
         StringBuffer msg = new StringBuffer("The PDP format for Process ID " + processId + " has failed. It returned following errors.\n\n");
@@ -1008,7 +1012,7 @@ public class FormatServiceImpl implements FormatService {
         }
         message.setMessage(msg.toString());
         try {
-            SpringContext.getBean(MailService.class).sendMessage(message);
+            mailService.sendMessage(message);
         } catch (InvalidAddressException e) {
             LOG.error("sendErrorEmail() Invalid email address. Message not sent", e);
         } catch (MessagingException me) {
