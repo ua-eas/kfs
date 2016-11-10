@@ -159,10 +159,12 @@ public class BusinessObjectApiSingleObjectResourceTest {
         EasyMock.expect(maintenanceDocumentEntry.getDataObjectClass()).andReturn(clazz);
         EasyMock.expect(dataDictionary.getDocumentEntry(documentTypeName)).andReturn(maintenanceDocumentEntry);
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary);
-        EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession);
-        EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, documentTypeName));
-        EasyMock.expect(userSession.getPerson()).andReturn(testPerson);
+        EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).times(3);
+        EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, documentTypeName)).times(2);
+        EasyMock.expect(userSession.getPerson()).andReturn(testPerson).times(2);
         EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS, makeMap(namespaceCode, documentTypeName), Collections.emptyMap()))
+            .andReturn(false);
+        EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS, makeMap(namespaceCode, documentTypeName), Collections.emptyMap()))
             .andReturn(false);
 
 
@@ -193,10 +195,12 @@ public class BusinessObjectApiSingleObjectResourceTest {
         EasyMock.expect(maintenanceDocumentEntry.getDataObjectClass()).andReturn(clazz);
         EasyMock.expect(dataDictionary.getDocumentEntry(documentTypeName)).andReturn(maintenanceDocumentEntry);
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary);
-        EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).times(2);
-        EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, documentTypeName));
-        EasyMock.expect(userSession.getPerson()).andReturn(testPerson).times(2);
+        EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).times(3);
+        EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, documentTypeName)).times(2);
+        EasyMock.expect(userSession.getPerson()).andReturn(testPerson).times(3);
         EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS, makeMap(namespaceCode, documentTypeName), Collections.emptyMap()))
+            .andReturn(true);
+        EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS, makeMap(namespaceCode, documentTypeName), Collections.emptyMap()))
             .andReturn(true);
         Map<String, String> queryCriteria = new HashMap<>();
         queryCriteria.put(KRADPropertyConstants.OBJECT_ID, "12345");
@@ -488,9 +492,11 @@ public class BusinessObjectApiSingleObjectResourceTest {
         EasyMock.expect(dataDictionary.getDocumentEntry(documentTypeName)).andReturn(maintenanceDocumentEntry);
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).anyTimes();
         EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).anyTimes();
-        EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, className));
+        EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, className)).times(2);
         EasyMock.expect(userSession.getPerson()).andReturn(testPerson).anyTimes();
         EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS, makeMap(namespaceCode, className), Collections.<String, String>emptyMap()))
+            .andReturn(true);
+        EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS, makeMap(namespaceCode, className), Collections.<String, String>emptyMap()))
             .andReturn(true);
         Map<String, String> queryCriteria = new HashMap<String, String>();
         queryCriteria.put(KRADPropertyConstants.OBJECT_ID, "12345");
