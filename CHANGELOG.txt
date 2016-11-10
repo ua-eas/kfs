@@ -1,3 +1,175 @@
+************************* 2016-11-10 *************************
+commit 5be279bcd15172d8b6ddf3326c2e87b191b306f4
+Author: jenkins <jenkins@kuali.co>
+Date:   2016-11-03 13:34:11 -0600
+
+    Update version for tag
+
+:100644 100644 399f990... f853db4... M	kfs-ar/pom.xml
+:100644 100644 3b93415... 086a765... M	kfs-bc/pom.xml
+:100644 100644 9dc6c67... 69cdddf... M	kfs-cam/pom.xml
+:100644 100644 bdd1da0... 46b4b5f... M	kfs-cg/pom.xml
+:100644 100644 4441cfb... 5961e7f... M	kfs-core/pom.xml
+:100644 100644 4007804... 85cbbad... M	kfs-datatools/pom.xml
+:100644 100644 c4fc9f7... 3f7b198... M	kfs-ec/pom.xml
+:100644 100644 79426f1... 3c5cb47... M	kfs-kc/pom.xml
+:100644 100644 75c4a9a... 6f127c9... M	kfs-kns/pom.xml
+:100644 100644 84f110d... 12fa9e2... M	kfs-ld/pom.xml
+:100644 100644 629597c... 2f5e7c2... M	kfs-purap/pom.xml
+:100644 100644 69f965d... 24c831b... M	kfs-tem/pom.xml
+:100644 100644 ba3135b... 6a66f94... M	kfs-web/pom.xml
+:100644 100644 df4be40... a5b721e... M	pom.xml
+
+commit de3d99b801505019244eaffe64ee39c72dc924dd
+Author: jenkins <jenkins@kuali.co>
+Date:   2016-11-03 13:33:53 -0600
+
+    Update CHANGELOG.txt for release
+
+:100644 100644 72b3d48... c32d9ea... M	CHANGELOG.txt
+
+commit 77cf38c2444f8c4d9c8e93a6216065abc98ce7b3
+Author: tfoxley <travisfoxley@gmail.com>
+Date:   2016-11-03 11:18:34 -0600
+
+    FINP-859 fix SysApiApplication checking of apis.enabled prop
+
+:100644 100644 2fe723d... 699e325... M	kfs-core/src/main/java/org/kuali/kfs/sys/rest/application/SysApiApplication.java
+
+commit 9cb8d6e219315eeff070723a9ace4ec0846b014e
+Author: Kevin Kronenbitter <kevin@kuali.co>
+Date:   2016-11-03 10:55:05 -0600
+
+    Update CHANGELOG.txt
+
+:100644 100644 e69de29... 72b3d48... M	CHANGELOG.txt
+
+commit d00b5e6bc5408f534965aa9e3f9c689ab71954ce
+Author: kkronenb <kevin@kuali.co>
+Date:   2016-11-03 09:06:12 -0600
+
+    FINI-3054 initialization of CHANGELOG.txt
+
+:000000 100644 0000000... e69de29... A	CHANGELOG.txt
+
+commit 8933e5c63fe8a7db228d43a0b04b35e17a32a868
+Author: tfoxley <travisfoxley@gmail.com>
+Date:   2016-11-03 08:24:43 -0600
+
+    FINP-841 new business object api endpoint, api application for each module
+
+:000000 100644 0000000... a76e2c5... A	kfs-ar/src/main/java/org/kuali/kfs/module/ar/rest/ArApiApplication.java
+:000000 100644 0000000... 84abadf... A	kfs-bc/src/main/java/org/kuali/kfs/module/bc/rest/application/BcApiApplication.java
+:000000 100644 0000000... 1c7bd72... A	kfs-cam/src/main/java/org/kuali/kfs/module/cam/rest/application/CamApiApplication.java
+:000000 100644 0000000... 73b14d4... A	kfs-cg/src/main/java/org/kuali/kfs/module/cg/rest/application/CgApiApplication.java
+:000000 100644 0000000... e0c95e5... A	kfs-core/src/main/java/org/kuali/kfs/coa/rest/application/CoaApiApplication.java
+:000000 100644 0000000... cc0d742... A	kfs-core/src/main/java/org/kuali/kfs/fp/rest/application/FpApiApplication.java
+:000000 100644 0000000... 4b0ab2c... A	kfs-core/src/main/java/org/kuali/kfs/gl/rest/application/GlApiApplication.java
+:000000 100644 0000000... 71a92ef... A	kfs-core/src/main/java/org/kuali/kfs/pdp/rest/application/PdpApiApplication.java
+:000000 100644 0000000... b40a755... A	kfs-core/src/main/java/org/kuali/kfs/sys/rest/application/BaseApiApplication.java
+:000000 100644 0000000... 2fe723d... A	kfs-core/src/main/java/org/kuali/kfs/sys/rest/application/SysApiApplication.java
+:100644 000000 90b7081... 0000000... D	kfs-core/src/main/java/org/kuali/kfs/sys/rest/application/SysApplication.java
+:000000 100644 0000000... bf6a923... A	kfs-core/src/main/java/org/kuali/kfs/sys/rest/resource/BusinessObjectApiResource.java
+:000000 100644 0000000... fbf8745... A	kfs-core/src/main/java/org/kuali/kfs/sys/rest/resource/FourOhFourResource.java
+:000000 100644 0000000... cbe8613... A	kfs-core/src/main/java/org/kuali/kfs/vnd/rest/application/VndApiApplication.java
+:000000 100644 0000000... b323cc4... A	kfs-core/src/test/java/org/kuali/kfs/sys/rest/resource/BusinessObjectApiResourceTest.java
+:000000 100644 0000000... 3649254... A	kfs-ec/src/main/java/org/kuali/kfs/module/ec/rest/application/EcApiApplication.java
+:000000 100644 0000000... 38d8118... A	kfs-kc/src/main/java/org/kuali/kfs/module/external/kc/rest/application/KcApiApplication.java
+:000000 100644 0000000... 6a584ab... A	kfs-ld/src/main/java/org/kuali/kfs/module/ld/rest/application/LdApiApplication.java
+:000000 100644 0000000... 8778c4b... A	kfs-purap/src/main/java/org/kuali/kfs/module/purap/rest/application/PurapApiApplication.java
+:000000 100644 0000000... 6824b31... A	kfs-tem/src/main/java/org/kuali/kfs/module/tem/rest/application/TemApiApplication.java
+:100644 100644 715fc7f... 06fb6cf... M	kfs-web/src/main/webapp/WEB-INF/web.xml
+
+commit e19f20db38757f32cf2da1a45f022141220e5255
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2016-11-02 16:01:28 -0400
+
+    FINP-828 Add validation that default address is not inactive (#922)
+    
+    * FINP-828 Add validation that default address is not inactive
+    
+    * Default VendorAddress in test fixture to be active
+
+:100644 100644 3fe6dba... 1554412... M	kfs-core/src/main/java/org/kuali/kfs/vnd/VendorKeyConstants.java
+:100644 100644 399f457... f7c8577... M	kfs-core/src/main/java/org/kuali/kfs/vnd/VendorPropertyConstants.java
+:100644 100644 1ca933c... 7ef52e4... M	kfs-core/src/main/java/org/kuali/kfs/vnd/document/validation/impl/VendorRule.java
+:100644 100644 e2a4c9a... f9c4de1... M	kfs-core/src/main/resources/org/kuali/kfs/vnd/vnd-resources.properties
+:000000 100644 0000000... dd30780... A	kfs-core/src/test/java/org/kuali/kfs/vnd/document/validation/impl/VendorAddressValidationTest.java
+:100644 100644 135f28f... 71efc0b... M	kfs-core/src/test/java/org/kuali/kfs/vnd/fixture/VendorRuleAddressTypeFixture.java
+
+commit 9f821948e3b47c868eb59cc45fa32e2792be1ef9
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2016-11-01 14:41:29 -0400
+
+    FINP-848 Remove 'vendorSupplierDiversities=[' from diversity column (#921)
+
+:100644 100644 16157c6... 4290f5a... M	kfs-core/src/main/java/org/kuali/kfs/vnd/businessobject/VendorHeader.java
+
+commit a1cb7f69cbb775dbb0750a2f86c36e6ef6d43783
+Author: Jay Sissom <jsissom@jsissom-mbp.attlocal.net>
+Date:   2016-11-01 11:03:43 -0400
+
+    FINI-3036 Move APIs to new url standards
+
+:100644 100644 1abf195... 90b7081... M	kfs-core/src/main/java/org/kuali/kfs/sys/rest/application/SysApplication.java
+:100644 100644 8e20e47... 715fc7f... M	kfs-web/src/main/webapp/WEB-INF/web.xml
+:100644 100644 cca38e2... 9a82470... M	kfs-web/src/main/webapp/scripts/components/general/header.jsx
+:100644 100644 b7f487f... c1025a3... M	kfs-web/src/main/webapp/scripts/components/general/sidebar.jsx
+:100644 100644 96cd889... 8324c7c... M	kfs-web/src/main/webapp/scripts/components/institution-config/logo/LogoUpload.jsx
+:100644 100644 15ad44d... 50b9852... M	kfs-web/src/main/webapp/scripts/components/institution-config/menu/MenuConfig.jsx
+:100644 100644 3a5a829... 378d44b... M	kfs-web/src/main/webapp/scripts/components/institution-config/navigation/NavigationConfig.jsx
+:100644 100644 d489947... 3474b41... M	kfs-web/src/main/webapp/scripts/sys/user_preferences.js
+
+commit 4346e08ac30fd1fa4a169e5346cb41582d245692
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2016-11-01 09:23:30 -0400
+
+    FINP-833 Modify getVendorSupplierDiversitiesAsString to return ""
+     In case vendorSupplierDivisities is empty, return empty string
+
+:100644 100644 e2823ff... 16157c6... M	kfs-core/src/main/java/org/kuali/kfs/vnd/businessobject/VendorHeader.java
+
+commit 90ea58ba4e0014eb2782b9887f319e64f67be717
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2016-10-31 14:30:31 -0400
+
+    FINP-839 Fix hardcoded state tax pct validation logic
+
+:100644 100644 8e5d377... dc9d535... M	kfs-core/src/main/java/org/kuali/kfs/fp/document/validation/impl/DisbursementVoucherNonResidentAlienInformationValidation.java
+:100644 100644 aa00f48... 3596c9f... M	kfs-core/src/test/java/org/kuali/kfs/fp/document/validation/impl/DisbursementVoucherDocumentNonResidentAlienInformationRuleTest.java
+
+commit 63454dca7ca15e6e55aaae405c98d125545a2274
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2016-10-31 09:19:00 -0400
+
+    FINP-826 Owner account number field should be required
+
+:100644 100644 a7136f0... ec135c1... M	kfs-cam/src/main/resources/org/kuali/kfs/module/cam/businessobject/datadictionary/AssetFabrication.xml
+:100644 100644 cac2f61... 27826b8... M	kfs-cam/src/main/resources/org/kuali/kfs/module/cam/document/datadictionary/AssetMaintenanceDocument.xml
+
+commit e432b3ce3bfb91bcfedfb98e6ddc4b4e49a4aaf2
+Author: kkronenb <kevin@kuali.co>
+Date:   2016-10-31 11:07:04 -0600
+
+    FINI-3034 get javamelody setup correctly
+
+:100644 100644 59f9064... 8e20e47... M	kfs-web/src/main/webapp/WEB-INF/web.xml
+:100644 100644 bb33060... df4be40... M	pom.xml
+
+commit 239343f468280cb9d1826c0021807c16e75507d6
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2016-10-26 10:43:06 -0400
+
+    FINP-800 Add parameter to control which income codes require state tax rate on the DV Non Resident Alien tab
+    - Also refactored DisbursementVoucherNonResidentAlienInformationValidation to make it more testable
+
+:100644 100644 718632e... e887eea... M	kfs-core/src/main/java/org/kuali/kfs/fp/document/DisbursementVoucherConstants.java
+:100644 100644 418f8b1... aaf8160... M	kfs-core/src/main/java/org/kuali/kfs/fp/document/service/impl/DisbursementVoucherTaxServiceImpl.java
+:100644 100644 cf890c6... 8e5d377... M	kfs-core/src/main/java/org/kuali/kfs/fp/document/validation/impl/DisbursementVoucherNonResidentAlienInformationValidation.java
+:100644 100644 be2f817... c276c3f... M	kfs-core/src/main/resources/org/kuali/kfs/core/db/phase5/2016-10.xml
+:100644 100644 fc81552... b7a6113... M	kfs-core/src/main/resources/org/kuali/kfs/fp/document/validation/configuration/DisbursementVoucherValidation.xml
+:100644 100644 4ed81c5... 40964133.. M	kfs-core/src/main/resources/org/kuali/kfs/fp/document/validation/configuration/FinancialProcessingValidators.xml
+:000000 100644 0000000... aa00f48... A	kfs-core/src/test/java/org/kuali/kfs/fp/document/validation/impl/DisbursementVoucherDocumentNonResidentAlienInformationRuleTest.java
 ************************* 2016-11-03 *************************
 commit 2b37dcac3ec731d924a5c3b0f31422727c415264
 Author: jenkins <jenkins@kuali.co>
