@@ -206,12 +206,12 @@ var Header = React.createClass({
                 <nav className="collapse navbar-collapse">
                     <ul className="nav navbar-nav pull-right">
                         <li>
-                            <a href={prefs.remoteViewUrl + '?url=' + escape(actionListLink + actionListConnector + 'documentTargetSpec=KFS:_top,*:_blank&routeLogTargetSpec=*:_self') + '&title=Action List'}>
+                            <a href={prefs.remoteViewUrl + '?url=' + escape(actionListLink + actionListConnector + 'documentTargetSpec=KFS:_top,*:_blank&routeLogTargetSpec=*:_self') + '&title=Action List'} onClick={stayOnPage}>
                                 <span className="glyphicon glyphicon-ok-sign"></span>Action List
                             </a>
                         </li>
                         <li>
-                            <a href={prefs.remoteViewUrl + '?url=' + escape(docSearchLink + '&documentTargetSpec=KFS:_top,*:_blank&routeLogTargetSpec=*:_self&showSuperUserButton=false') + '&title=Doc Search'}>
+                            <a href={prefs.remoteViewUrl + '?url=' + escape(docSearchLink + '&documentTargetSpec=KFS:_top,*:_blank&routeLogTargetSpec=*:_self&showSuperUserButton=false') + '&title=Doc Search'} onClick={stayOnPage}>
                                 <span className="glyphicon glyphicon-search"></span>Doc Search
                             </a>
                         </li>
@@ -221,7 +221,7 @@ var Header = React.createClass({
                                 <span className="caret"></span>
                             </a>
                             <ul className="dropdown-menu pull-right">
-                                <li><a href={prefs.signoutUrl}>Sign Out</a></li>
+                                <li><a href={prefs.signoutUrl} onClick={stayOnPage}>Sign Out</a></li>
                             </ul>
                         </li>
                         <li className="dropdown">

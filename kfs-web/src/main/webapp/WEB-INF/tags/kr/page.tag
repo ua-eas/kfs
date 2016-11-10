@@ -135,14 +135,16 @@
 		</c:otherwise>
 	</c:choose>
 
+		<kul:stayOnPage active="${transactionalDocument || maintenanceDocument}"/>
+
 		<kul:pageBody showDocumentInfo="${showDocumentInfo}" docTitle="${docTitle}" docTitleClass="${docTitleClass}"
-					  htmlFormAction="${htmlFormAction}" transactionalDocument="${transactionalDocument}"
-					  renderMultipart="${renderMultipart}" showTabButtons="${showTabButtons}" headerDispatch="${headerDispatch}"
-					  defaultMethodToCall="${defaultMethodToCall}" lookup="${lookup}" extraTopButtons="${extraTopButtons}"
-					  headerMenuBar="${headerMenuBar}" headerTabActive="${headerTabActive}" alternativeHelp="${alternativeHelp}"
-					  feedbackKey="${feedbackKey}" errorKey="${errorKey}" auditCount="${auditCount}"
-					  documentWebScope="${documentWebScope}" maintenanceDocument="${maintenanceDocument}"
-					  renderInnerDiv="${renderInnerDiv}" cachingTimestamp="${cachingTimestamp}" openNav="${openNav}">
+				  htmlFormAction="${htmlFormAction}" transactionalDocument="${transactionalDocument}"
+				  renderMultipart="${renderMultipart}" showTabButtons="${showTabButtons}" headerDispatch="${headerDispatch}"
+				  defaultMethodToCall="${defaultMethodToCall}" lookup="${lookup}" extraTopButtons="${extraTopButtons}"
+				  headerMenuBar="${headerMenuBar}" headerTabActive="${headerTabActive}" alternativeHelp="${alternativeHelp}"
+				  feedbackKey="${feedbackKey}" errorKey="${errorKey}" auditCount="${auditCount}"
+				  documentWebScope="${documentWebScope}" maintenanceDocument="${maintenanceDocument}"
+				  renderInnerDiv="${renderInnerDiv}" cachingTimestamp="${cachingTimestamp}" openNav="${openNav}">
 
 			<div id="page-content">
                 <jsp:doBody/>
@@ -150,7 +152,5 @@
 		</kul:pageBody>
 
 		<kul:modal/>
-
-		<kul:stayOnPage active="${transactionalDocument || maintenanceDocument}"/>
 	</body>
 </html:html>
