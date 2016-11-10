@@ -106,6 +106,7 @@ public class FormatServiceImpl implements FormatService {
     protected PersonService personService;
     protected FormatCheckACHEmailService formatCheckACHEmailService;
     protected ConfigurationService kualiConfigurationService;
+    protected MailService mailService;
 
     /**
      * Constructs a FormatServiceImpl.java.
@@ -315,7 +316,6 @@ public class FormatServiceImpl implements FormatService {
         // step 2 assign disbursement numbers and combine checks into one if possible
         boolean disbursementNumbersAssigned = assignDisbursementNumbersAndCombineChecks(paymentProcess, postFormatProcessSummary);
         if (!disbursementNumbersAssigned) {
-            LOG.info("Sending failure email to " + user.getEmailAddress());
             sendFailureEmail(user.getEmailAddress(), processId);
             throw new FormatException("Error encountered during format");
         }
@@ -335,9 +335,6 @@ public class FormatServiceImpl implements FormatService {
         // step 6 tell the extract batch job to start
         LOG.debug("performFormat() Start extract");
         extractChecks();
-
-//        LOG.info("Sending email to " + user.getEmailAddress());
-//        sendEmail(user.getEmailAddress(), processId);
 
         LOG.info("Send summary email for processId: " + processId);
         sendSummaryEmail(postFormatProcessSummary);
@@ -389,7 +386,6 @@ public class FormatServiceImpl implements FormatService {
 
         // Handle for email sending exception
         getFormatCheckACHEmailService().sendEmailNotification(templateVariables);
-
     }
 
     /**
@@ -957,61 +953,36 @@ public class FormatServiceImpl implements FormatService {
     }
 
     /**
-     * @return Returns the personService.
-     */
-    protected PersonService getPersonService() {
-        if (personService == null) {
-            personService = SpringContext.getBean(PersonService.class);
-        }
-        return personService;
-    }
-
-    /**
      * This class holds disbursement number and noteLines info for payment group disbursement number assignment and combine checks.
      */
     protected class PaymentInfo {
         public KualiInteger disbursementNumber;
         public KualiInteger noteLines;
-
         public PaymentInfo(KualiInteger disbursementNumber, KualiInteger noteLines) {
             this.disbursementNumber = disbursementNumber;
             this.noteLines = noteLines;
         }
     }
 
-    protected void sendEmail(String toAddress, int processId) {
-        MailMessage message = new MailMessage();
-        message.setFromAddress(SpringContext.getBean(ParameterService.class).getParameterValueAsString(KFSConstants.CoreModuleNamespaces.PDP, KfsParameterConstants.BATCH_COMPONENT, KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM));
-        message.setSubject("PDP Format Completed for Process ID " + processId);
-        message.setToAddresses(new HashSet());
-        message.addToAddress(toAddress);
-        message.setMessage("The PDP format for Process ID " + processId + " is complete. Please access the PDP Format Summary lookup for the final disbursement numbers and amounts");
-        try {
-            SpringContext.getBean(MailService.class).sendMessage(message);
-        } catch (InvalidAddressException e) {
-            LOG.error("sendErrorEmail() Invalid email address. Message not sent", e);
-        } catch (MessagingException me) {
-            throw new RuntimeException("Could not send mail", me);
-        }
-    }
-
     protected void sendFailureEmail(String toAddress, int processId) {
-        MailService mailService = SpringContext.getBean(MailService.class);
+        LOG.warn("Sending a failure e-mail");
         MailMessage message = new MailMessage();
-        message.setFromAddress(SpringContext.getBean(ParameterService.class).getParameterValueAsString(KFSConstants.CoreModuleNamespaces.PDP, KfsParameterConstants.BATCH_COMPONENT, KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM));
+        message.setFromAddress(parameterService.getParameterValueAsString(KFSConstants.CoreModuleNamespaces.PDP, KfsParameterConstants.BATCH_COMPONENT, KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM));
         message.setSubject("PDP Format Failed for Process ID " + processId);
         if (StringUtils.isBlank(toAddress)) {
+            LOG.warn("Reverting to using batch mailing list, which just happens to be: "+mailService.getBatchMailingList());
             toAddress = mailService.getBatchMailingList();
         }
         message.setToAddresses(new HashSet());
         message.addToAddress(toAddress);
-        StringBuffer msg = new StringBuffer("The PDP format for Process ID " + processId + " has failed. It returned following errors.\n\n");
+        StringBuilder msg = new StringBuilder("The PDP format for Process ID " + processId + " has failed. It returned following errors.\n\n");
         List<String> errList = GlobalVariablesUtils.extractGlobalVariableErrors();
         for (String err : errList) {
             msg.append(err + "\n");
         }
         message.setMessage(msg.toString());
         try {
+            LOG.info("Sending failure email to " + toAddress);
             mailService.sendMessage(message);
         } catch (InvalidAddressException e) {
             LOG.error("sendErrorEmail() Invalid email address. Message not sent", e);
@@ -1020,32 +991,35 @@ public class FormatServiceImpl implements FormatService {
         }
     }
 
-    /**
-     * @return the formatCheckACHEmailService
-     */
     public FormatCheckACHEmailService getFormatCheckACHEmailService() {
         return formatCheckACHEmailService;
     }
 
-    /**
-     * @param formatCheckACHEmailService the formatCheckACHEmailService to set
-     */
     public void setFormatCheckACHEmailService(FormatCheckACHEmailService formatCheckACHEmailService) {
         this.formatCheckACHEmailService = formatCheckACHEmailService;
     }
 
-    /**
-     * @return the kualiConfigurationService
-     */
     public ConfigurationService getKualiConfigurationService() {
         return kualiConfigurationService;
     }
 
-    /**
-     * @param kualiConfigurationService the kualiConfigurationService to set
-     */
     public void setKualiConfigurationService(ConfigurationService kualiConfigurationService) {
         this.kualiConfigurationService = kualiConfigurationService;
     }
 
+    public MailService getMailService() {
+        return mailService;
+    }
+
+    public void setMailService(MailService mailService) {
+        this.mailService = mailService;
+    }
+
+    public PersonService getPersonService() {
+        return personService;
+    }
+
+    public void setPersonService(PersonService personService) {
+        this.personService = personService;
+    }
 }

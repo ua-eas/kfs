@@ -444,6 +444,8 @@
         <property name="extractPaymentService" ref="pdpExtractPaymentService"/>
         <property name="formatCheckACHEmailService" ref="formatCheckACHEmailService"/>
         <property name="kualiConfigurationService" ref="kualiConfigurationService"/>
+        <property name="mailService" ref="mailService"/>
+        <property name="personService" ref="personService"/>
     </bean>
     <bean id="pdpGlPendingTransactionService" parent="pdpGlPendingTransactionService-parentBean"/>
 
