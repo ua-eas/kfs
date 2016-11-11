@@ -240,10 +240,15 @@ public class BusinessObjectApiResource {
     }
 
     protected boolean isAuthorized(Class<PersistableBusinessObject> boClass) {
-        return getPermissionService().isAuthorizedByTemplate(getPrincipalId(), KRADConstants.KNS_NAMESPACE,
+        boolean hasInquirePerm = getPermissionService().isAuthorizedByTemplate(getPrincipalId(), KRADConstants.KNS_NAMESPACE,
             KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS,
             KRADUtils.getNamespaceAndComponentSimpleName(boClass),
             Collections.emptyMap());
+        boolean hasLookupPerm = getPermissionService().isAuthorizedByTemplate(getPrincipalId(), KRADConstants.KNS_NAMESPACE,
+            KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS,
+            KRADUtils.getNamespaceAndComponentSimpleName(boClass),
+            Collections.emptyMap());
+        return hasInquirePerm && hasLookupPerm;
     }
 
     protected boolean isAuthorizedByAccessSecurity(PersistableBusinessObject businessObject) {
