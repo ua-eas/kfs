@@ -110,6 +110,26 @@ public class SerializationServiceTest {
     }
 
     @Test
+    public void testBusinessObjectFieldsToMap_Unserializable_Fields() {
+        List<String> fields = Arrays.asList(
+            "vendorSupplierDiversities.vendorSupplierDiversityCode",
+            "vendorSupplierDiversities.vendorHeaderGeneratedIdentifier",
+            "vendorSupplierDiversities.active",
+            "vendorSupplierDiversities.vendorSupplierDiversity",
+            "vendorSupplierDiversities.newCollectionRecord"
+        );
+
+        Map<String, Object> results = serializationService.businessObjectFieldsToMap(fields);
+        Assert.assertEquals(2, results.size());
+        Assert.assertEquals(0, ((List<String>)results.get(SerializationService.FIELDS_KEY)).size());
+        Map<String, Object> vendorSupplierDiversities = (Map<String, Object>)results.get("vendorSupplierDiversities");
+        Assert.assertEquals(1, vendorSupplierDiversities.size());
+        List<String> vendorSupplierDiversitiesFields = (List<String>)vendorSupplierDiversities.get(SerializationService.FIELDS_KEY);
+        Assert.assertEquals(4, vendorSupplierDiversitiesFields.size());
+        Assert.assertFalse("newCollectionRecord should not be serialized", vendorSupplierDiversitiesFields.contains("newCollectionRecord"));
+    }
+
+    @Test
     public void testFindBusinessObjectFields() {
         addTaxRegionMaintainbleSections();
         EasyMock.replay(maintenanceDocumentEntry);
