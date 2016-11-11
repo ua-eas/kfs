@@ -70,6 +70,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DataDictionarySearchableAttribute implements SearchableAttribute {
 
@@ -411,32 +412,40 @@ public class DataDictionarySearchableAttribute implements SearchableAttribute {
     }
 
     protected List<DocumentAttribute> findAllDocumentAttributesForGlobalBusinessObject(GlobalBusinessObject globalBO) {
-        List<DocumentAttribute> searchValues = new ArrayList<DocumentAttribute>();
+        List<DocumentAttribute> searchValues = new ArrayList<>();
 
-        for (PersistableBusinessObject bo : globalBO.generateGlobalChangesToPersist()) {
-            DocumentAttribute value = generateSearchableAttributeFromChange(bo);
-            if (value != null) {
-                searchValues.add(value);
+        List<PersistableBusinessObject> globalChangesToPersist = globalBO.generateGlobalChangesToPersist();
+        if (!CollectionUtils.isEmpty(globalChangesToPersist)) {
+            for (PersistableBusinessObject bo : globalChangesToPersist) {
+                List<DocumentAttribute> values = generateSearchableAttributeFromChange(bo);
+                if (!CollectionUtils.isEmpty(values)) {
+                    searchValues.addAll(values);
+                }
             }
         }
 
         return searchValues;
     }
 
-    protected DocumentAttribute generateSearchableAttributeFromChange(PersistableBusinessObject changeToPersist) {
-        List<String> primaryKeyNames = KNSServiceLocator.getBusinessObjectMetaDataService().listPrimaryKeyFieldNames(changeToPersist.getClass());
+    protected List<DocumentAttribute> generateSearchableAttributeFromChange(PersistableBusinessObject changeToPersist) {
+        final List<String> primaryKeyNames = KNSServiceLocator.getBusinessObjectMetaDataService()
+                                            .listPrimaryKeyFieldNames(changeToPersist.getClass())
+                                            .stream()
+                                            .distinct()
+                                            .collect(Collectors.toList());
+        final WorkflowAttributePropertyResolutionService propertyResolutionService = KRADServiceLocatorInternal.getWorkflowAttributePropertyResolutionService();
+        List<DocumentAttribute> documentAttributes = new ArrayList<>();
 
         for (Object primaryKeyNameAsObject : primaryKeyNames) {
             String primaryKeyName = (String) primaryKeyNameAsObject;
             Object value = ObjectUtils.getPropertyValue(changeToPersist, primaryKeyName);
 
             if (value != null) {
-                final WorkflowAttributePropertyResolutionService propertyResolutionService = KRADServiceLocatorInternal.getWorkflowAttributePropertyResolutionService();
                 DocumentAttribute saValue = propertyResolutionService.buildSearchableAttribute(changeToPersist.getClass(), primaryKeyName, value);
-                return saValue;
+                documentAttributes.add(saValue);
             }
         }
-        return null;
+        return documentAttributes;
     }
 
     /**
