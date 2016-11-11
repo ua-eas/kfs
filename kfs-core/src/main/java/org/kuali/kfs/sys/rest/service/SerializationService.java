@@ -121,9 +121,18 @@ public class SerializationService {
         return fieldsMap;
     }
 
-    public <T extends PersistableBusinessObject> Map<String, Object> businessObjectToJson(Class<T> boClass, PersistableBusinessObject bo,
-                                                                                                 Map<String, Object> fields,
-                                                                                                 Person person) {
+    public Map<String, Object> businessObjectToJson(Class<? extends PersistableBusinessObject> boClass, PersistableBusinessObject bo,
+                                                                                          Map<String, Object> fields,
+                                                                                          Person person) {
+        return businessObjectToJson(boClass, boClass, bo, fields, person, "");
+    }
+
+    public Map<String, Object> businessObjectToJson(Class<? extends PersistableBusinessObject> parentBoClass,
+                                                    Class<? extends PersistableBusinessObject> boClass, PersistableBusinessObject bo,
+                                                    Map<String, Object> fields, Person person, String parentField) {
+        if (StringUtils.isNotBlank(parentField)) {
+            parentField += ".";
+        }
         Map<String, Object> jsonObject = new LinkedHashMap<>();
         for (String key : fields.keySet()) {
             if (key.equals(FIELDS_KEY)) {
@@ -131,7 +140,7 @@ public class SerializationService {
                     try {
                         Object value = PropertyUtils.getProperty(bo, field);
                         if (value != null) {
-                            final Object possiblyMaskedJsonValue = maskJsonValueIfNecessary(boClass.getSimpleName(), field, value, person);
+                            final Object possiblyMaskedJsonValue = maskJsonValueIfNecessary(parentBoClass.getSimpleName(), parentField +  field, value, person);
                             jsonObject.put(field, possiblyMaskedJsonValue);
                         }
                     } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
@@ -172,8 +181,8 @@ public class SerializationService {
                     if (PersistableBusinessObject.class.isAssignableFrom(descriptor.getPropertyType())) {
                         PersistableBusinessObject childBusinessObject = (PersistableBusinessObject) PropertyUtils.getProperty(bo, key);
                         if (!ObjectUtils.isNull(childBusinessObject)) {
-                            Map<String, Object> childSerialized = businessObjectToJson(childBusinessObject.getClass(),
-                                childBusinessObject, (Map<String, Object>) fields.get(key), person);
+                            Map<String, Object> childSerialized = businessObjectToJson(parentBoClass, childBusinessObject.getClass(),
+                                childBusinessObject, (Map<String, Object>) fields.get(key), person, parentField + key);
                             jsonObject.put(key, childSerialized);
                         }
                     }
