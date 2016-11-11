@@ -47,6 +47,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -56,6 +57,8 @@ import java.util.Map;
 public class SerializationService {
     public static final String FIELDS_KEY = "!topLevelFields!";
     public static final String COLLECTIONS_KEY = "!collectionsFields!";
+
+    public static final List<String> UNSERIALIZABLE_FIELDS = Arrays.asList("newCollectionRecord");
 
     private PersistenceStructureService persistenceStructureService;
     private DataDictionaryService dataDictionaryService;
@@ -102,16 +105,18 @@ public class SerializationService {
     }
 
     protected void populateFieldsMapWithField(Map<String, Object> fieldsMap, String field) {
-        if (field.indexOf(".") < 0) {
-            ((List<String>)fieldsMap.get(FIELDS_KEY)).add(field);
-        } else {
-            final String head = field.substring(0, field.indexOf('.'));
-            final String tail = field.substring(field.indexOf('.') + 1);
-            Map<String, Object> childFieldsMap = fieldsMap.containsKey(head)
-                ? (Map<String, Object>)fieldsMap.get(head)
-                : createBusinessObjectFieldsMap();
-            fieldsMap.put(head, childFieldsMap);
-            populateFieldsMapWithField(childFieldsMap, tail);
+        if (!UNSERIALIZABLE_FIELDS.contains(field)) {
+            if (field.indexOf(".") < 0) {
+                ((List<String>) fieldsMap.get(FIELDS_KEY)).add(field);
+            } else {
+                final String head = field.substring(0, field.indexOf('.'));
+                final String tail = field.substring(field.indexOf('.') + 1);
+                Map<String, Object> childFieldsMap = fieldsMap.containsKey(head)
+                    ? (Map<String, Object>) fieldsMap.get(head)
+                    : createBusinessObjectFieldsMap();
+                fieldsMap.put(head, childFieldsMap);
+                populateFieldsMapWithField(childFieldsMap, tail);
+            }
         }
     }
 
