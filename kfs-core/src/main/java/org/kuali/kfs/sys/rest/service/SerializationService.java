@@ -83,7 +83,7 @@ public class SerializationService {
 
         Map<String, Object> businessObjectFieldsMap = businessObjectFieldsToMap(fields);
         if (collectionSerializationHelpers.size() > 0) {
-            businessObjectFieldsMap.put(COLLECTIONS_KEY, collectionSerializationHelpers);
+            collectionsToMap(businessObjectFieldsMap, collectionSerializationHelpers);
         }
         return businessObjectFieldsMap;
     }
@@ -126,6 +126,38 @@ public class SerializationService {
         Map<String, Object> fieldsMap = new HashMap<>();
         fieldsMap.put(FIELDS_KEY, new ArrayList<String>());
         return fieldsMap;
+    }
+
+    public Map<String, Object> collectionsToMap(Map<String, Object> fieldsMap, List<CollectionSerializationHelper> serializationHelpers) {
+        for (CollectionSerializationHelper helper: serializationHelpers) {
+            populateFieldsMapWithCollection(fieldsMap, helper);
+        }
+        return fieldsMap;
+    }
+
+    protected void populateFieldsMapWithCollection(Map<String, Object> fieldsMap, CollectionSerializationHelper collection) {
+        String collectionName = collection.getCollectionName();
+        if (collectionName.indexOf(".") < 0) {
+            if (!fieldsMap.containsKey(COLLECTIONS_KEY)) {
+                fieldsMap.put(COLLECTIONS_KEY, new ArrayList<CollectionSerializationHelper>());
+            }
+            ((List<CollectionSerializationHelper>) fieldsMap.get(COLLECTIONS_KEY)).add(collection);
+        } else {
+            final String head = collectionName.substring(0, collectionName.indexOf('.'));
+            final String tail = collectionName.substring(collectionName.indexOf('.') + 1);
+            Map<String, Object> childCollectionsMap = fieldsMap.containsKey(head)
+                ? (Map<String, Object>)fieldsMap.get(head)
+                : createBusinessObjectCollectionsMap();
+            fieldsMap.put(head, childCollectionsMap);
+            collection.setCollectionName(tail);
+            populateFieldsMapWithCollection(childCollectionsMap, collection);
+        }
+    }
+
+    protected Map<String, Object> createBusinessObjectCollectionsMap() {
+        Map<String, Object> collectionsMap = new HashMap<>();
+        collectionsMap.put(COLLECTIONS_KEY, new ArrayList<CollectionSerializationHelper>());
+        return collectionsMap;
     }
 
     public Map<String, Object> businessObjectToJson(Class<? extends PersistableBusinessObject> boClass, PersistableBusinessObject bo,
