@@ -91,7 +91,9 @@ public class SerializationService {
     protected CollectionSerializationHelper buildCollectionSerializationHelper(MaintainableCollectionDefinition maintainableCollectionDefinition) {
         CollectionSerializationHelper helper = new CollectionSerializationHelper(maintainableCollectionDefinition.getName(), maintainableCollectionDefinition.getBusinessObjectClass(), this);
         for (MaintainableFieldDefinition fieldDefinition : maintainableCollectionDefinition.getMaintainableFields()) {
-            helper.addField(fieldDefinition.getName());
+            if (!UNSERIALIZABLE_FIELDS.contains(fieldDefinition.getName())) {
+                helper.addField(fieldDefinition.getName());
+            }
         }
         return helper;
     }

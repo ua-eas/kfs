@@ -130,6 +130,24 @@ public class SerializationServiceTest {
     }
 
     @Test
+    public void testBuildCollectionSerializationHelper_Unserializable_Collection_Fields() {
+        MaintainableCollectionDefinition collectionDef = new MaintainableCollectionDefinition();
+        collectionDef.setName("vendorSupplierDiversities");
+        List<MaintainableFieldDefinition> maintainableFields = new ArrayList<>();
+        MaintainableFieldDefinition vendorSupplierDiversityCode = new MaintainableFieldDefinition();
+        vendorSupplierDiversityCode.setName("vendorSupplierDiversityCode");
+        maintainableFields.add(vendorSupplierDiversityCode);
+        MaintainableFieldDefinition newCollectionRecord = new MaintainableFieldDefinition();
+        newCollectionRecord.setName("newCollectionRecord");
+        maintainableFields.add(newCollectionRecord);
+        collectionDef.setMaintainableFields(maintainableFields);
+
+        CollectionSerializationHelper collectionSerializationHelper = serializationService.buildCollectionSerializationHelper(collectionDef);
+        Assert.assertEquals(1, collectionSerializationHelper.getFields().size());
+        Assert.assertEquals("vendorSupplierDiversityCode", collectionSerializationHelper.getFields().get(0));
+    }
+
+    @Test
     public void testFindBusinessObjectFields() {
         addTaxRegionMaintainbleSections();
         EasyMock.replay(maintenanceDocumentEntry);
