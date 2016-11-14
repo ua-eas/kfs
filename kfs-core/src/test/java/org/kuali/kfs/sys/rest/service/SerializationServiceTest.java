@@ -42,6 +42,7 @@ import org.kuali.kfs.sys.businessobject.TaxRegion;
 import org.kuali.kfs.sys.businessobject.TaxRegionRate;
 import org.kuali.kfs.sys.rest.BusinessObjectApiResourceTestHelper;
 import org.kuali.kfs.sys.rest.helper.CollectionSerializationHelper;
+import org.kuali.kfs.vnd.businessobject.VendorAddress;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.powermock.api.easymock.PowerMock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -172,13 +173,43 @@ public class SerializationServiceTest {
         EasyMock.verify(maintenanceDocumentEntry);
     }
 
+    @Test
+    public void testFindBusinessObjectFields_NestedCollections() {
+        addVendorMaintainbleSections();
+        EasyMock.replay(maintenanceDocumentEntry);
+        Map<String, Object> fields = serializationService.findBusinessObjectFields(maintenanceDocumentEntry);
+        Assert.assertEquals(3, fields.size());
+        Assert.assertEquals(6, ((List<String>)fields.get(SerializationService.FIELDS_KEY)).size());
+        Assert.assertEquals("vendorParentName", ((List<String>)fields.get(SerializationService.FIELDS_KEY)).get(0));
+        List<CollectionSerializationHelper> serializationHelpers = (List< CollectionSerializationHelper>)fields.get(SerializationService.COLLECTIONS_KEY);
+        Assert.assertEquals(1, serializationHelpers.size());
+        CollectionSerializationHelper serializationHelper = serializationHelpers.get(0);
+        Assert.assertEquals("vendorAddresses", serializationHelper.getCollectionName());
+        Assert.assertEquals(2, serializationHelper.getFields().size());
+        Assert.assertEquals(1, serializationHelper.getTranslatedFields().size());
+        List<String> collectionTopLevelFields = (List<String>)serializationHelper.getTranslatedFields().get(SerializationService.FIELDS_KEY);
+        Assert.assertEquals(2, collectionTopLevelFields.size());
+        Assert.assertEquals("vendorAddressEmailAddress", collectionTopLevelFields.get(0));
+        Map<String, Object> vendorHeader = (Map<String, Object>)fields.get("vendorHeader");
+        Assert.assertEquals(2, vendorHeader.size());
+        List<String> vendorHeaderTopLevelFields = (List<String>)vendorHeader.get(SerializationService.FIELDS_KEY);
+        Assert.assertEquals(1, vendorHeaderTopLevelFields.size());
+        Assert.assertEquals("vendorTaxTypeCode", vendorHeaderTopLevelFields.get(0));
+        List<CollectionSerializationHelper> vendorHeaderCollections = (List<CollectionSerializationHelper>)vendorHeader.get(SerializationService.COLLECTIONS_KEY);
+        Assert.assertEquals(1, vendorHeaderCollections.size());
+        CollectionSerializationHelper vendorHeaderCollection = vendorHeaderCollections.get(0);
+        Assert.assertEquals(1, vendorHeaderCollection.getFields().size());
+        Assert.assertEquals(1, vendorHeaderCollection.getTranslatedFields().size());
+        Assert.assertEquals("vendorSupplierDiversityCode", vendorHeaderCollection.getFields().get(0));
+        EasyMock.verify(maintenanceDocumentEntry);
+    }
+
     private void addTaxRegionMaintainbleSections() {
         List<MaintainableSectionDefinition> maintainableSections = new ArrayList<>();
         MaintainableSectionDefinition maintainableSectionDefinition = new MaintainableSectionDefinition();
         maintainableSections.add(maintainableSectionDefinition);
         List<MaintainableItemDefinition> maintainableItemDefinitions = BusinessObjectApiResourceTestHelper.createItemDefinitions("taxRegionCode",
-            "taxRegionName","taxRegionTypeCode","chartOfAccountsCode", "accountNumber","financialObjectCode",
-            "taxRegionUseTaxIndicator","active");
+            "taxRegionName","taxRegionTypeCode","chartOfAccountsCode", "accountNumber","financialObjectCode", "taxRegionUseTaxIndicator","active");
 
         MaintainableCollectionDefinition maintainableCollectionDefinition = new MaintainableCollectionDefinition();
         maintainableCollectionDefinition.setName("taxRegionRates");
@@ -187,6 +218,31 @@ public class SerializationServiceTest {
 
         maintainableCollectionDefinition.setMaintainableFields(taxRegionRatesFieldDefinitions);
         maintainableItemDefinitions.add(maintainableCollectionDefinition);
+        maintainableSectionDefinition.setMaintainableItems(maintainableItemDefinitions);
+        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
+    }
+
+    private void addVendorMaintainbleSections() {
+        List<MaintainableSectionDefinition> maintainableSections = new ArrayList<>();
+        MaintainableSectionDefinition maintainableSectionDefinition = new MaintainableSectionDefinition();
+        maintainableSections.add(maintainableSectionDefinition);
+        List<MaintainableItemDefinition> maintainableItemDefinitions = BusinessObjectApiResourceTestHelper.createItemDefinitions("vendorParentName",
+            "vendorNumber","vendorName","vendorLastName","vendorFirstName","vendorPaymentTermsCode","vendorHeader.vendorTaxTypeCode");
+
+        MaintainableCollectionDefinition maintainableCollectionDefinition = new MaintainableCollectionDefinition();
+        maintainableCollectionDefinition.setName("vendorAddresses");
+        maintainableCollectionDefinition.setBusinessObjectClass(VendorAddress.class);
+        List<MaintainableFieldDefinition> vendorAddressFieldDefinitions = BusinessObjectApiResourceTestHelper.createFieldDefinitions("vendorAddressEmailAddress","vendorCityName");
+        maintainableCollectionDefinition.setMaintainableFields(vendorAddressFieldDefinitions);
+        maintainableItemDefinitions.add(maintainableCollectionDefinition);
+
+        MaintainableCollectionDefinition maintainableCollectionDefinition2 = new MaintainableCollectionDefinition();
+        maintainableCollectionDefinition2.setName("vendorHeader.vendorSupplierDiversities");
+        maintainableCollectionDefinition2.setBusinessObjectClass(VendorAddress.class);
+        List<MaintainableFieldDefinition> supplierFieldDefinitions = BusinessObjectApiResourceTestHelper.createFieldDefinitions("vendorSupplierDiversityCode","newCollectionRecord");
+        maintainableCollectionDefinition2.setMaintainableFields(supplierFieldDefinitions);
+        maintainableItemDefinitions.add(maintainableCollectionDefinition2);
+
         maintainableSectionDefinition.setMaintainableItems(maintainableItemDefinitions);
         EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
     }

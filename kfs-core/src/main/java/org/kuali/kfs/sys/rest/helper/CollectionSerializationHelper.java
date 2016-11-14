@@ -43,6 +43,10 @@ public class CollectionSerializationHelper {
         return collectionName;
     }
 
+    public void setCollectionName(String collectionName) {
+        this.collectionName = collectionName;
+    }
+
     public Class<? extends BusinessObject> getCollectionItemClass() {
         return collectionItemClass;
     }
