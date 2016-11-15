@@ -74,6 +74,7 @@
 
         <script src="${pageContext.request.contextPath}/scripts/polyfill.min.js"></script>
         <script src="${pageContext.request.contextPath}/scripts/notify.min.js"></script>
+        <kul:stayOnPage active="false"/>
         <jsp:doBody/>
     </body>
 </html:html>
