@@ -183,6 +183,106 @@ public class BusinessObjectApiSingleObjectResourceTest {
 
     @Test
     @PrepareForTest({KRADUtils.class})
+    public void testIsAuthorized_NoPerm() throws Exception {
+        Class clazz = UnitOfMeasure.class;
+        String documentTypeName = "PMUM";
+        String namespaceCode = "KFS-SYS";
+
+        EasyMock.expect(userSession.getPerson()).andReturn(testPerson).times(2);
+        EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).anyTimes();
+        EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, documentTypeName)).times(2);
+        EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS,
+            makeMap(namespaceCode, documentTypeName), Collections.emptyMap())).andReturn(false);
+        EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS,
+            makeMap(namespaceCode, documentTypeName), Collections.emptyMap())).andReturn(false);
+
+        EasyMock.replay(permissionService, userSession);
+        PowerMock.replay(KRADUtils.class);
+        BusinessObjectApiResource.setKualiModuleService(kualiModuleService);
+        BusinessObjectApiResource.setPermissionService(permissionService);
+        BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
+
+        Assert.assertFalse(apiResource.isAuthorized(clazz));
+        EasyMock.verify(permissionService, userSession);
+    }
+
+    @Test
+    @PrepareForTest({KRADUtils.class})
+    public void testIsAuthorized_NoInquiryIntoRecordsPerm() throws Exception {
+        Class clazz = UnitOfMeasure.class;
+        String documentTypeName = "PMUM";
+        String namespaceCode = "KFS-SYS";
+
+        EasyMock.expect(userSession.getPerson()).andReturn(testPerson).times(2);
+        EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).anyTimes();
+        EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, documentTypeName)).times(2);
+        EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS,
+            makeMap(namespaceCode, documentTypeName), Collections.emptyMap())).andReturn(false);
+        EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS,
+            makeMap(namespaceCode, documentTypeName), Collections.emptyMap())).andReturn(true);
+
+        EasyMock.replay(permissionService, userSession);
+        PowerMock.replay(KRADUtils.class);
+        BusinessObjectApiResource.setKualiModuleService(kualiModuleService);
+        BusinessObjectApiResource.setPermissionService(permissionService);
+        BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
+
+        Assert.assertFalse(apiResource.isAuthorized(clazz));
+        EasyMock.verify(permissionService, userSession);
+    }
+
+    @Test
+    @PrepareForTest({KRADUtils.class})
+    public void testIsAuthorized_NoLookupRecordsPerm() throws Exception {
+        Class clazz = UnitOfMeasure.class;
+        String documentTypeName = "PMUM";
+        String namespaceCode = "KFS-SYS";
+
+        EasyMock.expect(userSession.getPerson()).andReturn(testPerson).times(2);
+        EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).anyTimes();
+        EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, documentTypeName)).times(2);
+        EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS,
+            makeMap(namespaceCode, documentTypeName), Collections.emptyMap())).andReturn(true);
+        EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS,
+            makeMap(namespaceCode, documentTypeName), Collections.emptyMap())).andReturn(false);
+
+        EasyMock.replay(permissionService, userSession);
+        PowerMock.replay(KRADUtils.class);
+        BusinessObjectApiResource.setKualiModuleService(kualiModuleService);
+        BusinessObjectApiResource.setPermissionService(permissionService);
+        BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
+
+        Assert.assertFalse(apiResource.isAuthorized(clazz));
+        EasyMock.verify(permissionService, userSession);
+    }
+
+    @Test
+    @PrepareForTest({KRADUtils.class})
+    public void testIsAuthorized() throws Exception {
+        Class clazz = UnitOfMeasure.class;
+        String documentTypeName = "PMUM";
+        String namespaceCode = "KFS-SYS";
+
+        EasyMock.expect(userSession.getPerson()).andReturn(testPerson).times(2);
+        EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).anyTimes();
+        EasyMock.expect(KRADUtils.getNamespaceAndComponentSimpleName(clazz)).andReturn(makeMap(namespaceCode, documentTypeName)).times(2);
+        EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS,
+            makeMap(namespaceCode, documentTypeName), Collections.emptyMap())).andReturn(true);
+        EasyMock.expect(permissionService.isAuthorizedByTemplate("testPrincipalId", "KR-NS", KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS,
+            makeMap(namespaceCode, documentTypeName), Collections.emptyMap())).andReturn(true);
+
+        EasyMock.replay(permissionService, userSession);
+        PowerMock.replay(KRADUtils.class);
+        BusinessObjectApiResource.setKualiModuleService(kualiModuleService);
+        BusinessObjectApiResource.setPermissionService(permissionService);
+        BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
+
+        Assert.assertTrue(apiResource.isAuthorized(clazz));
+        EasyMock.verify(permissionService, userSession);
+    }
+
+    @Test
+    @PrepareForTest({KRADUtils.class})
     public void testNoAccessSecurity() throws Exception {
         ModuleConfiguration moduleConfig = BusinessObjectApiResourceTestHelper.getSysModuleConfiguration(dataDictionaryService);
         String documentTypeName = "PMUM";
