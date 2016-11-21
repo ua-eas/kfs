@@ -34,6 +34,7 @@ import org.kuali.kfs.kns.datadictionary.MaintainableSubSectionHeaderDefinition;
 import org.kuali.kfs.krad.bo.ModuleConfiguration;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.businessobject.TaxRegionRate;
@@ -272,6 +273,13 @@ public class BusinessObjectApiResourceTestHelper {
         result.setPackagePrefixes(new ArrayList<>());
         result.getPackagePrefixes().add("org.kuali.kfs.coa");
         result.setDataDictionaryService(dataDictionaryService);
+        return result;
+    }
+
+    public static Map<String, String> makeMap(String namespaceCode, String className) {
+        Map<String, String> result = new HashMap<>();
+        result.put(KRADConstants.NAMESPACE_CODE, namespaceCode);
+        result.put(KRADConstants.COMPONENT_NAME, className);
         return result;
     }
 }

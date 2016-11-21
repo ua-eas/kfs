@@ -219,14 +219,13 @@ public class BusinessObjectApiResource {
         return (Class<PersistableBusinessObject>) boClass;
     }
 
-    private MaintenanceDocumentEntry getMaintenanceDocumentEntry(String documentTypeName) {
-        // Search for class in module.
-        DataDictionary dataDictionary = getDataDictionaryService().getDataDictionary();
-        MaintenanceDocumentEntry entry = (MaintenanceDocumentEntry)dataDictionary.getDocumentEntry(documentTypeName.toUpperCase());
-        if (entry == null) {
-            return null;
+    protected MaintenanceDocumentEntry getMaintenanceDocumentEntry(String documentTypeName) {
+        if (StringUtils.isNotBlank(documentTypeName)) {
+            DataDictionary dataDictionary = getDataDictionaryService().getDataDictionary();
+            String indexDocumentTypeName = documentTypeName.length() < 5 ? documentTypeName.toUpperCase() : documentTypeName;
+            return (MaintenanceDocumentEntry) dataDictionary.getDocumentEntry(indexDocumentTypeName);
         }
-        return entry;
+        return null;
     }
 
     protected ModuleService determineModuleService(String moduleName) {
