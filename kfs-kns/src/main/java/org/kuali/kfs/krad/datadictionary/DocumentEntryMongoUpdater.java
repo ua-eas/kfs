@@ -47,17 +47,14 @@ public class DocumentEntryMongoUpdater {
         Map<String, Object> mongoDocumentEntry = dataDictionaryDao.retrieveDocumentEntryByType(documentEntry.getDocumentTypeName());
         if (mongoDocumentEntry == null) {
             mongoDocumentEntry = createMongoDocumentEntry(documentEntry);
-        } else {
-            updateMongoDocumentEntry(documentEntry, mongoDocumentEntry);
         }
+        updateMongoDocumentEntry(documentEntry, mongoDocumentEntry);
         dataDictionaryDao.saveDocumentEntry(mongoDocumentEntry);
     }
 
     private Map<String, Object> createMongoDocumentEntry(DocumentEntry documentEntry) {
         Map<String, Object> mongoDocumentEntry = new ConcurrentHashMap<>();
         mongoDocumentEntry.put("institutionId","");
-        mongoDocumentEntry.put("module",apiNamesGenerator.convertDocumentEntryToModuleName(documentEntry));
-        mongoDocumentEntry.put("documentReferenceName",apiNamesGenerator.convertDocumentEntryToUrlDocumentName(documentEntry));
         mongoDocumentEntry.put("documentClassName",documentEntry.getDocumentClass().getName());
         mongoDocumentEntry.put("workflowTypeName",documentEntry.getDocumentTypeName());
         updateMongoDocumentEntry(documentEntry, mongoDocumentEntry);
@@ -70,6 +67,9 @@ public class DocumentEntryMongoUpdater {
 
     private void updateMongoDocumentEntry(DocumentEntry documentEntry, Map<String, Object> mongoDocumentEntry) {
         mongoDocumentEntry.put("documentFamily", determineFamily(documentEntry));
+        mongoDocumentEntry.put("documentReferenceName", apiNamesGenerator.convertDocumentEntryToUrlDocumentName(documentEntry));
+        mongoDocumentEntry.put("module", apiNamesGenerator.convertDocumentEntryToModuleName(documentEntry));
+
         if (documentEntry instanceof MaintenanceDocumentEntry) {
             final MaintenanceDocumentEntry maintenanceDocumentEntry = (MaintenanceDocumentEntry)documentEntry;
             mongoDocumentEntry.put("maintenanceBusinessObjectClass", maintenanceDocumentEntry.getDataObjectClass().getName());

@@ -356,8 +356,9 @@
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg ref="mongoDbFactory"/>
     </bean>
-    <bean id="cf.dataDictionaryDao" class="org.kuali.kfs.krad.dao.impl.DataDictionaryDaoMongo">
-        <property name="mongoTemplate" ref="mongoTemplate"/>
+    <bean id="cf.dataDictionaryDao" class="org.kuali.kfs.krad.dao.impl.DataDictionaryDaoRest">
+        <property name="configurationBaseUrl" value="${config.url}"/>
+        <property name="authorizationToken" value="${config.authToken}"/>
     </bean>
 
 </beans>
