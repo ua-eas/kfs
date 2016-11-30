@@ -92,9 +92,6 @@ public abstract class BalancingServiceImplTestBase extends KualiTestBase {
 
     @Override
     protected void tearDown() throws Exception {
-        // KualiTestBase cleans added files up. Hence we need to make sure BalancingService doesn't use cache when looking for files
-        balancingService.clearPosterFileCache();
-
         // Due to how WrappingBatchService works we need to manually destroy report writing
         ((ReportWriterTextServiceImpl) balancingService.reportWriterService).destroy();
 

@@ -294,6 +294,8 @@ public class GeneralLedgerConstants {
         static final public String ICR_ENCUMBRANCE_OUTPUT_FILE = "gl_icrencmb";
         static final public String ICR_ENCUMBRANCE_POSTER_INPUT_FILE = "gl_sorticrencmb";
         static final public String ICR_ENCUMBRANCE_POSTER_ERROR_OUTPUT_FILE = "gl_icrencmberrs";
+        static final public String ICR_ENCUMBRANCE_POSTER_OUTPUT_FILE = "gl_icrencmbpost";
+
         static final public String NIGHTLY_OUT_FILE = "gl_glentry_kfs";
         static final public String EXTRACT_TRANSACTION_FILE = "gl_glentry_pdp";
 

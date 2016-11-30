@@ -72,7 +72,7 @@ public class BalancingServiceImplTest extends BalancingServiceImplTestBase {
         businessObjectService = SpringContext.getBean(BusinessObjectService.class);
 
         // Delete all data so that balancing has an empty table set to work with
-        Map<String, Object> fieldValues = new HashMap<String, Object>();
+        Map<String, Object> fieldValues = new HashMap<>();
         businessObjectService.deleteMatching(Entry.class, fieldValues);
         businessObjectService.deleteMatching(Balance.class, fieldValues);
         businessObjectService.deleteMatching(Encumbrance.class, fieldValues);

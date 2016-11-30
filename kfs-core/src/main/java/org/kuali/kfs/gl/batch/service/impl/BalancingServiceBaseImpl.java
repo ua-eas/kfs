@@ -209,7 +209,7 @@ public abstract class BalancingServiceBaseImpl<T extends Entry, S extends Balanc
      * @param persistentClass      table for which to delete the history
      */
     protected void deleteHistory(Integer universityFiscalYear, Class<? extends PersistableBusinessObjectBase> persistentClass) {
-        Map<String, Object> fieldValues = new HashMap<String, Object>();
+        Map<String, Object> fieldValues = new HashMap<>();
         fieldValues.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, universityFiscalYear);
 
         businessObjectService.deleteMatching(persistentClass, fieldValues);
@@ -223,7 +223,7 @@ public abstract class BalancingServiceBaseImpl<T extends Entry, S extends Balanc
      * @return count
      */
     protected int getHistoryCount(Integer fiscalYear, Class<? extends PersistableBusinessObjectBase> persistentClass) {
-        Map<String, String> keyMap = new HashMap<String, String>();
+        Map<String, String> keyMap = new HashMap<>();
 
         if (fiscalYear != null) {
             keyMap.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, fiscalYear.toString());
@@ -364,128 +364,62 @@ public abstract class BalancingServiceBaseImpl<T extends Entry, S extends Balanc
         return;
     }
 
-    /**
-     * Sets the ParameterService
-     *
-     * @param parameterService The ParameterService to set.
-     */
+    protected String getName(File file) {
+        return (file == null) ? "" : (file.getName() + "\n");
+    }
+
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }
 
-    /**
-     * Sets the ConfigurationService
-     *
-     * @param kualiConfigurationService The ConfigurationService to set.
-     */
     public void setConfigurationService(ConfigurationService kualiConfigurationService) {
         this.kualiConfigurationService = kualiConfigurationService;
     }
 
-    /**
-     * Sets the BusinessObjectService
-     *
-     * @param businessObjectService The BusinessObjectService to set.
-     */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;
     }
 
-    /**
-     * Sets the DateTimeService
-     *
-     * @param dateTimeService The DateTimeService to set.
-     */
     public void setDateTimeService(DateTimeService dateTimeService) {
         this.dateTimeService = dateTimeService;
     }
 
-    /**
-     * Sets the UniversityDateService
-     *
-     * @param universityDateService The UniversityDateService to set.
-     */
     public void setUniversityDateService(UniversityDateService universityDateService) {
         this.universityDateService = universityDateService;
     }
 
-    /**
-     * Sets the LedgerBalancingDao
-     *
-     * @param ledgerBalancingDao The LedgerBalancingDao to set.
-     */
     public void setLedgerBalancingDao(LedgerBalancingDao ledgerBalancingDao) {
         this.ledgerBalancingDao = ledgerBalancingDao;
     }
 
-    /**
-     * Sets the LedgerEntryBalancingDao
-     *
-     * @param ledgerEntryBalancingDao The LedgerEntryBalancingDao to set.
-     */
     public void setLedgerEntryBalancingDao(LedgerEntryBalancingDao ledgerEntryBalancingDao) {
         this.ledgerEntryBalancingDao = ledgerEntryBalancingDao;
     }
 
-    /**
-     * Sets the LedgerBalanceBalancingDao
-     *
-     * @param ledgerBalanceBalancingDao The LedgerBalanceBalancingDao to set.
-     */
     public void setLedgerBalanceBalancingDao(LedgerBalanceBalancingDao ledgerBalanceBalancingDao) {
         this.ledgerBalanceBalancingDao = ledgerBalanceBalancingDao;
     }
 
-    /**
-     * Sets the ledgerBalanceHistoryBalancingDao
-     *
-     * @param ledgerBalanceHistoryBalancingDao The LedgerBalanceHistoryBalancingDao to set.
-     */
     public void setLedgerBalanceHistoryBalancingDao(LedgerBalanceHistoryBalancingDao ledgerBalanceHistoryBalancingDao) {
         this.ledgerBalanceHistoryBalancingDao = ledgerBalanceHistoryBalancingDao;
     }
 
-    /**
-     * Sets the LedgerEntryHistoryBalancingDao
-     *
-     * @param ledgerEntryHistoryBalancingDao The LedgerEntryHistoryBalancingDao to set.
-     */
     public void setLedgerEntryHistoryBalancingDao(LedgerEntryHistoryBalancingDao ledgerEntryHistoryBalancingDao) {
         this.ledgerEntryHistoryBalancingDao = ledgerEntryHistoryBalancingDao;
     }
 
-    /**
-     * Sets the reportWriterService
-     *
-     * @param reportWriterService The reportWriterService to set.
-     */
     public void setReportWriterService(ReportWriterService reportWriterService) {
         this.reportWriterService = reportWriterService;
     }
 
-    /**
-     * Sets the batchFileDirectoryName
-     *
-     * @param batchFileDirectoryName The batchFileDirectoryName to set.
-     */
     public void setBatchFileDirectoryName(String batchFileDirectoryName) {
         this.batchFileDirectoryName = batchFileDirectoryName;
     }
 
-    /**
-     * Sets the ledgerEntryBalanceCachingDao attribute value.
-     *
-     * @param ledgerEntryBalanceCachingDao The ledgerEntryBalanceCachingDao to set.
-     */
     public void setLedgerEntryBalanceCachingDao(LedgerEntryBalanceCachingDao ledgerEntryBalanceCachingDao) {
         this.ledgerEntryBalanceCachingDao = ledgerEntryBalanceCachingDao;
     }
 
-    /**
-     * Sets the persistenceStructureService.
-     *
-     * @param persistenceStructureService
-     */
     public void setPersistenceStructureService(PersistenceStructureService persistenceStructureService) {
         this.persistenceStructureService = persistenceStructureService;
     }

@@ -54,9 +54,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Service implementation of BalancingService of GL balancing
- */
 @Transactional
 public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory, BalanceHistory> implements BalancingService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BalancingServiceImpl.class);
@@ -65,165 +62,72 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
     protected AccountBalanceDao accountBalanceDao;
     protected EncumbranceDao encumbranceDao;
 
-    protected File posterInputFile = null;
-    protected File posterErrorOutputFile = null;
-
-    protected File reversalInputFile = null;
-    protected File reversalErrorOutputFile = null;
-
-    protected File icrInputFile = null;
-    protected File icrErrorOutputFile = null;
-
-    protected File icrEncumbranceInputFile = null;
-    protected File icrEncumbranceErrorOutputFile = null;
-
     @Override
     public boolean runBalancing() {
-        // clear out the file cache, otherwise, it won't update the history tables with the latest poster files
-        // therefore, it will use the files that were first used when the balancing job was run when the JVM started, and that'll
-        // cause out of balance errors
-        clearPosterFileCache();
+        LOG.debug("runBalancing() started");
+
         return super.runBalancing();
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getPosterInputFile()
-     */
     @Override
     public File getPosterInputFile() {
-        // avoid running scanning logic on file system
-        if (posterInputFile != null) {
-            return posterInputFile;
-        }
-        return posterInputFile = getFile(
-            GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE,
-            GeneralLedgerConstants.BatchFileSystem.EXTENSION);
+        return getFile(GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE, GeneralLedgerConstants.BatchFileSystem.EXTENSION);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getPosterErrorOutputFile()
-     */
     @Override
     public File getPosterErrorOutputFile() {
-        // avoid running scanning logic on file system
-        if (posterErrorOutputFile != null) {
-            return posterErrorOutputFile;
-        }
-        return posterErrorOutputFile = getFile(
-            GeneralLedgerConstants.BatchFileSystem.POSTER_ERROR_OUTPUT_FILE,
-            GeneralLedgerConstants.BatchFileSystem.EXTENSION);
+        return getFile(GeneralLedgerConstants.BatchFileSystem.POSTER_ERROR_OUTPUT_FILE, GeneralLedgerConstants.BatchFileSystem.EXTENSION);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getReversalInputFile()
-     */
     @Override
     public File getReversalInputFile() {
-        if (reversalInputFile != null) {
-            return reversalInputFile;
-        }
-        return reversalInputFile = getFile(
-            GeneralLedgerConstants.BatchFileSystem.REVERSAL_POSTER_VALID_OUTPUT_FILE,
-            GeneralLedgerConstants.BatchFileSystem.EXTENSION);
+        return getFile(GeneralLedgerConstants.BatchFileSystem.REVERSAL_POSTER_VALID_OUTPUT_FILE, GeneralLedgerConstants.BatchFileSystem.EXTENSION);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getReversalErrorOutputFile()
-     */
     @Override
     public File getReversalErrorOutputFile() {
-        if (reversalErrorOutputFile != null) {
-            return reversalErrorOutputFile;
-        }
-        return reversalErrorOutputFile = getFile(
-            GeneralLedgerConstants.BatchFileSystem.REVERSAL_POSTER_ERROR_OUTPUT_FILE,
-            GeneralLedgerConstants.BatchFileSystem.EXTENSION);
+        return getFile(GeneralLedgerConstants.BatchFileSystem.REVERSAL_POSTER_ERROR_OUTPUT_FILE, GeneralLedgerConstants.BatchFileSystem.EXTENSION);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getICRInputFile()
-     */
     @Override
     public File getICRInputFile() {
-        if (icrInputFile != null) {
-            return icrInputFile;
-        }
-        return icrInputFile = getFile(
-            GeneralLedgerConstants.BatchFileSystem.ICR_POSTER_INPUT_FILE,
-            GeneralLedgerConstants.BatchFileSystem.EXTENSION);
+        return getFile(GeneralLedgerConstants.BatchFileSystem.ICR_POSTER_INPUT_FILE, GeneralLedgerConstants.BatchFileSystem.EXTENSION);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getICRErrorOutputFile()
-     */
     @Override
     public File getICRErrorOutputFile() {
-        if (icrErrorOutputFile != null) {
-            return icrErrorOutputFile;
-        }
-        return icrErrorOutputFile = getFile(
-            GeneralLedgerConstants.BatchFileSystem.ICR_POSTER_ERROR_OUTPUT_FILE,
-            GeneralLedgerConstants.BatchFileSystem.EXTENSION);
+        return getFile(GeneralLedgerConstants.BatchFileSystem.ICR_POSTER_ERROR_OUTPUT_FILE, GeneralLedgerConstants.BatchFileSystem.EXTENSION);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getICREncumbranceInputFile()
-     */
     @Override
     public File getICREncumbranceInputFile() {
-        if (icrEncumbranceInputFile != null) {
-            return icrEncumbranceInputFile;
-        }
-        return icrEncumbranceInputFile = getFile(
-            GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_INPUT_FILE,
-            GeneralLedgerConstants.BatchFileSystem.EXTENSION);
+        return getFile(GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_OUTPUT_FILE, GeneralLedgerConstants.BatchFileSystem.EXTENSION);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getICREncumbranceErrorOutputFile()
-     */
     @Override
     public File getICREncumbranceErrorOutputFile() {
-        if (icrEncumbranceErrorOutputFile != null) {
-            return icrEncumbranceErrorOutputFile;
-        }
-        return icrEncumbranceErrorOutputFile = getFile(
-            GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_ERROR_OUTPUT_FILE,
-            GeneralLedgerConstants.BatchFileSystem.EXTENSION);
+        return getFile(GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_ERROR_OUTPUT_FILE, GeneralLedgerConstants.BatchFileSystem.EXTENSION);
     }
 
-    public File getFile(final String fileName, final String fileExtension) {
-        FilenameFilter filenameFilter = new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return (name.startsWith(fileName) && name.endsWith(fileExtension));
-            }
-        };
+    protected File getFile(final String fileName, final String fileExtension) {
+        FilenameFilter filenameFilter = (File dir, String name) -> (name.startsWith(fileName) && name.endsWith(fileExtension));
+
         return FileUtil.getNewestFile(new File(batchFileDirectoryName), filenameFilter);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getPastFiscalYearsToConsider()
-     */
     @Override
     public int getPastFiscalYearsToConsider() {
         return Integer.parseInt(parameterService.getParameterValueAsString(PosterBalancingStep.class, GeneralLedgerConstants.Balancing.NUMBER_OF_PAST_FISCAL_YEARS_TO_INCLUDE));
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getComparisonFailuresToPrintPerReport()
-     */
     @Override
     public int getComparisonFailuresToPrintPerReport() {
         return Integer.parseInt(parameterService.getParameterValueAsString(PosterBalancingStep.class, GeneralLedgerConstants.Balancing.NUMBER_OF_COMPARISON_FAILURES_TO_PRINT_PER_REPORT));
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getShortTableLabel(java.lang.String)
-     */
     @Override
     public String getShortTableLabel(String businessObjectName) {
-        Map<String, String> names = new HashMap<String, String>();
+        Map<String, String> names = new HashMap<>();
         names.put((Entry.class).getSimpleName(), kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.REPORT_ENTRY_LABEL));
         names.put((EntryHistory.class).getSimpleName(), kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.REPORT_ENTRY_LABEL));
         names.put((Balance.class).getSimpleName(), kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.REPORT_BALANCE_LABEL));
@@ -236,9 +140,6 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
         return names.get(businessObjectName) == null ? kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.REPORT_UNKNOWN_LABEL) : names.get(businessObjectName);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getOriginEntry(java.lang.String, int)
-     */
     @Override
     public OriginEntryInformation getOriginEntry(String inputLine, int lineNumber) {
         // We need a OriginEntryFull because that's what updateBalanceHistory is looking for
@@ -248,13 +149,8 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
         return originEntry;
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#updateEntryHistory(org.kuali.kfs.gl.businessobject.OriginEntryInformation)
-     * @see org.kuali.kfs.gl.batch.service.impl.PostEntry#post(org.kuali.kfs.gl.businessobject.Transaction, int, java.util.Date)
-     */
     @Override
     public void updateEntryHistory(Integer postMode, OriginEntryInformation originEntry) {
-        // TODO Retrieve and update 1 by 1? Is a HashMap or cache better so that storing only occurs once at the end?
         EntryHistory entryHistory = new EntryHistory(originEntry);
 
         EntryHistory retrievedEntryHistory = (EntryHistory) businessObjectService.retrieve(entryHistory);
@@ -267,13 +163,8 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
         businessObjectService.save(entryHistory);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#updateBalanceHistory(org.kuali.kfs.gl.businessobject.OriginEntryInformation)
-     * @see org.kuali.kfs.gl.batch.service.impl.PostBalance#post(org.kuali.kfs.gl.businessobject.Transaction, int, java.util.Date)
-     */
     @Override
     public void updateBalanceHistory(Integer postMode, OriginEntryInformation originEntry) {
-        // TODO Retrieve and update 1 by 1? Is a HashMap or cache better so that storing only occurs once at the end?
         OriginEntryFull originEntryFull = (OriginEntryFull) originEntry;
         BalanceHistory balanceHistory = new BalanceHistory(originEntryFull);
 
@@ -298,51 +189,24 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
         businessObjectService.save(balanceHistory);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getBalance(org.kuali.kfs.gl.businessobject.LedgerBalanceHistory)
-     */
     @Override
     public Balance getBalance(LedgerBalanceHistory ledgerBalanceHistory) {
         Balance balance = new Balance((BalanceHistory) ledgerBalanceHistory);
         return (Balance) businessObjectService.retrieve(balance);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#clearPosterFileCache()
-     */
-    @Override
-    public void clearPosterFileCache() {
-        this.posterInputFile = null;
-        this.posterErrorOutputFile = null;
-        this.reversalInputFile = null;
-        this.reversalErrorOutputFile = null;
-        this.icrInputFile = null;
-        this.icrErrorOutputFile = null;
-        this.icrEncumbranceInputFile = null;
-        this.icrEncumbranceErrorOutputFile = null;
-    }
-
-    /**
-     * @see org.kuali.kfs.gl.batch.service.impl.BalancingServiceBaseImpl#customPopulateHistoryTables(java.lang.Integer)
-     */
     @Override
     public void customPopulateHistoryTables(Integer fiscalYear) {
         balancingDao.populateAccountBalancesHistory(fiscalYear);
         balancingDao.populateEncumbranceHistory(fiscalYear);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.impl.BalancingServiceBaseImpl#doesCustomHistoryExist(java.lang.Integer)
-     */
     @Override
     protected boolean doesCustomHistoryExist(Integer fiscalYear) {
         return (this.getHistoryCount(fiscalYear, AccountBalanceHistory.class) > 0 &&
             this.getHistoryCount(fiscalYear, EncumbranceHistory.class) > 0);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.impl.BalancingServiceBaseImpl#deleteCustomHistory(java.lang.Integer)
-     */
     @Override
     protected void deleteCustomHistory(Integer fiscalYear) {
         deleteHistory(fiscalYear, AccountBalanceHistory.class);
@@ -352,21 +216,16 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
         reportWriterService.writeNewLines(1);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.impl.BalancingServiceBaseImpl#updateCustomHistory(org.kuali.kfs.gl.businessobject.OriginEntryInformation)
-     */
     @Override
     protected void updateCustomHistory(Integer postMode, OriginEntryInformation originEntry) {
         this.updateAccountBalanceHistory(originEntry);
         this.updateEncumbranceHistory(originEntry);
     }
 
-
     /**
      * Update the account balance history table
      *
      * @param originEntry representing the update details
-     * @see org.kuali.kfs.gl.batch.service.impl.PostAccountBalance#post(org.kuali.kfs.gl.businessobject.Transaction, int, java.util.Date)
      */
     protected void updateAccountBalanceHistory(OriginEntryInformation originEntry) {
         OriginEntryFull originEntryFull = (OriginEntryFull) originEntry;
@@ -376,7 +235,6 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
         // balance type code is EX, IE, PE and CE
         originEntryFull.refreshReferenceObject(KFSPropertyConstants.OPTION);
         if ((originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getActualFinancialBalanceTypeCd()) || originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getBudgetCheckingBalanceTypeCd())) || (originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getExtrnlEncumFinBalanceTypCd()) || originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getIntrnlEncumFinBalanceTypCd()) || originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getPreencumbranceFinBalTypeCd()) || originEntryFull.getFinancialBalanceTypeCode().equals(originEntryFull.getOption().getCostShareEncumbranceBalanceTypeCd())) && (!originEntryFull.getFinancialObjectTypeCode().equals(originEntryFull.getOption().getFinObjectTypeFundBalanceCd()))) {
-            // TODO Retrieve and update 1 by 1? Is a HashMap or cache better so that storing only occurs once at the end?
             AccountBalanceHistory accountBalanceHistory = new AccountBalanceHistory(originEntry);
 
             AccountBalanceHistory retrievedAccountBalanceHistory = (AccountBalanceHistory) businessObjectService.retrieve(accountBalanceHistory);
@@ -384,21 +242,16 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
                 accountBalanceHistory = retrievedAccountBalanceHistory;
             }
 
-            // Following is a copy of PostAccountBalance.updateAccountBalanceReturn since the blancing process is to do this
-            // independently
+            // Following is a copy of PostAccountBalance.updateAccountBalanceReturn since the balancing process is to do this independently
             if (accountBalanceHistory.addAmount(originEntryFull)) {
                 businessObjectService.save(accountBalanceHistory);
             }
         }
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#clearBalanceHistory()
-     */
-
     @Override
     public void clearHistories() {
-        Map<String, Object> fieldValues = new HashMap<String, Object>();
+        Map<String, Object> fieldValues = new HashMap<>();
         businessObjectService.deleteMatching(EntryHistory.class, fieldValues);
         businessObjectService.deleteMatching(BalanceHistory.class, fieldValues);
         businessObjectService.deleteMatching(EncumbranceHistory.class, fieldValues);
@@ -407,19 +260,16 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
         reportWriterService.writeFormattedMessageLine(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.MESSAGE_BATCH_BALANCING_HISTORY_PURGED));
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getFilenames()
-     */
     @Override
     public String getFilenames() {
-        return (this.posterInputFile == null ? null : this.posterInputFile.getName()) + "\n"
-            + (this.posterErrorOutputFile == null ? null : this.posterErrorOutputFile.getName()) + "\n"
-            + (this.reversalInputFile == null ? null : this.reversalInputFile.getName()) + "\n"
-            + (this.reversalErrorOutputFile == null ? null : this.reversalErrorOutputFile.getName()) + "\n"
-            + (this.icrInputFile == null ? null : this.icrInputFile.getName()) + "\n"
-            + (this.icrErrorOutputFile == null ? null : this.icrErrorOutputFile.getName()) + "\n"
-            + (this.icrEncumbranceInputFile == null ? null : this.icrEncumbranceInputFile.getName()) + "\n"
-            + (this.icrEncumbranceErrorOutputFile == null ? null : this.icrEncumbranceErrorOutputFile.getName());
+        return getName(getPosterInputFile())
+            + getName(getPosterErrorOutputFile())
+            + getName(getReversalInputFile())
+            + getName(getReversalErrorOutputFile())
+            + getName(getICRInputFile())
+            + getName(getICRErrorOutputFile())
+            + getName(getICREncumbranceInputFile())
+            + getName(getICRErrorOutputFile());
     }
 
     /**
@@ -430,7 +280,6 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
     @Override
     protected Integer compareBalanceHistory() {
         Integer countComparisionFailures = 0;
-
 
         String balanceTable = persistenceStructureService.getTableName(Balance.class);
         String historyTable = persistenceStructureService.getTableName(balanceHistoryPersistentClass);
@@ -471,7 +320,6 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
                 if (countComparisionFailures <= this.getComparisonFailuresToPrintPerReport()) {
                     reportWriterService.writeError(entry, new Message(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.MESSAGE_BATCH_BALANCING_RECORD_FAILED_BALANCING), Message.TYPE_WARNING, entry.getClass().getSimpleName()));
                 }
-
             }
         }
 
@@ -482,7 +330,6 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
      * Update the encumbrance history table
      *
      * @param originEntry representing the update details
-     * @see org.kuali.kfs.gl.batch.service.impl.PostEncumbrance#post(org.kuali.kfs.gl.businessobject.Transaction, int, java.util.Date)
      */
     protected void updateEncumbranceHistory(OriginEntryInformation originEntry) {
         OriginEntryFull originEntryFull = (OriginEntryFull) originEntry;
@@ -504,7 +351,7 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
             encumbranceHistory.setOriginCode(originEntryFull.getReferenceFinancialSystemOriginationCode());
             encumbranceHistory.setDocumentTypeCode(originEntryFull.getReferenceFinancialDocumentTypeCode());
         }
-        // TODO Retrieve and update 1 by 1? Is a HashMap or cache better so that storing only occurs once at the end?
+
         EncumbranceHistory retrievedEncumbranceHistory = (EncumbranceHistory) businessObjectService.retrieve(encumbranceHistory);
 
         if (ObjectUtils.isNotNull(retrievedEncumbranceHistory)) {
@@ -518,16 +365,13 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
     }
 
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.impl.BalancingServiceBaseImpl#customCompareHistory()
-     */
     @Override
     protected Map<String, Integer> customCompareHistory() {
         Integer countAccountBalanceComparisionFailure = this.accountBalanceCompareHistory();
         Integer countEncumbranceComparisionFailure = this.encumbranceCompareHistory();
 
         // Using LinkedHashMap because we want it ordered
-        Map<String, Integer> countMap = new LinkedHashMap<String, Integer>();
+        Map<String, Integer> countMap = new LinkedHashMap<>();
         countMap.put((AccountBalanceHistory.class).getSimpleName(), countAccountBalanceComparisionFailure);
         countMap.put((EncumbranceHistory.class).getSimpleName(), countEncumbranceComparisionFailure);
 
@@ -545,7 +389,6 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
         String accountBalanceTable = persistenceStructureService.getTableName(AccountBalance.class);
         String historyTable = persistenceStructureService.getTableName(AccountBalanceHistory.class);
 
-
         List<AccountBalance> data = ledgerEntryBalanceCachingDao.accountBalanceCompareHistory(accountBalanceTable, historyTable, getFiscalYear());
 
         if (!data.isEmpty()) {
@@ -556,7 +399,6 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
                     reportWriterService.writeError(accountBalanceHistory, new Message(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.MESSAGE_BATCH_BALANCING_RECORD_FAILED_BALANCING), Message.TYPE_WARNING, accountBalanceHistory.getClass().getSimpleName()));
                 }
             }
-
         } else {
             reportWriterService.writeNewLines(1);
             reportWriterService.writeFormattedMessageLine(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.MESSAGE_BATCH_BALANCING_FAILURE_COUNT), (AccountBalanceHistory.class).getSimpleName(), countComparisionFailures, this.getComparisonFailuresToPrintPerReport());
@@ -585,21 +427,16 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
                     reportWriterService.writeError(encumbranceHistory, new Message(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.MESSAGE_BATCH_BALANCING_RECORD_FAILED_BALANCING), Message.TYPE_WARNING, encumbranceHistory.getClass().getSimpleName()));
                 }
             }
-
         } else {
             reportWriterService.writeNewLines(1);
             reportWriterService.writeFormattedMessageLine(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.MESSAGE_BATCH_BALANCING_FAILURE_COUNT), (EncumbranceHistory.class).getSimpleName(), countComparisionFailures, this.getComparisonFailuresToPrintPerReport());
         }
-
 
         countComparisionFailures = data.size();
 
         return countComparisionFailures;
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.impl.BalancingServiceBaseImpl#customPrintRowCountHistory()
-     */
     @Override
     protected void customPrintRowCountHistory(Integer fiscalYear) {
         // Note that fiscal year is passed as null for the History tables because for those we shouldn't have data prior to the
@@ -609,33 +446,6 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
         reportWriterService.writeStatisticLine(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.REPORT_ACCOUNT_BALANCE_ROW_COUNT_PRODUCTION), this.getShortTableLabel((AccountBalance.class).getSimpleName()), accountBalanceDao.findCountGreaterOrEqualThan(fiscalYear));
         reportWriterService.writeStatisticLine(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.REPORT_ENCUMBRANCE_ROW_COUNT_HISTORY), this.getShortTableLabel((EncumbranceHistory.class).getSimpleName()), "(" + (EncumbranceHistory.class).getSimpleName() + ")", this.getHistoryCount(null, EncumbranceHistory.class));
         reportWriterService.writeStatisticLine(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.REPORT_ENCUMBRANCE_ROW_COUNT_PRODUCTION), this.getShortTableLabel((Encumbrance.class).getSimpleName()), encumbranceDao.findCountGreaterOrEqualThan(fiscalYear));
-    }
-
-    /**
-     * Sets the BalancingDao
-     *
-     * @param balancingDao The BalancingDao to set.
-     */
-    public void setBalancingDao(BalancingDao balancingDao) {
-        this.balancingDao = balancingDao;
-    }
-
-    /**
-     * Sets the AccountBalanceDao
-     *
-     * @param accountBalanceDao The AccountBalanceDao to set.
-     */
-    public void setAccountBalanceDao(AccountBalanceDao accountBalanceDao) {
-        this.accountBalanceDao = accountBalanceDao;
-    }
-
-    /**
-     * Sets the EncumbranceDao
-     *
-     * @param encumbranceDao The EncumbranceDao to set.
-     */
-    public void setEncumbranceDao(EncumbranceDao encumbranceDao) {
-        this.encumbranceDao = encumbranceDao;
     }
 
     protected BalanceHistory createBalanceFromMap(Map<String, Object> map) {
@@ -667,7 +477,6 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
         balance.setMonth13Amount(convertBigDecimalToKualiDecimal((BigDecimal) map.get(GeneralLedgerConstants.ColumnNames.MONTH_13_ACCT_AMT)));
 
         return balance;
-
     }
 
     protected EntryHistory createEntryHistoryFromMap(Map<String, Object> map) {
@@ -677,17 +486,12 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
         entry.setFinancialObjectCode((String) map.get(GeneralLedgerConstants.ColumnNames.OBJECT_CODE));
         entry.setFinancialBalanceTypeCode((String) map.get(GeneralLedgerConstants.ColumnNames.BALANCE_TYPE_CODE));
         entry.setUniversityFiscalPeriodCode((String) map.get(GeneralLedgerConstants.ColumnNames.FISCAL_PERIOD_CODE));
-        // entry.setFinancialObjectTypeCode((String)map.get(GeneralLedgerConstants.ColumnNames.OBJECT_TYPE_CODE));
         entry.setTransactionDebitCreditCode((String) map.get(GeneralLedgerConstants.ColumnNames.TRANSACTION_DEBIT_CREDIT_CD));
         entry.setTransactionLedgerEntryAmount(convertBigDecimalToKualiDecimal((BigDecimal) map.get(GeneralLedgerConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT)));
-
         return entry;
-
     }
 
     protected AccountBalanceHistory createAccountBalanceHistoryFromMap(Map<String, Object> map) {
-        // UNIV_FISCAL_YR, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_OBJECT_CD, FIN_SUB_OBJ_CD, CURR_BDLN_BAL_AMT,
-        // ACLN_ACTLS_BAL_AMT, ACLN_ENCUM_BAL_AMT
         AccountBalanceHistory accountBalanceHistory = new AccountBalanceHistory();
         accountBalanceHistory.setUniversityFiscalYear(((BigDecimal) (map.get(GeneralLedgerConstants.ColumnNames.UNIVERSITY_FISCAL_YEAR))).intValue());
         accountBalanceHistory.setChartOfAccountsCode((String) map.get(GeneralLedgerConstants.ColumnNames.CHART_OF_ACCOUNTS_CODE));
@@ -698,8 +502,6 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
         accountBalanceHistory.setCurrentBudgetLineBalanceAmount(convertBigDecimalToKualiDecimal((BigDecimal) map.get(GeneralLedgerConstants.ColumnNames.CURRENT_BUDGET_LINE_BALANCE_AMOUNT)));
         accountBalanceHistory.setAccountLineActualsBalanceAmount(convertBigDecimalToKualiDecimal((BigDecimal) map.get(GeneralLedgerConstants.ColumnNames.ACCOUNT_LINE_ACTUALS_BALANCE_AMOUNT)));
         accountBalanceHistory.setAccountLineEncumbranceBalanceAmount(convertBigDecimalToKualiDecimal((BigDecimal) map.get(GeneralLedgerConstants.ColumnNames.ACCOUNT_LINE_ENCUMBRANCE_BALANCE_AMOUNT)));
-
-
         return accountBalanceHistory;
     }
 
@@ -717,8 +519,6 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
         encumbranceHistory.setDocumentNumber((String) map.get(GeneralLedgerConstants.ColumnNames.DOCUMENT_NUMBER));
         encumbranceHistory.setAccountLineEncumbranceAmount(convertBigDecimalToKualiDecimal((BigDecimal) map.get(GeneralLedgerConstants.ColumnNames.ACCOUNT_LINE_ENCUMBRANCE_AMOUNT)));
         encumbranceHistory.setAccountLineEncumbranceClosedAmount(convertBigDecimalToKualiDecimal((BigDecimal) map.get(GeneralLedgerConstants.ColumnNames.ACCOUNT_LINE_ENCUMBRANCE_CLOSED_AMOUNT)));
-
-
         return encumbranceHistory;
     }
 
@@ -728,7 +528,17 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
         } else {
             return new KualiDecimal(biggy);
         }
-
     }
 
+    public void setBalancingDao(BalancingDao balancingDao) {
+        this.balancingDao = balancingDao;
+    }
+
+    public void setAccountBalanceDao(AccountBalanceDao accountBalanceDao) {
+        this.accountBalanceDao = accountBalanceDao;
+    }
+
+    public void setEncumbranceDao(EncumbranceDao encumbranceDao) {
+        this.encumbranceDao = encumbranceDao;
+    }
 }

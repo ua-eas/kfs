@@ -50,93 +50,44 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Service implementation of BalancingService for Labor balancing
- */
 @Transactional
 public class LaborBalancingServiceImpl extends BalancingServiceBaseImpl<LaborEntryHistory, LaborBalanceHistory> implements BalancingService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LaborBalancingServiceImpl.class);
 
-    protected File laborPosterInputFile = null;
-    protected File laborPosterErrorOutputFile = null;
-
     @Override
     public boolean runBalancing() {
-        // clear out the file cache, otherwise, it won't update the history tables with the latest poster files
-        // therefore, it will use the files that were first used when the balancing job was run when the JVM started, and that'll cause out of balance errors
-        clearPosterFileCache();
+        LOG.debug("runBalancing() started");
+
         return super.runBalancing();
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getPosterInputFile()
-     */
     @Override
     public File getPosterInputFile() {
-        // avoid running scanning logic on file system
-        if (laborPosterInputFile != null) {
-            return laborPosterInputFile;
-        }
+        FilenameFilter filenameFilter = (File dir, String name) -> (name.startsWith(LaborConstants.BatchFileSystem.POSTER_INPUT_FILE) && name.endsWith(GeneralLedgerConstants.BatchFileSystem.EXTENSION));
 
-        FilenameFilter filenameFilter = new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return (name.startsWith(LaborConstants.BatchFileSystem.POSTER_INPUT_FILE) &&
-                    name.endsWith(GeneralLedgerConstants.BatchFileSystem.EXTENSION));
-            }
-        };
-
-        laborPosterInputFile = FileUtil.getNewestFile(new File(batchFileDirectoryName), filenameFilter);
-
-        return laborPosterInputFile;
+        return FileUtil.getNewestFile(new File(batchFileDirectoryName), filenameFilter);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getPosterErrorOutputFile()
-     */
     @Override
     public File getPosterErrorOutputFile() {
-        // avoid running scanning logic on file system
-        if (laborPosterErrorOutputFile != null) {
-            return laborPosterErrorOutputFile;
-        }
+        FilenameFilter filenameFilter = (File dir, String name) -> (name.startsWith(LaborConstants.BatchFileSystem.POSTER_ERROR_OUTPUT_FILE) && name.endsWith(GeneralLedgerConstants.BatchFileSystem.EXTENSION));
 
-        FilenameFilter filenameFilter = new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return (name.startsWith(LaborConstants.BatchFileSystem.POSTER_ERROR_OUTPUT_FILE) &&
-                    name.endsWith(GeneralLedgerConstants.BatchFileSystem.EXTENSION));
-            }
-        };
-
-        laborPosterErrorOutputFile = FileUtil.getNewestFile(new File(batchFileDirectoryName), filenameFilter);
-
-        return laborPosterErrorOutputFile;
+        return FileUtil.getNewestFile(new File(batchFileDirectoryName), filenameFilter);
     }
 
-
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getPastFiscalYearsToConsider()
-     */
     @Override
     public int getPastFiscalYearsToConsider() {
         return Integer.parseInt(parameterService.getParameterValueAsString(LaborBalancingStep.class, LaborConstants.Balancing.NUMBER_OF_PAST_FISCAL_YEARS_TO_INCLUDE));
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getComparisonFailuresToPrintPerReport()
-     */
     @Override
     public int getComparisonFailuresToPrintPerReport() {
         return Integer.parseInt(parameterService.getParameterValueAsString(LaborBalancingStep.class, LaborConstants.Balancing.NUMBER_OF_COMPARISON_FAILURES_TO_PRINT_PER_REPORT));
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getShortTableLabel(java.lang.String)
-     */
     @Override
     public String getShortTableLabel(String businessObjectName) {
-        Map<String, String> names = new HashMap<String, String>();
+        Map<String, String> names = new HashMap<>();
         names.put((Entry.class).getSimpleName(), kualiConfigurationService.getPropertyValueAsString(LaborKeyConstants.Balancing.REPORT_ENTRY_LABEL));
         names.put((LaborEntryHistory.class).getSimpleName(), kualiConfigurationService.getPropertyValueAsString(LaborKeyConstants.Balancing.REPORT_ENTRY_LABEL));
         names.put((Balance.class).getSimpleName(), kualiConfigurationService.getPropertyValueAsString(LaborKeyConstants.Balancing.REPORT_BALANCE_LABEL));
@@ -145,9 +96,6 @@ public class LaborBalancingServiceImpl extends BalancingServiceBaseImpl<LaborEnt
         return names.get(businessObjectName) == null ? kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.REPORT_UNKNOWN_LABEL) : names.get(businessObjectName);
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getOriginEntry(java.lang.String, int)
-     */
     @Override
     public OriginEntryInformation getOriginEntry(String inputLine, int lineNumber) {
         LaborOriginEntry originEntry = new LaborOriginEntry();
@@ -156,9 +104,6 @@ public class LaborBalancingServiceImpl extends BalancingServiceBaseImpl<LaborEnt
         return originEntry;
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.impl.BalancingServiceBaseImpl#updateHistoriesHelper(java.lang.Integer, java.lang.Integer, java.io.File, java.io.File)
-     */
     @Override
     protected int updateHistoriesHelper(Integer postMode, Integer startUniversityFiscalYear, File inputFile, File errorFile) {
         if (postMode == PosterService.MODE_ENTRIES) {
@@ -167,14 +112,9 @@ public class LaborBalancingServiceImpl extends BalancingServiceBaseImpl<LaborEnt
         return 0;
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#updateEntryHistory(org.kuali.kfs.gl.businessobject.OriginEntryInformation)
-     * @see org.kuali.kfs.module.ld.batch.service.impl.LaborPosterServiceImpl#postAsLedgerEntry(org.kuali.kfs.gl.businessobject.Transaction, int, java.util.Date)
-     */
     @Override
     public void updateEntryHistory(Integer postMode, OriginEntryInformation originEntry) {
         if (postMode == PosterService.MODE_ENTRIES) {
-            // TODO Retrieve and update 1 by 1? Is a HashMap or cache better so that storing only occurs once at the end?
             LaborOriginEntry laborOriginEntry = (LaborOriginEntry) originEntry;
             LaborEntryHistory ledgerEntryHistory = new LaborEntryHistory(laborOriginEntry);
 
@@ -189,14 +129,9 @@ public class LaborBalancingServiceImpl extends BalancingServiceBaseImpl<LaborEnt
         }
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#updateBalanceHistory(org.kuali.kfs.gl.businessobject.OriginEntryInformation)
-     * @see org.kuali.kfs.module.ld.batch.service.impl.LaborPosterServiceImpl#updateLedgerBalance(org.kuali.kfs.gl.businessobject.Transaction, int, java.util.Date)
-     */
     @Override
     public void updateBalanceHistory(Integer postMode, OriginEntryInformation originEntry) {
         if (postMode == PosterService.MODE_ENTRIES) {
-            // TODO Retrieve and update 1 by 1? Is a HashMap or cache better so that storing only occurs once at the end?
             LaborOriginEntry laborOriginEntry = (LaborOriginEntry) originEntry;
             LaborBalanceHistory ledgerBalanceHistory = new LaborBalanceHistory(laborOriginEntry);
 
@@ -277,44 +212,25 @@ public class LaborBalancingServiceImpl extends BalancingServiceBaseImpl<LaborEnt
         return countComparisionFailures;
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#clearBalanceHistory()
-     */
-
     @Override
     public void clearHistories() {
-        Map<String, Object> fieldValues = new HashMap<String, Object>();
+        Map<String, Object> fieldValues = new HashMap<>();
         businessObjectService.deleteMatching(LaborEntryHistory.class, fieldValues);
         businessObjectService.deleteMatching(LaborBalanceHistory.class, fieldValues);
 
         reportWriterService.writeFormattedMessageLine(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.MESSAGE_BATCH_BALANCING_HISTORY_PURGED));
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getFilenames()
-     */
     @Override
     public String getFilenames() {
-        return (this.laborPosterInputFile == null ? null : this.laborPosterInputFile.getName()) + "\n"
-            + (this.laborPosterErrorOutputFile == null ? null : this.laborPosterErrorOutputFile.getName());
+        return getName(getPosterInputFile()) +
+            getName(getPosterErrorOutputFile());
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getBalance(org.kuali.kfs.gl.businessobject.LedgerBalanceHistory)
-     */
     @Override
     public Balance getBalance(LedgerBalanceHistory ledgerBalanceHistory) {
         LedgerBalance ledgerBalance = new LedgerBalance((LaborBalanceHistory) ledgerBalanceHistory);
         return (LedgerBalance) businessObjectService.retrieve(ledgerBalance);
-    }
-
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#clearPosterFileCache()
-     */
-    @Override
-    public void clearPosterFileCache() {
-        this.laborPosterInputFile = null;
-        this.laborPosterErrorOutputFile = null;
     }
 
     protected LaborBalanceHistory createBalanceFromMap(Map<String, Object> map) {
@@ -348,7 +264,6 @@ public class LaborBalancingServiceImpl extends BalancingServiceBaseImpl<LaborEnt
         balance.setMonth13Amount(convertBigDecimalToKualiDecimal((BigDecimal) map.get(GeneralLedgerConstants.ColumnNames.MONTH_13_ACCT_AMT)));
 
         return balance;
-
     }
 
     protected LaborEntryHistory createEntryHistoryFromMap(Map<String, Object> map) {
@@ -362,7 +277,6 @@ public class LaborBalancingServiceImpl extends BalancingServiceBaseImpl<LaborEnt
         entry.setTransactionLedgerEntryAmount(convertBigDecimalToKualiDecimal((BigDecimal) map.get(GeneralLedgerConstants.ColumnNames.TRANSACTION_LEDGER_ENTRY_AMOUNT)));
 
         return entry;
-
     }
 
     protected KualiDecimal convertBigDecimalToKualiDecimal(BigDecimal biggy) {
@@ -371,55 +285,35 @@ public class LaborBalancingServiceImpl extends BalancingServiceBaseImpl<LaborEnt
         } else {
             return new KualiDecimal(biggy);
         }
-
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getReversalInputFile()
-     */
     @Override
     public File getReversalInputFile() {
         return null;
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getReversalErrorOutputFile()
-     */
     @Override
     public File getReversalErrorOutputFile() {
         return null;
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getICRInputFile()
-     */
     @Override
     public File getICRInputFile() {
         return null;
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getICRErrorOutputFile()
-     */
     @Override
     public File getICRErrorOutputFile() {
         return null;
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getICREncumbranceInputFile()
-     */
     @Override
     public File getICREncumbranceInputFile() {
         return null;
     }
 
-    /**
-     * @see org.kuali.kfs.gl.batch.service.BalancingService#getICREncumbranceErrorOutputFile()
-     */
     @Override
     public File getICREncumbranceErrorOutputFile() {
         return null;
     }
-
 }

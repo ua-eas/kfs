@@ -34,7 +34,6 @@ import org.kuali.kfs.coa.dataaccess.IndirectCostRecoveryRateDetailDao;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.OffsetDefinitionService;
-import org.kuali.kfs.coa.service.SubAccountService;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.PosterIndirectCostRecoveryEntriesStep;
@@ -52,8 +51,6 @@ import org.kuali.kfs.gl.dataaccess.ExpenditureTransactionDao;
 import org.kuali.kfs.gl.dataaccess.ReversalDao;
 import org.kuali.kfs.gl.report.LedgerSummaryReport;
 import org.kuali.kfs.gl.report.TransactionListingReport;
-import org.kuali.kfs.gl.service.OriginEntryGroupService;
-import org.kuali.kfs.gl.service.OriginEntryService;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.PersistenceService;
@@ -63,11 +60,9 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.Message;
-import org.kuali.kfs.sys.MessageBuilder;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.dataaccess.UniversityDateDao;
 import org.kuali.kfs.sys.exception.InvalidFlexibleOffsetException;
 import org.kuali.kfs.sys.service.FlexibleOffsetAccountService;
 import org.kuali.kfs.sys.service.ReportWriterService;
@@ -102,17 +97,14 @@ import java.util.Map;
 public class PosterServiceImpl implements PosterService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PosterServiceImpl.class);
 
-    private static final int CONTINUATION_ACCOUNT_DEPTH_LIMIT = 10;
-    public static final KualiDecimal WARNING_MAX_DIFFERENCE = new KualiDecimal("0.03");
-    public static final String DATE_FORMAT_STRING = "yyyyMMdd";
+    protected static final int CONTINUATION_ACCOUNT_DEPTH_LIMIT = 10;
+    protected static final KualiDecimal WARNING_MAX_DIFFERENCE = new KualiDecimal("0.03");
+    protected static final String DATE_FORMAT_STRING = "yyyyMMdd";
 
     private List transactionPosters;
     private VerifyTransaction verifyTransaction;
-    private OriginEntryService originEntryService;
-    private OriginEntryGroupService originEntryGroupService;
     private DateTimeService dateTimeService;
     private ReversalDao reversalDao;
-    private UniversityDateDao universityDateDao;
     private AccountingPeriodService accountingPeriodService;
     private ExpenditureTransactionDao expenditureTransactionDao;
     private IndirectCostRecoveryRateDetailDao indirectCostRecoveryRateDetailDao;
@@ -121,7 +113,6 @@ public class PosterServiceImpl implements PosterService {
     private ConfigurationService configurationService;
     private FlexibleOffsetAccountService flexibleOffsetAccountService;
     private RunDateService runDateService;
-    private SubAccountService subAccountService;
     private OffsetDefinitionService offsetDefinitionService;
     private DataDictionaryService dataDictionaryService;
     private BusinessObjectService businessObjectService;
@@ -131,12 +122,7 @@ public class PosterServiceImpl implements PosterService {
     private ReportWriterService reversalReportWriterService;
     private ReportWriterService ledgerSummaryReportWriterService;
 
-    //private File OUTPUT_ERR_FILE;
-    //private PrintStream OUTPUT_ERR_FILE_ps;
-    //private PrintStream OUTPUT_GLE_FILE_ps;
     private String batchFileDirectoryName;
-    //private BufferedReader INPUT_GLE_FILE_br = null;
-    //private FileReader INPUT_GLE_FILE = null;
     private AccountingCycleCachingService accountingCycleCachingService;
 
     /**
@@ -145,7 +131,7 @@ public class PosterServiceImpl implements PosterService {
     @Override
     public void postMainEntries() {
         LOG.debug("postMainEntries() started");
-        Date runDate = dateTimeService.getCurrentSqlDate();
+
         try {
             FileReader INPUT_GLE_FILE = new FileReader(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.POSTER_INPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
             File OUTPUT_ERR_FILE = new File(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.POSTER_ERROR_OUTPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
@@ -168,7 +154,7 @@ public class PosterServiceImpl implements PosterService {
     @Override
     public void postReversalEntries() {
         LOG.debug("postReversalEntries() started");
-        Date runDate = dateTimeService.getCurrentSqlDate();
+
         try {
             PrintStream OUTPUT_GLE_FILE_ps = new PrintStream(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.REVERSAL_POSTER_VALID_OUTPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
             File OUTPUT_ERR_FILE = new File(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.REVERSAL_POSTER_ERROR_OUTPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
@@ -188,7 +174,7 @@ public class PosterServiceImpl implements PosterService {
     @Override
     public void postIcrEntries() {
         LOG.debug("postIcrEntries() started");
-        Date runDate = dateTimeService.getCurrentSqlDate();
+
         try {
             FileReader INPUT_GLE_FILE = new FileReader(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_POSTER_INPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
             File OUTPUT_ERR_FILE = new File(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_POSTER_ERROR_OUTPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
@@ -210,17 +196,17 @@ public class PosterServiceImpl implements PosterService {
      */
     @Override
     public void postIcrEncumbranceEntries() {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("postIcrEncumbranceEntries() started");
-        }
-        Date runDate = dateTimeService.getCurrentSqlDate();
+        LOG.debug("postIcrEncumbranceEntries() started");
+
         try {
-            FileReader INPUT_GLE_FILE = new FileReader(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_INPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
-            File OUTPUT_ERR_FILE = new File(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_ERROR_OUTPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
+            FileReader inputFile = new FileReader(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_INPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
+            File outputErrorFile = new File(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_ERROR_OUTPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
+            PrintStream outputFile = new PrintStream(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_OUTPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
 
-            postEntries(PosterService.MODE_ICRENCMB, INPUT_GLE_FILE, null, OUTPUT_ERR_FILE);
+            postEntries(PosterService.MODE_ICRENCMB, inputFile, outputFile, outputErrorFile);
 
-            INPUT_GLE_FILE.close();
+            outputFile.close();
+            inputFile.close();
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
             throw new RuntimeException("postIcrEncumbranceEntries Stopped: " + e1.getMessage(), e1);
@@ -236,9 +222,7 @@ public class PosterServiceImpl implements PosterService {
      * @param mode the poster's current run mode
      */
     protected void postEntries(int mode, FileReader INPUT_GLE_FILE, PrintStream OUTPUT_GLE_FILE_ps, File OUTPUT_ERR_FILE) throws FileNotFoundException {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("postEntries() started");
-        }
+        LOG.debug("postEntries() started");
 
         PrintStream OUTPUT_ERR_FILE_ps = new PrintStream(OUTPUT_ERR_FILE);
         BufferedReader INPUT_GLE_FILE_br = null;
@@ -310,11 +294,9 @@ public class PosterServiceImpl implements PosterService {
                 OUTPUT_ERR_FILE_ps.close();
                 reportWriterService.writeStatisticLine("SEQUENTIAL RECORDS READ                    %,9d", reportSummary.get("SEQUENTIAL,S"));
             } else {
-                if (LOG.isDebugEnabled()) {
-                    LOG.debug("postEntries() Processing reversal transactions");
-                }
+                LOG.debug("postEntries() Processing reversal transactions");
 
-                final String GL_REVERSAL_T = getPersistenceStructureService().getTableName(Reversal.class);
+                final String GL_REVERSAL_T = persistenceStructureService.getTableName(Reversal.class);
                 Iterator reversalTransactions = reversalDao.getByDate(runDate);
                 TransactionListingReport reversalListingReport = new TransactionListingReport();
                 while (reversalTransactions.hasNext()) {
@@ -395,7 +377,7 @@ public class PosterServiceImpl implements PosterService {
         Transaction originalTransaction = tran;
 
         try {
-            final String GL_ORIGIN_ENTRY_T = getPersistenceStructureService().getTableName(OriginEntryFull.class);
+            final String GL_ORIGIN_ENTRY_T = persistenceStructureService.getTableName(OriginEntryFull.class);
 
             // Update select count in the report
             if ((mode == PosterService.MODE_ENTRIES) || (mode == PosterService.MODE_ICR) || (mode == PosterService.MODE_ICRENCMB)) {
@@ -514,7 +496,9 @@ public class PosterServiceImpl implements PosterService {
                     if (mode == PosterService.MODE_REVERSAL) {
                         createOutputEntry(tran, OUTPUT_GLE_FILE_ps);
                         reversalDao.delete((Reversal) originalTransaction);
-                        addReporting(reportSummary, getPersistenceStructureService().getTableName(Reversal.class), GeneralLedgerConstants.DELETE_CODE);
+                        addReporting(reportSummary, persistenceStructureService.getTableName(Reversal.class), GeneralLedgerConstants.DELETE_CODE);
+                    } else if ( mode == PosterService.MODE_ICRENCMB) {
+                        createOutputEntry(tran, OUTPUT_GLE_FILE_ps);
                     }
 
                     ledgerSummaryReport.summarizeEntry(new OriginEntryFull(tran));
@@ -735,7 +719,6 @@ public class PosterServiceImpl implements PosterService {
      * Generate a transfer transaction and an offset transaction
      *
      * @param et                         an expenditure transaction
-     * @param icrEntry                   the indirect cost recovery entry
      * @param generatedTransactionAmount the amount of the transaction
      * @param runDate                    the transaction date for the newly created origin entry
      * @param group                      the group to save the origin entry to
@@ -889,7 +872,6 @@ public class PosterServiceImpl implements PosterService {
      * set up for ICR
      *
      * @param et
-     * @param reportErrors
      * @return null if the ET does not have a SubAccount properly set up for ICR
      */
     protected IndirectCostRecoveryGenerationMetadata retrieveSubAccountIndirectCostRecoveryMetadata(ExpenditureTransaction et) {
@@ -1100,9 +1082,8 @@ public class PosterServiceImpl implements PosterService {
      * @return true if an offset would be needed for this entry, false otherwise
      */
     protected boolean generateOffset(OriginEntryFull tran, int mode, Map<String, Integer> reportSummary, LedgerSummaryReport ledgerSummaryReport, PrintStream invalidGroup, UniversityDate runUniversityDate, String line, PrintStream OUTPUT_GLE_FILE_ps) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("generateOffset() started");
-        }
+        LOG.debug("generateOffset() started");
+
         List<Message> errors = new ArrayList();
         OriginEntryFull offsetEntry = new OriginEntryFull(tran);
 
@@ -1132,9 +1113,7 @@ public class PosterServiceImpl implements PosterService {
         try {
             flexibleOffsetAccountService.updateOffset(offsetEntry);
         } catch (InvalidFlexibleOffsetException e) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("generateOffset() Offset Flexible Offset Error: " + e.getMessage());
-            }
+            LOG.debug("generateOffset() Offset Flexible Offset Error: " + e.getMessage());
             errors.add(new Message("FAILED TO GENERATE FLEXIBLE OFFSETS " + e.getMessage(), Message.TYPE_WARNING));
         }
 
@@ -1150,6 +1129,31 @@ public class PosterServiceImpl implements PosterService {
         return true;
     }
 
+    protected void createOutputEntry(Transaction entry, PrintStream group) throws IOException {
+        OriginEntryFull oef = new OriginEntryFull();
+        oef.copyFieldsFromTransaction(entry);
+        try {
+            group.printf("%s\n", oef.getLine());
+        } catch (Exception e) {
+            throw new IOException(e.toString());
+        }
+    }
+
+    protected void writeErrorEntry(String line, PrintStream invaliGroup) throws IOException {
+        try {
+            invaliGroup.printf("%s\n", line);
+        } catch (Exception e) {
+            throw new IOException(e.toString());
+        }
+    }
+
+    protected boolean shouldIgnoreExpenditureTransaction(ExpenditureTransaction et) {
+        if (ObjectUtils.isNotNull(et.getOption())) {
+            SystemOptions options = et.getOption();
+            return StringUtils.isNotBlank(options.getActualFinancialBalanceTypeCd()) && !options.getActualFinancialBalanceTypeCd().equals(et.getBalanceTypeCode());
+        }
+        return true;
+    }
 
     public void setVerifyTransaction(VerifyTransaction vt) {
         verifyTransaction = vt;
@@ -1159,14 +1163,6 @@ public class PosterServiceImpl implements PosterService {
         transactionPosters = p;
     }
 
-    public void setOriginEntryService(OriginEntryService oes) {
-        originEntryService = oes;
-    }
-
-    public void setOriginEntryGroupService(OriginEntryGroupService oes) {
-        originEntryGroupService = oes;
-    }
-
     @Override
     public void setDateTimeService(DateTimeService dts) {
         dateTimeService = dts;
@@ -1174,10 +1170,6 @@ public class PosterServiceImpl implements PosterService {
 
     public void setReversalDao(ReversalDao red) {
         reversalDao = red;
-    }
-
-    public void setUniversityDateDao(UniversityDateDao udd) {
-        universityDateDao = udd;
     }
 
     public void setAccountingPeriodService(AccountingPeriodService aps) {
@@ -1208,70 +1200,24 @@ public class PosterServiceImpl implements PosterService {
         this.flexibleOffsetAccountService = flexibleOffsetAccountService;
     }
 
-    public RunDateService getRunDateService() {
-        return runDateService;
-    }
-
     public void setRunDateService(RunDateService runDateService) {
         this.runDateService = runDateService;
-    }
-
-    protected void createOutputEntry(Transaction entry, PrintStream group) throws IOException {
-        OriginEntryFull oef = new OriginEntryFull();
-        oef.copyFieldsFromTransaction(entry);
-        try {
-            group.printf("%s\n", oef.getLine());
-        } catch (Exception e) {
-            throw new IOException(e.toString());
-        }
-    }
-
-    protected void writeErrorEntry(String line, PrintStream invaliGroup) throws IOException {
-        try {
-            invaliGroup.printf("%s\n", line);
-        } catch (Exception e) {
-            throw new IOException(e.toString());
-        }
-    }
-
-    public AccountingCycleCachingService getAccountingCycleCachingService() {
-        return accountingCycleCachingService;
     }
 
     public void setAccountingCycleCachingService(AccountingCycleCachingService accountingCycleCachingService) {
         this.accountingCycleCachingService = accountingCycleCachingService;
     }
 
-    public void setSubAccountService(SubAccountService subAccountService) {
-        this.subAccountService = subAccountService;
-    }
-
     public void setOffsetDefinitionService(OffsetDefinitionService offsetDefinitionService) {
         this.offsetDefinitionService = offsetDefinitionService;
-    }
-
-    protected DataDictionaryService getDataDictionaryService() {
-        return dataDictionaryService;
     }
 
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
         this.dataDictionaryService = dataDictionaryService;
     }
 
-    protected BusinessObjectService getBusinessObjectService() {
-        return businessObjectService;
-    }
-
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;
-    }
-
-    protected boolean shouldIgnoreExpenditureTransaction(ExpenditureTransaction et) {
-        if (ObjectUtils.isNotNull(et.getOption())) {
-            SystemOptions options = et.getOption();
-            return StringUtils.isNotBlank(options.getActualFinancialBalanceTypeCd()) && !options.getActualFinancialBalanceTypeCd().equals(et.getBalanceTypeCode());
-        }
-        return true;
     }
 
     public void setBatchFileDirectoryName(String batchFileDirectoryName) {
@@ -1280,15 +1226,6 @@ public class PosterServiceImpl implements PosterService {
 
     public void setPersistenceStructureService(PersistenceStructureService persistenceStructureService) {
         this.persistenceStructureService = persistenceStructureService;
-    }
-
-    /**
-     * Gets the persistenceStructureService attribute.
-     *
-     * @return Returns the persistenceStructureService.
-     */
-    public PersistenceStructureService getPersistenceStructureService() {
-        return persistenceStructureService;
     }
 
     public void setReportWriterService(ReportWriterService reportWriterService) {
