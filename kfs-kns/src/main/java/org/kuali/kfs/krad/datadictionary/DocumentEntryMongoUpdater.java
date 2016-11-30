@@ -50,6 +50,7 @@ public class DocumentEntryMongoUpdater {
             mongoDocumentEntry = createMongoDocumentEntry(documentEntry);
         }
         updateMongoDocumentEntry(documentEntry, mongoDocumentEntry);
+        serializeAttributes(documentEntry, mongoDocumentEntry);
         dataDictionaryDao.saveDocumentEntry(mongoDocumentEntry);
     }
 
@@ -58,8 +59,6 @@ public class DocumentEntryMongoUpdater {
         mongoDocumentEntry.put("institutionId","");
         mongoDocumentEntry.put("documentClassName",documentEntry.getDocumentClass().getName());
         mongoDocumentEntry.put("workflowTypeName",documentEntry.getDocumentTypeName());
-        updateMongoDocumentEntry(documentEntry, mongoDocumentEntry);
-        serializeAttributes(documentEntry, mongoDocumentEntry);
         return mongoDocumentEntry;
     }
 
