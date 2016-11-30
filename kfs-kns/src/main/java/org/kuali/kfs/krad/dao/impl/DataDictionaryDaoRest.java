@@ -18,15 +18,12 @@
  */
 
 package org.kuali.kfs.krad.dao.impl;
-import com.sun.jersey.api.client.ClientResponse;
-import org.eclipse.persistence.platform.database.HANAPlatform;
-import org.kuali.kfs.krad.dao.DataDictionaryDao;
-import org.kuali.kfs.krad.datadictionary.ApiNamesGenerator;
-
-
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
+import org.kuali.kfs.krad.dao.DataDictionaryDao;
+import org.kuali.kfs.krad.datadictionary.ApiNamesGenerator;
 
 import javax.ws.rs.core.MediaType;
 import java.util.HashMap;
@@ -54,7 +51,7 @@ public class DataDictionaryDaoRest implements DataDictionaryDao {
 
         WebResource resource = client.resource(getConfigurationBaseUrl());
 
-        return resource.path("api/v1/metadata/business_objects/" + moduleName +"/"+ businessObjectReferenceName)
+        return resource.path("api/v1/metadata/business-objects/" + moduleName +"/"+ businessObjectReferenceName)
                 .header("Content-Type", MediaType.APPLICATION_JSON)
                 .header("Authorization", "bearer "+authorizationToken)
                 .get(HashMap.class);
