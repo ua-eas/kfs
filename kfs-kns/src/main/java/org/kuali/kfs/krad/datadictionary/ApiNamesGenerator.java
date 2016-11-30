@@ -43,14 +43,18 @@ public class ApiNamesGenerator {
 
     public String convertBusinessObjectEntryToUrlBoName(BusinessObjectEntry boEntry) {
         final String beanName = boEntry.getJstlKey();
-        return CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, beanName) + "s";
+        return convertBusinessObjectClassNameToUrlBoName(beanName);
+    }
+
+    public String convertBusinessObjectClassNameToUrlBoName(String boClass) {
+        return CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, boClass) + "s";
     }
 
     public String convertBusinessObjectEntryToModuleName(BusinessObjectEntry boEntry) {
         return generateUrlModuleNameForClass(boEntry.getBusinessObjectClass());
     }
 
-    private String generateUrlModuleNameForClass(Class<?> businessObjectClass) {
+    public String generateUrlModuleNameForClass(Class<?> businessObjectClass) {
         final ModuleService moduleService = kualiModuleService.getResponsibleModuleService(businessObjectClass);
         if (moduleService == null) {
             return null;

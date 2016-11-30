@@ -237,7 +237,7 @@ public class DataDictionary {
         if (KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean(KNSConstants.UPDATE_DOCUMENTSTORE_DATA_DICTIONARY_ON_STARTUP)) {
             LOG.info("Updating document store data dictionary");
             Thread mongoUpdate = new Thread(new DataDictionaryMongoUpdater(ddIndex, KNSServiceLocator.getDataDictionaryDao()));
-            mongoUpdate.run();
+            mongoUpdate.start();
         }
     }
 

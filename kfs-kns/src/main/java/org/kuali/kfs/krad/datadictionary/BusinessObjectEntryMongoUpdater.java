@@ -46,23 +46,21 @@ public class BusinessObjectEntryMongoUpdater {
         Map<String, Object> mongoBusinessObjectEntry = dataDictionaryDao.retrieveBusinessObjectEntry(businessObjectEntry.getBusinessObjectClass().getName());
         if (mongoBusinessObjectEntry == null) {
             mongoBusinessObjectEntry = createNewMongoEntry(businessObjectEntry);
-        } else {
-            updateValues(businessObjectEntry, mongoBusinessObjectEntry);
         }
+        updateValues(businessObjectEntry, mongoBusinessObjectEntry);
         dataDictionaryDao.saveBusinessObjectEntry(mongoBusinessObjectEntry);
     }
 
     private void updateValues(BusinessObjectEntry businessObjectEntry, Map<String, Object> mongoBusinessObjectEntry) {
         mongoBusinessObjectEntry.put("objectLabel", businessObjectEntry.getObjectLabel());
+        mongoBusinessObjectEntry.put("module", apiNamesGenerator.convertBusinessObjectEntryToModuleName(businessObjectEntry));
+        mongoBusinessObjectEntry.put("businessObjectReferenceName", apiNamesGenerator.convertBusinessObjectEntryToUrlBoName(businessObjectEntry));
     }
 
     private Map<String, Object> createNewMongoEntry(BusinessObjectEntry businessObjectEntry) {
         Map<String, Object> newEntry = new HashMap<>();
         newEntry.put("institutionId", "");
-        newEntry.put("module", apiNamesGenerator.convertBusinessObjectEntryToModuleName(businessObjectEntry));
-        newEntry.put("businessObjectReferenceName", apiNamesGenerator.convertBusinessObjectEntryToUrlBoName(businessObjectEntry));
         newEntry.put("businessObjectClassName", businessObjectEntry.getBusinessObjectClass().getName());
-        updateValues(businessObjectEntry, newEntry);
         return newEntry;
     }
 }
