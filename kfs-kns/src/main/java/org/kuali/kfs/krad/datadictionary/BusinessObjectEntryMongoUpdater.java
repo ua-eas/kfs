@@ -23,6 +23,7 @@ import org.kuali.kfs.krad.dao.DataDictionaryDao;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BusinessObjectEntryMongoUpdater {
@@ -48,6 +49,7 @@ public class BusinessObjectEntryMongoUpdater {
             mongoBusinessObjectEntry = createNewMongoEntry(businessObjectEntry);
         }
         updateValues(businessObjectEntry, mongoBusinessObjectEntry);
+        serializeAttributes(businessObjectEntry, mongoBusinessObjectEntry);
         dataDictionaryDao.saveBusinessObjectEntry(mongoBusinessObjectEntry);
     }
 
@@ -62,5 +64,11 @@ public class BusinessObjectEntryMongoUpdater {
         newEntry.put("institutionId", "");
         newEntry.put("businessObjectClassName", businessObjectEntry.getBusinessObjectClass().getName());
         return newEntry;
+    }
+
+    private void serializeAttributes(BusinessObjectEntry businessObjectEntry, Map<String, Object> mongoBusinessObjectEntry) {
+        final AttributeDefinitionSerializer serializer = new AttributeDefinitionSerializer();
+        final List<Map<String, Object>> serializedAttributes = serializer.serializeAttributeDefinitionsForEntry(businessObjectEntry);
+        mongoBusinessObjectEntry.put("attributes", serializedAttributes);
     }
 }

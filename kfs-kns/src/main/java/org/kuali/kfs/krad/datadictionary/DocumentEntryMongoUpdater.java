@@ -23,6 +23,7 @@ import org.kuali.kfs.krad.dao.DataDictionaryDao;
 import org.kuali.kfs.krad.document.TransactionalDocument;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -58,6 +59,7 @@ public class DocumentEntryMongoUpdater {
         mongoDocumentEntry.put("documentClassName",documentEntry.getDocumentClass().getName());
         mongoDocumentEntry.put("workflowTypeName",documentEntry.getDocumentTypeName());
         updateMongoDocumentEntry(documentEntry, mongoDocumentEntry);
+        serializeAttributes(documentEntry, mongoDocumentEntry);
         return mongoDocumentEntry;
     }
 
@@ -74,5 +76,11 @@ public class DocumentEntryMongoUpdater {
             final MaintenanceDocumentEntry maintenanceDocumentEntry = (MaintenanceDocumentEntry)documentEntry;
             mongoDocumentEntry.put("maintenanceBusinessObjectClass", maintenanceDocumentEntry.getDataObjectClass().getName());
         }
+    }
+
+    private void serializeAttributes(DocumentEntry documentEntry, Map<String, Object> mongoBusinessObjectEntry) {
+        final AttributeDefinitionSerializer serializer = new AttributeDefinitionSerializer();
+        final List<Map<String, Object>> serializedAttributes = serializer.serializeAttributeDefinitionsForEntry(documentEntry);
+        mongoBusinessObjectEntry.put("attributes", serializedAttributes);
     }
 }
