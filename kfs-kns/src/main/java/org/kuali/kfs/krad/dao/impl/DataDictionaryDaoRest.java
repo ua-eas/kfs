@@ -86,7 +86,7 @@ public class DataDictionaryDaoRest implements DataDictionaryDao {
 
         WebResource resource = client.resource(getConfigurationBaseUrl());
 
-        ClientResponse response = resource.path("api/v1/metadata/business_objects/" + moduleName +"/"+ businessObjectReferenceName)
+        ClientResponse response = resource.path("api/v1/metadata/business-objects/" + moduleName +"/"+ businessObjectReferenceName)
                 .header("Content-Type", MediaType.APPLICATION_JSON)
                 .header("Authorization", "bearer "+authorizationToken)
                 .entity(businessObjectEntry, MediaType.APPLICATION_JSON)
