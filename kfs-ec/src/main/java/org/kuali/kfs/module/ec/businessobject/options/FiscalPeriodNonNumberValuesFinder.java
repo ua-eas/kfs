@@ -46,6 +46,7 @@ public class FiscalPeriodNonNumberValuesFinder extends KeyValuesBase {
         keyValues.add(new ConcreteKeyValue("10", "10"));
         keyValues.add(new ConcreteKeyValue("11", "11"));
         keyValues.add(new ConcreteKeyValue("12", "12"));
+        keyValues.add(new ConcreteKeyValue("13", "13"));
         return keyValues;
     }
 }

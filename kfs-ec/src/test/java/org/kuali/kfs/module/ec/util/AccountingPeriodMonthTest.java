@@ -135,11 +135,11 @@ public class AccountingPeriodMonthTest extends TestCase {
         Map<Integer, Set<String>> periods = AccountingPeriodMonth.findAccountingPeriodsBetween(beginYear, beginPeriod.periodCode, endYear, endPeriod.periodCode);
 
         Set<String> beginPeriodCodes = periods.get(beginYear);
-        this.assertAccountingPeriodMonthEqual(beginPeriodCodes, beginPeriod, AccountingPeriodMonth.MONTH12);
+        this.assertAccountingPeriodMonthEqual(beginPeriodCodes, beginPeriod, AccountingPeriodMonth.MONTH13);
 
         for (int year = beginYear + 1; year <= endYear - 1; year++) {
             Set<String> periodCodes = periods.get(year);
-            this.assertAccountingPeriodMonthEqual(periodCodes, AccountingPeriodMonth.MONTH1, AccountingPeriodMonth.MONTH12);
+            this.assertAccountingPeriodMonthEqual(periodCodes, AccountingPeriodMonth.MONTH1, AccountingPeriodMonth.MONTH13);
         }
 
         Set<String> endPeriodCodes = periods.get(endYear);
