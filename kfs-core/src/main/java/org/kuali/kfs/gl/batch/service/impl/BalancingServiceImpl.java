@@ -269,7 +269,7 @@ public class BalancingServiceImpl extends BalancingServiceBaseImpl<EntryHistory,
             + getName(getICRInputFile())
             + getName(getICRErrorOutputFile())
             + getName(getICREncumbranceInputFile())
-            + getName(getICRErrorOutputFile());
+            + getName(getICREncumbranceErrorOutputFile());
     }
 
     /**

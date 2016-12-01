@@ -239,6 +239,10 @@ public abstract class BalancingServiceBaseImpl<T extends Entry, S extends Balanc
      * @return indicated whether records where ignored due to being older then startUniversityFiscalYear
      */
     protected int updateHistoriesHelper(Integer postMode, Integer startUniversityFiscalYear, File inputFile, File errorFile) {
+        LOG.debug("updateHistoriesHelper() started");
+
+        LOG.info("updateHistoriesHelper() reading transactions from " + getName(inputFile) + " errors from " + getName(errorFile));
+
         int ignoredRecordsFound = 0;
         int lineNumber = 0;
 
@@ -268,6 +272,8 @@ public abstract class BalancingServiceBaseImpl<T extends Entry, S extends Balanc
                         OriginEntryInformation originEntry = this.getOriginEntry(currentInputLine, lineNumber);
 
                         if (originEntry.getUniversityFiscalYear() >= startUniversityFiscalYear) {
+                            LOG.info("updateHistoriesHelper() Transaction: " + currentInputLine);
+
                             // Line is in acceptable FY range, update history tables
                             this.updateEntryHistory(postMode, originEntry);
                             this.updateBalanceHistory(postMode, originEntry);
