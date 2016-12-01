@@ -55,6 +55,8 @@ import java.util.List;
 import java.util.Map;
 
 public class SerializationService {
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SerializationService.class);
+
     public static final String FIELDS_KEY = "!topLevelFields!";
     public static final String COLLECTIONS_KEY = "!collectionsFields!";
 
@@ -66,20 +68,41 @@ public class SerializationService {
     private KualiModuleService kualiModuleService;
     private ConfigurationService configurationService;
 
-    public Map<String, Object> findBusinessObjectFields(MaintenanceDocumentEntry maintenanceDocumentEntry) {
+    public List<String> getBusinessObjectFieldList(MaintenanceDocumentEntry maintenanceDocumentEntry) {
+        LOG.debug("getBusinessObjectFieldList() started");
+
         List<String> fields = new ArrayList<>();
-        List<CollectionSerializationHelper> collectionSerializationHelpers = new ArrayList<>();
         List<MaintainableSectionDefinition> maintainableSections = maintenanceDocumentEntry.getMaintainableSections();
         for (MaintainableSectionDefinition section : maintainableSections) {
             List<MaintainableItemDefinition> itemDefinitions = section.getMaintainableItems();
             for(MaintainableItemDefinition itemDefinition : itemDefinitions) {
                 if (itemDefinition instanceof MaintainableFieldDefinition) {
                     fields.add(itemDefinition.getName());
-                } else if (itemDefinition instanceof MaintainableCollectionDefinition) {
+                }
+            }
+        }
+        return fields;
+    }
+
+    private List<CollectionSerializationHelper> getBusinessObjectCollections(MaintenanceDocumentEntry maintenanceDocumentEntry) {
+        List<CollectionSerializationHelper> collectionSerializationHelpers = new ArrayList<>();
+        List<MaintainableSectionDefinition> maintainableSections = maintenanceDocumentEntry.getMaintainableSections();
+        for (MaintainableSectionDefinition section : maintainableSections) {
+            List<MaintainableItemDefinition> itemDefinitions = section.getMaintainableItems();
+            for(MaintainableItemDefinition itemDefinition : itemDefinitions) {
+                if (itemDefinition instanceof MaintainableCollectionDefinition) {
                     collectionSerializationHelpers.add(buildCollectionSerializationHelper((MaintainableCollectionDefinition)itemDefinition));
                 }
             }
         }
+        return collectionSerializationHelpers;
+    }
+
+    public Map<String, Object> findBusinessObjectFields(MaintenanceDocumentEntry maintenanceDocumentEntry) {
+        LOG.debug("findBusinessObjectFields() started");
+
+        List<String> fields = getBusinessObjectFieldList(maintenanceDocumentEntry);
+        List<CollectionSerializationHelper> collectionSerializationHelpers = getBusinessObjectCollections(maintenanceDocumentEntry);
 
         Map<String, Object> businessObjectFieldsMap = businessObjectFieldsToMap(fields);
         if (collectionSerializationHelpers.size() > 0) {
@@ -99,6 +122,8 @@ public class SerializationService {
     }
 
     public Map<String, Object> businessObjectFieldsToMap(List<String> fields) {
+        LOG.debug("businessObjectFieldsToMap() started");
+
         Map<String, Object> fieldsMap = createBusinessObjectFieldsMap();
         for (String field: fields) {
             populateFieldsMapWithField(fieldsMap, field);
@@ -160,15 +185,11 @@ public class SerializationService {
         return collectionsMap;
     }
 
-    public Map<String, Object> businessObjectToJson(Class<? extends PersistableBusinessObject> boClass, PersistableBusinessObject bo,
-                                                                                          Map<String, Object> fields,
-                                                                                          Person person) {
+    public Map<String, Object> businessObjectToJson(Class<? extends PersistableBusinessObject> boClass, PersistableBusinessObject bo, Map<String, Object> fields, Person person) {
         return businessObjectToJson(boClass, boClass, bo, fields, person, "");
     }
 
-    public Map<String, Object> businessObjectToJson(Class<? extends PersistableBusinessObject> parentBoClass,
-                                                    Class<? extends PersistableBusinessObject> boClass, PersistableBusinessObject bo,
-                                                    Map<String, Object> fields, Person person, String parentField) {
+    public Map<String, Object> businessObjectToJson(Class<? extends PersistableBusinessObject> parentBoClass, Class<? extends PersistableBusinessObject> boClass, PersistableBusinessObject bo, Map<String, Object> fields, Person person, String parentField) {
         if (StringUtils.isNotBlank(parentField)) {
             parentField += ".";
         }
@@ -181,6 +202,8 @@ public class SerializationService {
                         if (value != null) {
                             final Object possiblyMaskedJsonValue = maskJsonValueIfNecessary(parentBoClass.getSimpleName(), parentField +  field, value, person);
                             jsonObject.put(field, possiblyMaskedJsonValue);
+                        } else {
+                            jsonObject.put(field, null);
                         }
                     } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                         throw new RuntimeException("Failed to get " + field + " from business object", e);
@@ -266,8 +289,7 @@ public class SerializationService {
                 && !businessObjectAuthorizationService.canPartiallyUnmaskField(person, businessObjectClass, attributeDefinition.getName(), null));
     }
 
-    protected Object maskJsonValue(Object jsonValue, Class<? extends BusinessObject> businessObjectClass,
-                                          AttributeDefinition attributeDefinition, MaskFormatter maskFormatter, Person person) {
+    protected Object maskJsonValue(Object jsonValue, Class<? extends BusinessObject> businessObjectClass, AttributeDefinition attributeDefinition, MaskFormatter maskFormatter, Person person) {
         return (shouldMask(businessObjectClass, attributeDefinition, person))
             ? maskFormatter.maskValue(jsonValue)
             : jsonValue;

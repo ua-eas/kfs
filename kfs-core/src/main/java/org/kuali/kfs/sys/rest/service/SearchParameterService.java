@@ -40,6 +40,8 @@ public class SearchParameterService {
     private PersistenceStructureService persistenceStructureService;
 
     public <T extends PersistableBusinessObject> int getLimit(Class<T> boClass, MultivaluedMap<String, String> params) {
+        LOG.debug("getLimit() started");
+
         int limit = getIntQueryParameter(KFSConstants.Search.LIMIT, params);
         if (limit <= 0) {
             limit = LookupUtils.getSearchResultsLimit(boClass);
@@ -50,8 +52,9 @@ public class SearchParameterService {
         return limit;
     }
 
-    public <T extends PersistableBusinessObject> String[] getSortCriteria(Class<T> boClass, MultivaluedMap<String, String> params,
-                                                                                 List<String> boFields) {
+    public <T extends PersistableBusinessObject> String[] getSortCriteria(Class<T> boClass, MultivaluedMap<String, String> params, List<String> boFields) {
+        LOG.debug("getSortCriteria() started");
+
         String orderByString = params.getFirst(KFSConstants.Search.SORT);
         if (orderByString != null) {
             List<ErrorMessage> errorMessages = new ArrayList<>();
@@ -85,6 +88,8 @@ public class SearchParameterService {
     }
 
     public int getIntQueryParameter(String name, MultivaluedMap<String, String> params) {
+        LOG.debug("getIntQueryParameter() started");
+
         String paramString = params.getFirst(name);
         if (StringUtils.isNotBlank(paramString)) {
             try {
@@ -98,6 +103,8 @@ public class SearchParameterService {
     }
 
     public Map<String, String> getSearchQueryCriteria(MultivaluedMap<String, String> params, List<String> boFields) {
+        LOG.debug("getSearchQueryCriteria() started");
+
         List<String> reservedParams = Arrays.asList(KFSConstants.Search.SORT, KFSConstants.Search.LIMIT, KFSConstants.Search.SKIP);
         List<ErrorMessage> errorMessages = new ArrayList<>();
         Map<String, String> validParams = params.entrySet().stream()
@@ -107,7 +114,7 @@ public class SearchParameterService {
                     return true;
                 }
 
-                LOG.debug("invalid query parameter name: " + entry.getKey());
+                LOG.debug("getSearchQueryCriteria() invalid query parameter name: " + entry.getKey());
                 errorMessages.add(new ErrorMessage("invalid query parameter name", entry.getKey()));
                 return false;
             })
