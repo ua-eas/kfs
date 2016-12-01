@@ -219,7 +219,7 @@ public class SerializationServiceTest {
         maintainableCollectionDefinition.setMaintainableFields(taxRegionRatesFieldDefinitions);
         maintainableItemDefinitions.add(maintainableCollectionDefinition);
         maintainableSectionDefinition.setMaintainableItems(maintainableItemDefinitions);
-        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
+        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections).times(2);
     }
 
     private void addVendorMaintainbleSections() {
@@ -244,7 +244,7 @@ public class SerializationServiceTest {
         maintainableItemDefinitions.add(maintainableCollectionDefinition2);
 
         maintainableSectionDefinition.setMaintainableItems(maintainableItemDefinitions);
-        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
+        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections).times(2);
     }
 
     @Test

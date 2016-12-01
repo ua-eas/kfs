@@ -89,8 +89,7 @@ public class BusinessObjectApiResource {
 
     @GET
     public Response findMultipleBusinessObjects(@PathParam("documentTypeName") String documentTypeName, @Context UriInfo uriInfo) {
-
-        LOG.debug("searchObjects() started");
+        LOG.debug("findMultipleBusinessObjects() started");
 
         MaintenanceDocumentEntry maintenanceDocumentEntry = getMaintenanceDocumentEntry(documentTypeName);
         if (maintenanceDocumentEntry == null) {
@@ -113,9 +112,8 @@ public class BusinessObjectApiResource {
 
     @GET
     @Path("{objectId}")
-    public Response findSingleBusinessObject(@PathParam("documentTypeName") String documentTypeName,
-                                             @PathParam("objectId") String objectId) {
-        LOG.debug("getSingleObject() started");
+    public Response findSingleBusinessObject(@PathParam("documentTypeName") String documentTypeName, @PathParam("objectId") String objectId) {
+        LOG.debug("findSingleBusinessObject() started");
 
         MaintenanceDocumentEntry maintenanceDocumentEntry = getMaintenanceDocumentEntry(documentTypeName);
         if (maintenanceDocumentEntry == null) {
@@ -158,16 +156,16 @@ public class BusinessObjectApiResource {
         return queryResults.iterator().next();
     }
 
-    protected <T extends PersistableBusinessObject> Map<String, Object> searchBusinessObjects(Class<T> boClass, UriInfo uriInfo,
-                                                                                              MaintenanceDocumentEntry maintenanceDocumentEntry) {
+    protected <T extends PersistableBusinessObject> Map<String, Object> searchBusinessObjects(Class<T> boClass, UriInfo uriInfo, MaintenanceDocumentEntry maintenanceDocumentEntry) {
         List<String> ojbFields = getPersistenceStructureService().listFieldNames(boClass);
+        List<String> fieldList = getSerializationService().getBusinessObjectFieldList(maintenanceDocumentEntry);
         Map<String, Object> fields = getSerializationService().findBusinessObjectFields(maintenanceDocumentEntry);
 
         List<String> validFields = new ArrayList<>((List<String>)fields.get(SerializationService.FIELDS_KEY));
         validFields.retainAll(ojbFields);
 
         MultivaluedMap<String, String> params = uriInfo.getQueryParameters();
-        Map<String, String> queryCriteria = getSearchParameterService().getSearchQueryCriteria(params, validFields);
+        Map<String, String> queryCriteria = getSearchParameterService().getSearchQueryCriteria(params, fieldList);
 
         int skip = getSearchParameterService().getIntQueryParameter(KFSConstants.Search.SKIP, params);
         int limit = getSearchParameterService().getLimit(boClass, params);
