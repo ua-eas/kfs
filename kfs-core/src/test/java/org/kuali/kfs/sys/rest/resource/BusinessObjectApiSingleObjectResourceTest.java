@@ -240,7 +240,7 @@ public class BusinessObjectApiSingleObjectResourceTest {
         commonSingleBusinessObjectTestPrep(UnitOfMeasure.class, documentTypeName, "KFS-SYS", BusinessObjectApiResourceTestHelper.getUom(), BusinessObjectApiResourceTestHelper.getSysModuleConfiguration(dataDictionaryService));
 
         List<MaintainableSectionDefinition> maintainableSections = BusinessObjectApiResourceTestHelper.createUnitOfMeasureMaintainbleSections();
-        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
+        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections).times(2);
         EasyMock.expect(persistenceStructureService.isPersistable(UnitOfMeasure.class)).andReturn(false);
 
         EasyMock.replay(kualiModuleService, moduleService, businessObjectService, dataDictionaryService,
@@ -279,7 +279,7 @@ public class BusinessObjectApiSingleObjectResourceTest {
         commonSingleBusinessObjectTestPrep(Organization.class, documentTypeName, "KFS-COA", BusinessObjectApiResourceTestHelper.getOrganization(), BusinessObjectApiResourceTestHelper.getCoaModuleConfiguration(dataDictionaryService));
 
         List<MaintainableSectionDefinition> maintainableSections = BusinessObjectApiResourceTestHelper.createOrganizationMaintainbleSections();
-        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
+        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections).times(2);
 
         EasyMock.expect(persistenceStructureService.hasReference(Organization.class, "organizationExtension")).andReturn(false).anyTimes();
         EasyMock.expect(persistenceStructureService.isPersistable(OrganizationExtension.class)).andReturn(false);
@@ -333,7 +333,7 @@ public class BusinessObjectApiSingleObjectResourceTest {
         String documentTypeName = "ITYP";
         commonSingleBusinessObjectTestPrep(IndirectCostRecoveryType.class, documentTypeName, "KFS-COA", BusinessObjectApiResourceTestHelper.getIndirectCostRecoveryType(), BusinessObjectApiResourceTestHelper.getCoaModuleConfiguration(dataDictionaryService));
         List<MaintainableSectionDefinition> maintainableSections = BusinessObjectApiResourceTestHelper.createIndirectCostRecoveryTypeMaintainbleSections();
-        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
+        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections).times(2);
         EasyMock.expect(persistenceStructureService.hasReference(IndirectCostRecoveryType.class, "indirectCostRecoveryExclusionTypeDetails")).andReturn(false).anyTimes();
         EasyMock.expect(persistenceStructureService.isPersistable(IndirectCostRecoveryExclusionType.class)).andReturn(false);
         EasyMock.expect(persistenceStructureService.isPersistable(IndirectCostRecoveryType.class)).andReturn(false);
@@ -380,7 +380,7 @@ public class BusinessObjectApiSingleObjectResourceTest {
         commonSingleBusinessObjectTestPrep(Bank.class, documentTypeName, "KFS-SYS", BusinessObjectApiResourceTestHelper.getBank(), BusinessObjectApiResourceTestHelper.getSysModuleConfiguration(dataDictionaryService));
 
         List<MaintainableSectionDefinition> maintainableSections = BusinessObjectApiResourceTestHelper.createBankMaintainbleSections();
-        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
+        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections).times(2);
 
         EasyMock.expect(businessObjectAuthorizationService.isNonProductionEnvAndUnmaskingTurnedOff()).andReturn(false).anyTimes();
         EasyMock.expect(dataDictionary.getBusinessObjectEntry("Bank")).andReturn(BusinessObjectApiResourceTestHelper.getDDEntry(Bank.class)).anyTimes();
@@ -432,7 +432,7 @@ public class BusinessObjectApiSingleObjectResourceTest {
         commonSingleBusinessObjectTestPrep(Organization.class, documentTypeName, "KFS-COA", BusinessObjectApiResourceTestHelper.getOrganization(), BusinessObjectApiResourceTestHelper.getCoaModuleConfiguration(dataDictionaryService));
 
         List<MaintainableSectionDefinition> maintainableSections = BusinessObjectApiResourceTestHelper.createOrganizationMaintainbleSections();
-        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections);
+        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections).times(2);
 
         EasyMock.expect(persistenceStructureService.hasReference(Organization.class, "organizationExtension")).andReturn(false).anyTimes();
         EasyMock.expect(persistenceStructureService.isPersistable(OrganizationExtension.class)).andReturn(false);

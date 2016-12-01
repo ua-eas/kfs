@@ -338,6 +338,7 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
 
         Map<String, Object> ojbFieldsMap = new HashMap<>();
         ojbFieldsMap.put(SerializationService.FIELDS_KEY, ojbFields);
+        EasyMock.expect(serializationService.getBusinessObjectFieldList(maintenanceDocumentEntry)).andReturn(ojbFields);
         EasyMock.expect(serializationService.findBusinessObjectFields(maintenanceDocumentEntry)).andReturn(ojbFieldsMap);
 
         EasyMock.replay(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary,
@@ -376,6 +377,7 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         queryCriteria.put("closed", "true");
 
         List<String> ojbFields = Arrays.asList("chartOfAccountsCode","accountNumber","accountName");
+        EasyMock.expect(serializationService.getBusinessObjectFieldList(maintenanceDocumentEntry)).andReturn(ojbFields);
         EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(ojbFields).anyTimes();
         EasyMock.expect(KRADServiceLocator.getPersistenceStructureService()).andReturn(persistenceStructureService).anyTimes();
 
@@ -445,6 +447,8 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
 
         List<String> validFields = Arrays.asList("objectId", "bankCode", "bankName", "bankRountingNumber", "bankAccountNumber");
         EasyMock.expect(persistenceStructureService.listFieldNames(Bank.class)).andReturn(validFields).anyTimes();
+        EasyMock.expect(serializationService.getBusinessObjectFieldList(maintenanceDocumentEntry)).andReturn(validFields);
+
         Map<String, Object> validFieldsMap = new HashMap<>();
         validFieldsMap.put(SerializationService.FIELDS_KEY, validFields);
         EasyMock.expect(serializationService.findBusinessObjectFields(maintenanceDocumentEntry)).andReturn(validFieldsMap);
