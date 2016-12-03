@@ -25,6 +25,7 @@ import org.apache.ojb.broker.PersistenceBrokerException;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
 import org.kuali.rice.core.api.mo.common.GloballyUnique;
 import org.kuali.rice.core.api.mo.common.Versioned;
 import org.kuali.rice.krad.bo.BusinessObject;
@@ -40,6 +41,7 @@ import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -56,6 +58,9 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
     protected Long versionNumber;
     @Column(name = "OBJ_ID")
     private String objectId;
+    @Column(name = "MODIFY_DT")
+    private Timestamp modifyDate;
+
     @Transient
     private boolean newCollectionRecord;
     @Transient
@@ -253,6 +258,7 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
      */
     @PrePersist
     protected void prePersist() {
+        updateModifiedDate();
         generateAndSetObjectIdIfNeeded();
     }
 
@@ -277,6 +283,7 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
      */
     @PreUpdate
     protected void preUpdate() {
+        updateModifiedDate();
         generateAndSetObjectIdIfNeeded();
     }
 
@@ -288,6 +295,13 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
         if (StringUtils.isEmpty(getObjectId())) {
             setObjectId(UUID.randomUUID().toString());
         }
+    }
+
+    /**
+     * Updates the last modified date on insert / update
+     */
+    private void updateModifiedDate() {
+        modifyDate = CoreApiServiceLocator.getDateTimeService().getCurrentTimestamp();
     }
 
     /**

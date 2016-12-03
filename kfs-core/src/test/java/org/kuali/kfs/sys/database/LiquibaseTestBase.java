@@ -19,6 +19,7 @@
 package org.kuali.kfs.sys.database;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -111,13 +112,32 @@ public class LiquibaseTestBase {
                 return true;
             }
             Node replaceNode = getNodeByName(modifySql, "replace");
-            if (replaceNode == null) {
-                System.out.println("replace node missing");
-                return false;
+            Node regexReplaceNode = getNodeByName(modifySql, "regExpReplace");
+            if (replaceNode == null && regexReplaceNode == null) {
+                System.out.println("replace/regExpReplace node missing");
+                return true;
             }
-            Element replaceNodeElement = (Element) replaceNode;
+            Element replaceNodeElement = null;
+            if (replaceNode != null) {
+                replaceNodeElement = (Element) replaceNode;
+            } else if (regexReplaceNode != null) {
+                replaceNodeElement = (Element) regexReplaceNode;
+            }
             String replace = replaceNodeElement.getAttribute("replace");
             String with = replaceNodeElement.getAttribute("with");
+            if (regexReplaceNode != null && replace.contains("\\b")) {
+                if (!replace.startsWith("\\b") || !replace.endsWith("\\b")) {
+                    System.out.println("regExpReplace attribute using word boundary character should start and end with the boundary character");
+                    return true;
+                }
+                if (StringUtils.countMatches(replace, "\\b") > 2) {
+                    System.out.println("regExpReplace attribute using word boundary character should start and end with the boundary character");
+                    return true;
+                }
+                //Strip word boundary character
+                replace = replace.substring(2, replace.length() - 2);
+            }
+
             if (!"date".equals(replace)) {
                 System.out.println("replace attribute value must be \"date\" (lower case)");
                 return true;

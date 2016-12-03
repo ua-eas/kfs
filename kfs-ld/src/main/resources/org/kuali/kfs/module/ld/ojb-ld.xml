@@ -26,6 +26,8 @@
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
 
+        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+
         <reference-descriptor name="financialObject" class-ref="org.kuali.kfs.coa.businessobject.ObjectCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
             <foreignkey field-ref="universityFiscalYear"/>
             <foreignkey field-ref="chartOfAccountsCode"/>
@@ -66,11 +68,11 @@
         <field-descriptor name="positionBenefitTypeDescription" column="POS_BENE_TYP_DESC" jdbc-type="VARCHAR"/>
         <field-descriptor name="positionBenefitRetirementIndicator" column="POS_BENE_RETIRE_CD" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
+        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+
     </class-descriptor>
 
-    <class-descriptor
-            class="org.kuali.kfs.module.ld.businessobject.BenefitsCalculation"
-            table="LD_BENEFITS_CALC_T">
+    <class-descriptor class="org.kuali.kfs.module.ld.businessobject.BenefitsCalculation" table="LD_BENEFITS_CALC_T">
         <field-descriptor name="universityFiscalYear" column="UNIV_FISCAL_YR"
                           jdbc-type="INTEGER" primarykey="true" index="true"/>
         <field-descriptor name="chartOfAccountsCode" column="FIN_COA_CD"
@@ -94,6 +96,7 @@
                           index="true"/>
         <field-descriptor name="accountCodeOffset" column="OFFSET_ACCOUNT_NBR"
                           jdbc-type="VARCHAR"/>
+        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
 
         <reference-descriptor name="positionFringeBenefitObject"
                               class-ref="org.kuali.kfs.coa.businessobject.ObjectCode"
@@ -136,9 +139,7 @@
 
     </class-descriptor>
 
-    <class-descriptor
-            class="org.kuali.kfs.module.ld.businessobject.LaborBenefitRateCategory"
-            table="LD_LBR_BFT_RT_CAT_T">
+    <class-descriptor class="org.kuali.kfs.module.ld.businessobject.LaborBenefitRateCategory" table="LD_LBR_BFT_RT_CAT_T">
         <field-descriptor name="laborBenefitRateCategoryCode"
                           primarykey="true" column="LBR_BEN_RT_CAT_CD" jdbc-type="VARCHAR"/>
         <field-descriptor name="objectId" column="OBJ_ID"
@@ -149,6 +150,7 @@
                           jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="codeDesc" column=" LBR_BEN_RT_CAT_NM"
                           jdbc-type="VARCHAR"/>
+        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
     </class-descriptor>
 
     <class-descriptor class="org.kuali.kfs.module.ld.businessobject.LedgerEntry"
@@ -556,6 +558,8 @@
         <field-descriptor name="positionObjectGroupCode" column="POS_OBJ_GRP_CD" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
 
+        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+
         <reference-descriptor name="financialObject" class-ref="org.kuali.kfs.coa.businessobject.ObjectCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
             <foreignkey field-ref="universityFiscalYear"/>
             <foreignkey field-ref="chartOfAccountsCode"/>
@@ -579,6 +583,8 @@
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
         <field-descriptor name="positionObjectGroupName" column="POS_OBJ_GRP_NM" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
+        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+
     </class-descriptor>
 
     <class-descriptor

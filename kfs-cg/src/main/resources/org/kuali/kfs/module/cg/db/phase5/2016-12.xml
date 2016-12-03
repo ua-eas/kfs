@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!-- "org.kuali.kfs.module.cg.businessobject.Agency" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_CG_AGENCY_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="CG_AGENCY_T"/></not>
+        </preConditions>
+        <addColumn tableName="CG_AGENCY_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_CG_AGENCY_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="CG_AGENCY_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="CG_AGENCY_T" indexName="CG_AGENCY_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.cg.businessobject.AgencyType" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_CG_AGENCY_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="CG_AGENCY_TYP_T"/></not>
+        </preConditions>
+        <addColumn tableName="CG_AGENCY_TYP_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_CG_AGENCY_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="CG_AGENCY_TYP_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="CG_AGENCY_TYP_T" indexName="CG_AGENCY_TYP_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.cg.businessobject.SubContractor" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_CG_SUBCNR_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="CG_SUBCNR_T"/></not>
+        </preConditions>
+        <addColumn tableName="CG_SUBCNR_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_CG_SUBCNR_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="CG_SUBCNR_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="CG_SUBCNR_T" indexName="CG_SUBCNR_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.cg.businessobject.LetterOfCreditFundGroup" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_CG_LTRCR_FNDGRP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="CG_LTRCR_FNDGRP_T"/></not>
+        </preConditions>
+        <addColumn tableName="CG_LTRCR_FNDGRP_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_CG_LTRCR_FNDGRP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="CG_LTRCR_FNDGRP_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="CG_LTRCR_FNDGRP_T" indexName="CG_LTRCR_FNDGRP_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.cg.businessobject.LetterOfCreditFund" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_CG_LTRCR_FND_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="CG_LTRCR_FND_T"/></not>
+        </preConditions>
+        <addColumn tableName="CG_LTRCR_FND_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_CG_LTRCR_FND_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="CG_LTRCR_FND_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="CG_LTRCR_FND_T" indexName="CG_LTRCR_FND_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.cg.businessobject.GrantDescription" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_CG_GRANT_DESC_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="CG_GRANT_DESC_T"/></not>
+        </preConditions>
+        <addColumn tableName="CG_GRANT_DESC_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_CG_GRANT_DESC_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="CG_GRANT_DESC_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="CG_GRANT_DESC_T" indexName="CG_GRANT_DESC_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.cg.businessobject.CFDA" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_CG_CFDA_REF_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="CG_CFDA_REF_T"/></not>
+        </preConditions>
+        <addColumn tableName="CG_CFDA_REF_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_CG_CFDA_REF_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="CG_CFDA_REF_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="CG_CFDA_REF_T" indexName="CG_CFDA_REF_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.cg.businessobject.Proposal" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_CG_PRPSL_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="CG_PRPSL_T"/></not>
+        </preConditions>
+        <addColumn tableName="CG_PRPSL_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_CG_PRPSL_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="CG_PRPSL_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="CG_PRPSL_T" indexName="CG_PRPSL_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.cg.businessobject.ProposalAwardType" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_CG_PRPSL_AWD_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="CG_PRPSL_AWD_TYP_T"/></not>
+        </preConditions>
+        <addColumn tableName="CG_PRPSL_AWD_TYP_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_CG_PRPSL_AWD_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="CG_PRPSL_AWD_TYP_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="CG_PRPSL_AWD_TYP_T" indexName="CG_PRPSL_AWD_TYP_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.cg.businessobject.ProposalPurpose" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_CG_PRPSL_PURPOSE_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="CG_PRPSL_PURPOSE_T"/></not>
+        </preConditions>
+        <addColumn tableName="CG_PRPSL_PURPOSE_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_CG_PRPSL_PURPOSE_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="CG_PRPSL_PURPOSE_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="CG_PRPSL_PURPOSE_T" indexName="CG_PRPSL_PURPOSE_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.cg.businessobject.ProposalStatus" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_CG_PRPSL_STAT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="CG_PRPSL_STAT_T"/></not>
+        </preConditions>
+        <addColumn tableName="CG_PRPSL_STAT_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_CG_PRPSL_STAT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="CG_PRPSL_STAT_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="CG_PRPSL_STAT_T" indexName="CG_PRPSL_STAT_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.cg.businessobject.Award" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_CG_AWD_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="CG_AWD_T"/></not>
+        </preConditions>
+        <addColumn tableName="CG_AWD_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_CG_AWD_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="CG_AWD_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="CG_AWD_T" indexName="CG_AWD_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.cg.businessobject.AwardStatus" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_CG_AWD_STAT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="CG_AWD_STAT_T"/></not>
+        </preConditions>
+        <addColumn tableName="CG_AWD_STAT_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_CG_AWD_STAT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="CG_AWD_STAT_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="CG_AWD_STAT_T" indexName="CG_AWD_STAT_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.cg.businessobject.ResearchRiskType" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_ER_RSRCH_RSK_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="ER_RSRCH_RSK_TYP_T"/></not>
+        </preConditions>
+        <addColumn tableName="ER_RSRCH_RSK_TYP_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_ER_RSRCH_RSK_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="ER_RSRCH_RSK_TYP_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="ER_RSRCH_RSK_TYP_T" indexName="ER_RSRCH_RSK_TYP_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.cg.businessobject.InstrumentType" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_CG_INSTRMNT_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="CG_INSTRMNT_TYP_T"/></not>
+        </preConditions>
+        <addColumn tableName="CG_INSTRMNT_TYP_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_CG_INSTRMNT_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="CG_INSTRMNT_TYP_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="CG_INSTRMNT_TYP_T" indexName="CG_INSTRMNT_TYP_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

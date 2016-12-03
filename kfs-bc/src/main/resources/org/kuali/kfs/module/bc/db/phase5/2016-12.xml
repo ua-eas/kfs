@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!-- "org.kuali.kfs.module.bc.businessobject.BudgetConstructionPosition" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_BCN_POS_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_BCN_POS_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_BCN_POS_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_BCN_POS_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_BCN_POS_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_BCN_POS_T" indexName="LD_BCN_POS_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.bc.businessobject.BudgetConstructionIntendedIncumbent" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_BCN_INTINCBNT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_BCN_INTINCBNT_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_BCN_INTINCBNT_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_BCN_INTINCBNT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_BCN_INTINCBNT_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_BCN_INTINCBNT_T" indexName="LD_BCN_INTINCBNT_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountReports" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_BCN_ACCT_RPTS_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_BCN_ACCT_RPTS_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_BCN_ACCT_RPTS_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_BCN_ACCT_RPTS_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_BCN_ACCT_RPTS_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_BCN_ACCT_RPTS_T" indexName="LD_BCN_ACCT_RPTS_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrganizationReports" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_BCN_ORG_RPTS_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_BCN_ORG_RPTS_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_BCN_ORG_RPTS_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_BCN_ORG_RPTS_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_BCN_ORG_RPTS_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_BCN_ORG_RPTS_T" indexName="LD_BCN_ORG_RPTS_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.bc.businessobject.BudgetConstructionAppointmentFundingReasonCode" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_BCN_AF_RSN_CD_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_BCN_AF_RSN_CD_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_BCN_AF_RSN_CD_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_BCN_AF_RSN_CD_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_BCN_AF_RSN_CD_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_BCN_AF_RSN_CD_T" indexName="LD_BCN_AF_RSN_CD_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.bc.businessobject.BudgetConstructionDuration" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_BCN_DURATION_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_BCN_DURATION_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_BCN_DURATION_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_BCN_DURATION_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_BCN_DURATION_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_BCN_DURATION_T" indexName="LD_BCN_DURATION_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.bc.businessobject.CalculatedSalaryFoundationTrackerOverride" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_CSFTRCKR_OVRD_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_CSFTRCKR_OVRD_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_CSFTRCKR_OVRD_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_CSFTRCKR_OVRD_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_CSFTRCKR_OVRD_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_CSFTRCKR_OVRD_T" indexName="LD_CSFTRCKR_OVRD_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

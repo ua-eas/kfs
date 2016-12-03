@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!-- "org.kuali.kfs.module.ld.businessobject.PositionObjectBenefit" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_LBR_OBJ_BENE_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_LBR_OBJ_BENE_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_LBR_OBJ_BENE_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_LBR_OBJ_BENE_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_LBR_OBJ_BENE_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_LBR_OBJ_BENE_T" indexName="LD_LBR_OBJ_BENE_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ld.businessobject.BenefitsType" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_BENEFITS_TYPE_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_BENEFITS_TYPE_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_BENEFITS_TYPE_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_BENEFITS_TYPE_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_BENEFITS_TYPE_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_BENEFITS_TYPE_T" indexName="LD_BENEFITS_TYPE_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ld.businessobject.BenefitsCalculation" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_BENEFITS_CALC_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_BENEFITS_CALC_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_BENEFITS_CALC_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_BENEFITS_CALC_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_BENEFITS_CALC_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_BENEFITS_CALC_T" indexName="LD_BENEFITS_CALC_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ld.businessobject.LaborBenefitRateCategory" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_LBR_BFT_RT_CAT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_LBR_BFT_RT_CAT_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_LBR_BFT_RT_CAT_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_LBR_BFT_RT_CAT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_LBR_BFT_RT_CAT_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_LBR_BFT_RT_CAT_T" indexName="LD_LBR_BFT_RT_CAT_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ld.businessobject.LaborObject" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_LABOR_OBJ_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_LABOR_OBJ_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_LABOR_OBJ_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_LABOR_OBJ_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_LABOR_OBJ_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_LABOR_OBJ_T" indexName="LD_LABOR_OBJ_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ld.businessobject.PositionObjectGroup" -->
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_COLUMN_LD_POS_OBJ_GRP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="MODIFY_DT" tableName="LD_POS_OBJ_GRP_T"/></not>
+        </preConditions>
+        <addColumn tableName="LD_POS_OBJ_GRP_T">
+            <column name="MODIFY_DT" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-886_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CREATE_INDEX_LD_POS_OBJ_GRP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><indexExists indexName="LD_POS_OBJ_GRP_TIMD"/></not>
+        </preConditions>
+        <createIndex tableName="LD_POS_OBJ_GRP_T" indexName="LD_POS_OBJ_GRP_TIMD">
+            <column name="MODIFY_DT" type="DATETIME"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

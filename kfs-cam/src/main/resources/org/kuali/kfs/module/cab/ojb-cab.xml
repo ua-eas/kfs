@@ -189,6 +189,8 @@
         <field-descriptor name="organizationCode" column="ORG_CD" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
 
+        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+
         <collection-descriptor name="pretagDetails" element-class-ref="org.kuali.kfs.module.cab.businessobject.PretagDetail" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="true">
             <orderby name="campusTagNumber" sort="ASC"/>
             <inverse-foreignkey field-ref="purchaseOrderNumber"/>
@@ -243,6 +245,8 @@
         <field-descriptor name="capitalAssetQuantitySubtypeRequiredText" column="CPTLAST_QTY_SUBTYP_REQ_TXT" jdbc-type="VARCHAR"/>
         <field-descriptor name="capitalAssetNonquantitySubtypeRequiredText" column="CPTLAST_NONQTY_SUBTYP_REQ_TXT" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="DOBJ_MAINT_CD_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
+        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+
     </class-descriptor>
 
 </descriptor-repository>
