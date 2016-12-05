@@ -38,6 +38,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -359,5 +360,39 @@ public class SearchParameterServiceTest {
 
         int limit = searchParameterService.getIntQueryParameter("limit", params);
         Assert.assertEquals(3, limit);
+    }
+
+    @Test
+    public void testGetDateQueryParameter_Bad() {
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("beforeDate", "foo!!");
+
+        try {
+            searchParameterService.getDateQueryParameter("beforeDate", params);
+        } catch (ApiRequestException are) {
+            Response response = are.getResponse();
+
+            Assert.assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+
+            Map<String, Object> exceptionMap = new HashedMap();
+            exceptionMap.put("message", "Invalid Search Criteria");
+            List<ErrorMessage> errorMessages = new ArrayList<>();
+            errorMessages.add(new ErrorMessage("parameter is not a valid ISO8601 date", "beforeDate"));
+            exceptionMap.put("details", errorMessages);
+            Map<String, Object> error = (Map<String, Object>)response.getEntity();
+            Assert.assertEquals("Invalid Search Criteria", error.get("message"));
+            Assert.assertEquals(1, ((List<ErrorMessage>)error.get("details")).size());
+            Assert.assertEquals("parameter is not a valid ISO8601 date", ((List<ErrorMessage>)error.get("details")).get(0).getMessage());
+            Assert.assertEquals("beforeDate", ((List<ErrorMessage>)error.get("details")).get(0).getProperty());
+        }
+    }
+
+    @Test
+    public void testGetDateQueryParameter() {
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("beforeDate", "2016-10-05T21:36:21.261Z");
+
+        Instant beforeDate = searchParameterService.getDateQueryParameter("beforeDate", params);
+        Assert.assertEquals(1475703381, beforeDate.getEpochSecond());
     }
 }

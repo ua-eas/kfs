@@ -106,6 +106,17 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
         this.objectId = objectId;
     }
 
+    /**
+     * @see PersistableBusinessObject#getModifyDate()
+     */
+    public Timestamp getModifyDate() {
+        return modifyDate;
+    }
+
+    /**
+     * @see PersistableBusinessObject#setModifyDate()
+     */
+    public void setModifyDate(Timestamp modifyDate) { this.modifyDate = modifyDate; }
 
     /**
      * Gets the newCollectionRecord attribute.
@@ -258,7 +269,7 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
      */
     @PrePersist
     protected void prePersist() {
-        updateModifiedDate();
+        updateModifyDate();
         generateAndSetObjectIdIfNeeded();
     }
 
@@ -283,7 +294,7 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
      */
     @PreUpdate
     protected void preUpdate() {
-        updateModifiedDate();
+        updateModifyDate();
         generateAndSetObjectIdIfNeeded();
     }
 
@@ -300,7 +311,7 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
     /**
      * Updates the last modified date on insert / update
      */
-    private void updateModifiedDate() {
+    private void updateModifyDate() {
         modifyDate = CoreApiServiceLocator.getDateTimeService().getCurrentTimestamp();
     }
 

@@ -21,6 +21,7 @@ import org.powermock.api.easymock.PowerMock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -231,6 +232,13 @@ public class DataDictionarySearchableAttributeTest {
 
         @Override
         public void setObjectId(String objectId) {
+        }
+
+        @Override
+        public Timestamp getModifyDate() { return null; }
+
+        @Override
+        public void setModifyDate(Timestamp modifyDate) {
         }
 
         @Override

@@ -21,6 +21,7 @@ package org.kuali.kfs.krad.dao;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.rice.krad.bo.BusinessObject;
 
+import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -140,9 +141,13 @@ public interface BusinessObjectDao {
      *
      * @param clazz
      * @param fieldValues
-     * @return
+     * @param skip sql query offset
+     * @param limit sql query limit
+     * @param modifiedBefore filter results to only those with modifyDate before this Instant (optional)
+     * @param modifiedAfter filter results to only those with modifyDate after this Instant (optional)
      */
-    <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit, String[] orderBy);
+    <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit,
+                                                          Instant modifiedBefore, Instant modifiedAfter, String[] orderBy);
 
     /**
      * Finds all entities matching the passed in Rice JPA criteria
@@ -169,9 +174,11 @@ public interface BusinessObjectDao {
     /**
      * @param clazz
      * @param fieldValues
+     * @param modifiedBefore filter results to only those with modifyDate before this Instant (optional)
+     * @param modifiedAfter filter results to only those with modifyDate after this Instant (optional)
      * @return count of BusinessObjects of the given class whose fields match the values in the given Map.
      */
-    public int countMatching(Class clazz, Map<String, ?> fieldValues);
+    public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant modifiedBefore, Instant modifiedAfter);
 
 
     /**

@@ -26,6 +26,7 @@ import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.kfs.pdp.businessobject.PayeeACHAccount;
 import org.kuali.rice.krad.bo.BusinessObject;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -144,7 +145,7 @@ public class PayeeACHServiceImplTest {
 
         @Override
         public <T extends BusinessObject> Collection<T> findMatching(
-            Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit, String[] orderBy) {
+            Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit, Instant modifiedBefore, Instant modifiedAfter, String[] orderBy) {
 
             if (fieldValues.get(PdpPropertyConstants.PAYEE_ID_NUMBER) == null)
                 return null;
@@ -160,6 +161,12 @@ public class PayeeACHServiceImplTest {
 
         @Override
         public int countMatching(Class clazz, Map<String, ?> fieldValues) {
+            // TODO Auto-generated method stub
+            return 0;
+        }
+
+        @Override
+        public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant modifiedBefore, Instant modifiedAfter) {
             // TODO Auto-generated method stub
             return 0;
         }

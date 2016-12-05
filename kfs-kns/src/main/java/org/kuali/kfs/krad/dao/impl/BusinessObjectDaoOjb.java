@@ -35,6 +35,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -128,10 +130,19 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
     /**
      * This is the default impl that comes with Kuali - uses OJB.
      *
-     * @see BusinessObjectDao#findMatching(java.lang.Class, java.util.Map, int, int, String[])
+     * @see BusinessObjectDao#findMatching(java.lang.Class, java.util.Map, int, int, Instant, Instant, String[])
      */
-    public <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit, String[] orderBy) {
+    public <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit,
+                                                                 Instant modifiedBefore, Instant modifiedAfter, String[] orderBy) {
         Criteria criteria = buildCriteria(fieldValues);
+
+        if (modifiedBefore != null) {
+            criteria.addLessOrEqualThan("modifyDate", Timestamp.from(modifiedBefore));
+        }
+
+        if (modifiedAfter != null) {
+            criteria.addGreaterOrEqualThan("modifyDate", Timestamp.from(modifiedAfter));
+        }
 
         QueryByCriteria query = QueryFactory.newQuery(clazz, criteria);
         query.setStartAtIndex(skip + 1);
@@ -199,10 +210,19 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
     /**
      * This is the default impl that comes with Kuali - uses OJB.
      *
-     * @see BusinessObjectDao#countMatching(java.lang.Class, java.util.Map)
+     * @see BusinessObjectDao#countMatching(java.lang.Class, java.util.Map, java.time.Instant, java.time.Instant)
      */
-    public int countMatching(Class clazz, Map<String, ?> fieldValues) {
+    public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant modifiedBefore, Instant modifiedAfter) {
         Criteria criteria = buildCriteria(fieldValues);
+
+        if (modifiedBefore != null) {
+            criteria.addLessOrEqualThan("modifyDate", Timestamp.from(modifiedBefore));
+        }
+
+        if (modifiedAfter != null) {
+            criteria.addGreaterOrEqualThan("modifyDate", Timestamp.from(modifiedAfter));
+        }
+
 
         return getPersistenceBrokerTemplate().getCount(QueryFactory.newQuery(clazz, criteria));
     }
@@ -368,7 +388,6 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
 
         return criteria;
     }
-
 
     private <T extends BusinessObject> Criteria buildCriteria(Class<T> clazz, Object primaryKey) {
         Map<String, Object> fieldValues = new HashMap<String, Object>();

@@ -29,3 +29,4 @@ tmtags
 **/node_modules/*
 kfs-web/src/main/webapp/build
 .DS_Store
+kfs-api-test/dev.properties

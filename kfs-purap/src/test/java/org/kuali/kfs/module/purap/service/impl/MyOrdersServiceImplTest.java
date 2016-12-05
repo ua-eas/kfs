@@ -29,6 +29,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.krad.bo.BusinessObject;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -359,7 +360,8 @@ public class MyOrdersServiceImplTest {
         }
 
         @Override
-        public <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit, String[] orderBy) {
+        public <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit,
+                                                                     Instant modifiedBefore, Instant modifiedAfter, String[] orderBy) {
             if (RequisitionDocument.class.isAssignableFrom(clazz)) {
                 List<RequisitionDocument> reqs = new ArrayList<>();
                 reqs.add(requisitionRetriever.getRequisitionDocument((String) fieldValues.get(KFSPropertyConstants.DOCUMENT_NUMBER)));
@@ -374,9 +376,10 @@ public class MyOrdersServiceImplTest {
         }
 
         @Override
-        public int countMatching(Class clazz, Map<String, ?> positiveFieldValues, Map<String, ?> negativeFieldValues) {
-            return 0;
-        }
+        public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant modifiedBefore, Instant modifiedAfter) { return 0; }
+
+        @Override
+        public int countMatching(Class clazz, Map<String, ?> positiveFieldValues, Map<String, ?> negativeFieldValues) { return 0; }
 
         @Override
         public <T extends BusinessObject> Collection<T> findMatchingOrderBy(Class<T> clazz, Map<String, ?> fieldValues, String sortField, boolean sortAscending) {

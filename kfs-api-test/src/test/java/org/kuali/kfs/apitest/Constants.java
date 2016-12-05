@@ -31,6 +31,8 @@ public class Constants {
         public static final String SKIP = "skip";
         public static final String SORT = "sort";
         public static final String TOTAL_COUNT = "totalCount";
+        public static final String MODIFIED_BEFORE = "modifiedBefore";
+        public static final String MODIFIED_AFTER = "modifiedAfter";
     }
 
     public static class Error {

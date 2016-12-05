@@ -42,6 +42,7 @@ import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.beans.PropertyDescriptor;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -178,13 +179,19 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
     }
 
     @Override
-    public <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit, String[] orderBy) {
-        return businessObjectDao.findMatching(clazz, fieldValues, skip, limit, orderBy);
+    public <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit,
+                                                                 Instant modifiedBefore, Instant modifiedAfter, String[] orderBy) {
+        return businessObjectDao.findMatching(clazz, fieldValues, skip, limit, modifiedBefore, modifiedAfter, orderBy);
     }
 
     @Override
     public int countMatching(Class clazz, Map<String, ?> fieldValues) {
-        return businessObjectDao.countMatching(clazz, fieldValues);
+        return businessObjectDao.countMatching(clazz, fieldValues, null, null);
+    }
+
+    @Override
+    public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant modifiedBefore, Instant modifiedAfter) {
+        return businessObjectDao.countMatching(clazz, fieldValues, modifiedBefore, modifiedAfter);
     }
 
     @Override
