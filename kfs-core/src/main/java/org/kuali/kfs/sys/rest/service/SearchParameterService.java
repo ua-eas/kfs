@@ -28,10 +28,13 @@ import org.kuali.kfs.sys.rest.ErrorMessage;
 import org.kuali.kfs.sys.rest.exception.ApiRequestException;
 
 import javax.ws.rs.core.MultivaluedMap;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SearchParameterService {
@@ -102,10 +105,27 @@ public class SearchParameterService {
         return 0;
     }
 
+    public Instant getDateQueryParameter(String name, MultivaluedMap<String, String> params) {
+        LOG.debug("getDateQueryParameter() started");
+
+        String paramString = params.getFirst(name);
+        if (StringUtils.isNotBlank(paramString)) {
+            try {
+                return Instant.from(DateTimeFormatter.ISO_INSTANT.parse(paramString));
+            } catch (DateTimeParseException dtpe) {
+                LOG.debug(name + " parameter is not cannot be parsed as an ISO8601 date", dtpe);
+                throw new ApiRequestException("Invalid Search Criteria", new ErrorMessage("parameter is not a valid ISO8601 date", name));
+            }
+        }
+
+        return null;
+    }
+
     public Map<String, String> getSearchQueryCriteria(MultivaluedMap<String, String> params, List<String> boFields) {
         LOG.debug("getSearchQueryCriteria() started");
 
-        List<String> reservedParams = Arrays.asList(KFSConstants.Search.SORT, KFSConstants.Search.LIMIT, KFSConstants.Search.SKIP);
+        List<String> reservedParams = Arrays.asList(KFSConstants.Search.SORT, KFSConstants.Search.LIMIT, KFSConstants.Search.SKIP,
+            KFSConstants.Search.MODIFIED_AFTER.toLowerCase(), KFSConstants.Search.MODIFIED_BEFORE.toLowerCase());
         List<ErrorMessage> errorMessages = new ArrayList<>();
         Map<String, String> validParams = params.entrySet().stream()
             .filter(entry -> !reservedParams.contains(entry.getKey().toLowerCase()))

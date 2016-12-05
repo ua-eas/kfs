@@ -22,6 +22,7 @@ import org.kuali.rice.core.api.mo.common.GloballyUnique;
 import org.kuali.rice.core.api.mo.common.Versioned;
 import org.kuali.rice.krad.bo.BusinessObject;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -70,23 +71,37 @@ public interface PersistableBusinessObject extends BusinessObject, Versioned, Gl
      *
      * @param versionNumber the version number to set on this business object
      */
-    public void setVersionNumber(Long versionNumber);
+    void setVersionNumber(Long versionNumber);
 
     /**
      * Sets the unique identifier for the object
      *
      * @param objectId
      */
-    public void setObjectId(String objectId);
+    void setObjectId(String objectId);
 
-    public PersistableBusinessObjectExtension getExtension();
+    /**
+     * Get the last modified date of this business object
+     *
+     * @return
+     */
+    Timestamp getModifyDate();
 
-    public void setExtension(PersistableBusinessObjectExtension extension);
+    /**
+     * Update the modified date of this business object
+     *
+     * @param modifyDate modified date
+     */
+    void setModifyDate(Timestamp modifyDate);
+
+    PersistableBusinessObjectExtension getExtension();
+
+    void setExtension(PersistableBusinessObjectExtension extension);
 
     /**
      * @see BusinessObject#refresh()
      */
-    public abstract void refreshNonUpdateableReferences();
+    void refreshNonUpdateableReferences();
 
     /**
      * This method is used to refresh a reference object that hangs off of a document. For example, if the attribute's keys were
@@ -94,7 +109,7 @@ public interface PersistableBusinessObject extends BusinessObject, Versioned, Gl
      *
      * @param referenceObjectName
      */
-    public abstract void refreshReferenceObject(String referenceObjectName);
+    void refreshReferenceObject(String referenceObjectName);
 
     /**
      * If this method is not implemented appropriately for PersistableBusinessObject with collections, then PersistableBusinessObject with collections will not persist deletions correctly.
@@ -102,24 +117,24 @@ public interface PersistableBusinessObject extends BusinessObject, Versioned, Gl
      *
      * @return List of collections which need to be monitored for changes by OJB
      */
-    public List<Collection<PersistableBusinessObject>> buildListOfDeletionAwareLists();
+    List<Collection<PersistableBusinessObject>> buildListOfDeletionAwareLists();
 
     /**
      * Returns the boolean indicating whether this record is a new record of a maintenance document collection.
      * Used to determine whether the record can be deleted on the document.
      */
-    public boolean isNewCollectionRecord();
+    boolean isNewCollectionRecord();
 
     /**
      * Sets the boolean indicating this record is a new record of a maintenance document collection.
      * Used to determine whether the record can be deleted on the document.
      */
-    public void setNewCollectionRecord(boolean isNewCollectionRecord);
+    void setNewCollectionRecord(boolean isNewCollectionRecord);
 
     /**
      * Hook to link in any editable user fields.
      */
-    public void linkEditableUserFields();
+    void linkEditableUserFields();
 
 
 }

@@ -56,6 +56,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -108,8 +110,13 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         params.add("bankCode", "FW");
         params.add("limit", "1");
         params.add("skip", "1");
+        params.add("modifiedBefore", "2009-07-01T00:00:00Z");
+        params.add("modifiedAfter", "2009-07-01T00:00:00Z");
 
-        commonMultipleBankBusinessObjectTestPrep(BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, new String[] { "bankCode" }, params);
+        Instant modifiedBefore = Instant.from(DateTimeFormatter.ISO_INSTANT.parse("2009-07-01T00:00:00Z"));
+        Instant modifiedAfter = modifiedBefore;
+
+        commonMultipleBankBusinessObjectTestPrep(BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, modifiedBefore, modifiedAfter, new String[] { "bankCode" }, params);
 
         UriInfo uriInfo = EasyMock.createMock(UriInfo.class);
         EasyMock.expect(uriInfo.getQueryParameters()).andReturn(params);
@@ -129,12 +136,15 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         BusinessObjectApiResource.setSerializationService(serializationService);
 
         Map<String, Object> results = apiResource.searchBusinessObjects(Bank.class, uriInfo, maintenanceDocumentEntry);
-
-        Assert.assertEquals(6, results.size());
+        Assert.assertEquals(8, results.size());
         Assert.assertTrue("results should specify limit", results.containsKey("limit"));
         Assert.assertEquals(1, results.get("limit"));
         Assert.assertTrue("results should specify skip", results.containsKey("skip"));
         Assert.assertEquals(1, results.get("skip"));
+        Assert.assertTrue("results should specify modifiedBefore", results.containsKey("modifiedBefore"));
+        Assert.assertEquals("2009-07-01T00:00:00Z", results.get("modifiedBefore"));
+        Assert.assertTrue("results should specify modifiedAfter", results.containsKey("modifiedAfter"));
+        Assert.assertEquals("2009-07-01T00:00:00Z", results.get("modifiedAfter"));
         Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
         Assert.assertEquals(1, results.get("totalCount"));
         Assert.assertTrue("results should specify query", results.containsKey("query"));
@@ -159,8 +169,13 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         params.add("bankCode", "FW");
         params.add("limit", "3");
         params.add("skip", "2");
+        params.add("modifiedBefore", "2009-07-01T00:00:00Z");
+        params.add("modifiedAfter", "2009-07-01T00:00:00Z");
 
-        commonMultipleBankBusinessObjectTestPrep(null, queryCriteria, 2, 3, new String[] { "bankCode" }, params);
+        Instant modifiedBefore = Instant.from(DateTimeFormatter.ISO_INSTANT.parse("2009-07-01T00:00:00Z"));
+        Instant modifiedAfter = modifiedBefore;
+
+        commonMultipleBankBusinessObjectTestPrep(null, queryCriteria, 2, 3, modifiedBefore, modifiedAfter, new String[] { "bankCode" }, params);
 
         UriInfo uriInfo = EasyMock.createMock(UriInfo.class);
         EasyMock.expect(uriInfo.getQueryParameters()).andReturn(params);
@@ -181,11 +196,15 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
 
         Map<String, Object> results = apiResource.searchBusinessObjects(Bank.class, uriInfo, maintenanceDocumentEntry);
 
-        Assert.assertEquals(6, results.size());
+        Assert.assertEquals(8, results.size());
         Assert.assertTrue("results should specify limit", results.containsKey("limit"));
         Assert.assertEquals(3, results.get("limit"));
         Assert.assertTrue("results should specify skip", results.containsKey("skip"));
         Assert.assertEquals(2, results.get("skip"));
+        Assert.assertTrue("results should specify modifiedBefore", results.containsKey("modifiedBefore"));
+        Assert.assertEquals("2009-07-01T00:00:00Z", results.get("modifiedBefore"));
+        Assert.assertTrue("results should specify modifiedAfter", results.containsKey("modifiedAfter"));
+        Assert.assertEquals("2009-07-01T00:00:00Z", results.get("modifiedAfter"));
         Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
         Assert.assertEquals(0, results.get("totalCount"));
         Assert.assertTrue("results should specify query", results.containsKey("query"));
@@ -208,8 +227,13 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
 
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("bankCode", "FW");
+        params.add("modifiedBefore", "2009-07-01T00:00:00Z");
+        params.add("modifiedAfter", "2009-07-01T00:00:00Z");
 
-        commonMultipleBankBusinessObjectTestPrep(null, queryCriteria, 0, 200, new String[] { "bankCode" }, params);
+        Instant modifiedBefore = Instant.from(DateTimeFormatter.ISO_INSTANT.parse("2009-07-01T00:00:00Z"));
+        Instant modifiedAfter = modifiedBefore;
+
+        commonMultipleBankBusinessObjectTestPrep(null, queryCriteria, 0, 200, modifiedBefore, modifiedAfter, new String[] { "bankCode" }, params);
 
         UriInfo uriInfo = EasyMock.createMock(UriInfo.class);
         EasyMock.expect(uriInfo.getQueryParameters()).andReturn(params);
@@ -233,11 +257,15 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
 
         Map<String, Object> results = apiResource.searchBusinessObjects(Bank.class, uriInfo, maintenanceDocumentEntry);
 
-        Assert.assertEquals(6, results.size());
+        Assert.assertEquals(8, results.size());
         Assert.assertTrue("results should specify limit", results.containsKey("limit"));
         Assert.assertEquals(200, results.get("limit"));
         Assert.assertTrue("results should specify skip", results.containsKey("skip"));
         Assert.assertEquals(0, results.get("skip"));
+        Assert.assertTrue("results should specify modifiedBefore", results.containsKey("modifiedBefore"));
+        Assert.assertEquals("2009-07-01T00:00:00Z", results.get("modifiedBefore"));
+        Assert.assertTrue("results should specify modifiedAfter", results.containsKey("modifiedAfter"));
+        Assert.assertEquals("2009-07-01T00:00:00Z", results.get("modifiedAfter"));
         Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
         Assert.assertEquals(0, results.get("totalCount"));
         Assert.assertTrue("results should specify query", results.containsKey("query"));
@@ -263,8 +291,13 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         params.add("bankCode", "FW");
         params.add("limit", "1");
         params.add("skip", "1");
+        params.add("modifiedBefore", "2009-07-01T00:00:00Z");
+        params.add("modifiedAfter", "2009-07-01T00:00:00Z");
 
-        commonMultipleBankBusinessObjectTestPrep(BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, new String[]{"bankCode"}, params);
+        Instant modifiedBefore = Instant.from(DateTimeFormatter.ISO_INSTANT.parse("2009-07-01T00:00:00Z"));
+        Instant modifiedAfter = modifiedBefore;
+
+        commonMultipleBankBusinessObjectTestPrep(BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, modifiedBefore, modifiedAfter, new String[]{"bankCode"}, params);
 
         UriInfo uriInfo = EasyMock.createMock(UriInfo.class);
         EasyMock.expect(uriInfo.getQueryParameters()).andReturn(params);
@@ -287,11 +320,15 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
 
         Map<String, Object> results = apiResource.searchBusinessObjects(Bank.class, uriInfo, maintenanceDocumentEntry);
 
-        Assert.assertEquals(6, results.size());
+        Assert.assertEquals(8, results.size());
         Assert.assertTrue("results should specify limit", results.containsKey("limit"));
         Assert.assertEquals(1, results.get("limit"));
         Assert.assertTrue("results should specify skip", results.containsKey("skip"));
         Assert.assertEquals(1, results.get("skip"));
+        Assert.assertTrue("results should specify modifiedBefore", results.containsKey("modifiedBefore"));
+        Assert.assertEquals("2009-07-01T00:00:00Z", results.get("modifiedBefore"));
+        Assert.assertTrue("results should specify modifiedAfter", results.containsKey("modifiedAfter"));
+        Assert.assertEquals("2009-07-01T00:00:00Z", results.get("modifiedAfter"));
         Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
         Assert.assertEquals(1, results.get("totalCount"));
         Assert.assertTrue("results should specify query", results.containsKey("query"));
@@ -309,6 +346,61 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         EasyMock.verify(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService, dataDictionary, userSession,
                 maintenanceDocumentEntry, kualiModuleService, moduleService, configurationService, searchParameterService, serializationService);
     }
+
+    @Test
+    @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
+    public void testSearchBusinessObjects_NoModifiedFilter() {
+        Map<String, String> queryCriteria = new HashMap<>();
+        queryCriteria.put("bankCode", "FW");
+
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("bankCode", "FW");
+        params.add("limit", "1");
+        params.add("skip", "1");
+
+        commonMultipleBankBusinessObjectTestPrep(BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, null, null, new String[] { "bankCode" }, params);
+
+        UriInfo uriInfo = EasyMock.createMock(UriInfo.class);
+        EasyMock.expect(uriInfo.getQueryParameters()).andReturn(params);
+
+        EasyMock.replay(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService,
+                dataDictionary, userSession, maintenanceDocumentEntry, searchParameterService, serializationService);
+        PowerMock.replay(KRADServiceLocator.class,org.kuali.kfs.krad.util.ObjectUtils.class,KRADUtils.class);
+
+        BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
+        BusinessObjectApiResource.setBusinessObjectService(businessObjectService);
+        BusinessObjectApiResource.setBusinessObjectAuthorizationService(businessObjectAuthorizationService);
+        BusinessObjectApiResource.setPersistenceStructureService(persistenceStructureService);
+        BusinessObjectApiResource.setDataDictionaryService(dataDictionaryService);
+        BusinessObjectApiResource.setKualiModuleService(kualiModuleService);
+        BusinessObjectApiResource.setConfigurationService(configurationService);
+        BusinessObjectApiResource.setSearchParameterService(searchParameterService);
+        BusinessObjectApiResource.setSerializationService(serializationService);
+
+        Map<String, Object> results = apiResource.searchBusinessObjects(Bank.class, uriInfo, maintenanceDocumentEntry);
+        Assert.assertEquals(8, results.size());
+        Assert.assertTrue("results should specify limit", results.containsKey("limit"));
+        Assert.assertEquals(1, results.get("limit"));
+        Assert.assertTrue("results should specify skip", results.containsKey("skip"));
+        Assert.assertEquals(1, results.get("skip"));
+        Assert.assertTrue("results should specify modifiedBefore", results.containsKey("modifiedBefore"));
+        Assert.assertNull(results.get("modifiedBefore"));
+        Assert.assertTrue("results should specify modifiedAfter", results.containsKey("modifiedAfter"));
+        Assert.assertNull(results.get("modifiedAfter"));
+        Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
+        Assert.assertEquals(1, results.get("totalCount"));
+        Assert.assertTrue("results should specify query", results.containsKey("query"));
+        Map<String, String> query = new HashMap<>();
+        query.put("bankCode", "FW");
+        Assert.assertEquals(query, results.get("query"));
+        Assert.assertTrue("results should specify sort", results.containsKey("sort"));
+        Assert.assertEquals("bankCode", ((String[])results.get("sort"))[0]);
+        Assert.assertTrue("results should specify results", results.containsKey("results"));
+        Assert.assertEquals(1, ((List<Object>)results.get("results")).size());
+        EasyMock.verify(uriInfo, businessObjectService, persistenceStructureService, dataDictionaryService, businessObjectAuthorizationService,
+                dataDictionary, userSession, maintenanceDocumentEntry, searchParameterService, serializationService);
+    }
+
 
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
@@ -331,6 +423,8 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
 
         EasyMock.expect(searchParameterService.getSearchQueryCriteria(params, ojbFields)).andReturn(queryCriteria);
         EasyMock.expect(searchParameterService.getIntQueryParameter(KFSConstants.Search.SKIP, params)).andReturn(1);
+        EasyMock.expect(searchParameterService.getDateQueryParameter(KFSConstants.Search.MODIFIED_BEFORE, params)).andReturn(null);
+        EasyMock.expect(searchParameterService.getDateQueryParameter(KFSConstants.Search.MODIFIED_AFTER, params)).andReturn(null);
         EasyMock.expect(searchParameterService.getLimit(Account.class, params)).andReturn(1);
         List<ErrorMessage> errorMessages = new ArrayList<>();
         errorMessages.add(new ErrorMessage("invalid sort field", "closed"));
@@ -426,7 +520,8 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
                 userSession, maintenanceDocumentEntry, searchParameterService, serializationService);
     }
 
-    private void commonMultipleBankBusinessObjectTestPrep(Bank result, Map<String, String> queryCriteria, int skip, int limit, String[] sort, MultivaluedMap<String, String> params) {
+    private void commonMultipleBankBusinessObjectTestPrep(Bank result, Map<String, String> queryCriteria, int skip, int limit,
+                                                          Instant modifiedBefore, Instant modifiedAfter, String[] sort, MultivaluedMap<String, String> params) {
         String className = Bank.class.getSimpleName();
 
         List<Bank> collection = new ArrayList<>();
@@ -434,8 +529,9 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
             collection.add(result);
         }
 
-        EasyMock.expect(businessObjectService.countMatching(Bank.class, queryCriteria)).andReturn(collection.size());
-        EasyMock.expect(businessObjectService.findMatching(EasyMock.eq(Bank.class), EasyMock.eq(queryCriteria), EasyMock.eq(skip), EasyMock.eq(limit), EasyMock.aryEq(sort))).andReturn(collection);
+        EasyMock.expect(businessObjectService.countMatching(Bank.class, queryCriteria, modifiedBefore, modifiedAfter)).andReturn(collection.size());
+        EasyMock.expect(businessObjectService.findMatching(EasyMock.eq(Bank.class), EasyMock.eq(queryCriteria), EasyMock.eq(skip),
+                EasyMock.eq(limit), EasyMock.eq(modifiedBefore), EasyMock.eq(modifiedAfter), EasyMock.aryEq(sort))).andReturn(collection);
 
         EasyMock.expect(businessObjectAuthorizationService.isNonProductionEnvAndUnmaskingTurnedOff()).andReturn(false).anyTimes();
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).anyTimes();
@@ -445,7 +541,7 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).anyTimes();
         EasyMock.expect(userSession.getPerson()).andReturn(testPerson).anyTimes();
 
-        List<String> validFields = Arrays.asList("objectId", "bankCode", "bankName", "bankRountingNumber", "bankAccountNumber");
+        List<String> validFields = Arrays.asList("objectId", "bankCode", "bankName", "bankRoutingNumber", "bankAccountNumber");
         EasyMock.expect(persistenceStructureService.listFieldNames(Bank.class)).andReturn(validFields).anyTimes();
         EasyMock.expect(serializationService.getBusinessObjectFieldList(maintenanceDocumentEntry)).andReturn(validFields);
 
@@ -456,6 +552,8 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
 
         EasyMock.expect(searchParameterService.getSearchQueryCriteria(params, validFields)).andReturn(queryCriteria);
         EasyMock.expect(searchParameterService.getIntQueryParameter(KFSConstants.Search.SKIP, params)).andReturn(skip);
+        EasyMock.expect(searchParameterService.getDateQueryParameter(KFSConstants.Search.MODIFIED_BEFORE, params)).andReturn(modifiedBefore);
+        EasyMock.expect(searchParameterService.getDateQueryParameter(KFSConstants.Search.MODIFIED_AFTER, params)).andReturn(modifiedAfter);
         EasyMock.expect(searchParameterService.getLimit(Bank.class, params)).andReturn(limit);
         EasyMock.expect(searchParameterService.getSortCriteria(Bank.class, params, validFields)).andReturn(sort);
 

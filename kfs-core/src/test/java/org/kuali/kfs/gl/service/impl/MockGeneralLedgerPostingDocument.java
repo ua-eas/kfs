@@ -38,6 +38,7 @@ import org.kuali.rice.kew.framework.postprocessor.ActionTakenEvent;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 
@@ -317,6 +318,13 @@ public class MockGeneralLedgerPostingDocument implements GeneralLedgerPostingDoc
     @Override
     public void setObjectId(String objectId) {
 
+    }
+
+    @Override
+    public Timestamp getModifyDate() { return null; }
+
+    @Override
+    public void setModifyDate(Timestamp modifyDate) {
     }
 
     @Override

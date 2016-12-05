@@ -255,6 +255,7 @@ public class SerializationService {
         }
 
         jsonObject.put(KFSPropertyConstants.OBJECT_ID, bo.getObjectId());
+        jsonObject.put(KFSPropertyConstants.MODIFY_DATE, bo.getModifyDate() != null ? bo.getModifyDate().getTime() : null);
 
         populateRelatedBusinessObjectFields(bo, jsonObject);
         return jsonObject;

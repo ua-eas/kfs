@@ -246,7 +246,7 @@ public class BusinessObjectResource {
         results.put(KFSConstants.Search.QUERY, queryCriteria);
         results.put(KFSConstants.Search.TOTAL_COUNT, getBusinessObjectService().countMatching(boClass, queryCriteria));
 
-        Collection<T> queryResults = getBusinessObjectService().findMatching(boClass, queryCriteria, skip, limit, orderBy);
+        Collection<T> queryResults = getBusinessObjectService().findMatching(boClass, queryCriteria, skip, limit, null, null, orderBy);
         if (queryResults.size() < 1) {
             results.put(KFSConstants.Search.RESULTS, new ArrayList<>());
             return results;

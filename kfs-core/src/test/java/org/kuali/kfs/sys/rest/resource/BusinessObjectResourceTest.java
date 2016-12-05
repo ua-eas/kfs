@@ -869,7 +869,7 @@ public class BusinessObjectResourceTest {
             collection.add(result);
         }
         EasyMock.expect(businessObjectService.countMatching(Bank.class, queryCriteria)).andReturn(collection.size());
-        EasyMock.expect(businessObjectService.findMatching(EasyMock.eq(Bank.class), EasyMock.eq(queryCriteria), EasyMock.eq(skip), EasyMock.eq(limit), EasyMock.aryEq(sort))).andReturn(collection);
+        EasyMock.expect(businessObjectService.findMatching(EasyMock.eq(Bank.class), EasyMock.eq(queryCriteria), EasyMock.eq(skip), EasyMock.eq(limit), EasyMock.eq(null), EasyMock.eq(null), EasyMock.aryEq(sort))).andReturn(collection);
 
         EasyMock.expect(businessObjectAuthorizationService.isNonProductionEnvAndUnmaskingTurnedOff()).andReturn(false).anyTimes();
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).anyTimes();
@@ -879,7 +879,7 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(KRADUtils.getUserSessionFromRequest(null)).andReturn(userSession).anyTimes();
         EasyMock.expect(userSession.getPerson()).andReturn(testPerson).anyTimes();
 
-        List<String> validFields = Arrays.asList("objectId", "bankCode", "bankName", "bankRountingNumber", "bankAccountNumber");
+        List<String> validFields = Arrays.asList("objectId", "bankCode", "bankName", "bankRoutingNumber", "bankAccountNumber");
         EasyMock.expect(persistenceStructureService.listFieldNames(Bank.class)).andReturn(validFields).anyTimes();
 
         List<String> primaryKeyFields = Arrays.asList("bankCode");
