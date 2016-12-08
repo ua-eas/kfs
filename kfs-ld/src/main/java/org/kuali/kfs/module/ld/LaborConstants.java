@@ -109,6 +109,7 @@ public class LaborConstants {
         public static final String LABOR_LEDGER_SALARY_CODE = "S";
         public static final String EFFORT_VALIDATION_OVERRIDE_QUESTION = "EffortValidationOverrideQuestion";
         public static final String VALIDATE_AGAINST_EFFORT_PARM_NM = "VALIDATE_AGAINST_EFFORT_CERTIFICATION_IND";
+        public static final String COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_PARM_NM = "COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_IND";
     }
 
     public static class Scrubber {

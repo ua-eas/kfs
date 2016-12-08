@@ -151,4 +151,19 @@
             <column name="MODIFY_DT" type="DATETIME"/>
         </createIndex>
     </changeSet>
+
+     <changeSet author="KFS701" id="FINP-953" context="bootstrap,demo,unit">
+         <insert tableName="KRCR_PARM_T">
+             <column name="NMSPC_CD"><![CDATA[KFS-LD]]></column>
+             <column name="CMPNT_CD"><![CDATA[SalaryExpenseTransfer]]></column>
+             <column name="PARM_NM"><![CDATA[COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_IND]]></column>
+             <column name="OBJ_ID"><![CDATA[FINP-953]]></column>
+             <column name="VER_NBR"><![CDATA[1]]></column>
+             <column name="VAL"><![CDATA[N]]></column>
+             <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+             <column name="PARM_DESC_TXT"><![CDATA[Determines whether Sub Object Code is copied for benefit lines in salary expense transfer.]]></column>
+             <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+             <column name="APPL_ID"><![CDATA[KFS]]></column>
+         </insert>
+     </changeSet>
 </databaseChangeLog>
