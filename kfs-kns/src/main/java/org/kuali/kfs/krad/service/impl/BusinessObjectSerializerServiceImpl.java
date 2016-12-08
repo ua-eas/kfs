@@ -27,7 +27,6 @@ import org.kuali.kfs.krad.service.DocumentSerializerService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.util.documentserializer.AlwaysTruePropertySerializibilityEvaluator;
 import org.kuali.kfs.krad.util.documentserializer.PropertySerializabilityEvaluator;
-import org.kuali.kfs.krad.util.documentserializer.SerializationState;
 
 public class BusinessObjectSerializerServiceImpl extends SerializerServiceBase implements BusinessObjectSerializerService {
 
@@ -36,26 +35,20 @@ public class BusinessObjectSerializerServiceImpl extends SerializerServiceBase i
     /**
      * Serializes a document for routing
      *
-     * @see DocumentSerializerService#serializeDocumentToXml(Document)
+     * @see DocumentSerializerService#serializeDocumentToXmlForRouting(Document)
      */
     public String serializeBusinessObjectToXml(Object businessObject) {
-        PropertySerializabilityEvaluator propertySerizabilityEvaluator =
-            getPropertySerizabilityEvaluator(businessObject);
-        evaluators.set(propertySerizabilityEvaluator);
-        SerializationState state = new SerializationState(); //createNewDocumentSerializationState(document);
-        serializationStates.set(state);
-
-        //Object xmlWrapper = null;//wrapDocumentWithMetadata(document);
-        String xml;
-        if (propertySerizabilityEvaluator instanceof AlwaysTruePropertySerializibilityEvaluator) {
-            xml = getXmlObjectSerializerService().toXml(businessObject);
-        } else {
-            xml = xstream.toXML(businessObject);
-        }
-
-        evaluators.set(null);
-        serializationStates.set(null);
-        return xml;
+        final PropertySerializabilityEvaluator evaluator = getPropertySerizabilityEvaluator(businessObject);
+        return doSerialization(evaluator, businessObject, businessObject1 -> {
+            String xml;
+            if (evaluator instanceof AlwaysTruePropertySerializibilityEvaluator) {
+                xml = getXmlObjectSerializerService().toXml(businessObject1);
+            }
+            else {
+                xml = xstream.toXML(businessObject1);
+            }
+            return xml;
+        });
     }
 
     public PropertySerializabilityEvaluator getPropertySerizabilityEvaluator(Object businessObject) {

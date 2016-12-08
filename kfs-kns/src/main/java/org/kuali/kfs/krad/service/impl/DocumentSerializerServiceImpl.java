@@ -23,7 +23,6 @@ import org.kuali.kfs.krad.service.DocumentSerializerService;
 import org.kuali.kfs.krad.service.XmlObjectSerializerService;
 import org.kuali.kfs.krad.util.documentserializer.AlwaysTruePropertySerializibilityEvaluator;
 import org.kuali.kfs.krad.util.documentserializer.PropertySerializabilityEvaluator;
-import org.kuali.kfs.krad.util.documentserializer.SerializationState;
 
 /**
  * Default implementation of the {@link DocumentSerializerService}.  If no &lt;workflowProperties&gt; have been defined in the
@@ -37,25 +36,24 @@ public class DocumentSerializerServiceImpl extends SerializerServiceBase impleme
     /**
      * Serializes a document for routing
      *
-     * @see DocumentSerializerService#serializeDocumentToXmlForRouting(Document)
+     * @see org.kuali.rice.krad.service.DocumentSerializerService#serializeDocumentToXmlForRouting(org.kuali.rice.krad.document.Document)
      */
     public String serializeDocumentToXmlForRouting(Document document) {
-        PropertySerializabilityEvaluator propertySerizabilityEvaluator = document.getDocumentPropertySerizabilityEvaluator();
-        evaluators.set(propertySerizabilityEvaluator);
-        SerializationState state = createNewDocumentSerializationState(document);
-        serializationStates.set(state);
-
-        Object xmlWrapper = wrapDocumentWithMetadata(document);
-        String xml;
-        if (propertySerizabilityEvaluator instanceof AlwaysTruePropertySerializibilityEvaluator) {
-            xml = getXmlObjectSerializerService().toXml(xmlWrapper);
-        } else {
-            xml = xstream.toXML(xmlWrapper);
-        }
-
-        evaluators.set(null);
-        serializationStates.set(null);
-        return xml;
+        final PropertySerializabilityEvaluator evaluator = document.getDocumentPropertySerizabilityEvaluator();
+        return doSerialization(evaluator, document, new Serializer<Document>() {
+            @Override
+            public String serialize(Document document) {
+                Object xmlWrapper = wrapDocumentWithMetadata(document);
+                String xml;
+                if (evaluator instanceof AlwaysTruePropertySerializibilityEvaluator) {
+                    xml = getXmlObjectSerializerService().toXml(xmlWrapper);
+                }
+                else {
+                    xml = xstream.toXML(xmlWrapper);
+                }
+                return xml;
+            }
+        });
     }
 
     /**
@@ -68,4 +66,8 @@ public class DocumentSerializerServiceImpl extends SerializerServiceBase impleme
         return document.wrapDocumentWithMetadataForXmlSerialization();
     }
 
+    @Override
+    protected PropertySerializabilityEvaluator getPropertySerizabilityEvaluator(Object dataObject) {
+        return null;
+    }
 }
