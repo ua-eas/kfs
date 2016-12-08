@@ -154,12 +154,7 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
         ObjectCode fringeObjectCode = getObjectCodeService().getByPrimaryId(accountingLine.getPayrollEndDateFiscalYear(), accountingLine.getChartOfAccountsCode(), fringeBenefitObjectCode);
         pendingEntry.setFinancialObjectTypeCode(fringeObjectCode.getFinancialObjectTypeCode());
 
-        boolean copySubobjectCode = getParameterService().getParameterValueAsBoolean(SalaryExpenseTransferDocument.class, LaborConstants.SalaryExpenseTransfer.COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_PARM_NM, false);
-        if (copySubobjectCode) {
-            pendingEntry.setFinancialSubObjectCode(accountingLine.getFinancialSubObjectCode());
-        } else {
-            pendingEntry.setFinancialSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
-        }
+        setSubobjectCodeOnBenefitPendingEntry(accountingLine, pendingEntry);
         pendingEntry.setTransactionLedgerEntryAmount(benefitAmount.abs());
         pendingEntry.setPositionNumber(LaborConstants.getDashPositionNumber());
         pendingEntry.setEmplid(LaborConstants.getDashEmplId());
@@ -169,6 +164,15 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
         overrideEntryForYearEndIfNecessary(document, pendingEntry);
 
         return pendingEntry;
+    }
+
+    protected void setSubobjectCodeOnBenefitPendingEntry(ExpenseTransferAccountingLine accountingLine, LaborLedgerPendingEntry pendingEntry) {
+        boolean copySubobjectCode = getParameterService().getParameterValueAsBoolean(SalaryExpenseTransferDocument.class, LaborConstants.SalaryExpenseTransfer.COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_PARM_NM, false);
+        if (copySubobjectCode) {
+            pendingEntry.setFinancialSubObjectCode(accountingLine.getFinancialSubObjectCode());
+        } else {
+            pendingEntry.setFinancialSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
+        }
     }
 
     /**
