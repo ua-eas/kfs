@@ -1973,6 +1973,7 @@
         <property name="dataDictionaryService" ref="dataDictionaryService"/>
         <property name="dateTimeService" ref="dateTimeService"/>
         <property name="yearEndPendingEntryService" ref="yearEndPendingEntryService"/>
+        <property name="parameterService" ref="parameterService"/>
     </bean>
     <bean id="laborOriginEntryGroupService" parent="laborOriginEntryGroupService-parentBean"/>
 

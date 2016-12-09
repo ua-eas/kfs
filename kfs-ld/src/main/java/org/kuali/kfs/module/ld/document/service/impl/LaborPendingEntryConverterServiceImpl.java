@@ -21,15 +21,18 @@ package org.kuali.kfs.module.ld.document.service.impl;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.document.YearEndDocument;
 import org.kuali.kfs.fp.document.service.YearEndPendingEntryService;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.businessobject.BenefitsCalculation;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine;
 import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
 import org.kuali.kfs.module.ld.document.LaborLedgerPostingDocument;
+import org.kuali.kfs.module.ld.document.SalaryExpenseTransferDocument;
 import org.kuali.kfs.module.ld.document.service.LaborPendingEntryConverterService;
 import org.kuali.kfs.module.ld.service.LaborBenefitsCalculationService;
 import org.kuali.kfs.module.ld.util.DebitCreditUtil;
@@ -38,6 +41,7 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.kfs.sys.service.HomeOriginationService;
 import org.kuali.kfs.sys.service.OptionsService;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
@@ -54,6 +58,7 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
     protected DataDictionaryService dataDictionaryService;
     protected DateTimeService dateTimeService;
     protected YearEndPendingEntryService yearEndPendingEntryService;
+    protected ParameterService parameterService;
 
     /**
      * @see org.kuali.kfs.module.ld.document.service.LaborPendingEntryConverterService#getBenefitA21PendingEntry(org.kuali.kfs.module.ld.document.LaborLedgerPostingDocument, org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper, org.kuali.rice.core.api.util.type.KualiDecimal, java.lang.String)
@@ -151,7 +156,7 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
         ObjectCode fringeObjectCode = getObjectCodeService().getByPrimaryId(accountingLine.getPayrollEndDateFiscalYear(), accountingLine.getChartOfAccountsCode(), fringeBenefitObjectCode);
         pendingEntry.setFinancialObjectTypeCode(fringeObjectCode.getFinancialObjectTypeCode());
 
-        pendingEntry.setFinancialSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
+        setSubobjectCodeOnBenefitPendingEntry(accountingLine, pendingEntry);
         pendingEntry.setTransactionLedgerEntryAmount(benefitAmount.abs());
         pendingEntry.setPositionNumber(LaborConstants.getDashPositionNumber());
         pendingEntry.setEmplid(LaborConstants.getDashEmplId());
@@ -161,6 +166,15 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
         overrideEntryForYearEndIfNecessary(document, pendingEntry);
 
         return pendingEntry;
+    }
+
+    protected void setSubobjectCodeOnBenefitPendingEntry(ExpenseTransferAccountingLine accountingLine, LaborLedgerPendingEntry pendingEntry) {
+        boolean copySubobjectCode = getParameterService().getParameterValueAsBoolean(KfsParameterConstants.LABOR_DOCUMENT.class, LaborConstants.SalaryExpenseTransfer.COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_PARM_NM, false);
+        if (copySubobjectCode) {
+            pendingEntry.setFinancialSubObjectCode(accountingLine.getFinancialSubObjectCode());
+        } else {
+            pendingEntry.setFinancialSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
+        }
     }
 
     /**
@@ -366,4 +380,11 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
         this.yearEndPendingEntryService = yearEndPendingEntryService;
     }
 
+    public ParameterService getParameterService() {
+        return parameterService;
+    }
+
+    public void setParameterService(ParameterService parameterService) {
+        this.parameterService = parameterService;
+    }
 }
