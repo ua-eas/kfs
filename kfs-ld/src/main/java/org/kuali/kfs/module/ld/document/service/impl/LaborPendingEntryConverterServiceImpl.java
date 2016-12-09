@@ -26,6 +26,7 @@ import org.kuali.kfs.fp.document.YearEndDocument;
 import org.kuali.kfs.fp.document.service.YearEndPendingEntryService;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.businessobject.BenefitsCalculation;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine;
@@ -167,7 +168,7 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
     }
 
     protected void setSubobjectCodeOnBenefitPendingEntry(ExpenseTransferAccountingLine accountingLine, LaborLedgerPendingEntry pendingEntry) {
-        boolean copySubobjectCode = getParameterService().getParameterValueAsBoolean(SalaryExpenseTransferDocument.class, LaborConstants.SalaryExpenseTransfer.COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_PARM_NM, false);
+        boolean copySubobjectCode = getParameterService().getParameterValueAsBoolean(Document.class, LaborConstants.SalaryExpenseTransfer.COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_PARM_NM, false);
         if (copySubobjectCode) {
             pendingEntry.setFinancialSubObjectCode(accountingLine.getFinancialSubObjectCode());
         } else {

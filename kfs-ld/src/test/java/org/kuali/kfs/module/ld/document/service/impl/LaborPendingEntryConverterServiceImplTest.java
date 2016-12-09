@@ -27,11 +27,11 @@ import org.junit.runner.RunWith;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferAccountingLine;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferSourceAccountingLine;
 import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
-import org.kuali.kfs.module.ld.document.SalaryExpenseTransferDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -60,7 +60,7 @@ public class LaborPendingEntryConverterServiceImplTest {
     @Test
     public void testCopySubObjectToBenefitEntriesEnabled() {
         EasyMock.expect(parameterService.getParameterValueAsBoolean(
-                SalaryExpenseTransferDocument.class,
+                Document.class,
                 LaborConstants.SalaryExpenseTransfer.COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_PARM_NM,
                 false)
         ).andReturn(true).anyTimes();
@@ -87,7 +87,7 @@ public class LaborPendingEntryConverterServiceImplTest {
 
         EasyMock.expect(SpringContext.getBean(DataDictionaryService.class)).andReturn(dataDictionaryService).anyTimes();
         EasyMock.expect(parameterService.getParameterValueAsBoolean(
-                SalaryExpenseTransferDocument.class,
+                Document.class,
                 LaborConstants.SalaryExpenseTransfer.COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_PARM_NM,
                 false)
         ).andReturn(false).anyTimes();
