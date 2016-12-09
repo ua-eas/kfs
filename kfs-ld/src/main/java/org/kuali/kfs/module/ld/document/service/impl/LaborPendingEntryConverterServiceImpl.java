@@ -41,6 +41,7 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.kfs.sys.service.HomeOriginationService;
 import org.kuali.kfs.sys.service.OptionsService;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
@@ -168,7 +169,7 @@ public class LaborPendingEntryConverterServiceImpl implements LaborPendingEntryC
     }
 
     protected void setSubobjectCodeOnBenefitPendingEntry(ExpenseTransferAccountingLine accountingLine, LaborLedgerPendingEntry pendingEntry) {
-        boolean copySubobjectCode = getParameterService().getParameterValueAsBoolean(Document.class, LaborConstants.SalaryExpenseTransfer.COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_PARM_NM, false);
+        boolean copySubobjectCode = getParameterService().getParameterValueAsBoolean(KfsParameterConstants.LABOR_DOCUMENT.class, LaborConstants.SalaryExpenseTransfer.COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_PARM_NM, false);
         if (copySubobjectCode) {
             pendingEntry.setFinancialSubObjectCode(accountingLine.getFinancialSubObjectCode());
         } else {

@@ -35,6 +35,7 @@ import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.powermock.api.easymock.PowerMock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -60,7 +61,7 @@ public class LaborPendingEntryConverterServiceImplTest {
     @Test
     public void testCopySubObjectToBenefitEntriesEnabled() {
         EasyMock.expect(parameterService.getParameterValueAsBoolean(
-                Document.class,
+                KfsParameterConstants.LABOR_DOCUMENT.class,
                 LaborConstants.SalaryExpenseTransfer.COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_PARM_NM,
                 false)
         ).andReturn(true).anyTimes();
@@ -87,7 +88,7 @@ public class LaborPendingEntryConverterServiceImplTest {
 
         EasyMock.expect(SpringContext.getBean(DataDictionaryService.class)).andReturn(dataDictionaryService).anyTimes();
         EasyMock.expect(parameterService.getParameterValueAsBoolean(
-                Document.class,
+                KfsParameterConstants.LABOR_DOCUMENT.class,
                 LaborConstants.SalaryExpenseTransfer.COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_PARM_NM,
                 false)
         ).andReturn(false).anyTimes();
