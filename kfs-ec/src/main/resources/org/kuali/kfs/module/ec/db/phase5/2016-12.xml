@@ -107,4 +107,40 @@
             <column name="MODIFY_DT" type="DATETIME"/>
         </createIndex>
     </changeSet>
+
+    <!-- "org.kuali.kfs.module.ec.businessobject.EffortCertificationReportType" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_LD_A21_RPT_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="LD_A21_RPT_TYP_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="LD_A21_RPT_TYP_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ec.businessobject.EffortCertificationPeriodStatusCode" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_LD_A21_PRD_STAT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="LD_A21_PRD_STAT_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="LD_A21_PRD_STAT_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_LD_A21_REPORT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="LD_A21_REPORT_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="LD_A21_REPORT_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ec.businessobject.EffortCertificationReportEarnPaygroup" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_LD_A21_RPT_EARN_PAY_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="LD_A21_RPT_EARN_PAY_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="LD_A21_RPT_EARN_PAY_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
 </databaseChangeLog>

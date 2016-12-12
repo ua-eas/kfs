@@ -24,7 +24,7 @@
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
         <field-descriptor name="name" column="ATTR_NM" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -46,7 +46,7 @@
         <field-descriptor name="restrictLaborInquiry" column="RSTR_LD_INQ_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
 
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <reference-descriptor name="securityAttribute" class-ref="org.kuali.kfs.sec.businessobject.SecurityAttribute" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
             <foreignkey field-ref="attributeId"/>
@@ -74,7 +74,7 @@
         <field-descriptor name="roleId" column="ROLE_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
 
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <collection-descriptor name="modelDefinitions" element-class-ref="org.kuali.kfs.sec.businessobject.SecurityModelDefinition" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="false">
             <inverse-foreignkey field-ref="modelId"/>
@@ -121,7 +121,7 @@
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
 
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <collection-descriptor name="principalDefinitions" element-class-ref="org.kuali.kfs.sec.businessobject.SecurityPrincipalDefinition" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="false">
             <inverse-foreignkey field-ref="principalId"/>

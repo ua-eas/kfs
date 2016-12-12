@@ -85,14 +85,14 @@ public interface PersistableBusinessObject extends BusinessObject, Versioned, Gl
      *
      * @return
      */
-    Timestamp getModifyDate();
+    Timestamp getLastUpdatedTimestamp();
 
     /**
-     * Update the modified date of this business object
+     * Update the last modified date of this business object
      *
-     * @param modifyDate modified date
+     * @param lastUpdatedTimestamp last updated timestamp
      */
-    void setModifyDate(Timestamp modifyDate);
+    void setLastUpdatedTimestamp(Timestamp lastUpdatedTimestamp);
 
     PersistableBusinessObjectExtension getExtension();
 

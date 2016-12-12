@@ -820,7 +820,7 @@ public class KFSPropertyConstants {
     public static final String MAINTENANCE_USER = "maintenanceUser";
     public static final String MAILING_ADDRESS = "mailingAddress";
     public static final String MILEAGE_LIMIT_AMOUNT = "mileageLimitAmount";
-    public static final String MODIFY_DATE = "modifyDate";
+    public static final String LAST_UPDATED_TIMESTAMP = "lastUpdatedTimestamp";
     public static final String MODULAR_BUDGET = "modularBudget";
     public static final String MONTH = "month";
     public static final String MONTH1_AMOUNT = "month1Amount";

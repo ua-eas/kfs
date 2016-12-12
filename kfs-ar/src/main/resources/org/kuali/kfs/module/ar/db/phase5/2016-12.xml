@@ -437,4 +437,175 @@
             <column name="MODIFY_DT" type="DATETIME"/>
         </createIndex>
     </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.OrganizationOptions" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_ORG_OPTION_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_ORG_OPTION_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_ORG_OPTION_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.Customer" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_CUST_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_CUST_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_CUST_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.CustomerAddressType" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_CUST_ADDR_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_CUST_ADDR_TYP_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_CUST_ADDR_TYP_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.CustomerInvoiceItemCode" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_INV_ITM_CODE_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_INV_ITM_CODE_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_INV_ITM_CODE_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.PaymentMedium" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_PMT_MEDIUM_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_PMT_MEDIUM_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_PMT_MEDIUM_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.OrganizationAccountingDefault" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_ORG_ACCTGDFLT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_ORG_ACCTGDFLT_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_ORG_ACCTGDFLT_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.SystemInformation" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_SYS_INFO_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_SYS_INFO_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_SYS_INFO_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.InvoiceRecurrence" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_DOC_RCURRNC_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_DOC_RCURRNC_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_DOC_RCURRNC_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.CustomerType" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_CUST_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_CUST_TYP_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_CUST_TYP_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.CollectionActivityType" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_CLCTN_ACTVY_TYP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_CLCTN_ACTVY_TYP_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_CLCTN_ACTVY_TYP_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.CollectionEvent" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_CLCTN_EVNT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_CLCTN_EVNT_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_CLCTN_EVNT_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.DunningCampaign" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_DUN_CMPGN_DOC_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_DUN_CMPGN_DOC_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_DUN_CMPGN_DOC_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.DunningLetterTemplate" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_DUN_LTR_TMPLT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_DUN_LTR_TMPLT_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_DUN_LTR_TMPLT_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.CostCategory" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_CST_CTGRY_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_CST_CTGRY_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_CST_CTGRY_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.MilestoneSchedule" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_MLSTN_SCHDL_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_MLSTN_SCHDL_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_MLSTN_SCHDL_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.PredeterminedBillingSchedule" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_PRDTRMND_BILL_SCHDL_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_PRDTRMND_BILL_SCHDL_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_PRDTRMND_BILL_SCHDL_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.InvoiceTransmissionMethod" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_INV_TRNS_MTHD_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_INV_TRNS_MTHD_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_INV_TRNS_MTHD_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.InvoiceTemplate" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_INV_TMPLT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_INV_TMPLT_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_INV_TMPLT_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ar.businessobject.BillingFrequency" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_AR_BILL_FREQ_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="AR_BILL_FREQ_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="AR_BILL_FREQ_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
 </databaseChangeLog>

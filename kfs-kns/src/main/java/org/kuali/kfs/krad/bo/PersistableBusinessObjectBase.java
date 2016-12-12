@@ -58,8 +58,8 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
     protected Long versionNumber;
     @Column(name = "OBJ_ID")
     private String objectId;
-    @Column(name = "MODIFY_DT")
-    private Timestamp modifyDate;
+    @Column(name = "LAST_UPDT_TS")
+    private Timestamp lastUpdatedTimestamp;
 
     @Transient
     private boolean newCollectionRecord;
@@ -107,16 +107,16 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
     }
 
     /**
-     * @see PersistableBusinessObject#getModifyDate()
+     * @see PersistableBusinessObject#getLastUpdatedTimestamp()
      */
-    public Timestamp getModifyDate() {
-        return modifyDate;
+    public Timestamp getLastUpdatedTimestamp() {
+        return lastUpdatedTimestamp;
     }
 
     /**
-     * @see PersistableBusinessObject#setModifyDate()
+     * @see PersistableBusinessObject#setLastUpdatedTimestamp()
      */
-    public void setModifyDate(Timestamp modifyDate) { this.modifyDate = modifyDate; }
+    public void setLastUpdatedTimestamp(Timestamp lastUpdatedTimestamp) { this.lastUpdatedTimestamp = lastUpdatedTimestamp; }
 
     /**
      * Gets the newCollectionRecord attribute.
@@ -312,7 +312,7 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
      * Updates the last modified date on insert / update
      */
     private void updateModifyDate() {
-        modifyDate = CoreApiServiceLocator.getDateTimeService().getCurrentTimestamp();
+        lastUpdatedTimestamp = CoreApiServiceLocator.getDateTimeService().getCurrentTimestamp();
     }
 
     /**

@@ -479,7 +479,7 @@
         <field-descriptor name="iuDefaultObjectCode" column="IU_DFLT_OBJ_CD" jdbc-type="VARCHAR"/>
         <field-descriptor name="iuPositionType" column="IU_POSITION_TYPE" jdbc-type="VARCHAR"/>
         <field-descriptor name="positionLockUserIdentifier" column="POS_LOCK_USR_ID" jdbc-type="VARCHAR"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <reference-descriptor name="universityFiscal" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
             <foreignkey field-ref="universityFiscalYear"/>
@@ -706,7 +706,7 @@
         <field-descriptor name="grade" column="GRADE" jdbc-type="VARCHAR"/>
         <field-descriptor name="iuClassificationLevel" column="IU_CLASSIF_LEVEL" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <collection-descriptor name="budgetConstructionSalarySocialSecurity" element-class-ref="org.kuali.kfs.module.bc.businessobject.BudgetConstructionSalarySocialSecurityNumber" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" proxy="true" auto-retrieve="true" auto-update="none" auto-delete="none">
             <orderby name="principalId" sort="ASC"/>
@@ -734,7 +734,7 @@
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
         <field-descriptor name="reportsToChartOfAccountsCode" column="RPTS_TO_FIN_COA_CD" jdbc-type="VARCHAR" index="true"/>
         <field-descriptor name="reportsToOrganizationCode" column="RPTS_TO_ORG_CD" jdbc-type="VARCHAR" index="true"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <reference-descriptor name="account" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
             <foreignkey field-ref="chartOfAccountsCode"/>
@@ -764,7 +764,7 @@
         <field-descriptor name="reportsToChartOfAccountsCode" column="RPTS_TO_FIN_COA_CD" jdbc-type="VARCHAR" index="true"/>
         <field-descriptor name="reportsToOrganizationCode" column="RPTS_TO_ORG_CD" jdbc-type="VARCHAR" index="true"/>
         <field-descriptor name="responsibilityCenterCode" column="RC_CD" jdbc-type="VARCHAR"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
             <foreignkey field-ref="chartOfAccountsCode"/>
@@ -841,7 +841,7 @@
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
         <field-descriptor name="appointmentFundingReasonDescription" column="APPT_FND_RESN_DESC" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -1685,7 +1685,7 @@
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
         <field-descriptor name="appointmentDurationDescription" column="APPT_DUR_DESC" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -1787,7 +1787,7 @@
         <field-descriptor name="csfFundingStatusCode" column="POS_CSF_FNDSTAT_CD" jdbc-type="VARCHAR"/>
         <field-descriptor name="csfDeleteCode" column="POS_CSF_DELETE_CD" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <reference-descriptor name="universityFiscal" class-ref="org.kuali.kfs.sys.businessobject.SystemOptions" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
             <foreignkey field-ref="universityFiscalYear"/>

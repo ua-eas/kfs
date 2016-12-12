@@ -320,11 +320,9 @@ public class MockGeneralLedgerPostingDocument implements GeneralLedgerPostingDoc
 
     }
 
-    @Override
-    public Timestamp getModifyDate() { return null; }
+    public Timestamp getLastUpdatedTimestamp() { return null; }
 
-    @Override
-    public void setModifyDate(Timestamp modifyDate) {
+    public void setLastUpdatedTimestamp(Timestamp lastUpdatedTimestamp) {
     }
 
     @Override

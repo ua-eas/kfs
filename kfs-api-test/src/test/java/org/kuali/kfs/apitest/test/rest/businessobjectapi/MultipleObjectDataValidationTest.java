@@ -123,8 +123,34 @@ public class MultipleObjectDataValidationTest {
     }
 
     @Test
+    public void searchWithLastUpdatedTimestampSort() throws IOException {
+        HttpResponse response = RestUtilities.makeRequest(SEARCH_API + "?limit=1&sort=lastUpdatedTimestamp", Constants.KHUNTLEY_TOKEN);
+
+        String responseString = RestUtilities.inputStreamToString(response.getEntity().getContent());
+
+        Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
+
+        Map<String,Object> searchResults = RestUtilities.parse(responseString);
+        List<Map<String, Object>> results = (List<Map<String, Object>>)searchResults.get(Constants.Search.RESULTS);
+        Map<String, Object> bo = results.get(0);
+
+        // Validate that the returned object is correct
+        Assert.assertEquals(new ArrayList(Arrays.asList("lastUpdatedTimestamp")), searchResults.get(Constants.Search.SORT));
+        Assert.assertEquals(1, searchResults.get(Constants.Search.LIMIT));
+        Assert.assertEquals(0, searchResults.get(Constants.Search.SKIP));
+        Assert.assertEquals(60, searchResults.get(Constants.Search.TOTAL_COUNT));
+        Assert.assertEquals(new HashMap(), searchResults.get(Constants.Search.QUERY));
+
+        // Check a sample of fields returned
+        Assert.assertEquals(true,(Boolean)bo.get("active"));
+        Assert.assertEquals("1599",(String)bo.get("creditCardObjectCode"));
+        Assert.assertEquals("12345",(String)bo.get("lockboxNumber"));
+        Assert.assertNull(bo.get("newCollectionRecord"));
+    }
+
+    @Test
     public void searchWithModifiedBefore() throws IOException {
-        String modifiedBeforeParam = "2010-07-01T00:00:00Z";
+        String modifiedBeforeParam = "1277942400000"; // 07/01/2010
         HttpResponse response = RestUtilities.makeRequest(String.format("%s?modifiedBefore=%s", SEARCH_API, modifiedBeforeParam), Constants.KHUNTLEY_TOKEN);
 
         String responseString = RestUtilities.inputStreamToString(response.getEntity().getContent());
@@ -158,7 +184,7 @@ public class MultipleObjectDataValidationTest {
 
     @Test
     public void searchWithModifiedBeforeNoResults() throws IOException {
-        String modifiedBeforeParam = "2008-07-01T00:00:00Z";
+        String modifiedBeforeParam = "1214870400000"; // 07/01/2008
         HttpResponse response = RestUtilities.makeRequest(String.format("%s?modifiedBefore=%s", SEARCH_API, modifiedBeforeParam), Constants.KHUNTLEY_TOKEN);
 
         String responseString = RestUtilities.inputStreamToString(response.getEntity().getContent());
@@ -179,7 +205,7 @@ public class MultipleObjectDataValidationTest {
 
     @Test
     public void searchWithModifiedAfter() throws IOException {
-        String modifiedAfterParam = "2008-07-01T00:00:00Z";
+        String modifiedAfterParam = "1214870400000"; // 07/01/2008
         HttpResponse response = RestUtilities.makeRequest(String.format("%s?modifiedAfter=%s", SEARCH_API, modifiedAfterParam), Constants.KHUNTLEY_TOKEN);
 
         String responseString = RestUtilities.inputStreamToString(response.getEntity().getContent());
@@ -213,7 +239,7 @@ public class MultipleObjectDataValidationTest {
 
     @Test
     public void searchWithModifiedAfterNoResults() throws IOException {
-        String modifiedAfterParam = "2010-07-01T00:00:00Z";
+        String modifiedAfterParam = "1277942400000"; // 07/01/2010
         HttpResponse response = RestUtilities.makeRequest(String.format("%s?modifiedAfter=%s", SEARCH_API, modifiedAfterParam), Constants.KHUNTLEY_TOKEN);
 
         String responseString = RestUtilities.inputStreamToString(response.getEntity().getContent());
@@ -234,8 +260,8 @@ public class MultipleObjectDataValidationTest {
 
     @Test
     public void searchWithModifiedBeforeAndAfter() throws IOException {
-        String modifiedAfterParam = "2008-07-01T00:00:00Z";
-        String modifiedBeforeParam = "2010-07-01T00:00:00Z";
+        String modifiedAfterParam = "1214870400000"; // 07/01/2008
+        String modifiedBeforeParam = "1277942400000"; // 07/01/2010
         HttpResponse response = RestUtilities.makeRequest(String.format("%s?modifiedAfter=%s&modifiedBefore=%s", SEARCH_API, modifiedAfterParam, modifiedBeforeParam), Constants.KHUNTLEY_TOKEN);
 
         String responseString = RestUtilities.inputStreamToString(response.getEntity().getContent());
@@ -269,8 +295,8 @@ public class MultipleObjectDataValidationTest {
 
     @Test
     public void searchWithModifiedBeforeAndAfterNoResults() throws IOException {
-        String modifiedAfterParam = "2010-07-01T00:00:00Z";
-        String modifiedBeforeParam = "2008-07-01T00:00:00Z";
+        String modifiedAfterParam = "1277942400000"; // 07/01/2010
+        String modifiedBeforeParam = "1214870400000"; // 07/01/2008
         HttpResponse response = RestUtilities.makeRequest(String.format("%s?modifiedAfter=%s&modifiedBefore=%s", SEARCH_API, modifiedAfterParam, modifiedBeforeParam), Constants.KHUNTLEY_TOKEN);
 
         String responseString = RestUtilities.inputStreamToString(response.getEntity().getContent());
@@ -373,7 +399,7 @@ public class MultipleObjectDataValidationTest {
 
         Map<String, Object> errorDetail = errorDetails.get(0);
         Assert.assertEquals("modifiedBefore", errorDetail.get(Constants.Error.PROPERTY));
-        Assert.assertEquals("parameter is not a valid ISO8601 date", errorDetail.get(Constants.Error.MESSAGE));
+        Assert.assertEquals("parameter is not a valid Unix time value", errorDetail.get(Constants.Error.MESSAGE));
     }
 
     @Test
@@ -391,6 +417,6 @@ public class MultipleObjectDataValidationTest {
 
         Map<String, Object> errorDetail = errorDetails.get(0);
         Assert.assertEquals("modifiedAfter", errorDetail.get(Constants.Error.PROPERTY));
-        Assert.assertEquals("parameter is not a valid ISO8601 date", errorDetail.get(Constants.Error.MESSAGE));
+        Assert.assertEquals("parameter is not a valid Unix time value", errorDetail.get(Constants.Error.MESSAGE));
     }
 }

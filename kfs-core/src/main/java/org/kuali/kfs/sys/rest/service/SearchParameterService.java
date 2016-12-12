@@ -28,17 +28,23 @@ import org.kuali.kfs.sys.rest.ErrorMessage;
 import org.kuali.kfs.sys.rest.exception.ApiRequestException;
 
 import javax.ws.rs.core.MultivaluedMap;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class SearchParameterService {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SearchParameterService.class);
+    private static final DateTimeFormatter flexibleDateFormatter = DateTimeFormatter.ofPattern("[MM/dd/yyyy[ HH:mm[:ss[.SSSSSS]][XXXXX][XXXX][XXX][XX][X]]]", Locale.ENGLISH);
 
     private PersistenceStructureService persistenceStructureService;
 
@@ -111,10 +117,10 @@ public class SearchParameterService {
         String paramString = params.getFirst(name);
         if (StringUtils.isNotBlank(paramString)) {
             try {
-                return Instant.from(DateTimeFormatter.ISO_INSTANT.parse(paramString));
-            } catch (DateTimeParseException dtpe) {
-                LOG.debug(name + " parameter is not cannot be parsed as an ISO8601 date", dtpe);
-                throw new ApiRequestException("Invalid Search Criteria", new ErrorMessage("parameter is not a valid ISO8601 date", name));
+                return Instant.ofEpochMilli(Long.valueOf(paramString));
+            } catch (Throwable t) {
+                LOG.debug(name + " parameter cannot be parsed as a date " + paramString);
+                throw new ApiRequestException("Invalid Search Criteria", new ErrorMessage("parameter is not a valid Unix time value", name));
             }
         }
 

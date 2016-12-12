@@ -137,8 +137,8 @@ public interface BusinessObjectService {
      * @param fieldValues
      * @param skip sql query offset
      * @param limit sql query limit
-     * @param modifiedBefore filter results to only those with modifyDate before this Instant (optional)
-     * @param modifiedAfter filter results to only those with modifyDate after this Instant (optional)
+     * @param modifiedBefore filter results to only those with lastUpdatedTimestamp before this Instant (optional)
+     * @param modifiedAfter filter results to only those with lastUpdatedTimestamp after this Instant (optional)
      * @return
      */
     <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit,
@@ -167,8 +167,8 @@ public interface BusinessObjectService {
      *
      * @param clazz
      * @param fieldValues
-     * @param modifiedBefore filter results to only those with modifyDate before this Instant (optional)
-     * @param modifiedAfter filter results to only those with modifyDate after this Instant (optional)
+     * @param modifiedBefore filter results to only those with lastUpdatedTimestamp before this Instant (optional)
+     * @param modifiedAfter filter results to only those with lastUpdatedTimestamp after this Instant (optional)
      * @return number of businessObjects of the given class whose fields match the values in the given expected-value Map
      */
     public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant modifiedBefore, Instant modifiedAfter);

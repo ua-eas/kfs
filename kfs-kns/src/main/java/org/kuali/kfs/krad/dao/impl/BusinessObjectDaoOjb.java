@@ -137,11 +137,11 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
         Criteria criteria = buildCriteria(fieldValues);
 
         if (modifiedBefore != null) {
-            criteria.addLessOrEqualThan("modifyDate", Timestamp.from(modifiedBefore));
+            criteria.addLessOrEqualThan("lastUpdatedTimestamp", Timestamp.from(modifiedBefore));
         }
 
         if (modifiedAfter != null) {
-            criteria.addGreaterOrEqualThan("modifyDate", Timestamp.from(modifiedAfter));
+            criteria.addGreaterOrEqualThan("lastUpdatedTimestamp", Timestamp.from(modifiedAfter));
         }
 
         QueryByCriteria query = QueryFactory.newQuery(clazz, criteria);
@@ -216,11 +216,11 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
         Criteria criteria = buildCriteria(fieldValues);
 
         if (modifiedBefore != null) {
-            criteria.addLessOrEqualThan("modifyDate", Timestamp.from(modifiedBefore));
+            criteria.addLessOrEqualThan("lastUpdatedTimestamp", Timestamp.from(modifiedBefore));
         }
 
         if (modifiedAfter != null) {
-            criteria.addGreaterOrEqualThan("modifyDate", Timestamp.from(modifiedAfter));
+            criteria.addGreaterOrEqualThan("lastUpdatedTimestamp", Timestamp.from(modifiedAfter));
         }
 
 

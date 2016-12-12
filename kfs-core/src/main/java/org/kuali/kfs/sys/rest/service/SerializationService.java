@@ -40,6 +40,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.rest.helper.CollectionSerializationHelper;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.krad.bo.BusinessObject;
 
@@ -255,7 +256,7 @@ public class SerializationService {
         }
 
         jsonObject.put(KFSPropertyConstants.OBJECT_ID, bo.getObjectId());
-        jsonObject.put(KFSPropertyConstants.MODIFY_DATE, bo.getModifyDate() != null ? bo.getModifyDate().getTime() : null);
+        jsonObject.put(KFSPropertyConstants.LAST_UPDATED_TIMESTAMP, bo.getLastUpdatedTimestamp());
 
         populateRelatedBusinessObjectFields(bo, jsonObject);
         return jsonObject;

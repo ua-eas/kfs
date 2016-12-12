@@ -24,7 +24,7 @@
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" locking="true" column="VER_NBR" jdbc-type="BIGINT"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -34,7 +34,7 @@
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" locking="true" column="VER_NBR" jdbc-type="BIGINT"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -46,7 +46,7 @@
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" locking="true" column="VER_NBR" jdbc-type="BIGINT"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -56,7 +56,7 @@
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" locking="true" column="VER_NBR" jdbc-type="BIGINT"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -117,7 +117,7 @@
         <field-descriptor name="activeToDate" column="ACTV_TO_DT" jdbc-type="DATE"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" locking="true" column="VER_NBR" jdbc-type="BIGINT"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <reference-descriptor name="expenseType" class-ref="org.kuali.kfs.module.tem.businessobject.ExpenseType" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
             <foreignkey field-ref="expenseTypeCode"/>
@@ -140,7 +140,7 @@
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
 
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <reference-descriptor name="primaryDestination" class-ref="org.kuali.kfs.module.tem.businessobject.PrimaryDestination" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
             <foreignkey field-ref="primaryDestinationId"/>
@@ -178,7 +178,7 @@
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" locking="true" column="VER_NBR" jdbc-type="BIGINT"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -219,7 +219,7 @@
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" locking="true" column="VER_NBR" jdbc-type="BIGINT"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -229,7 +229,7 @@
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -248,7 +248,7 @@
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" locking="true" column="VER_NBR" jdbc-type="BIGINT"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <reference-descriptor name="balanceType" class-ref="org.kuali.kfs.coa.businessobject.BalanceType" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
             <foreignkey field-ref="encumbranceBalanceType"/>
@@ -617,7 +617,7 @@
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" locking="true" column="VER_NBR" jdbc-type="BIGINT"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -752,7 +752,7 @@
         <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" locking="true" column="VER_NBR" jdbc-type="BIGINT"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -1042,7 +1042,7 @@
         <field-descriptor name="expenseTypeMetaCategoryCode" column="EXP_TYP_META_CTGRY_CD" jdbc-type="VARCHAR"/>
         <field-descriptor name="categoryDefault" column="CTGRY_DFLT_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -1065,7 +1065,7 @@
         <field-descriptor name="specialRequestRequired" column="SPCL_RQST_REQ_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
 
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <!-- special fields for lookup; at KRAD/JPA migration turn into overridden controls for lookup in KRAD layer rather than attempting to do this in the JPA layer -->
         <field-descriptor name="tripTypeCodeForLookup" column="TRIP_TYP_CD" jdbc-type="VARCHAR" access="readonly"/>
@@ -1111,7 +1111,7 @@
         <field-descriptor name="defaultSubAccount" column="SUB_ACCOUNT_CD" jdbc-type="VARCHAR"/>
         <field-descriptor name="defaultProjectCode" column="PROJ_CD" jdbc-type="VARCHAR"/>
         <field-descriptor name="employeeId" column="EMP_ID" jdbc-type="VARCHAR"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <reference-descriptor name="travelerType" class-ref="org.kuali.kfs.module.tem.businessobject.TravelerType" auto-retrieve="false" auto-update="none" auto-delete="none">
             <foreignkey field-ref="travelerTypeCode"/>
@@ -1192,7 +1192,7 @@
         <field-descriptor name="lunch" column="LUNCH" jdbc-type="DECIMAL" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion"/>
         <field-descriptor name="dinner" column="DIN" jdbc-type="DECIMAL" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion"/>
         <field-descriptor name="incidentals" column="INC" jdbc-type="DECIMAL" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion"/>
-        <field-descriptor name="lastUpdateDate" column="LAST_UPD_DT" jdbc-type="DATE"/>
+        <field-descriptor name="lastUpdateDate" column="LAST_UPDT_TS" jdbc-type="DATE"/>
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" locking="true" column="VER_NBR" jdbc-type="BIGINT"/>
@@ -1216,7 +1216,7 @@
         <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" locking="true" column="VER_NBR" jdbc-type="BIGINT"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -1226,7 +1226,7 @@
         <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" locking="true" column="VER_NBR" jdbc-type="BIGINT"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -1236,7 +1236,7 @@
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -1354,7 +1354,7 @@
         <field-descriptor name="manualCreated" column="MANUAL_CRTD" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
         <field-descriptor name="active" column="ACTV_CD" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
 
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <collection-descriptor name="tripAccountingInformation" element-class-ref="org.kuali.kfs.module.tem.businessobject.TripAccountingInformation" collection-class="org.apache.ojb.broker.util.collections.RemovalAwareList" auto-retrieve="true" auto-update="object" auto-delete="true">
             <inverse-foreignkey field-ref="agencyStagingDataId"/>
@@ -1411,7 +1411,7 @@
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" locking="true" column="VER_NBR" jdbc-type="BIGINT"/>
 
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <reference-descriptor name="travelCardType" class-ref="org.kuali.kfs.module.tem.businessobject.TravelCardType" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
             <foreignkey field-ref="travelCardTypeCode"/>
@@ -1654,7 +1654,7 @@
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" locking="true" column="VER_NBR" jdbc-type="BIGINT"/>
 
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <reference-descriptor name="chart" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
             <foreignkey field-ref="creditChartCode"/>
@@ -1720,7 +1720,7 @@
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="versionNumber" locking="true" column="VER_NBR" jdbc-type="BIGINT"/>
 
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <collection-descriptor name="expenses" proxy="true" element-class-ref="org.kuali.kfs.module.tem.businessobject.CreditCardImportedExpenseClearingDetail" collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" auto-retrieve="true" auto-update="object" auto-delete="object">
             <inverse-foreignkey field-ref="documentNumber"/>

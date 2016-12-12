@@ -24,7 +24,7 @@
         <field-descriptor name="fullName" column="CG_AGENCY_FULL_NM" jdbc-type="VARCHAR"/>
         <field-descriptor name="indirectAmount" column="CG_AGNCY_INDR_AMT" jdbc-type="DECIMAL"
                           conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <field-descriptor name="active" column="CG_AGENCY_HIST_IND" jdbc-type="VARCHAR"
                           conversion="org.kuali.kfs.sys.dataaccess.OjbCharBooleanFieldInverseConversion"/>
@@ -63,7 +63,7 @@
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
         <field-descriptor name="name" column="CG_AGENCY_TYP_DESC" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -108,7 +108,7 @@
         <field-descriptor name="subcontractorZipCode" column="CG_SUBCNR_ZIP_CD" jdbc-type="VARCHAR"/>
         <field-descriptor name="subcontractorCountryCode" column="CGSUBCNR_CNTRY_CD" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -134,7 +134,7 @@
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
         <field-descriptor name="letterOfCreditFundGroupDescription" column="LTRCR_FNDGRP_DESC" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -146,7 +146,7 @@
         <field-descriptor name="letterOfCreditFundGroupCode" column="CG_LTRCR_FNDGRP_CD" jdbc-type="VARCHAR"/>
         <field-descriptor name="letterOfCreditFundAmount" column="CG_LTRCR_AMT" jdbc-type="DECIMAL"
                           conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <field-descriptor name="letterOfCreditFundStartDate" column="CG_LTRCR_START_DT" jdbc-type="DATE"/>
         <field-descriptor name="letterOfCreditFundExpirationDate" column="CG_LTRCR_EXPIRATION_DT" jdbc-type="DATE"/>
@@ -163,7 +163,7 @@
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
         <field-descriptor name="grantDescription" column="CG_GRANT_DESC" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="CG_GRNT_DESC_ACTV_CD" jdbc-type="VARCHAR" conversion="org.kuali.kfs.sys.dataaccess.OjbCharBooleanFieldAIConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -174,7 +174,7 @@
         <field-descriptor name="cfdaProgramTitleName" column="CG_CFDA_PGM_TTL_NM" jdbc-type="VARCHAR"/>
         <field-descriptor name="cfdaMaintenanceTypeId" column="CG_CFDA_MAINT_TYP_ID" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -186,7 +186,7 @@
         <field-descriptor name="proposalEndingDate" column="CGPRPSL_END_DT" jdbc-type="DATE"/>
         <field-descriptor name="proposalTotalAmount" column="CGPRPSL_TOT_AMT" jdbc-type="DECIMAL"
                           conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <field-descriptor name="proposalDirectCostAmount" column="CGPRPSL_DRCTCS_AMT" jdbc-type="DECIMAL"
                           conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion"/>
@@ -270,7 +270,7 @@
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
         <field-descriptor name="proposalAwardTypeDescription" column="PRPSL_AWD_TYP_DESC" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -280,7 +280,7 @@
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
         <field-descriptor name="proposalPurposeDescription" column="PRPSL_PURPOSE_DESC" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -290,7 +290,7 @@
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
         <field-descriptor name="proposalStatusDescription" column="CGPRPSL_STAT_DESC" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -367,7 +367,7 @@
         <field-descriptor name="awardAddendumNumber" column="CGAWD_ADDENDUM_NBR" jdbc-type="VARCHAR"/>
         <field-descriptor name="awardAllocatedUniversityComputingServicesAmount" column="CGAWD_ALOC_UCS_AMT" jdbc-type="DECIMAL"
                           conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <field-descriptor name="federalPassThroughFundedAmount" column="CG_FEDPT_FND_AMT" jdbc-type="DECIMAL"
                           conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion"/>
@@ -487,7 +487,7 @@
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
         <field-descriptor name="awardStatusDescription" column="CGAWD_STAT_DESC" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -589,7 +589,7 @@
         <field-descriptor name="researchRiskTypeDescription" column="RSRCH_RSK_TYP_DESC" jdbc-type="VARCHAR"/>
         <field-descriptor name="researchRiskTypeSortNumber" column="RSRCH_RSK_TYP_SORT_NBR" jdbc-type="INTEGER"/>
         <field-descriptor name="researchRiskTypeNotificationValue" column="RSRCH_RSK_TYP_NTFCTN_VAL" jdbc-type="VARCHAR"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 
@@ -599,7 +599,7 @@
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
         <field-descriptor name="instrumentTypeDescription" column="INSTRMNT_TYP_DESC" jdbc-type="VARCHAR"/>
         <field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="modifyDate" column="MODIFY_DT" jdbc-type="TIMESTAMP" index="true"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
     </class-descriptor>
 

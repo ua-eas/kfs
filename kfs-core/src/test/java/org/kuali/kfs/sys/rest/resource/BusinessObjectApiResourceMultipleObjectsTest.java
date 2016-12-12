@@ -106,14 +106,15 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         Map<String, String> queryCriteria = new HashMap<>();
         queryCriteria.put("bankCode", "FW");
 
+        Long lastUpdatedTimestamp = 1246479286000L;
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("bankCode", "FW");
         params.add("limit", "1");
         params.add("skip", "1");
-        params.add("modifiedBefore", "2009-07-01T00:00:00Z");
-        params.add("modifiedAfter", "2009-07-01T00:00:00Z");
+        params.add("modifiedBefore", String.valueOf(lastUpdatedTimestamp));
+        params.add("modifiedAfter", String.valueOf(lastUpdatedTimestamp));
 
-        Instant modifiedBefore = Instant.from(DateTimeFormatter.ISO_INSTANT.parse("2009-07-01T00:00:00Z"));
+        Instant modifiedBefore = Instant.ofEpochMilli(lastUpdatedTimestamp);
         Instant modifiedAfter = modifiedBefore;
 
         commonMultipleBankBusinessObjectTestPrep(BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, modifiedBefore, modifiedAfter, new String[] { "bankCode" }, params);
@@ -142,9 +143,9 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         Assert.assertTrue("results should specify skip", results.containsKey("skip"));
         Assert.assertEquals(1, results.get("skip"));
         Assert.assertTrue("results should specify modifiedBefore", results.containsKey("modifiedBefore"));
-        Assert.assertEquals("2009-07-01T00:00:00Z", results.get("modifiedBefore"));
+        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("modifiedBefore"));
         Assert.assertTrue("results should specify modifiedAfter", results.containsKey("modifiedAfter"));
-        Assert.assertEquals("2009-07-01T00:00:00Z", results.get("modifiedAfter"));
+        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("modifiedAfter"));
         Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
         Assert.assertEquals(1, results.get("totalCount"));
         Assert.assertTrue("results should specify query", results.containsKey("query"));
@@ -165,14 +166,15 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         Map<String, String> queryCriteria = new HashMap<>();
         queryCriteria.put("bankCode", "FW");
 
+        Long lastUpdatedTimestamp = 1246479286000L;
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("bankCode", "FW");
         params.add("limit", "3");
         params.add("skip", "2");
-        params.add("modifiedBefore", "2009-07-01T00:00:00Z");
-        params.add("modifiedAfter", "2009-07-01T00:00:00Z");
+        params.add("modifiedBefore", String.valueOf(lastUpdatedTimestamp));
+        params.add("modifiedAfter", String.valueOf(lastUpdatedTimestamp));
 
-        Instant modifiedBefore = Instant.from(DateTimeFormatter.ISO_INSTANT.parse("2009-07-01T00:00:00Z"));
+        Instant modifiedBefore = Instant.ofEpochMilli(lastUpdatedTimestamp);
         Instant modifiedAfter = modifiedBefore;
 
         commonMultipleBankBusinessObjectTestPrep(null, queryCriteria, 2, 3, modifiedBefore, modifiedAfter, new String[] { "bankCode" }, params);
@@ -202,9 +204,9 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         Assert.assertTrue("results should specify skip", results.containsKey("skip"));
         Assert.assertEquals(2, results.get("skip"));
         Assert.assertTrue("results should specify modifiedBefore", results.containsKey("modifiedBefore"));
-        Assert.assertEquals("2009-07-01T00:00:00Z", results.get("modifiedBefore"));
+        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("modifiedBefore"));
         Assert.assertTrue("results should specify modifiedAfter", results.containsKey("modifiedAfter"));
-        Assert.assertEquals("2009-07-01T00:00:00Z", results.get("modifiedAfter"));
+        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("modifiedAfter"));
         Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
         Assert.assertEquals(0, results.get("totalCount"));
         Assert.assertTrue("results should specify query", results.containsKey("query"));
@@ -225,12 +227,13 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         Map<String, String> queryCriteria = new HashMap<>();
         queryCriteria.put("bankCode", "FW");
 
+        Long lastUpdatedTimestamp = 1246479286000L;
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("bankCode", "FW");
-        params.add("modifiedBefore", "2009-07-01T00:00:00Z");
-        params.add("modifiedAfter", "2009-07-01T00:00:00Z");
+        params.add("modifiedBefore", String.valueOf(lastUpdatedTimestamp));
+        params.add("modifiedAfter", String.valueOf(lastUpdatedTimestamp));
 
-        Instant modifiedBefore = Instant.from(DateTimeFormatter.ISO_INSTANT.parse("2009-07-01T00:00:00Z"));
+        Instant modifiedBefore = Instant.ofEpochMilli(lastUpdatedTimestamp);
         Instant modifiedAfter = modifiedBefore;
 
         commonMultipleBankBusinessObjectTestPrep(null, queryCriteria, 0, 200, modifiedBefore, modifiedAfter, new String[] { "bankCode" }, params);
@@ -263,9 +266,9 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         Assert.assertTrue("results should specify skip", results.containsKey("skip"));
         Assert.assertEquals(0, results.get("skip"));
         Assert.assertTrue("results should specify modifiedBefore", results.containsKey("modifiedBefore"));
-        Assert.assertEquals("2009-07-01T00:00:00Z", results.get("modifiedBefore"));
+        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("modifiedBefore"));
         Assert.assertTrue("results should specify modifiedAfter", results.containsKey("modifiedAfter"));
-        Assert.assertEquals("2009-07-01T00:00:00Z", results.get("modifiedAfter"));
+        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("modifiedAfter"));
         Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
         Assert.assertEquals(0, results.get("totalCount"));
         Assert.assertTrue("results should specify query", results.containsKey("query"));
@@ -287,14 +290,15 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         Map<String, String> queryCriteria = new HashMap<>();
         queryCriteria.put("bankCode", "FW");
 
+        Long lastUpdatedTimestamp = 1246479286000L;
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("bankCode", "FW");
         params.add("limit", "1");
         params.add("skip", "1");
-        params.add("modifiedBefore", "2009-07-01T00:00:00Z");
-        params.add("modifiedAfter", "2009-07-01T00:00:00Z");
+        params.add("modifiedBefore", String.valueOf(lastUpdatedTimestamp));
+        params.add("modifiedAfter", String.valueOf(lastUpdatedTimestamp));
 
-        Instant modifiedBefore = Instant.from(DateTimeFormatter.ISO_INSTANT.parse("2009-07-01T00:00:00Z"));
+        Instant modifiedBefore = Instant.ofEpochMilli(lastUpdatedTimestamp);
         Instant modifiedAfter = modifiedBefore;
 
         commonMultipleBankBusinessObjectTestPrep(BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, modifiedBefore, modifiedAfter, new String[]{"bankCode"}, params);
@@ -326,9 +330,9 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         Assert.assertTrue("results should specify skip", results.containsKey("skip"));
         Assert.assertEquals(1, results.get("skip"));
         Assert.assertTrue("results should specify modifiedBefore", results.containsKey("modifiedBefore"));
-        Assert.assertEquals("2009-07-01T00:00:00Z", results.get("modifiedBefore"));
+        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("modifiedBefore"));
         Assert.assertTrue("results should specify modifiedAfter", results.containsKey("modifiedAfter"));
-        Assert.assertEquals("2009-07-01T00:00:00Z", results.get("modifiedAfter"));
+        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("modifiedAfter"));
         Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
         Assert.assertEquals(1, results.get("totalCount"));
         Assert.assertTrue("results should specify query", results.containsKey("query"));

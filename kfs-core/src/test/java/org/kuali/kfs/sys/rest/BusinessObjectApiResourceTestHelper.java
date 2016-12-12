@@ -165,7 +165,7 @@ public class BusinessObjectApiResourceTestHelper {
         bank.setBankRoutingNumber("7777444477774444");
         bank.setBankAccountNumber("3333666644447777");
         bank.setObjectId("BK12345");
-        bank.setModifyDate(Timestamp.from(Instant.from(DateTimeFormatter.ISO_INSTANT.parse("2009-07-01T00:00:00Z"))));
+        bank.setLastUpdatedTimestamp(Timestamp.from(Instant.from(DateTimeFormatter.ISO_INSTANT.parse("2009-07-01T00:00:00Z"))));
 
         Chart cashOffsetFinancialChartOfAccount = new Chart();
         cashOffsetFinancialChartOfAccount.setObjectId("BNKCHART5554455");
@@ -182,7 +182,7 @@ public class BusinessObjectApiResourceTestHelper {
         bankMap.put(KFSPropertyConstants.BANK_ROUTING_NUMBER, bank.getBankRoutingNumber());
         bankMap.put(KFSPropertyConstants.BANK_ACCOUNT_NUMBER, bank.getBankAccountNumber());
         bankMap.put(KFSPropertyConstants.OBJECT_ID, bank.getObjectId());
-        bankMap.put(KFSPropertyConstants.MODIFY_DATE, bank.getModifyDate());
+        bankMap.put(KFSPropertyConstants.LAST_UPDATED_TIMESTAMP, bank.getLastUpdatedTimestamp());
 
         Map<String, Object> chartMap = new HashMap<>();
         chartMap.put(KFSPropertyConstants.LINK, "https://kuali.co/fin/coa/api/v1/reference/coat/"+bank.getCashOffsetFinancialChartOfAccount().getObjectId());

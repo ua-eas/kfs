@@ -152,18 +152,72 @@
         </createIndex>
     </changeSet>
 
-     <changeSet author="KFS701" id="FINP-953" context="bootstrap,demo,unit">
-         <insert tableName="KRCR_PARM_T">
-             <column name="NMSPC_CD"><![CDATA[KFS-LD]]></column>
-             <column name="CMPNT_CD"><![CDATA[Document]]></column>
-             <column name="PARM_NM"><![CDATA[COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_IND]]></column>
-             <column name="OBJ_ID"><![CDATA[FINP-953]]></column>
-             <column name="VER_NBR"><![CDATA[1]]></column>
-             <column name="VAL"><![CDATA[N]]></column>
-             <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
-             <column name="PARM_DESC_TXT"><![CDATA[Determines whether sub object code is copied to benefit lines on salary expense transfer documents.]]></column>
-             <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
-             <column name="APPL_ID"><![CDATA[KFS]]></column>
-         </insert>
-     </changeSet>
+    <!-- "org.kuali.kfs.module.ld.businessobject.PositionObjectBenefit" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_LD_LBR_OBJ_BENE_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="LD_LBR_OBJ_BENE_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="LD_LBR_OBJ_BENE_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ld.businessobject.BenefitsType" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_LD_BENEFITS_TYPE_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="LD_BENEFITS_TYPE_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="LD_BENEFITS_TYPE_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ld.businessobject.BenefitsCalculation" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_LD_BENEFITS_CALC_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="LD_BENEFITS_CALC_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="LD_BENEFITS_CALC_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ld.businessobject.LaborBenefitRateCategory" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_LD_LBR_BFT_RT_CAT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="LD_LBR_BFT_RT_CAT_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="LD_LBR_BFT_RT_CAT_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ld.businessobject.LaborObject" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_LD_LABOR_OBJ_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="LD_LABOR_OBJ_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="LD_LABOR_OBJ_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <!-- "org.kuali.kfs.module.ld.businessobject.PositionObjectGroup" -->
+    <changeSet author="KFS601" id="FINP-955_RENAME_LAST_MODIFIED_TO_LAST_UPDT_TS_LD_POS_OBJ_GRP_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <columnExists columnName="MODIFY_DT" tableName="LD_POS_OBJ_GRP_T"/>
+        </preConditions>
+        <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="LD_POS_OBJ_GRP_T"/>
+        <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
+    </changeSet>
+
+    <changeSet author="KFS701" id="FINP-953" context="bootstrap,demo,unit">
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD"><![CDATA[KFS-LD]]></column>
+            <column name="CMPNT_CD"><![CDATA[Document]]></column>
+            <column name="PARM_NM"><![CDATA[COPY_SUB_OBJECT_TO_BENEFIT_ENTRIES_IND]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-953]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="VAL"><![CDATA[N]]></column>
+            <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+            <column name="PARM_DESC_TXT"><![CDATA[Determines whether sub object code is copied to benefit lines on salary expense transfer documents.]]></column>
+            <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+            <column name="APPL_ID"><![CDATA[KFS]]></column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

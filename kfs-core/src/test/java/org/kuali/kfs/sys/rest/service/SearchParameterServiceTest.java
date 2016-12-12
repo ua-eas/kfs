@@ -382,17 +382,18 @@ public class SearchParameterServiceTest {
             Map<String, Object> error = (Map<String, Object>)response.getEntity();
             Assert.assertEquals("Invalid Search Criteria", error.get("message"));
             Assert.assertEquals(1, ((List<ErrorMessage>)error.get("details")).size());
-            Assert.assertEquals("parameter is not a valid ISO8601 date", ((List<ErrorMessage>)error.get("details")).get(0).getMessage());
+            Assert.assertEquals("parameter is not a valid Unix time value", ((List<ErrorMessage>)error.get("details")).get(0).getMessage());
             Assert.assertEquals("beforeDate", ((List<ErrorMessage>)error.get("details")).get(0).getProperty());
         }
     }
 
     @Test
     public void testGetDateQueryParameter() {
-        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
-        params.add("beforeDate", "2016-10-05T21:36:21.261Z");
-
-        Instant beforeDate = searchParameterService.getDateQueryParameter("beforeDate", params);
-        Assert.assertEquals(1475703381, beforeDate.getEpochSecond());
+        for (Long input : Arrays.asList(1458694800L, 1458721800L, 1458720000L, 1458721800L, 1458721815L, 1397866200L, 1155182400L, 1331337600L )) {
+            MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+            params.add("beforeDate", String.valueOf(input * 1000L));
+            Instant beforeDate = searchParameterService.getDateQueryParameter("beforeDate", params);
+            Assert.assertEquals(input, (Long)beforeDate.getEpochSecond());
+        }
     }
 }
