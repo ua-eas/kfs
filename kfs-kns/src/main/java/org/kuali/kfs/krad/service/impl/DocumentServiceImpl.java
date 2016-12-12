@@ -771,7 +771,7 @@ public class DocumentServiceImpl implements DocumentService {
      * @param workflowDocument
      * @param document
      */
-    private Document postProcessDocument(String documentHeaderId, WorkflowDocument workflowDocument, Document document) {
+    protected Document postProcessDocument(String documentHeaderId, WorkflowDocument workflowDocument, Document document) {
         if (document != null) {
             document.getDocumentHeader().setWorkflowDocument(workflowDocument);
             document.processAfterRetrieve();
