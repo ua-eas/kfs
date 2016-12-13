@@ -361,7 +361,7 @@ public class MyOrdersServiceImplTest {
 
         @Override
         public <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit,
-                                                                     Instant modifiedBefore, Instant modifiedAfter, String[] orderBy) {
+                                                                     Instant updatedBefore, Instant updatedAfter, String[] orderBy) {
             if (RequisitionDocument.class.isAssignableFrom(clazz)) {
                 List<RequisitionDocument> reqs = new ArrayList<>();
                 reqs.add(requisitionRetriever.getRequisitionDocument((String) fieldValues.get(KFSPropertyConstants.DOCUMENT_NUMBER)));
@@ -376,7 +376,7 @@ public class MyOrdersServiceImplTest {
         }
 
         @Override
-        public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant modifiedBefore, Instant modifiedAfter) { return 0; }
+        public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant updatedBefore, Instant updatedAfter) { return 0; }
 
         @Override
         public int countMatching(Class clazz, Map<String, ?> positiveFieldValues, Map<String, ?> negativeFieldValues) { return 0; }

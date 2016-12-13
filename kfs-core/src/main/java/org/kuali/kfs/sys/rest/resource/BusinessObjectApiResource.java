@@ -170,8 +170,8 @@ public class BusinessObjectApiResource {
 
         int skip = getSearchParameterService().getIntQueryParameter(KFSConstants.Search.SKIP, params);
         int limit = getSearchParameterService().getLimit(boClass, params);
-        Instant modifiedBefore = getSearchParameterService().getDateQueryParameter(KFSConstants.Search.MODIFIED_BEFORE, params);
-        Instant modifiedAfter = getSearchParameterService().getDateQueryParameter(KFSConstants.Search.MODIFIED_AFTER, params);
+        Instant updatedBefore = getSearchParameterService().getDateQueryParameter(KFSConstants.Search.UPDATED_BEFORE, params);
+        Instant updatedAfter = getSearchParameterService().getDateQueryParameter(KFSConstants.Search.UPDATED_AFTER, params);
 
         String[] orderBy = getSearchParameterService().getSortCriteria(boClass, params, validFields);
 
@@ -180,11 +180,11 @@ public class BusinessObjectApiResource {
         results.put(KFSConstants.Search.SKIP, skip);
         results.put(KFSConstants.Search.LIMIT, limit);
         results.put(KFSConstants.Search.QUERY, queryCriteria);
-        results.put(KFSConstants.Search.MODIFIED_BEFORE, params.getFirst(KFSConstants.Search.MODIFIED_BEFORE));
-        results.put(KFSConstants.Search.MODIFIED_AFTER, params.getFirst(KFSConstants.Search.MODIFIED_AFTER));
-        results.put(KFSConstants.Search.TOTAL_COUNT, getBusinessObjectService().countMatching(boClass, queryCriteria, modifiedBefore, modifiedAfter));
+        results.put(KFSConstants.Search.UPDATED_BEFORE, params.getFirst(KFSConstants.Search.UPDATED_BEFORE));
+        results.put(KFSConstants.Search.UPDATED_AFTER, params.getFirst(KFSConstants.Search.UPDATED_AFTER));
+        results.put(KFSConstants.Search.TOTAL_COUNT, getBusinessObjectService().countMatching(boClass, queryCriteria, updatedBefore, updatedAfter));
 
-        Collection<T> queryResults = getBusinessObjectService().findMatching(boClass, queryCriteria, skip, limit, modifiedBefore, modifiedAfter, orderBy);
+        Collection<T> queryResults = getBusinessObjectService().findMatching(boClass, queryCriteria, skip, limit, updatedBefore, updatedAfter, orderBy);
         if (queryResults.size() < 1) {
             results.put(KFSConstants.Search.RESULTS, new ArrayList<>());
             return results;

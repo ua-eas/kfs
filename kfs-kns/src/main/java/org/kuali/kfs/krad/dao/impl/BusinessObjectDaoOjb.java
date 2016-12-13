@@ -133,15 +133,15 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
      * @see BusinessObjectDao#findMatching(java.lang.Class, java.util.Map, int, int, Instant, Instant, String[])
      */
     public <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit,
-                                                                 Instant modifiedBefore, Instant modifiedAfter, String[] orderBy) {
+                                                                 Instant updatedBefore, Instant updatedAfter, String[] orderBy) {
         Criteria criteria = buildCriteria(fieldValues);
 
-        if (modifiedBefore != null) {
-            criteria.addLessOrEqualThan("lastUpdatedTimestamp", Timestamp.from(modifiedBefore));
+        if (updatedBefore != null) {
+            criteria.addLessOrEqualThan("lastUpdatedTimestamp", Timestamp.from(updatedBefore));
         }
 
-        if (modifiedAfter != null) {
-            criteria.addGreaterOrEqualThan("lastUpdatedTimestamp", Timestamp.from(modifiedAfter));
+        if (updatedAfter != null) {
+            criteria.addGreaterOrEqualThan("lastUpdatedTimestamp", Timestamp.from(updatedAfter));
         }
 
         QueryByCriteria query = QueryFactory.newQuery(clazz, criteria);
@@ -212,15 +212,15 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
      *
      * @see BusinessObjectDao#countMatching(java.lang.Class, java.util.Map, java.time.Instant, java.time.Instant)
      */
-    public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant modifiedBefore, Instant modifiedAfter) {
+    public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant updatedBefore, Instant updatedAfter) {
         Criteria criteria = buildCriteria(fieldValues);
 
-        if (modifiedBefore != null) {
-            criteria.addLessOrEqualThan("lastUpdatedTimestamp", Timestamp.from(modifiedBefore));
+        if (updatedBefore != null) {
+            criteria.addLessOrEqualThan("lastUpdatedTimestamp", Timestamp.from(updatedBefore));
         }
 
-        if (modifiedAfter != null) {
-            criteria.addGreaterOrEqualThan("lastUpdatedTimestamp", Timestamp.from(modifiedAfter));
+        if (updatedAfter != null) {
+            criteria.addGreaterOrEqualThan("lastUpdatedTimestamp", Timestamp.from(updatedAfter));
         }
 
 

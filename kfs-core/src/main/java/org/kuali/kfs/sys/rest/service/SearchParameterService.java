@@ -29,17 +29,12 @@ import org.kuali.kfs.sys.rest.exception.ApiRequestException;
 
 import javax.ws.rs.core.MultivaluedMap;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoField;
-import java.time.temporal.TemporalAccessor;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class SearchParameterService {
@@ -131,7 +126,7 @@ public class SearchParameterService {
         LOG.debug("getSearchQueryCriteria() started");
 
         List<String> reservedParams = Arrays.asList(KFSConstants.Search.SORT, KFSConstants.Search.LIMIT, KFSConstants.Search.SKIP,
-            KFSConstants.Search.MODIFIED_AFTER.toLowerCase(), KFSConstants.Search.MODIFIED_BEFORE.toLowerCase());
+            KFSConstants.Search.UPDATED_AFTER.toLowerCase(), KFSConstants.Search.UPDATED_BEFORE.toLowerCase());
         List<ErrorMessage> errorMessages = new ArrayList<>();
         Map<String, String> validParams = params.entrySet().stream()
             .filter(entry -> !reservedParams.contains(entry.getKey().toLowerCase()))

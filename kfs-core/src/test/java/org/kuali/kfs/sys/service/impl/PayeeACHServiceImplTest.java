@@ -145,7 +145,7 @@ public class PayeeACHServiceImplTest {
 
         @Override
         public <T extends BusinessObject> Collection<T> findMatching(
-            Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit, Instant modifiedBefore, Instant modifiedAfter, String[] orderBy) {
+                Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit, Instant updatedBefore, Instant updatedAfter, String[] orderBy) {
 
             if (fieldValues.get(PdpPropertyConstants.PAYEE_ID_NUMBER) == null)
                 return null;
@@ -166,7 +166,7 @@ public class PayeeACHServiceImplTest {
         }
 
         @Override
-        public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant modifiedBefore, Instant modifiedAfter) {
+        public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant updatedBefore, Instant updatedAfter) {
             // TODO Auto-generated method stub
             return 0;
         }

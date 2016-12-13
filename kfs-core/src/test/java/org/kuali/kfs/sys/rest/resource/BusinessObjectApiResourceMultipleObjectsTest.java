@@ -57,7 +57,6 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.time.Instant;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -111,13 +110,13 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         params.add("bankCode", "FW");
         params.add("limit", "1");
         params.add("skip", "1");
-        params.add("modifiedBefore", String.valueOf(lastUpdatedTimestamp));
-        params.add("modifiedAfter", String.valueOf(lastUpdatedTimestamp));
+        params.add("updatedBefore", String.valueOf(lastUpdatedTimestamp));
+        params.add("updatedAfter", String.valueOf(lastUpdatedTimestamp));
 
-        Instant modifiedBefore = Instant.ofEpochMilli(lastUpdatedTimestamp);
-        Instant modifiedAfter = modifiedBefore;
+        Instant updatedBefore = Instant.ofEpochMilli(lastUpdatedTimestamp);
+        Instant updatedAfter = updatedBefore;
 
-        commonMultipleBankBusinessObjectTestPrep(BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, modifiedBefore, modifiedAfter, new String[] { "bankCode" }, params);
+        commonMultipleBankBusinessObjectTestPrep(BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, updatedBefore, updatedAfter, new String[] { "bankCode" }, params);
 
         UriInfo uriInfo = EasyMock.createMock(UriInfo.class);
         EasyMock.expect(uriInfo.getQueryParameters()).andReturn(params);
@@ -142,10 +141,10 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         Assert.assertEquals(1, results.get("limit"));
         Assert.assertTrue("results should specify skip", results.containsKey("skip"));
         Assert.assertEquals(1, results.get("skip"));
-        Assert.assertTrue("results should specify modifiedBefore", results.containsKey("modifiedBefore"));
-        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("modifiedBefore"));
-        Assert.assertTrue("results should specify modifiedAfter", results.containsKey("modifiedAfter"));
-        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("modifiedAfter"));
+        Assert.assertTrue("results should specify updatedBefore", results.containsKey("updatedBefore"));
+        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("updatedBefore"));
+        Assert.assertTrue("results should specify updatedAfter", results.containsKey("updatedAfter"));
+        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("updatedAfter"));
         Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
         Assert.assertEquals(1, results.get("totalCount"));
         Assert.assertTrue("results should specify query", results.containsKey("query"));
@@ -171,13 +170,13 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         params.add("bankCode", "FW");
         params.add("limit", "3");
         params.add("skip", "2");
-        params.add("modifiedBefore", String.valueOf(lastUpdatedTimestamp));
-        params.add("modifiedAfter", String.valueOf(lastUpdatedTimestamp));
+        params.add("updatedBefore", String.valueOf(lastUpdatedTimestamp));
+        params.add("updatedAfter", String.valueOf(lastUpdatedTimestamp));
 
-        Instant modifiedBefore = Instant.ofEpochMilli(lastUpdatedTimestamp);
-        Instant modifiedAfter = modifiedBefore;
+        Instant updatedBefore = Instant.ofEpochMilli(lastUpdatedTimestamp);
+        Instant updatedAfter = updatedBefore;
 
-        commonMultipleBankBusinessObjectTestPrep(null, queryCriteria, 2, 3, modifiedBefore, modifiedAfter, new String[] { "bankCode" }, params);
+        commonMultipleBankBusinessObjectTestPrep(null, queryCriteria, 2, 3, updatedBefore, updatedAfter, new String[] { "bankCode" }, params);
 
         UriInfo uriInfo = EasyMock.createMock(UriInfo.class);
         EasyMock.expect(uriInfo.getQueryParameters()).andReturn(params);
@@ -203,10 +202,10 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         Assert.assertEquals(3, results.get("limit"));
         Assert.assertTrue("results should specify skip", results.containsKey("skip"));
         Assert.assertEquals(2, results.get("skip"));
-        Assert.assertTrue("results should specify modifiedBefore", results.containsKey("modifiedBefore"));
-        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("modifiedBefore"));
-        Assert.assertTrue("results should specify modifiedAfter", results.containsKey("modifiedAfter"));
-        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("modifiedAfter"));
+        Assert.assertTrue("results should specify updatedBefore", results.containsKey("updatedBefore"));
+        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("updatedBefore"));
+        Assert.assertTrue("results should specify updatedAfter", results.containsKey("updatedAfter"));
+        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("updatedAfter"));
         Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
         Assert.assertEquals(0, results.get("totalCount"));
         Assert.assertTrue("results should specify query", results.containsKey("query"));
@@ -230,13 +229,13 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         Long lastUpdatedTimestamp = 1246479286000L;
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("bankCode", "FW");
-        params.add("modifiedBefore", String.valueOf(lastUpdatedTimestamp));
-        params.add("modifiedAfter", String.valueOf(lastUpdatedTimestamp));
+        params.add("updatedBefore", String.valueOf(lastUpdatedTimestamp));
+        params.add("updatedAfter", String.valueOf(lastUpdatedTimestamp));
 
-        Instant modifiedBefore = Instant.ofEpochMilli(lastUpdatedTimestamp);
-        Instant modifiedAfter = modifiedBefore;
+        Instant updatedBefore = Instant.ofEpochMilli(lastUpdatedTimestamp);
+        Instant updatedAfter = updatedBefore;
 
-        commonMultipleBankBusinessObjectTestPrep(null, queryCriteria, 0, 200, modifiedBefore, modifiedAfter, new String[] { "bankCode" }, params);
+        commonMultipleBankBusinessObjectTestPrep(null, queryCriteria, 0, 200, updatedBefore, updatedAfter, new String[] { "bankCode" }, params);
 
         UriInfo uriInfo = EasyMock.createMock(UriInfo.class);
         EasyMock.expect(uriInfo.getQueryParameters()).andReturn(params);
@@ -265,10 +264,10 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         Assert.assertEquals(200, results.get("limit"));
         Assert.assertTrue("results should specify skip", results.containsKey("skip"));
         Assert.assertEquals(0, results.get("skip"));
-        Assert.assertTrue("results should specify modifiedBefore", results.containsKey("modifiedBefore"));
-        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("modifiedBefore"));
-        Assert.assertTrue("results should specify modifiedAfter", results.containsKey("modifiedAfter"));
-        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("modifiedAfter"));
+        Assert.assertTrue("results should specify updatedBefore", results.containsKey("updatedBefore"));
+        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("updatedBefore"));
+        Assert.assertTrue("results should specify updatedAfter", results.containsKey("updatedAfter"));
+        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("updatedAfter"));
         Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
         Assert.assertEquals(0, results.get("totalCount"));
         Assert.assertTrue("results should specify query", results.containsKey("query"));
@@ -295,13 +294,13 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         params.add("bankCode", "FW");
         params.add("limit", "1");
         params.add("skip", "1");
-        params.add("modifiedBefore", String.valueOf(lastUpdatedTimestamp));
-        params.add("modifiedAfter", String.valueOf(lastUpdatedTimestamp));
+        params.add("updatedBefore", String.valueOf(lastUpdatedTimestamp));
+        params.add("updatedAfter", String.valueOf(lastUpdatedTimestamp));
 
-        Instant modifiedBefore = Instant.ofEpochMilli(lastUpdatedTimestamp);
-        Instant modifiedAfter = modifiedBefore;
+        Instant updatedBefore = Instant.ofEpochMilli(lastUpdatedTimestamp);
+        Instant updatedAfter = updatedBefore;
 
-        commonMultipleBankBusinessObjectTestPrep(BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, modifiedBefore, modifiedAfter, new String[]{"bankCode"}, params);
+        commonMultipleBankBusinessObjectTestPrep(BusinessObjectApiResourceTestHelper.getBank(), queryCriteria, 1, 1, updatedBefore, updatedAfter, new String[]{"bankCode"}, params);
 
         UriInfo uriInfo = EasyMock.createMock(UriInfo.class);
         EasyMock.expect(uriInfo.getQueryParameters()).andReturn(params);
@@ -329,10 +328,10 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         Assert.assertEquals(1, results.get("limit"));
         Assert.assertTrue("results should specify skip", results.containsKey("skip"));
         Assert.assertEquals(1, results.get("skip"));
-        Assert.assertTrue("results should specify modifiedBefore", results.containsKey("modifiedBefore"));
-        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("modifiedBefore"));
-        Assert.assertTrue("results should specify modifiedAfter", results.containsKey("modifiedAfter"));
-        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("modifiedAfter"));
+        Assert.assertTrue("results should specify updatedBefore", results.containsKey("updatedBefore"));
+        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("updatedBefore"));
+        Assert.assertTrue("results should specify updatedAfter", results.containsKey("updatedAfter"));
+        Assert.assertEquals(String.valueOf(lastUpdatedTimestamp), results.get("updatedAfter"));
         Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
         Assert.assertEquals(1, results.get("totalCount"));
         Assert.assertTrue("results should specify query", results.containsKey("query"));
@@ -353,7 +352,7 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
 
     @Test
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class, KRADUtils.class})
-    public void testSearchBusinessObjects_NoModifiedFilter() {
+    public void testSearchBusinessObjects_NoUpdatedFilter() {
         Map<String, String> queryCriteria = new HashMap<>();
         queryCriteria.put("bankCode", "FW");
 
@@ -387,10 +386,10 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
         Assert.assertEquals(1, results.get("limit"));
         Assert.assertTrue("results should specify skip", results.containsKey("skip"));
         Assert.assertEquals(1, results.get("skip"));
-        Assert.assertTrue("results should specify modifiedBefore", results.containsKey("modifiedBefore"));
-        Assert.assertNull(results.get("modifiedBefore"));
-        Assert.assertTrue("results should specify modifiedAfter", results.containsKey("modifiedAfter"));
-        Assert.assertNull(results.get("modifiedAfter"));
+        Assert.assertTrue("results should specify updatedBefore", results.containsKey("updatedBefore"));
+        Assert.assertNull(results.get("updatedBefore"));
+        Assert.assertTrue("results should specify updatedAfter", results.containsKey("updatedAfter"));
+        Assert.assertNull(results.get("updatedAfter"));
         Assert.assertTrue("results should specify totalCount", results.containsKey("totalCount"));
         Assert.assertEquals(1, results.get("totalCount"));
         Assert.assertTrue("results should specify query", results.containsKey("query"));
@@ -427,8 +426,8 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
 
         EasyMock.expect(searchParameterService.getSearchQueryCriteria(params, ojbFields)).andReturn(queryCriteria);
         EasyMock.expect(searchParameterService.getIntQueryParameter(KFSConstants.Search.SKIP, params)).andReturn(1);
-        EasyMock.expect(searchParameterService.getDateQueryParameter(KFSConstants.Search.MODIFIED_BEFORE, params)).andReturn(null);
-        EasyMock.expect(searchParameterService.getDateQueryParameter(KFSConstants.Search.MODIFIED_AFTER, params)).andReturn(null);
+        EasyMock.expect(searchParameterService.getDateQueryParameter(KFSConstants.Search.UPDATED_BEFORE, params)).andReturn(null);
+        EasyMock.expect(searchParameterService.getDateQueryParameter(KFSConstants.Search.UPDATED_AFTER, params)).andReturn(null);
         EasyMock.expect(searchParameterService.getLimit(Account.class, params)).andReturn(1);
         List<ErrorMessage> errorMessages = new ArrayList<>();
         errorMessages.add(new ErrorMessage("invalid sort field", "closed"));
@@ -525,7 +524,7 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
     }
 
     private void commonMultipleBankBusinessObjectTestPrep(Bank result, Map<String, String> queryCriteria, int skip, int limit,
-                                                          Instant modifiedBefore, Instant modifiedAfter, String[] sort, MultivaluedMap<String, String> params) {
+                                                          Instant updatedBefore, Instant updatedAfter, String[] sort, MultivaluedMap<String, String> params) {
         String className = Bank.class.getSimpleName();
 
         List<Bank> collection = new ArrayList<>();
@@ -533,9 +532,9 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
             collection.add(result);
         }
 
-        EasyMock.expect(businessObjectService.countMatching(Bank.class, queryCriteria, modifiedBefore, modifiedAfter)).andReturn(collection.size());
+        EasyMock.expect(businessObjectService.countMatching(Bank.class, queryCriteria, updatedBefore, updatedAfter)).andReturn(collection.size());
         EasyMock.expect(businessObjectService.findMatching(EasyMock.eq(Bank.class), EasyMock.eq(queryCriteria), EasyMock.eq(skip),
-                EasyMock.eq(limit), EasyMock.eq(modifiedBefore), EasyMock.eq(modifiedAfter), EasyMock.aryEq(sort))).andReturn(collection);
+                EasyMock.eq(limit), EasyMock.eq(updatedBefore), EasyMock.eq(updatedAfter), EasyMock.aryEq(sort))).andReturn(collection);
 
         EasyMock.expect(businessObjectAuthorizationService.isNonProductionEnvAndUnmaskingTurnedOff()).andReturn(false).anyTimes();
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).anyTimes();
@@ -556,8 +555,8 @@ public class BusinessObjectApiResourceMultipleObjectsTest {
 
         EasyMock.expect(searchParameterService.getSearchQueryCriteria(params, validFields)).andReturn(queryCriteria);
         EasyMock.expect(searchParameterService.getIntQueryParameter(KFSConstants.Search.SKIP, params)).andReturn(skip);
-        EasyMock.expect(searchParameterService.getDateQueryParameter(KFSConstants.Search.MODIFIED_BEFORE, params)).andReturn(modifiedBefore);
-        EasyMock.expect(searchParameterService.getDateQueryParameter(KFSConstants.Search.MODIFIED_AFTER, params)).andReturn(modifiedAfter);
+        EasyMock.expect(searchParameterService.getDateQueryParameter(KFSConstants.Search.UPDATED_BEFORE, params)).andReturn(updatedBefore);
+        EasyMock.expect(searchParameterService.getDateQueryParameter(KFSConstants.Search.UPDATED_AFTER, params)).andReturn(updatedAfter);
         EasyMock.expect(searchParameterService.getLimit(Bank.class, params)).andReturn(limit);
         EasyMock.expect(searchParameterService.getSortCriteria(Bank.class, params, validFields)).andReturn(sort);
 

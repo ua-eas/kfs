@@ -137,12 +137,12 @@ public interface BusinessObjectService {
      * @param fieldValues
      * @param skip sql query offset
      * @param limit sql query limit
-     * @param modifiedBefore filter results to only those with lastUpdatedTimestamp before this Instant (optional)
-     * @param modifiedAfter filter results to only those with lastUpdatedTimestamp after this Instant (optional)
+     * @param updatedBefore filter results to only those with lastUpdatedTimestamp before this Instant (optional)
+     * @param updatedAfter filter results to only those with lastUpdatedTimestamp after this Instant (optional)
      * @return
      */
     <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit,
-                                                          Instant modifiedBefore, Instant modifiedAfter, String[] orderBy);
+                                                          Instant updatedBefore, Instant updatedAfter, String[] orderBy);
 
     /**
      * Finds all entities matching the passed in Rice JPA criteria
@@ -167,11 +167,11 @@ public interface BusinessObjectService {
      *
      * @param clazz
      * @param fieldValues
-     * @param modifiedBefore filter results to only those with lastUpdatedTimestamp before this Instant (optional)
-     * @param modifiedAfter filter results to only those with lastUpdatedTimestamp after this Instant (optional)
+     * @param updatedBefore filter results to only those with lastUpdatedTimestamp before this Instant (optional)
+     * @param updatedAfter filter results to only those with lastUpdatedTimestamp after this Instant (optional)
      * @return number of businessObjects of the given class whose fields match the values in the given expected-value Map
      */
-    public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant modifiedBefore, Instant modifiedAfter);
+    public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant updatedBefore, Instant updatedAfter);
 
     /**
      * This method retrieves a count of the business objects populated with data which match both the positive criteria

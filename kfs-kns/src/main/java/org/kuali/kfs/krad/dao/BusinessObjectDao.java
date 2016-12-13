@@ -143,11 +143,11 @@ public interface BusinessObjectDao {
      * @param fieldValues
      * @param skip sql query offset
      * @param limit sql query limit
-     * @param modifiedBefore filter results to only those with lastUpdatedTimestamp before this Instant (optional)
-     * @param modifiedAfter filter results to only those with lastUpdatedTimestamp after this Instant (optional)
+     * @param updatedBefore filter results to only those with lastUpdatedTimestamp before this Instant (optional)
+     * @param updatedAfter filter results to only those with lastUpdatedTimestamp after this Instant (optional)
      */
     <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit,
-                                                          Instant modifiedBefore, Instant modifiedAfter, String[] orderBy);
+                                                          Instant updatedBefore, Instant updatedAfter, String[] orderBy);
 
     /**
      * Finds all entities matching the passed in Rice JPA criteria
@@ -174,11 +174,11 @@ public interface BusinessObjectDao {
     /**
      * @param clazz
      * @param fieldValues
-     * @param modifiedBefore filter results to only those with lastUpdatedTimestamp before this Instant (optional)
-     * @param modifiedAfter filter results to only those with lastUpdatedTimestamp after this Instant (optional)
+     * @param updatedBefore filter results to only those with lastUpdatedTimestamp before this Instant (optional)
+     * @param updatedAfter filter results to only those with lastUpdatedTimestamp after this Instant (optional)
      * @return count of BusinessObjects of the given class whose fields match the values in the given Map.
      */
-    public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant modifiedBefore, Instant modifiedAfter);
+    public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant updatedBefore, Instant updatedAfter);
 
 
     /**

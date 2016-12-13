@@ -180,8 +180,8 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
 
     @Override
     public <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues, int skip, int limit,
-                                                                 Instant modifiedBefore, Instant modifiedAfter, String[] orderBy) {
-        return businessObjectDao.findMatching(clazz, fieldValues, skip, limit, modifiedBefore, modifiedAfter, orderBy);
+                                                                 Instant updatedBefore, Instant updatedAfter, String[] orderBy) {
+        return businessObjectDao.findMatching(clazz, fieldValues, skip, limit, updatedBefore, updatedAfter, orderBy);
     }
 
     @Override
@@ -190,8 +190,8 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
     }
 
     @Override
-    public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant modifiedBefore, Instant modifiedAfter) {
-        return businessObjectDao.countMatching(clazz, fieldValues, modifiedBefore, modifiedAfter);
+    public int countMatching(Class clazz, Map<String, ?> fieldValues, Instant updatedBefore, Instant updatedAfter) {
+        return businessObjectDao.countMatching(clazz, fieldValues, updatedBefore, updatedAfter);
     }
 
     @Override
