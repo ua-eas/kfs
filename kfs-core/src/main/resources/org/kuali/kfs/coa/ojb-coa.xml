@@ -882,13 +882,6 @@
         </reference-descriptor>
     </class-descriptor>
 
-    <!-- class-descriptor class="org.kuali.kfs.coa.businessobject.RestrictedStatus" table="CA_RESTRICT_STAT_T">
-        <field-descriptor name="accountRestrictedStatusCode" column="ACCT_RSTRC_STAT_CD" jdbc-type="VARCHAR" primarykey="true" index="true"/>
-        <field-descriptor name="accountRestrictedStatusName" column="ACCT_RSTRC_STAT_NM" jdbc-type="VARCHAR"/>
-        <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
-        <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
-        </class-descriptor-->
-
     <class-descriptor class="org.kuali.kfs.coa.businessobject.ResponsibilityCenter" table="CA_RC_T">
         <field-descriptor name="responsibilityCenterCode" column="RC_CD" jdbc-type="VARCHAR" primarykey="true" index="true"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
@@ -979,7 +972,7 @@
         <field-descriptor name="active" column="ACCT_CLOSED_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.coa.util.OjbAccountActiveIndicatorConversion"/>
         <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
-
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
 
         <reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
             <foreignkey field-ref="chartOfAccountsCode"/>
@@ -1190,38 +1183,6 @@
             <foreignkey field-ref="universityFiscalYear"/>
             <foreignkey field-ref="financialIcrSeriesIdentifier"/>
         </reference-descriptor>
-        <!-- Dont't use following reference objects because Chart, Account, Sub-Acct, etc. may contain special characters.  RO 2/8/06
-            <reference-descriptor name="financialObject" class-ref="org.kuali.kfs.coa.businessobject.ObjectCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
-            <foreignkey field-ref="universityFiscalYear" />
-            <foreignkey field-ref="chartOfAccountsCode" />
-            <foreignkey field-ref="financialObjectCode" />
-            </reference-descriptor>
-            <reference-descriptor name="financialSubObject" class-ref="org.kuali.kfs.coa.businessobject.SubObjectCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
-            <foreignkey field-ref="universityFiscalYear" />
-            <foreignkey field-ref="chartOfAccountsCode" />
-            <foreignkey field-ref="accountNumber" />
-            <foreignkey field-ref="financialObjectCode" />
-            <foreignkey field-ref="financialSubObjectCode" />
-            </reference-descriptor>
-            <reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" 	auto-update="none" auto-delete="none" proxy="true">
-            <foreignkey field-ref="chartOfAccountsCode" />
-            </reference-descriptor>
-            <reference-descriptor name="account" class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
-            <foreignkey field-ref="chartOfAccountsCode" />
-            <foreignkey field-ref="accountNumber" />
-            </reference-descriptor>
-            <reference-descriptor name="subAccount" class-ref="org.kuali.kfs.coa.businessobject.SubAccount" auto-retrieve="true" 	auto-update="none" auto-delete="none" proxy="true">
-            <foreignkey field-ref="chartOfAccountsCode" />
-            <foreignkey field-ref="accountNumber" />
-            <foreignkey field-ref="subAccountNumber" />
-            </reference-descriptor>
-            <reference-descriptor name="offsetBalanceSheetObjectCode" class-ref="org.kuali.kfs.coa.businessobject.ObjectCode" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true" >
-            <foreignkey field-ref="universityFiscalYear" />
-            <foreignkey field-ref="chartOfAccountsCode" />
-            <foreignkey field-ref="offsetBalanceSheetObjectCodeNumber" />
-            </reference-descriptor>
-        -->
-
     </class-descriptor>
 
     <class-descriptor class="org.kuali.kfs.coa.businessobject.IndirectCostRecoveryType" table="CA_ICR_TYPE_T">
@@ -1812,6 +1773,8 @@
         <field-descriptor name="organizationCountryCode" column="ORG_CNTRY_CD" jdbc-type="VARCHAR"/>
         <field-descriptor name="organizationLine1Address" column="ORG_LN1_ADDR" jdbc-type="VARCHAR"/>
         <field-descriptor name="organizationLine2Address" column="ORG_LN2_ADDR" jdbc-type="VARCHAR"/>
+        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
+
         <reference-descriptor name="chartOfAccounts" class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
             <foreignkey field-ref="chartOfAccountsCode"/>
         </reference-descriptor>

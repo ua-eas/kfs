@@ -46,9 +46,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/**
- * This class implements the PriorYearAccountService interface.
- */
 @Transactional
 public class PriorYearAccountServiceImpl implements PriorYearAccountService {
     private static final Logger LOG = Logger.getLogger(PriorYearAccountServiceImpl.class);
@@ -61,64 +58,41 @@ public class PriorYearAccountServiceImpl implements PriorYearAccountService {
     protected BusinessObjectService businessObjectService;
     protected ParameterService parameterService;
 
-    /**
-     * @see org.kuali.kfs.coa.service.PriorYearAccountService#getByPrimaryKey(java.lang.String, java.lang.String)
-     */
     @Override
     public PriorYearAccount getByPrimaryKey(String chartCode, String accountNumber) {
-        Map<String, Object> keys = new HashMap<String, Object>();
+        LOG.debug("getByPrimaryKey() started");
+
+        Map<String, Object> keys = new HashMap<>();
         keys.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, chartCode);
         keys.put(KFSPropertyConstants.ACCOUNT_NUMBER, accountNumber);
         return businessObjectService.findByPrimaryKey(PriorYearAccount.class, keys);
     }
 
-    /**
-     * @see org.kuali.kfs.coa.service.PriorYearAccountService#populatePriorYearAccountsFromCurrent()
-     */
     @Override
     public void populatePriorYearAccountsFromCurrent() {
+        LOG.debug("populatePriorYearAccountsFromCurrent() started");
+
         final String priorYrAcctTableName = persistenceStructureService.getTableName(PriorYearAccount.class);
         int purgedCount = priorYearAccountDao.purgePriorYearAccounts(priorYrAcctTableName);
-        if (LOG.isInfoEnabled()) {
-            LOG.info("number of prior year accounts purged : " + purgedCount);
-        }
+        LOG.info("number of prior year accounts purged : " + purgedCount);
 
         final String acctTableName = persistenceStructureService.getTableName(Account.class);
         int copiedCount = priorYearAccountDao.copyCurrentAccountsToPriorYearTable(priorYrAcctTableName, acctTableName);
-        if (LOG.isInfoEnabled()) {
-            LOG.info("number of current year accounts copied to prior year : " + copiedCount);
-        }
+        LOG.info("number of current year accounts copied to prior year : " + copiedCount);
 
         //copy prior year ICR accounts
         final String priorYrIcrAcctTableName = persistenceStructureService.getTableName(PriorYearIndirectCostRecoveryAccount.class);
         purgedCount = priorYearAccountDao.purgePriorYearAccounts(priorYrIcrAcctTableName);
-        if (LOG.isInfoEnabled()) {
-            LOG.info("number of prior year indirect cost recovery accounts purged : " + purgedCount);
-        }
+        LOG.info("number of prior year indirect cost recovery accounts purged : " + purgedCount);
 
         final String icrAcctTableName = persistenceStructureService.getTableName(IndirectCostRecoveryAccount.class);
         copiedCount = priorYearAccountDao.copyCurrentICRAccountsToPriorYearTable(priorYrIcrAcctTableName, icrAcctTableName);
-        if (LOG.isInfoEnabled()) {
-            LOG.info("number of current year indirect cost recovery accounts copied to prior year : " + copiedCount);
-        }
-
+        LOG.info("number of current year indirect cost recovery accounts copied to prior year : " + copiedCount);
     }
 
-    /**
-     * @see org.kuali.kfs.coa.service.PriorYearAccountService#addPriorYearAccountsFromParameter()
-     */
+    @Override
     public void addPriorYearAccountsFromParameter() {
-        /*
-        Collection<String> accountsColl = new ArrayList<String>();
-        accountsColl.add("BL-9923234");
-        accountsColl.add("BL-1024600");
-        accountsColl.add("0000000");
-        accountsColl.add("BL-0000000");
-        accountsColl.add("UA-2131401");
-        accountsColl.add("BA-6044909");
-        accountsColl.add("BA-6044901");
-        accountsColl.add("UA-7014960");
-        */
+        LOG.debug("addPriorYearAccountsFromParameter() started");
 
         // clear cache so that batch job will be reading most up-to-date data from Account and PriorYearAccount tables
         persistenceServiceOjb.clearCache();
@@ -126,7 +100,7 @@ public class PriorYearAccountServiceImpl implements PriorYearAccountService {
         String param = ChartApcParms.PRIOR_YEAR_ACCOUNTS_TO_BE_ADDED;
         Collection<String> accountsColl = parameterService.getParameterValuesAsString(AddPriorYearAccountsStep.class, param);
         Iterator<String> accountsIter = accountsColl.iterator();
-        List<PriorYearAccount> priorAccounts = new ArrayList<PriorYearAccount>();
+        List<PriorYearAccount> priorAccounts = new ArrayList<>();
         int countError = 0;
         String errmsg = "";
         String failmsg = "Failed to add account ";
@@ -154,7 +128,7 @@ public class PriorYearAccountServiceImpl implements PriorYearAccountService {
             // not using accountService.getByPrimaryId here because there is an issue with Account cache
             // using businessObjectService instead will skip cache issue
             // Account account = accountService.getByPrimaryId(chartCode, accountNumber);
-            Map<String, Object> keys = new HashMap<String, Object>(2);
+            Map<String, Object> keys = new HashMap<>(2);
             keys.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, chartCode);
             keys.put(KFSPropertyConstants.ACCOUNT_NUMBER, accountNumber);
             Account account = businessObjectService.findByPrimaryKey(Account.class, keys);
@@ -218,5 +192,4 @@ public class PriorYearAccountServiceImpl implements PriorYearAccountService {
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }
-
 }

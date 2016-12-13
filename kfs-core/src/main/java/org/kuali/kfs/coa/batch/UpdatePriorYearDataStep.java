@@ -29,37 +29,24 @@ import java.util.Date;
  * typically run at year end
  */
 public class UpdatePriorYearDataStep extends AbstractStep {
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(UpdatePriorYearDataStep.class);
 
     private PriorYearAccountService priorYearAccountService;
     private PriorYearOrganizationService priorYearOrganizationService;
 
-    /**
-     * Executes the table updates when
-     *
-     * @see org.kuali.kfs.sys.batch.Step#execute(String, Date)
-     */
+    @Override
     public boolean execute(String jobName, Date jobRunDate) throws InterruptedException {
+        LOG.debug("execute() started");
         priorYearAccountService.populatePriorYearAccountsFromCurrent();
         priorYearOrganizationService.populatePriorYearOrganizationsFromCurrent();
         return true;
     }
 
-    /**
-     * Service setter for Spring injection
-     *
-     * @param priorYearAccountService
-     */
     public void setPriorYearAccountService(PriorYearAccountService priorYearAccountService) {
         this.priorYearAccountService = priorYearAccountService;
     }
 
-    /**
-     * Service setter for Spring injection
-     *
-     * @param priorYearOrganizationService
-     */
     public void setPriorYearOrganizationService(PriorYearOrganizationService priorYearOrganizationService) {
         this.priorYearOrganizationService = priorYearOrganizationService;
     }
-
 }

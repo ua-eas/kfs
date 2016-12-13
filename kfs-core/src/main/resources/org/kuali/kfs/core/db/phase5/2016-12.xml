@@ -3369,4 +3369,28 @@
         <renameColumn columnDataType="DATE" newColumnName="LAST_UPDT_TS" oldColumnName="MODIFY_DT" tableName="PUR_VNDR_CHAP_4_STAT_T"/>
         <modifySql dbms="mysql"><regExpReplace replace="\bdate\b" with="datetime"/></modifySql>
     </changeSet>
+
+    <changeSet author="KFS601" id="FINP-956_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CA_PRIOR_YR_ORG_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="LAST_UPDT_TS" tableName="CA_PRIOR_YR_ORG_T"/></not>
+        </preConditions>
+        <addColumn tableName="CA_PRIOR_YR_ORG_T">
+            <column name="LAST_UPDT_TS" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-956_ADD_LAST_MODIFIED_TO_ALL_MAINT_DOC_BOS_CA_PRIOR_YR_ACCT_T" context="bootstrap,demo,unit">
+        <preConditions onFail="HALT" onError="HALT">
+            <not><columnExists columnName="LAST_UPDT_TS" tableName="CA_PRIOR_YR_ACCT_T"/></not>
+        </preConditions>
+        <addColumn tableName="CA_PRIOR_YR_ACCT_T">
+            <column name="LAST_UPDT_TS" type="DATE" defaultValueDate="2009-07-01T00:00:00"/>
+        </addColumn>
+        <modifySql dbms="mysql">
+            <regExpReplace replace="\bdate\b" with="datetime"/>
+        </modifySql>
+    </changeSet>
 </databaseChangeLog>

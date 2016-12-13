@@ -24,29 +24,22 @@ import org.kuali.kfs.coa.businessobject.PriorYearOrganization;
 import org.kuali.kfs.coa.dataaccess.PriorYearOrganizationDao;
 import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
 
-/**
- * This class performs actions against the database through direct SQL command calls.
- */
 public class PriorYearOrganizationDaoJdbc extends PlatformAwareDaoBaseJdbc implements PriorYearOrganizationDao {
-
-    /**
-     * Constant used to retrieve row counts for tables. Obj_Id value exists in all tables in DB.
-     */
-    private static final String OBJ_ID = "OBJ_ID";
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PriorYearOrganizationDaoJdbc.class);
 
     /**
      * This method purges all records in the Prior Year Organization table in the DB.
      *
      * @return Number of records that were purged.
-     * @see org.kuali.kfs.coa.dataaccess.PriorYearOrganizationDao#purgePriorYearOrganizations()
      */
+    @Override
     public int purgePriorYearOrganizations() {
+        LOG.debug("purgePriorYearOrganizations() started");
+
         String priorYrOrgTableName = MetadataManager.getInstance().getGlobalRepository().getDescriptorFor(PriorYearOrganization.class).getFullTableName();
 
-        // 1. Count how many rows are currently in the prior year org table
-        int count = getSimpleJdbcTemplate().queryForInt("SELECT COUNT(" + OBJ_ID + ") from " + priorYrOrgTableName);
+        int count = getSimpleJdbcTemplate().queryForInt("SELECT COUNT(*) from " + priorYrOrgTableName);
 
-        // 2. Purge all the rows from the prior year org table
         getSimpleJdbcTemplate().update("DELETE from " + priorYrOrgTableName);
 
         return count;
@@ -56,17 +49,23 @@ public class PriorYearOrganizationDaoJdbc extends PlatformAwareDaoBaseJdbc imple
      * This method copies all organization records from the current Org table to the Prior Year Organization table.
      *
      * @return Number of records that were copied.
-     * @see org.kuali.kfs.coa.dataaccess.PriorYearOrganizationDao#copyCurrentOrganizationsToPriorYearTable()
      */
     public int copyCurrentOrganizationsToPriorYearTable() {
+        LOG.debug("copyCurrentOrganizationsToPriorYearTable() started");
+
         String priorYrOrgTableName = MetadataManager.getInstance().getGlobalRepository().getDescriptorFor(PriorYearOrganization.class).getFullTableName();
         String orgTableName = MetadataManager.getInstance().getGlobalRepository().getDescriptorFor(Organization.class).getFullTableName();
 
-        // 1. Copy all the rows from the current org table to the prior year org table
-        getSimpleJdbcTemplate().update("INSERT into " + priorYrOrgTableName + " SELECT * from " + orgTableName);
+        getSimpleJdbcTemplate().update("INSERT into " + priorYrOrgTableName + " (" +
+            "FIN_COA_CD,ORG_CD,OBJ_ID,VER_NBR,ORG_MGR_UNVL_ID,ORG_NM,RC_CD,ORG_PHYS_CMP_CD,ORG_TYP_CD,ORG_DFLT_ACCT_NBR,ORG_CITY_NM," +
+            "ORG_STATE_CD,ORG_ZIP_CD,ORG_BEGIN_DT,ORG_END_DT,RPTS_TO_FIN_COA_CD,RPTS_TO_ORG_CD,ORG_ACTIVE_CD,ORG_IN_FP_CD," +
+            "ORG_PLNT_ACCT_NBR,CMP_PLNT_ACCT_NBR,ORG_PLNT_COA_CD,CMP_PLNT_COA_CD,ORG_CNTRY_CD,ORG_LN1_ADDR,ORG_LN2_ADDR,LAST_UPDT_TS" +
+            ") SELECT " +
+            "FIN_COA_CD,ORG_CD,OBJ_ID,VER_NBR,ORG_MGR_UNVL_ID,ORG_NM,RC_CD,ORG_PHYS_CMP_CD,ORG_TYP_CD,ORG_DFLT_ACCT_NBR,ORG_CITY_NM," +
+            "ORG_STATE_CD,ORG_ZIP_CD,ORG_BEGIN_DT,ORG_END_DT,RPTS_TO_FIN_COA_CD,RPTS_TO_ORG_CD,ORG_ACTIVE_CD,ORG_IN_FP_CD," +
+            "ORG_PLNT_ACCT_NBR,CMP_PLNT_ACCT_NBR,ORG_PLNT_COA_CD,CMP_PLNT_COA_CD,ORG_CNTRY_CD,ORG_LN1_ADDR,ORG_LN2_ADDR,LAST_UPDT_TS" +
+            " from " + orgTableName);
 
-        // 2. Count how many rows are currently in the prior year org table
-        return getSimpleJdbcTemplate().queryForInt("SELECT COUNT(" + OBJ_ID + ") from " + priorYrOrgTableName);
+        return getSimpleJdbcTemplate().queryForInt("SELECT COUNT(*) from " + priorYrOrgTableName);
     }
-
 }
