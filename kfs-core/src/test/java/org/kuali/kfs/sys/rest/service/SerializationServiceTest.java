@@ -154,7 +154,7 @@ public class SerializationServiceTest {
         EasyMock.replay(maintenanceDocumentEntry);
         Map<String, Object> fields = serializationService.findBusinessObjectFields(maintenanceDocumentEntry);
         Assert.assertEquals(2, fields.size());
-        Assert.assertEquals(8, ((List<String>)fields.get(SerializationService.FIELDS_KEY)).size());
+        Assert.assertEquals(9, ((List<String>)fields.get(SerializationService.FIELDS_KEY)).size());
         Assert.assertEquals("taxRegionCode", ((List<String>)fields.get(SerializationService.FIELDS_KEY)).get(0));
         List<CollectionSerializationHelper> serializationHelpers = (List< CollectionSerializationHelper>)fields.get(SerializationService.COLLECTIONS_KEY);
         Assert.assertEquals(1, serializationHelpers.size());
@@ -179,7 +179,7 @@ public class SerializationServiceTest {
         EasyMock.replay(maintenanceDocumentEntry);
         Map<String, Object> fields = serializationService.findBusinessObjectFields(maintenanceDocumentEntry);
         Assert.assertEquals(3, fields.size());
-        Assert.assertEquals(6, ((List<String>)fields.get(SerializationService.FIELDS_KEY)).size());
+        Assert.assertEquals(7, ((List<String>)fields.get(SerializationService.FIELDS_KEY)).size());
         Assert.assertEquals("vendorParentName", ((List<String>)fields.get(SerializationService.FIELDS_KEY)).get(0));
         List<CollectionSerializationHelper> serializationHelpers = (List< CollectionSerializationHelper>)fields.get(SerializationService.COLLECTIONS_KEY);
         Assert.assertEquals(1, serializationHelpers.size());

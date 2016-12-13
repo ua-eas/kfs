@@ -82,6 +82,7 @@ public class SerializationService {
                 }
             }
         }
+        fields.add(KFSPropertyConstants.LAST_UPDATED_TIMESTAMP);
         return fields;
     }
 
