@@ -257,7 +257,6 @@ public class SerializationService {
         }
 
         jsonObject.put(KFSPropertyConstants.OBJECT_ID, bo.getObjectId());
-        jsonObject.put(KFSPropertyConstants.LAST_UPDATED_TIMESTAMP, bo.getLastUpdatedTimestamp());
 
         populateRelatedBusinessObjectFields(bo, jsonObject);
         return jsonObject;
