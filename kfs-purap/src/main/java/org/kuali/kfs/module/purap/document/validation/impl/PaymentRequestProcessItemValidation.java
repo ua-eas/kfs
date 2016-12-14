@@ -158,15 +158,10 @@ public class PaymentRequestProcessItemValidation extends GenericValidation {
         return valid;
     }
 
-    /**
-     * Validates that the item must contain at least one account
-     *
-     * @param item - payment request item
-     * @return
-     */
+    /** Validates that the item must contain at least one account. */
     public boolean validateItemWithoutAccounts(PaymentRequestItem item, String identifierString) {
         boolean valid = true;
-        if (ObjectUtils.isNotNull(item.getItemUnitPrice()) && (new KualiDecimal(item.getItemUnitPrice())).isNonZero() && item.isAccountListEmpty()) {
+        if (ObjectUtils.isNotNull(item.getExtendedPrice()) && (item.getExtendedPrice()).isNonZero() && item.isAccountListEmpty()) {
             valid = false;
             GlobalVariables.getMessageMap().putError(PurapConstants.ITEM_TAB_ERROR_PROPERTY, PurapKeyConstants.ERROR_ITEM_ACCOUNTING_INCOMPLETE, identifierString);
         }
