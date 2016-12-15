@@ -1,3 +1,192 @@
+************************* 2016-12-15 *************************
+commit 2621f7c147add57180fefcc1bf40f892231f5889
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2016-12-14 16:21:20 -0500
+
+    Fix serialization of lastUpdatedTimestamp
+     - Should not be present on every child object
+
+:100644 100644 694e50f... 96ba6df... M	kfs-core/src/main/java/org/kuali/kfs/sys/rest/service/SerializationService.java
+
+commit 18e73ca6e4e0d2a0f678cb0da617bb10581188e3
+Author: lmarkes <lmarkes@users.noreply.github.com>
+Date:   2016-12-14 14:08:30 -0600
+
+    FINP-960 (#977)
+    
+    Switch which field is used in validation and add tests for this method.
+
+:100644 100644 3364310... 699fadc... M	kfs-purap/src/main/java/org/kuali/kfs/module/purap/document/validation/impl/PaymentRequestProcessItemValidation.java
+:000000 100644 0000000... 2127b87... A	kfs-purap/src/test/java/org/kuali/kfs/module/purap/document/validation/impl/PaymentRequestProcessItemValidationTest.java
+
+commit d7abfd5e7572ed1cf658d0a51f6a032eecc5bcec
+Author: jsissom <jsissom@kuali.co>
+Date:   2016-12-14 11:03:03 -0500
+
+    FINI-3167 Update changelog to have correct information (#976)
+
+:100644 100644 c4af62e... ecb39b3... M	CHANGELOG.txt
+
+commit eaa28ec2ea9653a052e1f33a03bbab03159435ed
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2016-12-13 16:32:41 -0500
+
+    Renamed modifiedBefore/After to updatedBefore/After (#975)
+
+:100644 100644 4df621c... 261b43c... M	kfs-api-test/src/test/java/org/kuali/kfs/apitest/Constants.java
+:100644 100644 e3da281... 54fef99... M	kfs-api-test/src/test/java/org/kuali/kfs/apitest/test/rest/businessobjectapi/MultipleObjectDataValidationTest.java
+:100644 100644 2496862... 3412bf6... M	kfs-core/src/main/java/org/kuali/kfs/sys/KFSConstants.java
+:100644 100644 c58185a... 231fb1f... M	kfs-core/src/main/java/org/kuali/kfs/sys/rest/resource/BusinessObjectApiResource.java
+:100644 100644 19a230d... 93640f2... M	kfs-core/src/main/java/org/kuali/kfs/sys/rest/service/SearchParameterService.java
+:100644 100644 330b2a7... ee36245... M	kfs-core/src/test/java/org/kuali/kfs/sys/rest/resource/BusinessObjectApiResourceMultipleObjectsTest.java
+:100644 100644 74e988d... 10626e7... M	kfs-core/src/test/java/org/kuali/kfs/sys/service/impl/PayeeACHServiceImplTest.java
+:100644 100644 0f72f96... 9dd9b2f... M	kfs-kns/src/main/java/org/kuali/kfs/krad/dao/BusinessObjectDao.java
+:100644 100644 f3d3dc7... 063c7a6... M	kfs-kns/src/main/java/org/kuali/kfs/krad/dao/impl/BusinessObjectDaoOjb.java
+:100644 100644 c22797e... e7522a5... M	kfs-kns/src/main/java/org/kuali/kfs/krad/service/BusinessObjectService.java
+:100644 100644 1424d4c... 0eb6f28... M	kfs-kns/src/main/java/org/kuali/kfs/krad/service/impl/BusinessObjectServiceImpl.java
+:100644 100644 1d08fd4... 367b20e... M	kfs-purap/src/test/java/org/kuali/kfs/module/purap/service/impl/MyOrdersServiceImplTest.java
+
+commit b3842444ac63217f130d43c9b47394c379b3d0d8
+Author: jsissom <jsissom@kuali.co>
+Date:   2016-12-13 14:50:23 -0500
+
+    FINP-956 Add last updated date to prior year tables (#974)
+    
+    * FINP-956 Add last updated date to prior year tables
+    
+    * FINP-956 Fix field name
+
+:100644 100644 84d56fd... d2df34b... M	kfs-core/src/main/java/org/kuali/kfs/coa/batch/UpdatePriorYearDataStep.java
+:100644 100644 9380d00... 0708650... M	kfs-core/src/main/java/org/kuali/kfs/coa/dataaccess/impl/PriorYearAccountDaoJdbcImpl.java
+:100644 100644 b653cdc... 88e745d... M	kfs-core/src/main/java/org/kuali/kfs/coa/dataaccess/impl/PriorYearOrganizationDaoJdbc.java
+:100644 100644 2657386... fc2a292... M	kfs-core/src/main/java/org/kuali/kfs/coa/service/impl/PriorYearAccountServiceImpl.java
+:100644 100644 c23bc2f... 035b3f9... M	kfs-core/src/main/resources/org/kuali/kfs/coa/ojb-coa.xml
+:100644 100644 8a88d17... 41d5bed... M	kfs-core/src/main/resources/org/kuali/kfs/core/db/phase5/2016-12.xml
+
+commit 95b667f3be7da11445bc71d2f4581e26845f656c
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2016-12-13 10:42:40 -0500
+
+    FINP-963 Allow sort by lastUpdatedTimestamp (#973)
+    
+    * Allow sort by lastUpdatedTimestamp
+    
+    * Fix affected tests
+
+:100644 100644 cefc71f... 694e50f... M	kfs-core/src/main/java/org/kuali/kfs/sys/rest/service/SerializationService.java
+:100644 100644 7480563... 4a6a360... M	kfs-core/src/test/java/org/kuali/kfs/sys/rest/service/SerializationServiceTest.java
+
+commit c471639ddb6c7f71f62bfffb7f2769a2a005c6dc
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2016-12-12 16:16:01 -0500
+
+    FINP-955 - Rename modifyDate to lastUpdatedTimestamp (#972)
+    
+    FINP-955 - Rename modifyDate to lastUpdatedTimestamp
+
+:100644 100644 55bc052... e3da281... M	kfs-api-test/src/test/java/org/kuali/kfs/apitest/test/rest/businessobjectapi/MultipleObjectDataValidationTest.java
+:100644 100644 04d232c... ebc7554... M	kfs-ar/src/main/resources/org/kuali/kfs/module/ar/db/phase5/2016-12.xml
+:100644 100644 5a77152... f5e11a4... M	kfs-ar/src/main/resources/org/kuali/kfs/module/ar/ojb-ar.xml
+:100644 100644 5ed9ce6... 633dff4... M	kfs-bc/src/main/resources/org/kuali/kfs/module/bc/db/phase5/2016-12.xml
+:100644 100644 5ce692c... a734b3a... M	kfs-bc/src/main/resources/org/kuali/kfs/module/bc/ojb-bc.xml
+:100644 100644 a7dd756... be1ca5b... M	kfs-cam/src/main/resources/org/kuali/kfs/module/cab/ojb-cab.xml
+:100644 100644 8bcbf7f... 0dcc852... M	kfs-cam/src/main/resources/org/kuali/kfs/module/cam/db/phase5/2016-12.xml
+:100644 100644 07b5780... 2baee96... M	kfs-cam/src/main/resources/org/kuali/kfs/module/cam/ojb-cam.xml
+:100644 100644 7ed9b0e... 7517afd... M	kfs-cg/src/main/resources/org/kuali/kfs/module/cg/db/phase5/2016-12.xml
+:100644 100644 ea8aeee... 3d30889... M	kfs-cg/src/main/resources/org/kuali/kfs/module/cg/ojb-cg.xml
+:100644 100644 eb1d968... 5145583... M	kfs-core/src/main/java/org/kuali/kfs/sys/KFSPropertyConstants.java
+:100644 100644 d1560ca... 19a230d... M	kfs-core/src/main/java/org/kuali/kfs/sys/rest/service/SearchParameterService.java
+:100644 100644 267b595... cefc71f... M	kfs-core/src/main/java/org/kuali/kfs/sys/rest/service/SerializationService.java
+:100644 100644 c50e855... c23bc2f... M	kfs-core/src/main/resources/org/kuali/kfs/coa/ojb-coa.xml
+:100644 100644 edb5ffb... 8a88d17... M	kfs-core/src/main/resources/org/kuali/kfs/core/db/phase5/2016-12.xml
+:100644 100644 da7985b... 2b95351... M	kfs-core/src/main/resources/org/kuali/kfs/fp/ojb-fp.xml
+:100644 100644 3d886a7... 49718cb... M	kfs-core/src/main/resources/org/kuali/kfs/pdp/ojb-pdp.xml
+:100644 100644 089e3ca... dab8f1f... M	kfs-core/src/main/resources/org/kuali/kfs/sec/ojb-sec.xml
+:100644 100644 2965ffa... e51899e... M	kfs-core/src/main/resources/org/kuali/kfs/sys/ojb-sys.xml
+:100644 100644 207a925... 94bdc63... M	kfs-core/src/main/resources/org/kuali/kfs/vnd/ojb-vnd.xml
+:100644 100644 86398ed... ad39932... M	kfs-core/src/test/java/org/kuali/kfs/gl/service/impl/MockGeneralLedgerPostingDocument.java
+:100644 100644 29fb72f... 9d8b435... M	kfs-core/src/test/java/org/kuali/kfs/sys/rest/BusinessObjectApiResourceTestHelper.java
+:100644 100644 0fc641d... 330b2a7... M	kfs-core/src/test/java/org/kuali/kfs/sys/rest/resource/BusinessObjectApiResourceMultipleObjectsTest.java
+:100644 100644 a49b010... fddd340... M	kfs-core/src/test/java/org/kuali/kfs/sys/rest/service/SearchParameterServiceTest.java
+:100644 100644 d122a43... b0a188d... M	kfs-ec/src/main/resources/org/kuali/kfs/module/ec/db/phase5/2016-12.xml
+:100644 100644 ddd2dae... c9c610a... M	kfs-ec/src/main/resources/org/kuali/kfs/module/ec/ojb-ec.xml
+:100644 100644 717e454... 30966e1... M	kfs-kns/src/main/java/org/kuali/kfs/krad/bo/PersistableBusinessObject.java
+:100644 100644 2abc4e2... f55511e... M	kfs-kns/src/main/java/org/kuali/kfs/krad/bo/PersistableBusinessObjectBase.java
+:100644 100644 600d751... 0f72f96... M	kfs-kns/src/main/java/org/kuali/kfs/krad/dao/BusinessObjectDao.java
+:100644 100644 6834f2e... f3d3dc7... M	kfs-kns/src/main/java/org/kuali/kfs/krad/dao/impl/BusinessObjectDaoOjb.java
+:100644 100644 904a3c1... c22797e... M	kfs-kns/src/main/java/org/kuali/kfs/krad/service/BusinessObjectService.java
+:100644 100644 1e72dcd... 7ab0cde... M	kfs-kns/src/test/java/org/kuali/kfs/krad/workflow/attribute/DataDictionarySearchableAttributeTest.java
+:100644 100644 876f096... 68eb585... M	kfs-ld/src/main/resources/org/kuali/kfs/module/ld/db/phase5/2016-12.xml
+:100644 100644 218bb70... ddebed3... M	kfs-ld/src/main/resources/org/kuali/kfs/module/ld/ojb-ld.xml
+:100644 100644 e1dbecd... 4f671b7... M	kfs-purap/src/main/resources/org/kuali/kfs/module/purap/db/phase5/2016-12.xml
+:100644 100644 2cd26a2... 350ef75... M	kfs-purap/src/main/resources/org/kuali/kfs/module/purap/ojb-purap.xml
+:100644 100644 9b049cd... 70c7d61... M	kfs-tem/src/main/resources/org/kuali/kfs/module/tem/db/phase5/2016-12.xml
+:100644 100644 244a066... 67c51d0... M	kfs-tem/src/main/resources/org/kuali/kfs/module/tem/ojb-tem.xml
+
+commit 2b196a180ec7b070b2d90f4b6a41ea7d2b3db113
+Author: Bryan Hutchinson <bh79@cornell.edu>
+Date:   2016-12-12 14:04:32 -0500
+
+    FINCD-156: relax access modifier (#970)
+
+:100644 100644 edb474d... 2a7f32f... M	kfs-kns/src/main/java/org/kuali/kfs/krad/service/impl/DocumentServiceImpl.java
+
+commit 4491def8de8ae5d3aaf62679e521ba8b374d2c45
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2016-12-09 09:02:47 -0500
+
+    Fix class used for component
+
+:100644 100644 381a538... dadb8de... M	kfs-ld/src/main/java/org/kuali/kfs/module/ld/document/service/impl/LaborPendingEntryConverterServiceImpl.java
+:100644 100644 dbb2345... a132bd6... M	kfs-ld/src/test/java/org/kuali/kfs/module/ld/document/service/impl/LaborPendingEntryConverterServiceImplTest.java
+
+commit 9a90b1c4c9eb6c61de495ed270b198c17c9e8176
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2016-12-09 08:25:12 -0500
+
+    Fix to conform to specification in FINP-953 desc
+
+:100644 100644 0aa74e3... 381a538... M	kfs-ld/src/main/java/org/kuali/kfs/module/ld/document/service/impl/LaborPendingEntryConverterServiceImpl.java
+:100644 100644 26afbb2... 876f096... M	kfs-ld/src/main/resources/org/kuali/kfs/module/ld/db/phase5/2016-12.xml
+:100644 100644 7f3b6b9... dbb2345... M	kfs-ld/src/test/java/org/kuali/kfs/module/ld/document/service/impl/LaborPendingEntryConverterServiceImplTest.java
+
+commit d7a4f92962400644837b00be84d987581013d671
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2016-12-08 16:49:47 -0500
+
+    Refactor LaborPendingEntryConverterServiceImpl for testing
+     - add separate method for copying subobjectcode and add tests
+
+:100644 100644 cd82615... 0aa74e3... M	kfs-ld/src/main/java/org/kuali/kfs/module/ld/document/service/impl/LaborPendingEntryConverterServiceImpl.java
+:000000 100644 0000000... 7f3b6b9... A	kfs-ld/src/test/java/org/kuali/kfs/module/ld/document/service/impl/LaborPendingEntryConverterServiceImplTest.java
+
+commit 760f83bbc2209b7af780f2b3b12e8924512314cc
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2016-12-08 13:44:39 -0500
+
+    Implement param for determining whether sub object code is copied to benefit lines
+
+:100644 100644 951466d... 9031500... M	kfs-ld/src/main/java/org/kuali/kfs/module/ld/LaborConstants.java
+:100644 100644 afb0567... cd82615... M	kfs-ld/src/main/java/org/kuali/kfs/module/ld/document/service/impl/LaborPendingEntryConverterServiceImpl.java
+:100644 100644 91b29cb... 26afbb2... M	kfs-ld/src/main/resources/org/kuali/kfs/module/ld/db/phase5/2016-12.xml
+:100644 100644 8a7f045... 03b3c51... M	kfs-ld/src/main/resources/org/kuali/kfs/module/ld/spring-ld.xml
+
+commit 8adc3346f9be4d40479014dcaf6d37b2c4e6592e
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2016-12-08 13:08:56 -0500
+
+    FINP 950 Apply rice patch for xstream upgrade issue (#966)
+    
+    * Port changes from https://github.com/kuali/rice/pull/267 to fix xstream
+    
+    * Upgrade to rice 2.5.19
+
+:100644 100644 fe52936... 2f5709e... M	kfs-kns/src/main/java/org/kuali/kfs/krad/service/impl/BusinessObjectSerializerServiceImpl.java
+:100644 100644 834da41... 2b00c1f... M	kfs-kns/src/main/java/org/kuali/kfs/krad/service/impl/DocumentSerializerServiceImpl.java
+:100644 100644 b94e1d6... d92d48b... M	kfs-kns/src/main/java/org/kuali/kfs/krad/service/impl/SerializerServiceBase.java
+:000000 100644 0000000... 1e54de9... A	kfs-kns/src/main/java/org/kuali/kfs/krad/util/documentserializer/MetadataPropertySerializabilityEvaluator.java
+:100644 100644 2a92213... 7439bca... M	kfs-kns/src/main/java/org/kuali/kfs/krad/util/documentserializer/SerializationState.java
+:100644 100644 66d8412... afbe75d... M	pom.xml
 ************************* 2016-12-08 *************************
 commit f980067b40c7bd4552365a2ca94fc675ec7fb42a
 Author: jenkins <jenkins@kuali.co>
