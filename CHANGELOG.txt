@@ -573,7 +573,7 @@ Date:   2016-11-10 09:24:35 -0700
 :100644 100644 1430129... 391ef86... M  kfs-web/src/main/webapp/WEB-INF/tags/kr/page.tag
 :100644 100644 9a82470... 8c45b37... M  kfs-web/src/main/webapp/scripts/components/general/header.jsx
 
-************************* 2016-11-1- *************************
+************************* 2016-11-10 *************************
 commit e322b88cf3feaf1746950ab174937c67f82bae2c
 Author: jenkins <jenkins@kuali.co>
 Date:   2016-11-10 10:24:30 -0700
