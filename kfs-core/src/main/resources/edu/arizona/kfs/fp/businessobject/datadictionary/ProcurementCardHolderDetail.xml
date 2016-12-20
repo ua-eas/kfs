@@ -10,7 +10,7 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
   <bean id="ProcurementCardHolderDetail" parent="ProcurementCardHolderDetail-parentBean" />
 
   <bean id="ProcurementCardHolderDetail-parentBean" abstract="true" parent="BusinessObjectEntry">
-    <property name="businessObjectClass" value="com.rsmart.kuali.kfs.fp.businessobject.ProcurementCardHolderDetail" />
+    <property name="businessObjectClass" value="edu.arizona.kfs.fp.batch.service.impl.ProcurementCardHolderDetail" />
     <property name="inquiryDefinition" >
       <ref bean="ProcurementCardHolderDetail-inquiryDefinition" />
     </property>
@@ -257,7 +257,7 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
     
   <bean id="ProcurementCardHolderDetail-cardGroupId" parent="ProcurementCardHolderDetail-cardGroupId-parentBean" />
                         
-  <bean id="ProcurementCardHolderDetail-cardGroupId-parentBean" abstract="true" parent="GroupImpl-groupId">
+  <bean id="ProcurementCardHolderDetail-cardGroupId-parentBean" abstract="true" parent="Group-id">
     <property name="name" value="cardGroupId" />
     <property name="label" value="Reconcilers Group ID" />
     <property name="shortLabel" value="Rec Group" /> 
@@ -268,7 +268,7 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
                      
    <bean id="ProcurementCardHolderDetail-reconcilerGroup.groupName" parent="ProcurementCardHolderDetail-reconcilerGroup.groupName-parentBean" />
    
-   <bean id="ProcurementCardHolderDetail-reconcilerGroup.groupName-parentBean" parent="GroupImpl-groupName" abstract="true">
+   <bean id="ProcurementCardHolderDetail-reconcilerGroup.groupName-parentBean" parent="Group-name" abstract="true">
      <property name="name" value="reconcilerGroup.groupName" />
      <property name="label" value="Reconcilers Group" />
      <property name="required" value="true" />
