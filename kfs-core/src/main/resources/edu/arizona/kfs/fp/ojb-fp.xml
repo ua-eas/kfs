@@ -1253,8 +1253,8 @@
     <field-descriptor name="cardHolderStateCode" column="CARD_HLDR_ST_CD" jdbc-type="VARCHAR" />
     <field-descriptor name="cardHolderZipCode" column="CARD_HLDR_ZIP_CD" jdbc-type="VARCHAR" />
     <field-descriptor name="cardHolderWorkPhoneNumber" column="CARD_HLDR_WRK_PHN_NBR" jdbc-type="VARCHAR" />
-    <field-descriptor name="cardLimit" column="CARD_LMT" jdbc-type="DECIMAL" conversion="org.kuali.rice.kns.util.OjbKualiDecimalFieldConversion" />
-    <field-descriptor name="cardCycleAmountLimit" column="CARD_CYCLE_AMT_LMT" jdbc-type="DECIMAL" conversion="org.kuali.rice.kns.util.OjbKualiDecimalFieldConversion" />
+    <field-descriptor name="cardLimit" column="CARD_LMT" jdbc-type="DECIMAL" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion" />
+    <field-descriptor name="cardCycleAmountLimit" column="CARD_CYCLE_AMT_LMT" jdbc-type="DECIMAL" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion" />
     <field-descriptor name="cardCycleVolumeLimit" column="CARD_CYCLE_VOL_LMT" jdbc-type="INTEGER" />
     <field-descriptor name="cardMonthlyNumber" column="CARD_MONTHLY_NUMBER" jdbc-type="INTEGER" />
     <field-descriptor name="cardStatusCode" column="CARD_STAT_CD" jdbc-type="VARCHAR" />
@@ -1269,7 +1269,7 @@
     <field-descriptor name="cardExpireDate" column="CARD_EXPIRE_DT" jdbc-type="VARCHAR" />
 </class-descriptor>
 
-<class-descriptor class="com.rsmart.kuali.kfs.fp.businessobject.ProcurementCardHolderDetail" table="FP_PRCRMNT_CARD_HLDR_DTL_T">
+<class-descriptor class="edu.arizona.kfs.fp.batch.service.impl.ProcurementCardHolderDetail" table="FP_PRCRMNT_CARD_HLDR_DTL_T">
     <field-descriptor name="creditCardNumber" column="CC_NBR" jdbc-type="VARCHAR" primarykey="true" index="true"/>
     <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
     <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />    
@@ -1281,8 +1281,8 @@
     <field-descriptor name="cardHolderStateCode" column="CARD_HLDR_ST_CD" jdbc-type="VARCHAR" />
     <field-descriptor name="cardHolderZipCode" column="CARD_HLDR_ZIP_CD" jdbc-type="VARCHAR" />
     <field-descriptor name="cardHolderWorkPhoneNumber" column="CARD_HLDR_WRK_PHN_NBR" jdbc-type="VARCHAR" />
-    <field-descriptor name="cardLimit" column="CARD_LMT" jdbc-type="DECIMAL" conversion="org.kuali.rice.kns.util.OjbKualiDecimalFieldConversion" />
-    <field-descriptor name="cardCycleAmountLimit" column="CARD_CYCLE_AMT_LMT" jdbc-type="DECIMAL" conversion="org.kuali.rice.kns.util.OjbKualiDecimalFieldConversion" />
+    <field-descriptor name="cardLimit" column="CARD_LMT" jdbc-type="DECIMAL" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion" />
+    <field-descriptor name="cardCycleAmountLimit" column="CARD_CYCLE_AMT_LMT" jdbc-type="DECIMAL" conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion" />
     <field-descriptor name="cardCycleVolumeLimit" column="CARD_CYCLE_VOL_LMT" jdbc-type="INTEGER" />
     <field-descriptor name="cardMonthlyNumber" column="CARD_MONTHLY_NUMBER" jdbc-type="INTEGER" />
     <field-descriptor name="cardStatusCode" column="CARD_STAT_CD" jdbc-type="VARCHAR" />
@@ -1326,7 +1326,7 @@
         <foreignkey field-ref="chartOfAccountsCode" />
         <foreignkey field-ref="organizationCode" />
     </reference-descriptor> 
-      <reference-descriptor name="reconcilerGroup" class-ref="org.kuali.rice.kim.bo.impl.GroupImpl" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+      <reference-descriptor name="reconcilerGroup" class-ref="org.kuali.rice.kim.impl.group.GroupBo" auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
         <foreignkey field-ref="cardGroupId" />       
     </reference-descriptor>                 
 </class-descriptor>
