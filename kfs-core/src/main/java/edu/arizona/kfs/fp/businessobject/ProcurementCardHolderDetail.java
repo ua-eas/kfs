@@ -1,4 +1,4 @@
-package edu.arizona.kfs.fp.batch.service.impl;
+package edu.arizona.kfs.fp.businessobject;
 
 import java.sql.Date;
 import java.util.LinkedHashMap;
@@ -15,8 +15,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-
-import sun.security.acl.GroupImpl;
+import org.kuali.rice.kim.impl.group.GroupBo;
 
 /**
  * This class is used to represent a procurement card holder, or the individual whose name is on the card.
@@ -59,552 +58,237 @@ public class ProcurementCardHolderDetail extends PersistableBusinessObjectBase {
     private Organization organization;
     private SubObjectCode subObjectCode;
     private Person cardholderUser;
-    private GroupImpl reconcilerGroup;
+    private GroupBo reconcilerGroup;
 
-    /**
-     * Default constructor.
-     */
+
     public ProcurementCardHolderDetail() {
 
     }
 
-    /**
-     * Gets the creditCardNumber attribute.
-     * 
-     * @return Returns the creditCardNumber
-     */
     public String getCreditCardNumber() {
         return creditCardNumber;
     }
 
-    /**
-     * Sets the creditCardNumber attribute.
-     * 
-     * @param creditCardNumber
-     *            The creditCardNumber to set.
-     */
     public void setCreditCardNumber(String creditCardNumber) {
         this.creditCardNumber = creditCardNumber;
     }
 
-    /**
-     * Gets the cardHolderName attribute.
-     * 
-     * @return Returns the cardHolderName
-     */
     public String getCardHolderName() {
         return cardHolderName;
     }
 
-    /**
-     * Sets the cardHolderName attribute.
-     * 
-     * @param cardHolderName
-     *            The cardHolderName to set.
-     */
     public void setCardHolderName(String cardHolderName) {
         this.cardHolderName = cardHolderName;
     }
 
-    /**
-     * Gets the cardHolderAlternateName attribute.
-     * 
-     * @return Returns the cardHolderAlternateName
-     */
     public String getCardHolderAlternateName() {
         return cardHolderAlternateName;
     }
 
-    /**
-     * Sets the cardHolderAlternateName attribute.
-     * 
-     * @param cardHolderAlternateName
-     *            The cardHolderAlternateName to set.
-     */
     public void setCardHolderAlternateName(String cardHolderAlternateName) {
         this.cardHolderAlternateName = cardHolderAlternateName;
     }
 
-    /**
-     * Gets the cardHolderLine1Address attribute.
-     * 
-     * @return Returns the cardHolderLine1Address
-     */
     public String getCardHolderLine1Address() {
         return cardHolderLine1Address;
     }
 
-    /**
-     * Sets the cardHolderLine1Address attribute.
-     * 
-     * @param cardHolderLine1Address
-     *            The cardHolderLine1Address to set.
-     */
     public void setCardHolderLine1Address(String cardHolderLine1Address) {
         this.cardHolderLine1Address = cardHolderLine1Address;
     }
 
-    /**
-     * Gets the cardHolderLine2Address attribute.
-     * 
-     * @return Returns the cardHolderLine2Address
-     */
     public String getCardHolderLine2Address() {
         return cardHolderLine2Address;
     }
 
-    /**
-     * Sets the cardHolderLine2Address attribute.
-     * 
-     * @param cardHolderLine2Address
-     *            The cardHolderLine2Address to set.
-     */
     public void setCardHolderLine2Address(String cardHolderLine2Address) {
         this.cardHolderLine2Address = cardHolderLine2Address;
     }
 
-    /**
-     * Gets the cardHolderCityName attribute.
-     * 
-     * @return Returns the cardHolderCityName
-     */
     public String getCardHolderCityName() {
         return cardHolderCityName;
     }
 
-    /**
-     * Sets the cardHolderCityName attribute.
-     * 
-     * @param cardHolderCityName
-     *            The cardHolderCityName to set.
-     */
     public void setCardHolderCityName(String cardHolderCityName) {
         this.cardHolderCityName = cardHolderCityName;
     }
 
-    /**
-     * Gets the cardHolderStateCode attribute.
-     * 
-     * @return Returns the cardHolderStateCode
-     */
     public String getCardHolderStateCode() {
         return cardHolderStateCode;
     }
 
-    /**
-     * Sets the cardHolderStateCode attribute.
-     * 
-     * @param cardHolderStateCode
-     *            The cardHolderStateCode to set.
-     */
     public void setCardHolderStateCode(String cardHolderStateCode) {
         this.cardHolderStateCode = cardHolderStateCode;
     }
 
-    /**
-     * Gets the cardHolderZipCode attribute.
-     * 
-     * @return Returns the cardHolderZipCode
-     */
     public String getCardHolderZipCode() {
         return cardHolderZipCode;
     }
 
-    /**
-     * Sets the cardHolderZipCode attribute.
-     * 
-     * @param cardHolderZipCode
-     *            The cardHolderZipCode to set.
-     */
     public void setCardHolderZipCode(String cardHolderZipCode) {
         this.cardHolderZipCode = cardHolderZipCode;
     }
 
-    /**
-     * Gets the cardHolderWorkPhoneNumber attribute.
-     * 
-     * @return Returns the cardHolderWorkPhoneNumber
-     */
     public String getCardHolderWorkPhoneNumber() {
         return cardHolderWorkPhoneNumber;
     }
 
-    /**
-     * Sets the cardHolderWorkPhoneNumber attribute.
-     * 
-     * @param cardHolderWorkPhoneNumber
-     *            The cardHolderWorkPhoneNumber to set.
-     */
     public void setCardHolderWorkPhoneNumber(String cardHolderWorkPhoneNumber) {
         this.cardHolderWorkPhoneNumber = cardHolderWorkPhoneNumber;
     }
 
-    /**
-     * Gets the cardLimit attribute.
-     * 
-     * @return Returns the cardLimit
-     */
     public KualiDecimal getCardLimit() {
         return cardLimit;
     }
 
-    /**
-     * Sets the cardLimit attribute.
-     * 
-     * @param cardLimit
-     *            The cardLimit to set.
-     */
     public void setCardLimit(KualiDecimal cardLimit) {
         this.cardLimit = cardLimit;
     }
 
-    /**
-     * Gets the cardCycleAmountLimit attribute.
-     * 
-     * @return Returns the cardCycleAmountLimit
-     */
     public KualiDecimal getCardCycleAmountLimit() {
         return cardCycleAmountLimit;
     }
 
-    /**
-     * Sets the cardCycleAmountLimit attribute.
-     * 
-     * @param cardCycleAmountLimit
-     *            The cardCycleAmountLimit to set.
-     */
     public void setCardCycleAmountLimit(KualiDecimal cardCycleAmountLimit) {
         this.cardCycleAmountLimit = cardCycleAmountLimit;
     }
 
-    /**
-     * Gets the cardCycleVolumeLimit attribute.
-     * 
-     * @return Returns the cardCycleVolumeLimit
-     */
     public Integer getCardCycleVolumeLimit() {
         return cardCycleVolumeLimit;
     }
 
-    /**
-     * Sets the cardCycleVolumeLimit attribute.
-     * 
-     * @param cardCycleVolumeLimit
-     *            The cardCycleVolumeLimit to set.
-     */
     public void setCardCycleVolumeLimit(Integer cardCycleVolumeLimit) {
         this.cardCycleVolumeLimit = cardCycleVolumeLimit;
     }
 
-    /**
-     * Gets the cardMonthlyNumber attribute.
-     * 
-     * @return Returns the cardMonthlyNumber.
-     */
     public Integer getCardMonthlyNumber() {
         return cardMonthlyNumber;
     }
 
-    /**
-     * Sets the cardMonthlyNumber attribute value.
-     * 
-     * @param cardMonthlyNumber
-     *            The cardMonthlyNumber to set.
-     */
     public void setCardMonthlyNumber(Integer cardMonthlyNumber) {
         this.cardMonthlyNumber = cardMonthlyNumber;
     }
 
-    /**
-     * Gets the cardStatusCode attribute.
-     * 
-     * @return Returns the cardStatusCode
-     */
     public String getCardStatusCode() {
         return cardStatusCode;
     }
 
-    /**
-     * Sets the cardStatusCode attribute.
-     * 
-     * @param cardStatusCode
-     *            The cardStatusCode to set.
-     */
     public void setCardStatusCode(String cardStatusCode) {
         this.cardStatusCode = cardStatusCode;
     }
 
-    /**
-     * Gets the cardNoteText attribute.
-     * 
-     * @return Returns the cardNoteText
-     */
     public String getCardNoteText() {
         return cardNoteText;
     }
 
-    /**
-     * Sets the cardNoteText attribute.
-     * 
-     * @param cardNoteText
-     *            The cardNoteText to set.
-     */
     public void setCardNoteText(String cardNoteText) {
         this.cardNoteText = cardNoteText;
     }
 
-    /**
-     * Gets the chartOfAccountsCode attribute.
-     * 
-     * @return Returns the chartOfAccountsCode
-     */
     public String getChartOfAccountsCode() {
         return chartOfAccountsCode;
     }
 
-    /**
-     * Sets the chartOfAccountsCode attribute.
-     * 
-     * @param chartOfAccountsCode
-     *            The chartOfAccountsCode to set.
-     */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
         this.chartOfAccountsCode = chartOfAccountsCode;
     }
 
-    /**
-     * Gets the accountNumber attribute.
-     * 
-     * @return Returns the accountNumber
-     */
     public String getAccountNumber() {
         return accountNumber;
     }
 
-    /**
-     * Sets the accountNumber attribute.
-     * 
-     * @param accountNumber
-     *            The accountNumber to set.
-     */
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 
-    /**
-     * Gets the subAccountNumber attribute.
-     * 
-     * @return Returns the subAccountNumber
-     */
     public String getSubAccountNumber() {
         return subAccountNumber;
     }
 
-    /**
-     * Sets the subAccountNumber attribute.
-     * 
-     * @param subAccountNumber
-     *            The subAccountNumber to set.
-     */
     public void setSubAccountNumber(String subAccountNumber) {
         this.subAccountNumber = subAccountNumber;
     }
 
-    /**
-     * Gets the financialObjectCode attribute.
-     * 
-     * @return Returns the financialObjectCode
-     */
     public String getFinancialObjectCode() {
         return financialObjectCode;
     }
 
-    /**
-     * Sets the financialObjectCode attribute.
-     * 
-     * @param financialObjectCode
-     *            The financialObjectCode to set.
-     */
     public void setFinancialObjectCode(String financialObjectCode) {
         this.financialObjectCode = financialObjectCode;
     }
 
-    /**
-     * Gets the financialSubObjectCode attribute.
-     * 
-     * @return Returns the financialSubObjectCode
-     */
     public String getFinancialSubObjectCode() {
         return financialSubObjectCode;
     }
 
-    /**
-     * Sets the financialSubObjectCode attribute.
-     * 
-     * @param financialSubObjectCode
-     *            The financialSubObjectCode to set.
-     */
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
         this.financialSubObjectCode = financialSubObjectCode;
     }
 
-    /**
-     * Gets the organizationCode attribute.
-     * 
-     * @return Returns the organizationCode.
-     */
     public String getOrganizationCode() {
         return organizationCode;
     }
 
-    /**
-     * Sets the organizationCode attribute.
-     * 
-     * @param organizationCode
-     *            The organizationCode to set.
-     */
     public void setOrganizationCode(String organizationCode) {
         this.organizationCode = organizationCode;
     }
 
-    /**
-     * Gets the cardHolderSystemId attribute.
-     * 
-     * @return Returns the cardHolderSystemId
-     */
     public String getCardHolderSystemId() {
         return cardHolderSystemId;
     }
 
-    /**
-     * Sets the cardHolderSystemId attribute.
-     * 
-     * @param cardHolderSystemId
-     *            The cardHolderSystemId to set.
-     */
     public void setCardHolderSystemId(String cardHolderSystemId) {
         this.cardHolderSystemId = cardHolderSystemId;
     }
 
-    /**
-     * Gets the cardGroupId attribute.
-     * 
-     * @return Returns the cardGroupId
-     */
     public String getCardGroupId() {
         return cardGroupId;
     }
 
-    /**
-     * Sets the cardGroupId attribute.
-     * 
-     * @param cardGroupId
-     *            The cardGroupId to set.
-     */
     public void setCardGroupId(String cardGroupId) {
         this.cardGroupId = cardGroupId;
     }
 
-    /**
-     * Gets the cardCancelCode attribute.
-     * 
-     * @return Returns the cardCancelCode
-     */
     public String getCardCancelCode() {
         return cardCancelCode;
     }
 
-    /**
-     * Sets the cardCancelCode attribute.
-     * 
-     * @param cardCancelCode
-     *            The cardCancelCode to set.
-     */
     public void setCardCancelCode(String cardCancelCode) {
         this.cardCancelCode = cardCancelCode;
     }
 
-    /**
-     * Gets the cardOpenDate attribute.
-     * 
-     * @return Returns the cardOpenDate.
-     */
     public Date getCardOpenDate() {
         return cardOpenDate;
     }
 
-    /**
-     * Sets the cardOpenDate attribute value.
-     * 
-     * @param cardOpenDate
-     *            The cardOpenDate to set.
-     */
     public void setCardOpenDate(Date cardOpenDate) {
         this.cardOpenDate = cardOpenDate;
     }
 
-    /**
-     * Gets the cardCancelDate attribute.
-     * 
-     * @return Returns the cardCancelDate
-     */
     public Date getCardCancelDate() {
         return cardCancelDate;
     }
 
-    /**
-     * Sets the cardCancelDate attribute.
-     * 
-     * @param cardCancelDate
-     *            The cardCancelDate to set.
-     */
     public void setCardCancelDate(Date cardCancelDate) {
         this.cardCancelDate = cardCancelDate;
     }
 
-    /**
-     * Gets the cardExpireDate attribute.
-     * 
-     * @return Returns the cardExpireDate
-     */
     public Date getCardExpireDate() {
         return cardExpireDate;
     }
 
-    /**
-     * Sets the cardExpireDate attribute.
-     * 
-     * @param cardExpireDate
-     *            The cardExpireDate to set.
-     */
     public void setCardExpireDate(Date cardExpireDate) {
         this.cardExpireDate = cardExpireDate;
     }
 
-    /**
-     * Gets the cardApprovalOfficial attribute.
-     * 
-     * @return Returns the cardApprovalOfficial
-     */
     public String getCardApprovalOfficial() {
         return cardApprovalOfficial;
     }
 
-    /**
-     * Sets the cardApprovalOfficial attribute.
-     * 
-     * @param cardApprovalOfficial
-     *            The cardApprovalOfficial to set.
-     */
     public void setCardApprovalOfficial(String cardApprovalOfficial) {
         this.cardApprovalOfficial = cardApprovalOfficial;
     }
 
-    /**
-     * Gets the account attribute.
-     * 
-     * @return Returns the account
-     */
     public Account getAccount() {
         return account;
     }
@@ -620,11 +304,6 @@ public class ProcurementCardHolderDetail extends PersistableBusinessObjectBase {
         this.account = account;
     }
 
-    /**
-     * Gets the chartOfAccounts attribute.
-     * 
-     * @return Returns the chartOfAccounts
-     */
     public Chart getChartOfAccounts() {
         return chartOfAccounts;
     }
@@ -640,9 +319,6 @@ public class ProcurementCardHolderDetail extends PersistableBusinessObjectBase {
         this.chartOfAccounts = chartOfAccounts;
     }
 
-    /**
-     * @return Returns the subAccount.
-     */
     public SubAccount getSubAccount() {
         return subAccount;
     }
@@ -658,11 +334,6 @@ public class ProcurementCardHolderDetail extends PersistableBusinessObjectBase {
         this.subAccount = subAccount;
     }
 
-    /**
-     * Gets the objectCode attribute.
-     * 
-     * @return Returns the objectCode
-     */
     public ObjectCode getObjectCode() {
         return objectCode;
     }
@@ -678,11 +349,6 @@ public class ProcurementCardHolderDetail extends PersistableBusinessObjectBase {
         this.objectCode = objectCode;
     }
 
-    /**
-     * Gets the organization attribute.
-     * 
-     * @return Returns the organization
-     */
     public Organization getOrganization() {
         return organization;
     }
@@ -698,11 +364,6 @@ public class ProcurementCardHolderDetail extends PersistableBusinessObjectBase {
         this.organization = organization;
     }
 
-    /**
-     * Gets the subObjectCode attribute.
-     * 
-     * @return Returns the subObjectCode
-     */
     public SubObjectCode getSubObjectCode() {
         return subObjectCode;
     }
@@ -718,11 +379,6 @@ public class ProcurementCardHolderDetail extends PersistableBusinessObjectBase {
         this.subObjectCode = subObjectCode;
     }
 
-    /**
-     * Gets the cardholderUser attribute.
-     * 
-     * @return Returns the cardholderUser
-     */
     public Person getCardholderUser() {
         cardholderUser = SpringContext.getBean(PersonService.class).updatePersonIfNecessary(cardHolderSystemId, cardholderUser);
         return cardholderUser;
@@ -739,12 +395,7 @@ public class ProcurementCardHolderDetail extends PersistableBusinessObjectBase {
         this.cardholderUser = cardholderUser;
     }
 
-    /**
-     * Gets the reconcilerGroup attribute.
-     * 
-     * @return Returns the reconcilerGroup
-     */
-    public GroupImpl getReconcilerGroup() {
+    public GroupBo getReconcilerGroup() {
         return reconcilerGroup;
     }
 
@@ -755,15 +406,12 @@ public class ProcurementCardHolderDetail extends PersistableBusinessObjectBase {
      *            The reconcilerGroup to set.
      * @deprecated
      */
-    public void setReconcilerGroup(GroupImpl reconcilerGroup) {
+    public void setReconcilerGroup(GroupBo reconcilerGroup) {
         this.reconcilerGroup = reconcilerGroup;
     }
 
-    /**
-     * @see org.kuali.rice.kns.bo.BusinessObjectBase#toStringMapper()
-     */
-    protected LinkedHashMap toStringMapper() {
-        LinkedHashMap m = new LinkedHashMap();
+    protected LinkedHashMap<String, String> toStringMapper() {
+        LinkedHashMap<String, String> m = new LinkedHashMap<String, String>();
         m.put(KFSPropertyConstants.TRANSACTION_CREDIT_CARD_NUMBER, this.creditCardNumber);
         return m;
     }

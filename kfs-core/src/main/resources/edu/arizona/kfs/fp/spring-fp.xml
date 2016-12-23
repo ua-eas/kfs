@@ -130,7 +130,7 @@
         </property>
         <property name="procurementCardHolderInputFileType">
             <ref bean="procurementCardHolderInputFileType" />
-        </property> 
+        </property>
     </bean>
     
     <bean id="procurementCardHolderUpdateStep" class="edu.arizona.kfs.fp.batch.ProcurementCardHolderUpdateStep" parent="step">
@@ -140,15 +140,27 @@
     </bean>
 
     <bean id="procurementCardHolderLoadService" class="edu.arizona.kfs.fp.batch.service.impl.ProcurementCardHolderLoadServiceImpl">
+        <property name="businessObjectService">
+            <ref bean="businessObjectService" />
+        </property>
+        <property name="batchInputFileService">
+            <ref bean="batchInputFileService" />
+        </property>
         <property name="procurementCardHolderInputFileType">
             <ref bean="procurementCardHolderInputFileType" />
-        </property> 
+        </property>
     </bean>
 
     <bean id="procurementCardHolderUpdateService" class="edu.arizona.kfs.fp.batch.service.impl.ProcurementCardHolderUpdateServiceImpl">
+        <property name="businessObjectService">
+            <ref bean="businessObjectService" />
+        </property>
+        <property name="dateTimeService">
+           <ref bean="dateTimeService"/>
+        </property>
     </bean>
 
-    <bean id="procurementCardHolderInputFileType" class="edu.arizona.kfs.fp.batch.ProcurementCardHolderInputFileType"> 
+    <bean id="procurementCardHolderInputFileType" class="edu.arizona.kfs.fp.batch.ProcurementCardHolderInputFileType">
         <property name="directoryPath">
            <value>${staging.directory}/fp/procurementCardHolder</value>
         </property>
