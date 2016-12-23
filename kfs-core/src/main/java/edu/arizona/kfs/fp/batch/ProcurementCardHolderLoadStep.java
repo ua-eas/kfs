@@ -25,7 +25,6 @@ import edu.arizona.kfs.fp.batch.service.ProcurementCardHolderLoadService;
  * transaction. Step can be restarted as needed.
  */
 public class ProcurementCardHolderLoadStep extends AbstractStep {
-    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ProcurementCardHolderLoadStep.class);
 
     private ProcurementCardHolderLoadService procurementCardHolderLoadService;
     private BatchInputFileService batchInputFileService;
@@ -47,7 +46,7 @@ public class ProcurementCardHolderLoadStep extends AbstractStep {
         List<String> fileNamesToLoad = getBatchInputFileService().listInputFileNamesWithDoneFile(procurementCardHolderInputFileType);
 
         boolean processSuccess = true;
-        List<String> processedFiles = new ArrayList();
+        List<String> processedFiles = new ArrayList<String>();
         for (String inputFileName : fileNamesToLoad) {
             processSuccess = procurementCardHolderLoadService.loadProcurementCardHolderFile(inputFileName);
             if (processSuccess) {

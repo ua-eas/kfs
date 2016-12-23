@@ -28,25 +28,11 @@ public class ProcurementCardHolderLoadServiceImpl implements ProcurementCardHold
     private BatchInputFileService batchInputFileService;
     private BatchInputFileType procurementCardHolderInputFileType;
 
-    public BusinessObjectService getBusinessObjectService() {
-        if (businessObjectService == null) {
-            businessObjectService = SpringContext.getBean(BusinessObjectService.class);
-        }
-        return businessObjectService;
-    }
-
-    public BatchInputFileService getBatchInputFileService() {
-        if (batchInputFileService == null) {
-            batchInputFileService = SpringContext.getBean(BatchInputFileService.class);
-        }
-        return batchInputFileService;
-    }
-
     /**
      * Calls businessObjectService to remove all the procurement cardholder rows from the load table.
      */
     public void cleanTransactionsTable() {
-        getBusinessObjectService().deleteMatching(ProcurementCardHolderLoad.class, new HashMap());
+        businessObjectService.deleteMatching(ProcurementCardHolderLoad.class, new HashMap<String, String>());
     }
 
     /**
@@ -65,10 +51,10 @@ public class ProcurementCardHolderLoadServiceImpl implements ProcurementCardHold
             throw new RuntimeException("Cannot find the file requested to be parsed " + fileName + " " + e1.getMessage(), e1);
         }
 
-        Collection pcardHolders = null;
+        Collection<ProcurementCardHolderLoad> pcardHolders = null;
         try {
             byte[] fileByteContent = IOUtils.toByteArray(fileContents);
-            pcardHolders = (Collection) getBatchInputFileService().parse(procurementCardHolderInputFileType, fileByteContent);
+            pcardHolders = (Collection<ProcurementCardHolderLoad>) batchInputFileService.parse(procurementCardHolderInputFileType, fileByteContent);
         } catch (IOException e) {
             LOG.error("error while getting file bytes:  " + e.getMessage(), e);
             throw new RuntimeException("Error encountered while attempting to get file bytes: " + e.getMessage(), e);
@@ -81,7 +67,7 @@ public class ProcurementCardHolderLoadServiceImpl implements ProcurementCardHold
             LOG.warn("No PCard Holders in input file " + fileName);
         }
 
-        loadTransactions((List) pcardHolders);
+        loadTransactions((List<ProcurementCardHolderLoad>) pcardHolders);
 
         LOG.info("Total holders loaded: " + Integer.toString(pcardHolders.size()));
         return true;
@@ -93,17 +79,19 @@ public class ProcurementCardHolderLoadServiceImpl implements ProcurementCardHold
      * @param holders
      *            List of Procurement Cardholders to load.
      */
-    protected void loadTransactions(List holders) {
-        getBusinessObjectService().save(holders);
+    protected void loadTransactions(List<ProcurementCardHolderLoad> holders) {
+        businessObjectService.save(holders);
     }
 
-    /**
-     * Sets the procurementCardHolderInputFileType attribute value.
-     * 
-     * @param procurementCardHolderInputFileType
-     *            The procurementCardHolderInputFileType to set.
-     */
     public void setProcurementCardHolderInputFileType(BatchInputFileType procurementCardHolderInputFileType) {
         this.procurementCardHolderInputFileType = procurementCardHolderInputFileType;
+    }
+
+    public void setBusinessObjectService(BusinessObjectService businessObjectService) {
+        this.businessObjectService = businessObjectService;
+    }
+
+    public void setBatchInputFileService(BatchInputFileService batchInputFileService) {
+        this.batchInputFileService = batchInputFileService;
     }
 }

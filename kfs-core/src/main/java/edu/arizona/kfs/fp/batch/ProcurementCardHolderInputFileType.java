@@ -14,7 +14,6 @@ import edu.arizona.kfs.sys.KFSKeyConstants;
  * Batch input type for the procurement cardholder job.
  */
 public class ProcurementCardHolderInputFileType extends XmlBatchInputFileTypeBase {
-    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ProcurementCardHolderInputFileType.class);
 
     private DateTimeService dateTimeService;
 
@@ -27,8 +26,6 @@ public class ProcurementCardHolderInputFileType extends XmlBatchInputFileTypeBas
 
     /**
      * No additional information is added to procurement cardholder batch files.
-     * 
-     * @see org.kuali.kfs.sys.batch.BatchInputFileType#getFileName(org.kuali.rice.kim.bo.Person, java.lang.Object, java.lang.String)
      */
     public String getFileName(String principalName, Object parsedFileContents, String userIdentifier) {
         String fileName = "pcdh_" + principalName;
@@ -43,16 +40,10 @@ public class ProcurementCardHolderInputFileType extends XmlBatchInputFileTypeBas
         return fileName;
     }
 
-    /**
-     * @see org.kuali.kfs.sys.batch.BatchInputFileType#getFileTypeIdentifer()
-     */
     public String getFileTypeIdentifer() {
         return KFSConstants.ProcurementCardholder.PCDH_FILE_TYPE_IDENTIFIER;
     }
 
-    /**
-     * @see org.kuali.kfs.sys.batch.BatchInputFileType#validate(java.lang.Object)
-     */
     public boolean validate(Object parsedFileContents) {
         return true;
     }

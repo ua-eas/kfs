@@ -57,9 +57,8 @@
       <bean parent="DateValidationPattern" />
     </property>
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="12" />
-    </property>    
+      <bean parent="TextControlDefinition" p:size="12" />
+    </property>
   </bean>
   <bean id="ProcurementCardHolderLoad-cardCycleAmountLimit" parent="ProcurementCardHolderLoad-cardCycleAmountLimit-parentBean" />
 
@@ -73,8 +72,7 @@
       <bean parent="FloatingPointValidationPattern" />
     </property>
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="21" />
+      <bean parent="TextControlDefinition" p:size="21" />
     </property>
   </bean>
   <bean id="ProcurementCardHolderLoad-cardCycleVolumeLimit" parent="ProcurementCardHolderLoad-cardCycleVolumeLimit-parentBean" />
@@ -87,8 +85,7 @@
       <bean parent="NumericValidationPattern" />
     </property>
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="16" />
+      <bean parent="TextControlDefinition" p:size="16" />
     </property>
   </bean>
   
@@ -100,9 +97,8 @@
     <property name="shortLabel" value="Expire Date" />
     <property name="maxLength" value="4" />
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="6" />
-    </property>     
+      <bean parent="TextControlDefinition" p:size="6" />
+    </property>
   </bean>
   <bean id="ProcurementCardHolderLoad-cardHolderAlternateName" parent="ProcurementCardHolderLoad-cardHolderAlternateName-parentBean" />
 
@@ -113,8 +109,7 @@
     <property name="shortLabel" value="Name" />
     <property name="maxLength" value="45" />
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="47" />
+      <bean parent="TextControlDefinition" p:size="47" />
     </property>
   </bean>
   <bean id="ProcurementCardHolderLoad-cardHolderCityName" parent="ProcurementCardHolderLoad-cardHolderCityName-parentBean" />
@@ -126,8 +121,7 @@
     <property name="shortLabel" value="Name" />
     <property name="maxLength" value="45" />
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="47" />
+      <bean parent="TextControlDefinition" p:size="47" />
     </property>
   </bean>
   <bean id="ProcurementCardHolderLoad-cardHolderLine1Address" parent="ProcurementCardHolderLoad-cardHolderLine1Address-parentBean" />
@@ -139,8 +133,7 @@
     <property name="shortLabel" value="Address" />
     <property name="maxLength" value="45" />
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="47" />
+      <bean parent="TextControlDefinition" p:size="47" />
     </property>
   </bean>
   <bean id="ProcurementCardHolderLoad-cardHolderLine2Address" parent="ProcurementCardHolderLoad-cardHolderLine2Address-parentBean" />
@@ -152,8 +145,7 @@
     <property name="shortLabel" value="Address" />
     <property name="maxLength" value="45" />
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="47" />
+      <bean parent="TextControlDefinition" p:size="47" />
     </property>
   </bean>
   <bean id="ProcurementCardHolderLoad-cardHolderName" parent="ProcurementCardHolderLoad-cardHolderName-parentBean" />
@@ -165,23 +157,21 @@
     <property name="shortLabel" value="Name" />
     <property name="maxLength" value="35" />
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="37" />
+      <bean parent="TextControlDefinition" p:size="37" />
     </property>
   </bean>
   <bean id="ProcurementCardHolderLoad-cardHolderStateCode" parent="ProcurementCardHolderLoad-cardHolderStateCode-parentBean" />
 
   <bean id="ProcurementCardHolderLoad-cardHolderStateCode-parentBean" abstract="true" parent="ExternalizableAttributeDefinitionProxy"
-   p:sourceExternalizableBusinessObjectInterface="org.kuali.rice.kns.bo.State"
-   p:sourceAttributeName="postalStateCode">
+   p:sourceExternalizableBusinessObjectInterface="org.kuali.rice.location.impl.state.StateBo"
+   p:sourceAttributeName="code">
     <property name="name" value="cardHolderStateCode" />
     <property name="forceUppercase" value="false" />
     <property name="label" value="Card Holder State Code" />
     <property name="shortLabel" value="Code" />
     <property name="maxLength" value="2" />
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="4" />
+      <bean parent="TextControlDefinition" p:size="4" />
     </property>
   </bean>
   <bean id="ProcurementCardHolderLoad-cardHolderSystemId" parent="ProcurementCardHolderLoad-cardHolderSystemId-parentBean" />
@@ -193,10 +183,9 @@
     <property name="shortLabel" value="Holder ID" />
     <property name="maxLength" value="40" />
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="42" />
-    </property>  
-  </bean>       
+      <bean parent="TextControlDefinition" p:size="42" />
+    </property>
+  </bean>
   <bean id="ProcurementCardHolderLoad-cardHolderWorkPhoneNumber" parent="ProcurementCardHolderLoad-cardHolderWorkPhoneNumber-parentBean" />
 
   <bean id="ProcurementCardHolderLoad-cardHolderWorkPhoneNumber-parentBean" abstract="true" parent="AttributeDefinition">
@@ -206,15 +195,14 @@
     <property name="shortLabel" value="Number" />
     <property name="maxLength" value="10" />
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="12" />
+      <bean parent="TextControlDefinition" p:size="12" />
     </property>
   </bean>
   <bean id="ProcurementCardHolderLoad-cardHolderZipCode" parent="ProcurementCardHolderLoad-cardHolderZipCode-parentBean" />
 
   <bean id="ProcurementCardHolderLoad-cardHolderZipCode-parentBean" abstract="true" parent="ExternalizableAttributeDefinitionProxy"
-   p:sourceExternalizableBusinessObjectInterface="org.kuali.rice.kns.bo.PostalCode"
-   p:sourceAttributeName="postalCode">
+   p:sourceExternalizableBusinessObjectInterface="org.kuali.rice.location.impl.postalcode.PostalCodeBo"
+   p:sourceAttributeName="code">
     <property name="name" value="cardHolderZipCode" />
     <property name="label" value="Card Holder Postal (ZIP) Code" />
     <property name="shortLabel" value="Code" />
@@ -231,8 +219,7 @@
       <bean parent="FloatingPointValidationPattern" />
     </property>
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="21" />
+      <bean parent="TextControlDefinition" p:size="21" />
     </property>
   </bean>
   <bean id="ProcurementCardHolderLoad-cardMonthlyNumber" parent="ProcurementCardHolderLoad-cardMonthlyNumber-parentBean" />
@@ -245,8 +232,7 @@
       <bean parent="NumericValidationPattern" />
     </property>
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="16" />
+      <bean parent="TextControlDefinition" p:size="16" />
     </property>
   </bean>  
   <bean id="ProcurementCardHolderLoad-cardNoteText" parent="ProcurementCardHolderLoad-cardNoteText-parentBean" />
@@ -258,8 +244,7 @@
     <property name="shortLabel" value="Text" />
     <property name="maxLength" value="50" />
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="52" />
+      <bean parent="TextControlDefinition" p:size="52" />
     </property>
   </bean>
   <bean id="ProcurementCardHolderLoad-cardOpenDate" parent="ProcurementCardHolderLoad-cardOpenDate-parentBean" />
@@ -273,8 +258,7 @@
       <bean parent="DateValidationPattern" />
     </property>
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="12" />
+      <bean parent="TextControlDefinition" p:size="12" />
     </property>  
   </bean>
   <bean id="ProcurementCardHolderLoad-cardStatusCode" parent="ProcurementCardHolderLoad-cardStatusCode-parentBean" />
@@ -286,8 +270,7 @@
     <property name="shortLabel" value="Code" />
     <property name="maxLength" value="50" />
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="52" />
+      <bean parent="TextControlDefinition" p:size="52" />
     </property>
   </bean>
   <bean id="ProcurementCardHolderLoad-chartOfAccountsCode" parent="ProcurementCardHolderLoad-chartOfAccountsCode-parentBean" />
@@ -305,8 +288,7 @@
     <property name="shortLabel" value="Number" />
     <property name="maxLength" value="16" />
     <property name="control" >
-      <bean parent="TextControlDefinition"
-            p:size="16" />
+      <bean parent="TextControlDefinition" p:size="16" />
     </property>
      <property name="attributeSecurity">
        <bean parent="AttributeSecurity">
@@ -315,7 +297,7 @@
                <bean parent="MaskFormatterSubString" p:maskCharacter="*" p:maskLength="13" />
            </property>
        </bean>
-   </property>    
+   </property>
   </bean>
   <bean id="ProcurementCardHolderLoad-financialObjectCode" parent="ProcurementCardHolderLoad-financialObjectCode-parentBean" />
 
