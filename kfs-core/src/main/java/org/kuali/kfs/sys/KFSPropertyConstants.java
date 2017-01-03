@@ -1338,6 +1338,7 @@ public class KFSPropertyConstants {
     public static final String INSTITUTION_ID = "institutionId";
     public static final String SIDEBAR_OUT = "sidebarOut";
     public static final String CHECKED_LINK_FILTERS = "checkedLinkFilters";
+    public static final String NAMESPACE_CODES_TO_URLS_MAPPING = "namespaceCodesToUrlsMapping";
 
     public static class SubAccountImport {
         public static final String CHART_OF_ACCOUNTS_CODE = "chartOfAccountsCode";

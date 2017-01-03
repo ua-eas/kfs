@@ -68,7 +68,7 @@ public abstract class KualiTestBase extends TestCase implements KualiTestConstan
     protected static Set<String> generatedFiles = new HashSet<String>();
 
     /**
-     * Determines whether to actually run the test using the RelatesTo annotation, onfigures the appropriate context using the
+     * Determines whether to actually run the test using the RelatesTo annotation, configures the appropriate context using the
      * ConfigureContext annotation, and logs extra details if the test invocation's OJB operations happen to encounter an
      * OptimisticLockException or if this test has related Jiras.
      *

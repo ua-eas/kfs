@@ -19,6 +19,7 @@
 package org.kuali.kfs.sys.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Splitter;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
@@ -49,6 +50,7 @@ import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.permission.PermissionService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.imageio.ImageIO;
@@ -70,7 +72,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Transactional
-public class InstitutionPreferencesServiceImpl implements InstitutionPreferencesService {
+public class InstitutionPreferencesServiceImpl implements InstitutionPreferencesService, InitializingBean {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(InstitutionPreferencesServiceImpl.class);
 
     private ConfigurationService configurationService;
@@ -89,17 +91,24 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
 
     public InstitutionPreferencesServiceImpl() {
         namespaceCodeToUrlName = new ConcurrentHashMap<>();
-        namespaceCodeToUrlName.put("KFS-AR", "ar");
-        namespaceCodeToUrlName.put("KFS-CAM", "cams");
-        namespaceCodeToUrlName.put("KFS-CAB", "cab");
-        namespaceCodeToUrlName.put("KFS-FP", "financial");
-        namespaceCodeToUrlName.put("KFS-GL", "generalLedger");
-        namespaceCodeToUrlName.put("KFS-LD", "labor");
-        namespaceCodeToUrlName.put("KFS-BC", "budget");
-        namespaceCodeToUrlName.put("KFS-PURAP", "purap");
-        namespaceCodeToUrlName.put("KFS-CG", "cg");
-        namespaceCodeToUrlName.put("KFS-EC", "effort");
-        namespaceCodeToUrlName.put("KFS-TEM", "tem");
+    }
+
+    /**
+     * Config service isn't available until after InstitutionPreferencesServiceImpl has been constructed; wait until
+     * it's available to setup {@code namespaceCodeToUrlName}.
+     *
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        final String namespacesCodesToUrlMapping = this.configurationService.getPropertyValueAsString(KFSPropertyConstants.NAMESPACE_CODES_TO_URLS_MAPPING);
+        final Splitter namespaceSplitter = Splitter.on(',').omitEmptyStrings().trimResults();
+        final Iterable<String> namespaceCodeUrlPairs = namespaceSplitter.split(namespacesCodesToUrlMapping);
+        final Splitter codeUrlSplitter = Splitter.on(':');
+        for(final String pair : namespaceCodeUrlPairs) {
+            final List<String> codeAndUrl = codeUrlSplitter.splitToList(pair);
+            this.namespaceCodeToUrlName.put(codeAndUrl.get(0), codeAndUrl.get(1));
+        }
     }
 
     @Override
