@@ -24,7 +24,6 @@ import org.kuali.kfs.gl.web.TestDataGenerator;
 import org.kuali.kfs.kns.lookup.LookupableHelperService;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.PersistenceService;
-import org.kuali.kfs.module.bc.businessobject.CalculatedSalaryFoundationTracker;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.businessobject.AccountStatusBaseFunds;
 import org.kuali.kfs.module.ld.service.LaborInquiryOptionsService;
@@ -83,7 +82,6 @@ public class BaseFundsLookupableHelperServiceTest extends KualiTestBase {
         keys.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, TestUtils.getFiscalYearForTesting().toString());
         keys.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, "BL");
         businessObjectService.deleteMatching(AccountStatusBaseFunds.class, keys);
-        businessObjectService.deleteMatching(CalculatedSalaryFoundationTracker.class, keys);
     }
 
     /**
@@ -162,7 +160,7 @@ public class BaseFundsLookupableHelperServiceTest extends KualiTestBase {
             //ObjectUtil.buildObject(accountStatusBaseFunds, entry);
             accountStatusBaseFunds = ((AccountStatusBaseFunds) searchResults.get(i));
             System.out.println("*********DATA:" + accountStatusBaseFunds.toString());
-            assertTrue(expectedDataList.contains(accountStatusBaseFunds));
+            assertTrue("Expected data list doesn't contain accountStatusBaseFunds", expectedDataList.contains(accountStatusBaseFunds));
         }
         assertEquals(this.baseFundsExpectedInsertion, searchResults.size());
     }
@@ -263,20 +261,9 @@ public class BaseFundsLookupableHelperServiceTest extends KualiTestBase {
         businessObjectService = SpringContext.getBean(BusinessObjectService.class);
         persistenceService = SpringContext.getBean(PersistenceService.class);
 
-        int numberOfDocuments = Integer.valueOf(properties.getProperty("getCSFTracker.numberOfDocuments"));
-        List<CalculatedSalaryFoundationTracker> inputDataList = new ArrayList<CalculatedSalaryFoundationTracker>();
-        for (int i = 1; i <= numberOfDocuments; i++) {
-            String propertyKey = "getCSFTracker.testData" + i;
-            CalculatedSalaryFoundationTracker inputData = new CalculatedSalaryFoundationTracker();
-            ObjectUtil.populateBusinessObject(inputData, properties, propertyKey, documentFieldNames, deliminator);
-            inputData.setUniversityFiscalYear(TestUtils.getFiscalYearForTesting());
-            inputDataList.add(inputData);
-        }
-
         String testTarget = "getCSFTracker.";
         this.csfNumberOfTestData = Integer.valueOf(properties.getProperty(testTarget + "numberOfDocuments"));
         this.csfExpectedInsertion = Integer.valueOf(properties.getProperty(testTarget + "expectedInsertion"));
-        businessObjectService.save(inputDataList);
     }
 
     /**
