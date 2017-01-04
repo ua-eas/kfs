@@ -317,31 +317,6 @@
         <form-bean name="CapitalAssetInformationForm"
                    type="org.kuali.kfs.module.cab.document.web.struts.CapitalAssetInformationForm"/>
 
-        <!-- TEM Module Bean Definitions -->
-        <form-bean name="TravelAuthorizationForm"
-                   type="org.kuali.kfs.module.tem.document.web.struts.TravelAuthorizationForm"/>
-        <form-bean name="TravelReimbursementForm"
-                   type="org.kuali.kfs.module.tem.document.web.struts.TravelReimbursementForm"/>
-        <form-bean name="TravelEntertainmentForm"
-                   type="org.kuali.kfs.module.tem.document.web.struts.TravelEntertainmentForm"/>
-        <form-bean name="TravelRelocationForm"
-                   type="org.kuali.kfs.module.tem.document.web.struts.TravelRelocationForm"/>
-        <form-bean name="TravelArrangerForm"
-                   type="org.kuali.kfs.module.tem.document.web.struts.TravelArrangerForm"/>
-        <form-bean name="TravelDisbursementVoucherForm"
-                   type="org.kuali.kfs.module.tem.document.web.struts.TravelDisbursementVoucherForm"/>
-        <form-bean name="TemCorrectionForm"
-                   type="org.kuali.kfs.module.tem.document.web.struts.TemCorrectionForm"/>
-
-        <form-bean name="ReportForm"
-                   type="org.kuali.kfs.module.tem.report.web.struts.ReportForm"/>
-
-        <form-bean name="TaxableRamificationForm"
-                   type="org.kuali.kfs.module.tem.document.web.struts.TaxableRamificationForm"/>
-
-        <form-bean name="TemCardApplicationForm"
-                   type="org.kuali.kfs.module.tem.document.web.struts.TemCardApplicationForm"/>
-
         <!-- VND Module Bean Definitions -->
         <form-bean name="VendorExclusionForm"
                    type="org.kuali.kfs.vnd.web.struts.VendorExclusionForm"/>
@@ -958,43 +933,7 @@
                      path="/jsp/gl/TrialBalanceReportLookup.jsp"/>
         </action>
 
-        <!-- These are TEM items -->
-        <action path="/tem*" name="{1}Form"
-                input="/jsp/module/tem/{1}.jsp"
-                type="org.kuali.kfs.module.tem.document.web.struts.{1}Action"
-                scope="request" parameter="methodToCall" validate="true"
-                attribute="KualiForm">
-            <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/jsp/module/tem/{1}.jsp"/>
-        </action>
-        <action path="/temDV" name="TravelDisbursementVoucherForm"
-                input="/jsp/fp/DisbursementVoucher.jsp"
-                type="org.kuali.kfs.module.tem.document.web.struts.TravelDisbursementVoucherAction" scope="request"
-                parameter="methodToCall" validate="true" attribute="KualiForm">
-            <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/jsp/fp/DisbursementVoucher.jsp"/>
-        </action>
-
-        <action path="/temCorrectionDocument" name="TemCorrectionForm"
-                input="/jsp/module/tem/TemCorrectionDocument.jsp"
-                type="org.kuali.kfs.module.tem.document.web.struts.TemCorrectionAction" scope="request"
-                parameter="methodToCall" validate="true" attribute="KualiForm">
-            <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/jsp/module/tem/TemCorrectionDocument.jsp"/>
-        </action>
-
-        <action path="/tem*CardApplication" name="TemCardApplicationForm"
-                input="/jsp/module/tem/{1}CardApplication.jsp"
-                type="org.kuali.kfs.module.tem.document.web.struts.TemCardApplicationAction" scope="request"
-                parameter="methodToCall" validate="true" attribute="KualiForm">
-            <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/jsp/module/tem/{1}CardApplicationDocument.jsp"/>
-            <forward name="cardApplicationError" path="/jsp/module/tem/CardApplicationError.jsp"/>
-            <forward name="cardQuestion" path="/jsp/module/tem/CardApplicationQuestion.jsp"/>
-        </action>
-
         <!-- These are VND items -->
-
         <action path="/vendorExclusion"
                 type="org.kuali.kfs.vnd.web.struts.VendorExclusionAction"
                 name="VendorExclusionForm"
@@ -1005,7 +944,6 @@
                 type="org.kuali.kfs.kns.web.struts.action.KualiSimpleAction">
             <forward name="basic" path="/jsp/sys/SessionExpiration.jsp"/>
         </action>
-
     </action-mappings>
 
     <controller
