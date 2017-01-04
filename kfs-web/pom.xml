@@ -257,11 +257,6 @@
         </dependency>
         <dependency>
             <groupId>org.kuali.kfs</groupId>
-            <artifactId>kfs-bc</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.kuali.kfs</groupId>
             <artifactId>kfs-cam</artifactId>
             <version>${project.version}</version>
         </dependency>

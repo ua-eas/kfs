@@ -193,36 +193,6 @@
         <form-bean name="LaborGLLaborEntrySummarizationInquiryForm"
                    type="org.kuali.kfs.module.ld.web.struts.GLLaborEntrySummarizationInquiryForm"/>
 
-        <!-- Budget Construction Bean Definitions -->
-        <form-bean name="BudgetConstructionSelectionForm"
-                   type="org.kuali.kfs.module.bc.document.web.struts.BudgetConstructionSelectionForm"/>
-        <form-bean name="BudgetConstructionRequestImportForm"
-                   type="org.kuali.kfs.module.bc.document.web.struts.BudgetConstructionRequestImportForm"/>
-        <form-bean name="OrganizationSelectionTreeForm"
-                   type="org.kuali.kfs.module.bc.document.web.struts.OrganizationSelectionTreeForm"/>
-        <form-bean name="QuickSalarySettingForm"
-                   type="org.kuali.kfs.module.bc.document.web.struts.QuickSalarySettingForm"/>
-        <form-bean name="BudgetConstructionForm"
-                   type="org.kuali.kfs.module.bc.document.web.struts.BudgetConstructionForm"/>
-        <form-bean name="MonthlyBudgetForm"
-                   type="org.kuali.kfs.module.bc.document.web.struts.MonthlyBudgetForm"/>
-        <form-bean name="PositionSalarySettingForm"
-                   type="org.kuali.kfs.module.bc.document.web.struts.PositionSalarySettingForm"/>
-        <form-bean name="IncumbentSalarySettingForm"
-                   type="org.kuali.kfs.module.bc.document.web.struts.IncumbentSalarySettingForm"/>
-        <form-bean name="TempListLookupForm"
-                   type="org.kuali.kfs.module.bc.document.web.struts.TempListLookupForm"/>
-        <form-bean name="OrganizationReportSelectionForm"
-                   type="org.kuali.kfs.module.bc.document.web.struts.OrganizationReportSelectionForm"/>
-        <form-bean name="ReportExportForm"
-                   type="org.kuali.kfs.module.bc.document.web.struts.ReportExportForm"/>
-        <form-bean name="ReportRunnerForm"
-                   type="org.kuali.kfs.module.bc.document.web.struts.ReportRunnerForm"/>
-        <form-bean name="PayrateImportExportForm"
-                   type="org.kuali.kfs.module.bc.document.web.struts.PayrateImportExportForm"/>
-        <form-bean name="BudgetExpansionForm"
-                   type="org.kuali.kfs.module.bc.document.web.struts.BudgetExpansionForm"/>
-
         <!-- General Ledger Bean Definitions -->
         <form-bean name="GeneralLedgerCorrectionProcessForm"
                    type="org.kuali.kfs.gl.document.web.struts.GeneralLedgerCorrectionProcessForm"/>
@@ -695,69 +665,6 @@
                 scope="request" attribute="KualiForm" parameter="methodToCall">
             <set-property property="cancellable" value="true"/>
             <forward name="basic" path="/jsp/module/ld/GLLaborEntrySummarizationInquiry.jsp"/>
-        </action>
-
-        <action path="/budget*" name="{1}Form" input="/jsp/module/bc/{1}.jsp"
-                type="org.kuali.kfs.module.bc.document.web.struts.{1}Action" scope="request"
-                parameter="methodToCall" validate="true" attribute="KualiForm">
-            <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/jsp/module/bc/{1}.jsp"/>
-            <forward name="organizationSalarySettingReturning"
-                     path="/jsp/module/bc/OrganizationSalarySettingReturning.jsp"/>
-            <forward name="import_export"
-                     path="/jsp/module/bc/BudgetConstructionImportExport.jsp"/>
-        </action>
-
-        <action path="/budgetOrganizationSelectionTree" name="OrganizationSelectionTreeForm"
-                input="/jsp/module/bc/OrganizationSelectionTree.jsp"
-                type="org.kuali.kfs.module.bc.document.web.struts.OrganizationSelectionTreeAction"
-                scope="session" parameter="methodToCall" validate="true" attribute="KualiForm">
-            <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/jsp/module/bc/OrganizationSelectionTree.jsp"/>
-        </action>
-
-        <action path="/budgetOrganizationReportSelection" name="OrganizationReportSelectionForm"
-                input="/jsp/module/bc/OrganizationReportSelection.jsp"
-                type="org.kuali.kfs.module.bc.document.web.struts.OrganizationReportSelectionAction"
-                scope="session" parameter="methodToCall" validate="true" attribute="KualiForm">
-            <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/jsp/module/bc/OrganizationReportSelection.jsp"/>
-        </action>
-
-        <action path="/budgetMonthlyBudget" name="MonthlyBudgetForm"
-                input="/jsp/module/bc/MonthlyBudget.jsp"
-                type="org.kuali.kfs.module.bc.document.web.struts.MonthlyBudgetAction"
-                scope="session" parameter="methodToCall" validate="true" attribute="KualiForm">
-            <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/jsp/module/bc/MonthlyBudget.jsp"/>
-        </action>
-
-        <action path="/budgetQuickSalarySetting" name="QuickSalarySettingForm"
-                input="/jsp/module/bc/QuickSalarySetting.jsp"
-                type="org.kuali.kfs.module.bc.document.web.struts.QuickSalarySettingAction"
-                scope="session" parameter="methodToCall" validate="true" attribute="KualiForm">
-            <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/jsp/module/bc/QuickSalarySetting.jsp"/>
-        </action>
-
-        <action path="/budgetPositionSalarySetting" name="PositionSalarySettingForm"
-                input="/jsp/module/bc/PositionSalarySetting.jsp"
-                type="org.kuali.kfs.module.bc.document.web.struts.PositionSalarySettingAction"
-                scope="session" parameter="methodToCall" validate="true" attribute="KualiForm">
-            <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/jsp/module/bc/PositionSalarySetting.jsp"/>
-            <forward name="organizationSalarySettingReturning"
-                     path="/jsp/module/bc/OrganizationSalarySettingReturning.jsp"/>
-        </action>
-
-        <action path="/budgetIncumbentSalarySetting" name="IncumbentSalarySettingForm"
-                input="/jsp/module/bc/IncumbentSalarySetting.jsp"
-                type="org.kuali.kfs.module.bc.document.web.struts.IncumbentSalarySettingAction"
-                scope="session" parameter="methodToCall" validate="true" attribute="KualiForm">
-            <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/jsp/module/bc/IncumbentSalarySetting.jsp"/>
-            <forward name="organizationSalarySettingReturning"
-                     path="/jsp/module/bc/OrganizationSalarySettingReturning.jsp"/>
         </action>
 
         <action path="/cashManagementStatus" name="CashManagementStatusForm"

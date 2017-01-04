@@ -1001,7 +1001,6 @@
                 <ref bean="lockARModuleStep"/>
                 <ref bean="lockLDModuleStep"/>
                 <ref bean="lockGLModuleStep"/>
-                <ref bean="lockBCModuleStep"/>
                 <ref bean="lockCABModuleStep"/>
                 <ref bean="lockCOAModuleStep"/>
                 <ref bean="lockCAMModuleStep"/>
@@ -1026,9 +1025,6 @@
     </bean>
     <bean id="lockGLModuleStep" parent="lockModuleStep">
         <property name="namespaceCode" value="KFS-GL"/>
-    </bean>
-    <bean id="lockBCModuleStep" parent="lockModuleStep">
-        <property name="namespaceCode" value="KFS-BC"/>
     </bean>
     <bean id="lockCABModuleStep" parent="lockModuleStep">
         <property name="namespaceCode" value="KFS-CAB"/>
@@ -1071,7 +1067,6 @@
                 <ref bean="unlockARModuleStep"/>
                 <ref bean="unlockLDModuleStep"/>
                 <ref bean="unlockGLModuleStep"/>
-                <ref bean="unlockBCModuleStep"/>
                 <ref bean="unlockCABModuleStep"/>
                 <ref bean="unlockCOAModuleStep"/>
                 <ref bean="unlockCAMModuleStep"/>
@@ -1095,9 +1090,6 @@
     </bean>
     <bean id="unlockGLModuleStep" parent="unlockModuleStep">
         <property name="namespaceCode" value="KFS-GL"/>
-    </bean>
-    <bean id="unlockBCModuleStep" parent="unlockModuleStep">
-        <property name="namespaceCode" value="KFS-BC"/>
     </bean>
     <bean id="unlockCABModuleStep" parent="unlockModuleStep">
         <property name="namespaceCode" value="KFS-CAB"/>
