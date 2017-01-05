@@ -30,11 +30,7 @@ import java.util.List;
 
 
 public class ArConstants {
-
-
     public static final String AR_NAMESPACE_CODE = "KFS-AR";
-
-    public static final String REPORT_TIME_FORMAT = "HH:mm:ss";
 
     public static final String CG_PRORATE_BILL_IND = "CG_PRORATE_BILL_IND";
     public static final String DEFAULT_INVOICE_TEMPLATE = "DEFAULT_INVOICE_TEMPLATE";
@@ -81,14 +77,7 @@ public class ArConstants {
 
     public static final String CONTRACTS_GRANTS_INVOICE_COMPONENT = "ContractsGrantsInvoice";
 
-
-    // Valid number of days the invoice due date can be more than invoice creation date.
-    public static final int VALID_NUMBER_OF_DAYS_INVOICE_DUE_DATE_PAST_INVOICE_DATE = 90;
-
-    public static final String NEW_CUSTOMER_INVOICE_DETAIL_ERROR_PATH_PREFIX = "newCustomerInvoiceDetail";
     public static final String NEW_CASH_CONTROL_DETAIL_ERROR_PATH_PREFIX = "newCashControlDetail";
-
-    public static final String CUSTOMER_INVOICE_DOCUMENT_GL_POSTING_HELPER_BEAN_ID = "customerInvoiceDocumentGeneralLedgerPostingHelper";
 
     public static final String CUSTOMER_INVOICE_DETAIL_UOM_DEFAULT = "EA"; // TODO: System parameter?
 
@@ -99,8 +88,6 @@ public class ArConstants {
     public static final String ALLOW_SALES_TAX_LIABILITY_ADJUSTMENT_IND_NO = "N";
     public static final String COPY_CUSTOMER_INVOICE_DOCUMENT_WITH_DISCOUNTS_QUESTION = "ConfirmationForCopyingInvoiceWithDiscounts";
     public static final String SUSPENSION_CATEGORIES_PRESENT_QUESTION = "ConfirmationForSuspensionCategoriesPresent";
-
-    public static final String CUSTOMER_INVOICE_DETAIL_DEFAULT_DISCOUNT_DESCRIPTION_PREFIX = "LINE ITEM DISCOUNT";
 
     // We need a higher scale than the default 2 for item quantity in Customer Invoice and Credit Memo,
     // because we might have a very small invoice open amount and need to apply very small item quantity in credit memo.
@@ -118,8 +105,6 @@ public class ArConstants {
     public static final String DEFAULT_PROCESSING_CHART = "DEFAULT_PROCESSING_CHART";
     public static final String DEFAULT_PROCESSING_ORG = "DEFAULT_PROCESSING_ORG";
 
-    public static final String NEW_COLLECTION_EVENT_ERROR_PATH_PREFIX = "newCollectionEvent";
-
     public static final String CUSTOMER_COMPONENT = "Customer";
 
     public static final String CLEAR_INIT_TAB_METHOD = "clearInitTab";
@@ -129,7 +114,6 @@ public class ArConstants {
     public static final String PRINT_METHOD = "print";
     public static final String PRINT_CREDIT_MEMO_PDF_METHOD = "printCreditMemoPDF";
     public static final String PRINT_INVOICE_PDF_METHOD = "printInvoicePDF";
-    public static final String PRINT_STATEMENT_PDF_METHOD = "printStatementPDF";
     public static final String UPLOAD_METHOD = "upload";
     public static final String CLEAR_BUTTON_FILE_NAME = "buttonsmall_clear.gif";
     public static final String CLEAR_BUTTON_ALT_TEXT = "Clear";
@@ -146,9 +130,6 @@ public class ArConstants {
     public static final String TRANSMIT_GENERATE_BUTTON_FILE_NAME = "buttonsmall_transmitgenerate.gif";
     public static final String TRANSMIT_GENERATE_BUTTON_ALT_TEXT = "Transmit/Generate Print File";
     public static final String MAPPING_PRINT_PDF = "arPrintPDF";
-    public static final String ACTIONS_LABEL = "Actions";
-
-    public static final String CUSTOMER_STATEMENT_LABEL = "Customer Statement";
 
     // Agency Address
     public static final String AGENCY_PRIMARY_ADDRESSES_TYPE_CODE = "P";
@@ -183,18 +164,7 @@ public class ArConstants {
         public static final String TOTAL_31_TO_60 = "total31to60";
         public static final String TOTAL_61_TO_90 = "total61to90";
         public static final String TOTAL_91_TO_SYSPR = "total90toSYSPR";
-        public static final String TOTAL_SYSPR_PLUS_1_OR_MORE = "totalSYSPRplus1orMore";
         public static final String TOTAL_AMOUNT_DUE = "totalAmountDue";
-
-
-        public static final String AGENCY_SHORT_NAME = "Agency Short Name";
-        public static final String UNAPPLIED_PAYMENTS = "Unapplied Payments";
-        public static final String TOTAL_WRITEOFF = "Total Write-Off";
-    }
-
-    public static class OrganizationAccountingOptionsConstants {
-        public static final String ORG_ACCT_DEFAULT_RECEIVABLE_TAB_NAME = "Edit Organization Receivable Account Defaults";
-        public static final String ORG_ACCT_DEFAULT_WRITEOFF_TAB_NAME = "Edit Organization Writeoff Account Defaults";
     }
 
     public static class CustomerCreditMemoStatuses {
@@ -244,8 +214,6 @@ public class ArConstants {
         public static final String PRINT_BY_PROCESSING_ORG = "Q";
         public static final String PRINT_BY_USER = "U";
         public static final String PRINT_BY_BILLING_ORG = "B";
-        public static final String PRINT_INVOICE_NOW = "Y";
-        public static final String PRINT_DO_NOT_PRINT = "N";
     }
 
     public static final String LOCKBOX_DOCUMENT_DESCRIPTION = "Created by Lockbox ";
@@ -256,9 +224,7 @@ public class ArConstants {
     // Probably refactor these two constants out to pull them from a service, system parameter or something.
     public static final String PAYMENT_APPLICATION_DOCUMENT_TYPE_CODE = "APP";
     public static final String INVOICE_WRITEOFF_DOCUMENT_TYPE_CODE = "INVW";
-    public static final String CASH_CONTROL_DOCUMENT_TYPE_CODE = "CTRL";
     public static final String CUSTOMER_CREDIT_MEMO_DOCUMENT_TYPE_CODE = "CRM";
-    public static final String CUSTOMER_INVOICE_DOCUMENT_TYPE_CODE = "INV";
     public static final String FINAL_BILLED_INDICATOR_DOCUMENT_TYPE_CODE = "FBI";
 
     // Organization Options Section Ids
@@ -277,44 +243,13 @@ public class ArConstants {
     public static final String DEFAULT_INVOICING_OPTION_PARAMETER = "DEFAULT_INVOICING_OPTION";
 
 
-    public enum ArNotificationSelectionField {
-        CHART("CHART"), ORGANIZATION("ORG"), ACCOUNT("ACCOUNT");
-
-        public String fieldName;
-
-        private ArNotificationSelectionField(String fieldName) {
-            this.fieldName = fieldName;
-        }
-    }
-
-    public enum ArNotificationOptions {
-        PROCESSING_ORG("PROCESSING_ORG"), BILLING_ORG("BILLING_ORG"), ACCOUNT("ACCOUNT");
-
-        public String option;
-
-        private ArNotificationOptions(String option) {
-            this.option = option;
-        }
-    }
-
     public static class BatchFileSystem {
-
         static final public String EXTENSION = ".txt";
 
         static final public String CGINVOICE_BATCH_VALIDATION_ERROR_OUTPUT_FILE = "cgin_batch_validation_err";
         static final public String CGINVOICE_BATCH_CREATION_ERROR_OUTPUT_FILE = "cgin_batch_create_doc_err";
-        static final public String CGINVOICE_VALIDATION_ERROR_OUTPUT_FILE = "cgin_validation_err";
-        static final public String CGINVOICE_CREATION_ERROR_OUTPUT_FILE = "cgin_create_doc_err";
-        static final public String LOC_REVIEW_VALIDATION_ERROR_OUTPUT_FILE = "cgin_locReview_validation_err";
-        static final public String LOC_REVIEW_CREATION_ERROR_OUTPUT_FILE = "cgin_locReview_create_doc_err";
 
-        static final public String LOC_CREATION_BY_AWARD_ERROR_OUTPUT_FILE = "cgin_loc_by_award_create_doc_err";
         static final public String LOC_CREATION_BY_LOCF_ERROR_OUTPUT_FILE = "cgin_loc_by_loc_fund_create_doc_err";
-        static final public String INVOICE_REPORT_EMAIL_DELIVERY_ERROR_OUTPUT_FILE = "cgin_report_email_delivery_err";
-        static final public String LOC_CREATION_BY_LOCFG_ERROR_OUTPUT_FILE = "cgin_loc_by_loc_fund_group_create_doc_err";
-        static final public String LOC_CREATION_PMT_APP_ERROR_OUTPUT_FILE = "cgin_loc_pmt_app_create_doc_err";
-        static final public String EVT_CREATION_CLN_ACT_ERROR_OUTPUT_FILE = "catd_evt_cln_act_create_doc_err";
-        static final public String REFRL_TO_CLCTNS_ERROR_OUTPUT_FILE = "refrl_to_clctns_doc_err";
 
         static final public String CGINVOICE_DOCUMENT_DESCRIPTION_OF_BATCH_PROCESS = "Auto-generated Invoice Document";
     }
@@ -381,24 +316,14 @@ public class ArConstants {
     }
 
     public static class ContractsGrantsAgingReportFields {
-
-        public static final String TOTAL_0_TO_30 = "total0to30";
-        public static final String TOTAL_31_TO_60 = "total31to60";
-        public static final String TOTAL_61_TO_90 = "total61to90";
-        public static final String TOTAL_91_TO_SYSPR = "total90toSYSPR";
-        public static final String TOTAL_SYSPR_PLUS_1_OR_MORE = "totalSYSPRplus1orMore";
-        public static final String TOTAL_AMOUNT_DUE = "totalAmountDue";
         public static final String OPEN_INVOCE_REPORT_NAME = "Contracts & Grants Open Invoices Report";
 
-
         public static final String AGENCY_SHORT_NAME = "Agency Short Name";
-        public static final String UNAPPLIED_PAYMENTS = "Unapplied Payments";
         public static final String TOTAL_WRITEOFF = "Total Write-Off";
         public static final String TOTAL_CREDITS = "Total Credits";
     }
 
     // Award
-    public static final String LOC_BY_AWARD = "LOC By Award";
     public static final String LOC_BY_LOC_FUND = "LOC By Letter of Credit Fund";
     public static final String LOC_BY_LOC_FUND_GRP = "LOC By Letter of Credit Fund Group";
     public static final String CHECK_LIMIT_DAYS = "CHECK_LIMIT_DAYS";
@@ -413,8 +338,6 @@ public class ArConstants {
     public static final String OUTSTANDING_INVOICE_REPORT = "Outstanding Invoice Report";
     public static final String OUTSTANDING_INVOICES = "Outstanding Invoices";
     public static final String PAST_DUE_INVOICES = "Past Due Invoices";
-    public static final String LETTER_OF_CREDIT_FUND_GROUP_PROPERTY = "letterOfCreditFundGroup";
-    public static final String FUND_MANAGER = "fundManager";
     public static final String CONTRACTS_GRANTS_SUSPENDED_INVOICE_SUMMARY_REPORT = "ContractsGrantsSuspendedInvoiceSummaryReport";
     public static final String CONTRACTS_GRANTS_SUSPENDED_INVOICE_DETAIL_REPORT = "ContractsGrantsSuspendedInvoiceDetailReport";
     public static final String CONTRACTS_GRANTS_PAYMENT_HISTORY_REPORT = "ContractsGrantsPaymentHistoryReport";
@@ -425,7 +348,6 @@ public class ArConstants {
     public static final String CONTRACTS_GRANTS_INVOICE_ERROR_LOG_REPORT_SORT_FIELD = "ContractsGrantsInvoiceDocumentErrorLog";
     public static final String TICKLERS_REPORT_SORT_FIELD = "TicklersReport";
     public static final String COLLECTION_ACTIVITY_REPORT_TITLE = "Collection Activity Report";
-    public static final String PROJECT_DIRECTOR = "projectDirector";
     public static final String QUARTER1 = "q1";
     public static final String QUARTER2 = "q2";
     public static final String QUARTER3 = "q3";
@@ -442,7 +364,6 @@ public class ArConstants {
     }
 
     // CG Invoice Document
-    public static final String CONTRACTS_AND_GRANTS_INVOICE_CATEGORIES = "CONTRACTS_AND_GRANTS_INVOICE_CATEGORIES";
     public static final String CONTRACTS_GRANTS_INVOICE_DOCUMENT_DESCRIPTION = "Contracts & Grants Invoice";
     public static final String ACCOUNT = "Account";
     public static final String CONTRACT_CONTROL_ACCOUNT = "Contract Control Account";
@@ -450,7 +371,6 @@ public class ArConstants {
     public static final String MILESTONES_SECTION = "Milestones";
 
     public static final String INCOME_ACCOUNT = "Income";
-    public static final String AR_ACCOUNT = "Accounts Receivable";
     public static final String INV_AWARD = ArIntegrationConstants.AwardInvoicingOptions.INV_AWARD;
     public static final String INV_ACCOUNT = ArIntegrationConstants.AwardInvoicingOptions.INV_ACCOUNT;
     public static final String INV_CONTRACT_CONTROL_ACCOUNT = ArIntegrationConstants.AwardInvoicingOptions.INV_CONTRACT_CONTROL_ACCOUNT;
@@ -458,7 +378,6 @@ public class ArConstants {
     public static final String PRINT_INVOICES_FROM_LABEL = "Print Invoices From";
     public static final String PRINT_INVOICES_TO_LABEL = "Print Invoices To";
 
-    public static final String LETTER_OF_CREDIT_FUND_GROUP = "Letter of Credit Fund Group";
     public static final String LETTER_OF_CREDIT_REVIEW_DOCUMENT = "Letter Of Credit Review Document.";
 
     static final public String REMINDER_EMAIL_SUBJECT = "REMINDER_EMAIL_SUBJECT";
@@ -473,9 +392,6 @@ public class ArConstants {
     public static final String CHAPTER11 = "Chapter 11";
     public static final String CHAPTER13 = "Chapter 13";
     public static final String JUDGMENT_OBTAINED = "Judgment Obtained";
-
-    public static final String CUS = "CUS";
-    public static final String INVR = "INVR";
 
     public enum BillingFrequencyValues {
         PREDETERMINED_BILLING(ArIntegrationConstants.BillingFrequencyValues.PREDETERMINED_BILLING),
@@ -583,14 +499,11 @@ public class ArConstants {
         public static final String CUSTOMER_OPEN_ITEM_REPORT_LOOKUP = "arCustomerOpenItemReportLookup.do";
         public static final String CASH_CONTROL_DOCUMENT = "arCashControl.do";
         public static final String CUSTOMER_CREDIT_MEMO_DOCUMENT = "arCustomerCreditMemo.do";
-        public static final String CUSTOMER_INVOICE_DOCUMENT = "arCustomerInvoice.do";
         public static final String CONTRACTS_GRANTS_LETTER_OF_CREDIT_REVIEW_DOCUMENT = "arContractsGrantsLetterOfCreditReview.do";
-        public static final String CUSTOMER_STATEMENT = "arCustomerStatement.do";
         public static final String FEDERAL_FINANCIAL_REPORT = "arFederalFinancialReport.do";
     }
 
     public static class CostCategoryMaintenanceSections {
-        public static final String EDIT_CATEGORY = "EditCategory";
         public static final String EDIT_OBJECT_CODES = "EditObjectCodes";
         public static final String EDIT_OBJECT_LEVELS = "EditObjectLevels";
         public static final String EDIT_OBJECT_CONSOLIDATIONS = "EditObjectConsolidations";

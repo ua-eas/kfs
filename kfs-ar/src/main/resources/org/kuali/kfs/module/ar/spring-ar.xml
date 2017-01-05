@@ -69,7 +69,6 @@
                 <value>customerLoadJob</value>
                 <value>invoiceRecurrenceJob</value>
                 <value>customerInvoiceWriteoffBatchJob</value>
-                <value>customerAgingReportNotificationJob</value>
                 <value>letterOfCreditJob</value>
                 <value>contractsGrantsInvoiceDocumentJob</value>
                 <value>upcomingMilestoneNotificationJob</value>
@@ -2300,30 +2299,6 @@
                 <value>org.kuali.kfs.coa.businessobject.SubObjectCode</value>
             </set>
         </property>
-    </bean>
-
-    <bean id="customerAgingReportNotificationJob" parent="scheduledJobDescriptor">
-        <property name="steps">
-            <list>
-                <ref bean="customerAgingReportNotificationStep"/>
-            </list>
-        </property>
-    </bean>
-
-    <bean id="customerAgingReportNotificationStep" parent="customerAgingReportNotificationStep-parentBean"/>
-    <bean id="customerAgingReportNotificationStep-parentBean" abstract="true" class="org.kuali.kfs.module.ar.batch.CustomerAgingReportNotificationStep" parent="step">
-        <property name="customerNotificationService" ref="customerNotificationService"/>
-    </bean>
-
-    <bean id="customerNotificationService" parent="customerNotificationService-parentBean"/>
-    <bean id="customerNotificationService-parentBean" abstract="true" class="org.kuali.kfs.module.ar.batch.service.impl.CustomerNotificationServiceImpl">
-        <property name="businessObjectService" ref="businessObjectService"/>
-        <property name="customerInvoiceDocumentService" ref="customerInvoiceDocumentService"/>
-        <property name="kfsNotificationService" ref="kfsNotificationService"/>
-        <property name="parameterService" ref="parameterService"/>
-        <property name="dateTimeService" ref="dateTimeService"/>
-
-        <property name="agingReportTemplate" value="org/kuali/kfs/module/ar/report/email/agingReportTemplate.vm"/>
     </bean>
 
     <!-- Funds Manager Derived Role -->

@@ -19,15 +19,5 @@
 package org.kuali.kfs.module.ar;
 
 public class ArParameterKeyConstants {
-
-    public static final String NOTIFICATION_DAYS_PARAM_NM = "NOTIFICATION_DAYS";
-
-    public static final String FROM_EMAIL_ADDRESS_PARAM_NM = "FROM_EMAIL_ADDRESS";
-    public static final String NOTIFICATION_TEXT_PARAM_NM = "NOTIFICATION_TEXT";
-    public static final String NOTIFICATION_SUBJECT_PARAM_NM = "NOTIFICATION_SUBJECT";
-
-    public static final String NOTIFICATION_SELECTION_PARAM_NM = "NOTIFICATION_SELECTION";
-    public static final String NOTIFICATION_SELECTION_TYPE_PARAM_NM = "NOTIFICATION_SELECTION_TYPE";
-
     public static final String INCLUDE_PERIOD_13_IN_BUDGET_AND_CURRENT_IND_PARM_NM = "INCLUDE_PERIOD_13_IN_BUDGET_AND_CURRENT_IND";
 }

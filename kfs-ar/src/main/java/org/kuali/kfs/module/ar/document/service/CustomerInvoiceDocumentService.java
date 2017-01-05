@@ -348,36 +348,6 @@ public interface CustomerInvoiceDocumentService {
     public void updateReportedInvoiceInfo(CustomerStatementResultHolder data);
 
     /**
-     * get all customer invoice documents that are open and with the given age
-     *
-     * @param charts        the selected charts of accounts
-     * @param organizations the selected organization codes
-     * @param invoiceAge    the given invoice document age
-     * @return all customer invoice documents that are open and with the given age
-     */
-    public Collection<CustomerInvoiceDocument> getAllAgingInvoiceDocumentsByBilling(List<String> charts, List<String> organizations, Integer invoiceAge);
-
-    /**
-     * get all customer invoice documents that are open and with the given age
-     *
-     * @param charts        the selected charts of accounts
-     * @param organizations the selected organization codes
-     * @param invoiceAge    the given invoice document age
-     * @return all customer invoice documents that are open and with the given age
-     */
-    public Collection<CustomerInvoiceDocument> getAllAgingInvoiceDocumentsByProcessing(List<String> charts, List<String> organizations, Integer invoiceAge);
-
-    /**
-     * get all customer invoice documents that are open and with the given age
-     *
-     * @param charts     the selected charts of accounts
-     * @param accounts   the selected account numbers
-     * @param invoiceAge the given invoice document age
-     * @return all customer invoice documents that are open and with the given age
-     */
-    public Collection<CustomerInvoiceDocument> getAllAgingInvoiceDocumentsByAccounts(List<String> charts, List<String> accounts, Integer invoiceAge);
-
-    /**
      * get all customer invoice documents that are open and with the given age and customer types
      *
      * @param customerTypes          the given customer types
