@@ -15,7 +15,7 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.arizona.kfs.fp.businessobject.ProcurementCardHolderDetail;
+import edu.arizona.kfs.fp.businessobject.ProcurementCardDefault;
 import edu.arizona.kfs.fp.businessobject.ProcurementCardHolderLoad;
 import edu.arizona.kfs.fp.batch.service.ProcurementCardHolderUpdateService;
 
@@ -37,6 +37,7 @@ public class ProcurementCardHolderUpdateServiceImpl implements ProcurementCardHo
      * @return True if the procurement card holder records were created successfully.  If any problem occur while creating the 
      * documents, a runtime exception will be thrown.
      */
+    @Override
     public boolean updateProcurementCardHolderRecords() {
         
         //load procurement cardholder records from temp table
@@ -45,8 +46,8 @@ public class ProcurementCardHolderUpdateServiceImpl implements ProcurementCardHo
         LOG.info("Total Procurement Cardholders loaded: " + Integer.toString(loadedPcardHolders.size()));
         
         //list for saving records
-        List<ProcurementCardHolderDetail> procurementCardHolderDetails = new ArrayList<ProcurementCardHolderDetail>();
-        ProcurementCardHolderDetail procurementCardHolderDetail;
+        List<ProcurementCardDefault> procurementCardHolderDetails = new ArrayList<ProcurementCardDefault>();
+        ProcurementCardDefault procurementCardHolderDetail;
         int insertedRecords = 0;
         int updatedRecords = 0;
         int excludedRecords = 0; 
@@ -58,9 +59,9 @@ public class ProcurementCardHolderUpdateServiceImpl implements ProcurementCardHo
                 procurementCardHolderDetail = getExistingProcurementCardHolder(procurementCardHolderLoad.getCreditCardNumber());
                 if (ObjectUtils.isNull(procurementCardHolderDetail)) {
                     //insert
-                    procurementCardHolderDetail = new ProcurementCardHolderDetail();
+                    procurementCardHolderDetail = new ProcurementCardDefault();
                     procurementCardHolderDetail.setCreditCardNumber(procurementCardHolderLoad.getCreditCardNumber());
-                    procurementCardHolderDetail.setCardApprovalOfficial(procurementCardHolderLoad.getCreditCardNumber().substring(12));
+//                    procurementCardHolderDetail.setCardApprovalOfficial(procurementCardHolderLoad.getCreditCardNumber().substring(12));
                     procurementCardHolderDetail.setChartOfAccountsCode("UA");
                     procurementCardHolderDetail.setAccountNumber("0");
                     insertedRecords = insertedRecords + 1;
@@ -79,7 +80,7 @@ public class ProcurementCardHolderUpdateServiceImpl implements ProcurementCardHo
                 procurementCardHolderDetail.setCardHolderWorkPhoneNumber(procurementCardHolderLoad.getCardHolderWorkPhoneNumber());
                 procurementCardHolderDetail.setCardLimit(procurementCardHolderLoad.getCardLimit());
                 procurementCardHolderDetail.setCardCycleAmountLimit(procurementCardHolderLoad.getCardCycleAmountLimit());
-                procurementCardHolderDetail.setCardCycleVolumeLimit(procurementCardHolderLoad.getCardCycleVolumeLimit());
+//                procurementCardHolderDetail.setCardCycleVolumeLimit(procurementCardHolderLoad.getCardCycleVolumeLimit());
                 procurementCardHolderDetail.setCardMonthlyNumber(procurementCardHolderLoad.getCardMonthlyNumber());
                 procurementCardHolderDetail.setCardStatusCode(determineStatusCode(procurementCardHolderLoad.getCardStatusCode()));
                 procurementCardHolderDetail.setCardCancelCode(determineCancelCode(procurementCardHolderLoad.getCardStatusCode()));
@@ -127,11 +128,11 @@ public class ProcurementCardHolderUpdateServiceImpl implements ProcurementCardHo
     /**
      * Gets the matching record from the custom Procurement Cardholder table.
      */
-    private ProcurementCardHolderDetail getExistingProcurementCardHolder(String creditCardNumber) {
+    private ProcurementCardDefault getExistingProcurementCardHolder(String creditCardNumber) {
                 
         Map<String, String> pkMap = new HashMap<String, String>();
         pkMap.put("creditCardNumber", creditCardNumber);
-        ProcurementCardHolderDetail procurementCardHolderDetail = (ProcurementCardHolderDetail) businessObjectService.findByPrimaryKey(ProcurementCardHolderDetail.class, pkMap);
+        ProcurementCardDefault procurementCardHolderDetail = (ProcurementCardDefault) businessObjectService.findByPrimaryKey(ProcurementCardDefault.class, pkMap);
         
         return procurementCardHolderDetail;
     }

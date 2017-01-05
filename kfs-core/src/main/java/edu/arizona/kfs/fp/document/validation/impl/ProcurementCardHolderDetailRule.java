@@ -13,7 +13,7 @@ import org.kuali.rice.kim.api.group.GroupService;
 import org.kuali.rice.kns.document.MaintenanceDocument;
 import org.kuali.rice.krad.util.ObjectUtils;
 
-import edu.arizona.kfs.fp.businessobject.ProcurementCardHolderDetail;
+import edu.arizona.kfs.fp.businessobject.ProcurementCardDefault;
 
 /**
  * This class represents business rules for the procurement cardholder maintenance document
@@ -22,7 +22,7 @@ public class ProcurementCardHolderDetailRule extends MaintenanceDocumentRuleBase
     
     protected static final String WARNING_CARDHOLDER_LAST_ACTIVE_MEMBER = "warning.document.procurementcardholderdetail.cardholder.last.active";
 
-    private ProcurementCardHolderDetail newProcurementCardHolderDetail;
+    private ProcurementCardDefault newProcurementCardHolderDetail;
 
     /**
      * Returns value from processCustomRouteDocumentBusinessRules(document)
@@ -43,7 +43,7 @@ public class ProcurementCardHolderDetailRule extends MaintenanceDocumentRuleBase
     @Override
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
         boolean continueRouting = super.processCustomRouteDocumentBusinessRules(document);
-        newProcurementCardHolderDetail = (ProcurementCardHolderDetail)document.getNewMaintainableObject().getBusinessObject();
+        newProcurementCardHolderDetail = (ProcurementCardDefault)document.getNewMaintainableObject().getBusinessObject();
         
         // check chart/account/organization is valid
         continueRouting &= checkAccountValidity();
@@ -88,23 +88,23 @@ public class ProcurementCardHolderDetailRule extends MaintenanceDocumentRuleBase
      */
     protected boolean checkGroupMembership() {
         boolean result = true;
-      
-        // check that a reconciler group id and cardholder id have been entered
-        if (StringUtils.isNotBlank(newProcurementCardHolderDetail.getCardGroupId()) && StringUtils.isNotBlank(newProcurementCardHolderDetail.getCardHolderSystemId())) {
-           
-            List<String> groupMembers = new ArrayList<String>();
-            groupMembers = SpringContext.getBean(GroupService.class).getMemberPrincipalIds(newProcurementCardHolderDetail.getCardGroupId());
-            for (String groupMember : groupMembers) {
-                if (groupMembers.size() < 2 && groupMember.equals(newProcurementCardHolderDetail.getCardHolderSystemId())) {
-                    //card holder is only remaining member of reconciler group 
-                    result = false;
-                }
-            }
-            if (!result) {
-                putGlobalError(WARNING_CARDHOLDER_LAST_ACTIVE_MEMBER);
-            }
-        }
-        
+//      
+//        // check that a reconciler group id and cardholder id have been entered
+//        if (StringUtils.isNotBlank(newProcurementCardHolderDetail.getCardGroupId()) && StringUtils.isNotBlank(newProcurementCardHolderDetail.getCardHolderSystemId())) {
+//           
+//            List<String> groupMembers = new ArrayList<String>();
+//            groupMembers = SpringContext.getBean(GroupService.class).getMemberPrincipalIds(newProcurementCardHolderDetail.getCardGroupId());
+//            for (String groupMember : groupMembers) {
+//                if (groupMembers.size() < 2 && groupMember.equals(newProcurementCardHolderDetail.getCardHolderSystemId())) {
+//                    //card holder is only remaining member of reconciler group 
+//                    result = false;
+//                }
+//            }
+//            if (!result) {
+//                putGlobalError(WARNING_CARDHOLDER_LAST_ACTIVE_MEMBER);
+//            }
+//        }
+//        
         return result;
     }
 }
