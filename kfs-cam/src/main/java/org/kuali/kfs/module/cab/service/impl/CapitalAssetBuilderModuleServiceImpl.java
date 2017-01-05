@@ -338,7 +338,7 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
     public boolean doesAccountingLineFailAutomaticPurchaseOrderRules(AccountingLine accountingLine) {
         PurApAccountingLine purapAccountingLine = (PurApAccountingLine) accountingLine;
         purapAccountingLine.refreshNonUpdateableReferences();
-        return parameterEvaluatorService.getParameterEvaluator(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CabParameterConstants.CapitalAsset.CAPITAL_ASSET_OBJECT_LEVELS, purapAccountingLine.getObjectCode().getFinancialObjectLevelCode()).evaluationSucceeds();
+        return parameterEvaluatorService.getParameterEvaluator(KfsParameterConstants.CAPITAL_ASSETS_DOCUMENT.class, CabParameterConstants.CapitalAsset.CAPITAL_ASSET_OBJECT_LEVELS, purapAccountingLine.getObjectCode().getFinancialObjectLevelCode()).evaluationSucceeds();
     }
 
     /**
@@ -648,7 +648,7 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
      */
     protected boolean validateFieldRequirementByChartForOneOrMultipleSystemType(String systemType, String systemState, List<CapitalAssetSystem> capitalAssetSystems, List<PurchasingCapitalAssetItem> capitalAssetItems, String chartCode, String parameterName, String parameterValueString) {
         boolean valid = true;
-        boolean needValidation = (parameterEvaluatorService.getParameterEvaluator(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, parameterName, chartCode).evaluationSucceeds());
+        boolean needValidation = (parameterEvaluatorService.getParameterEvaluator(KfsParameterConstants.CAPITAL_ASSETS_DOCUMENT.class, parameterName, chartCode).evaluationSucceeds());
 
         if (needValidation) {
             if (parameterName.startsWith("CHARTS_REQUIRING_LOCATIONS_ADDRESS")) {
@@ -708,7 +708,7 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
      */
     protected boolean validateFieldRequirementByChartForIndividualSystemType(String systemState, List<PurchasingCapitalAssetItem> capitalAssetItems, String chartCode, String parameterName, String parameterValueString) {
         boolean valid = true;
-        boolean needValidation = (parameterEvaluatorService.getParameterEvaluator(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, parameterName, chartCode).evaluationSucceeds());
+        boolean needValidation = (parameterEvaluatorService.getParameterEvaluator(KfsParameterConstants.CAPITAL_ASSETS_DOCUMENT.class, parameterName, chartCode).evaluationSucceeds());
 
         if (needValidation) {
             if (parameterName.startsWith("CHARTS_REQUIRING_LOCATIONS_ADDRESS")) {
@@ -910,7 +910,7 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
      * itemCapitalAsset contains at least one asset numbers.
      */
     protected boolean validatePurchasingTransactionTypesAllowingAssetNumbers(CapitalAssetSystem capitalAssetSystem, String capitalAssetTransactionType, String prefix) {
-        boolean allowedAssetNumbers = (parameterEvaluatorService.getParameterEvaluator(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CabParameterConstants.CapitalAsset.PURCHASING_ASSET_TRANSACTION_TYPES_ALLOWING_ASSET_NUMBERS, capitalAssetTransactionType).evaluationSucceeds());
+        boolean allowedAssetNumbers = (parameterEvaluatorService.getParameterEvaluator(KfsParameterConstants.CAPITAL_ASSETS_DOCUMENT.class, CabParameterConstants.CapitalAsset.PURCHASING_ASSET_TRANSACTION_TYPES_ALLOWING_ASSET_NUMBERS, capitalAssetTransactionType).evaluationSucceeds());
         if (allowedAssetNumbers) {
             // If this is a transaction type that allows asset numbers, we don't need to validate anymore, just return true here.
             return true;
@@ -1081,7 +1081,7 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
             throw new RuntimeException("the parameter for CAPITAL_ASSET_OBJECT_LEVELS came was not able to be converted to a number.", nfe);
         }
         if (unitPrice.compareTo(priceThreshold) >= 0) {
-            List<String> possibleCAMSObjectLevels = new ArrayList<String>(this.getParameterService().getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CabParameterConstants.CapitalAsset.POSSIBLE_CAPITAL_ASSET_OBJECT_LEVELS));
+            List<String> possibleCAMSObjectLevels = new ArrayList<String>(this.getParameterService().getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_DOCUMENT.class, CabParameterConstants.CapitalAsset.POSSIBLE_CAPITAL_ASSET_OBJECT_LEVELS));
             if (possibleCAMSObjectLevels.contains(objectCode.getFinancialObjectLevelCode())) {
                 String warning = configurationService.getPropertyValueAsString(CabKeyConstants.WARNING_ABOVE_THRESHOLD_SUGESTS_CAPITAL_ASSET_LEVEL);
                 warning = StringUtils.replace(warning, "{0}", itemIdentifier);
@@ -1173,7 +1173,7 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
 
         // If there is a tran type ...
         if ((capitalAssetTransactionType != null) && (capitalAssetTransactionType.getCapitalAssetTransactionTypeCode() != null)) {
-            String recurringTransactionTypeCodes = this.getParameterService().getParameterValueAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CabParameterConstants.CapitalAsset.RECURRING_CAMS_TRAN_TYPES);
+            String recurringTransactionTypeCodes = this.getParameterService().getParameterValueAsString(KfsParameterConstants.CAPITAL_ASSETS_DOCUMENT.class, CabParameterConstants.CapitalAsset.RECURRING_CAMS_TRAN_TYPES);
 
 
             if (StringUtils.isNotEmpty(recurringPaymentTypeCode)) { // If there is a recurring payment type ...
@@ -1222,7 +1222,7 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
      * @return True if the ObjectSubType is the one designated for capital assets.
      */
     protected boolean isCapitalAssetObjectCode(ObjectCode oc) {
-        String capitalAssetObjectSubType = this.getParameterService().getParameterValueAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, PurapParameterConstants.CapitalAsset.PURCHASING_OBJECT_SUB_TYPES);
+        String capitalAssetObjectSubType = this.getParameterService().getParameterValueAsString(KfsParameterConstants.CAPITAL_ASSETS_DOCUMENT.class, PurapParameterConstants.CapitalAsset.PURCHASING_OBJECT_SUB_TYPES);
         return (StringUtils.containsIgnoreCase(capitalAssetObjectSubType, oc.getFinancialObjectSubTypeCode()) ? true : false);
     }
 
@@ -1416,7 +1416,7 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
      * AccountCapitalObjectCode.BOTH_CAPITAL ==> assetObjectSubType code on both source and target lines
      */
     protected AccountCapitalObjectCode getCapitalAssetObjectSubTypeLinesFlag(AccountingDocument accountingDocument) {
-        List<String> financialProcessingCapitalObjectSubTypes = new ArrayList<String>(this.getParameterService().getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CabParameterConstants.CapitalAsset.FINANCIAL_PROCESSING_CAPITAL_OBJECT_SUB_TYPES));
+        List<String> financialProcessingCapitalObjectSubTypes = new ArrayList<String>(this.getParameterService().getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_DOCUMENT.class, CabParameterConstants.CapitalAsset.FINANCIAL_PROCESSING_CAPITAL_OBJECT_SUB_TYPES));
         AccountCapitalObjectCode capitalAssetObjectSubTypeLinesFlag = AccountCapitalObjectCode.BOTH_NONCAP;
 
         // Check if SourceAccountingLine has objectSub type code
@@ -2601,7 +2601,7 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
      */
     @Override
     public boolean hasCapitalAssetObjectSubType(AccountingLine accountingLine) {
-        Collection<String> financialProcessingCapitalObjectSubTypes = getParameterService().getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CabParameterConstants.CapitalAsset.FINANCIAL_PROCESSING_CAPITAL_OBJECT_SUB_TYPES);
+        Collection<String> financialProcessingCapitalObjectSubTypes = getParameterService().getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_DOCUMENT.class, CabParameterConstants.CapitalAsset.FINANCIAL_PROCESSING_CAPITAL_OBJECT_SUB_TYPES);
 
         ObjectCode objectCode = accountingLine.getObjectCode();
         if (ObjectUtils.isNotNull(objectCode)) {
