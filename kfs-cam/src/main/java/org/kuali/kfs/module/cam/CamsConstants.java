@@ -165,7 +165,7 @@ public class CamsConstants {
         public static final String CHARTS = "CHARTS";
         public static final String OBJECT_SUB_TYPES = "OBJECT_SUB_TYPES";
         public static final String BALANCE_TYPES = "BALANCE_TYPES";
-        public static final String NAMESPACE = "KFS-CAB";
+        public static final String NAMESPACE = "KFS-CAM";
         public static final String DETAIL_TYPE_BATCH = "Batch";
         public static final String DETAIL_TYPE_DOCUMENT = "Document";
         public static final String LAST_EXTRACT_DATE = "LAST_EXTRACT_DATE";

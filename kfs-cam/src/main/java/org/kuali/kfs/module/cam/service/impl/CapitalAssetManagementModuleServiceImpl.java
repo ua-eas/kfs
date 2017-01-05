@@ -512,7 +512,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
         return parameterEvaluatorService.getParameterEvaluator(KfsParameterConstants.CAPITAL_ASSET_BUILDER_DOCUMENT.class, CamsParameterConstants.CapitalAsset.CAPITAL_ASSET_OBJECT_LEVELS, purapAccountingLine.getObjectCode().getFinancialObjectLevelCode()).evaluationSucceeds();
     }
 
-    /**
+     /**
      * Perform the document level capital asset validation to determine if the given document is not allowed to become an Automatic
      * Purchase Order (APO). The APO is not allowed if any capital asset items exist on the document.
      */

@@ -55,7 +55,6 @@ public class KfsParameterConstants {
     public static final String FINANCIAL_SYSTEM_NAMESPACE = FINANCIAL_NAMESPACE_PREFIX + "SYS";
     public static final String ACCOUNTS_RECEIVABLE_NAMESPACE = FINANCIAL_NAMESPACE_PREFIX + "AR";
     public static final String BUDGET_CONSTRUCTION_NAMESPACE = FINANCIAL_NAMESPACE_PREFIX + "BC";
-    public static final String CAPITAL_ASSET_BUILDER_NAMESPACE = FINANCIAL_NAMESPACE_PREFIX + "CAB";
     public static final String CAPITAL_ASSETS_NAMESPACE = FINANCIAL_NAMESPACE_PREFIX + "CAM";
     public static final String CONTRACTS_AND_GRANTS_NAMESPACE = FINANCIAL_NAMESPACE_PREFIX + "CG";
     public static final String CHART_NAMESPACE = FINANCIAL_NAMESPACE_PREFIX + "COA";
@@ -149,22 +148,22 @@ public class KfsParameterConstants {
     public final class CAPITAL_ASSETS_BATCH {
     }
 
-    @NAMESPACE(namespace = CAPITAL_ASSET_BUILDER_NAMESPACE)
+    @NAMESPACE(namespace = CAPITAL_ASSETS_NAMESPACE)
     @COMPONENT(component = ALL_COMPONENT)
     public final class CAPITAL_ASSET_BUILDER_ALL {
     }
 
-    @NAMESPACE(namespace = CAPITAL_ASSET_BUILDER_NAMESPACE)
+    @NAMESPACE(namespace = CAPITAL_ASSETS_NAMESPACE)
     @COMPONENT(component = DOCUMENT_COMPONENT)
     public final class CAPITAL_ASSET_BUILDER_DOCUMENT {
     }
 
-    @NAMESPACE(namespace = CAPITAL_ASSET_BUILDER_NAMESPACE)
+    @NAMESPACE(namespace = CAPITAL_ASSETS_NAMESPACE)
     @COMPONENT(component = LOOKUP_COMPONENT)
     public final class CAPITAL_ASSET_BUILDER_LOOKUP {
     }
 
-    @NAMESPACE(namespace = CAPITAL_ASSET_BUILDER_NAMESPACE)
+    @NAMESPACE(namespace = CAPITAL_ASSETS_NAMESPACE)
     @COMPONENT(component = BATCH_COMPONENT)
     public final class CAPITAL_ASSET_BUILDER_BATCH {
     }
