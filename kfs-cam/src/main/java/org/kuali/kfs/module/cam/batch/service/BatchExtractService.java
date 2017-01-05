@@ -54,7 +54,7 @@ public interface BatchExtractService {
      * Returns the list of CAB eligible GL entries, filter parameters are pre-configured
      *
      * @param process log
-     * @return Eligible GL Entries meeting batch parameters configured under parameter group KFS-CAB:Batch
+     * @return Eligible GL Entries meeting batch parameters configured under parameter group KFS-CAM:Batch
      */
     Collection<Entry> findElgibleGLEntries(ExtractProcessLog processLog);
 

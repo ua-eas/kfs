@@ -206,12 +206,12 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     protected BatchParameters createCabBatchParameters() {
         BatchParameters parameters = new BatchParameters();
         parameters.setLastRunTime(getCabLastRunTimestamp());
-        parameters.setIncludedFinancialBalanceTypeCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CamsConstants.Parameters.BALANCE_TYPES));
-        parameters.setIncludedFinancialObjectSubTypeCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CamsConstants.Parameters.OBJECT_SUB_TYPES));
-        parameters.setExcludedChartCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CamsConstants.Parameters.CHARTS));
-        parameters.setExcludedDocTypeCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CamsConstants.Parameters.DOCUMENT_TYPES));
-        parameters.setExcludedFiscalPeriods(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CamsConstants.Parameters.FISCAL_PERIODS));
-        parameters.setExcludedSubFundCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CamsConstants.Parameters.SUB_FUND_GROUPS));
+        parameters.setIncludedFinancialBalanceTypeCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.BALANCE_TYPES));
+        parameters.setIncludedFinancialObjectSubTypeCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.OBJECT_SUB_TYPES));
+        parameters.setExcludedChartCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.CHARTS));
+        parameters.setExcludedDocTypeCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DOCUMENT_TYPES));
+        parameters.setExcludedFiscalPeriods(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.FISCAL_PERIODS));
+        parameters.setExcludedSubFundCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.SUB_FUND_GROUPS));
         return parameters;
     }
 
@@ -224,8 +224,8 @@ public class BatchExtractServiceImpl implements BatchExtractService {
         BatchParameters parameters = new BatchParameters();
         parameters.setLastRunDate(getPreTagLastRunDate());
         parameters.setIncludedFinancialObjectSubTypeCodes(parameterService.getParameterValuesAsString(PreAssetTaggingStep.class, CamsConstants.Parameters.OBJECT_SUB_TYPES));
-        parameters.setExcludedChartCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CamsConstants.Parameters.CHARTS));
-        parameters.setExcludedSubFundCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CamsConstants.Parameters.SUB_FUND_GROUPS));
+        parameters.setExcludedChartCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.CHARTS));
+        parameters.setExcludedSubFundCodes(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.SUB_FUND_GROUPS));
         parameters.setCapitalizationLimitAmount(new BigDecimal(parameterService.getParameterValueAsString(AssetGlobal.class, CamsConstants.Parameters.CAPITALIZATION_LIMIT_AMOUNT)));
         return parameters;
     }
@@ -294,7 +294,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
      */
     protected Timestamp getCabLastRunTimestamp() {
         Timestamp lastRunTime;
-        String lastRunTS = parameterService.getParameterValueAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CamsConstants.Parameters.LAST_EXTRACT_TIME);
+        String lastRunTS = parameterService.getParameterValueAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.LAST_EXTRACT_TIME);
 
         java.util.Date yesterday = DateUtils.add(dateTimeService.getCurrentDate(), Calendar.DAY_OF_MONTH, -1);
         try {
