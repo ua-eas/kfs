@@ -148,26 +148,6 @@ public class KfsParameterConstants {
     public final class CAPITAL_ASSETS_BATCH {
     }
 
-    @NAMESPACE(namespace = CAPITAL_ASSETS_NAMESPACE)
-    @COMPONENT(component = ALL_COMPONENT)
-    public final class CAPITAL_ASSET_BUILDER_ALL {
-    }
-
-    @NAMESPACE(namespace = CAPITAL_ASSETS_NAMESPACE)
-    @COMPONENT(component = DOCUMENT_COMPONENT)
-    public final class CAPITAL_ASSET_BUILDER_DOCUMENT {
-    }
-
-    @NAMESPACE(namespace = CAPITAL_ASSETS_NAMESPACE)
-    @COMPONENT(component = LOOKUP_COMPONENT)
-    public final class CAPITAL_ASSET_BUILDER_LOOKUP {
-    }
-
-    @NAMESPACE(namespace = CAPITAL_ASSETS_NAMESPACE)
-    @COMPONENT(component = BATCH_COMPONENT)
-    public final class CAPITAL_ASSET_BUILDER_BATCH {
-    }
-
     @NAMESPACE(namespace = CONTRACTS_AND_GRANTS_NAMESPACE)
     @COMPONENT(component = ALL_COMPONENT)
     public final class CONTRACTS_AND_GRANTS_ALL {

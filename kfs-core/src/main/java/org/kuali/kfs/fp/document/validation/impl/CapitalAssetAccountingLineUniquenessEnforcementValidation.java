@@ -52,7 +52,7 @@ public class CapitalAssetAccountingLineUniquenessEnforcementValidation extends A
 
     protected Collection<String> getCapitalAssetObjectSubTypes() {
         return getParameterService().getParameterValuesAsString(
-            KfsParameterConstants.CAPITAL_ASSET_BUILDER_DOCUMENT.class,
+            KfsParameterConstants.CAPITAL_ASSETS_DOCUMENT.class,
             "FINANCIAL_PROCESSING_CAPITAL_OBJECT_SUB_TYPES");
         // JHK: I don't like the use of the constant above - but this parameter exists in the CAB module
         // Fortunately, since Rice 2.0 - the statement above will not blow up if CAB is not installed.
