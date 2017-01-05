@@ -228,7 +228,7 @@
         <property name="dataDictionaryService" ref="dataDictionaryService"/>
         <property name="dateTimeService" ref="dateTimeService"/>
         <property name="accountingLineRuleUtil" ref="accountingLineRuleHelperService"/>
-        <property name="capitalAssetBuilderModuleService" ref="capitalAssetBuilderModuleService"/>
+        <property name="capitalAssetManagementModuleService" ref="capitalAssetManagementModuleService"/>
         <property name="procurementCardCreateEmailService" ref="procurementCardCreateEmailService"/>
         <property name="financialSystemDocumentService" ref="financialSystemDocumentService"/>
     </bean>

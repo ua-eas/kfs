@@ -267,6 +267,12 @@
                    type="org.kuali.kfs.module.cam.document.web.struts.BarcodeInventoryErrorForm"/>
         <form-bean name="AssetBarCodeInventoryInputFileForm"
                    type="org.kuali.kfs.module.cam.document.web.struts.AssetBarCodeInventoryInputFileForm"/>
+        <form-bean name="PurApLineForm"
+                   type="org.kuali.kfs.module.cam.document.web.struts.PurApLineForm"/>
+        <form-bean name="GlLineForm"
+                   type="org.kuali.kfs.module.cam.document.web.struts.GlLineForm"/>
+        <form-bean name="CapitalAssetInformationForm"
+                   type="org.kuali.kfs.module.cam.document.web.struts.CapitalAssetInformationForm"/>
 
         <!-- Effort Certification Bean Definitions -->
         <form-bean name="EffortCertificationForm"
@@ -278,14 +284,6 @@
         <!-- KFS incident report -->
         <form-bean name="KualiExceptionIncidentForm"
                    type="org.kuali.kfs.kns.web.struts.form.KualiExceptionIncidentForm"/>
-
-        <!-- CAB Module Bean Definitions -->
-        <form-bean name="PurApLineForm"
-                   type="org.kuali.kfs.module.cab.document.web.struts.PurApLineForm"/>
-        <form-bean name="GlLineForm"
-                   type="org.kuali.kfs.module.cab.document.web.struts.GlLineForm"/>
-        <form-bean name="CapitalAssetInformationForm"
-                   type="org.kuali.kfs.module.cab.document.web.struts.CapitalAssetInformationForm"/>
 
         <!-- VND Module Bean Definitions -->
         <form-bean name="VendorExclusionForm"
@@ -556,13 +554,6 @@
                 parameter="methodToCall" validate="true" attribute="KualiForm">
             <set-property property="cancellable" value="true"/>
             <forward name="basic" path="/jsp/module/cams/{1}.jsp"/>
-        </action>
-
-        <action path="/cab*" name="{1}Form" input="/jsp/module/cab/{1}.jsp"
-                type="org.kuali.kfs.module.cab.document.web.struts.{1}Action" scope="session"
-                parameter="methodToCall" validate="true" attribute="KualiForm">
-            <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/jsp/module/cab/{1}.jsp"/>
         </action>
 
         <action path="/financial*" name="{1}Form" input="/jsp/fp/{1}.jsp"

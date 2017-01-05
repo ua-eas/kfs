@@ -22,7 +22,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
-import org.kuali.kfs.module.cab.CabPropertyConstants;
+import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.AssetLock;
 import org.kuali.kfs.module.cam.dataaccess.CapitalAssetLockDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
@@ -36,11 +36,11 @@ public class CapitalAssetLockDaoOjb extends PlatformAwareDaoBaseOjb implements C
     public List<String> getLockingDocumentNumbers(Collection capitalAssetNumbers, Collection documentTypeNames, String documentNumber) {
         // build the query criteria
         Criteria criteria = new Criteria();
-        criteria.addIn(CabPropertyConstants.CapitalAssetLock.CAPITAL_ASSET_NUMBER, capitalAssetNumbers);
+        criteria.addIn(CamsPropertyConstants.CapitalAssetLock.CAPITAL_ASSET_NUMBER, capitalAssetNumbers);
 
 
         if (documentTypeNames != null && !documentTypeNames.isEmpty()) {
-            criteria.addIn(CabPropertyConstants.CapitalAssetLock.DOCUMENT_TYPE_NAME, documentTypeNames);
+            criteria.addIn(CamsPropertyConstants.CapitalAssetLock.DOCUMENT_TYPE_NAME, documentTypeNames);
         }
 
         // if a docHeaderId is specified, then it will be excluded from the

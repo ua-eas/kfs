@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.purap.businessobject.options;
 
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderAssetTransactionType;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementAssetTransactionType;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
@@ -39,11 +39,11 @@ public class AssetTransactionTypeValuesFinder extends KeyValuesBase {
      * @see org.kuali.rice.kns.lookup.keyvalues.KeyValuesFinder#getKeyValues()
      */
     public List getKeyValues() {
-        List<CapitalAssetBuilderAssetTransactionType> types = SpringContext.getBean(CapitalAssetBuilderModuleService.class).getAllAssetTransactionTypes();
+        List<CapitalAssetManagementAssetTransactionType> types = SpringContext.getBean(CapitalAssetManagementModuleService.class).getAllAssetTransactionTypes();
         List labels = new ArrayList<KeyValue>();
         labels.add(new ConcreteKeyValue("", ""));
         for (Object type : types) {
-            CapitalAssetBuilderAssetTransactionType camsType = (CapitalAssetBuilderAssetTransactionType) type;
+            CapitalAssetManagementAssetTransactionType camsType = (CapitalAssetManagementAssetTransactionType) type;
             labels.add(new ConcreteKeyValue(camsType.getCapitalAssetTransactionTypeCode(), camsType.getCapitalAssetTransactionTypeDescription()));
         }
 

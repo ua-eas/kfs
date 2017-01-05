@@ -20,7 +20,7 @@ package org.kuali.kfs.module.purap.document.service.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
 import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.service.BusinessObjectService;
@@ -73,7 +73,7 @@ public class RequisitionServiceImpl implements RequisitionService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(RequisitionServiceImpl.class);
 
     protected BusinessObjectService businessObjectService;
-    protected CapitalAssetBuilderModuleService capitalAssetBuilderModuleService;
+    protected CapitalAssetManagementModuleService capitalAssetManagementModuleService;
     protected DateTimeService dateTimeService;
     protected DocumentService documentService;
     protected KualiRuleService ruleService;
@@ -270,7 +270,7 @@ public class RequisitionServiceImpl implements RequisitionService {
 
             if (!PurapConstants.RequisitionSources.B2B.equals(requisitionSource)) {
                 for (PurApAccountingLine accountingLine : item.getSourceAccountingLines()) {
-                    if (capitalAssetBuilderModuleService.doesAccountingLineFailAutomaticPurchaseOrderRules(accountingLine)) {
+                    if (capitalAssetManagementModuleService.doesAccountingLineFailAutomaticPurchaseOrderRules(accountingLine)) {
                         return "Requisition contains accounting line with capital object level";
                     }
                 }
@@ -278,7 +278,7 @@ public class RequisitionServiceImpl implements RequisitionService {
 
         }// endfor items
 
-        if (capitalAssetBuilderModuleService.doesDocumentFailAutomaticPurchaseOrderRules(requisition)) {
+        if (capitalAssetManagementModuleService.doesDocumentFailAutomaticPurchaseOrderRules(requisition)) {
             return "Requisition contains capital asset items.";
         }
 
@@ -424,8 +424,8 @@ public class RequisitionServiceImpl implements RequisitionService {
         this.kualiConfigurationService = kualiConfigurationService;
     }
 
-    public void setCapitalAssetBuilderModuleService(CapitalAssetBuilderModuleService capitalAssetBuilderModuleService) {
-        this.capitalAssetBuilderModuleService = capitalAssetBuilderModuleService;
+    public void setCapitalAssetManagementModuleService(CapitalAssetManagementModuleService capitalAssetManagementModuleService) {
+        this.capitalAssetManagementModuleService = capitalAssetManagementModuleService;
     }
 
     public void setPostalCodeValidationService(PostalCodeValidationService postalCodeValidationService) {

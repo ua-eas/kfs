@@ -24,8 +24,7 @@ import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.UrlFactory;
-import org.kuali.kfs.module.cab.CabConstants;
-import org.kuali.kfs.module.cab.CabPropertyConstants;
+import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsConstants.DocumentTypeName;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
@@ -91,7 +90,7 @@ public class AssetLockServiceImpl implements AssetLockService {
     }
 
     protected boolean isPurApDocument(String documentTypeName) {
-        return CabConstants.PREQ.equals(documentTypeName) || CabConstants.CM.equals(documentTypeName);
+        return CamsConstants.PREQ.equals(documentTypeName) || CamsConstants.CM.equals(documentTypeName);
     }
 
     /**
@@ -183,8 +182,8 @@ public class AssetLockServiceImpl implements AssetLockService {
         // PREQ blocking documents
         if (CamsConstants.DocumentTypeName.ASSET_PREQ_INQUIRY.equals(documentTypeName)) {
             List fpAndPurApDocTypes = new ArrayList<String>();
-            fpAndPurApDocTypes.add(CabConstants.PREQ);
-            fpAndPurApDocTypes.add(CabConstants.CM);
+            fpAndPurApDocTypes.add(CamsConstants.PREQ);
+            fpAndPurApDocTypes.add(CamsConstants.CM);
             return fpAndPurApDocTypes;
         }
 
@@ -201,9 +200,9 @@ public class AssetLockServiceImpl implements AssetLockService {
             return;
         }
         Map<String, Object> fieldValues = new HashMap<String, Object>();
-        fieldValues.put(CabPropertyConstants.CapitalAssetLock.DOCUMENT_NUMBER, documentNumber);
+        fieldValues.put(CamsPropertyConstants.CapitalAssetLock.DOCUMENT_NUMBER, documentNumber);
         if (StringUtils.isNotBlank(lockingInformation)) {
-            fieldValues.put(CabPropertyConstants.CapitalAssetLock.LOCKING_INFORMATION, lockingInformation);
+            fieldValues.put(CamsPropertyConstants.CapitalAssetLock.LOCKING_INFORMATION, lockingInformation);
         }
         getBusinessObjectService().deleteMatching(AssetLock.class, fieldValues);
     }
@@ -269,9 +268,9 @@ public class AssetLockServiceImpl implements AssetLockService {
             return false;
         }
         Map<String, Object> fieldValues = new HashMap<String, Object>();
-        fieldValues.put(CabPropertyConstants.CapitalAssetLock.DOCUMENT_NUMBER, documentNumber);
+        fieldValues.put(CamsPropertyConstants.CapitalAssetLock.DOCUMENT_NUMBER, documentNumber);
         if (StringUtils.isNotBlank(lockingInformation)) {
-            fieldValues.put(CabPropertyConstants.CapitalAssetLock.LOCKING_INFORMATION, lockingInformation);
+            fieldValues.put(CamsPropertyConstants.CapitalAssetLock.LOCKING_INFORMATION, lockingInformation);
         }
         Collection<AssetLock> assetLocks = getBusinessObjectService().findMatching(AssetLock.class, fieldValues);
         return assetLocks != null && !assetLocks.isEmpty();

@@ -21,7 +21,7 @@ package org.kuali.kfs.module.purap.document.service.impl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.metadata.ClassDescriptor;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.integration.purap.CapitalAssetLocation;
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
 import org.kuali.kfs.kns.service.DataDictionaryService;
@@ -61,7 +61,7 @@ public class PurchasingServiceImpl extends PersistenceServiceStructureImplBase i
     private ParameterService parameterService;
     private SequenceAccessorService sequenceAccessorService;
     private PurapAccountingService purapAccountingService;
-    private CapitalAssetBuilderModuleService capitalAssetBuilderModuleService;
+    private CapitalAssetManagementModuleService capitalAssetManagementModuleService;
     private PostalCodeValidationService postalCodeValidationService;
 
     public void setPurapAccountingService(PurapAccountingService purapAccountingService) {
@@ -76,8 +76,8 @@ public class PurchasingServiceImpl extends PersistenceServiceStructureImplBase i
         this.sequenceAccessorService = sequenceAccessorService;
     }
 
-    public void setCapitalAssetBuilderModuleService(CapitalAssetBuilderModuleService capitalAssetBuilderModuleService) {
-        this.capitalAssetBuilderModuleService = capitalAssetBuilderModuleService;
+    public void setCapitalAssetManagementModuleService(CapitalAssetManagementModuleService capitalAssetManagementModuleService) {
+        this.capitalAssetManagementModuleService = capitalAssetManagementModuleService;
     }
 
     public void setPostalCodeValidationService(PostalCodeValidationService postalCodeValidationService) {
@@ -92,7 +92,7 @@ public class PurchasingServiceImpl extends PersistenceServiceStructureImplBase i
 
         for (PurApItem purapItem : purDoc.getItems()) {
             if (purapItem.getItemType().isLineItemIndicator() || PurapConstants.ItemTypeCodes.ITEM_TYPE_TRADE_IN_CODE.equals(purapItem.getItemTypeCode())) {
-                if (capitalAssetBuilderModuleService.doesItemNeedCapitalAsset(purapItem.getItemTypeCode(), purapItem.getSourceAccountingLines())) {
+                if (capitalAssetManagementModuleService.doesItemNeedCapitalAsset(purapItem.getItemTypeCode(), purapItem.getSourceAccountingLines())) {
                     PurchasingCapitalAssetItem camsItem = getItemIfAlreadyInCamsItemsList(purapItem, camsItemsList);
                     // If either the camsItem is null or if its system is null and the document's system type is IND (this is
                     // the case when the user tries to switch from ONE system type to IND system type), we'll have to create

@@ -18,26 +18,26 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 
 public class PurchasingAddItemCapitalAssetValidation extends GenericValidation {
 
-    private CapitalAssetBuilderModuleService capitalAssetBuilderModuleService;
+    private CapitalAssetManagementModuleService capitalAssetManagementModuleService;
     ItemCapitalAsset asset;
 
     public boolean validate(AttributedDocumentEvent event) {
-        return capitalAssetBuilderModuleService.validateAddItemCapitalAssetBusinessRules(asset);
+        return capitalAssetManagementModuleService.validateAddItemCapitalAssetBusinessRules(asset);
     }
 
-    public CapitalAssetBuilderModuleService getCapitalAssetBuilderModuleService() {
-        return capitalAssetBuilderModuleService;
+    public CapitalAssetManagementModuleService getCapitalAssetManagementModuleService() {
+        return capitalAssetManagementModuleService;
     }
 
-    public void setCapitalAssetBuilderModuleService(CapitalAssetBuilderModuleService capitalAssetBuilderModuleService) {
-        this.capitalAssetBuilderModuleService = capitalAssetBuilderModuleService;
+    public void setCapitalAssetManagementModuleService(CapitalAssetManagementModuleService capitalAssetManagementModuleService) {
+        this.capitalAssetManagementModuleService = capitalAssetManagementModuleService;
     }
 
     public ItemCapitalAsset getAsset() {

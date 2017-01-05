@@ -19,7 +19,7 @@
 package org.kuali.kfs.module.purap.businessobject;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderAssetTransactionType;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementAssetTransactionType;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
@@ -35,7 +35,7 @@ import java.math.BigDecimal;
 public abstract class AccountsPayableItemBase extends PurApItemBase implements AccountsPayableItem {
     private KualiDecimal extendedPrice;
     private String capitalAssetTransactionTypeCode;
-    private CapitalAssetBuilderAssetTransactionType capitalAssetTransactionType;
+    private CapitalAssetManagementAssetTransactionType capitalAssetTransactionType;
 
     /**
      * Method defaults to {@link #isConsideredEnteredWithZero()}
@@ -145,8 +145,8 @@ public abstract class AccountsPayableItemBase extends PurApItemBase implements A
         this.capitalAssetTransactionTypeCode = capitalAssetTransactionTypeCode;
     }
 
-    public CapitalAssetBuilderAssetTransactionType getCapitalAssetTransactionType() {
-        return capitalAssetTransactionType = (CapitalAssetBuilderAssetTransactionType) SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CapitalAssetBuilderAssetTransactionType.class).retrieveExternalizableBusinessObjectIfNecessary(this, capitalAssetTransactionType, PurapPropertyConstants.ITEM_CAPITAL_ASSET_TRANSACTION_TYPE);
+    public CapitalAssetManagementAssetTransactionType getCapitalAssetTransactionType() {
+        return capitalAssetTransactionType = (CapitalAssetManagementAssetTransactionType) SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CapitalAssetManagementAssetTransactionType.class).retrieveExternalizableBusinessObjectIfNecessary(this, capitalAssetTransactionType, PurapPropertyConstants.ITEM_CAPITAL_ASSET_TRANSACTION_TYPE);
     }
 
     public void setItemDescription(String itemDescription) {

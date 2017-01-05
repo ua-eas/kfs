@@ -37,7 +37,7 @@
                 <configuration>
                     <argLine>-Xms1024m -Xmx1024m -Dadditional.kfs.test.config.locations=src/test/config/${project.artifactId}.properties</argLine>
                     <includes>
-                        <include>**/*Test.java</include>
+                        <include>**/cam/**/*Test.java</include>
                     </includes>
                 </configuration>
             </plugin>

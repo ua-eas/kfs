@@ -158,7 +158,7 @@
 
     <bean id="requisitionService-parentBean" class="org.kuali.kfs.module.purap.document.service.impl.RequisitionServiceImpl" abstract="true">
         <property name="businessObjectService" ref="businessObjectService"/>
-        <property name="capitalAssetBuilderModuleService" ref="capitalAssetBuilderModuleService"/>
+        <property name="capitalAssetManagementModuleService" ref="capitalAssetManagementModuleService"/>
         <property name="dateTimeService" ref="dateTimeService"/>
         <property name="documentService" ref="documentService"/>
         <property name="configurationService" ref="kualiConfigurationService"/>
@@ -193,7 +193,7 @@
         <property name="parameterService" ref="parameterService"/>
         <property name="sequenceAccessorService" ref="sequenceAccessorService"/>
         <property name="purapAccountingService" ref="purapAccountingService"/>
-        <property name="capitalAssetBuilderModuleService" ref="capitalAssetBuilderModuleService"/>
+        <property name="capitalAssetManagementModuleService" ref="capitalAssetManagementModuleService"/>
         <property name="postalCodeValidationService" ref="postalCodeValidationService"/>
     </bean>
     <bean id="purapWorkflowIntegrationService" parent="purapWorkflowIntegrationService-parentBean"/>

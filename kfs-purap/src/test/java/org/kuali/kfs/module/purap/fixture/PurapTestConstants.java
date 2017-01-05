@@ -19,7 +19,7 @@
 package org.kuali.kfs.module.purap.fixture;
 
 import org.kuali.kfs.coa.businessobject.ObjectCode;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderAssetTransactionType;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementAssetTransactionType;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderAccount;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.businessobject.RecurringPaymentType;
@@ -110,14 +110,14 @@ public class PurapTestConstants {
         static final ObjectCode CAPITAL_OBJECT_CODE = new ObjectCode(new Integer("2008"), "BL", "7017"); //Level should be set to "CAP"
         static final ObjectCode POSSIBLE_OBJECT_CODE = new ObjectCode(new Integer("2008"), "BL", "7050"); //Level should be set to "S&E"
         static final ObjectCode EXPENSE_OBJECT_CODE = new ObjectCode(new Integer("2008"), "BL", "5010"); //Level should be set to "DEBT"
-        static final CapitalAssetBuilderAssetTransactionType NONRECURRING_ASSET_NUMBER_REQUIRING_TRAN_TYPE = new MockAssetTransactionType("MDEX");
-        static final CapitalAssetBuilderAssetTransactionType NONRECURRING_NON_ASSET_NUMBER_REQUIRING_TRAN_TYPE = new MockAssetTransactionType("NEW");
-        static final CapitalAssetBuilderAssetTransactionType RECURRING_TRAN_TYPE = new MockAssetTransactionType("LEAS");
+        static final CapitalAssetManagementAssetTransactionType NONRECURRING_ASSET_NUMBER_REQUIRING_TRAN_TYPE = new MockAssetTransactionType("MDEX");
+        static final CapitalAssetManagementAssetTransactionType NONRECURRING_NON_ASSET_NUMBER_REQUIRING_TRAN_TYPE = new MockAssetTransactionType("NEW");
+        static final CapitalAssetManagementAssetTransactionType RECURRING_TRAN_TYPE = new MockAssetTransactionType("LEAS");
         static final RecurringPaymentType RECURRING_PAYMENT_TYPE = new RecurringPaymentType();
         static final Long ASSET_NUMBER_1 = new Long("333221");
         static final Long ASSET_NUMBER_2 = new Long("333222");
 
-        static class MockAssetTransactionType implements CapitalAssetBuilderAssetTransactionType {
+        static class MockAssetTransactionType implements CapitalAssetManagementAssetTransactionType {
             private String capitalAssetTransactionTypeCode;
             private String capitalAssetTransactionTypeDescription;
             private boolean capitalAssetNonquantityDrivenAllowIndicator;

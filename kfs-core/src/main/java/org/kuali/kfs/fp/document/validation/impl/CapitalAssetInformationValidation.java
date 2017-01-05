@@ -21,7 +21,7 @@ package org.kuali.kfs.fp.document.validation.impl;
 import org.kuali.kfs.fp.businessobject.CapitalAssetAccountsGroupDetails;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
 import org.kuali.kfs.fp.document.CapitalAssetEditable;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.krad.util.ObjectUtils;
@@ -44,7 +44,7 @@ import java.util.List;
 public class CapitalAssetInformationValidation extends GenericValidation {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CapitalAssetInformationValidation.class);
 
-    private CapitalAssetBuilderModuleService capitalAssetBuilderModuleService = SpringContext.getBean(CapitalAssetBuilderModuleService.class);
+    private CapitalAssetManagementModuleService capitalAssetManagementModuleService = SpringContext.getBean(CapitalAssetManagementModuleService.class);
     private AccountingDocument accountingDocumentForValidation;
 
     /**
@@ -106,7 +106,7 @@ public class CapitalAssetInformationValidation extends GenericValidation {
         int accountIndex = 0;
 
         for (SourceAccountingLine sourceAccount : sourceAccountLines) {
-            if (capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(sourceAccount)) {
+            if (capitalAssetManagementModuleService.hasCapitalAssetObjectSubType(sourceAccount)) {
                 //capital object code so we need to check capital asset info...
                 //check if this sourceAccount does exist in any one capital assets....
                 if (!checkSourceDistributedAccountingLineExists(sourceAccount, capitalAssets)) {
@@ -125,7 +125,7 @@ public class CapitalAssetInformationValidation extends GenericValidation {
         accountIndex = 0;
         for (TargetAccountingLine targetAccount : targetAccountLines) {
             //check if this targetAccount does exist in any one capital assets....
-            if (capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(targetAccount)) {
+            if (capitalAssetManagementModuleService.hasCapitalAssetObjectSubType(targetAccount)) {
                 //capital object code so we need to check capital asset info...
                 //check if this sourceAccount does exist in any one capital assets....
                 if (!checkTargetDistributedAccountingLineExists(targetAccount, capitalAssets)) {
@@ -214,7 +214,7 @@ public class CapitalAssetInformationValidation extends GenericValidation {
                 String errorPathPrefix = KFSPropertyConstants.CAPITAL_ASSET_INFORMATION + "[" + index + "].";
                 errors.addToErrorPath(errorPathPrefix);
 
-                isValid &= capitalAssetBuilderModuleService.validateFinancialProcessingData(accountingDocument, capitalAssetInformation, index);
+                isValid &= capitalAssetManagementModuleService.validateFinancialProcessingData(accountingDocument, capitalAssetInformation, index);
 
                 errors.removeFromErrorPath(errorPathPrefix);
                 errors.removeFromErrorPath(KFSPropertyConstants.DOCUMENT);
@@ -222,7 +222,7 @@ public class CapitalAssetInformationValidation extends GenericValidation {
             }
         }
 
-        isValid &= capitalAssetBuilderModuleService.validateAssetTags(accountingDocument);
+        isValid &= capitalAssetManagementModuleService.validateAssetTags(accountingDocument);
 
         return isValid;
     }
@@ -359,7 +359,7 @@ public class CapitalAssetInformationValidation extends GenericValidation {
 
         List<SourceAccountingLine> sourceAccountLines = accountingDocument.getSourceAccountingLines();
         for (SourceAccountingLine sourceAccount : sourceAccountLines) {
-            if (capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(sourceAccount)) {
+            if (capitalAssetManagementModuleService.hasCapitalAssetObjectSubType(sourceAccount)) {
                 //capital object code so we need to check capital asset info...
                 //check if this sourceAccount amount match from accounting lines in capital assets....
                 KualiDecimal distributedAmount = getSourceDistributedTotalAmount(sourceAccount, capitalAssets);
@@ -379,7 +379,7 @@ public class CapitalAssetInformationValidation extends GenericValidation {
         List<TargetAccountingLine> targetAccountLines = accountingDocument.getTargetAccountingLines();
         for (TargetAccountingLine targetAccount : targetAccountLines) {
             //check if this targetAccount does exist in any one capital assets....
-            if (capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(targetAccount)) {
+            if (capitalAssetManagementModuleService.hasCapitalAssetObjectSubType(targetAccount)) {
                 //capital object code so we need to check capital asset info...
                 //check if this sourceAccount amount match from accounting lines in capital assets....
                 KualiDecimal distributedAmount = getTargetDistributedTotalAmount(targetAccount, capitalAssets);

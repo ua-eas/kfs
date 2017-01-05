@@ -20,7 +20,7 @@ package org.kuali.kfs.module.purap.document.validation.impl;
 
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
 import org.kuali.kfs.kns.util.KNSGlobalVariables;
 import org.kuali.kfs.kns.util.MessageList;
@@ -77,7 +77,7 @@ public abstract class PurapDocumentPreRulesBase extends PromptBeforeValidationBa
 
         StringBuffer questionText = new StringBuffer();
         if (StringUtils.isBlank(event.getQuestionContext())) {
-            if (!SpringContext.getBean(CapitalAssetBuilderModuleService.class).warningObjectLevelCapital(purapDocument)) {
+            if (!SpringContext.getBean(CapitalAssetManagementModuleService.class).warningObjectLevelCapital(purapDocument)) {
                 proceed &= false;
                 questionText.append(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(
                     PurapKeyConstants.REQ_QUESTION_FIX_CAPITAL_ASSET_WARNINGS));

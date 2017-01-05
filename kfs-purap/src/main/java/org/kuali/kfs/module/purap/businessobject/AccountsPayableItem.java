@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderAssetTransactionType;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementAssetTransactionType;
 
 /**
  * Interface for Accounts Payable Item Business Objects.
@@ -27,7 +27,7 @@ public interface AccountsPayableItem extends PurApItem {
 
     public String getCapitalAssetTransactionTypeCode();
 
-    public CapitalAssetBuilderAssetTransactionType getCapitalAssetTransactionType();
+    public CapitalAssetManagementAssetTransactionType getCapitalAssetTransactionType();
 
     public PurchaseOrderItem getPurchaseOrderItem();
 }

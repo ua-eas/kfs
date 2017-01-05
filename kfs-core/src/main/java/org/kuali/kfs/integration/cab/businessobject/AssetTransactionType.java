@@ -19,12 +19,12 @@
 
 package org.kuali.kfs.integration.cab.businessobject;
 
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderAssetTransactionType;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementAssetTransactionType;
 
 /**
  * Asset Transaction Type Business Object.
  */
-public class AssetTransactionType implements CapitalAssetBuilderAssetTransactionType {
+public class AssetTransactionType implements CapitalAssetManagementAssetTransactionType {
 
     private String capitalAssetTransactionTypeCode;
     private String capitalAssetTransactionTypeDescription;

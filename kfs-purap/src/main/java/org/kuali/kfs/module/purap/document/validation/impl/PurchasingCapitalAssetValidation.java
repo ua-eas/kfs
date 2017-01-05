@@ -19,7 +19,7 @@
 package org.kuali.kfs.module.purap.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.integration.purap.CapitalAssetLocation;
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
 import org.kuali.kfs.kns.service.DataDictionaryService;
@@ -39,7 +39,7 @@ import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
 
 public class PurchasingCapitalAssetValidation extends GenericValidation {
-    CapitalAssetBuilderModuleService capitalAssetBuilderModuleService;
+    CapitalAssetManagementModuleService capitalAssetManagementModuleService;
     PurchasingService purchasingService;
     protected static String ERROR_PATH_PREFIX_FOR_IND_SYSTEM = "document.purchasingCapitalAssetItems[";
     protected static String ERROR_PATH_SUFFIX_FOR_IND_SYSTEM = "].purchasingCapitalAssetSystem";
@@ -51,8 +51,8 @@ public class PurchasingCapitalAssetValidation extends GenericValidation {
         boolean valid = true;
         PurchasingDocument purchasingDocument = (PurchasingDocument) event.getDocument();
 
-        boolean requiredByObjectSubType = !capitalAssetBuilderModuleService.validatePurchasingObjectSubType(purchasingDocument);
-        boolean requiredByChart = !capitalAssetBuilderModuleService.validateAllFieldRequirementsByChart(purchasingDocument);
+        boolean requiredByObjectSubType = !capitalAssetManagementModuleService.validatePurchasingObjectSubType(purchasingDocument);
+        boolean requiredByChart = !capitalAssetManagementModuleService.validateAllFieldRequirementsByChart(purchasingDocument);
         boolean capitalAssetRequired = requiredByObjectSubType && requiredByChart;
 
         if (capitalAssetRequired) {
@@ -75,7 +75,7 @@ public class PurchasingCapitalAssetValidation extends GenericValidation {
                 int expectedCapAssetItems = 0;
                 for (PurApItem purapItem : purchasingDocument.getItems()) {
                     if (purapItem.getItemType().isLineItemIndicator()) {
-                        if (capitalAssetBuilderModuleService.doesItemNeedCapitalAsset(purapItem.getItemTypeCode(), purapItem.getSourceAccountingLines())) {
+                        if (capitalAssetManagementModuleService.doesItemNeedCapitalAsset(purapItem.getItemTypeCode(), purapItem.getSourceAccountingLines())) {
                             expectedCapAssetItems++;
                         }
                     }
@@ -100,7 +100,7 @@ public class PurchasingCapitalAssetValidation extends GenericValidation {
 
         // We only need to do capital asset validations if the capital asset system type is not blank.
         if (StringUtils.isNotBlank(purchasingDocument.getCapitalAssetSystemTypeCode())) {
-            valid &= capitalAssetBuilderModuleService.validatePurchasingData(purchasingDocument);
+            valid &= capitalAssetManagementModuleService.validatePurchasingData(purchasingDocument);
 
             // FIXME hjs move this to cab module service
             // validate complete location addresses
@@ -139,7 +139,7 @@ public class PurchasingCapitalAssetValidation extends GenericValidation {
             for (PurchasingCapitalAssetItem capitalAssetItem : purchasingDocument.getPurchasingCapitalAssetItems()) {
                 if (ObjectUtils.isNotNull(capitalAssetItem) && ObjectUtils.isNotNull(capitalAssetItem.getPurchasingCapitalAssetSystem())) {
                     String assetTypeCode = capitalAssetItem.getPurchasingCapitalAssetSystem().getCapitalAssetTypeCode();
-                    if (StringUtils.isNotBlank(assetTypeCode) && !capitalAssetBuilderModuleService.isAssetTypeExisting(assetTypeCode)) {
+                    if (StringUtils.isNotBlank(assetTypeCode) && !capitalAssetManagementModuleService.isAssetTypeExisting(assetTypeCode)) {
                         valid = false;
                         String errorPath = ERROR_PATH_PREFIX_FOR_IND_SYSTEM + new Integer(i).toString() + ERROR_PATH_SUFFIX_FOR_IND_SYSTEM;
                         addAssetTypeErrorWithFullErrorPath(errorPath);
@@ -151,7 +151,7 @@ public class PurchasingCapitalAssetValidation extends GenericValidation {
             // validate for One system
             if (ObjectUtils.isNotNull(purchasingDocument.getPurchasingCapitalAssetSystems())) {
                 CapitalAssetSystem system = purchasingDocument.getPurchasingCapitalAssetSystems().get(0);
-                if (ObjectUtils.isNotNull(system) && StringUtils.isNotBlank(system.getCapitalAssetTypeCode()) && !capitalAssetBuilderModuleService.isAssetTypeExisting(system.getCapitalAssetTypeCode())) {
+                if (ObjectUtils.isNotNull(system) && StringUtils.isNotBlank(system.getCapitalAssetTypeCode()) && !capitalAssetManagementModuleService.isAssetTypeExisting(system.getCapitalAssetTypeCode())) {
                     valid = false;
                     String errorPath = ERROR_PATH_PREFIX_FOR_ONE_SYSTEM;
                     addAssetTypeErrorWithFullErrorPath(errorPath);
@@ -174,12 +174,12 @@ public class PurchasingCapitalAssetValidation extends GenericValidation {
         GlobalVariables.getMessageMap().removeFromErrorPath(errorPath);
     }
 
-    public CapitalAssetBuilderModuleService getCapitalAssetBuilderModuleService() {
-        return capitalAssetBuilderModuleService;
+    public CapitalAssetManagementModuleService getCapitalAssetManagementModuleService() {
+        return capitalAssetManagementModuleService;
     }
 
-    public void setCapitalAssetBuilderModuleService(CapitalAssetBuilderModuleService capitalAssetBuilderModuleService) {
-        this.capitalAssetBuilderModuleService = capitalAssetBuilderModuleService;
+    public void setCapitalAssetManagementModuleService(CapitalAssetManagementModuleService capitalAssetManagementModuleService) {
+        this.capitalAssetManagementModuleService = capitalAssetManagementModuleService;
     }
 
     public PurchasingService getPurchasingService() {

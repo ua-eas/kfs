@@ -29,7 +29,7 @@ import org.kuali.kfs.fp.businessobject.CapitalAssetInformationDetail;
 import org.kuali.kfs.fp.document.CapitalAccountingLinesDocumentBase;
 import org.kuali.kfs.fp.document.CapitalAssetEditable;
 import org.kuali.kfs.fp.document.CapitalAssetInformationDocumentBase;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.integration.cam.businessobject.Asset;
 import org.kuali.kfs.kns.util.WebUtils;
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
@@ -1560,7 +1560,7 @@ public abstract class CapitalAssetInformationActionBase extends KualiAccountingD
 
         List<CapitalAssetInformation> currentCapitalAssetInformation = this.getCurrentCapitalAssetInformationObject(kadfb);
 
-        SpringContext.getBean(CapitalAssetBuilderModuleService.class).filterNonCapitalAssets(currentCapitalAssetInformation);
+        SpringContext.getBean(CapitalAssetManagementModuleService.class).filterNonCapitalAssets(currentCapitalAssetInformation);
 
         calfb.setCreatedAssetsControlAmount(KualiDecimal.ZERO);
         calfb.setSystemControlAmount(KualiDecimal.ZERO);

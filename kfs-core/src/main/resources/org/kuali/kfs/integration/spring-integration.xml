@@ -188,17 +188,6 @@
                 <value>org.kuali.kfs.integration.cab</value>
             </list>
         </property>
-        <property name="dataDictionaryPackages">
-            <list>
-                <value>classpath:org/kuali/kfs/integration/cab/businessobject/datadictionary/*.xml</value>
-            </list>
-        </property>
-
-        <property name="externalizableBusinessObjectImplementations">
-            <map>
-                <entry key="org.kuali.kfs.integration.cab.CapitalAssetBuilderAssetTransactionType" value="org.kuali.kfs.integration.cab.businessobject.AssetTransactionType"/>
-            </map>
-        </property>
     </bean>
 
     <bean id="cabModuleService" parent="cabModuleService-parentBean"/>

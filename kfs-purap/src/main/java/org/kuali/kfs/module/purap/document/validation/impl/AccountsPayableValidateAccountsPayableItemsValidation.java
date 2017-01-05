@@ -18,27 +18,27 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.module.purap.document.AccountsPayableDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 
 public class AccountsPayableValidateAccountsPayableItemsValidation extends GenericValidation {
 
-    private CapitalAssetBuilderModuleService capitalAssetBuilderModuleService;
+    private CapitalAssetManagementModuleService capitalAssetManagementModuleService;
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        valid &= capitalAssetBuilderModuleService.validateAccountsPayableData((AccountsPayableDocument) event.getDocument());
+        valid &= capitalAssetManagementModuleService.validateAccountsPayableData((AccountsPayableDocument) event.getDocument());
         return valid;
     }
 
-    public CapitalAssetBuilderModuleService getCapitalAssetBuilderModuleService() {
-        return capitalAssetBuilderModuleService;
+    public CapitalAssetManagementModuleService getCapitalAssetManagementModuleService() {
+        return capitalAssetManagementModuleService;
     }
 
-    public void setCapitalAssetBuilderModuleService(CapitalAssetBuilderModuleService capitalAssetBuilderModuleService) {
-        this.capitalAssetBuilderModuleService = capitalAssetBuilderModuleService;
+    public void setCapitalAssetManagementModuleService(CapitalAssetManagementModuleService capitalAssetManagementModuleService) {
+        this.capitalAssetManagementModuleService = capitalAssetManagementModuleService;
     }
 
 }

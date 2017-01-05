@@ -29,7 +29,7 @@ import org.kuali.kfs.fp.businessobject.options.CapitalAccountingLinesComparator;
 import org.kuali.kfs.fp.document.CapitalAccountingLinesDocumentBase;
 import org.kuali.kfs.fp.document.validation.event.CapitalAccountingLinesSameObjectCodeSubTypeEvent;
 import org.kuali.kfs.fp.document.validation.impl.CapitalAssetAccountingLineUniquenessEnforcementValidation;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.kns.question.ConfirmationQuestion;
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.kns.web.struts.form.KualiForm;
@@ -61,7 +61,7 @@ import java.util.List;
  * This is the action class for the CapitalAccountingLinesActionBase.
  */
 public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInformationActionBase {
-    private CapitalAssetBuilderModuleService capitalAssetBuilderModuleService = SpringContext.getBean(CapitalAssetBuilderModuleService.class);
+    private CapitalAssetManagementModuleService capitalAssetManagementModuleService = SpringContext.getBean(CapitalAssetManagementModuleService.class);
 
     /**
      * Upon entry we need to set the capitalAccountingLinesExist boolean and check the tab states
@@ -209,7 +209,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
 
         List<SourceAccountingLine> sourceAccountLines = tdoc.getSourceAccountingLines();
         for (SourceAccountingLine line : sourceAccountLines) {
-            if (capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(line)) {
+            if (capitalAssetManagementModuleService.hasCapitalAssetObjectSubType(line)) {
                 caldb.setCapitalAccountingLinesExist(true);
                 break;
             }
@@ -219,7 +219,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
         if (!caldb.isCapitalAccountingLinesExist()) {
             List<TargetAccountingLine> targetAccountLines = tdoc.getTargetAccountingLines();
             for (TargetAccountingLine line : targetAccountLines) {
-                if (capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(line)) {
+                if (capitalAssetManagementModuleService.hasCapitalAssetObjectSubType(line)) {
                     caldb.setCapitalAccountingLinesExist(true);
                     break;
                 }
@@ -238,7 +238,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
         AccountingDocument tdoc = (AccountingDocument) kualiDocumentFormBase.getDocument();
         CapitalAccountingLinesDocumentBase caldb = (CapitalAccountingLinesDocumentBase) tdoc;
 
-        if (capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(line) && caldb.getCapitalAccountingLines().size() > 0) {
+        if (capitalAssetManagementModuleService.hasCapitalAssetObjectSubType(line) && caldb.getCapitalAccountingLines().size() > 0) {
             if (line.isSourceAccountingLine()) {
                 GlobalVariables.getMessageMap().putError(KFSConstants.NEW_SOURCE_LINE_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_CANT_ADD_CAPITALIZATION_ACCOUNTING_LINES);
             } else {
@@ -293,7 +293,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
     protected List<CapitalAccountingLines> createCapitalAccountingLine(List<CapitalAccountingLines> capitalAccountingLines, AccountingLine line, String distributionAmountCode) {
         Integer sequenceNumber = capitalAccountingLines.size() + 1;
 
-        if (capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(line)) {
+        if (capitalAssetManagementModuleService.hasCapitalAssetObjectSubType(line)) {
             //capital object code so we need to build the capital accounting line...
             CapitalAccountingLines cal = addCapitalAccountingLine(capitalAccountingLines, line);
             cal.setDistributionAmountCode(distributionAmountCode);

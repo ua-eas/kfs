@@ -449,7 +449,7 @@
 
     <bean id="AccountingDocument-capitalAccountingLinesAccessibleValidation" parent="AccountingDocument-accountingLineAccessibleValidation"
           class="org.kuali.kfs.fp.document.validation.impl.CapitalAccountingLinesAccessibleValidation" abstract="true">
-        <property name="capitalAssetBuilderModuleService" ref="capitalAssetBuilderModuleService"/>
+        <property name="capitalAssetManagementModuleService" ref="capitalAssetManagementModuleService"/>
     </bean>
 
     <bean id="AccountingDocument-AddCapitalAccountingLines-DefaultValidation" parent="CompositeValidation" scope="prototype" abstract="true">

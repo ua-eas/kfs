@@ -21,7 +21,7 @@ package org.kuali.kfs.fp.document.validation.impl;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.document.CapitalAccountingLinesDocumentBase;
 import org.kuali.kfs.fp.document.authorization.CapitalAccountingLinesAuthorizer;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.document.Correctable;
@@ -33,7 +33,7 @@ import org.kuali.kfs.sys.document.validation.impl.AccountingLineAccessibleValida
  */
 public class CapitalAccountingLinesAccessibleValidation extends AccountingLineAccessibleValidation {
 
-    protected CapitalAssetBuilderModuleService capitalAssetBuilderModuleService;
+    protected CapitalAssetManagementModuleService capitalAssetManagementModuleService;
 
     /**
      * Due to code in CapitalAccountingLinesAuthorizerBase we need alter the accessible logic a bit. Otherwise the user gets stopped for reasons they shouldn't be
@@ -47,7 +47,7 @@ public class CapitalAccountingLinesAccessibleValidation extends AccountingLineAc
         if (accountingDocumentForValidation instanceof CapitalAccountingLinesDocumentBase) {
             CapitalAccountingLinesDocumentBase caldb = (CapitalAccountingLinesDocumentBase) accountingDocumentForValidation;
 
-            if (caldb.getCapitalAccountingLines().size() > 0 && capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(accountingLineForValidation)) {
+            if (caldb.getCapitalAccountingLines().size() > 0 && capitalAssetManagementModuleService.hasCapitalAssetObjectSubType(accountingLineForValidation)) {
                 // In this scenario the line is readOnly because of the logic in CapitalAccountingLinesAuthorizerBase. We only stop the user from updating
                 // if the document shouldn't be editable. That means call AccountingLineAuthorizerBase#determineEditPermissionOnField and skip
                 // CapitalAccountingLinesAuthorizerBase#determineEditPermissionOnField. Furthermore error correction documents should not be stopped
@@ -69,11 +69,11 @@ public class CapitalAccountingLinesAccessibleValidation extends AccountingLineAc
     }
 
     /**
-     * Set the capitalAssetBuilderModuleService
+     * Set the capitalAssetManagementModuleService
      *
-     * @param capitalAssetBuilderModuleService
+     * @param capitalAssetManagementModuleService
      */
-    public void setCapitalAssetBuilderModuleService(CapitalAssetBuilderModuleService capitalAssetBuilderModuleService) {
-        this.capitalAssetBuilderModuleService = capitalAssetBuilderModuleService;
+    public void setCapitalAssetManagementModuleService(CapitalAssetManagementModuleService capitalAssetManagementModuleService) {
+        this.capitalAssetManagementModuleService = capitalAssetManagementModuleService;
     }
 }

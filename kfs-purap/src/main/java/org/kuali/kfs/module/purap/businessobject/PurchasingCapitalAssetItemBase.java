@@ -19,7 +19,7 @@
 package org.kuali.kfs.module.purap.businessobject;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderAssetTransactionType;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementAssetTransactionType;
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
@@ -39,7 +39,7 @@ public abstract class PurchasingCapitalAssetItemBase extends PersistableBusiness
     private String capitalAssetTransactionTypeCode;
     private Integer capitalAssetSystemIdentifier;
 
-    private CapitalAssetBuilderAssetTransactionType capitalAssetTransactionType;
+    private CapitalAssetManagementAssetTransactionType capitalAssetTransactionType;
     private CapitalAssetSystem purchasingCapitalAssetSystem;
     private PurchasingDocument purchasingDocument;
     private PurchasingItem purchasingItem;
@@ -86,8 +86,8 @@ public abstract class PurchasingCapitalAssetItemBase extends PersistableBusiness
         this.capitalAssetSystemIdentifier = capitalAssetSystemIdentifier;
     }
 
-    public CapitalAssetBuilderAssetTransactionType getCapitalAssetTransactionType() {
-        return capitalAssetTransactionType = (CapitalAssetBuilderAssetTransactionType) SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CapitalAssetBuilderAssetTransactionType.class).retrieveExternalizableBusinessObjectIfNecessary(this, capitalAssetTransactionType, PurapPropertyConstants.ITEM_CAPITAL_ASSET_TRANSACTION_TYPE);
+    public CapitalAssetManagementAssetTransactionType getCapitalAssetTransactionType() {
+        return capitalAssetTransactionType = (CapitalAssetManagementAssetTransactionType) SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CapitalAssetManagementAssetTransactionType.class).retrieveExternalizableBusinessObjectIfNecessary(this, capitalAssetTransactionType, PurapPropertyConstants.ITEM_CAPITAL_ASSET_TRANSACTION_TYPE);
     }
 
     public CapitalAssetSystem getPurchasingCapitalAssetSystem() {

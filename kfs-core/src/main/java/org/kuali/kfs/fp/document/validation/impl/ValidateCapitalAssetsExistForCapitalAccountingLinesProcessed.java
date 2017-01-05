@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
@@ -30,15 +30,15 @@ import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 public class ValidateCapitalAssetsExistForCapitalAccountingLinesProcessed extends GenericValidation {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ValidateCapitalAssetsExistForCapitalAccountingLinesProcessed.class);
 
-    private CapitalAssetBuilderModuleService capitalAssetBuilderModuleService;
+    private CapitalAssetManagementModuleService capitalAssetManagementModuleService;
     private AccountingDocument accountingDocumentForValidation;
 
     /**
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
-        capitalAssetBuilderModuleService = SpringContext.getBean(CapitalAssetBuilderModuleService.class);
-        return capitalAssetBuilderModuleService.validateCapitalAccountingLines(accountingDocumentForValidation);
+        capitalAssetManagementModuleService = SpringContext.getBean(CapitalAssetManagementModuleService.class);
+        return capitalAssetManagementModuleService.validateCapitalAccountingLines(accountingDocumentForValidation);
     }
 
     /**

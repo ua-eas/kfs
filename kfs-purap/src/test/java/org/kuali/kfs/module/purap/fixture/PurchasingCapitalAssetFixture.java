@@ -19,7 +19,7 @@
 package org.kuali.kfs.module.purap.fixture;
 
 import org.kuali.kfs.coa.businessobject.ObjectCode;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderAssetTransactionType;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementAssetTransactionType;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
 import org.kuali.kfs.module.purap.businessobject.RecurringPaymentType;
 import org.kuali.kfs.module.purap.fixture.PurapTestConstants.PurCams;
@@ -60,7 +60,7 @@ public enum PurchasingCapitalAssetFixture {
     ObjectCode objectCode;
     KualiDecimal quantity;
     BigDecimal itemUnitPrice;
-    CapitalAssetBuilderAssetTransactionType capitalAssetTransactionType = null;
+    CapitalAssetManagementAssetTransactionType capitalAssetTransactionType = null;
     RecurringPaymentType recurringPaymentType = null;
     List<ItemCapitalAsset> assets = null;
 
@@ -98,8 +98,8 @@ public enum PurchasingCapitalAssetFixture {
      * @param capitalAssetTransactionTypeCode
      * @see PurchasingDocumentRuleBase.validateCapitalAssetTransactionTypeVersusRecurrence
      */
-    private PurchasingCapitalAssetFixture(RecurringPaymentType recurringPaymentType, CapitalAssetBuilderAssetTransactionType capitalAssetTransactionType) {
-        this.capitalAssetTransactionType = (CapitalAssetBuilderAssetTransactionType) capitalAssetTransactionType;
+    private PurchasingCapitalAssetFixture(RecurringPaymentType recurringPaymentType, CapitalAssetManagementAssetTransactionType capitalAssetTransactionType) {
+        this.capitalAssetTransactionType = (CapitalAssetManagementAssetTransactionType) capitalAssetTransactionType;
         this.recurringPaymentType = recurringPaymentType;
     }
 
@@ -111,7 +111,7 @@ public enum PurchasingCapitalAssetFixture {
      * @param capitalAssetNumbers         A variable argument of Longs.
      * @see PurchasingDocumentRuleBase.validateCapitalAssetNumberRequirements
      */
-    private PurchasingCapitalAssetFixture(CapitalAssetBuilderAssetTransactionType capitalAssetTransactionType, Long... capitalAssetNumbers) {
+    private PurchasingCapitalAssetFixture(CapitalAssetManagementAssetTransactionType capitalAssetTransactionType, Long... capitalAssetNumbers) {
         this.capitalAssetTransactionType = capitalAssetTransactionType;
         if (capitalAssetNumbers != null) {
             this.assets = new ArrayList<ItemCapitalAsset>();
@@ -166,11 +166,11 @@ public enum PurchasingCapitalAssetFixture {
         this.assets = assets;
     }
 
-    public CapitalAssetBuilderAssetTransactionType getCapitalAssetBuilderAssetTransactionType() {
+    public CapitalAssetManagementAssetTransactionType getCapitalAssetBuilderAssetTransactionType() {
         return capitalAssetTransactionType;
     }
 
-    public void setCapitalAssetBuilderAssetTransactionType(CapitalAssetBuilderAssetTransactionType capitalAssetTransactionType) {
+    public void setCapitalAssetBuilderAssetTransactionType(CapitalAssetManagementAssetTransactionType capitalAssetTransactionType) {
         this.capitalAssetTransactionType = capitalAssetTransactionType;
     }
 

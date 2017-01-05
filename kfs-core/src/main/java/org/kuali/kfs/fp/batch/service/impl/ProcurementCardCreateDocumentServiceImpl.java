@@ -44,7 +44,7 @@ import org.kuali.kfs.fp.businessobject.ProcurementCardTransactionDetail;
 import org.kuali.kfs.fp.businessobject.ProcurementCardVendor;
 import org.kuali.kfs.fp.document.ProcurementCardDocument;
 import org.kuali.kfs.fp.document.validation.impl.ProcurementCardDocumentRuleConstants;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.DataDictionaryService;
@@ -114,7 +114,7 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
     protected DataDictionaryService dataDictionaryService;
     protected DateTimeService dateTimeService;
     protected AccountingLineRuleHelperService accountingLineRuleUtil;
-    protected CapitalAssetBuilderModuleService capitalAssetBuilderModuleService;
+    protected CapitalAssetManagementModuleService capitalAssetManagementModuleService;
     protected FinancialSystemDocumentService financialSystemDocumentService;
     private VelocityEmailService procurementCardCreateEmailService;
 
@@ -418,7 +418,7 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
             try {
 
                 // prevent PCard documents from auto approving if they have capital asset info to collect
-                if (capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(pcardDocument)) {
+                if (capitalAssetManagementModuleService.hasCapitalAssetObjectSubType(pcardDocument)) {
                     continue;
                 }
 
@@ -1174,12 +1174,12 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
     }
 
     /**
-     * Sets the capitalAssetBuilderModuleService attribute value.
+     * Sets the capitalAssetManagementModuleService attribute value.
      *
-     * @param capitalAssetBuilderModuleService The capitalAssetBuilderModuleService to set.
+     * @param capitalAssetManagementModuleService The capitalAssetManagementModuleService to set.
      */
-    public void setCapitalAssetBuilderModuleService(CapitalAssetBuilderModuleService capitalAssetBuilderModuleService) {
-        this.capitalAssetBuilderModuleService = capitalAssetBuilderModuleService;
+    public void setCapitalAssetManagementModuleService(CapitalAssetManagementModuleService capitalAssetManagementModuleService) {
+        this.capitalAssetManagementModuleService = capitalAssetManagementModuleService;
     }
 
     /**

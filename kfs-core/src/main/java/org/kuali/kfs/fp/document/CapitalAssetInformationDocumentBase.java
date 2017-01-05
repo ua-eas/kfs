@@ -19,7 +19,7 @@
 package org.kuali.kfs.fp.document;
 
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
@@ -60,7 +60,7 @@ public class CapitalAssetInformationDocumentBase extends AccountingDocumentBase 
 
         String documentNumber = getDocumentHeader().getDocumentNumber();
         // update gl status as processed when all the capital assets have been processed...
-        SpringContext.getBean(CapitalAssetBuilderModuleService.class).markProcessedGLEntryLine(documentNumber);
+        SpringContext.getBean(CapitalAssetManagementModuleService.class).markProcessedGLEntryLine(documentNumber);
     }
 
     /**
