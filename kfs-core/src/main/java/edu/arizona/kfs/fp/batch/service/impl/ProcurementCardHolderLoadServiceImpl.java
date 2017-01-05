@@ -31,6 +31,7 @@ public class ProcurementCardHolderLoadServiceImpl implements ProcurementCardHold
     /**
      * Calls businessObjectService to remove all the procurement cardholder rows from the load table.
      */
+    @Override
     public void cleanTransactionsTable() {
         businessObjectService.deleteMatching(ProcurementCardHolderLoad.class, new HashMap<String, String>());
     }
@@ -42,6 +43,7 @@ public class ProcurementCardHolderLoadServiceImpl implements ProcurementCardHold
      *            The name of the file to be parsed.
      * @return This method always returns true. An exception is thrown if a problem occurs while loading the file.
      */
+    @Override
     public boolean loadProcurementCardHolderFile(String fileName) {
         FileInputStream fileContents;
         try {
