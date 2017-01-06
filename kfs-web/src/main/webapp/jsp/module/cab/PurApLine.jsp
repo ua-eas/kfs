@@ -74,8 +74,8 @@
         </c:forEach>
     </c:forEach>
 
-    <cab:purApItemLines activeIndicator="true" title="Active Line Items" defaultOpen="true" tabErrorKey="purApDocs*,merge*" readOnly="${readOnly}"/>
-    <cab:purApItemLines activeIndicator="false" title="Submitted Line Items" defaultOpen="false"/>
+    <cams:purApItemLines activeIndicator="true" title="Active Line Items" defaultOpen="true" tabErrorKey="purApDocs*,merge*" readOnly="${readOnly}"/>
+    <cams:purApItemLines activeIndicator="false" title="Submitted Line Items" defaultOpen="false"/>
 
     <div id="globalbuttons" class="globalbuttons">
         <c:if test="${not readOnly}">

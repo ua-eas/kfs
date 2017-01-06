@@ -134,7 +134,7 @@
                     </tr>
                     <tr>
                         <td colspan="12">
-                            <cab:groupAccountingLinesDetails capitalAssetInformation="${detailLine}" capitalAssetPosition="${capitalAssetPosition}" showViewButton="true"/>
+                            <cams:groupAccountingLinesDetails capitalAssetInformation="${detailLine}" capitalAssetPosition="${capitalAssetPosition}" showViewButton="true"/>
                         </td>
                     </tr>
                 </c:forEach>

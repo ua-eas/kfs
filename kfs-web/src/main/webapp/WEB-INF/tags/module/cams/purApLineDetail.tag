@@ -20,11 +20,11 @@
 <%@ attribute name="chkcount" required="true" description="The total check number"%>
 <%@ attribute name="docPos" required="true" description="The index of the CAB PurAp Document"%>
 <%@ attribute name="linePos" required="true" description="The index of CAB PurAp item asset"%>
-<%@ attribute name="itemLine" required="true" type="org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableItemAsset" %>
-<%@ attribute name="purApDocLine" required="true" type="org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument" %>
+<%@ attribute name="itemLine" required="true" type="org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableItemAsset" %>
+<%@ attribute name="purApDocLine" required="true" type="org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableDocument" %>
 <%@ attribute name="rowClass" required="false" description="Class to add to the row" %>
 
-<script language="JavaScript" type="text/javascript" src="scripts/module/cab/selectCheckBox.js"></script>
+<script language="JavaScript" type="text/javascript" src="scripts/module/cams/selectCheckBox.js"></script>
 
 <c:set var="purApDocumentAttributes" value="${DataDictionary.PurchasingAccountsPayableDocument.attributes}" />
 <c:set var="purApItemAssetAttributes" value="${DataDictionary.PurchasingAccountsPayableItemAsset.attributes}" />
@@ -122,7 +122,7 @@
 	</td>
 	<td class="infoline">
      		<kul:htmlControlAttribute property="${assetItemStr}.capitalAssetTransactionTypeCode" attributeEntry="${purApItemAssetAttributes.capitalAssetTransactionTypeCode}" readOnly="true" readOnlyBody="true">
-				<kul:inquiry boClassName="org.kuali.kfs.module.cab.businessobject.AssetTransactionType" keyValues="capitalAssetTransactionTypeCode=${itemLine.capitalAssetTransactionTypeCode}" render="true">
+				<kul:inquiry boClassName="org.kuali.kfs.module.cam.businessobject.AssetTransactionType" keyValues="capitalAssetTransactionTypeCode=${itemLine.capitalAssetTransactionTypeCode}" render="true">
 					<html:hidden write="true" property="${assetItemStr}.capitalAssetTransactionTypeCode" />
            		</kul:inquiry>
        		</kul:htmlControlAttribute>

@@ -37,8 +37,6 @@
 
 <%@ taglib tagdir="/WEB-INF/tags/module/cams" prefix="cams" %>
 
-<%@ taglib tagdir="/WEB-INF/tags/module/cab" prefix="cab" %>
-
 <%@ taglib tagdir="/WEB-INF/tags/module/ar" prefix="ar" %>
 
 <%@ taglib tagdir="/WEB-INF/tags/pdp" prefix="pdp" %>
