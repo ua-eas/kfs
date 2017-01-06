@@ -532,10 +532,10 @@
         <property name="reportTitle" value="CAB Batch Status Report"/>
         <property name="reportFileName" value="cab_batch_status_report"/>
         <property name="reportsDirectory" value="${reports.directory}/cab/"/>
-        <property name="resourceBundleBaseName" value="org/kuali/kfs/module/cab/report/messages"/>
-        <property name="reportTemplateClassPath" value="org/kuali/kfs/module/cab/report/"/>
+        <property name="resourceBundleBaseName" value="org/kuali/kfs/module/cam/report/messages"/>
+        <property name="reportTemplateClassPath" value="org/kuali/kfs/module/cam/report/"/>
         <property name="reportTemplateName" value="BatchStatusReport"/>
-        <property name="subReportTemplateClassPath" value="org/kuali/kfs/module/cab/report/"/>
+        <property name="subReportTemplateClassPath" value="org/kuali/kfs/module/cam/report/"/>
         <property name="subReports">
             <map>
                 <entry key="batchReportDetails" value="BatchReportDetails"/>
@@ -548,10 +548,10 @@
         <property name="reportTitle" value="CAB Batch Mismatch Report"/>
         <property name="reportFileName" value="cab_batch_mismatch_report"/>
         <property name="reportsDirectory" value="${reports.directory}/cab/"/>
-        <property name="resourceBundleBaseName" value="org/kuali/kfs/module/cab/report/messages"/>
-        <property name="reportTemplateClassPath" value="org/kuali/kfs/module/cab/report/"/>
+        <property name="resourceBundleBaseName" value="org/kuali/kfs/module/cam/report/messages"/>
+        <property name="reportTemplateClassPath" value="org/kuali/kfs/module/cam/report/"/>
         <property name="reportTemplateName" value="BatchMismatchReport"/>
-        <property name="subReportTemplateClassPath" value="org/kuali/kfs/module/cab/report/"/>
+        <property name="subReportTemplateClassPath" value="org/kuali/kfs/module/cam/report/"/>
         <property name="subReports">
             <map>
                 <entry key="batchReportDetails" value="BatchReportDetails"/>
