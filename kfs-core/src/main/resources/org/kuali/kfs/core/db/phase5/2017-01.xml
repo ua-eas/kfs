@@ -35,5 +35,16 @@
         </modifySql>
     </changeSet>
 
+    <changeSet author="KFS701" id="FINP-1003" context="bootstrap,demo,unit">
+                <delete tableName="KRCR_PARM_T">
+                    <where>NMSPC_CD='KFS-CAB'</where>
+                </delete>
+                <delete tableName="KRCR_CMPNT_T">
+                    <where>NMSPC_CD='KFS-CAB'</where>
+                </delete>
+                <delete tableName="KRCR_NMSPC_T">
+                    <where>NMSPC_CD='KFS-CAB'</where>
+                </delete>
+            </changeSet>
 
 </databaseChangeLog>

@@ -7,10 +7,6 @@ RECORD[~&~	~&~'KFS-BC'~&~	~&~'All'~&~	~&~'KFS5'~&~	~&~'1'~&~	~&~'All'~&~	~&~'Y'~
 RECORD[~&~	~&~'KFS-BC'~&~	~&~'Batch'~&~	~&~'KFS6'~&~	~&~'1'~&~	~&~'Batch'~&~	~&~'Y'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-BC'~&~	~&~'Document'~&~	~&~'KFS7'~&~	~&~'1'~&~	~&~'Document'~&~	~&~'Y'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-BC'~&~	~&~'Lookup'~&~	~&~'KFS8'~&~	~&~'1'~&~	~&~'Lookup'~&~	~&~'Y'~&~	~&~]RECORD
-RECORD[~&~	~&~'KFS-CAB'~&~	~&~'All'~&~	~&~'KFS9'~&~	~&~'1'~&~	~&~'All'~&~	~&~'Y'~&~	~&~]RECORD
-RECORD[~&~	~&~'KFS-CAB'~&~	~&~'Batch'~&~	~&~'KFS10'~&~	~&~'1'~&~	~&~'Batch'~&~	~&~'Y'~&~	~&~]RECORD
-RECORD[~&~	~&~'KFS-CAB'~&~	~&~'Document'~&~	~&~'KFS11'~&~	~&~'1'~&~	~&~'Document'~&~	~&~'Y'~&~	~&~]RECORD
-RECORD[~&~	~&~'KFS-CAB'~&~	~&~'Lookup'~&~	~&~'KFS12'~&~	~&~'1'~&~	~&~'Lookup'~&~	~&~'Y'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-CAM'~&~	~&~'All'~&~	~&~'KFS13'~&~	~&~'1'~&~	~&~'All'~&~	~&~'Y'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-CAM'~&~	~&~'Batch'~&~	~&~'KFS14'~&~	~&~'1'~&~	~&~'Batch'~&~	~&~'Y'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-CAM'~&~	~&~'Document'~&~	~&~'KFS15'~&~	~&~'1'~&~	~&~'Document'~&~	~&~'Y'~&~	~&~]RECORD

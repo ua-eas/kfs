@@ -1,7 +1,6 @@
 HEADER[~&~	~&~NMSPC_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~NM::VARCHAR~&~	~&~ACTV_IND::CHAR~&~	~&~APPL_ID::VARCHAR~&~	~&~]HEADER
 RECORD[~&~	~&~'KFS-AR'~&~	~&~'KFS-AR'~&~	~&~'1'~&~	~&~'Accounts Receivable'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-BC'~&~	~&~'KFS-BC'~&~	~&~'1'~&~	~&~'Budget Construction'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
-RECORD[~&~	~&~'KFS-CAB'~&~	~&~'KFS-CAB'~&~	~&~'1'~&~	~&~'Capital Asset Builder'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-CAM'~&~	~&~'KFS-CAM'~&~	~&~'1'~&~	~&~'Capital Asset Management'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-CG'~&~	~&~'KFS-CG'~&~	~&~'1'~&~	~&~'Contracts & Grants'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-COA'~&~	~&~'KFS-COA'~&~	~&~'1'~&~	~&~'Chart of Accounts'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
