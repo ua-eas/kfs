@@ -10,7 +10,6 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.kuali.kfs.sys.batch.BatchInputFileType;
 import org.kuali.kfs.sys.batch.service.BatchInputFileService;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.rice.krad.service.BusinessObjectService;
 

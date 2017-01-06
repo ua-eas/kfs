@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.arizona.kfs.fp.businessobject.ProcurementCardDefault;
 import edu.arizona.kfs.fp.businessobject.ProcurementCardHolderLoad;
 import edu.arizona.kfs.fp.batch.service.ProcurementCardHolderUpdateService;
+import edu.arizona.kfs.sys.KFSPropertyConstants;
 
 /**
  * This is the default implementation of the ProcurementCardHolderUpdateService interface.
@@ -29,12 +30,14 @@ public class ProcurementCardHolderUpdateServiceImpl implements ProcurementCardHo
     private BusinessObjectService businessObjectService;
     private DateTimeService dateTimeService;
     private Person cardholderUser;
+    
+    private static final String GO_LIVE_DATE = "2011-10-01";
         
     /**
-     * This method retrieves a collection of temporary procurement card holder records and traverses through this list, updating 
+     * This method retrieves a collection of temporary procurement card holder records and traverses through this list, updating
      * or inserting procurement card holder records.
      * 
-     * @return True if the procurement card holder records were created successfully.  If any problem occur while creating the 
+     * @return True if the procurement card holder records were created successfully.  If any problem occur while creating the
      * documents, a runtime exception will be thrown.
      */
     @Override
@@ -50,7 +53,7 @@ public class ProcurementCardHolderUpdateServiceImpl implements ProcurementCardHo
         ProcurementCardDefault procurementCardHolderDetail;
         int insertedRecords = 0;
         int updatedRecords = 0;
-        int excludedRecords = 0; 
+        int excludedRecords = 0;
         
         for (ProcurementCardHolderLoad procurementCardHolderLoad : loadedPcardHolders) {
             //check for exclusion
@@ -61,7 +64,7 @@ public class ProcurementCardHolderUpdateServiceImpl implements ProcurementCardHo
                     //insert
                     procurementCardHolderDetail = new ProcurementCardDefault();
                     procurementCardHolderDetail.setCreditCardNumber(procurementCardHolderLoad.getCreditCardNumber());
-//                    procurementCardHolderDetail.setCardApprovalOfficial(procurementCardHolderLoad.getCreditCardNumber().substring(12));
+                    procurementCardHolderDetail.setCreditCardLastFour(procurementCardHolderLoad.getCreditCardNumber().substring(12));
                     procurementCardHolderDetail.setChartOfAccountsCode("UA");
                     procurementCardHolderDetail.setAccountNumber("0");
                     insertedRecords = insertedRecords + 1;
@@ -80,7 +83,7 @@ public class ProcurementCardHolderUpdateServiceImpl implements ProcurementCardHo
                 procurementCardHolderDetail.setCardHolderWorkPhoneNumber(procurementCardHolderLoad.getCardHolderWorkPhoneNumber());
                 procurementCardHolderDetail.setCardLimit(procurementCardHolderLoad.getCardLimit());
                 procurementCardHolderDetail.setCardCycleAmountLimit(procurementCardHolderLoad.getCardCycleAmountLimit());
-//                procurementCardHolderDetail.setCardCycleVolumeLimit(procurementCardHolderLoad.getCardCycleVolumeLimit());
+                procurementCardHolderDetail.setCardCycleVolLimit(procurementCardHolderLoad.getCardCycleVolumeLimit());
                 procurementCardHolderDetail.setCardMonthlyNumber(procurementCardHolderLoad.getCardMonthlyNumber());
                 procurementCardHolderDetail.setCardStatusCode(determineStatusCode(procurementCardHolderLoad.getCardStatusCode()));
                 procurementCardHolderDetail.setCardCancelCode(determineCancelCode(procurementCardHolderLoad.getCardStatusCode()));
@@ -121,7 +124,7 @@ public class ProcurementCardHolderUpdateServiceImpl implements ProcurementCardHo
     protected List<ProcurementCardHolderLoad> retrievePcardHolders() {
         
         // retrieve Procurement Card holder records from Procurement Card holder table order by card number
-        List<ProcurementCardHolderLoad> loadedPcardHolders = (List<ProcurementCardHolderLoad>) businessObjectService.findMatchingOrderBy(ProcurementCardHolderLoad.class, new HashMap<String, String>(), "creditCardNumber", true);
+        List<ProcurementCardHolderLoad> loadedPcardHolders = (List<ProcurementCardHolderLoad>) businessObjectService.findMatchingOrderBy(ProcurementCardHolderLoad.class, new HashMap<String, String>(), KFSPropertyConstants.CREDIT_CARD_NUMBER, true);
         return loadedPcardHolders;
     }
    
@@ -131,7 +134,7 @@ public class ProcurementCardHolderUpdateServiceImpl implements ProcurementCardHo
     private ProcurementCardDefault getExistingProcurementCardHolder(String creditCardNumber) {
                 
         Map<String, String> pkMap = new HashMap<String, String>();
-        pkMap.put("creditCardNumber", creditCardNumber);
+        pkMap.put(KFSPropertyConstants.CREDIT_CARD_NUMBER, creditCardNumber);
         ProcurementCardDefault procurementCardHolderDetail = (ProcurementCardDefault) businessObjectService.findByPrimaryKey(ProcurementCardDefault.class, pkMap);
         
         return procurementCardHolderDetail;
@@ -144,16 +147,7 @@ public class ProcurementCardHolderUpdateServiceImpl implements ProcurementCardHo
         //exclude records with a cancel date more than 120 days before the go live date 
         if (ObjectUtils.isNotNull(cancelDate)) {
             //create go live date
-            /*Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.YEAR, 2011);
-            calendar.set(Calendar.MONTH, 10);
-            calendar.set(Calendar.DAY_OF_MONTH, 1);
-            calendar.clear(Calendar.HOUR_OF_DAY);
-            calendar.clear(Calendar.MINUTE);
-            calendar.clear(Calendar.SECOND);
-            calendar.clear(Calendar.MILLISECOND);
-            Date goLiveDate = Date.valueOf(calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE));*/
-            Date goLiveDate = Date.valueOf("2011-10-01");
+            Date goLiveDate = Date.valueOf(GO_LIVE_DATE);
             Timestamp goLiveDateTS = new Timestamp(goLiveDate.getTime());
             Timestamp cancelDateTS = new Timestamp(cancelDate.getTime());
             //check difference in days
@@ -255,7 +249,7 @@ public class ProcurementCardHolderUpdateServiceImpl implements ProcurementCardHo
             systemId = "0";
         }
         else {
-            systemId = null; 
+            systemId = null;
         }
         
         if (ObjectUtils.isNotNull(employeeId)) {
@@ -293,27 +287,14 @@ public class ProcurementCardHolderUpdateServiceImpl implements ProcurementCardHo
         
     }
 
-    /**
-     * Sets the businessObjectService attribute.
-     * @param businessObjectService The businessObjectService to set.
-     */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;
     }
 
-    /**
-     * Sets the dateTimeService attribute.
-     * @param dateTimeService The dateTimeService to set.
-     */
     public void setDateTimeService(DateTimeService dateTimeService) {
         this.dateTimeService = dateTimeService;
     }  
     
-    /**
-     * Gets the cardholderUser attribute.
-     * 
-     * @return Returns the cardholderUser
-     */
     public Person getCardholderUser(String employeeId) {
         cardholderUser = SpringContext.getBean(PersonService.class).getPersonByEmployeeId(employeeId);
         return cardholderUser;

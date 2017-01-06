@@ -128,6 +128,9 @@
         <property name="procurementCardHolderLoadService">
             <ref bean="procurementCardHolderLoadService" />
         </property>
+		<property name="batchInputFileService">
+		    <ref bean="batchInputFileService" />
+		</property>
         <property name="procurementCardHolderInputFileType">
             <ref bean="procurementCardHolderInputFileType" />
         </property>
