@@ -111,7 +111,7 @@
                     </tr>
                     <tr>
                         <td colSpan="4">
-                            <cab:groupAccountingLinesDetails capitalAssetInformation="${KualiForm.capitalAssetInformation}" capitalAssetPosition="1" showViewButton="false"/>
+                            <cams:groupAccountingLinesDetails capitalAssetInformation="${KualiForm.capitalAssetInformation}" capitalAssetPosition="1" showViewButton="false"/>
                         </td>
                     </tr>
                     <tr>

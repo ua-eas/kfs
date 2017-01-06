@@ -22,7 +22,7 @@
 <%@ attribute name="defaultOpen" required="false" description="tab title"%>
 <%@ attribute name="tabErrorKey" required="false" description="tab error keys"%>
 <%@ attribute name="readOnly" required="false" description="read only attribute"%>
-<script language="JavaScript" type="text/javascript" src="scripts/module/cab/selectCheckBox.js"></script>
+<script language="JavaScript" type="text/javascript" src="scripts/module/cams/selectCheckBox.js"></script>
 <c:set var="purApDocumentAttributes" value="${DataDictionary.PurchasingAccountsPayableDocument.attributes}" />
 <c:set var="purApItemAssetAttributes" value="${DataDictionary.PurchasingAccountsPayableItemAsset.attributes}" />
 <kul:tab tabTitle="${title}" defaultOpen="${defaultOpen}" tabErrorKey="${tabErrorKey }">
@@ -68,7 +68,7 @@
 					<c:set var="linePos" value="${linePos+1}" />
 					<c:if test="${(assetLine.active && activeIndicator=='true') || (!assetLine.active && activeIndicator == 'false')}">
 
-						<cab:purApLineDetail
+						<cams:purApLineDetail
 								chkcount="${chkcount}"
 								docPos="${docPos}"
 								linePos="${linePos}"
