@@ -44,4 +44,10 @@
             <where>doc_hdr_id in ('51','52')</where>
         </update>
     </changeSet>
+
+    <changeSet author="KFS701" id="FINP-1012_REMOVE_NO_LONGER_NEEDED_FIXTURES" context="unit">
+        <delete tableName="KREW_DOC_HDR_T">
+            <where>doc_hdr_id in ('11','12','13','21','22','23','31','32','33','34','35','36','41','51','52')</where>
+        </delete>
+    </changeSet>
 </databaseChangeLog>
