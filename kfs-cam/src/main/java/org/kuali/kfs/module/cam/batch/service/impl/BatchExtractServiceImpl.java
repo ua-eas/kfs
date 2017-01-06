@@ -34,6 +34,7 @@ import org.kuali.kfs.module.cam.batch.dataaccess.ExtractDao;
 import org.kuali.kfs.module.cam.batch.dataaccess.PurchasingAccountsPayableItemAssetDao;
 import org.kuali.kfs.module.cam.batch.service.BatchExtractService;
 import org.kuali.kfs.module.cam.batch.service.ReconciliationService;
+import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
 import org.kuali.kfs.module.cam.businessobject.BatchParameters;
 import org.kuali.kfs.module.cam.businessobject.GeneralLedgerEntry;
 import org.kuali.kfs.module.cam.businessobject.GlAccountLineGroup;
@@ -44,7 +45,7 @@ import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableItemAsse
 import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableLineAssetAccount;
 import org.kuali.kfs.module.cam.document.service.PurApInfoService;
 import org.kuali.kfs.module.cam.document.service.PurApLineService;
-import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
+import org.kuali.kfs.module.cam.service.AssetLockService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoAccountRevision;
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestAccountRevision;
@@ -57,7 +58,6 @@ import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.service.FinancialSystemDocumentService;
 import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
@@ -93,6 +93,9 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     protected PurApLineService purApLineService;
     protected PurApInfoService purApInfoService;
     protected PurchasingAccountsPayableItemAssetDao purchasingAccountsPayableItemAssetDao;
+    protected ReconciliationService reconciliationService;
+    protected FinancialSystemDocumentService financialSystemDocumentService;
+    protected CapitalAssetManagementModuleService capitalAssetManagementModuleService;
 
     @Override
     @Transactional
@@ -330,7 +333,6 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     public void saveFPLines(List<Entry> fpLines, ExtractProcessLog processLog) {
         for (Entry fpLine : fpLines) {
             // If entry is not duplicate, non-null and non-zero, then insert into CAB
-            ReconciliationService reconciliationService = SpringContext.getBean(ReconciliationService.class);
             if (fpLine.getTransactionLedgerEntryAmount() == null || fpLine.getTransactionLedgerEntryAmount().isZero()) {
                 // amount is zero or null
                 processLog.addIgnoredGLEntry(fpLine);
@@ -351,7 +353,6 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     @Override
     public HashSet<PurchasingAccountsPayableDocument> savePOLines(List<Entry> poLines, ExtractProcessLog processLog) {
         HashSet<PurchasingAccountsPayableDocument> purApDocuments = new HashSet<PurchasingAccountsPayableDocument>();
-        ReconciliationService reconciliationService = SpringContext.getBean(ReconciliationService.class);
 
         // This is a list of pending GL entries created after last GL process and Cab Batch extract
         // PurAp Account Line history comes from PURAP module
@@ -645,11 +646,11 @@ public class BatchExtractServiceImpl implements BatchExtractService {
             assetLockKey = cabPurapDoc.getDocumentNumber() + "-" + lockingInformation;
         }
         // set asset locks if the locks does not exist in HashMap and not in asset lock table either.
-        if (!assetLockMap.containsKey(assetLockKey) && !getCapitalAssetManagementModuleService().isAssetLockedByCurrentDocument(cabPurapDoc.getDocumentNumber(), lockingInformation)) {
+        if (!assetLockMap.containsKey(assetLockKey) && !capitalAssetManagementModuleService.isAssetLockedByCurrentDocument(cabPurapDoc.getDocumentNumber(), lockingInformation)) {
             // the below method need several PurAp service calls which may take long time to run.
             List capitalAssetNumbers = getAssetNumbersForLocking(purApdocument, purapItem);
             if (capitalAssetNumbers != null && !capitalAssetNumbers.isEmpty()) {
-                boolean lockingResult = this.getCapitalAssetManagementModuleService().storeAssetLocks(capitalAssetNumbers, cabPurapDoc.getDocumentNumber(), cabPurapDoc.getDocumentTypeCode(), lockingInformation);
+                boolean lockingResult = capitalAssetManagementModuleService.storeAssetLocks(capitalAssetNumbers, cabPurapDoc.getDocumentNumber(), cabPurapDoc.getDocumentTypeCode(), lockingInformation);
                 // add into cache
                 assetLockMap.put(assetLockKey, lockingResult);
             } else {
@@ -665,11 +666,6 @@ public class BatchExtractServiceImpl implements BatchExtractService {
             return null;
         }
         return purApInfoService.retrieveValidAssetNumberForLocking(purApdocument.getPurapDocumentIdentifier(), purApdocument.getCapitalAssetSystemTypeCode(), purapItem);
-    }
-
-
-    protected CapitalAssetManagementModuleService getCapitalAssetManagementModuleService() {
-        return SpringContext.getBean(CapitalAssetManagementModuleService.class);
     }
 
     /**
@@ -953,7 +949,7 @@ public class BatchExtractServiceImpl implements BatchExtractService {
         List<PurchaseOrderDocument> poDocuments = new ArrayList<PurchaseOrderDocument>();
         try {
             // This should pick up all types of POs (Amendments, Voids, etc)
-            poDocuments = (List<PurchaseOrderDocument>) SpringContext.getBean(FinancialSystemDocumentService.class).findByApplicationDocumentStatus(
+            poDocuments = (List<PurchaseOrderDocument>) financialSystemDocumentService.findByApplicationDocumentStatus(
                 PurchaseOrderDocument.class, CamsConstants.PO_STATUS_CODE_OPEN);
         } catch (WorkflowException we) {
             throw new RuntimeException(we);
@@ -1051,5 +1047,17 @@ public class BatchExtractServiceImpl implements BatchExtractService {
     @NonTransactional
     public void setPurApInfoService(PurApInfoService purApInfoService) {
         this.purApInfoService = purApInfoService;
+    }
+
+    public void setReconciliationService(ReconciliationService reconciliationService) {
+        this.reconciliationService = reconciliationService;
+    }
+
+    public void setFinancialSystemDocumentService(FinancialSystemDocumentService financialSystemDocumentService) {
+        this.financialSystemDocumentService = financialSystemDocumentService;
+    }
+
+    public void setCapitalAssetManagementModuleService(CapitalAssetManagementModuleService capitalAssetManagementModuleService) {
+        this.capitalAssetManagementModuleService = capitalAssetManagementModuleService;
     }
 }

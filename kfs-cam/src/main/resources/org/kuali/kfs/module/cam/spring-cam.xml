@@ -466,6 +466,9 @@
         <property name="businessObjectService" ref="businessObjectService"/>
         <property name="purApLineService" ref="purApLineService"/>
         <property name="purApInfoService" ref="purApInfoService"/>
+        <property name="reconciliationService" ref="reconciliationService"/>
+        <property name="financialSystemDocumentService" ref="financialSystemDocumentService"/>
+        <property name="capitalAssetManagementModuleService" ref="capitalAssetManagementModuleService"/>
     </bean>
 
     <bean id="batchExtractReportService" parent="batchExtractReportService-parentBean"/>

@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.cam.batch.service;
 
-import org.junit.Assert;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.cam.batch.PreAssetTaggingStep;
+import org.kuali.kfs.module.cam.batch.service.impl.BatchExtractServiceImpl;
 import org.kuali.kfs.module.cam.businessobject.Pretag;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.ProxyUtils;
@@ -28,6 +28,7 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,13 +42,14 @@ public class PreAssetTaggingStepTest extends BatchTestBase {
     protected void setUp() throws Exception {
         super.setUp();
         preAssetTaggingStep = (PreAssetTaggingStep) ProxyUtils.getTargetIfProxied(SpringContext.getBean(PreAssetTaggingStep.class));
+        BatchExtractServiceImpl batchExtractService = (BatchExtractServiceImpl)ProxyUtils.getTargetIfProxied(preAssetTaggingStep.getBatchExtractService());
+        batchExtractService.setFinancialSystemDocumentService(new BatchTestBaseFinancialSystemDocumentService());
         dateTimeService = SpringContext.getBean(DateTimeService.class);
     }
 
     public void testExecute() throws Exception {
-        Assert.assertTrue(5 == 5);
         // TODO - fix with better mocks and/or fixtures
-        /*java.sql.Date currentSqlDate = SpringContext.getBean(DateTimeService.class).getCurrentSqlDate();
+        java.sql.Date currentSqlDate = dateTimeService.getCurrentSqlDate();
         preAssetTaggingStep.execute("testPreAssetTaggingExtractStep", dateTimeService.getCurrentDate());
         Collection<Pretag> match = findByPO("21");
         assertEquals(0, match.size());
@@ -60,7 +62,7 @@ public class PreAssetTaggingStepTest extends BatchTestBase {
 
         // assert the extract date value
         SimpleDateFormat fmt = new SimpleDateFormat("MM/dd/yyyy");
-        assertEquals(fmt.format(currentSqlDate), findPretagExtractDateParam().getValue());*/
+        assertEquals(fmt.format(currentSqlDate), findPretagExtractDateParam().getValue());
     }
 
     private Collection<Pretag> findByPO(String poNumber) {
