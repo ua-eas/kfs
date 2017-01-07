@@ -206,7 +206,7 @@ public class InstitutionPreferencesServiceImplTest {
     @Test
     public void afterPropertiesSetStoresMappingCorrespondingToProperty() throws Exception {
         final ConfigurationService configSvcMock = EasyMock.createMock(ConfigurationService.class);
-        final String propertyValue = "KFS-AR:ar,KFS-CAM:cams,KFS-CAB:cab,KFS-FP:financial,KFS-GL:generalLedger,KFS-LD:labor,KFS-BC:budget,KFS-PURAP:purap,KFS-CG:cg,KFS-EC:effort,KFS-TEM:tem";
+        final String propertyValue = "KFS-AR:ar,KFS-CAM:cams,KFS-FP:financial,KFS-GL:generalLedger,KFS-LD:labor,KFS-BC:budget,KFS-PURAP:purap,KFS-CG:cg,KFS-EC:effort,KFS-TEM:tem";
         EasyMock.expect(configSvcMock.getPropertyValueAsString(KFSPropertyConstants.NAMESPACE_CODES_TO_URLS_MAPPING)).andReturn(propertyValue);
         EasyMock.replay(configSvcMock);
 
@@ -214,7 +214,6 @@ public class InstitutionPreferencesServiceImplTest {
         this.cut.afterPropertiesSet();
         Assert.assertEquals("namespaceCodeToUrlName contains KFS-AR", this.cut.lookupUrlNameFromNamespace("KFS-AR"),"ar");
         Assert.assertEquals("namespaceCodeToUrlName contains KFS-CAM", this.cut.lookupUrlNameFromNamespace("KFS-CAM"),"cams");
-        Assert.assertEquals("namespaceCodeToUrlName contains KFS-CAB", this.cut.lookupUrlNameFromNamespace("KFS-CAB"),"cab");
         Assert.assertEquals("namespaceCodeToUrlName contains KFS-FP", this.cut.lookupUrlNameFromNamespace("KFS-FP"),"financial");
         Assert.assertEquals("namespaceCodeToUrlName contains KFS-GL", this.cut.lookupUrlNameFromNamespace("KFS-GL"),"generalLedger");
         Assert.assertEquals("namespaceCodeToUrlName contains KFS-LD", this.cut.lookupUrlNameFromNamespace("KFS-LD"),"labor");

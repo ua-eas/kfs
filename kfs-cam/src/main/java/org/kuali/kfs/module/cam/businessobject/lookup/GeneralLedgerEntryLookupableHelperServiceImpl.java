@@ -68,14 +68,14 @@ public class GeneralLedgerEntryLookupableHelperServiceImpl extends KualiLookupab
         GeneralLedgerEntry entry = (GeneralLedgerEntry) bo;
         List<HtmlData> anchorHtmlDataList = new ArrayList<HtmlData>();
         if (entry.isActive()) {
-            AnchorHtmlData processLink = new AnchorHtmlData("../cabCapitalAssetInformation.do?methodToCall=process&" + CamsPropertyConstants.GeneralLedgerEntry.GENERAL_LEDGER_ACCOUNT_IDENTIFIER + "=" + entry.getGeneralLedgerAccountIdentifier(), "process", "process");
+            AnchorHtmlData processLink = new AnchorHtmlData("../camsCapitalAssetInformation.do?methodToCall=process&" + CamsPropertyConstants.GeneralLedgerEntry.GENERAL_LEDGER_ACCOUNT_IDENTIFIER + "=" + entry.getGeneralLedgerAccountIdentifier(), "process", "process");
             processLink.setTarget(entry.getGeneralLedgerAccountIdentifier().toString());
             anchorHtmlDataList.add(processLink);
         } else {
             List<GeneralLedgerEntryAsset> generalLedgerEntryAssets = entry.getGeneralLedgerEntryAssets();
             if (!generalLedgerEntryAssets.isEmpty()) {
                 for (GeneralLedgerEntryAsset generalLedgerEntryAsset : generalLedgerEntryAssets) {
-                    AnchorHtmlData viewDocLink = new AnchorHtmlData("../cabCapitalAssetInformation.do?methodToCall=viewDoc&" + "documentNumber" + "=" + generalLedgerEntryAsset.getCapitalAssetManagementDocumentNumber(), "viewDoc", generalLedgerEntryAsset.getCapitalAssetManagementDocumentNumber());
+                    AnchorHtmlData viewDocLink = new AnchorHtmlData("../camsCapitalAssetInformation.do?methodToCall=viewDoc&" + "documentNumber" + "=" + generalLedgerEntryAsset.getCapitalAssetManagementDocumentNumber(), "viewDoc", generalLedgerEntryAsset.getCapitalAssetManagementDocumentNumber());
                     viewDocLink.setTarget(generalLedgerEntryAssets.get(0).getCapitalAssetManagementDocumentNumber());
                     anchorHtmlDataList.add(viewDocLink);
                 }

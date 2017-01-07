@@ -80,7 +80,7 @@
 			<td class="grid"><kul:htmlControlAttribute property="generalLedgerEntry.financialSystemOriginationCode"
 				attributeEntry="${entryAttributes.financialSystemOriginationCode}" readOnly="true"/></td>
 			<td class="grid">
-				<html:link target="_blank" href="cabGlLine.do?methodToCall=viewDoc&documentNumber=${generalLedgerEntry.documentNumber}">
+				<html:link target="_blank" href="camsGlLine.do?methodToCall=viewDoc&documentNumber=${generalLedgerEntry.documentNumber}">
 					<kul:htmlControlAttribute property="generalLedgerEntry.documentNumber" attributeEntry="${entryAttributes.documentNumber}" readOnly="true"/>
 				</html:link>
 			</td>

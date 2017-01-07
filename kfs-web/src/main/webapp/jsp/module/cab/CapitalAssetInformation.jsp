@@ -19,12 +19,12 @@
 <%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 <script>
     <c:if test="${!empty KualiForm.currDocNumber}">
-    var popUpurl = 'cabCapitalAssetInformation.do?methodToCall=viewDoc&documentNumber=${KualiForm.currDocNumber}';
+    var popUpurl = 'camsCapitalAssetInformation.do?methodToCall=viewDoc&documentNumber=${KualiForm.currDocNumber}';
     window.open(popUpurl, "${KualiForm.currDocNumber}");
     </c:if>
 
 </script>
-<kul:page showDocumentInfo="false" htmlFormAction="cabCapitalAssetInformation" renderMultipart="true"
+<kul:page showDocumentInfo="false" htmlFormAction="camsCapitalAssetInformation" renderMultipart="true"
           showTabButtons="true" docTitle="Capital Asset Information Processing"
           transactionalDocument="false" headerDispatch="true" headerTabActive="true"
           sessionDocument="false" headerMenuBar="" feedbackKey="true" defaultMethodToCall="start">
@@ -62,7 +62,7 @@
                             </c:if>
                             <c:if test="${detailLine.capitalAssetProcessedIndicator == false}">
                                 <td class="grid">
-                                    <html:link target="_blank" href="cabGlLine.do?methodToCall=process&documentNumber=${detailLine.documentNumber}&generalLedgerAccountIdentifier=${KualiForm.generalLedgerAccountIdentifier}&capitalAssetLineNumber=${detailLine.capitalAssetLineNumber}">
+                                    <html:link target="_blank" href="camsGlLine.do?methodToCall=process&documentNumber=${detailLine.documentNumber}&generalLedgerAccountIdentifier=${KualiForm.generalLedgerAccountIdentifier}&capitalAssetLineNumber=${detailLine.capitalAssetLineNumber}">
                                         Process
                                     </html:link>
                                 </td>

@@ -63,7 +63,7 @@
 
 	<c:if test="${!itemLine.active}">
 	    <td class="infoline center">
-	    	<html:link target="_blank" href="cabPurApLine.do?methodToCall=viewDoc&documentNumber=${itemLine.capitalAssetManagementDocumentNumber}">
+	    	<html:link target="_blank" href="camsPurApLine.do?methodToCall=viewDoc&documentNumber=${itemLine.capitalAssetManagementDocumentNumber}">
 				${itemLine.capitalAssetManagementDocumentNumber }
 			</html:link>
 		</td>
@@ -250,7 +250,7 @@
 							</c:choose>
 						</td>
 						<td class="infoline">
-							<html:link target="_blank" href="cabPurApLine.do?methodToCall=viewDoc&documentNumber=${payment.generalLedgerEntry.documentNumber}">
+							<html:link target="_blank" href="camsPurApLine.do?methodToCall=viewDoc&documentNumber=${payment.generalLedgerEntry.documentNumber}">
 								${payment.generalLedgerEntry.documentNumber}
 							</html:link>
 						</td>

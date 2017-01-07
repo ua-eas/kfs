@@ -362,7 +362,7 @@ public class CamsConstants {
 
     public static final String TRADE_IN_TYPE_CODE = "TRDI";
 
-    public static final String CB_INVOICE_LINE_ACTION_URL = "../cabPurApLine.do";
+    public static final String CB_INVOICE_LINE_ACTION_URL = "../camsPurApLine.do";
     public static final String DOT_DOC = ".doc";
     public static final String DOT_LINE = ".line";
 

@@ -24,7 +24,7 @@
     </c:if>
 </script>
 
-<kul:page showDocumentInfo="false" htmlFormAction="cabPurApLine" renderMultipart="true"
+<kul:page showDocumentInfo="false" htmlFormAction="camsPurApLine" renderMultipart="true"
           showTabButtons="true" docTitle="Purchasing / Accounts Payable Transactions"
           transactionalDocument="false" headerDispatch="true" headerTabActive="true"
           sessionDocument="false" headerMenuBar="" feedbackKey="true" defaultMethodToCall="refresh">

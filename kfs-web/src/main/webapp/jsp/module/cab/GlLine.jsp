@@ -28,12 +28,12 @@
     }
 
     <c:if test="${!empty KualiForm.currDocNumber}">
-    var popUpurl = 'cabGlLine.do?methodToCall=viewDoc&documentNumber=${KualiForm.currDocNumber}';
+    var popUpurl = 'camsGlLine.do?methodToCall=viewDoc&documentNumber=${KualiForm.currDocNumber}';
     window.open(popUpurl, "${KualiForm.currDocNumber}");
     </c:if>
 
 </script>
-<kul:page showDocumentInfo="false" htmlFormAction="cabGlLine" renderMultipart="true"
+<kul:page showDocumentInfo="false" htmlFormAction="camsGlLine" renderMultipart="true"
           showTabButtons="true" docTitle="General Ledger Processing"
           transactionalDocument="false" headerDispatch="true" headerTabActive="true"
           sessionDocument="false" headerMenuBar="" feedbackKey="true" defaultMethodToCall="start">
@@ -53,7 +53,7 @@
                     <tr>
                         <th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${CapitalAssetInformationAttributes.documentNumber}" readOnly="true"/></th>
                         <td class="grid" width="25%">
-                            <html:link target="_blank" href="cabGlLine.do?methodToCall=viewDoc&documentNumber=${KualiForm.capitalAssetInformation.documentNumber}">
+                            <html:link target="_blank" href="camsGlLine.do?methodToCall=viewDoc&documentNumber=${KualiForm.capitalAssetInformation.documentNumber}">
                                 <kul:htmlControlAttribute property="capitalAssetInformation.documentNumber" attributeEntry="${CapitalAssetInformationAttributes.documentNumber}" readOnly="true"/>
                             </html:link>
                         </td>
@@ -153,7 +153,7 @@
                 <c:set var="allowSubmit" value="true"/>
             </c:when>
             <c:when test="${!KualiForm.generalLedgerEntry.active}">
-                <a href="cabGlLine.do?methodToCall=viewDoc&documentNumber=${KualiForm.generalLedgerEntry.generalLedgerEntryAssets[0].capitalAssetManagementDocumentNumber}" target="${KualiForm.generalLedgerEntry.generalLedgerEntryAssets[0].capitalAssetManagementDocumentNumber}">
+                <a href="camsGlLine.do?methodToCall=viewDoc&documentNumber=${KualiForm.generalLedgerEntry.generalLedgerEntryAssets[0].capitalAssetManagementDocumentNumber}" target="${KualiForm.generalLedgerEntry.generalLedgerEntryAssets[0].capitalAssetManagementDocumentNumber}">
                         ${KualiForm.generalLedgerEntry.generalLedgerEntryAssets[0].capitalAssetManagementDocumentNumber}</a>
             </c:when>
             <c:otherwise>
