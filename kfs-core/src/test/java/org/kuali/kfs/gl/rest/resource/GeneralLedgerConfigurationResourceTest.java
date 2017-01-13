@@ -34,14 +34,7 @@ public class GeneralLedgerConfigurationResourceTest {
 
     @Test
     public void testGetGeneralLedgerConfiguration_AcccountsCanCrossChartsOn() {
-        EasyMock.expect(accountService.accountsCanCrossCharts()).andReturn(true);
-        EasyMock.expect(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_ORIGINATION_CODES)).andReturn(new ArrayList<>());
-        EasyMock.expect(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_DOCUMENT_TYPE_CODES)).andReturn(new ArrayList<>());
-        EasyMock.expect(parameterService.getParameterValuesAsString(Account.class, KFSConstants.ChartApcParms.ACCOUNT_CG_DENOTING_VALUE)).andReturn(new ArrayList<>());
-        EasyMock.expect(parameterService.getParameterValueAsBoolean(Account.class, KFSConstants.ChartApcParms.ACCOUNT_FUND_GROUP_DENOTES_CG)).andReturn(false);
-        EasyMock.expect(parameterService.getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, KFSConstants.SystemGroupParameterNames.GL_ANNUAL_CLOSING_DOC_TYPE)).andReturn("");
-        EasyMock.expect(parameterService.getParameterValueAsString(ScrubberStep.class, KFSConstants.SystemGroupParameterNames.GL_SCRUBBER_VALIDATION_DAYS_OFFSET)).andReturn("");
-        EasyMock.replay(accountService, parameterService);
+        initializeConfigurationValues(new MockConfigurationValues().setAccountsCanCrossCharts(true));
 
         resource.setAccountService(accountService);
         resource.setParameterService(parameterService);
@@ -57,14 +50,7 @@ public class GeneralLedgerConfigurationResourceTest {
 
     @Test
     public void testGetGeneralLedgerConfiguration_AcccountsCanCrossChartsOff() {
-        EasyMock.expect(accountService.accountsCanCrossCharts()).andReturn(false);
-        EasyMock.expect(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_ORIGINATION_CODES)).andReturn(new ArrayList<>());
-        EasyMock.expect(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_DOCUMENT_TYPE_CODES)).andReturn(new ArrayList<>());
-        EasyMock.expect(parameterService.getParameterValuesAsString(Account.class, KFSConstants.ChartApcParms.ACCOUNT_CG_DENOTING_VALUE)).andReturn(new ArrayList<>());
-        EasyMock.expect(parameterService.getParameterValueAsBoolean(Account.class, KFSConstants.ChartApcParms.ACCOUNT_FUND_GROUP_DENOTES_CG)).andReturn(false);
-        EasyMock.expect(parameterService.getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, KFSConstants.SystemGroupParameterNames.GL_ANNUAL_CLOSING_DOC_TYPE)).andReturn("");
-        EasyMock.expect(parameterService.getParameterValueAsString(ScrubberStep.class, KFSConstants.SystemGroupParameterNames.GL_SCRUBBER_VALIDATION_DAYS_OFFSET)).andReturn("");
-        EasyMock.replay(accountService, parameterService);
+        initializeConfigurationValues(new MockConfigurationValues().setAccountsCanCrossCharts(false));
 
         resource.setAccountService(accountService);
         resource.setParameterService(parameterService);
@@ -80,14 +66,7 @@ public class GeneralLedgerConfigurationResourceTest {
 
     @Test
     public void testContinuationAccountValues() {
-        EasyMock.expect(accountService.accountsCanCrossCharts()).andReturn(false);
-        EasyMock.expect(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_ORIGINATION_CODES)).andReturn(Arrays.asList("02","03"));
-        EasyMock.expect(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_DOCUMENT_TYPE_CODES)).andReturn(Arrays.asList("IB")); // no more IB
-        EasyMock.expect(parameterService.getParameterValuesAsString(Account.class, KFSConstants.ChartApcParms.ACCOUNT_CG_DENOTING_VALUE)).andReturn(new ArrayList<>());
-        EasyMock.expect(parameterService.getParameterValueAsBoolean(Account.class, KFSConstants.ChartApcParms.ACCOUNT_FUND_GROUP_DENOTES_CG)).andReturn(false);
-        EasyMock.expect(parameterService.getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, KFSConstants.SystemGroupParameterNames.GL_ANNUAL_CLOSING_DOC_TYPE)).andReturn("");
-        EasyMock.expect(parameterService.getParameterValueAsString(ScrubberStep.class, KFSConstants.SystemGroupParameterNames.GL_SCRUBBER_VALIDATION_DAYS_OFFSET)).andReturn("");
-        EasyMock.replay(accountService, parameterService);
+        initializeConfigurationValues(new MockConfigurationValues().setContinuationAccountByPassOriginationCodes(Arrays.asList("02","03")).setContinuationAccountBypassDocumentTypeCodes(Arrays.asList("IB")));
 
         resource.setAccountService(accountService);
         resource.setParameterService(parameterService);
@@ -110,14 +89,7 @@ public class GeneralLedgerConfigurationResourceTest {
 
     @Test
     public void testAccountContractsAndGrantsValues() {
-        EasyMock.expect(accountService.accountsCanCrossCharts()).andReturn(false);
-        EasyMock.expect(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_ORIGINATION_CODES)).andReturn(Arrays.asList("02","03"));
-        EasyMock.expect(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_DOCUMENT_TYPE_CODES)).andReturn(Arrays.asList("IB")); // no more IB
-        EasyMock.expect(parameterService.getParameterValuesAsString(Account.class, KFSConstants.ChartApcParms.ACCOUNT_CG_DENOTING_VALUE)).andReturn(Arrays.asList("AA"));
-        EasyMock.expect(parameterService.getParameterValueAsBoolean(Account.class, KFSConstants.ChartApcParms.ACCOUNT_FUND_GROUP_DENOTES_CG)).andReturn(true);
-        EasyMock.expect(parameterService.getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, KFSConstants.SystemGroupParameterNames.GL_ANNUAL_CLOSING_DOC_TYPE)).andReturn("");
-        EasyMock.expect(parameterService.getParameterValueAsString(ScrubberStep.class, KFSConstants.SystemGroupParameterNames.GL_SCRUBBER_VALIDATION_DAYS_OFFSET)).andReturn("");
-        EasyMock.replay(accountService, parameterService);
+        initializeConfigurationValues(new MockConfigurationValues().setAccountContractsAndGrantsDenotingValue(Arrays.asList("AA")).setAccountFundGroupDenotesContractsAndGrants(true));
 
         resource.setAccountService(accountService);
         resource.setParameterService(parameterService);
@@ -136,14 +108,7 @@ public class GeneralLedgerConfigurationResourceTest {
 
     @Test
     public void testAccountingClosingDocumentType() {
-        EasyMock.expect(accountService.accountsCanCrossCharts()).andReturn(false);
-        EasyMock.expect(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_ORIGINATION_CODES)).andReturn(Arrays.asList("02","03"));
-        EasyMock.expect(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_DOCUMENT_TYPE_CODES)).andReturn(Arrays.asList("IB")); // no more IB
-        EasyMock.expect(parameterService.getParameterValuesAsString(Account.class, KFSConstants.ChartApcParms.ACCOUNT_CG_DENOTING_VALUE)).andReturn(new ArrayList<>());
-        EasyMock.expect(parameterService.getParameterValueAsBoolean(Account.class, KFSConstants.ChartApcParms.ACCOUNT_FUND_GROUP_DENOTES_CG)).andReturn(false);
-        EasyMock.expect(parameterService.getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, KFSConstants.SystemGroupParameterNames.GL_ANNUAL_CLOSING_DOC_TYPE)).andReturn("ACLO");
-        EasyMock.expect(parameterService.getParameterValueAsString(ScrubberStep.class, KFSConstants.SystemGroupParameterNames.GL_SCRUBBER_VALIDATION_DAYS_OFFSET)).andReturn("");
-        EasyMock.replay(accountService, parameterService);
+        initializeConfigurationValues(new MockConfigurationValues().setAnnualClosingDocumentType("ACLO"));
 
         resource.setAccountService(accountService);
         resource.setParameterService(parameterService);
@@ -159,14 +124,7 @@ public class GeneralLedgerConfigurationResourceTest {
 
     @Test
     public void testScrubberValidationDaysOffset() {
-        EasyMock.expect(accountService.accountsCanCrossCharts()).andReturn(false);
-        EasyMock.expect(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_ORIGINATION_CODES)).andReturn(Arrays.asList("02","03"));
-        EasyMock.expect(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_DOCUMENT_TYPE_CODES)).andReturn(Arrays.asList("IB")); // no more IB
-        EasyMock.expect(parameterService.getParameterValuesAsString(Account.class, KFSConstants.ChartApcParms.ACCOUNT_CG_DENOTING_VALUE)).andReturn(new ArrayList<>());
-        EasyMock.expect(parameterService.getParameterValueAsBoolean(Account.class, KFSConstants.ChartApcParms.ACCOUNT_FUND_GROUP_DENOTES_CG)).andReturn(false);
-        EasyMock.expect(parameterService.getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, KFSConstants.SystemGroupParameterNames.GL_ANNUAL_CLOSING_DOC_TYPE)).andReturn("");
-        EasyMock.expect(parameterService.getParameterValueAsString(ScrubberStep.class, KFSConstants.SystemGroupParameterNames.GL_SCRUBBER_VALIDATION_DAYS_OFFSET)).andReturn("30");
-        EasyMock.replay(accountService, parameterService);
+        initializeConfigurationValues(new MockConfigurationValues().setScrubberValidationDaysOffset("30"));
 
         resource.setAccountService(accountService);
         resource.setParameterService(parameterService);
@@ -180,10 +138,133 @@ public class GeneralLedgerConfigurationResourceTest {
         Assert.assertEquals("The value of \"scrubberValidationDaysOffset\" should be \"30\"","30",configuration.get("scrubberValidationDaysOffset"));
     }
 
+    @Test
+    public void testObjectTypesBypassOriginationCodes() {
+        initializeConfigurationValues(new MockConfigurationValues().setObjectTypeBypassOriginations(Arrays.asList("02", "KL")));
+
+        resource.setAccountService(accountService);
+        resource.setParameterService(parameterService);
+
+        final Response response = resource.getGeneralLedgerConfiguration();
+
+        EasyMock.verify(accountService, parameterService);
+        assertValidResponse(response);
+        final Map<String, Object> configuration = (Map<String, Object>)response.getEntity();
+        Assert.assertTrue("Map should have key \"objectTypeBypassOriginations\"", configuration.containsKey("objectTypeBypassOriginations"));
+        Assert.assertEquals("The value of \"objectTypeBypassOriginations\" should have size of 2",2, ((List<String>)configuration.get("objectTypeBypassOriginations")).size());
+        Assert.assertEquals("The first value of \"objectTypeBypassOriginations\" should be \"02\"", "02", ((List<String>)configuration.get("objectTypeBypassOriginations")).get(0));
+    }
+
     private void assertValidResponse(Response response) {
         Assert.assertNotNull("We should have a response returned", response);
         Assert.assertEquals("The status should be 200", 200, response.getStatus());
         Assert.assertNotNull("The response should have an entity", response.getEntity());
         Assert.assertTrue("The entity should be a Map", Map.class.isAssignableFrom(response.getEntity().getClass()));
+    }
+
+    private void initializeConfigurationValues(MockConfigurationValues mockConfigurationValues) {
+        EasyMock.expect(accountService.accountsCanCrossCharts()).andReturn(mockConfigurationValues.isAccountsCanCrossCharts());
+        EasyMock.expect(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_ORIGINATION_CODES)).andReturn(mockConfigurationValues.getContinuationAccountByPassOriginationCodes());
+        EasyMock.expect(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.CONTINUATION_ACCOUNT_BYPASS_DOCUMENT_TYPE_CODES)).andReturn(mockConfigurationValues.getContinuationAccountBypassDocumentTypeCodes());
+        EasyMock.expect(parameterService.getParameterValuesAsString(Account.class, KFSConstants.ChartApcParms.ACCOUNT_CG_DENOTING_VALUE)).andReturn(mockConfigurationValues.getAccountContractsAndGrantsDenotingValue());
+        EasyMock.expect(parameterService.getParameterValueAsBoolean(Account.class, KFSConstants.ChartApcParms.ACCOUNT_FUND_GROUP_DENOTES_CG)).andReturn(mockConfigurationValues.isAccountFundGroupDenotesContractsAndGrants());
+        EasyMock.expect(parameterService.getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, KFSConstants.SystemGroupParameterNames.GL_ANNUAL_CLOSING_DOC_TYPE)).andReturn(mockConfigurationValues.getAnnualClosingDocumentType());
+        EasyMock.expect(parameterService.getParameterValueAsString(ScrubberStep.class, KFSConstants.SystemGroupParameterNames.GL_SCRUBBER_VALIDATION_DAYS_OFFSET)).andReturn(mockConfigurationValues.getScrubberValidationDaysOffset());
+        EasyMock.expect(parameterService.getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.OBJECT_TYPE_BYPASS_ORIGINATIONS)).andReturn(mockConfigurationValues.getObjectTypeBypassOriginations());
+        EasyMock.replay(accountService, parameterService);
+    }
+
+    private static class MockConfigurationValues {
+        private boolean accountsCanCrossCharts;
+        private List<String> continuationAccountByPassOriginationCodes;
+        private List<String> continuationAccountBypassDocumentTypeCodes;
+        private List<String> accountContractsAndGrantsDenotingValue;
+        private boolean accountFundGroupDenotesContractsAndGrants;
+        private String annualClosingDocumentType;
+        private String scrubberValidationDaysOffset;
+        private List<String> objectTypeBypassOriginations;
+
+        private MockConfigurationValues() {
+            accountsCanCrossCharts = true;
+            continuationAccountByPassOriginationCodes = new ArrayList<>();
+            continuationAccountBypassDocumentTypeCodes = new ArrayList<>();
+            accountContractsAndGrantsDenotingValue = new ArrayList<>();
+            accountFundGroupDenotesContractsAndGrants = false;
+            annualClosingDocumentType = "";
+            scrubberValidationDaysOffset = "";
+            objectTypeBypassOriginations = new ArrayList<>();
+        }
+
+        public boolean isAccountsCanCrossCharts() {
+            return accountsCanCrossCharts;
+        }
+
+        public List<String> getContinuationAccountByPassOriginationCodes() {
+            return continuationAccountByPassOriginationCodes;
+        }
+
+        public List<String> getContinuationAccountBypassDocumentTypeCodes() {
+            return continuationAccountBypassDocumentTypeCodes;
+        }
+
+        public List<String> getAccountContractsAndGrantsDenotingValue() {
+            return accountContractsAndGrantsDenotingValue;
+        }
+
+        public boolean isAccountFundGroupDenotesContractsAndGrants() {
+            return accountFundGroupDenotesContractsAndGrants;
+        }
+
+        public String getAnnualClosingDocumentType() {
+            return annualClosingDocumentType;
+        }
+
+        public String getScrubberValidationDaysOffset() {
+            return scrubberValidationDaysOffset;
+        }
+
+        public MockConfigurationValues setAccountsCanCrossCharts(boolean accountsCanCrossCharts) {
+            this.accountsCanCrossCharts = accountsCanCrossCharts;
+            return this;
+        }
+
+        public MockConfigurationValues setContinuationAccountByPassOriginationCodes(List<String> continuationAccountByPassOriginationCodes) {
+            this.continuationAccountByPassOriginationCodes = continuationAccountByPassOriginationCodes;
+            return this;
+        }
+
+        public MockConfigurationValues setContinuationAccountBypassDocumentTypeCodes(List<String> continuationAccountBypassDocumentTypeCodes) {
+            this.continuationAccountBypassDocumentTypeCodes = continuationAccountBypassDocumentTypeCodes;
+            return this;
+        }
+
+        public MockConfigurationValues setAccountContractsAndGrantsDenotingValue(List<String> accountContractsAndGrantsDenotingValue) {
+            this.accountContractsAndGrantsDenotingValue = accountContractsAndGrantsDenotingValue;
+            return this;
+        }
+
+        public MockConfigurationValues setAccountFundGroupDenotesContractsAndGrants(boolean accountFundGroupDenotesContractsAndGrants) {
+            this.accountFundGroupDenotesContractsAndGrants = accountFundGroupDenotesContractsAndGrants;
+            return this;
+        }
+
+        public MockConfigurationValues setAnnualClosingDocumentType(String annualClosingDocumentType) {
+            this.annualClosingDocumentType = annualClosingDocumentType;
+            return this;
+        }
+
+        public MockConfigurationValues setScrubberValidationDaysOffset(String scrubberValidationDaysOffset) {
+            this.scrubberValidationDaysOffset = scrubberValidationDaysOffset;
+            return this;
+        }
+
+        public List<String> getObjectTypeBypassOriginations() {
+            return objectTypeBypassOriginations;
+        }
+
+        public MockConfigurationValues setObjectTypeBypassOriginations(List<String> objectTypeBypassOriginations) {
+            this.objectTypeBypassOriginations = objectTypeBypassOriginations;
+            return this;
+        }
     }
 }

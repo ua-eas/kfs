@@ -23,6 +23,7 @@ import org.kuali.kfs.sys.rest.resource.AuthenticationResource;
 import org.kuali.kfs.sys.rest.resource.AuthorizationResource;
 import org.kuali.kfs.sys.rest.resource.BackdoorResource;
 import org.kuali.kfs.sys.rest.resource.BusinessObjectApiResource;
+import org.kuali.kfs.sys.rest.resource.FinancialDocumentTypeResource;
 import org.kuali.kfs.sys.rest.resource.PreferencesResource;
 import org.kuali.kfs.sys.rest.resource.SystemResource;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
@@ -40,6 +41,7 @@ public class SysApiApplication extends BaseApiApplication {
         singletons.add(new AuthorizationResource());
         if (SpringContext.getBean(ConfigurationService.class).getPropertyValueAsBoolean("apis.enabled")) {
             singletons.add(new BusinessObjectApiResource("sys"));
+            singletons.add(new FinancialDocumentTypeResource());
         }
     }
 }

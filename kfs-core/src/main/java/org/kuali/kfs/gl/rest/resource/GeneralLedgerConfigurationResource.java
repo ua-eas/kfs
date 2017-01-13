@@ -57,6 +57,7 @@ public class GeneralLedgerConfigurationResource {
         configuration.put("fundGroupDenotesContractsandGrants", getParameterService().getParameterValueAsBoolean(Account.class, KFSConstants.ChartApcParms.ACCOUNT_FUND_GROUP_DENOTES_CG));
         configuration.put("annualClosingDocumentType", getParameterService().getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, KFSConstants.SystemGroupParameterNames.GL_ANNUAL_CLOSING_DOC_TYPE));
         configuration.put("scrubberValidationDaysOffset", getParameterService().getParameterValueAsString(ScrubberStep.class, KFSConstants.SystemGroupParameterNames.GL_SCRUBBER_VALIDATION_DAYS_OFFSET));
+        configuration.put("objectTypeBypassOriginations", getParameterService().getParameterValuesAsString(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.OBJECT_TYPE_BYPASS_ORIGINATIONS));
 
         return Response.ok(configuration).build();
     }
