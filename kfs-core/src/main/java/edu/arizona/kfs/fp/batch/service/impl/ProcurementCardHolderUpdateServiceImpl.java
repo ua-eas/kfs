@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.kuali.kfs.fp.businessobject.defaultvalue.NextProcurementCardDefaultIdFinder;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.Person;
@@ -66,7 +67,7 @@ public class ProcurementCardHolderUpdateServiceImpl implements ProcurementCardHo
                     procurementCardHolderDetail.setCreditCardNumber(procurementCardHolderLoad.getCreditCardNumber());
                     procurementCardHolderDetail.setCreditCardLastFour(procurementCardHolderLoad.getCreditCardNumber().substring(12));
                     procurementCardHolderDetail.setChartOfAccountsCode("UA");
-                    procurementCardHolderDetail.setAccountNumber("0");
+                    procurementCardHolderDetail.setActive(true);
                     insertedRecords = insertedRecords + 1;
                 }
                 else {
@@ -101,6 +102,12 @@ public class ProcurementCardHolderUpdateServiceImpl implements ProcurementCardHo
         }
         
         try {
+            for(ProcurementCardDefault procurementCardDefault : procurementCardHolderDetails) {
+                if(ObjectUtils.isNull(procurementCardDefault.getId())) {
+                    procurementCardDefault.setId(Long.valueOf(new NextProcurementCardDefaultIdFinder().getValue()));
+                }
+            }
+            
             businessObjectService.save(procurementCardHolderDetails);
             if ( LOG.isInfoEnabled() ) {
                 LOG.info("Total Procurement Cardholders inserted: " + Integer.toString(insertedRecords));
