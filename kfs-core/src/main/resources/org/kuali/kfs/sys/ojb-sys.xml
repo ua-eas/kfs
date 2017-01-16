@@ -588,18 +588,6 @@
         <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
     </class-descriptor>
 
-    <class-descriptor class="org.kuali.kfs.sys.businessobject.FunctionalFieldDescription" table="SH_FNCTNL_FIELD_DESCR_T">
-        <field-descriptor name="namespaceCode" column="NMSPC_CD" jdbc-type="VARCHAR" primarykey="true"/>
-        <field-descriptor name="componentClass" column="CMPNT_CLSS" jdbc-type="VARCHAR" primarykey="true"/>
-        <field-descriptor name="propertyName" column="PRPRTY_NM" jdbc-type="VARCHAR" primarykey="true"/>
-        <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true"/>
-        <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true"/>
-        <field-descriptor name="description" column="FNCTNL_FIELD_DESCR" jdbc-type="VARCHAR"/>
-        <field-descriptor name="active" column="ACTIVE_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-        <field-descriptor name="lastUpdatedTimestamp" column="LAST_UPDT_TS" jdbc-type="TIMESTAMP" index="true"/>
-
-    </class-descriptor>
-
     <class-descriptor class="org.kuali.kfs.sys.businessobject.Bank" table="FP_BANK_T">
         <field-descriptor name="bankCode" column="BNK_CD" jdbc-type="VARCHAR" primarykey="true" index="true"/>
         <field-descriptor name="bankName" column="BNK_NM" jdbc-type="VARCHAR"/>

@@ -35,8 +35,6 @@ import org.kuali.kfs.krad.service.LookupService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.BusinessObjectComponent;
 import org.kuali.kfs.sys.businessobject.BusinessObjectProperty;
-import org.kuali.kfs.sys.businessobject.DataMappingFieldDefinition;
-import org.kuali.kfs.sys.businessobject.FunctionalFieldDescription;
 import org.kuali.kfs.sys.dataaccess.BusinessObjectMetaDataDao;
 import org.kuali.kfs.sys.service.KfsBusinessObjectMetaDataService;
 import org.kuali.kfs.sys.service.NonTransactional;
@@ -77,37 +75,6 @@ public class KfsBusinessObjectMetaDataServiceImpl implements KfsBusinessObjectMe
             LOG.error("Unable to resolve component class name: " + componentClass);
         }
         return null;
-    }
-
-    @Override
-    public DataMappingFieldDefinition getDataMappingFieldDefinition(String componentClass, String propertyName) {
-        Map<String, String> primaryKeys = new HashMap<String, String>();
-        primaryKeys.put(KFSPropertyConstants.COMPONENT_CLASS, componentClass);
-        primaryKeys.put(KFSPropertyConstants.PROPERTY_NAME, propertyName);
-        FunctionalFieldDescription functionalFieldDescription = (FunctionalFieldDescription) businessObjectService.findByPrimaryKey(FunctionalFieldDescription.class, primaryKeys);
-        if (functionalFieldDescription == null) {
-            functionalFieldDescription = new FunctionalFieldDescription(componentClass, propertyName);
-        }
-        functionalFieldDescription.refreshNonUpdateableReferences();
-        return getDataMappingFieldDefinition(functionalFieldDescription);
-    }
-
-    @Override
-    public DataMappingFieldDefinition getDataMappingFieldDefinition(FunctionalFieldDescription functionalFieldDescription) {
-        BusinessObjectEntry businessObjectEntry = dataDictionaryService.getDataDictionary().getBusinessObjectEntry(functionalFieldDescription.getComponentClass());
-        String propertyType = "";
-        try {
-            propertyType = PropertyUtils.getPropertyType(businessObjectEntry.getBusinessObjectClass().newInstance(), functionalFieldDescription.getPropertyName()).getSimpleName();
-        } catch (Exception e) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("KfsBusinessObjectMetaDataServiceImpl unable to get type of property: " + functionalFieldDescription.getPropertyName(), e);
-            }
-        }
-        return new DataMappingFieldDefinition(functionalFieldDescription, (org.kuali.kfs.kns.datadictionary.BusinessObjectEntry) businessObjectEntry,
-            businessObjectEntry.getAttributeDefinition(functionalFieldDescription.getPropertyName()),
-            businessObjectMetaDataDao.getFieldMetaData(businessObjectEntry.getBusinessObjectClass(), functionalFieldDescription.getPropertyName()),
-            propertyType,
-            getReferenceComponentLabel(businessObjectEntry.getBusinessObjectClass(), functionalFieldDescription.getPropertyName()));
     }
 
     @Override
@@ -157,38 +124,6 @@ public class KfsBusinessObjectMetaDataServiceImpl implements KfsBusinessObjectMe
         return matchingBusinessObjectProperties;
     }
 
-    @Override
-    public List<FunctionalFieldDescription> findFunctionalFieldDescriptions(String namespaceCode, String componentLabel, String propertyLabel, String description, String active) {
-        Set<String> componentClasses = new HashSet<String>();
-        Set<String> propertyNames = new HashSet<String>();
-        for (BusinessObjectProperty businessObjectProperty : findBusinessObjectProperties(namespaceCode, componentLabel, propertyLabel)) {
-            componentClasses.add(businessObjectProperty.getComponentClass());
-            propertyNames.add(businessObjectProperty.getPropertyName());
-        }
-        Map<String, String> fieldValues = new HashMap<String, String>();
-        fieldValues.put(KFSPropertyConstants.NAMESPACE_CODE, namespaceCode);
-        fieldValues.put(KFSPropertyConstants.COMPONENT_CLASS, buildOrCriteria(componentClasses));
-        fieldValues.put(KFSPropertyConstants.PROPERTY_NAME, buildOrCriteria(propertyNames));
-        fieldValues.put(KFSPropertyConstants.DESCRIPTION, description);
-        fieldValues.put(KFSPropertyConstants.ACTIVE, active);
-        List<FunctionalFieldDescription> searchResults = (List<FunctionalFieldDescription>) lookupService.findCollectionBySearchHelper(FunctionalFieldDescription.class, fieldValues, false);
-        for (FunctionalFieldDescription functionalFieldDescription : searchResults) {
-            functionalFieldDescription.refreshNonUpdateableReferences();
-        }
-        return searchResults;
-    }
-
-    protected String buildOrCriteria(Set<String> values) {
-        StringBuffer orCriteria = new StringBuffer();
-        List<String> valueList = new ArrayList<String>(values);
-        for (int i = 0; i < valueList.size(); i++) {
-            orCriteria.append(valueList.get(i));
-            if (i < (valueList.size() - 1)) {
-                orCriteria.append("|");
-            }
-        }
-        return orCriteria.toString();
-    }
 
     @Override
     public boolean isMatch(String componentClass, String propertyName, String tableNameSearchCriterion, String fieldNameSearchCriterion) {

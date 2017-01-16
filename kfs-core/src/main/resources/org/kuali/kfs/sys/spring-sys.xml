@@ -667,24 +667,6 @@
             </bean>
         </property>
     </bean>
-    <bean id="functionalFieldDescriptionLookupable" parent="functionalFieldDescriptionLookupable-parentBean" scope="prototype"/>
-
-    <bean id="functionalFieldDescriptionLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
-        <property name="lookupableHelperService">
-            <bean class="org.kuali.kfs.sys.businessobject.lookup.FunctionalFieldDescriptionLookupableHelperServiceImpl" parent="cf.lookupableHelperService">
-                <property name="kfsBusinessObjectMetaDataService" ref="kfsBusinessObjectMetaDataService"/>
-            </bean>
-        </property>
-    </bean>
-    <bean id="dataMappingFieldDefinitionLookupable" parent="dataMappingFieldDefinitionLookupable-parentBean" scope="prototype"/>
-
-    <bean id="dataMappingFieldDefinitionLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
-        <property name="lookupableHelperService">
-            <bean class="org.kuali.kfs.sys.businessobject.lookup.DataMappingFieldDefinitionLookupableHelperServiceImpl" parent="cf.lookupableHelperService">
-                <property name="kfsBusinessObjectMetaDataService" ref="kfsBusinessObjectMetaDataService"/>
-            </bean>
-        </property>
-    </bean>
 
     <bean id="accountingDocumentRuleHelperService" parent="accountingDocumentRuleHelperService-parentBean"/>
 

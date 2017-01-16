@@ -1,0 +1,26 @@
+{
+  "changeLog": [
+    {
+      "jira": "FINP-1006",
+      "id": "Remove FunctionalFieldDescription and DataMappingFieldDefinition links from document database",
+      "changes": [
+        {
+          "changeType": "deleteNode",
+          "collectionName": "InstitutionPreferences",
+          "query": {
+            "institutionId": "1232413535"
+          },
+          "path": "$.linkGroups[?(@.label=='System')].links.administration[?(@.label=='Data Mapping Field Definition')]"
+        },
+        {
+          "changeType": "deleteNode",
+          "collectionName": "InstitutionPreferences",
+          "query": {
+            "institutionId": "1232413535"
+          },
+          "path": "$.linkGroups[?(@.label=='System')].links.administration[?(@.documentTypeCode=='FFD')]"
+        }
+      ]
+    }
+  ]
+}
