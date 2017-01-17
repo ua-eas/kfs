@@ -77,8 +77,6 @@
                    type="org.kuali.kfs.fp.document.web.struts.YearEndDistributionOfIncomeAndExpenseForm"/>
         <form-bean name="AuxiliaryVoucherForm"
                    type="org.kuali.kfs.fp.document.web.struts.AuxiliaryVoucherForm"/>
-        <form-bean name="BursarControlScreenForm"
-                   type="org.kuali.module.financial.web.struts.form.BursarControlScreenForm"/>
         <form-bean name="JournalVoucherForm"
                    type="org.kuali.kfs.fp.document.web.struts.JournalVoucherForm"/>
         <form-bean name="IndirectCostAdjustmentForm"
@@ -268,11 +266,11 @@
         <form-bean name="AssetBarCodeInventoryInputFileForm"
                    type="org.kuali.kfs.module.cam.document.web.struts.AssetBarCodeInventoryInputFileForm"/>
         <form-bean name="PurApLineForm"
-                   type="org.kuali.kfs.module.cam.document.web.struts.PurApLineForm"/>
+                   type="org.kuali.kfs.module.cam.web.struts.PurApLineForm"/>
         <form-bean name="GlLineForm"
-                   type="org.kuali.kfs.module.cam.document.web.struts.GlLineForm"/>
+                   type="org.kuali.kfs.module.cam.web.struts.GlLineForm"/>
         <form-bean name="CapitalAssetInformationForm"
-                   type="org.kuali.kfs.module.cam.document.web.struts.CapitalAssetInformationForm"/>
+                   type="org.kuali.kfs.module.cam.web.struts.CapitalAssetInformationForm"/>
 
         <!-- Effort Certification Bean Definitions -->
         <form-bean name="EffortCertificationForm"
@@ -547,6 +545,27 @@
                 type="org.kuali.kfs.module.cam.document.web.struts.AssetBarCodeInventoryInputFileAction">
             <set-property property="cancellable" value="true"/>
             <forward name="basic" path="/jsp/module/cams/BarcodeInventoryUpload.jsp"/>
+        </action>
+
+        <action path="/camsCapitalAssetInformation" name="CapitalAssetInformationForm" input="/jsp/module/cams/CapitalAssetInformation.jsp"
+                type="org.kuali.kfs.module.cam.web.struts.CapitalAssetInformationAction" scope="request"
+                parameter="methodToCall" validate="true" attribute="KualiForm">
+            <set-property property="cancellable" value="true"/>
+            <forward name="basic" path="/jsp/module/cams/{1}.jsp"/>
+        </action>
+
+        <action path="/camsGlLine" name="GlLineForm" input="/jsp/module/cams/GlLine.jsp"
+                type="org.kuali.kfs.module.cam.web.struts.GlLineAction" scope="request"
+                parameter="methodToCall" validate="true" attribute="KualiForm">
+            <set-property property="cancellable" value="true"/>
+            <forward name="basic" path="/jsp/module/cams/{1}.jsp"/>
+        </action>
+
+        <action path="/camsPurApLine" name="PurApLineForm" input="/jsp/module/cams/PurApLine.jsp"
+                type="org.kuali.kfs.module.cam.web.struts.PurApLineAction" scope="request"
+                parameter="methodToCall" validate="true" attribute="KualiForm">
+            <set-property property="cancellable" value="true"/>
+            <forward name="basic" path="/jsp/module/cams/{1}.jsp"/>
         </action>
 
         <action path="/cams*" name="{1}Form" input="/jsp/module/cams/{1}.jsp"

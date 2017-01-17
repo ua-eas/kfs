@@ -49,6 +49,7 @@ import org.kuali.kfs.module.cam.businessobject.defaultvalue.NextAssetNumberFinde
 import org.kuali.kfs.module.cam.document.AssetPaymentDocument;
 import org.kuali.kfs.module.cam.document.service.AssetGlobalService;
 import org.kuali.kfs.module.cam.document.service.AssetService;
+import org.kuali.kfs.module.cam.web.struts.PurApLineForm;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderCapitalAssetSystem;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
@@ -156,7 +157,7 @@ public class PurApLineDocumentServiceImpl implements PurApLineDocumentService {
 
     /**
      * @see PurApLineService#processCreateAsset(PurchasingAccountsPayableItemAsset,
-     * org.kuali.kfs.module.cam.document.web.struts.PurApLineForm)
+     * PurApLineForm)
      */
     @Override
     public String processCreateAsset(PurchasingAccountsPayableItemAsset selectedItem, List<PurchasingAccountsPayableDocument> purApDocs, PurApLineSession purApLineSession, Integer requisitionIdentifier) throws WorkflowException {

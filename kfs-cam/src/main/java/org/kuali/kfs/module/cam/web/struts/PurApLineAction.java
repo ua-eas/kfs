@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.cam.document.web.struts;
+package org.kuali.kfs.module.cam.web.struts;
 
 
 import org.apache.commons.lang.StringUtils;
@@ -43,6 +43,7 @@ import org.kuali.kfs.module.cam.document.service.PurApLineService;
 import org.kuali.kfs.module.cam.document.web.PurApLineSession;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.businessobject.AssetGlobal;
+import org.kuali.kfs.module.cam.document.web.struts.CabActionBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
