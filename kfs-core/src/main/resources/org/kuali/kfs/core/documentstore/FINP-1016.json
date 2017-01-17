@@ -1,0 +1,26 @@
+{
+  "changeLog": [
+    {
+      "jira": "FINI-1016",
+      "id": "Remove additional TEM document ENT and RELO",
+      "changes": [
+        {
+          "changeType": "deleteNode",
+          "collectionName": "InstitutionPreferences",
+          "query": {
+            "institutionId": "1232413535"
+          },
+          "path": "$.linkGroups[?(@.label=='Reimbursements')].links.activities[?(@.documentTypeCode=='ENT')]"
+        },
+        {
+          "changeType": "deleteNode",
+          "collectionName": "InstitutionPreferences",
+          "query": {
+            "institutionId": "1232413535"
+          },
+          "path": "$.linkGroups[?(@.label=='Reimbursements')].links.activities[?(@.documentTypeCode=='RELO')]"
+        }
+      ]
+    }
+  ]
+}
