@@ -3,10 +3,6 @@ RECORD[~&~	~&~'KFS-AR'~&~	~&~'All'~&~	~&~'KFS1'~&~	~&~'1'~&~	~&~'All'~&~	~&~'Y'~
 RECORD[~&~	~&~'KFS-AR'~&~	~&~'Batch'~&~	~&~'KFS2'~&~	~&~'1'~&~	~&~'Batch'~&~	~&~'Y'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-AR'~&~	~&~'Document'~&~	~&~'KFS3'~&~	~&~'1'~&~	~&~'Document'~&~	~&~'Y'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-AR'~&~	~&~'Lookup'~&~	~&~'KFS4'~&~	~&~'1'~&~	~&~'Lookup'~&~	~&~'Y'~&~	~&~]RECORD
-RECORD[~&~	~&~'KFS-BC'~&~	~&~'All'~&~	~&~'KFS5'~&~	~&~'1'~&~	~&~'All'~&~	~&~'Y'~&~	~&~]RECORD
-RECORD[~&~	~&~'KFS-BC'~&~	~&~'Batch'~&~	~&~'KFS6'~&~	~&~'1'~&~	~&~'Batch'~&~	~&~'Y'~&~	~&~]RECORD
-RECORD[~&~	~&~'KFS-BC'~&~	~&~'Document'~&~	~&~'KFS7'~&~	~&~'1'~&~	~&~'Document'~&~	~&~'Y'~&~	~&~]RECORD
-RECORD[~&~	~&~'KFS-BC'~&~	~&~'Lookup'~&~	~&~'KFS8'~&~	~&~'1'~&~	~&~'Lookup'~&~	~&~'Y'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-CAM'~&~	~&~'All'~&~	~&~'KFS13'~&~	~&~'1'~&~	~&~'All'~&~	~&~'Y'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-CAM'~&~	~&~'Batch'~&~	~&~'KFS14'~&~	~&~'1'~&~	~&~'Batch'~&~	~&~'Y'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-CAM'~&~	~&~'Document'~&~	~&~'KFS15'~&~	~&~'1'~&~	~&~'Document'~&~	~&~'Y'~&~	~&~]RECORD
@@ -51,10 +47,6 @@ RECORD[~&~	~&~'KFS-SYS'~&~	~&~'All'~&~	~&~'KFS53'~&~	~&~'1'~&~	~&~'All'~&~	~&~'Y
 RECORD[~&~	~&~'KFS-SYS'~&~	~&~'Batch'~&~	~&~'KFS54'~&~	~&~'1'~&~	~&~'Batch'~&~	~&~'Y'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-SYS'~&~	~&~'Document'~&~	~&~'KFS55'~&~	~&~'1'~&~	~&~'Document'~&~	~&~'Y'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-SYS'~&~	~&~'Lookup'~&~	~&~'KFS56'~&~	~&~'1'~&~	~&~'Lookup'~&~	~&~'Y'~&~	~&~]RECORD
-RECORD[~&~	~&~'KFS-TEM'~&~	~&~'All'~&~	~&~'KFS-TEM-PARM-DTL-001'~&~	~&~'1'~&~	~&~'All'~&~	~&~'Y'~&~	~&~]RECORD
-RECORD[~&~	~&~'KFS-TEM'~&~	~&~'Batch'~&~	~&~'KFS-TEM-PARM-DTL-002'~&~	~&~'1'~&~	~&~'Batch'~&~	~&~'Y'~&~	~&~]RECORD
-RECORD[~&~	~&~'KFS-TEM'~&~	~&~'Document'~&~	~&~'KFS-TEM-PARM-DTL-003'~&~	~&~'1'~&~	~&~'Document'~&~	~&~'Y'~&~	~&~]RECORD
-RECORD[~&~	~&~'KFS-TEM'~&~	~&~'Lookup'~&~	~&~'KFS-TEM-PARM-DTL-004'~&~	~&~'1'~&~	~&~'Lookup'~&~	~&~'Y'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-VND'~&~	~&~'All'~&~	~&~'KFS57'~&~	~&~'1'~&~	~&~'All'~&~	~&~'Y'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-VND'~&~	~&~'Batch'~&~	~&~'KFS58'~&~	~&~'1'~&~	~&~'Batch'~&~	~&~'Y'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-VND'~&~	~&~'Document'~&~	~&~'KFS59'~&~	~&~'1'~&~	~&~'Document'~&~	~&~'Y'~&~	~&~]RECORD

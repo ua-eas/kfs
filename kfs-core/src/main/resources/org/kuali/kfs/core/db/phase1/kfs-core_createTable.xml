@@ -2523,9 +2523,6 @@
       <column defaultValue="Y" name="ROW_ACTV_IND" type="VARCHAR(1)">
         <constraints nullable="false"/>
       </column>
-      <column defaultValue="N" name="FRGN_CMPNY" type="VARCHAR(1)">
-        <constraints nullable="false"/>
-      </column>
     </createTable>
   </changeSet>
   <changeSet author="kfs" id="1048" context="bootstrap,demo,unit">

@@ -1,64 +1,64 @@
-HEADER[~&~	~&~DV_EXP_CD::VARCHAR~&~	~&~DV_EXP_CO_NM::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~FRGN_CMPNY::VARCHAR~&~	~&~]HEADER
-RECORD[~&~	~&~'A'~&~	~&~'CONTINENTAL/CONTINENTAL EXPRESS'~&~	~&~'059C8C53A21EEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'A'~&~	~&~'DELTA'~&~	~&~'059C8C53A21FEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'A'~&~	~&~'NORTHWEST'~&~	~&~'059C8C53A220EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'A'~&~	~&~'OTHER'~&~	~&~'059C8C53A221EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'A'~&~	~&~'SOUTHWEST'~&~	~&~'059C8C53A222EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'A'~&~	~&~'TRANS WORLD AIRLINES'~&~	~&~'059C8C53A223EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'A'~&~	~&~'U.S. AIRWAYS'~&~	~&~'059C8C53A224EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'A'~&~	~&~'UNITED AIRLINES'~&~	~&~'059C8C53A225EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'L'~&~	~&~'BEST WESTERN'~&~	~&~'059C8C53A226EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'L'~&~	~&~'CENTURY SUITES'~&~	~&~'059C8C53A227EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'L'~&~	~&~'COMFORT AND CLARION INNS'~&~	~&~'059C8C53A228EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'L'~&~	~&~'COURTYARD'~&~	~&~'059C8C53A229EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'L'~&~	~&~'DAYS INN'~&~	~&~'059C8C53A22AEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'L'~&~	~&~'FAIRFIELD INN'~&~	~&~'059C8C53A22BEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'L'~&~	~&~'HAMPTON INN'~&~	~&~'059C8C53A22DEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'L'~&~	~&~'HOLIDAY INNS'~&~	~&~'059C8C53A22EEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'L'~&~	~&~'OTHER'~&~	~&~'059C8C53A230EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'L'~&~	~&~'RAMADA INNS'~&~	~&~'059C8C53A231EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'L'~&~	~&~'TRAVELODGE'~&~	~&~'059C8C53A232EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'M'~&~	~&~'OTHER'~&~	~&~'059C8C53A234EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'M'~&~	~&~'RYDER'~&~	~&~'059C8C53A235EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'M'~&~	~&~'U-HAUL'~&~	~&~'059C8C53A236EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'O'~&~	~&~'OTHER'~&~	~&~'059C8C53A237EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PA'~&~	~&~'CONTINENTAL/CONTINENTAL EXPRESS'~&~	~&~'059C8C53A238EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PA'~&~	~&~'DELTA'~&~	~&~'059C8C53A239EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PA'~&~	~&~'NORTHWEST'~&~	~&~'059C8C53A23AEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PA'~&~	~&~'OTHER'~&~	~&~'059C8C53A23BEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PA'~&~	~&~'SOUTHWEST'~&~	~&~'059C8C53A23CEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PA'~&~	~&~'TRANS WORLD AIRLINES'~&~	~&~'059C8C53A23DEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PA'~&~	~&~'U.S. AIRWAYS'~&~	~&~'059C8C53A23EEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PA'~&~	~&~'UNITED AIRLINES'~&~	~&~'059C8C53A23FEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PC'~&~	~&~'OTHER'~&~	~&~'059C8C53A240EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PL'~&~	~&~'BEST WESTERN'~&~	~&~'059C8C53A241EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PL'~&~	~&~'CENTURY SUITES'~&~	~&~'059C8C53A242EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PL'~&~	~&~'COMFORT AND CLARION INNS'~&~	~&~'059C8C53A243EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PL'~&~	~&~'COURTYARD'~&~	~&~'059C8C53A244EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PL'~&~	~&~'DAYS INN'~&~	~&~'059C8C53A245EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PL'~&~	~&~'FAIRFIELD INN'~&~	~&~'059C8C53A246EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PL'~&~	~&~'HAMPTON INN'~&~	~&~'059C8C53A248EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PL'~&~	~&~'HOLIDAY INNS'~&~	~&~'059C8C53A249EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PL'~&~	~&~'OTHER'~&~	~&~'059C8C53A24BEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PL'~&~	~&~'RAMADA INNS'~&~	~&~'059C8C53A24CEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PL'~&~	~&~'TRAVELODGE'~&~	~&~'059C8C53A24DEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PM'~&~	~&~'OTHER'~&~	~&~'059C8C53A24FEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PM'~&~	~&~'RYDER'~&~	~&~'059C8C53A250EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PM'~&~	~&~'U-HAUL'~&~	~&~'059C8C53A251EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PO'~&~	~&~'PREPAID OTHER'~&~	~&~'059C8C53A252EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PR'~&~	~&~'ALAMO'~&~	~&~'059C8C53A253EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PR'~&~	~&~'AVIS'~&~	~&~'059C8C53A254EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PR'~&~	~&~'BUDGET'~&~	~&~'059C8C53A255EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PR'~&~	~&~'HERTZ'~&~	~&~'059C8C53A256EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PR'~&~	~&~'NATIONAL'~&~	~&~'059C8C53A257EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PR'~&~	~&~'OTHER'~&~	~&~'059C8C53A258EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PT'~&~	~&~'OTHER'~&~	~&~'059C8C53A25BEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'PT'~&~	~&~'YELLOW CAB CO.'~&~	~&~'059C8C53A25CEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'R'~&~	~&~'ALAMO'~&~	~&~'059C8C53A25DEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'R'~&~	~&~'AVIS'~&~	~&~'059C8C53A25EEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'R'~&~	~&~'BUDGET'~&~	~&~'059C8C53A25FEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'R'~&~	~&~'HERTZ'~&~	~&~'059C8C53A260EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'R'~&~	~&~'NATIONAL'~&~	~&~'059C8C53A261EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'R'~&~	~&~'OTHER'~&~	~&~'059C8C53A262EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'T'~&~	~&~'OTHER'~&~	~&~'059C8C53A265EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
-RECORD[~&~	~&~'T'~&~	~&~'YELLOW CAB CO.'~&~	~&~'059C8C53A266EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+HEADER[~&~	~&~DV_EXP_CD::VARCHAR~&~	~&~DV_EXP_CO_NM::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'A'~&~	~&~'CONTINENTAL/CONTINENTAL EXPRESS'~&~	~&~'059C8C53A21EEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'A'~&~	~&~'DELTA'~&~	~&~'059C8C53A21FEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'A'~&~	~&~'NORTHWEST'~&~	~&~'059C8C53A220EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'A'~&~	~&~'OTHER'~&~	~&~'059C8C53A221EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'A'~&~	~&~'SOUTHWEST'~&~	~&~'059C8C53A222EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'A'~&~	~&~'TRANS WORLD AIRLINES'~&~	~&~'059C8C53A223EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'A'~&~	~&~'U.S. AIRWAYS'~&~	~&~'059C8C53A224EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'A'~&~	~&~'UNITED AIRLINES'~&~	~&~'059C8C53A225EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'L'~&~	~&~'BEST WESTERN'~&~	~&~'059C8C53A226EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'L'~&~	~&~'CENTURY SUITES'~&~	~&~'059C8C53A227EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'L'~&~	~&~'COMFORT AND CLARION INNS'~&~	~&~'059C8C53A228EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'L'~&~	~&~'COURTYARD'~&~	~&~'059C8C53A229EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'L'~&~	~&~'DAYS INN'~&~	~&~'059C8C53A22AEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'L'~&~	~&~'FAIRFIELD INN'~&~	~&~'059C8C53A22BEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'L'~&~	~&~'HAMPTON INN'~&~	~&~'059C8C53A22DEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'L'~&~	~&~'HOLIDAY INNS'~&~	~&~'059C8C53A22EEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'L'~&~	~&~'OTHER'~&~	~&~'059C8C53A230EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'L'~&~	~&~'RAMADA INNS'~&~	~&~'059C8C53A231EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'L'~&~	~&~'TRAVELODGE'~&~	~&~'059C8C53A232EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'M'~&~	~&~'OTHER'~&~	~&~'059C8C53A234EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'M'~&~	~&~'RYDER'~&~	~&~'059C8C53A235EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'M'~&~	~&~'U-HAUL'~&~	~&~'059C8C53A236EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'O'~&~	~&~'OTHER'~&~	~&~'059C8C53A237EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PA'~&~	~&~'CONTINENTAL/CONTINENTAL EXPRESS'~&~	~&~'059C8C53A238EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PA'~&~	~&~'DELTA'~&~	~&~'059C8C53A239EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PA'~&~	~&~'NORTHWEST'~&~	~&~'059C8C53A23AEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PA'~&~	~&~'OTHER'~&~	~&~'059C8C53A23BEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PA'~&~	~&~'SOUTHWEST'~&~	~&~'059C8C53A23CEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PA'~&~	~&~'TRANS WORLD AIRLINES'~&~	~&~'059C8C53A23DEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PA'~&~	~&~'U.S. AIRWAYS'~&~	~&~'059C8C53A23EEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PA'~&~	~&~'UNITED AIRLINES'~&~	~&~'059C8C53A23FEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PC'~&~	~&~'OTHER'~&~	~&~'059C8C53A240EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PL'~&~	~&~'BEST WESTERN'~&~	~&~'059C8C53A241EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PL'~&~	~&~'CENTURY SUITES'~&~	~&~'059C8C53A242EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PL'~&~	~&~'COMFORT AND CLARION INNS'~&~	~&~'059C8C53A243EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PL'~&~	~&~'COURTYARD'~&~	~&~'059C8C53A244EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PL'~&~	~&~'DAYS INN'~&~	~&~'059C8C53A245EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PL'~&~	~&~'FAIRFIELD INN'~&~	~&~'059C8C53A246EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PL'~&~	~&~'HAMPTON INN'~&~	~&~'059C8C53A248EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PL'~&~	~&~'HOLIDAY INNS'~&~	~&~'059C8C53A249EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PL'~&~	~&~'OTHER'~&~	~&~'059C8C53A24BEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PL'~&~	~&~'RAMADA INNS'~&~	~&~'059C8C53A24CEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PL'~&~	~&~'TRAVELODGE'~&~	~&~'059C8C53A24DEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PM'~&~	~&~'OTHER'~&~	~&~'059C8C53A24FEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PM'~&~	~&~'RYDER'~&~	~&~'059C8C53A250EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PM'~&~	~&~'U-HAUL'~&~	~&~'059C8C53A251EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PO'~&~	~&~'PREPAID OTHER'~&~	~&~'059C8C53A252EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PR'~&~	~&~'ALAMO'~&~	~&~'059C8C53A253EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PR'~&~	~&~'AVIS'~&~	~&~'059C8C53A254EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PR'~&~	~&~'BUDGET'~&~	~&~'059C8C53A255EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PR'~&~	~&~'HERTZ'~&~	~&~'059C8C53A256EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PR'~&~	~&~'NATIONAL'~&~	~&~'059C8C53A257EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PR'~&~	~&~'OTHER'~&~	~&~'059C8C53A258EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD~]RECORD
+RECORD[~&~	~&~'PT'~&~	~&~'OTHER'~&~	~&~'059C8C53A25BEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PT'~&~	~&~'YELLOW CAB CO.'~&~	~&~'059C8C53A25CEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'R'~&~	~&~'ALAMO'~&~	~&~'059C8C53A25DEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'R'~&~	~&~'AVIS'~&~	~&~'059C8C53A25EEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'R'~&~	~&~'BUDGET'~&~	~&~'059C8C53A25FEA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'R'~&~	~&~'HERTZ'~&~	~&~'059C8C53A260EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'R'~&~	~&~'NATIONAL'~&~	~&~'059C8C53A261EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'R'~&~	~&~'OTHER'~&~	~&~'059C8C53A262EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'T'~&~	~&~'OTHER'~&~	~&~'059C8C53A265EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'T'~&~	~&~'YELLOW CAB CO.'~&~	~&~'059C8C53A266EA14E043814FD881EA14'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD

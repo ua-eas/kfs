@@ -1,6 +1,5 @@
 HEADER[~&~	~&~NMSPC_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~NM::VARCHAR~&~	~&~ACTV_IND::CHAR~&~	~&~APPL_ID::VARCHAR~&~	~&~]HEADER
 RECORD[~&~	~&~'KFS-AR'~&~	~&~'KFS-AR'~&~	~&~'1'~&~	~&~'Accounts Receivable'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
-RECORD[~&~	~&~'KFS-BC'~&~	~&~'KFS-BC'~&~	~&~'1'~&~	~&~'Budget Construction'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-CAM'~&~	~&~'KFS-CAM'~&~	~&~'1'~&~	~&~'Capital Asset Management'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-CG'~&~	~&~'KFS-CG'~&~	~&~'1'~&~	~&~'Contracts & Grants'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-COA'~&~	~&~'KFS-COA'~&~	~&~'1'~&~	~&~'Chart of Accounts'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
@@ -12,7 +11,6 @@ RECORD[~&~	~&~'KFS-PDP'~&~	~&~'KFS-PDP'~&~	~&~'1'~&~	~&~'Pre-Disbursement Proces
 RECORD[~&~	~&~'KFS-PURAP'~&~	~&~'KFS-PURAP'~&~	~&~'1'~&~	~&~'Purchasing/Accounts Payable'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-SEC'~&~	~&~'KFS-SEC'~&~	~&~'1'~&~	~&~'Access Security'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-SYS'~&~	~&~'KFS-SYS'~&~	~&~'1'~&~	~&~'Financial System'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
-RECORD[~&~	~&~'KFS-TEM'~&~	~&~'KFS-TEM'~&~	~&~'1'~&~	~&~'Travel/Entertainment Module'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS-VND'~&~	~&~'KFS-VND'~&~	~&~'1'~&~	~&~'Vendor'~&~	~&~'Y'~&~	~&~'KFS'~&~	~&~]RECORD
 RECORD[~&~	~&~'KR-BUS'~&~	~&~'5B960CFDBB370FDFE0404F8189D83CBD'~&~	~&~'1'~&~	~&~'Service Bus'~&~	~&~'Y'~&~	~&~'RICE'~&~	~&~]RECORD
 RECORD[~&~	~&~'KR-IDM'~&~	~&~'61645D045B0005D7E0404F8189D849B1'~&~	~&~'1'~&~	~&~'Identity Management'~&~	~&~'Y'~&~	~&~'RICE'~&~	~&~]RECORD
