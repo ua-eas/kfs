@@ -1,5 +1,0 @@
-HEADER[~&~	~&~PURPOSE_CODE::VARCHAR~&~	~&~PURPOSE_NAME::VARCHAR~&~	~&~PURPOSE_DESCRIPTION::VARCHAR~&~	~&~REVIEW_REQUIRED_IND::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~]HEADER
-RECORD[~&~	~&~'PD'~&~	~&~'Prospective Donor Events'~&~	~&~'Prospective Donor Events'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2416595898E040540A5EFD3A74'~&~	~&~]RECORD
-RECORD[~&~	~&~'RC'~&~	~&~'Recruitment'~&~	~&~'Recruitment'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA24165A5898E040540A5EFD3A74'~&~	~&~]RECORD
-RECORD[~&~	~&~'RR'~&~	~&~'Reception or Retirement'~&~	~&~'Reception or retirement'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2416585898E040540A5EFD3A74'~&~	~&~]RECORD
-RECORD[~&~	~&~'SA'~&~	~&~'Student or Administrative Meetings'~&~	~&~'Student or Administrative Meetings'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2416575898E040540A5EFD3A74'~&~	~&~]RECORD

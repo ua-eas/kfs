@@ -1,2 +1,0 @@
-HEADER[~&~	~&~ID::DECIMAL~&~	~&~PRI_DEST_NM::VARCHAR~&~	~&~REGION_CD::VARCHAR~&~	~&~COUNTY_CD::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~]HEADER
-RECORD[~&~	~&~'2147483647'~&~	~&~'Primary Destination Not Found'~&~	~&~'XXX'~&~	~&~NULL~&~	~&~'Y'~&~	~&~'E57DE145DB6556EFE040E00ABCD653FA'~&~	~&~'1'~&~	~&~]RECORD

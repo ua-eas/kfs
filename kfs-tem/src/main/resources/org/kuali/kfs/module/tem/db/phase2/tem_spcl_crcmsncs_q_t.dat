@@ -1,8 +1,0 @@
-HEADER[~&~	~&~ID::DECIMAL~&~	~&~DOCUMENT_TYPE::VARCHAR~&~	~&~TEXT::VARCHAR~&~	~&~TXT_IND::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~]HEADER
-RECORD[~&~	~&~'1'~&~	~&~'TA'~&~	~&~'Question for TA - is anyone traveling with you?'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'KFS-TEM-SPCM-001'~&~	~&~]RECORD
-RECORD[~&~	~&~'2'~&~	~&~'TR'~&~	~&~'Question for TR documents - did you stay overnight with family or friends?:'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'KFS-TEM-SPCM-002'~&~	~&~]RECORD
-RECORD[~&~	~&~'3'~&~	~&~'ENT'~&~	~&~'Question for Entertainment documents - was alcohol served?:'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'KFS-TEM-SPCM-003'~&~	~&~]RECORD
-RECORD[~&~	~&~'4'~&~	~&~'RELO'~&~	~&~'Question for Relocation documents - do you have pets moving with you?:'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'KFS-TEM-SPCM-004'~&~	~&~]RECORD
-RECORD[~&~	~&~'5'~&~	~&~'TA'~&~	~&~'Question for TA documents - not free form: Carrying Fruit?'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'KFS-TEM-SPCM-005'~&~	~&~]RECORD
-RECORD[~&~	~&~'6'~&~	~&~'TA'~&~	~&~'Inactive Question for search testing'~&~	~&~'N'~&~	~&~'N'~&~	~&~'1'~&~	~&~'KFS-TEM-SPCM-006'~&~	~&~]RECORD
-RECORD[~&~	~&~'7'~&~	~&~'TA'~&~	~&~'Do you have large pets traveling with you?:'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'KFS-TEM-SPCM-007'~&~	~&~]RECORD

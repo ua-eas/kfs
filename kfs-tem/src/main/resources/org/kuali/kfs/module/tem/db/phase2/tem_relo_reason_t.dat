@@ -1,5 +1,0 @@
-HEADER[~&~	~&~RELO_REASON_CD::VARCHAR~&~	~&~RELO_REASON_NM::VARCHAR~&~	~&~RELO_REASON_DESCR::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~]HEADER
-RECORD[~&~	~&~'HH'~&~	~&~'House Hunting'~&~	~&~NULL~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA24164F5898E040540A5EFD3A74'~&~	~&~]RECORD
-RECORD[~&~	~&~'IC'~&~	~&~'Inter Campus Transfer'~&~	~&~NULL~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2416525898E040540A5EFD3A74'~&~	~&~]RECORD
-RECORD[~&~	~&~'NH'~&~	~&~'New Hire'~&~	~&~NULL~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2416505898E040540A5EFD3A74'~&~	~&~]RECORD
-RECORD[~&~	~&~'RM'~&~	~&~'Removal'~&~	~&~NULL~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2416515898E040540A5EFD3A74'~&~	~&~]RECORD

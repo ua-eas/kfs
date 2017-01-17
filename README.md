@@ -26,10 +26,6 @@ The web assets for all KFS modules.
 
 The code for the KFS Accounts Receivable module.
 
-### kfs-bc/
-
-The code for the KFS Budget Construction module.
-
 ### kfs-cam/
 
 The code for the KFS Capital Asset Management and Capital Asset Builder modules.
@@ -53,7 +49,3 @@ The code for the KFS Labor Distribution module.
 ### kfs-purap/
 
 The code for the KFS Purchasing and Accounts Payable module.
-
-### kfs-tem/
-
-The code for the KFS Travel and Entertainment module.

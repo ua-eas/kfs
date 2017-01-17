@@ -1,3 +1,0 @@
-HEADER[~&~	~&~ID::DECIMAL~&~	~&~CONT_REL_TYP_CD::VARCHAR~&~	~&~CONT_NM::VARCHAR~&~	~&~PHONE_NBR::VARCHAR~&~	~&~EMAIL_ADDR::VARCHAR~&~	~&~TEM_PROFILE_ID::DECIMAL~&~	~&~PRIMARY_IND::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~]HEADER
-RECORD[~&~	~&~'1'~&~	~&~'PRN'~&~	~&~'Mother Susie'~&~	~&~'812-855-5555'~&~	~&~'mother@test.edu'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'DFB0EFA0AC458131E040E00ABCD62DC1'~&~	~&~]RECORD
-RECORD[~&~	~&~'2'~&~	~&~'REL'~&~	~&~'nancy sue'~&~	~&~'812-855-5555'~&~	~&~'nan@test.edu'~&~	~&~'5'~&~	~&~'N'~&~	~&~'1'~&~	~&~'E074D8007982AD17E040E00ABCD67056'~&~	~&~]RECORD

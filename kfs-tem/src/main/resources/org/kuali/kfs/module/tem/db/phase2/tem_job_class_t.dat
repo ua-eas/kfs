@@ -1,5 +1,0 @@
-HEADER[~&~	~&~JOB_CLS_CD::VARCHAR~&~	~&~JOB_CLS_NM::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~]HEADER
-RECORD[~&~	~&~'AP'~&~	~&~'Academic Personnel'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2416555898E040540A5EFD3A74'~&~	~&~]RECORD
-RECORD[~&~	~&~'MSP'~&~	~&~'Management/Senior Professional'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2416535898E040540A5EFD3A74'~&~	~&~]RECORD
-RECORD[~&~	~&~'PSS'~&~	~&~'Professional Support Staff'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2416545898E040540A5EFD3A74'~&~	~&~]RECORD
-RECORD[~&~	~&~'TA'~&~	~&~'Teaching Assistants'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2416565898E040540A5EFD3A74'~&~	~&~]RECORD

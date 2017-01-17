@@ -30,8 +30,6 @@
         <module>kfs-ec</module>
         <module>kfs-kc</module>
         <module>kfs-ld</module>
-        <module>kfs-tem</module>
-        <module>kfs-bc</module>
         <module>kfs-datatools</module>
         <module>kfs-web</module>
     </modules>
