@@ -16,33 +16,35 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.cam.document.web.struts;
+package org.kuali.kfs.module.cam.web.struts;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
+import org.kuali.kfs.module.cam.CamsConstants.DocumentTypeName;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.GeneralLedgerEntry;
 import org.kuali.kfs.module.cam.document.service.GlAndPurApHelperService;
 import org.kuali.kfs.module.cam.document.service.GlLineService;
+import org.kuali.kfs.module.cam.document.web.struts.CabActionBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.RiceConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
- * Struts action class that handles Capital Asset Information Screen actions
+ * Struts action class that handles GL Line Processing Screen actions
  */
-public class CapitalAssetInformationAction extends CabActionBase {
+public class GlLineAction extends CabActionBase {
 
     /**
      * Action "process" from CAB GL Lookup screen is processed by this method
@@ -55,39 +57,36 @@ public class CapitalAssetInformationAction extends CabActionBase {
      * @throws Exception
      */
     public ActionForward process(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        CapitalAssetInformationForm capitalAssetForm = (CapitalAssetInformationForm) form;
+        GlLineForm glLineForm = (GlLineForm) form;
         String glAcctId = request.getParameter(CamsPropertyConstants.GeneralLedgerEntry.GENERAL_LEDGER_ACCOUNT_IDENTIFIER);
         Long cabGlEntryId = Long.valueOf(glAcctId);
-        capitalAssetForm.setGeneralLedgerAccountIdentifier(cabGlEntryId);
 
         GeneralLedgerEntry entry = findGeneralLedgerEntry(request);
+
+
+        String assetLineNumber = request.getParameter(CamsPropertyConstants.CapitalAssetInformation.ASSET_LINE_NUMBER);
+        Integer capitalAssetLineNumber = Integer.valueOf(assetLineNumber);
+        glLineForm.setCapitalAssetLineNumber(capitalAssetLineNumber);
+
         if (ObjectUtils.isNotNull(entry)) {
-            prepareRecordsForDisplay(capitalAssetForm, entry);
+            prepareRecordsForDisplay(glLineForm, entry, capitalAssetLineNumber);
         }
-        //  if (!entry.isActive()) {
-        //      KNSGlobalVariables.getMessageList().add(CabKeyConstants.WARNING_GL_PROCESSED);
-        //  }
+
+        glLineForm.setGeneralLedgerEntry(entry);
+        //   if (!entry.isActive()) {
+        //       KNSGlobalVariables.getMessageList().add(CabKeyConstants.WARNING_GL_PROCESSED);
+        //   }
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }
 
-    protected void prepareRecordsForDisplay(CapitalAssetInformationForm capitalAssetForm, GeneralLedgerEntry entry) {
+    private void prepareRecordsForDisplay(GlLineForm glLineForm, GeneralLedgerEntry entry, Integer capitalAssetLineNumber) {
         GlLineService glLineService = SpringContext.getBean(GlLineService.class);
-
         entry.setSelected(true);
-        capitalAssetForm.setGeneralLedgerEntry(entry);
-        capitalAssetForm.setPrimaryGlAccountId(entry.getGeneralLedgerAccountIdentifier());
-        List<CapitalAssetInformation> capitalAssetInformation = glLineService.findCapitalAssetInformationForGLLine(entry);
+        glLineForm.setGeneralLedgerEntry(entry);
+        glLineForm.setPrimaryGlAccountId(entry.getGeneralLedgerAccountIdentifier());
 
-        // KFSMI-9881
-        // For GL Entries without capital asset information (ex: loaded by enterprise feed or Vendor Credit Memo),
-        // we need to create that information (at least a shell record) for the Capital Asset Information screen
-        // to render and subsequent processing to occur successfully.
-        if (capitalAssetInformation.isEmpty()) {
-            glLineService.setupCapitalAssetInformation(entry);
-            capitalAssetInformation = glLineService.findCapitalAssetInformationForGLLine(entry);
-        }
-
-        capitalAssetForm.setCapitalAssetInformation(capitalAssetInformation);
+        CapitalAssetInformation capitalAssetInformation = glLineService.findCapitalAssetInformation(entry.getDocumentNumber(), capitalAssetLineNumber);
+        glLineForm.setCapitalAssetInformation(capitalAssetInformation);
     }
 
     /**
@@ -100,6 +99,64 @@ public class CapitalAssetInformationAction extends CabActionBase {
         String glAcctId = request.getParameter(CamsPropertyConstants.GeneralLedgerEntry.GENERAL_LEDGER_ACCOUNT_IDENTIFIER);
         Long cabGlEntryId = Long.valueOf(glAcctId);
         return findGeneralLedgerEntry(cabGlEntryId, false);
+    }
+
+    /**
+     * Action "Create Assets" from CAB GL Detail Selection screen is processed by this method. This will initiate an asset global
+     * document and redirect the user to document edit page.
+     *
+     * @param mapping  ActionMapping
+     * @param form     ActionForm
+     * @param request  HttpServletRequest
+     * @param response HttpServletResponse
+     * @return ActionForward
+     * @throws Exception
+     */
+    public ActionForward submitAssetGlobal(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        GlLineForm glLineForm = (GlLineForm) form;
+        GlLineService glLineService = SpringContext.getBean(GlLineService.class);
+        GeneralLedgerEntry defaultGeneralLedgerEntry = findGeneralLedgerEntry(glLineForm.getPrimaryGlAccountId(), true);
+        defaultGeneralLedgerEntry.setSelected(true);
+
+        Integer capitalAssetLineNumber = glLineForm.getCapitalAssetLineNumber();
+
+        // set the default as the first entry in the list if it's null
+        if (ObjectUtils.isNull(defaultGeneralLedgerEntry)) {
+            form.reset(mapping, request);
+            return mapping.findForward(RiceConstants.MAPPING_BASIC);
+        }
+
+        Document maintDoc = glLineService.createAssetGlobalDocument(defaultGeneralLedgerEntry, capitalAssetLineNumber);
+
+        return new ActionForward(getGlAndPurApHelperService().getDocHandlerUrl(maintDoc.getDocumentNumber(), DocumentTypeName.ASSET_ADD_GLOBAL), true);
+    }
+
+    /**
+     * Action "Create Payments" from CAB GL Detail Selection screen is processed by this method. This will initiate an asset payment
+     * global document and redirect the user to document edit page.
+     *
+     * @param mapping  ActionMapping
+     * @param form     ActionForm
+     * @param request  HttpServletRequest
+     * @param response HttpServletResponse
+     * @return ActionForward
+     * @throws Exception
+     */
+    public ActionForward submitPaymentGlobal(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        GlLineService glLineService = SpringContext.getBean(GlLineService.class);
+        GlLineForm glLineForm = (GlLineForm) form;
+        GeneralLedgerEntry defaultGeneralLedgerEntry = findGeneralLedgerEntry(glLineForm.getPrimaryGlAccountId(), true);
+
+        // set the default as the first entry in the list if it's null
+        if (ObjectUtils.isNull(defaultGeneralLedgerEntry)) {
+            form.reset(mapping, request);
+            return mapping.findForward(RiceConstants.MAPPING_BASIC);
+        }
+
+        Integer capitalAssetLineNumber = glLineForm.getCapitalAssetLineNumber();
+        Document document = glLineService.createAssetPaymentDocument(defaultGeneralLedgerEntry, capitalAssetLineNumber);
+
+        return new ActionForward(getGlAndPurApHelperService().getDocHandlerUrl(document.getDocumentNumber(), DocumentTypeName.ASSET_PAYMENT), true);
     }
 
     /**
@@ -139,33 +196,23 @@ public class CapitalAssetInformationAction extends CabActionBase {
      */
     @Override
     public ActionForward showAllTabs(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        CapitalAssetInformationForm capitalAssetForm = (CapitalAssetInformationForm) form;
-        GeneralLedgerEntry generalLedgerEntry = capitalAssetForm.getGeneralLedgerEntry();
+        GlLineForm glLineForm = (GlLineForm) form;
+        GeneralLedgerEntry generalLedgerEntry = glLineForm.getGeneralLedgerEntry();
         generalLedgerEntry.setSelected(true);
 
         return super.showAllTabs(mapping, form, request, response);
     }
 
-    /**
-     * reloads the capital asset information screen
-     *
-     * @param mapping
-     * @param form
-     * @param request
-     * @param response
-     * @return
-     * @throws Exception
-     */
     public ActionForward reload(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        CapitalAssetInformationForm capitalAssetForm = (CapitalAssetInformationForm) form;
+        GlLineForm glLineForm = (GlLineForm) form;
 
-        GeneralLedgerEntry entry = capitalAssetForm.getGeneralLedgerEntry();
+        Integer capitalAssetLineNumber = glLineForm.getCapitalAssetLineNumber();
 
-        //   GeneralLedgerEntry entry = findGeneralLedgerEntry(request);
-        //   if (entry != null) {
-        prepareRecordsForDisplay(capitalAssetForm, entry);
-        //  }
+        GeneralLedgerEntry entry = glLineForm.getGeneralLedgerEntry();
 
+        if (entry != null) {
+            prepareRecordsForDisplay(glLineForm, entry, capitalAssetLineNumber);
+        }
         return mapping.findForward(RiceConstants.MAPPING_BASIC);
     }
 

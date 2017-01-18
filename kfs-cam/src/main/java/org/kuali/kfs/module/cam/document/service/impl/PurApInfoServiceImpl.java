@@ -27,7 +27,7 @@ import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableDocument
 import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableItemAsset;
 import org.kuali.kfs.module.cam.document.exception.PurApDocumentUnavailableException;
 import org.kuali.kfs.module.cam.document.service.PurApInfoService;
-import org.kuali.kfs.module.cam.document.web.struts.PurApLineForm;
+import org.kuali.kfs.module.cam.web.struts.PurApLineForm;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;

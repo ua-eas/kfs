@@ -20,7 +20,7 @@ package org.kuali.kfs.module.cam.document.service;
 
 import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableDocument;
 import org.kuali.kfs.module.cam.businessobject.PurchasingAccountsPayableItemAsset;
-import org.kuali.kfs.module.cam.document.web.struts.PurApLineForm;
+import org.kuali.kfs.module.cam.web.struts.PurApLineForm;
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 
