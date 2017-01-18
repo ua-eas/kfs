@@ -78,7 +78,6 @@ public class KFSConstants {
         public static final String LABOR_DISTRIBUTION = "KFS-LD";
         public static final String PURCHASING_ACCOUNTS_PAYABLE = "KFS-PURAP";
         public static final String CAPITAL_ASSET = "KFS-CAM";
-        public static final String CAPITAL_ASSET_BUILDER = "KFS-CAB";
         public static final String ACCOUNTS_RECEIVABLE = "KFS-AR";
         public static final String EFFORT_COMMITTMENT = "KFS-EC";
         public static final String BUDGET_CONSTRUCTION = "KFS-BC";
