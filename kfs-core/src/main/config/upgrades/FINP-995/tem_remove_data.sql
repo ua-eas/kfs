@@ -15,6 +15,7 @@ UPDATE pdp_cust_prfl_t SET actv_ind = 'N' WHERE sbunt_cd = 'TEM';
 UPDATE sh_fnctnl_field_descr_t SET active_ind = 'N' WHERE nmspc_cd IN ('KFS-TEM');
 
 ALTER TABLE fp_dv_trvl_co_nm_t DROP COLUMN FRGN_CMPNY;
+ALTER TABLE fp_dv_exp_typ_t DROP COLUMN FIN_OBJECT_CD;
 
 DELETE FROM pdp_payee_typ_t WHERE payee_typ_cd = 'C';
 

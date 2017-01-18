@@ -2302,7 +2302,6 @@
       <column defaultValue="Y" name="ROW_ACTV_IND" type="VARCHAR(1)">
         <constraints nullable="false"/>
       </column>
-      <column name="FIN_OBJECT_CD" type="VARCHAR(4)"/>
     </createTable>
   </changeSet>
   <changeSet author="kfs" id="1039" context="bootstrap,demo,unit">
