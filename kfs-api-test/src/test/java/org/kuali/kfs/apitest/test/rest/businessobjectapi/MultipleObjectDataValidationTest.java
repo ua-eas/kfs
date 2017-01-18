@@ -124,28 +124,29 @@ public class MultipleObjectDataValidationTest {
 
     @Test
     public void searchWithLastUpdatedTimestampSort() throws IOException {
-        HttpResponse response = RestUtilities.makeRequest(SEARCH_API + "?limit=1&sort=lastUpdatedTimestamp", Constants.KHUNTLEY_TOKEN);
+        HttpResponse response = RestUtilities.makeRequest(SEARCH_API + "?limit=25&sort=lastUpdatedTimestamp", Constants.KHUNTLEY_TOKEN);
 
         String responseString = RestUtilities.inputStreamToString(response.getEntity().getContent());
 
         Assert.assertEquals(HttpStatus.SC_OK,response.getStatusLine().getStatusCode());
 
         Map<String,Object> searchResults = RestUtilities.parse(responseString);
-        List<Map<String, Object>> results = (List<Map<String, Object>>)searchResults.get(Constants.Search.RESULTS);
-        Map<String, Object> bo = results.get(0);
 
         // Validate that the returned object is correct
         Assert.assertEquals(new ArrayList(Arrays.asList("lastUpdatedTimestamp")), searchResults.get(Constants.Search.SORT));
-        Assert.assertEquals(1, searchResults.get(Constants.Search.LIMIT));
+        Assert.assertEquals(25, searchResults.get(Constants.Search.LIMIT));
         Assert.assertEquals(0, searchResults.get(Constants.Search.SKIP));
-        Assert.assertEquals(60, searchResults.get(Constants.Search.TOTAL_COUNT));
         Assert.assertEquals(new HashMap(), searchResults.get(Constants.Search.QUERY));
+        Assert.assertTrue(((Integer)searchResults.get(Constants.Search.TOTAL_COUNT)) > 1); //Expect at least 2
 
-        // Check a sample of fields returned
-        Assert.assertEquals(true,(Boolean)bo.get("active"));
-        Assert.assertEquals("1599",(String)bo.get("creditCardObjectCode"));
-        Assert.assertEquals("12345",(String)bo.get("lockboxNumber"));
-        Assert.assertNull(bo.get("newCollectionRecord"));
+        Long prevLastUpdatedTimestamp = null;
+        for (Map<String, Object> bo : (List<Map<String, Object>>)searchResults.get(Constants.Search.RESULTS)) {
+            Long lastUpdatedTimestamp = (Long)bo.get("lastUpdatedTimestamp");
+            if (prevLastUpdatedTimestamp != null) {
+                Assert.assertTrue(lastUpdatedTimestamp >= prevLastUpdatedTimestamp);
+            }
+            prevLastUpdatedTimestamp = lastUpdatedTimestamp;
+        }
     }
 
     @Test
