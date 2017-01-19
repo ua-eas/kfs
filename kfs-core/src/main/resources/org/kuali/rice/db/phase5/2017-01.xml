@@ -512,4 +512,101 @@
             <replace replace="sys_guid" with="uuid"/>
         </modifySql>
     </changeSet>
+
+    <changeSet author="KFS701" id="FINP-1026_REPLACE_CAB_USE_SCREEN_PERMISSIONS_WITH_CAM_PERMISSIONS" context="bootstrap,demo,unit">
+        <delete tableName="KRIM_ROLE_PERM_T">
+            <where>perm_id = '15'</where>
+        </delete>
+        <delete tableName="KRIM_PERM_ATTR_DATA_T">
+            <where>perm_id = '15'</where>
+        </delete>
+        <delete tableName="KRIM_PERM_T">
+            <where>perm_id = '15'</where>
+        </delete>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1026-P1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="29"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Use Screen org.kuali.kfs.module.cam.web.struts.CapitalAssetInformationAction"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1026-P1A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1026-P1"/>
+            <column name="KIM_TYP_ID" value="12"/>
+            <column name="KIM_ATTR_DEFN_ID" value="2"/>
+            <column name="ATTR_VAL" value="org.kuali.kfs.module.cam.web.struts.CapitalAssetInformationAction"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1026-P1R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1026-P1"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1026-P2"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="29"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Use Screen org.kuali.kfs.module.cam.web.struts.GlLineAction"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1026-P2A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1026-P2"/>
+            <column name="KIM_TYP_ID" value="12"/>
+            <column name="KIM_ATTR_DEFN_ID" value="2"/>
+            <column name="ATTR_VAL" value="org.kuali.kfs.module.cam.web.struts.GlLineAction"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1026-P2R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1026-P2"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP1026-P3"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="29"/>
+            <column name="NMSPC_CD" value="KFS-CAM"/>
+            <column name="NM" value="Use Screen org.kuali.kfs.module.cam.web.struts.PurApLineAction"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP1026-P3A1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1026-P3"/>
+            <column name="KIM_TYP_ID" value="12"/>
+            <column name="KIM_ATTR_DEFN_ID" value="2"/>
+            <column name="ATTR_VAL" value="org.kuali.kfs.module.cam.web.struts.PurApLineAction"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP1026-P3R1"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" value="35"/>
+            <column name="PERM_ID" value="FINP1026-P3"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <modifySql dbms="mysql">
+            <replace replace="sys_guid" with="uuid"/>
+        </modifySql>
+    </changeSet>
 </databaseChangeLog>
