@@ -1,0 +1,70 @@
+{
+  "changeLog": [
+    {
+      "jira": "FINP-1031",
+      "id": "Re-add non-budget links that were removed in BC removal",
+      "changes": [
+        {
+          "changeType": "addNode",
+          "collectionName": "InstitutionPreferences",
+          "query": {
+            "institutionId": "1232413535"
+          },
+          "path": "$.linkGroups[?(@.label=='Chart of Accounts')].links.administration",
+          "addBeforeNode": {
+            "documentTypeCode": "FGRP"
+          },
+          "value": {
+            "documentTypeCode": "BFYC",
+            "linkType": "kfs"
+          }
+        },
+        {
+          "changeType": "addNode",
+          "collectionName": "InstitutionPreferences",
+          "query": {
+            "institutionId": "1232413535"
+          },
+          "path": "$.linkGroups[?(@.label=='Chart of Accounts')].links.administration",
+          "addBeforeNode": {
+            "documentTypeCode": "FGRP"
+          },
+          "value": {
+            "documentTypeCode": "BFNC",
+            "linkType": "kfs"
+          }
+        },
+        {
+          "changeType": "addNode",
+          "collectionName": "InstitutionPreferences",
+          "query": {
+            "institutionId": "1232413535"
+          },
+          "path": "$.linkGroups[?(@.label=='Accounting')].links.activities",
+          "addBeforeNode": {
+            "documentTypeCode": "CMD"
+          },
+          "value": {
+            "documentTypeCode": "BA",
+            "linkType": "kfs"
+          }
+        },
+        {
+          "changeType": "addNode",
+          "collectionName": "InstitutionPreferences",
+          "query": {
+            "institutionId": "1232413535"
+          },
+          "path": "$.linkGroups[?(@.label=='Accounting')].links.activities",
+          "addBeforeNode": {
+            "documentTypeCode": "YEDI"
+          },
+          "value": {
+            "documentTypeCode": "YEBA",
+            "linkType": "kfs"
+          }
+        }
+      ]
+    }
+  ]
+}
