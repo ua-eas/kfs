@@ -2,7 +2,7 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2016 The Kuali Foundation
+   - Copyright 2005-2017 Kuali, Inc.
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -27,7 +27,7 @@
             <where>FS_FUNC_CTRL_CD not in ('BASEAD','BAACTV')</where>
         </update>
     </changeSet>
-    
+
     <changeSet author="KFS601" id="FINI-2501_REMOVE_UNNECESSARY_NAMESPACES" context="bootstrap,demo,unit">
         <delete tableName="KRCR_NMSPC_T">
             <where>NMSPC_CD in ('KR-BUS','KR-LOC','KR-NTFCN','KR-RULE','KR-RULE-TEST','KR-SAP')</where>

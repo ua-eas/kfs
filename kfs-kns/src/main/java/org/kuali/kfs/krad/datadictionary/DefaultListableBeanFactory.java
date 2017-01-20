@@ -1,6 +1,6 @@
 /*
  * Modified by the Kuali Foundation
- * Copyright 2005-2016 the Kuali Foundation
+ * Modifications Copyright 2005-2017 Kuali, Inc.
  */
 
 /*

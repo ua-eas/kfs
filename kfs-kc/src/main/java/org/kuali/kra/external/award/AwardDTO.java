@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2016 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -442,19 +442,19 @@ public class AwardDTO implements Serializable {
     public Date getObligationStartDate() {
         return obligationStartDate;
     }
-    
+
     public void setObligationStartDate(Date obligationStartDate) {
         this.obligationStartDate = obligationStartDate;
     }
-    
+
     public Date getObligationEndDate() {
         return obligationEndDate;
     }
-    
+
     public void setObligationEndDate(Date obligationEndDate) {
         this.obligationEndDate = obligationEndDate;
     }
-    
+
     public List<AwardAccountDTO> getAwardAccounts() {
         return awardAccounts;
     }

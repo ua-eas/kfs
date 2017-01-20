@@ -1,7 +1,7 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2016 The Kuali Foundation
+   - Copyright 2005-2017 Kuali, Inc.
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -103,12 +103,6 @@
     <param name="actionlist.outbox" override="false">true</param>
     <param name="ActionList.norefresh" override="false">false</param>
 
-    <!--
-      NOTE: The application.url parameter needs to be set by the client
-        this should be set to something similar to:
-	    <param name="appserver.url" override="false">${application.http.scheme}://${application.host}:${http.port}</param>
-	    <param name="application.url" override="false">${appserver.url}/${app.context.name}</param>
-     -->
     <param name="appserver.url" override="false">${application.http.scheme}://${application.host}:${http.port}</param>
     <param name="application.url" override="false">${appserver.url}/${app.context.name}</param>
     <param name="serviceServletUrl" override="false">${application.url}/remoting/</param>

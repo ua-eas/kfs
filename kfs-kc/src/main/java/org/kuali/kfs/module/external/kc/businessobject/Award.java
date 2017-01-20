@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2016 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -814,7 +814,7 @@ public class Award implements ContractsAndGrantsBillingAward {
      * KC delivers all awards within the hierarchy as award accounts for each
      * award in the hierarchy, potentially leading to multiple-counting; here we
      * choose which ones to use based on the award invoicing option.
-     * 
+     *
      * @param awardAccount
      * @return
      */
@@ -842,7 +842,7 @@ public class Award implements ContractsAndGrantsBillingAward {
     /**
      * The primary award in the hierarchy is the first in the list of award
      * accounts.
-     * 
+     *
      * @return
      */
     private boolean isPrimaryAwardInHierarchy() {
