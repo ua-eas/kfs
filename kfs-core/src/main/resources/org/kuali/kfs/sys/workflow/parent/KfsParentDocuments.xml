@@ -354,23 +354,6 @@
         </documentType>
         <documentType>
             <name>
-                BCSM
-            </name>
-            <parent>
-                FSSM
-            </parent>
-            <label>
-                BudgetConstructionSimpleMaintenanceDocument
-            </label>
-            <active>
-                true
-            </active>
-            <routingVersion>
-                2
-            </routingVersion>
-        </documentType>
-        <documentType>
-            <name>
                 CMSM
             </name>
             <parent>
@@ -568,23 +551,6 @@
             </parent>
             <label>
                 AccountsReceivableTransactionalDocument
-            </label>
-            <active>
-                true
-            </active>
-            <routingVersion>
-                2
-            </routingVersion>
-        </documentType>
-        <documentType>
-            <name>
-                BCT
-            </name>
-            <parent>
-                KFST
-            </parent>
-            <label>
-                BudgetConstructionTransactionalDocument
             </label>
             <active>
                 true
