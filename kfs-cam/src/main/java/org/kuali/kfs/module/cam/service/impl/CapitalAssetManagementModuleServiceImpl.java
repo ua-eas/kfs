@@ -2772,7 +2772,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
      */
     @Override
     public boolean hasCapitalAssetObjectSubType(AccountingLine accountingLine) {
-        Collection<String> financialProcessingCapitalObjectSubTypes = getParameterService().getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsParameterConstants.CapitalAsset.FINANCIAL_PROCESSING_CAPITAL_OBJECT_SUB_TYPES);
+        Collection<String> financialProcessingCapitalObjectSubTypes = getParameterService().getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_DOCUMENT.class, CamsParameterConstants.CapitalAsset.FINANCIAL_PROCESSING_CAPITAL_OBJECT_SUB_TYPES);
 
         ObjectCode objectCode = accountingLine.getObjectCode();
         if (ObjectUtils.isNotNull(objectCode)) {
