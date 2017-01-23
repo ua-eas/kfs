@@ -22,7 +22,6 @@ import org.kuali.kfs.kns.inquiry.Inquirable;
 import org.kuali.kfs.kns.lookup.LookupResultsService;
 import org.kuali.kfs.kns.lookup.Lookupable;
 import org.kuali.kfs.kns.question.Question;
-import org.kuali.kfs.krad.dao.DataDictionaryDao;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 
 /**
@@ -43,7 +42,6 @@ public class KNSServiceLocator {
     public static final String MAINTENANCE_DOCUMENT_DICTIONARY_SERVICE = "cf.maintenanceDocumentDictionaryService";
     public static final String SESSION_DOCUMENT_SERVICE = "cf.knsSessionDocumentService";
     public static final String TRANSACTIONAL_DOCUMENT_DICTIONARY_SERVICE = "cf.transactionalDocumentDictionaryService";
-    public static final String DATA_DICTIONARY_DAO = "cf.dataDictionaryDao";
 
     public static <T extends Object> T getService(String serviceName) {
         return GlobalResourceLoader.<T>getService(serviceName);
@@ -109,7 +107,5 @@ public class KNSServiceLocator {
         return (Question) getService(questionName);
     }
 
-    public static DataDictionaryDao getDataDictionaryDao() {
-        return getService(DATA_DICTIONARY_DAO);
-    }
+
 }

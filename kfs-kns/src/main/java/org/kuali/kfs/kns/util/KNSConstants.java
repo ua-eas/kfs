@@ -23,5 +23,4 @@ public class KNSConstants {
     public static final String AUDIT_ERRORS = "AuditErrors";
     public static final String EXCEPTION_ON_MISSING_FIELD_CONVERSION_ATTRIBUTE = "rice.kns.exceptionOnMissingFieldConversionAttribute";
     public static final String CSRF_EXEMPT_PATHS = "csrf.exempt.paths";
-    public static final String UPDATE_DOCUMENTSTORE_DATA_DICTIONARY_ON_STARTUP = "updateDocumentstoreDataDictionaryOnStartup";
 }
