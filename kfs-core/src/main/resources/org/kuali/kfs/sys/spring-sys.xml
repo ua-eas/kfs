@@ -20,8 +20,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/data/mongo
+        http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
 
     <bean id="financialSystemModuleConfiguration" parent="financialSystemModuleConfiguration-parentBean"/>
 
@@ -1279,6 +1282,13 @@
         <property name="nonProductionNotificationMailingList" value="${nonproduction.notification.mailing.list}"/>
         <property name="realNotificationsEnabled" value="${real.notifications.enabled}"/>
         <property name="configurationService" ref="kualiConfigurationService"/>
+    </bean>
+
+    <mongo:mongo id="mongo" replica-set="${kfs.datasource.mongo.url}"/>
+    <mongo:db-factory mongo-ref="mongo" dbname="${kfs.datasource.mongo.dbname}" username="${kfs.datasource.mongo.username}" password="${kfs.datasource.mongo.password}"/>
+
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg ref="mongoDbFactory"/>
     </bean>
 
     <bean id="institutionPreferencesService" parent="institutionPreferencesService-parentBean"/>
