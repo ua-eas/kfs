@@ -223,5 +223,8 @@ public class PersistenceStructureServiceImpl extends PersistenceServiceImplBase 
         return getService(boClass).getTableName(boClass);
     }
 
-
+    @Override
+    public String getColumnNameForFieldName(Class clazz, String fieldName) {
+        return getService(clazz).getColumnNameForFieldName(clazz, fieldName);
+    }
 }

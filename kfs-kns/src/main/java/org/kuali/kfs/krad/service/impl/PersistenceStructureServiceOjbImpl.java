@@ -121,6 +121,13 @@ public class PersistenceStructureServiceOjbImpl extends PersistenceServiceImplBa
         return fieldNames;
     }
 
+    @Override
+    public String getColumnNameForFieldName(Class clazz, String fieldName) {
+        ClassDescriptor classDescriptor = getClassDescriptor(clazz);
+        FieldDescriptor fieldDescriptor = classDescriptor.getFieldDescriptorByName(fieldName);
+        return fieldDescriptor.getColumnName();
+    }
+
     /**
      * @see org.kuali.rice.krad.service.PersistenceMetadataService#clearPrimaryKeyFields(java.lang.Object)
      */

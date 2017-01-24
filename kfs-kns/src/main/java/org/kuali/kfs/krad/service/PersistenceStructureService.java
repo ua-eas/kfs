@@ -55,6 +55,13 @@ public interface PersistenceStructureService {
      */
     public List listFieldNames(Class clazz);
 
+    /**
+     * @param clazz the business object class to get a column name for
+     * @param fieldName the Java field name of that column
+     * @return the underlying database name for that column
+     */
+    public String getColumnNameForFieldName(Class clazz, String fieldName);
+
 
     /**
      * @param clazz whose primary key field name, anonymous key marking is requested for

@@ -71,6 +71,7 @@
                 <value>modulesLockJob</value>
                 <value>modulesUnlockJob</value>
                 <value>populateFinancialSystemDocumentHeadersFromKewJob</value>
+                <value>dataDictionaryMigrationJob</value>
             </list>
         </property>
         <property name="fiscalYearMakers">
@@ -459,10 +460,24 @@
         </property>
     </bean>
 
+    <bean id="dataDictionaryMigrationStep" class="org.kuali.kfs.sys.batch.DataDictionaryMigrationStep" parent="step">
+        <property name="dataDictionaryMigrationService">
+            <ref bean="dataDictionaryMigrationService"/>
+        </property>
+    </bean>
+
     <bean id="clearCacheJob" parent="unscheduledJobDescriptor">
         <property name="steps">
             <list>
                 <ref bean="clearCacheStep"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="dataDictionaryMigrationJob" parent="unscheduledJobDescriptor">
+        <property name="steps">
+            <list>
+                <ref bean="dataDictionaryMigrationStep"/>
             </list>
         </property>
     </bean>
@@ -1339,6 +1354,14 @@
         <property name="dataDictionaryService" ref="dataDictionaryService"/>
         <property name="businessObjectAuthorizationService" ref="businessObjectAuthorizationService"/>
         <property name="kualiModuleService" ref="kualiModuleService"/>
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <bean id="dataDictionaryMigrationService" parent="dataDictionaryMigrationService-parentBean"/>
+    <bean id="dataDictionaryMigrationService-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.DataDictionaryMigrationServiceImpl">
+        <property name="dataDictionaryService" ref="dataDictionaryService"/>
+        <property name="kualiModuleService" ref="kualiModuleService"/>
+        <property name="persistenceStructureService" ref="persistenceStructureService"/>
         <property name="configurationService" ref="configurationService"/>
     </bean>
 
