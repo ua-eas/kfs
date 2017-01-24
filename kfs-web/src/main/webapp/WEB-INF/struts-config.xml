@@ -547,32 +547,32 @@
             <forward name="basic" path="/jsp/module/cams/BarcodeInventoryUpload.jsp"/>
         </action>
 
+        <action path="/cams*" name="{1}Form" input="/jsp/module/cams/{1}.jsp"
+                type="org.kuali.kfs.module.cam.document.web.struts.{1}Action" scope="request"
+                parameter="methodToCall" validate="true" attribute="KualiForm">
+            <set-property property="cancellable" value="true"/>
+            <forward name="basic" path="/jsp/module/cams/{1}.jsp"/>
+        </action>
+
         <action path="/camsCapitalAssetInformation" name="CapitalAssetInformationForm" input="/jsp/module/cams/CapitalAssetInformation.jsp"
                 type="org.kuali.kfs.module.cam.web.struts.CapitalAssetInformationAction" scope="request"
                 parameter="methodToCall" validate="true" attribute="KualiForm">
             <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/jsp/module/cams/{1}.jsp"/>
+            <forward name="basic" path="/jsp/module/cams/CapitalAssetInformation.jsp"/>
         </action>
 
         <action path="/camsGlLine" name="GlLineForm" input="/jsp/module/cams/GlLine.jsp"
                 type="org.kuali.kfs.module.cam.web.struts.GlLineAction" scope="request"
                 parameter="methodToCall" validate="true" attribute="KualiForm">
             <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/jsp/module/cams/{1}.jsp"/>
+            <forward name="basic" path="/jsp/module/cams/GlLine.jsp"/>
         </action>
 
         <action path="/camsPurApLine" name="PurApLineForm" input="/jsp/module/cams/PurApLine.jsp"
                 type="org.kuali.kfs.module.cam.web.struts.PurApLineAction" scope="request"
                 parameter="methodToCall" validate="true" attribute="KualiForm">
             <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/jsp/module/cams/{1}.jsp"/>
-        </action>
-
-        <action path="/cams*" name="{1}Form" input="/jsp/module/cams/{1}.jsp"
-                type="org.kuali.kfs.module.cam.document.web.struts.{1}Action" scope="request"
-                parameter="methodToCall" validate="true" attribute="KualiForm">
-            <set-property property="cancellable" value="true"/>
-            <forward name="basic" path="/jsp/module/cams/{1}.jsp"/>
+            <forward name="basic" path="/jsp/module/cams/PurApLine.jsp"/>
         </action>
 
         <action path="/financial*" name="{1}Form" input="/jsp/fp/{1}.jsp"
