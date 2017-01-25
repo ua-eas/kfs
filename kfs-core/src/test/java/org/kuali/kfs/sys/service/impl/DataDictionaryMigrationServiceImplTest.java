@@ -29,6 +29,7 @@ import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
+import org.kuali.kfs.sys.businessobject.dto.EntityDTO;
 import org.kuali.kfs.sys.businessobject.dto.FieldDTO;
 import org.kuali.kfs.sys.businessobject.dto.TableDTO;
 import org.kuali.kfs.vnd.businessobject.AddressType;
@@ -106,16 +107,18 @@ public class DataDictionaryMigrationServiceImplTest {
 
         EasyMock.replay(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService, kualiModuleService, moduleService);
 
-//        final EntityDTO entityDTO = dataDictionaryMigrationService.convertMaintenanceDocumentToEntityDTO(maintenanceDocumentEntry);
-//
-//        EasyMock.verify(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService, kualiModuleService, moduleService);
-//
-//        Assert.assertNotNull("We should have gotten back an EntityDTO", entityDTO);
-//        Assert.assertEquals("The module namespace should be \"LUSH-LIT UP\" as that's what I was listening to at the time", "LUSH-LIT UP", entityDTO.getModuleCode());
-//        Assert.assertEquals("The code for the Entity should be \"ACCT\"", "ACCT", entityDTO.getCode());
-//        Assert.assertEquals("The name for the Entity should be \"Account\"", "Account", entityDTO.getName());
-//        Assert.assertNull("The description for the Entity should be null", entityDTO.getDescription());
-//        assertAgainstTableDTOs(entityDTO.getTables());
+        Map<String, List<Class<? extends PersistableBusinessObject>>> businessObjectsOwnedByEntities = new HashMap<>();
+        businessObjectsOwnedByEntities.put("ACCT", Arrays.asList(Account.class));
+        final EntityDTO entityDTO = dataDictionaryMigrationService.convertMaintenanceDocumentToEntityDTO(maintenanceDocumentEntry, businessObjectsOwnedByEntities);
+
+        EasyMock.verify(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService, kualiModuleService, moduleService);
+
+        Assert.assertNotNull("We should have gotten back an EntityDTO", entityDTO);
+        Assert.assertEquals("The module namespace should be \"LUSH-LIT UP\" as that's what I was listening to at the time", "LUSH-LIT UP", entityDTO.getModuleCode());
+        Assert.assertEquals("The code for the Entity should be \"ACCT\"", "ACCT", entityDTO.getCode());
+        Assert.assertEquals("The name for the Entity should be \"Account\"", "Account", entityDTO.getName());
+        Assert.assertNull("The description for the Entity should be null", entityDTO.getDescription());
+        assertAgainstTableDTOs(entityDTO.getTables());
     }
 
     @Test
@@ -322,6 +325,20 @@ public class DataDictionaryMigrationServiceImplTest {
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary);
         EasyMock.expect(dataDictionary.getBusinessObjectEntry("org.kuali.kfs.coa.businessobject.Chart")).andReturn(businessObjectEntry);
         EasyMock.expect(businessObjectEntry.getAttributeDefinition("scarlet")).andReturn(null);
+
+        EasyMock.replay(dataDictionaryService, dataDictionary, businessObjectEntry);
+
+        final AttributeDefinition returnedAttributeDefinition = dataDictionaryMigrationService.retrieveAttribute(Chart.class, "scarlet");
+        EasyMock.verify(dataDictionaryService, dataDictionary, businessObjectEntry);
+        Assert.assertNull("We should have not gotten back an attribute definition", returnedAttributeDefinition);
+    }
+
+    @Test
+    public void testRetrieveAttribute_NullTable() {
+        AttributeDefinition chartOfAccountsAttributeDefinition = new AttributeDefinition();
+        chartOfAccountsAttributeDefinition.setName("chartOfAccountsCode");
+        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary);
+        EasyMock.expect(dataDictionary.getBusinessObjectEntry("org.kuali.kfs.coa.businessobject.Chart")).andReturn(null);
 
         EasyMock.replay(dataDictionaryService, dataDictionary, businessObjectEntry);
 
