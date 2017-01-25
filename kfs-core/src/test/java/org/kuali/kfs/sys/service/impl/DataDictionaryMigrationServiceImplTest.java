@@ -11,14 +11,19 @@ import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.AccountGlobal;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.OrganizationType;
+import org.kuali.kfs.kns.datadictionary.MaintainableCollectionDefinition;
+import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
+import org.kuali.kfs.kns.datadictionary.MaintainableItemDefinition;
+import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
+import org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.bo.ModuleConfiguration;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
 import org.kuali.kfs.krad.datadictionary.DocumentEntry;
-import org.kuali.kfs.krad.datadictionary.MaintenanceDocumentEntry;
 import org.kuali.kfs.krad.datadictionary.TransactionalDocumentEntry;
-import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
@@ -27,10 +32,18 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.dto.EntityDTO;
 import org.kuali.kfs.sys.businessobject.dto.FieldDTO;
 import org.kuali.kfs.sys.businessobject.dto.TableDTO;
+import org.kuali.kfs.vnd.businessobject.AddressType;
+import org.kuali.kfs.vnd.businessobject.CampusParameter;
+import org.kuali.kfs.vnd.businessobject.VendorAddress;
 import org.kuali.kfs.vnd.businessobject.VendorContact;
+import org.kuali.kfs.vnd.businessobject.VendorDefaultAddress;
+import org.kuali.kfs.vnd.businessobject.VendorDetail;
+import org.kuali.kfs.vnd.businessobject.VendorHeader;
 import org.kuali.kfs.vnd.businessobject.VendorPhoneNumber;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -94,7 +107,9 @@ public class DataDictionaryMigrationServiceImplTest {
 
         EasyMock.replay(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService, kualiModuleService, moduleService);
 
-        final EntityDTO entityDTO = dataDictionaryMigrationService.convertMaintenanceDocumentToEntityDTO(maintenanceDocumentEntry);
+        Map<String, List<Class<? extends PersistableBusinessObject>>> businessObjectsOwnedByEntities = new HashMap<>();
+        businessObjectsOwnedByEntities.put("ACCT", Arrays.asList(Account.class));
+        final EntityDTO entityDTO = dataDictionaryMigrationService.convertMaintenanceDocumentToEntityDTO(maintenanceDocumentEntry, businessObjectsOwnedByEntities);
 
         EasyMock.verify(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService, kualiModuleService, moduleService);
 
@@ -107,13 +122,24 @@ public class DataDictionaryMigrationServiceImplTest {
     }
 
     @Test
+    public void testBuildTableDTOs_NotPersistableClass() {
+        EasyMock.expect(persistenceStructureService.isPersistable(EasyMock.anyObject())).andReturn(false);
+        EasyMock.replay(persistenceStructureService);
+
+        final List<TableDTO> tableDTOs = dataDictionaryMigrationService.buildTableDTOs(Arrays.asList((Class<? extends PersistableBusinessObject>)Account.class));
+
+        EasyMock.verify(persistenceStructureService);
+        Assert.assertEquals(0, tableDTOs.size());
+    }
+
+    @Test
     public void testBuildTableDTOs() {
         MaintenanceDocumentEntry documentEntry = buildAccountMaintenanceDocumentEntryFixture();
         initializeExpectationsForAccountTable();
 
         EasyMock.replay(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService);
 
-        final List<TableDTO> tableDTOs = dataDictionaryMigrationService.buildTableDTOs(documentEntry);
+        final List<TableDTO> tableDTOs = dataDictionaryMigrationService.buildTableDTOs(Arrays.asList((Class<? extends PersistableBusinessObject>)documentEntry.getDataObjectClass()));
 
         EasyMock.verify(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService);
         assertAgainstTableDTOs(tableDTOs);
@@ -307,6 +333,172 @@ public class DataDictionaryMigrationServiceImplTest {
         Assert.assertNull("We should have not gotten back an attribute definition", returnedAttributeDefinition);
     }
 
+    @Test
+    public void testRetrieveAttribute_NullTable() {
+        AttributeDefinition chartOfAccountsAttributeDefinition = new AttributeDefinition();
+        chartOfAccountsAttributeDefinition.setName("chartOfAccountsCode");
+        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary);
+        EasyMock.expect(dataDictionary.getBusinessObjectEntry("org.kuali.kfs.coa.businessobject.Chart")).andReturn(null);
+
+        EasyMock.replay(dataDictionaryService, dataDictionary, businessObjectEntry);
+
+        final AttributeDefinition returnedAttributeDefinition = dataDictionaryMigrationService.retrieveAttribute(Chart.class, "scarlet");
+        EasyMock.verify(dataDictionaryService, dataDictionary, businessObjectEntry);
+        Assert.assertNull("We should have not gotten back an attribute definition", returnedAttributeDefinition);
+    }
+
+    @Test
+    public void testListAllTakenBusinessObjects_Collection() {
+        MaintenanceDocumentEntry documentEntry = buildVendorMaintenanceDocumentEntryFixture();
+        initializeExpectationsForVendorTable();
+
+        List<MaintenanceDocumentEntry> entities = Arrays.asList(documentEntry);
+
+        Map<Class<? extends PersistableBusinessObject>,String> nestedBusinessObjects = dataDictionaryMigrationService.listAllTakenBusinessObjects(entities);
+
+        Assert.assertEquals(3, nestedBusinessObjects.size());
+        Assert.assertEquals("PVEN", nestedBusinessObjects.get(VendorAddress.class));
+        Assert.assertEquals("PVEN", nestedBusinessObjects.get(VendorDetail.class));
+        Assert.assertEquals("PVEN", nestedBusinessObjects.get(VendorDefaultAddress.class));
+    }
+
+    @Test
+    public void testListAllTakenBusinessObjects_ClassAlreadyTaken() {
+        MaintenanceDocumentEntry documentEntry = buildVendorWithAccountsMaintenanceDocumentEntryFixture();
+        MaintenanceDocumentEntry accountEntry = buildAccountMaintenanceDocumentEntryFixture();
+        initializeExpectationsForVendorTable();
+
+        List<MaintenanceDocumentEntry> entities = Arrays.asList(accountEntry, documentEntry);
+
+        Map<Class<? extends PersistableBusinessObject>,String> nestedBusinessObjects = dataDictionaryMigrationService.listAllTakenBusinessObjects(entities);
+
+        Assert.assertEquals(4, nestedBusinessObjects.size());
+        Assert.assertEquals("PVEN", nestedBusinessObjects.get(VendorAddress.class));
+        Assert.assertEquals("PVEN", nestedBusinessObjects.get(VendorDetail.class));
+        Assert.assertEquals("PVEN", nestedBusinessObjects.get(VendorDefaultAddress.class));
+        Assert.assertNotEquals("PVEN", nestedBusinessObjects.get(Account.class));
+    }
+
+    @Test
+    public void testAssignUnclaimedAttributeClasses() {
+        Map<Class<? extends PersistableBusinessObject>, String> businessObjectsOwnedByEntities = new HashMap<>();
+        Map<Class<? extends PersistableBusinessObject>, String> nestedBusinessObjects = new HashMap<>();
+        String documentTypeName = "PVEN";
+        Class<? extends BusinessObject > businessObjectClass = VendorDetail.class;
+        MaintenanceDocumentEntry vendorEntry = buildVendorMaintenanceDocumentEntryFixture();
+        List<? extends MaintainableItemDefinition> maintainableItems = vendorEntry.getMaintainableSections().get(1).getMaintainableItems();
+
+        dataDictionaryMigrationService.assignUnclaimedAttributeClasses(businessObjectsOwnedByEntities, nestedBusinessObjects, documentTypeName, businessObjectClass, maintainableItems);
+
+        Assert.assertEquals(1, nestedBusinessObjects.size());
+        Assert.assertEquals("PVEN", nestedBusinessObjects.get(VendorHeader.class));
+    }
+
+    @Test
+    public void testAssignUnclaimedAttributeClasses_AlreadyClaimed() {
+        Map<Class<? extends PersistableBusinessObject>, String> businessObjectsOwnedByEntities = new HashMap<>();
+        Map<Class<? extends PersistableBusinessObject>, String> nestedBusinessObjects = new HashMap<>();
+        nestedBusinessObjects.put(VendorHeader.class, "BOB");
+        String documentTypeName = "PVEN";
+        Class<? extends BusinessObject > businessObjectClass = VendorDetail.class;
+        MaintenanceDocumentEntry vendorEntry = buildVendorMaintenanceDocumentEntryFixture();
+        List<? extends MaintainableItemDefinition> maintainableItems = vendorEntry.getMaintainableSections().get(1).getMaintainableItems();
+
+        dataDictionaryMigrationService.assignUnclaimedAttributeClasses(businessObjectsOwnedByEntities, nestedBusinessObjects, documentTypeName, businessObjectClass, maintainableItems);
+
+        Assert.assertEquals(1, nestedBusinessObjects.size());
+        Assert.assertEquals("BOB", nestedBusinessObjects.get(VendorHeader.class));
+    }
+
+    @Test
+    public void testAssignUnclaimedAttributeClasses_UnconditionallyReadonly() {
+        Map<Class<? extends PersistableBusinessObject>, String> businessObjectsOwnedByEntities = new HashMap<>();
+        Map<Class<? extends PersistableBusinessObject>, String> nestedBusinessObjects = new HashMap<>();
+        String documentTypeName = "PVEN";
+        Class<? extends BusinessObject > businessObjectClass = VendorDetail.class;
+
+
+        List<MaintainableItemDefinition> fields = new ArrayList<>();
+        MaintainableFieldDefinition vendorTaxTypeCode = new MaintainableFieldDefinition();
+        vendorTaxTypeCode.setName("vendorHeader.vendorTaxTypeCode");
+        vendorTaxTypeCode.setUnconditionallyReadOnly(true);
+        fields.add(vendorTaxTypeCode);
+
+        dataDictionaryMigrationService.assignUnclaimedAttributeClasses(businessObjectsOwnedByEntities, nestedBusinessObjects, documentTypeName, businessObjectClass, fields);
+
+        Assert.assertEquals(0, nestedBusinessObjects.size());
+    }
+
+    @Test
+    public void testAssignUnclaimedAttributeClasses_UnknownAttributeKey() {
+        Map<Class<? extends PersistableBusinessObject>, String> businessObjectsOwnedByEntities = new HashMap<>();
+        Map<Class<? extends PersistableBusinessObject>, String> nestedBusinessObjects = new HashMap<>();
+        String documentTypeName = "PVEN";
+        Class<? extends BusinessObject > businessObjectClass = VendorDetail.class;
+
+
+        List<MaintainableItemDefinition> fields = new ArrayList<>();
+        MaintainableFieldDefinition vendorTaxTypeCode = new MaintainableFieldDefinition();
+        vendorTaxTypeCode.setName("garbage.vendorTaxTypeCode");
+        fields.add(vendorTaxTypeCode);
+
+        dataDictionaryMigrationService.assignUnclaimedAttributeClasses(businessObjectsOwnedByEntities, nestedBusinessObjects, documentTypeName, businessObjectClass, fields);
+
+        Assert.assertEquals(0, nestedBusinessObjects.size());
+    }
+
+    @Test
+    public void testListNestedBusinessObjects() {
+        MaintenanceDocumentEntry documentEntry = buildVendorWithAccountsMaintenanceDocumentEntryFixture();
+
+        List<MaintenanceDocumentEntry> entities = Arrays.asList(documentEntry);
+        Map<Class<? extends PersistableBusinessObject>, String> businessObjectsOwnedByEntities = new HashMap<>();
+
+        Map<Class<? extends PersistableBusinessObject>,String> nestedBusinessObjects = dataDictionaryMigrationService.listNestedBusinessObjects(entities, businessObjectsOwnedByEntities);
+
+        Assert.assertEquals(1, nestedBusinessObjects.size());
+        Assert.assertEquals("PVEN", nestedBusinessObjects.get(VendorHeader.class));
+    }
+
+    @Test
+    public void testListNestedBusinessObjects_NestedFieldsInCollection() {
+        MaintenanceDocumentEntry documentEntry = buildVendorWithAccountsMaintenanceDocumentEntryFixture();
+        MaintainableSectionDefinition collectionSection = documentEntry.getMaintainableSections().get(0);
+        MaintainableCollectionDefinition collection = (MaintainableCollectionDefinition)collectionSection.getMaintainableItems().get(0);
+        List<MaintainableFieldDefinition> collectionFields = collection.getMaintainableFields();
+        MaintainableFieldDefinition nestedField = new MaintainableFieldDefinition();
+        nestedField.setName("vendorAddressType.itreallydoesnotmatter");
+        collectionFields.add(nestedField);
+
+
+        List<MaintenanceDocumentEntry> entities = Arrays.asList(documentEntry);
+        Map<Class<? extends PersistableBusinessObject>, String> businessObjectsOwnedByEntities = new HashMap<>();
+
+        Map<Class<? extends PersistableBusinessObject>,String> nestedBusinessObjects = dataDictionaryMigrationService.listNestedBusinessObjects(entities, businessObjectsOwnedByEntities);
+
+        Assert.assertEquals("PVEN", nestedBusinessObjects.get(AddressType.class));
+    }
+
+    @Test
+    public void testListNestedBusinessObjects_NestedFieldsInSubCollection() {
+        MaintenanceDocumentEntry documentEntry = buildVendorWithAccountsMaintenanceDocumentEntryFixture();
+        MaintainableSectionDefinition collectionSection = documentEntry.getMaintainableSections().get(0);
+        MaintainableCollectionDefinition collection = (MaintainableCollectionDefinition)collectionSection.getMaintainableItems().get(0);
+        MaintainableCollectionDefinition subCollection = collection.getMaintainableCollections().get(0);
+        List<MaintainableFieldDefinition> subCollectionFields = subCollection.getMaintainableFields();
+
+        MaintainableFieldDefinition nestedField = new MaintainableFieldDefinition();
+        nestedField.setName("vendorCampus.itreallydoesnotmatter");
+        subCollectionFields.add(nestedField);
+
+        List<MaintenanceDocumentEntry> entities = Arrays.asList(documentEntry);
+        Map<Class<? extends PersistableBusinessObject>, String> businessObjectsOwnedByEntities = new HashMap<>();
+
+        Map<Class<? extends PersistableBusinessObject>,String> nestedBusinessObjects = dataDictionaryMigrationService.listNestedBusinessObjects(entities, businessObjectsOwnedByEntities);
+
+        Assert.assertEquals("PVEN", nestedBusinessObjects.get(CampusParameter.class));
+    }
+
     private AttributeDefinition buildChartOfAccountsCodeAttributeDefintion() {
         AttributeDefinition chartOfAccountsAttributeDefinition = new AttributeDefinition();
         chartOfAccountsAttributeDefinition.setName("chartOfAccountsCode");
@@ -327,6 +519,26 @@ public class DataDictionaryMigrationServiceImplTest {
         return accountNumberAccountDefinition;
     }
 
+    private AttributeDefinition buildVendorNumberAttributeDefintion() {
+        AttributeDefinition vendorNumberAttributeDefinition = new AttributeDefinition();
+        vendorNumberAttributeDefinition.setName("vendorNumber");
+        vendorNumberAttributeDefinition.setLabel("Vendor Number");
+        vendorNumberAttributeDefinition.setShortLabel("Vnd Num");
+        vendorNumberAttributeDefinition.setMaxLength(2);
+        vendorNumberAttributeDefinition.setRequired(true);
+        return vendorNumberAttributeDefinition;
+    }
+
+    private AttributeDefinition buildVendorNameAttributeDefintion() {
+        AttributeDefinition vendorNamAttributeDefinition = new AttributeDefinition();
+        vendorNamAttributeDefinition.setName("vendorName");
+        vendorNamAttributeDefinition.setLabel("Vendor Name");
+        vendorNamAttributeDefinition.setShortLabel("Name");
+        vendorNamAttributeDefinition.setMaxLength(20);
+        vendorNamAttributeDefinition.setRequired(true);
+        return vendorNamAttributeDefinition;
+    }
+
     private void initializedExpectationsForAccount() {
         final AttributeDefinition chartOfAccountsAttributeDefinition = buildChartOfAccountsCodeAttributeDefintion();
         final AttributeDefinition accountNumberAttributeDefinition = buildAccountNumberAttributeDefintion();
@@ -338,6 +550,18 @@ public class DataDictionaryMigrationServiceImplTest {
         EasyMock.expect(businessObjectEntry.getAttributeDefinition("accountNumber")).andReturn(accountNumberAttributeDefinition);
         EasyMock.expect(persistenceStructureService.getColumnNameForFieldName(Account.class, "accountNumber")).andReturn("ACCOUNT_NBR");
         EasyMock.expect(businessObjectEntry.getAttributeDefinition("goodToBeOnTheRoadBackHome")).andReturn(null);
+    }
+
+    private void initializedExpectationsForVendor() {
+        final AttributeDefinition vendorNumberAttributeDefinition = buildVendorNumberAttributeDefintion();
+        final AttributeDefinition vendorNameAttributeDefinition = buildVendorNameAttributeDefintion();
+        EasyMock.expect(persistenceStructureService.listFieldNames(VendorDetail.class)).andReturn(Arrays.asList("vendorNumber", "vendorName"));
+        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).times(3);
+        EasyMock.expect(dataDictionary.getBusinessObjectEntry("org.kuali.kfs.vnd.businessobject.VendorDetail")).andReturn(businessObjectEntry).times(3);
+        EasyMock.expect(businessObjectEntry.getAttributeDefinition("vendorNumber")).andReturn(vendorNumberAttributeDefinition);
+        EasyMock.expect(persistenceStructureService.getColumnNameForFieldName(VendorDetail.class, "vendorNumber")).andReturn("VNDR_NBR");
+        EasyMock.expect(businessObjectEntry.getAttributeDefinition("vendorName")).andReturn(vendorNameAttributeDefinition);
+        EasyMock.expect(persistenceStructureService.getColumnNameForFieldName(VendorDetail.class, "vendorName")).andReturn("VNDR_NM");
     }
 
     private void assertAgainstFieldDTOs(List<FieldDTO> fieldDTOs) {
@@ -356,6 +580,15 @@ public class DataDictionaryMigrationServiceImplTest {
         initializedExpectationsForAccount();
     }
 
+    private void initializeExpectationsForVendorTable() {
+        EasyMock.expect(persistenceStructureService.isPersistable(VendorDetail.class)).andReturn(true);
+        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary);
+        EasyMock.expect(dataDictionary.getBusinessObjectEntry("org.kuali.kfs.vnd.businessobject.VendorDetail")).andReturn(businessObjectEntry);
+        EasyMock.expect(businessObjectEntry.getObjectLabel()).andReturn("Vendor");
+        EasyMock.expect(persistenceStructureService.getTableName(Account.class)).andReturn("PUR_VNDR_DTL_T");
+        initializedExpectationsForVendor();
+    }
+
     private void assertAgainstAccountTableDTO(TableDTO tableDTO) {
         Assert.assertNotNull("The TableDTO should not be null", tableDTO);
         Assert.assertEquals("The TableDTO code should be \"CA_ACCOUNT_T\"", "CA_ACCOUNT_T", tableDTO.getCode());
@@ -369,6 +602,101 @@ public class DataDictionaryMigrationServiceImplTest {
         documentEntry.setDataObjectClass(Account.class);
         documentEntry.setDocumentTypeName("ACCT");
         return documentEntry;
+    }
+
+    private MaintenanceDocumentEntry buildVendorMaintenanceDocumentEntryFixture() {
+        MaintenanceDocumentEntry documentEntry = new MaintenanceDocumentEntry();
+        documentEntry.setDataObjectClass(VendorDetail.class);
+        documentEntry.setDocumentTypeName("PVEN");
+
+        MaintainableSectionDefinition addressSection = buildVendorAddressSection();
+        MaintainableSectionDefinition fieldsSection = buildVendorFieldsSection();
+        List<MaintainableSectionDefinition> maintainableSectionDefinitions = Arrays.asList(addressSection, fieldsSection);
+        documentEntry.setMaintainableSections(maintainableSectionDefinitions);
+
+        return documentEntry;
+    }
+
+    private MaintainableSectionDefinition buildVendorFieldsSection() {
+        MaintainableSectionDefinition fieldsSection = new MaintainableSectionDefinition();
+
+        List<MaintainableItemDefinition> fields = new ArrayList<>();
+        MaintainableItemDefinition vendorTaxTypeCode = new MaintainableFieldDefinition();
+        vendorTaxTypeCode.setName("vendorHeader.vendorTaxTypeCode");
+        fields.add(vendorTaxTypeCode);
+
+        MaintainableItemDefinition vendorOwnershipCode = new MaintainableFieldDefinition();
+        vendorOwnershipCode.setName("vendorHeader.vendorOwnershipCode");
+        fields.add(vendorOwnershipCode);
+
+        fieldsSection.setMaintainableItems(fields);
+        fieldsSection.setTitle("VendorFields");
+
+        return fieldsSection;
+    }
+
+    private MaintenanceDocumentEntry buildVendorWithAccountsMaintenanceDocumentEntryFixture() {
+        MaintenanceDocumentEntry documentEntry = buildVendorMaintenanceDocumentEntryFixture();
+        List<MaintainableItemDefinition> items = documentEntry.getMaintainableSections().get(0).getMaintainableItems();
+
+        MaintainableCollectionDefinition accountItem = new MaintainableCollectionDefinition();
+        accountItem.setBusinessObjectClass(Account.class);
+        accountItem.setName("AccountCollection");
+        items.add(accountItem);
+
+        MaintainableCollectionDefinition vendorAddress = (MaintainableCollectionDefinition)items.get(0);
+        List<MaintainableCollectionDefinition> vendorAddressCollections = vendorAddress.getMaintainableCollections();
+        List<MaintainableCollectionDefinition> newCollections = new ArrayList<>();
+        newCollections.addAll(vendorAddressCollections);
+        newCollections.add(accountItem);
+        vendorAddress.setMaintainableCollections(newCollections);
+
+        return documentEntry;
+    }
+
+    private MaintainableSectionDefinition buildVendorAddressSection() {
+        MaintainableSectionDefinition vendorAddressSection = new MaintainableSectionDefinition();
+        vendorAddressSection.setTitle("VendorAddressSection");
+
+        MaintainableCollectionDefinition vendorAddressCollection = new MaintainableCollectionDefinition();
+        vendorAddressCollection.setBusinessObjectClass(VendorAddress.class);
+        List<MaintainableFieldDefinition> vendorAddressFields = new ArrayList<>();
+        MaintainableFieldDefinition vendorCityName = new MaintainableFieldDefinition();
+        vendorCityName.setName("vendorCityName");
+        vendorAddressFields.add(vendorCityName);
+        MaintainableFieldDefinition vendorStateCode = new MaintainableFieldDefinition();
+        vendorStateCode.setName("vendorStateCode");
+        vendorAddressFields.add(vendorStateCode);
+        MaintainableFieldDefinition vendorZipCode = new MaintainableFieldDefinition();
+        vendorZipCode.setName("vendorZipCode");
+        vendorAddressFields.add(vendorZipCode);
+        vendorAddressCollection.setMaintainableFields(vendorAddressFields);
+        vendorAddressCollection.setName("VendorAddressCollection");
+
+        vendorAddressCollection.setMaintainableCollections(Arrays.asList(buildVendorDefaultAddressMaintainableCollectionDefintion()));
+
+        List<MaintainableItemDefinition> itemDefinitions = new ArrayList<>();
+        itemDefinitions.add(vendorAddressCollection);
+
+        vendorAddressSection.setMaintainableItems(itemDefinitions);
+
+        return vendorAddressSection;
+    }
+
+    private MaintainableCollectionDefinition buildVendorDefaultAddressMaintainableCollectionDefintion() {
+        MaintainableCollectionDefinition defaultAddressCollection = new MaintainableCollectionDefinition();
+
+        defaultAddressCollection.setBusinessObjectClass(VendorDefaultAddress.class);
+        List<MaintainableFieldDefinition> vendorAddressFields = new ArrayList<>();
+        MaintainableFieldDefinition vendorCampusCode = new MaintainableFieldDefinition();
+        vendorCampusCode.setName("vendorCampusCode");
+        vendorAddressFields.add(vendorCampusCode);
+        MaintainableFieldDefinition vendorAddressGeneratedIdentifier = new MaintainableFieldDefinition();
+        vendorAddressGeneratedIdentifier.setName("vendorAddressGeneratedIdentifier");
+        vendorAddressFields.add(vendorAddressGeneratedIdentifier);
+        defaultAddressCollection.setMaintainableFields(vendorAddressFields);
+
+        return defaultAddressCollection;
     }
 
     private MaintenanceDocumentEntry buildOrganizationReviewRoleMaintenanceDocumentEntryFixture() {
