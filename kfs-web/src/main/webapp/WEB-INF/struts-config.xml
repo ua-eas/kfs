@@ -555,21 +555,21 @@
         </action>
 
         <action path="/camsCapitalAssetInformation" name="CapitalAssetInformationForm" input="/jsp/module/cams/CapitalAssetInformation.jsp"
-                type="org.kuali.kfs.module.cam.web.struts.CapitalAssetInformationAction" scope="request"
+                type="org.kuali.kfs.module.cam.web.struts.CapitalAssetInformationAction" scope="session"
                 parameter="methodToCall" validate="true" attribute="KualiForm">
             <set-property property="cancellable" value="true"/>
             <forward name="basic" path="/jsp/module/cams/CapitalAssetInformation.jsp"/>
         </action>
 
         <action path="/camsGlLine" name="GlLineForm" input="/jsp/module/cams/GlLine.jsp"
-                type="org.kuali.kfs.module.cam.web.struts.GlLineAction" scope="request"
+                type="org.kuali.kfs.module.cam.web.struts.GlLineAction" scope="session"
                 parameter="methodToCall" validate="true" attribute="KualiForm">
             <set-property property="cancellable" value="true"/>
             <forward name="basic" path="/jsp/module/cams/GlLine.jsp"/>
         </action>
 
         <action path="/camsPurApLine" name="PurApLineForm" input="/jsp/module/cams/PurApLine.jsp"
-                type="org.kuali.kfs.module.cam.web.struts.PurApLineAction" scope="request"
+                type="org.kuali.kfs.module.cam.web.struts.PurApLineAction" scope="session"
                 parameter="methodToCall" validate="true" attribute="KualiForm">
             <set-property property="cancellable" value="true"/>
             <forward name="basic" path="/jsp/module/cams/PurApLine.jsp"/>
