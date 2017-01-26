@@ -445,7 +445,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#getAllAssetTransactionTypes()
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#getAllAssetTransactionTypes()
      */
     @Override
     public List<CapitalAssetManagementAssetTransactionType> getAllAssetTransactionTypes() {
@@ -460,7 +460,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#validatePurchasingAccountsPayableData(org.kuali.kfs.sys.document.AccountingDocument)
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#validatePurchasingAccountsPayableData(org.kuali.kfs.sys.document.AccountingDocument)
      */
     @Override
     public boolean validatePurchasingData(AccountingDocument accountingDocument) {
@@ -534,7 +534,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#doesItemNeedCapitalAsset(java.lang.String, java.util.List)
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#doesItemNeedCapitalAsset(java.lang.String, java.util.List)
      */
     @Override
     public boolean doesItemNeedCapitalAsset(String itemTypeCode, List accountingLines) {
@@ -555,7 +555,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#validateUpdateCAMSView(org.kuali.kfs.sys.document.AccountingDocument)
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#validateUpdateCAMSView(org.kuali.kfs.sys.document.AccountingDocument)
      */
     @Override
     public boolean validateUpdateCAMSView(AccountingDocument accountingDocument) {
@@ -576,7 +576,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#validateAddItemCapitalAssetBusinessRules(org.kuali.kfs.integration.purap.ItemCapitalAsset)
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#validateAddItemCapitalAssetBusinessRules(org.kuali.kfs.integration.purap.ItemCapitalAsset)
      */
     @Override
     public boolean validateAddItemCapitalAssetBusinessRules(ItemCapitalAsset asset) {
@@ -614,7 +614,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#warningObjectLevelCapital(org.kuali.kfs.sys.document.AccountingDocument)
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#warningObjectLevelCapital(org.kuali.kfs.sys.document.AccountingDocument)
      */
     @Override
     public boolean warningObjectLevelCapital(AccountingDocument accountingDocument) {
@@ -1541,7 +1541,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
     /**
      * @param accountingDocument and capitalAssetInformation
      * @return True if the FinancialProcessingData is valid.
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#validateFinancialProcessingData(org.kuali.kfs.sys.document.AccountingDocument,
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#validateFinancialProcessingData(org.kuali.kfs.sys.document.AccountingDocument,
      * org.kuali.kfs.fp.businessobject.CapitalAssetInformation)
      */
     @Override
@@ -1622,7 +1622,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#hasCapitalAssetObjectSubType(org.kuali.kfs.sys.document.AccountingDocument)
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#hasCapitalAssetObjectSubType(org.kuali.kfs.sys.document.AccountingDocument)
      */
     @Override
     public boolean hasCapitalAssetObjectSubType(AccountingDocument accountingDocument) {
@@ -2291,7 +2291,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#notifyRouteStatusChange(java.lang.String,
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#notifyRouteStatusChange(java.lang.String,
      * java.lang.String)
      */
     @Override
@@ -2564,7 +2564,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#getCurrentPurchaseOrderDocumentNumber(java.lang.String)
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#getCurrentPurchaseOrderDocumentNumber(java.lang.String)
      */
     @Override
     public String getCurrentPurchaseOrderDocumentNumber(String camsDocumentNumber) {
@@ -2800,7 +2800,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#validateAllCapitalAccountingLinesProcessed(org.kuali.kfs.sys.document.AccountingDocument)
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#validateAllCapitalAccountingLinesProcessed(org.kuali.kfs.sys.document.AccountingDocument)
      */
     @Override
     public boolean validateAllCapitalAccountingLinesProcessed(AccountingDocument accountingDocumentForValidation) {
@@ -2844,7 +2844,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#validateTotalAmountMatch(org.kuali.kfs.sys.document.AccountingDocument)
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#validateTotalAmountMatch(org.kuali.kfs.sys.document.AccountingDocument)
      */
     @Override
     public boolean validateTotalAmountMatch(AccountingDocument accountingDocumentForValidation) {
@@ -2904,7 +2904,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#validateCapitlAssetsAmountToAccountingLineAmount(org.kuali.kfs.sys.document.AccountingDocument)
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#validateCapitlAssetsAmountToAccountingLineAmount(org.kuali.kfs.sys.document.AccountingDocument)
      */
     @Override
     public boolean validateCapitlAssetsAmountToAccountingLineAmount(AccountingDocument accountingDocument) {
@@ -2954,7 +2954,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#validateCapitalAccountingLines(org.kuali.kfs.sys.document.AccountingDocument)
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#validateCapitalAccountingLines(org.kuali.kfs.sys.document.AccountingDocument)
      */
     @Override
     public boolean validateCapitalAccountingLines(AccountingDocument accountingDocumentForValidation) {
@@ -3129,7 +3129,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#markProcessedGLEntryLine(java.lang.String)
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#markProcessedGLEntryLine(java.lang.String)
      */
     @Override
     public boolean markProcessedGLEntryLine(String documentNumber) {

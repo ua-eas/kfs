@@ -94,9 +94,6 @@
     <bean id="effortCertificationModuleService" parent="effortCertificationModuleService-parentBean"/>
     <bean id="effortCertificationModuleService-parentBean" class="org.kuali.kfs.integration.ec.EffortCertificationModuleServiceNoOp" abstract="true"/>
 
-    <bean id="capitalAssetBuilderModuleService" parent="capitalAssetBuilderModuleService-parentBean"/>
-    <bean id="capitalAssetBuilderModuleService-parentBean" class="org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleServiceNoOp" abstract="true"/>
-
     <bean id="capitalAssetManagementModuleService" parent="capitalAssetManagementModuleService-parentBean"/>
     <bean id="capitalAssetManagementModuleService-parentBean" class="org.kuali.kfs.integration.cam.CapitalAssetManagementModuleServiceNoOp" abstract="true"/>
 

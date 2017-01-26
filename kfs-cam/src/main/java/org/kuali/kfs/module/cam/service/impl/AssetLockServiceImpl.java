@@ -122,7 +122,7 @@ public class AssetLockServiceImpl implements AssetLockService {
      *                                     well.
      * @return Return false without any of the asset being locked. Return true
      * when all assets can be locked.
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#checkAndLockForDocument(java.util.Collection)
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#checkAndLockForDocument(java.util.Collection)
      */
     public synchronized boolean checkAndSetAssetLocks(List<AssetLock> assetLocks, boolean ignoreLockingInfoForDeletion) {
         if (assetLocks == null || assetLocks.isEmpty() || !assetLocks.iterator().hasNext()) {
@@ -192,7 +192,7 @@ public class AssetLockServiceImpl implements AssetLockService {
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#deleteLocks(java.lang.String, java.lang.String)
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#deleteLocks(java.lang.String, java.lang.String)
      */
 
     public void deleteAssetLocks(String documentNumber, String lockingInformation) {
@@ -208,7 +208,7 @@ public class AssetLockServiceImpl implements AssetLockService {
     }
 
     /**
-     * @see org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService#generateAssetLocks(java.util.Collection,
+     * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#generateAssetLocks(java.util.Collection,
      * java.lang.String, java.lang.String, java.lang.String)
      */
 
