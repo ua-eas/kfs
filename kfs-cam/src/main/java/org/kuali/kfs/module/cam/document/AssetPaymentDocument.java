@@ -20,7 +20,6 @@ package org.kuali.kfs.module.cam.document;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.krad.document.Copyable;
 import org.kuali.kfs.krad.exception.ValidationException;
@@ -125,7 +124,7 @@ public class AssetPaymentDocument extends AccountingDocumentBase implements Copy
     public List<String> getWorkflowEngineDocumentIdsToLock() {
         List<String> documentIds = null;
         if (this.isCapitalAssetBuilderOriginIndicator()) {
-            String poDocId = SpringContext.getBean(CapitalAssetBuilderModuleService.class).getCurrentPurchaseOrderDocumentNumber(this.getDocumentNumber());
+            String poDocId = SpringContext.getBean(CapitalAssetManagementModuleService.class).getCurrentPurchaseOrderDocumentNumber(this.getDocumentNumber());
             if (StringUtils.isNotBlank(poDocId)) {
                 documentIds = new ArrayList<String>();
                 documentIds.add(poDocId);
@@ -213,7 +212,7 @@ public class AssetPaymentDocument extends AccountingDocumentBase implements Copy
         }
 
         if (isCapitalAssetBuilderOriginIndicator()) {
-            SpringContext.getBean(CapitalAssetBuilderModuleService.class).notifyRouteStatusChange(getDocumentHeader());
+            SpringContext.getBean(CapitalAssetManagementModuleService.class).notifyRouteStatusChange(getDocumentHeader());
         }
     }
 

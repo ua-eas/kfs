@@ -25,7 +25,6 @@ import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.krad.bo.DocumentHeader;
@@ -87,7 +86,7 @@ public class AssetGlobalMaintainableImpl extends LedgerPostingMaintainable {
     public List<String> getWorkflowEngineDocumentIdsToLock() {
         AssetGlobal assetGlobal = (AssetGlobal) getBusinessObject();
         if (ObjectUtils.isNotNull(assetGlobal) && assetGlobal.isCapitalAssetBuilderOriginIndicator()) {
-            String poDocId = SpringContext.getBean(CapitalAssetBuilderModuleService.class).getCurrentPurchaseOrderDocumentNumber(getDocumentNumber());
+            String poDocId = SpringContext.getBean(CapitalAssetManagementModuleService.class).getCurrentPurchaseOrderDocumentNumber(getDocumentNumber());
             if (StringUtils.isNotBlank(poDocId)) {
                 List<String> documentIds = new ArrayList<String>();
                 documentIds.add(poDocId);
@@ -709,7 +708,7 @@ public class AssetGlobalMaintainableImpl extends LedgerPostingMaintainable {
             if (ObjectUtils.isNotNull(assetGlobal)) {
                 List<AssetGlobalDetail> assetGlobalDetailsList = assetGlobal.getAssetGlobalDetails();
                 for (AssetGlobalDetail assetGlobalDetails : assetGlobalDetailsList) {
-                    SpringContext.getBean(CapitalAssetBuilderModuleService.class).reactivatePretagDetails(assetGlobalDetails.getCampusTagNumber());
+                    SpringContext.getBean(CapitalAssetManagementModuleService.class).reactivatePretagDetails(assetGlobalDetails.getCampusTagNumber());
                 }
             }
         }
@@ -722,7 +721,7 @@ public class AssetGlobalMaintainableImpl extends LedgerPostingMaintainable {
 
         // notify CAB of document status change
         if (((AssetGlobal) getBusinessObject()).isCapitalAssetBuilderOriginIndicator()) {
-            SpringContext.getBean(CapitalAssetBuilderModuleService.class).notifyRouteStatusChange(documentHeader);
+            SpringContext.getBean(CapitalAssetManagementModuleService.class).notifyRouteStatusChange(documentHeader);
         }
     }
 
