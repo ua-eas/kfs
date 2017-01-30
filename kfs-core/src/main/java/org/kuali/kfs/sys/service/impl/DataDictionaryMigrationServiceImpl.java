@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2017 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -41,6 +41,7 @@ import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.sys.batch.DataDictionaryMigrationField;
 import org.kuali.kfs.sys.businessobject.dto.EntityDTO;
 import org.kuali.kfs.sys.businessobject.dto.FieldDTO;
 import org.kuali.kfs.sys.businessobject.dto.TableDTO;
@@ -61,10 +62,15 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrationService {
+
     protected DataDictionaryService dataDictionaryService;
     protected KualiModuleService kualiModuleService;
     protected PersistenceStructureService persistenceStructureService;
     protected ConfigurationService configurationService;
+
+    private List<String> filteredEntities = new ArrayList<>();
+    private List<String> filteredTables = new ArrayList<>();
+    private List<DataDictionaryMigrationField> filteredFields = new ArrayList<>();
 
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DataDictionaryMigrationServiceImpl.class);
 
@@ -166,15 +172,18 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
     }
 
     protected List<MaintenanceDocumentEntry> retrieveAllMaintenanceDocumentEntries() {
-         return dataDictionaryService.getDataDictionary().getDocumentEntries().values().stream()
+
+         final Map<Boolean, List<MaintenanceDocumentEntry>> partitionedEntries = dataDictionaryService.getDataDictionary().getDocumentEntries().values().stream()
                 .filter(entry -> entry instanceof MaintenanceDocumentEntry)
                 .map(entry -> (MaintenanceDocumentEntry)entry)
                 .filter(entry -> !GlobalBusinessObject.class.isAssignableFrom(entry.getDataObjectClass()))
-                // FR uses Asset so we don't want to allow it through
-                .filter(entry -> !StringUtils.equals(entry.getDocumentTypeName(), "FR") &&
-                    !StringUtils.equals(entry.getDocumentTypeName(), "ORR") &&
-                    !StringUtils.equals(entry.getDocumentTypeName(), "PMLI"))
-                .collect(Collectors.toList());
+                .collect(Collectors.partitioningBy((MaintenanceDocumentEntry entry) -> !filteredEntities.contains(entry.getDocumentTypeName())));
+
+         partitionedEntries.get(false).stream().forEach(entry -> {
+             LOG.warn("Filtered out Entity for " + entry.getDocumentTypeName() + ": " + retrieveObjectLabel((Class<? extends PersistableBusinessObject>)entry.getBusinessObjectClass()) );
+         });
+
+         return partitionedEntries.get(true);
 
     }
 
@@ -226,7 +235,17 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
     }
 
     protected List<TableDTO> buildTableDTOs(List<Class<? extends PersistableBusinessObject>> businessObjectClassesForEntity) {
-        return businessObjectClassesForEntity.stream().map(businessObjectClass -> buildTableDTO(businessObjectClass)).filter(tableDTO -> tableDTO != null).collect(Collectors.toList());
+        Map<Boolean, List<Class<? extends PersistableBusinessObject>>> partitionedTables = businessObjectClassesForEntity.stream()
+                .collect(Collectors.partitioningBy(businessObjectClass -> !filteredTables.contains(businessObjectClass.getSimpleName())));
+
+
+        partitionedTables.get(false).stream().forEach(businessObjectClass -> {
+            LOG.warn("Filtered out Table for " + businessObjectClass.getSimpleName());
+        });
+
+        return partitionedTables.get(true).stream().map(businessObjectClass -> buildTableDTO(businessObjectClass))
+                .filter(tableDTO -> tableDTO != null).collect(Collectors.toList());
+
     }
 
     protected TableDTO buildTableDTO(Class<? extends PersistableBusinessObject> tableClass) {
@@ -241,13 +260,18 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
     }
 
     protected List<FieldDTO> buildFieldDTOs(final Class<? extends PersistableBusinessObject> tableClass) {
-        return (List<FieldDTO>)persistenceStructureService
+
+        Map<Boolean, List<String>> partitionedFields = (Map<Boolean, List<String>>)persistenceStructureService
                                             .listFieldNames(tableClass)
                                             .stream()
-                                            .filter(fieldName -> !StringUtils.equals((String)fieldName, "objectId") &&
-                                                !StringUtils.equals((String)fieldName, "versionNumber") &&
-                                                !StringUtils.equals((String)fieldName, "lastUpdatedTimestamp"))
-                                            .map(fieldName -> buildFieldDTO(tableClass, (String)fieldName))
+                                            .collect(Collectors.partitioningBy(fieldName -> filteredFields.stream()
+                                                                    .noneMatch(filteredField -> filteredField.matches(tableClass.getSimpleName(), (String)fieldName))));
+
+        partitionedFields.get(false).stream().forEach(fieldName -> {
+            LOG.warn("Filtered out Field for " + tableClass.getSimpleName()+"."+fieldName);
+        });
+
+        return partitionedFields.get(true).stream().map(fieldName -> buildFieldDTO(tableClass, fieldName))
                                             .filter(fieldMap -> fieldMap != null)
                                             .collect(Collectors.toList());
     }
@@ -346,5 +370,29 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
 
     public void setConfigurationService(ConfigurationService configurationService) {
         this.configurationService = configurationService;
+    }
+
+    public List<String> getFilteredEntities() {
+        return filteredEntities;
+    }
+
+    public void setFilteredEntities(List<String> filteredEntities) {
+        this.filteredEntities = filteredEntities;
+    }
+
+    public List<String> getFilteredTables() {
+        return filteredTables;
+    }
+
+    public void setFilteredTables(List<String> filteredTables) {
+        this.filteredTables = filteredTables;
+    }
+
+    public List<DataDictionaryMigrationField> getFilteredFields() {
+        return filteredFields;
+    }
+
+    public void setFilteredFields(List<DataDictionaryMigrationField> filteredFields) {
+        this.filteredFields = filteredFields;
     }
 }

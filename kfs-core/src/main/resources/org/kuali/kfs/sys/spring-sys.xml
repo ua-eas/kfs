@@ -1357,12 +1357,28 @@
         <property name="configurationService" ref="configurationService"/>
     </bean>
 
+    <bean id="migrationField" abstract="true" class="org.kuali.kfs.sys.batch.DataDictionaryMigrationField"/>
+
     <bean id="dataDictionaryMigrationService" parent="dataDictionaryMigrationService-parentBean"/>
     <bean id="dataDictionaryMigrationService-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.DataDictionaryMigrationServiceImpl">
         <property name="dataDictionaryService" ref="dataDictionaryService"/>
         <property name="kualiModuleService" ref="kualiModuleService"/>
         <property name="persistenceStructureService" ref="persistenceStructureService"/>
         <property name="configurationService" ref="configurationService"/>
+        <property name="filteredEntities">
+            <list>
+                <value>ORR</value>
+                <value>FR</value>
+                <value>PMLI</value>
+            </list>
+        </property>
+        <property name="filteredFields">
+            <list>
+                <bean parent="migrationField" p:migrationField="*.objectId"/>
+                <bean parent="migrationField" p:migrationField="*.versionNumber"/>
+                <bean parent="migrationField" p:migrationField="*.lastUpdatedTimestamp"/>
+            </list>
+        </property>
     </bean>
 
     <import resource="spring-sys-bus-exports.xml"/>

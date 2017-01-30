@@ -1,3 +1,22 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2017 Kuali, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.kuali.kfs.sys.service.impl;
 
 import org.easymock.EasyMock;
@@ -27,6 +46,7 @@ import org.kuali.kfs.krad.datadictionary.TransactionalDocumentEntry;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.sys.batch.DataDictionaryMigrationField;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.dto.EntityDTO;
@@ -74,7 +94,7 @@ public class DataDictionaryMigrationServiceImplTest {
 
     @Test
     public void testRetrieveAllMaintenanceDocumentEntries() throws Exception {
-        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary);
+        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).anyTimes();
         Map<String, DocumentEntry> documentEntries = new HashMap<>();
         documentEntries.put("FR", buildAssetFabricationMaintenanceDocumentEntryFixture());
         documentEntries.put("ACCT", buildAccountMaintenanceDocumentEntryFixture());
@@ -82,6 +102,11 @@ public class DataDictionaryMigrationServiceImplTest {
         documentEntries.put("FollowYourArrow", buildFakeTransactionalDocumentEntryFixture());
         documentEntries.put("GACC", buildAccountGlobalDocumentEntryFixture());
         EasyMock.expect(dataDictionary.getDocumentEntries()).andReturn(documentEntries);
+        BusinessObjectEntry orrEntry = new BusinessObjectEntry();
+        orrEntry.setBusinessObjectClass(org.kuali.kfs.coa.businessobject.OrganizationType.class);
+        orrEntry.setObjectLabel("Organization Type");
+        EasyMock.expect(dataDictionary.getBusinessObjectEntry("org.kuali.kfs.coa.businessobject.OrganizationType")).andReturn(orrEntry).anyTimes();
+        dataDictionaryMigrationService.setFilteredEntities(Arrays.asList("FR","ORR"));
 
         EasyMock.replay(dataDictionaryService, dataDictionary);
 
@@ -104,6 +129,7 @@ public class DataDictionaryMigrationServiceImplTest {
         EasyMock.expect(dataDictionary.getBusinessObjectEntry("org.kuali.kfs.coa.businessobject.Account")).andReturn(businessObjectEntry);
         EasyMock.expect(businessObjectEntry.getObjectLabel()).andReturn("Account"); // this gets called twice, so we'll simply expect it again
         initializeExpectationsForAccountTable();
+        setupFilteredFields();
 
         EasyMock.replay(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService, kualiModuleService, moduleService);
 
@@ -136,6 +162,7 @@ public class DataDictionaryMigrationServiceImplTest {
     public void testBuildTableDTOs() {
         MaintenanceDocumentEntry documentEntry = buildAccountMaintenanceDocumentEntryFixture();
         initializeExpectationsForAccountTable();
+        setupFilteredFields();
 
         EasyMock.replay(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService);
 
@@ -145,9 +172,27 @@ public class DataDictionaryMigrationServiceImplTest {
         assertAgainstTableDTOs(tableDTOs);
     }
 
+    protected void setupFilteredFields() {
+        dataDictionaryMigrationService.setFilteredFields(Arrays.asList(new DataDictionaryMigrationField("*.objectId"),
+                new DataDictionaryMigrationField("*.versionNumber"),
+                new DataDictionaryMigrationField("*.lastUpdatedTimestamp")));
+    }
+
+    @Test
+    public void testBuildTableDTOs_Filtered() {
+        MaintenanceDocumentEntry documentEntry = buildAccountMaintenanceDocumentEntryFixture();
+        dataDictionaryMigrationService.setFilteredTables(Arrays.asList("Account"));
+
+        final List<TableDTO> tableDTOs = dataDictionaryMigrationService.buildTableDTOs(Arrays.asList((Class<? extends PersistableBusinessObject>)documentEntry.getDataObjectClass()));
+
+        Assert.assertNotNull("We should have gotten back a List of TableDTOs", tableDTOs);
+        Assert.assertTrue("That list of TableDTOs should be empty", tableDTOs.isEmpty());
+    }
+
     @Test
     public void testBuildTableDTO() {
         initializeExpectationsForAccountTable();
+        setupFilteredFields();
 
         EasyMock.replay(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService);
 
@@ -171,6 +216,7 @@ public class DataDictionaryMigrationServiceImplTest {
     @Test
     public void testBuildFieldDTOs() {
         initializedExpectationsForAccount();
+        setupFilteredFields();
 
         EasyMock.replay(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService);
 
