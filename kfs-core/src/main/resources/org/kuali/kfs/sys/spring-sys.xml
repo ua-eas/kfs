@@ -1370,6 +1370,18 @@
                 <value>ORR</value>
                 <value>FR</value>
                 <value>PMLI</value>
+                <!-- COA -->
+                <value>PROJ</value>
+                <value>RPTC</value>
+                <value>ACTY</value>
+                <value>SOF </value>
+            </list>
+        </property>
+        <property name="filteredTables">
+            <list>
+                <!-- COA -->
+                <value>AccountGuideline</value>
+                <value>OrganizationExtension</value>
             </list>
         </property>
         <property name="filteredFields">
@@ -1377,6 +1389,99 @@
                 <bean parent="migrationField" p:migrationField="*.objectId"/>
                 <bean parent="migrationField" p:migrationField="*.versionNumber"/>
                 <bean parent="migrationField" p:migrationField="*.lastUpdatedTimestamp"/>
+                <!-- COA -->
+                <bean parent="migrationField" p:migrationField="Account.accountPhysicalCampusCode"/>
+                <bean parent="migrationField" p:migrationField="Account.financialHigherEdFunctionCd"/>
+                <bean parent="migrationField" p:migrationField="Account.accountRestrictedStatusDate"/>
+                <bean parent="migrationField" p:migrationField="Account.accountCreateDate"/>
+                <bean parent="migrationField" p:migrationField="Account.endowmentIncomeAcctFinCoaCd"/>
+                <bean parent="migrationField" p:migrationField="Account.endowmentIncomeAccountNumber"/>
+                <bean parent="migrationField" p:migrationField="Account.acctCustomIndCstRcvyExclCd"/>
+                <bean parent="migrationField" p:migrationField="Account.accountInFinancialProcessingIndicator"/>
+                <bean parent="migrationField" p:migrationField="Account.sourceOfFundsTypeCode"/>
+                <bean parent="migrationField" p:migrationField="Chart.incBdgtEliminationsFinObjCd"/>
+                <bean parent="migrationField" p:migrationField="Chart.expBdgtEliminationsFinObjCd"/>
+                <bean parent="migrationField" p:migrationField="Chart.finAccountsReceivableObjCode"/>
+                <bean parent="migrationField" p:migrationField="Chart.finInternalEncumbranceObjCd"/>
+                <bean parent="migrationField" p:migrationField="Chart.finExternalEncumbranceObjCd"/>
+                <bean parent="migrationField" p:migrationField="Chart.finPreEncumbranceObjectCode"/>
+                <bean parent="migrationField" p:migrationField="ObjectCode.historicalFinancialObjectCode"/>
+                <bean parent="migrationField" p:migrationField="ObjectCode.financialBudgetAggregationCd"/>
+                <bean parent="migrationField" p:migrationField="ObjectCode.finObjMandatoryTrnfrelimCd"/>
+                <bean parent="migrationField" p:migrationField="ObjectCode.financialFederalFundedCode"/>
+                <bean parent="migrationField" p:migrationField="SubAccount.financialReportChartCode"/>
+                <bean parent="migrationField" p:migrationField="SubAccount.finReportOrganizationCode"/>
+                <bean parent="migrationField" p:migrationField="SubAccount.financialReportingCode"/>
+                <bean parent="migrationField" p:migrationField="A21IndirectCostRecoveryAccount.subAccountNumber"/>
+                <bean parent="migrationField" p:migrationField="SubObjectCode.financialSubObjectCdshortNm"/>
+                <bean parent="migrationField" p:migrationField="BalanceType.financialBalanceTypeShortNm"/>
+                <bean parent="migrationField" p:migrationField="ObjectType.financialReportingSortCode"/>
+                <bean parent="migrationField" p:migrationField="ObjectType.basicAccountingCategoryCode"/>
+                <bean parent="migrationField" p:migrationField="ObjectLevel.financialObjectLevelShortNm"/>
+                <bean parent="migrationField" p:migrationField="ObjectLevel.financialReportingSortCode"/>
+                <bean parent="migrationField" p:migrationField="ObjectConsolidation.finConsolidationObjShortName"/>
+                <bean parent="migrationField" p:migrationField="Organization.organizationManagerUniversalId"/>
+                <bean parent="migrationField" p:migrationField="Organization.responsibilityCenterCode"/>
+                <bean parent="migrationField" p:migrationField="Organization.organizationDefaultAccountNumber"/>
+                <bean parent="migrationField" p:migrationField="Organization.organizationBeginDate"/>
+                <bean parent="migrationField" p:migrationField="Organization.organizationEndDate"/>
+                <bean parent="migrationField" p:migrationField="Organization.organizationInFinancialProcessingIndicator"/>
+                <bean parent="migrationField" p:migrationField="A21SubAccount.offCampusCode"/>
+                <bean parent="migrationField" p:migrationField="AccountDescription.campusDescription"/>
+                <bean parent="migrationField" p:migrationField="AccountDescription.organizationDescription"/>
+                <bean parent="migrationField" p:migrationField="AccountDescription.responsibilityCenterDescription"/>
+                <bean parent="migrationField" p:migrationField="AccountingPeriod.budgetRolloverIndicator"/>
+                <!-- FP -->
+                <bean parent="migrationField" p:migrationField="GECSourceAccountingLine.projectCode"/>
+                <bean parent="migrationField" p:migrationField="GECTargetAccountingLine.projectCode"/>
+                <bean parent="migrationField" p:migrationField="ProcurementCardTransaction.projectCode"/>
+                <bean parent="migrationField" p:migrationField="ProcurementCardSourceAccountingLine.projectCode"/>
+                <bean parent="migrationField" p:migrationField="ProcurementCardTargetAccountingLine.projectCode"/>
+                <bean parent="migrationField" p:migrationField="ProcurementCardDefault.projectCode"/>
+                <bean parent="migrationField" p:migrationField="BudgetAdjustmentSourceAccountingLine.projectCode"/>
+                <bean parent="migrationField" p:migrationField="BudgetAdjustmentTargetAccountingLine.projectCode"/>
+                <bean parent="migrationField" p:migrationField="VoucherSourceAccountingLine.projectCode"/>
+                <bean parent="migrationField" p:migrationField="CapitalAssetAccountsGroupDetails.projectCode"/>
+                <bean parent="migrationField" p:migrationField="IntraAccountAdjustmentSourceAccountingLine.projectCode"/>
+                <bean parent="migrationField" p:migrationField="IntraAccountAdjustmentTargetAccountingLine.projectCode"/>
+                <!-- GL -->
+                <bean parent="migrationField" p:migrationField="OriginEntryFull.projectCode"/>
+                <bean parent="migrationField" p:migrationField="Entry.projectCode"/>
+                <bean parent="migrationField" p:migrationField="Reversal.projectCode"/>
+                <bean parent="migrationField" p:migrationField="ExpenditureTransaction.projectCode"/>
+                <!-- PDP -->
+                <bean parent="migrationField" p:migrationField="PaymentAccountDetail.projectCode"/>
+                <!-- SYS -->
+                <bean parent="migrationField" p:migrationField="SourceAccountingLine.projectCode"/>
+                <bean parent="migrationField" p:migrationField="TargetAccountingLine.projectCode"/>
+                <bean parent="migrationField" p:migrationField="GeneralLedgerPendingEntry.projectCode"/>
+                <!-- AR -->
+                <bean parent="migrationField" p:migrationField="CustomerInvoiceWriteoffDocument.projectCode"/>
+                <bean parent="migrationField" p:migrationField="CustomerInvoiceDetail.projectCode"/>
+                <bean parent="migrationField" p:migrationField="CustomerInvoiceItemCode.defaultInvoiceProjectCode"/>
+                <bean parent="migrationField" p:migrationField="NonInvoiced.projectCode"/>
+                <bean parent="migrationField" p:migrationField="OrganizationAccountingDefault.defaultInvoiceProjectCode"/>
+                <bean parent="migrationField" p:migrationField="OrganizationAccountingDefault.defaultPaymentProjectCode"/>
+                <bean parent="migrationField" p:migrationField="OrganizationAccountingDefault.writeoffProjectCode"/>
+                <!-- CAM -->
+                <bean parent="migrationField" p:migrationField="AssetPayment.projectCode"/>
+                <bean parent="migrationField" p:migrationField="AssetPaymentDetail.projectCode"/>
+                <!-- LD -->
+                <bean parent="migrationField" p:migrationField="LedgerEntry.projectCode"/>
+                <bean parent="migrationField" p:migrationField="ExpenseTransferSourceAccountingLine.projectCode"/>
+                <bean parent="migrationField" p:migrationField="ExpenseTransferTargetAccountingLine.projectCode"/>
+                <bean parent="migrationField" p:migrationField="LaborGeneralLedgerEntry.projectCode"/>
+                <bean parent="migrationField" p:migrationField="LaborLedgerPendingEntry.projectCode"/>
+                <bean parent="migrationField" p:migrationField="LaborOriginEntry.projectCode"/>
+                <bean parent="migrationField" p:migrationField="LaborJournalVoucherDetail.projectCode"/>
+                <!-- PURAP -->
+                <bean parent="migrationField" p:migrationField="PurchaseOrderAccount.projectCode"/>
+                <bean parent="migrationField" p:migrationField="PaymentRequestAccount.projectCode"/>
+                <bean parent="migrationField" p:migrationField="RequisitionAccount.projectCode"/>
+                <bean parent="migrationField" p:migrationField="CreditMemoAccount.projectCode"/>
+                <bean parent="migrationField" p:migrationField="AccountsPayableSummaryAccount.projectCode"/>
+                <bean parent="migrationField" p:migrationField="PaymentRequestAccountRevision.projectCode"/>
+                <bean parent="migrationField" p:migrationField="CreditMemoAccountRevision.projectCode"/>
             </list>
         </property>
     </bean>
