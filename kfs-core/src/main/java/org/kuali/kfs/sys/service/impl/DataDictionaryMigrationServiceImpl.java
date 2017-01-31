@@ -23,7 +23,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -41,7 +40,7 @@ import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
-import org.kuali.kfs.sys.batch.DataDictionaryMigrationField;
+import org.kuali.kfs.sys.batch.DataDictionaryFilteredField;
 import org.kuali.kfs.sys.businessobject.dto.EntityDTO;
 import org.kuali.kfs.sys.businessobject.dto.FieldDTO;
 import org.kuali.kfs.sys.businessobject.dto.TableDTO;
@@ -70,7 +69,7 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
 
     private List<String> filteredEntities = new ArrayList<>();
     private List<String> filteredTables = new ArrayList<>();
-    private List<DataDictionaryMigrationField> filteredFields = new ArrayList<>();
+    private List<DataDictionaryFilteredField> filteredFields = new ArrayList<>();
 
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DataDictionaryMigrationServiceImpl.class);
 
@@ -388,11 +387,11 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
         this.filteredTables = filteredTables;
     }
 
-    public List<DataDictionaryMigrationField> getFilteredFields() {
+    public List<DataDictionaryFilteredField> getFilteredFields() {
         return filteredFields;
     }
 
-    public void setFilteredFields(List<DataDictionaryMigrationField> filteredFields) {
+    public void setFilteredFields(List<DataDictionaryFilteredField> filteredFields) {
         this.filteredFields = filteredFields;
     }
 }

@@ -46,7 +46,7 @@ import org.kuali.kfs.krad.datadictionary.TransactionalDocumentEntry;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
-import org.kuali.kfs.sys.batch.DataDictionaryMigrationField;
+import org.kuali.kfs.sys.batch.DataDictionaryFilteredField;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.dto.EntityDTO;
@@ -173,9 +173,9 @@ public class DataDictionaryMigrationServiceImplTest {
     }
 
     protected void setupFilteredFields() {
-        dataDictionaryMigrationService.setFilteredFields(Arrays.asList(new DataDictionaryMigrationField("*.objectId"),
-                new DataDictionaryMigrationField("*.versionNumber"),
-                new DataDictionaryMigrationField("*.lastUpdatedTimestamp")));
+        dataDictionaryMigrationService.setFilteredFields(Arrays.asList(new DataDictionaryFilteredField("*.objectId"),
+                new DataDictionaryFilteredField("*.versionNumber"),
+                new DataDictionaryFilteredField("*.lastUpdatedTimestamp")));
     }
 
     @Test

@@ -21,17 +21,17 @@ package org.kuali.kfs.sys.batch;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class DataDictionaryMigrationField {
+public class DataDictionaryFilteredField {
     private String businessObjectSimpleName;
     private String propertyName;
 
-    public DataDictionaryMigrationField() {}
+    public DataDictionaryFilteredField() {}
 
-    public DataDictionaryMigrationField(String fieldName) {
-        setMigrationField(fieldName);
+    public DataDictionaryFilteredField(String fieldName) {
+        setFilteredField(fieldName);
     }
 
-    public void setMigrationField(String fieldName) {
+    public void setFilteredField(String fieldName) {
         final String[] args = fieldName.split("\\.");
         setBusinessObjectSimpleName(args[0]);
         setPropertyName(args[1]);
