@@ -39,7 +39,6 @@
                 <ref bean="TravelCompanyCode-code"/>
                 <ref bean="TravelCompanyCode-travelExpenseTypeCode.prepaidExpense"/>
                 <ref bean="TravelCompanyCode-name"/>
-                <ref bean="TravelCompanyCode-foreignCompany"/>
                 <ref bean="TravelCompanyCode-active"/>
             </list>
         </property>
@@ -82,17 +81,6 @@
         <property name="name" value="active"/>
     </bean>
 
-    <bean id="TravelCompanyCode-foreignCompany" parent="TravelCompanyCode-foreignCompany-parentBean"/>
-    <bean id="TravelCompanyCode-foreignCompany-parentBean" abstract="true" parent="GenericAttributes-genericBoolean">
-        <property name="name" value="foreignCompany"/>
-        <property name="label" value="Foreign Company"/>
-        <property name="shortLabel" value="Foreign Company"/>
-        <property name="maxLength" value="1"/>
-        <property name="required" value="false"/>
-        <property name="summary" value="Foreign Company"/>
-        <property name="description" value="Foreign Company"/>
-    </bean>
-
     <!-- Business Object Inquiry Definition -->
 
 
@@ -116,7 +104,6 @@
             <list>
                 <bean parent="FieldDefinition" p:attributeName="code"/>
                 <bean parent="FieldDefinition" p:attributeName="name"/>
-                <bean parent="FieldDefinition" p:attributeName="foreignCompany"/>
                 <bean parent="FieldDefinition" p:attributeName="active"/>
             </list>
         </property>
@@ -146,7 +133,6 @@
                 <bean parent="FieldDefinition" p:attributeName="code"/>
                 <bean parent="FieldDefinition" p:attributeName="travelExpenseTypeCode.prepaidExpense"/>
                 <bean parent="FieldDefinition" p:attributeName="name"/>
-                <bean parent="FieldDefinition" p:attributeName="foreignCompany"/>
                 <bean parent="FieldDefinition" p:attributeName="active"/>
             </list>
         </property>
@@ -154,7 +140,6 @@
             <list>
                 <bean parent="FieldDefinition" p:attributeName="code"/>
                 <bean parent="FieldDefinition" p:attributeName="name"/>
-                <bean parent="FieldDefinition" p:attributeName="foreignCompany"/>
                 <bean parent="FieldDefinition" p:attributeName="active"/>
             </list>
         </property>

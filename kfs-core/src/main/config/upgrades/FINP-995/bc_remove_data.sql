@@ -22,8 +22,6 @@ DELETE FROM krcr_parm_t WHERE nmspc_cd IN ('KFS-BC');
 DELETE FROM krcr_cmpnt_t WHERE nmspc_cd IN ('KFS-BC');
 DELETE FROM krcr_nmspc_t WHERE nmspc_cd IN ('KFS-BC');
 
-UPDATE sh_fnctnl_field_descr_t SET active_ind = 'N' WHERE nmspc_cd IN ('KFS-BC');
-
 /* Rice */
 DELETE FROM krim_pnd_role_perm_t WHERE perm_id in ('296','266','228','247','225','229','295','251','297');
 DELETE FROM krim_pnd_role_perm_t WHERE perm_id in ('296','266','228','247','225','229','295','251','297');

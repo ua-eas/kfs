@@ -31,7 +31,6 @@ UPDATE fp_dv_pmt_reas_t SET dv_pmt_reas_actv_ind = 'N' WHERE dv_pmt_reas_cd = 'V
 UPDATE ar_cust_typ_t SET row_actv_ind = 'N' WHERE cust_typ_desc = 'Traveler';
 
 UPDATE pdp_cust_prfl_t SET actv_ind = 'N' WHERE sbunt_cd = 'TEM';
-UPDATE sh_fnctnl_field_descr_t SET active_ind = 'N' WHERE nmspc_cd IN ('KFS-TEM');
 
 ALTER TABLE fp_dv_trvl_co_nm_t DROP COLUMN FRGN_CMPNY;
 ALTER TABLE fp_dv_exp_typ_t DROP COLUMN FIN_OBJECT_CD;

@@ -28,14 +28,7 @@ import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 public class TravelExpenseTypeCode extends KualiCodeBase implements MutableInactivatable {
     boolean prepaidExpense;
 
-    private String financialObjectCode;
-
-    /**
-     * Default no-arg constructor.
-     */
-    public TravelExpenseTypeCode() {
-
-    }
+    public TravelExpenseTypeCode() {}
 
     /**
      * @return Returns the prepaidExpense.
@@ -49,13 +42,5 @@ public class TravelExpenseTypeCode extends KualiCodeBase implements MutableInact
      */
     public void setPrepaidExpense(boolean prepaidExpense) {
         this.prepaidExpense = prepaidExpense;
-    }
-
-    public String getFinancialObjectCode() {
-        return financialObjectCode;
-    }
-
-    public void setFinancialObjectCode(String financialObjectCode) {
-        this.financialObjectCode = financialObjectCode;
     }
 }
