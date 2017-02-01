@@ -1374,7 +1374,19 @@
                 <value>PROJ</value>
                 <value>RPTC</value>
                 <value>ACTY</value>
-                <value>SOF </value>
+                <value>SOF</value>
+                <!-- FP -->
+                <value>DVET</value>
+                <value>DVIC</value>
+                <value>DVTC</value>
+                <value>DVPD</value>
+                <value>CCVN</value>
+                <value>CCTY</value>
+                <!-- AR -->
+                <value>CATP</value>
+                <value>CATY</value>
+                <value>CTY</value>
+                <value>PMED</value>
             </list>
         </property>
         <property name="filteredTables">
@@ -1382,12 +1394,13 @@
                 <!-- COA -->
                 <value>AccountGuideline</value>
                 <value>OrganizationExtension</value>
+                <!-- FP -->
+                <value>DisbursementVoucherPreConferenceDetail</value>
+                <value>DisbursementVoucherAutomatedClearingHouse</value>
+                <value>CustomerCreditCardInformation</value>
+                <value>CashieringDocument</value>
                 <!-- AR -->
-                <value>CollectionActivityType</value>
                 <value>CustomerProcessingType</value>
-                <value>CustomerAddressType</value>
-                <value>CustomerType</value>
-                <value>PaymentMedium</value>
                 <value>PrintInvoiceOptions</value>
             </list>
         </property>
@@ -1451,6 +1464,147 @@
                 <bean parent="filteredField" p:filteredField="CapitalAssetAccountsGroupDetails.projectCode"/>
                 <bean parent="filteredField" p:filteredField="IntraAccountAdjustmentSourceAccountingLine.projectCode"/>
                 <bean parent="filteredField" p:filteredField="IntraAccountAdjustmentTargetAccountingLine.projectCode"/>
+                <bean parent="filteredField" p:filteredField="InternalBillingItem.itemStockNumber"/>
+                <bean parent="filteredField" p:filteredField="InternalBillingItem.itemStockDescription"/>
+                <bean parent="filteredField" p:filteredField="InternalBillingItem.itemServiceDate"/>
+                <bean parent="filteredField" p:filteredField="InternalBillingItem.unitOfMeasureCode"/>
+                <bean parent="filteredField" p:filteredField="PaymentReasonCode.description"/>
+                <bean parent="filteredField" p:filteredField="CashReceiptDocument.depositDate"/>
+                <bean parent="filteredField" p:filteredField="CreditCardReceiptDocument.totalCreditCardAmount"/>
+                <bean parent="filteredField" p:filteredField="CreditCardDetail.financialDocumentCreditCardTypeCode"/>
+                <bean parent="filteredField" p:filteredField="CreditCardDetail.financialDocumentCreditCardVendorNumber"/>
+                <bean parent="filteredField" p:filteredField="CreditCardDetail.creditCardDepositDate"/>
+                <bean parent="filteredField" p:filteredField="CreditCardDetail.creditCardDepositReferenceNumber"/>
+                <bean parent="filteredField" p:filteredField="AdvanceDepositDocument.totalAdvanceDepositAmount"/>
+                <bean parent="filteredField" p:filteredField="AdvanceDepositDocument.depositDate"/>
+                <bean parent="filteredField" p:filteredField="AdvanceDepositDetail.financialDocumentAdvanceDepositReferenceNumber"/>
+                <bean parent="filteredField" p:filteredField="AdvanceDepositDetail.financialDocumentAdvanceDepositDescription"/>
+                <bean parent="filteredField" p:filteredField="CashDrawer.cashDrawerTotalAmount"/>
+                <bean parent="filteredField" p:filteredField="Deposit.depositDate"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbVchrContactEmailId"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbVchrForeignCurrencyInd"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbursementVoucherDocumentationLocationCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.dvCheckStubOverflowCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbVchrPayeeChangedInd"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbursementVoucherCheckNbr"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbursementVoucherCheckDate"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbVchrPayeeW9CompleteCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.paidDate"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbVchrPdpBankCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbExcptAttachedIndicator"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.federalIncomeTaxPercent"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.stateIncomeTaxPercent"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.incomeClassCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.postalCountryCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.incomeTaxTreatyExemptCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.foreignSourceIncomeCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.incomeTaxGrossUpCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.referenceFinancialSystemOriginationCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.referenceFinancialDocumentNumber"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.taxSpecialW4Amount"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.taxUSAIDPerDiemIndicator"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.taxOtherExemptIndicator"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.taxNQIId"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrTravelFromCityName"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrTravelFromStateCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.dvTravelFromCountryCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrTravelToCityName"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrTravelToStateCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrTravelToCountryCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.dvPerdiemStartDttmStamp"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.dvPerdiemEndDttmStamp"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrPerdiemActualAmount"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.dvPerdiemChangeReasonText"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.dvServicePerformedLocName"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.dvServiceRegularEmprName"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrAutoFromCityName"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrAutoFromStateCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrAutoToCityName"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrAutoToStateCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrAutoRoundTripCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.dvPersonalCarMileageAmount"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrPersonalCarRate"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrExceptionCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.financialDocumentNextLineNbr"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrNonEmpTravelerName"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrPerdiemRate"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrPerdiemCategoryName"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrMileageCalculatedAmt"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherPreConferenceRegistrant.disbVchrPreConfDepartmentCd"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherPreConferenceRegistrant.dvConferenceRegistrantName"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherPreConferenceRegistrant.dvPreConferenceRequestNumber"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardVendor.vendorName"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardVendor.vendorLine1Address"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardVendor.vendorLine2Address"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardVendor.vendorCityName"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardVendor.vendorStateCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardVendor.vendorZipCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardVendor.visaVendorIdentifier"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardVendor.vendorOrderNumber"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardHolder.cardHolderName"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardHolder.cardHolderAlternateName"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardHolder.cardHolderLine1Address"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardHolder.cardHolderLine2Address"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardHolder.cardHolderCityName"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardHolder.cardHolderStateCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardHolder.cardHolderZipCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardHolder.cardHolderWorkPhoneNumber"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardHolder.cardLimit"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardHolder.cardCycleAmountLimit"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardHolder.cardCycleVolumeLimit"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardHolder.cardStatusCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardHolder.cardNoteText"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionOriginalCurrencyCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionBillingCurrencyCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionOriginalCurrencyAmount"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionCurrencyExchangeRate"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionSettlementAmount"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionSalesTaxAmount"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionTaxExemptIndicator"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionPurchaseIdentifierIndicator"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionPurchaseIdentifierDescription"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionUnitContactName"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionTravelAuthorizationCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionPointOfSaleCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionCycleStartDate"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionCycleEndDate"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionCreditCardNumber"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionOriginalCurrencyCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionBillingCurrencyCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionOriginalCurrencyAmount"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionCurrencyExchangeRate"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionSettlementAmount"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionSalesTaxAmount"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionTaxExemptIndicator"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionPurchaseIdentifierIndicator"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionPurchaseIdentifierDescription"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionUnitContactName"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionTravelAuthorizationCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionPointOfSaleCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.vendorName"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.vendorLine1Address"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.vendorLine2Address"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.vendorCityName"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.vendorStateCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.vendorZipCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.vendorOrderNumber"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.visaVendorIdentifier"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.cardHolderAlternateName"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.cardHolderLine1Address"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.cardHolderLine2Address"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.cardHolderCityName"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.cardHolderStateCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.cardHolderZipCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.cardHolderWorkPhoneNumber"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.cardLimit"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.cardCycleAmountLimit"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.cardCycleVolumeLimit"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.cardStatusCode"/>
+                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.cardNoteText"/>
+                <bean parent="filteredField" p:filteredField="FunctionControlCode.financialSystemFunctionDefaultIndicator"/>
+                <bean parent="filteredField" p:filteredField="FunctionControlCode.financialSystemFunctionDescription"/>
+                <bean parent="filteredField" p:filteredField="CashieringItemInProcess.itemClosedDate"/>
+                <bean parent="filteredField" p:filteredField="CashieringItemInProcess.itemDescription"/>
                 <!-- GL -->
                 <bean parent="filteredField" p:filteredField="OriginEntryFull.projectCode"/>
                 <bean parent="filteredField" p:filteredField="Entry.projectCode"/>
