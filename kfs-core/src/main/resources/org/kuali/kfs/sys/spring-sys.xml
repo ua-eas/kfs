@@ -1382,6 +1382,13 @@
                 <!-- COA -->
                 <value>AccountGuideline</value>
                 <value>OrganizationExtension</value>
+                <!-- AR -->
+                <value>CollectionActivityType</value>
+                <value>CustomerProcessingType</value>
+                <value>CustomerAddressType</value>
+                <value>CustomerType</value>
+                <value>PaymentMedium</value>
+                <value>PrintInvoiceOptions</value>
             </list>
         </property>
         <property name="filteredFields">
@@ -1456,13 +1463,52 @@
                 <bean parent="filteredField" p:filteredField="TargetAccountingLine.projectCode"/>
                 <bean parent="filteredField" p:filteredField="GeneralLedgerPendingEntry.projectCode"/>
                 <!-- AR -->
+                <bean parent="filteredField" p:filteredField="AccountsReceivableDocumentHeader.entryDate"/>
+                <bean parent="filteredField" p:filteredField="AccountsReceivableDocumentHeader.financialDocumentExplanationText"/>
+                <bean parent="filteredField" p:filteredField="CashControlDetail.customerPaymentMediumIdentifier"/>
+                <bean parent="filteredField" p:filteredField="CashControlDocument.customerPaymentMediumCode"/>
+                <bean parent="filteredField" p:filteredField="Customer.bankruptcyDate"/>
+                <bean parent="filteredField" p:filteredField="Customer.bankruptcyReviewDate"/>
+                <bean parent="filteredField" p:filteredField="Customer.bankruptcyType"/>
+                <bean parent="filteredField" p:filteredField="Customer.customerBirthDate"/>
+                <bean parent="filteredField" p:filteredField="Customer.customerTypeCode"/>
+                <bean parent="filteredField" p:filteredField="CustomerAddress.customerAddressTypeCode"/>
                 <bean parent="filteredField" p:filteredField="CustomerInvoiceWriteoffDocument.projectCode"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDetail.accountsReceivableSubObjectCode"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDetail.invoiceItemServiceDate"/>
                 <bean parent="filteredField" p:filteredField="CustomerInvoiceDetail.projectCode"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.agingReportSentTime"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.billingEmailAddress"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.closedDate"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.customerRecordAttachmentIndicator"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.customerSpecialProcessingCode"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.shippingAddressInternationalProvinceName"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.shippingAddressName"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.shippingAddressTypeCode"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.shippingEmailAddress"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.shippingInternationalMailCode"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.shippingLine1StreetAddress"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.shippingLine2StreetAddress"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.reportedDate"/>
                 <bean parent="filteredField" p:filteredField="CustomerInvoiceItemCode.defaultInvoiceProjectCode"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceItemCode.relatedStockNumber"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceWriteoffDocument.financialObjectCode"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceWriteoffDocument.subAccountNumber"/>
+                <bean parent="filteredField" p:filteredField="InvoiceGeneralDetail.costShareAmount"/>
+                <bean parent="filteredField" p:filteredField="Lockbox.customerPaymentMediumCode"/>
                 <bean parent="filteredField" p:filteredField="NonInvoiced.projectCode"/>
                 <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.defaultInvoiceProjectCode"/>
+                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.defaultPaymentAccountNumber"/>
+                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.defaultPaymentChartOfAccountsCode"/>
+                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.defaultPaymentFinancialSubObjectCode"/>
+                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.defaultPaymentFinancialObjectCode"/>
+                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.defaultPaymentOrganizationReferenceIdentifier"/>
                 <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.defaultPaymentProjectCode"/>
+                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.defaultPaymentSubAccountNumber"/>
+                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.organizationLateChargeObjectCode"/>
                 <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.writeoffProjectCode"/>
+                <bean parent="filteredField" p:filteredField="OrganizationOptions.cgBillerIndicator"/>
+                <bean parent="filteredField" p:filteredField="OrganizationOptions.organization800PhoneNumber"/>
                 <!-- CAM -->
                 <bean parent="filteredField" p:filteredField="AssetPayment.projectCode"/>
                 <bean parent="filteredField" p:filteredField="AssetPaymentDetail.projectCode"/>
