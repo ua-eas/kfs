@@ -168,4 +168,9 @@ public class KFSConstants extends org.kuali.kfs.sys.KFSConstants {
             }
         }
     }
+    
+    public static class CreateAndUpdateNotePrefixes {
+        public static final String ADD = "Add";
+        public static final String CHANGE = "Change";
+    }
 }
