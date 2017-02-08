@@ -58,116 +58,7 @@ public class AccountingLineGroupTag extends TagSupport {
     private AccountingLineGroup group;
     private KualiAccountingDocumentFormBase form;
     private AccountingDocument document;
-    private Set<String> editModes;
     private PlatformTransactionManager transactionManager;
-
-    /**
-     * Gets the attributeGroupName attribute.
-     *
-     * @return Returns the attributeGroupName.
-     */
-    public String getAttributeGroupName() {
-        return attributeGroupName;
-    }
-
-    /**
-     * Sets the attributeGroupName attribute value.
-     *
-     * @param attributeGroupName The attributeGroupName to set.
-     */
-    public void setAttributeGroupName(String attributeGroup) {
-        this.attributeGroupName = attributeGroup;
-    }
-
-    /**
-     * Gets the collectionPropertyName attribute.
-     *
-     * @return Returns the collectionPropertyName.
-     */
-    public String getCollectionPropertyName() {
-        return collectionPropertyName;
-    }
-
-    /**
-     * Sets the collectionPropertyName attribute value.
-     *
-     * @param collectionPropertyName The collectionPropertyName to set.
-     */
-    public void setCollectionPropertyName(String collectionProperties) {
-        this.collectionPropertyName = collectionProperties;
-    }
-
-    /**
-     * Gets the newLinePropertyName attribute.
-     *
-     * @return Returns the newLinePropertyName.
-     */
-    public String getNewLinePropertyName() {
-        return newLinePropertyName;
-    }
-
-    /**
-     * Sets the newLinePropertyName attribute value.
-     *
-     * @param newLinePropertyName The newLinePropertyName to set.
-     */
-    public void setNewLinePropertyName(String newLineProperty) {
-        this.newLinePropertyName = newLineProperty;
-    }
-
-    /**
-     * Gets the importLineOverride attribute.
-     *
-     * @return Returns the importLineOverride.
-     */
-    public JspFragment getImportLineOverride() {
-        return importLineOverride;
-    }
-
-    /**
-     * Sets the importLineOverride attribute value.
-     *
-     * @param importLineOverride The importLineOverride to set.
-     */
-    public void setImportLineOverride(JspFragment importLineOverride) {
-        this.importLineOverride = importLineOverride;
-    }
-
-    /**
-     * Gets the collectionItemPropertyName attribute.
-     *
-     * @return Returns the collectionItemPropertyName.
-     */
-    public String getCollectionItemPropertyName() {
-        return collectionItemPropertyName;
-    }
-
-    /**
-     * Sets the collectionItemPropertyName attribute value.
-     *
-     * @param collectionItemPropertyName The collectionItemPropertyName to set.
-     */
-    public void setCollectionItemPropertyName(String collectionItemPropertyName) {
-        if (StringUtils.isBlank(collectionItemPropertyName)) {
-            collectionItemPropertyName = generateItemPropertyFromCollectionNameTheDumbWay(collectionPropertyName);
-        }
-        this.collectionItemPropertyName = collectionItemPropertyName;
-    }
-
-    /**
-     * Automagically generates teh name of the collection item property from the collection property by taking any extra "s" off the end.  Note:
-     * I never claimed this method was smart.  You'd be surprised at how often it'll work, though.
-     *
-     * @param collectionName the collection name to generate the collection item name from
-     * @return the collection item property name
-     */
-    protected String generateItemPropertyFromCollectionNameTheDumbWay(String collectionName) {
-        int subStringEnd = collectionName.length();
-        if (collectionName.endsWith("s")) {
-            subStringEnd -= 1;
-        }
-        return collectionName.substring(0, subStringEnd);
-    }
 
     /**
      * @see javax.servlet.jsp.tagext.TagSupport#doStartTag()
@@ -180,7 +71,7 @@ public class AccountingLineGroupTag extends TagSupport {
 
         template.execute(transactionStatus -> {
             final List<RenderableAccountingLineContainer> containers = generateContainersForAllLines();
-            group = groupDefinition.createAccountingLineGroup(getDocument(), containers, collectionPropertyName, collectionItemPropertyName, getForm().getDisplayedErrors(), getForm().getDisplayedWarnings(), getForm().getDisplayedInfo(), getForm().getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT));
+            group = getGroupDefinition().createAccountingLineGroup(getDocument(), containers, collectionPropertyName, collectionItemPropertyName, getForm().getDisplayedErrors(), getForm().getDisplayedWarnings(), getForm().getDisplayedInfo(), getForm().getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT));
             group.updateDeletabilityOfAllLines();
             if (getParent() instanceof AccountingLinesTag) {
                 ((AccountingLinesTag) getParent()).addGroupToRender(group);
@@ -208,6 +99,21 @@ public class AccountingLineGroupTag extends TagSupport {
     }
 
     /**
+     * Automagically generates teh name of the collection item property from the collection property by taking any extra "s" off the end.  Note:
+     * I never claimed this method was smart.  You'd be surprised at how often it'll work, though.
+     *
+     * @param collectionName the collection name to generate the collection item name from
+     * @return the collection item property name
+     */
+    protected String generateItemPropertyFromCollectionNameTheDumbWay(String collectionName) {
+        int subStringEnd = collectionName.length();
+        if (collectionName.endsWith("s")) {
+            subStringEnd -= 1;
+        }
+        return collectionName.substring(0, subStringEnd);
+    }
+
+    /**
      * Clears out any state variables on the tag
      */
     protected void resetTag() {
@@ -220,7 +126,6 @@ public class AccountingLineGroupTag extends TagSupport {
         group = null;
         form = null;
         document = null;
-        editModes = null;
     }
 
     /**
@@ -248,7 +153,7 @@ public class AccountingLineGroupTag extends TagSupport {
      */
     protected List<AccountingLineTableRow> getRenderableElementsForLine(AccountingLineGroupDefinition groupDefinition, AccountingLine accountingLine, boolean newLine, boolean topLine, String accountingLinePropertyName) {
         List<TableJoining> layoutElements = groupDefinition.getAccountingLineView().getAccountingLineLayoutElements(accountingLine.getClass());
-        AccountingLineRenderingService renderingService = SpringContext.getBean(AccountingLineRenderingService.class);
+        AccountingLineRenderingService renderingService = getAccountingLineRenderingService();
         renderingService.performPreTablificationTransformations(layoutElements, groupDefinition, getDocument(), accountingLine, newLine, getForm().getUnconvertedValues(), accountingLinePropertyName);
         List<AccountingLineTableRow> renderableElements = renderingService.tablify(layoutElements);
 
@@ -280,6 +185,10 @@ public class AccountingLineGroupTag extends TagSupport {
         }
     }
 
+    protected AccountingLineRenderingService getAccountingLineRenderingService() {
+        return SpringContext.getBean(AccountingLineRenderingService.class);
+    }
+
     /**
      * @return the new accounting line from the form
      */
@@ -298,25 +207,29 @@ public class AccountingLineGroupTag extends TagSupport {
      * @return a List of accounting line table rows to be rendered for all the accounting lines available for rendering within the group
      */
     protected List<RenderableAccountingLineContainer> generateContainersForAllLines() {
-        List<RenderableAccountingLineContainer> containers = new ArrayList<RenderableAccountingLineContainer>();
+        List<RenderableAccountingLineContainer> containers = new ArrayList<>();
 
         final AccountingLineGroupDefinition groupDefinition = getGroupDefinition();
         final AccountingDocument document = getDocument();
         final Set<String> currentNodes = document.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames();
-        final Person currentUser = GlobalVariables.getUserSession().getPerson();
-        boolean addedTopLine = false;
+        final Person currentUser = getCurrentUser();
 
-        // add all existing lines
-        int count = 0;
-        boolean anyEditableLines = false;
+        boolean addedTopLine = false;
+        boolean anyEditableLines = true;
+
         final boolean pageIsEditable = getForm().getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT);
-        List<AccountingLine> lines = getAccountingLineCollection();
-        Collections.sort(lines, getGroupDefinition().getAccountingLineComparator());
+
         // add the new line
-        if (StringUtils.isNotBlank(newLinePropertyName) && ((getForm().getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT) && groupDefinition.getAccountingLineAuthorizer().renderNewLine(document, collectionPropertyName)) || anyEditableLines)) {
+        if (StringUtils.isNotBlank(newLinePropertyName)) {
             containers.add(0, buildContainerForLine(groupDefinition, document, getNewAccountingLine(), currentUser, null, true, pageIsEditable, currentNodes));
             addedTopLine = true;
         }
+
+        // add all existing lines
+        int count = 0;
+        List<AccountingLine> lines = getAccountingLineCollection();
+        Collections.sort(lines, getGroupDefinition().getAccountingLineComparator());
+
         for (AccountingLine accountingLine : lines) {
             final RenderableAccountingLineContainer container = buildContainerForLine(groupDefinition, document, accountingLine, currentUser, new Integer(count), !addedTopLine, pageIsEditable, currentNodes);
             containers.add(container);
@@ -324,7 +237,6 @@ public class AccountingLineGroupTag extends TagSupport {
             count += 1;
             addedTopLine = true;
         }
-
 
         return containers;
     }
@@ -372,6 +284,10 @@ public class AccountingLineGroupTag extends TagSupport {
         resetTag();
     }
 
+    protected Person getCurrentUser() {
+        return GlobalVariables.getUserSession().getPerson();
+    }
+
     /**
      * @return the form that this document is currently using
      */
@@ -410,4 +326,46 @@ public class AccountingLineGroupTag extends TagSupport {
         return this.transactionManager;
     }
 
+    public void setCollectionItemPropertyName(String collectionItemPropertyName) {
+        if (StringUtils.isBlank(collectionItemPropertyName)) {
+            collectionItemPropertyName = generateItemPropertyFromCollectionNameTheDumbWay(collectionPropertyName);
+        }
+        this.collectionItemPropertyName = collectionItemPropertyName;
+    }
+
+    public String getAttributeGroupName() {
+        return attributeGroupName;
+    }
+
+    public void setAttributeGroupName(String attributeGroup) {
+        this.attributeGroupName = attributeGroup;
+    }
+
+    public String getCollectionPropertyName() {
+        return collectionPropertyName;
+    }
+
+    public void setCollectionPropertyName(String collectionProperties) {
+        this.collectionPropertyName = collectionProperties;
+    }
+
+    public String getNewLinePropertyName() {
+        return newLinePropertyName;
+    }
+
+    public void setNewLinePropertyName(String newLineProperty) {
+        this.newLinePropertyName = newLineProperty;
+    }
+
+    public JspFragment getImportLineOverride() {
+        return importLineOverride;
+    }
+
+    public void setImportLineOverride(JspFragment importLineOverride) {
+        this.importLineOverride = importLineOverride;
+    }
+
+    public String getCollectionItemPropertyName() {
+        return collectionItemPropertyName;
+    }
 }
