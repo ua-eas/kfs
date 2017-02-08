@@ -23,7 +23,7 @@
     "immutable": "3.7.5",
     "js-cookie": "2.1.2",
     "lodash": "3.10.1",
-    "moment": "2.10.6",
+    "moment": "2.17.1",
     "react": "0.14.8",
     "react-dom": "0.14.8",
     "react-router": "2.0.1",
