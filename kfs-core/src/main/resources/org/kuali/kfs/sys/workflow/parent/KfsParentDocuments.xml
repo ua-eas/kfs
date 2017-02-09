@@ -439,23 +439,6 @@
         </documentType>
         <documentType>
             <name>
-                TTSM
-            </name>
-            <parent>
-                FSSM
-            </parent>
-            <label>
-                TemSimpleMaintenanceDocument
-            </label>
-            <active>
-                true
-            </active>
-            <routingVersion>
-                2
-            </routingVersion>
-        </documentType>
-        <documentType>
-            <name>
                 ARM
             </name>
             <parent>
@@ -517,23 +500,6 @@
             </parent>
             <label>
                 CapitalAssetBuilderComplexMaintenanceDocument
-            </label>
-            <active>
-                true
-            </active>
-            <routingVersion>
-                2
-            </routingVersion>
-        </documentType>
-        <documentType>
-            <name>
-                TTCM
-            </name>
-            <parent>
-                KFSM
-            </parent>
-            <label>
-                TemComplexMaintenanceDocument
             </label>
             <active>
                 true
@@ -651,21 +617,6 @@
             <label>
                 PurchasingAccountsPayableTransactionalDocument
             </label>
-            <active>
-                true
-            </active>
-            <routingVersion>
-                2
-            </routingVersion>
-        </documentType>
-        <documentType>
-            <name>
-                TT
-            </name>
-            <parent>
-                KFST
-            </parent>
-            <label>TEMTransactionalDocument</label>
             <active>
                 true
             </active>
