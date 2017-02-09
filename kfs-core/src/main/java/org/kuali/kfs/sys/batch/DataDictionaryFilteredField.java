@@ -24,6 +24,10 @@ import org.apache.commons.lang3.StringUtils;
 public class DataDictionaryFilteredField {
     private String businessObjectSimpleName;
     private String propertyName;
+    private boolean pdf;
+    private boolean workflow;
+    private boolean kim;
+    private boolean audit;
 
     public DataDictionaryFilteredField() {}
 
@@ -56,5 +60,37 @@ public class DataDictionaryFilteredField {
     public boolean matches(String tableName, String fieldName) {
         return  ((StringUtils.equals(tableName, businessObjectSimpleName) || StringUtils.equals(businessObjectSimpleName, "*"))
                 && StringUtils.equals(fieldName, propertyName));
+    }
+
+    public boolean isPdf() {
+        return pdf;
+    }
+
+    public void setPdf(boolean pdf) {
+        this.pdf = pdf;
+    }
+
+    public boolean isWorkflow() {
+        return workflow;
+    }
+
+    public void setWorkflow(boolean workflow) {
+        this.workflow = workflow;
+    }
+
+    public boolean isKim() {
+        return kim;
+    }
+
+    public void setKim(boolean kim) {
+        this.kim = kim;
+    }
+
+    public boolean isAudit() {
+        return audit;
+    }
+
+    public void setAudit(boolean audit) {
+        this.audit = audit;
     }
 }
