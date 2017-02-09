@@ -46,7 +46,9 @@ import org.kuali.kfs.krad.datadictionary.TransactionalDocumentEntry;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.sys.batch.DataDictionaryFilteredEntity;
 import org.kuali.kfs.sys.batch.DataDictionaryFilteredField;
+import org.kuali.kfs.sys.batch.DataDictionaryFilteredTable;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.dto.EntityDTO;
@@ -66,8 +68,10 @@ import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RunWith(EasyMockRunner.class)
 public class DataDictionaryMigrationServiceImplTest {
@@ -106,7 +110,7 @@ public class DataDictionaryMigrationServiceImplTest {
         orrEntry.setBusinessObjectClass(org.kuali.kfs.coa.businessobject.OrganizationType.class);
         orrEntry.setObjectLabel("Organization Type");
         EasyMock.expect(dataDictionary.getBusinessObjectEntry("org.kuali.kfs.coa.businessobject.OrganizationType")).andReturn(orrEntry).anyTimes();
-        dataDictionaryMigrationService.setFilteredEntities(Arrays.asList("FR","ORR"));
+        dataDictionaryMigrationService.setFilteredEntities(Arrays.asList(new DataDictionaryFilteredEntity("FR"), new DataDictionaryFilteredEntity("ORR")));
 
         EasyMock.replay(dataDictionaryService, dataDictionary);
 
@@ -135,7 +139,7 @@ public class DataDictionaryMigrationServiceImplTest {
 
         Map<String, List<Class<? extends PersistableBusinessObject>>> businessObjectsOwnedByEntities = new HashMap<>();
         businessObjectsOwnedByEntities.put("ACCT", Arrays.asList(Account.class));
-        final EntityDTO entityDTO = dataDictionaryMigrationService.convertMaintenanceDocumentToEntityDTO(maintenanceDocumentEntry, businessObjectsOwnedByEntities);
+        final EntityDTO entityDTO = dataDictionaryMigrationService.convertMaintenanceDocumentToEntityDTO(maintenanceDocumentEntry, businessObjectsOwnedByEntities, new HashSet<>());
 
         EasyMock.verify(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService, kualiModuleService, moduleService);
 
@@ -146,6 +150,26 @@ public class DataDictionaryMigrationServiceImplTest {
         Assert.assertNull("The description for the Entity should be null", entityDTO.getDescription());
         assertAgainstTableDTOs(entityDTO.getTables());
     }
+
+    @Test
+    public void testConvertMaintenanceDocumentToEntityDTO_Duplicate() throws Exception {
+        MaintenanceDocumentEntry maintenanceDocumentEntry = buildAccountMaintenanceDocumentEntryFixture();
+
+        EasyMock.replay(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService, kualiModuleService, moduleService);
+
+        Map<String, List<Class<? extends PersistableBusinessObject>>> businessObjectsOwnedByEntities = new HashMap<>();
+        businessObjectsOwnedByEntities.put("ACCT", Arrays.asList(Account.class));
+
+        Set accountDup = new HashSet<>();
+        accountDup.add("ACCT");
+
+        final EntityDTO entityDTO = dataDictionaryMigrationService.convertMaintenanceDocumentToEntityDTO(maintenanceDocumentEntry, businessObjectsOwnedByEntities, accountDup);
+
+        EasyMock.verify(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService, kualiModuleService, moduleService);
+
+        Assert.assertNull("We should not have gotten back an EntityDTO", entityDTO);
+    }
+
 
     @Test
     public void testBuildTableDTOs_NotPersistableClass() {
@@ -175,13 +199,14 @@ public class DataDictionaryMigrationServiceImplTest {
     protected void setupFilteredFields() {
         dataDictionaryMigrationService.setFilteredFields(Arrays.asList(new DataDictionaryFilteredField("*.objectId"),
                 new DataDictionaryFilteredField("*.versionNumber"),
-                new DataDictionaryFilteredField("*.lastUpdatedTimestamp")));
+                new DataDictionaryFilteredField("*.lastUpdatedTimestamp"),
+                new DataDictionaryFilteredField("Account.accountName")));
     }
 
     @Test
     public void testBuildTableDTOs_Filtered() {
         MaintenanceDocumentEntry documentEntry = buildAccountMaintenanceDocumentEntryFixture();
-        dataDictionaryMigrationService.setFilteredTables(Arrays.asList("Account"));
+        dataDictionaryMigrationService.setFilteredTables(Arrays.asList(new DataDictionaryFilteredTable("Account")));
 
         final List<TableDTO> tableDTOs = dataDictionaryMigrationService.buildTableDTOs(Arrays.asList((Class<? extends PersistableBusinessObject>)documentEntry.getDataObjectClass()));
 
@@ -565,6 +590,16 @@ public class DataDictionaryMigrationServiceImplTest {
         return accountNumberAccountDefinition;
     }
 
+    private AttributeDefinition buildAccountNameAttributeDefinition() {
+        AttributeDefinition accountNumberAccountDefinition = new AttributeDefinition();
+        accountNumberAccountDefinition.setName("accountName");
+        accountNumberAccountDefinition.setLabel("Account Name");
+        accountNumberAccountDefinition.setShortLabel("Acct Nm");
+        accountNumberAccountDefinition.setMaxLength(100);
+        accountNumberAccountDefinition.setRequired(true);
+        return accountNumberAccountDefinition;
+    }
+
     private AttributeDefinition buildVendorNumberAttributeDefintion() {
         AttributeDefinition vendorNumberAttributeDefinition = new AttributeDefinition();
         vendorNumberAttributeDefinition.setName("vendorNumber");
@@ -588,7 +623,7 @@ public class DataDictionaryMigrationServiceImplTest {
     private void initializedExpectationsForAccount() {
         final AttributeDefinition chartOfAccountsAttributeDefinition = buildChartOfAccountsCodeAttributeDefintion();
         final AttributeDefinition accountNumberAttributeDefinition = buildAccountNumberAttributeDefintion();
-        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(Arrays.asList("chartOfAccountsCode", "accountNumber", "objectId", "versionNumber", "lastUpdatedTimestamp", "goodToBeOnTheRoadBackHome"));
+        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(Arrays.asList("chartOfAccountsCode", "accountNumber", "accountName", "objectId", "versionNumber", "lastUpdatedTimestamp", "goodToBeOnTheRoadBackHome"));
         EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).times(3);
         EasyMock.expect(dataDictionary.getBusinessObjectEntry("org.kuali.kfs.coa.businessobject.Account")).andReturn(businessObjectEntry).times(3);
         EasyMock.expect(businessObjectEntry.getAttributeDefinition("chartOfAccountsCode")).andReturn(chartOfAccountsAttributeDefinition);
@@ -596,6 +631,7 @@ public class DataDictionaryMigrationServiceImplTest {
         EasyMock.expect(businessObjectEntry.getAttributeDefinition("accountNumber")).andReturn(accountNumberAttributeDefinition);
         EasyMock.expect(persistenceStructureService.getColumnNameForFieldName(Account.class, "accountNumber")).andReturn("ACCOUNT_NBR");
         EasyMock.expect(businessObjectEntry.getAttributeDefinition("goodToBeOnTheRoadBackHome")).andReturn(null);
+
     }
 
     private void initializedExpectationsForVendor() {

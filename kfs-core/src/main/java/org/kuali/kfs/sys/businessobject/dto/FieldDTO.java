@@ -74,4 +74,19 @@ public class FieldDTO {
     public void setFieldType(String fieldType) {
         this.fieldType = fieldType;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FieldDTO fieldDTO = (FieldDTO) o;
+
+        return code != null ? code.equals(fieldDTO.code) : fieldDTO.code == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return code != null ? code.hashCode() : 0;
+    }
 }
