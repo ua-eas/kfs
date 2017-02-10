@@ -1357,6 +1357,8 @@
         <property name="configurationService" ref="configurationService"/>
     </bean>
 
+    <bean id="filteredEntity" abstract="true" class="org.kuali.kfs.sys.batch.DataDictionaryFilteredEntity"/>
+    <bean id="filteredTable" abstract="true" class="org.kuali.kfs.sys.batch.DataDictionaryFilteredTable"/>
     <bean id="filteredField" abstract="true" class="org.kuali.kfs.sys.batch.DataDictionaryFilteredField"/>
 
     <bean id="dataDictionaryMigrationService" parent="dataDictionaryMigrationService-parentBean"/>
@@ -1367,63 +1369,72 @@
         <property name="configurationService" ref="configurationService"/>
         <property name="filteredEntities">
             <list>
-                <value>ORR</value>
-                <value>FR</value>
-                <value>PMLI</value>
+                <bean parent="filteredEntity" p:filteredEntity="ORR"/>
+                <bean parent="filteredEntity" p:filteredEntity="FR"/>
+                <bean parent="filteredEntity" p:filteredEntity="PMLI"/>
+
                 <!-- COA -->
-                <value>PROJ</value>
-                <value>RPTC</value>
-                <value>ACTY</value>
-                <value>SOF</value>
+                <bean parent="filteredEntity" p:filteredEntity="PROJ"/>
+                <bean parent="filteredEntity" p:filteredEntity="RPTC"/>
+                <bean parent="filteredEntity" p:filteredEntity="ACTY"/>
+                <bean parent="filteredEntity" p:filteredEntity="SOF"/>
+
                 <!-- FP -->
-                <value>DVET</value>
-                <value>DVIC</value>
-                <value>DVTC</value>
-                <value>DVPD</value>
-                <value>CCVN</value>
-                <value>CCTY</value>
+                <bean parent="filteredEntity" p:filteredEntity="DVET"/>
+                <bean parent="filteredEntity" p:filteredEntity="DVIC"/>
+                <bean parent="filteredEntity" p:filteredEntity="DVTC"/>
+                <bean parent="filteredEntity" p:filteredEntity="DVPD"/>
+                <bean parent="filteredEntity" p:filteredEntity="CCVN"/>
+                <bean parent="filteredEntity" p:filteredEntity="CCTY"/>
+
                 <!-- AR -->
-                <value>CATP</value>
-                <value>CATY</value>
-                <value>CTY</value>
-                <value>PMED</value>
+                <bean parent="filteredEntity" p:filteredEntity="CATP"/>
+                <bean parent="filteredEntity" p:filteredEntity="CATY"/>
+                <bean parent="filteredEntity" p:filteredEntity="CTY"/>
+                <bean parent="filteredEntity" p:filteredEntity="PMED"/>
+
                 <!-- VND -->
-                <value>PMCP</value>
-                <value>PMCS</value>
-                <value>PMCT</value>
-                <value>PMIR</value>
-                <value>PMOC</value>
-                <value>PMOT</value>
-                <value>PMSD</value>
-                <value>PMSP</value>
-                <value>PMSS</value>
-                <value>PMST</value>
-                <value>PVFT</value>
-                <value>PVCF</value>
-                <value>PVCT</value>
+                <bean parent="filteredEntity" p:filteredEntity="PMCP"/>
+                <bean parent="filteredEntity" p:filteredEntity="PMCS"/>
+                <bean parent="filteredEntity" p:filteredEntity="PMCT"/>
+                <bean parent="filteredEntity" p:filteredEntity="PMIR"/>
+                <bean parent="filteredEntity" p:filteredEntity="PMOC"/>
+                <bean parent="filteredEntity" p:filteredEntity="PMOT"/>
+                <bean parent="filteredEntity" p:filteredEntity="PMSD"/>
+                <bean parent="filteredEntity" p:filteredEntity="PMSP"/>
+                <bean parent="filteredEntity" p:filteredEntity="PMSS"/>
+                <bean parent="filteredEntity" p:filteredEntity="PMST"/>
+                <bean parent="filteredEntity" p:filteredEntity="PVFT"/>
+                <bean parent="filteredEntity" p:filteredEntity="PVCF"/>
+                <bean parent="filteredEntity" p:filteredEntity="PVCT"/>
+
             </list>
         </property>
         <property name="filteredTables">
             <list>
                 <!-- COA -->
-                <value>AccountGuideline</value>
-                <value>OrganizationExtension</value>
+                <bean parent="filteredTable" p:filteredTable="AccountGuideline"/>
+                <bean parent="filteredTable" p:filteredTable="OrganizationExtension"/>
+
                 <!-- FP -->
-                <value>DisbursementVoucherPreConferenceDetail</value>
-                <value>DisbursementVoucherAutomatedClearingHouse</value>
-                <value>CustomerCreditCardInformation</value>
-                <value>CashieringDocument</value>
+                <bean parent="filteredTable" p:filteredTable="DisbursementVoucherPreConferenceDetail"/>
+                <bean parent="filteredTable" p:filteredTable="DisbursementVoucherAutomatedClearingHouse"/>
+                <bean parent="filteredTable" p:filteredTable="CustomerCreditCardInformation"/>
+                <bean parent="filteredTable" p:filteredTable="CashieringDocument"/>
+
                 <!-- AR -->
-                <value>CustomerProcessingType</value>
-                <value>PrintInvoiceOptions</value>
+                <bean parent="filteredTable" p:filteredTable="CustomerProcessingType"/>
+                <bean parent="filteredTable" p:filteredTable="PrintInvoiceOptions"/>
+
                 <!-- VND -->
-                <value>DebarredVendorDetail</value>
-                <value>VendorAlias</value>
-                <value>VendorShippingSpecialCondition</value>
-                <value>VendorSupplierDiversity</value>
-                <value>VendorTaxChange</value>
-                <value>VendorTaxType</value>
-                <value>W8TypeOwnershipType</value>
+                <bean parent="filteredTable" p:filteredTable="DebarredVendorDetail"/>
+                <bean parent="filteredTable" p:filteredTable="VendorAlias"/>
+                <bean parent="filteredTable" p:filteredTable="VendorShippingSpecialCondition"/>
+                <bean parent="filteredTable" p:filteredTable="VendorSupplierDiversity"/>
+                <bean parent="filteredTable" p:filteredTable="VendorTaxChange"/>
+                <bean parent="filteredTable" p:filteredTable="VendorTaxType"/>
+                <bean parent="filteredTable" p:filteredTable="W8TypeOwnershipType"/>
+
             </list>
         </property>
         <property name="filteredFields">

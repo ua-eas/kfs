@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -40,6 +41,8 @@ import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.sys.batch.DataDictionaryFilteredEntity;
+import org.kuali.kfs.sys.batch.DataDictionaryFilteredTable;
 import org.kuali.kfs.sys.batch.DataDictionaryFilteredField;
 import org.kuali.kfs.sys.businessobject.dto.EntityDTO;
 import org.kuali.kfs.sys.businessobject.dto.FieldDTO;
@@ -55,9 +58,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrationService {
@@ -67,8 +72,8 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
     protected PersistenceStructureService persistenceStructureService;
     protected ConfigurationService configurationService;
 
-    private List<String> filteredEntities = new ArrayList<>();
-    private List<String> filteredTables = new ArrayList<>();
+    private List<DataDictionaryFilteredEntity> filteredEntities = new ArrayList<>();
+    private List<DataDictionaryFilteredTable> filteredTables = new ArrayList<>();
     private List<DataDictionaryFilteredField> filteredFields = new ArrayList<>();
 
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DataDictionaryMigrationServiceImpl.class);
@@ -93,8 +98,10 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
             }
         }
 
+        Set<String> migratedEntities = new HashSet<>();
         List<EntityDTO> entitiesMap = entities.stream()
-            .map(maintenanceDocumentEntry -> convertMaintenanceDocumentToEntityDTO(maintenanceDocumentEntry, entityBusinessObjectClasses))
+            .map(maintenanceDocumentEntry -> convertMaintenanceDocumentToEntityDTO(maintenanceDocumentEntry, entityBusinessObjectClasses, migratedEntities))
+            .filter(entityDTO -> entityDTO != null)
             .distinct()
             .collect(Collectors.toList());
         String finConfigUrl = configurationService.getPropertyValueAsString("config.url");
@@ -176,7 +183,8 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
                 .filter(entry -> entry instanceof MaintenanceDocumentEntry)
                 .map(entry -> (MaintenanceDocumentEntry)entry)
                 .filter(entry -> !GlobalBusinessObject.class.isAssignableFrom(entry.getDataObjectClass()))
-                .collect(Collectors.partitioningBy((MaintenanceDocumentEntry entry) -> !filteredEntities.contains(entry.getDocumentTypeName())));
+                .collect(Collectors.partitioningBy((MaintenanceDocumentEntry entry) -> filteredEntities.stream()
+                        .noneMatch(filteredField -> filteredField.matches(entry.getDocumentTypeName()))));
 
          partitionedEntries.get(false).stream().forEach(entry -> {
              LOG.warn("Filtered out Entity for " + entry.getDocumentTypeName() + ": " + retrieveObjectLabel((Class<? extends PersistableBusinessObject>)entry.getBusinessObjectClass()) );
@@ -223,19 +231,24 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
         return takenBusinessObjects;
     }
 
-    protected EntityDTO convertMaintenanceDocumentToEntityDTO(MaintenanceDocumentEntry maintenanceDocumentEntry, Map<String, List<Class<? extends PersistableBusinessObject>>> businessObjectsOwnedByEntities) {
-        EntityDTO entityDTO = new EntityDTO();
-        entityDTO.setModuleCode(kualiModuleService.getResponsibleModuleService(maintenanceDocumentEntry.getDataObjectClass()).getModuleConfiguration().getNamespaceCode());
-        entityDTO.setCode(maintenanceDocumentEntry.getDocumentTypeName());
-        entityDTO.setName(retrieveObjectLabel((Class<? extends PersistableBusinessObject>)maintenanceDocumentEntry.getDataObjectClass()));
-        List<TableDTO> tables = buildTableDTOs(businessObjectsOwnedByEntities.get(maintenanceDocumentEntry.getDocumentTypeName()));
-        entityDTO.setTables(tables);
-        return entityDTO;
+    protected EntityDTO convertMaintenanceDocumentToEntityDTO(MaintenanceDocumentEntry maintenanceDocumentEntry, Map<String, List<Class<? extends PersistableBusinessObject>>> businessObjectsOwnedByEntities, Set<String> migratedEntities) {
+        if (!migratedEntities.contains(maintenanceDocumentEntry.getDocumentTypeName())) {
+            EntityDTO entityDTO = new EntityDTO();
+            entityDTO.setModuleCode(kualiModuleService.getResponsibleModuleService(maintenanceDocumentEntry.getDataObjectClass()).getModuleConfiguration().getNamespaceCode());
+            entityDTO.setCode(maintenanceDocumentEntry.getDocumentTypeName());
+            entityDTO.setName(retrieveObjectLabel((Class<? extends PersistableBusinessObject>) maintenanceDocumentEntry.getDataObjectClass()));
+            List<TableDTO> tables = buildTableDTOs(businessObjectsOwnedByEntities.get(maintenanceDocumentEntry.getDocumentTypeName()));
+            entityDTO.setTables(tables);
+            return entityDTO;
+        } else {
+            return null;
+        }
     }
 
     protected List<TableDTO> buildTableDTOs(List<Class<? extends PersistableBusinessObject>> businessObjectClassesForEntity) {
         Map<Boolean, List<Class<? extends PersistableBusinessObject>>> partitionedTables = businessObjectClassesForEntity.stream()
-                .collect(Collectors.partitioningBy(businessObjectClass -> !filteredTables.contains(businessObjectClass.getSimpleName())));
+                .collect(Collectors.partitioningBy(businessObjectClass -> filteredTables.stream()
+                        .noneMatch(filteredTable -> filteredTable.matches(businessObjectClass.getSimpleName()))));
 
 
         partitionedTables.get(false).stream().forEach(businessObjectClass -> {
@@ -243,7 +256,7 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
         });
 
         return partitionedTables.get(true).stream().map(businessObjectClass -> buildTableDTO(businessObjectClass))
-                .filter(tableDTO -> tableDTO != null).collect(Collectors.toList());
+                .filter(tableDTO -> tableDTO != null).distinct().collect(Collectors.toList());
 
     }
 
@@ -267,12 +280,21 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
                                                                     .noneMatch(filteredField -> filteredField.matches(tableClass.getSimpleName(), (String)fieldName))));
 
         partitionedFields.get(false).stream().forEach(fieldName -> {
-            LOG.warn("Filtered out Field for " + tableClass.getSimpleName()+"."+fieldName);
+            if (isAnyClassField(fieldName)) {
+                LOG.debug("Filtered out Field for " + tableClass.getSimpleName() + "." + fieldName);
+            } else {
+                LOG.warn("Filtered out Field for " + tableClass.getSimpleName() + "." + fieldName);
+            }
         });
 
         return partitionedFields.get(true).stream().map(fieldName -> buildFieldDTO(tableClass, fieldName))
                                             .filter(fieldMap -> fieldMap != null)
+                                            .distinct()
                                             .collect(Collectors.toList());
+    }
+
+    protected boolean isAnyClassField(String fieldName) {
+        return filteredFields.stream().anyMatch(filteredField -> filteredField.matchesAnyClass() && StringUtils.equals(filteredField.getPropertyName(), fieldName));
     }
 
     protected FieldDTO buildFieldDTO(Class<? extends PersistableBusinessObject> tableClass, String fieldName) {
@@ -371,19 +393,19 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
         this.configurationService = configurationService;
     }
 
-    public List<String> getFilteredEntities() {
+    public List<DataDictionaryFilteredEntity> getFilteredEntities() {
         return filteredEntities;
     }
 
-    public void setFilteredEntities(List<String> filteredEntities) {
+    public void setFilteredEntities(List<DataDictionaryFilteredEntity> filteredEntities) {
         this.filteredEntities = filteredEntities;
     }
 
-    public List<String> getFilteredTables() {
+    public List<DataDictionaryFilteredTable> getFilteredTables() {
         return filteredTables;
     }
 
-    public void setFilteredTables(List<String> filteredTables) {
+    public void setFilteredTables(List<DataDictionaryFilteredTable> filteredTables) {
         this.filteredTables = filteredTables;
     }
 

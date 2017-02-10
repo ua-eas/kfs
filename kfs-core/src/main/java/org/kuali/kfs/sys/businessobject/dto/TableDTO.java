@@ -58,4 +58,19 @@ public class TableDTO {
     public void setFields(List<FieldDTO> fields) {
         this.fields = fields;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TableDTO tableDTO = (TableDTO) o;
+
+        return code.equals(tableDTO.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return code.hashCode();
+    }
 }

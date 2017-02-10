@@ -21,49 +21,29 @@ package org.kuali.kfs.sys.batch;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class DataDictionaryFilteredField {
-    private String businessObjectSimpleName;
-    private String propertyName;
+public class DataDictionaryFilteredEntity {
+    private String entityName;
     private boolean pdf;
     private boolean workflow;
     private boolean kim;
     private boolean audit;
 
-    public DataDictionaryFilteredField() {}
+    public DataDictionaryFilteredEntity() {}
 
-    public DataDictionaryFilteredField(String fieldName) {
-        setFilteredField(fieldName);
+    public DataDictionaryFilteredEntity(String entityName) {
+        setFilteredEntity(entityName);
     }
 
-    public void setFilteredField(String fieldName) {
-        final String[] args = fieldName.split("\\.");
-        setBusinessObjectSimpleName(args[0]);
-        setPropertyName(args[1]);
+    public void setFilteredEntity(String entityName) {
+        this.entityName = entityName;
     }
 
-    public String getBusinessObjectSimpleName() {
-        return businessObjectSimpleName;
+    public boolean matches(String entityName) {
+        return entityName.equals(this.getEntityName());
     }
 
-    public void setBusinessObjectSimpleName(String businessObjectSimpleName) {
-        this.businessObjectSimpleName = businessObjectSimpleName;
-    }
-
-    public String getPropertyName() {
-        return propertyName;
-    }
-
-    public void setPropertyName(String propertyName) {
-        this.propertyName = propertyName;
-    }
-
-    public boolean matches(String tableName, String fieldName) {
-        return  ((StringUtils.equals(tableName, businessObjectSimpleName) || matchesAnyClass())
-                && StringUtils.equals(fieldName, propertyName));
-    }
-
-    public boolean matchesAnyClass() {
-        return StringUtils.equals(businessObjectSimpleName, "*");
+    public String getEntityName() {
+        return entityName;
     }
 
     public boolean isPdf() {
@@ -97,4 +77,5 @@ public class DataDictionaryFilteredField {
     public void setAudit(boolean audit) {
         this.audit = audit;
     }
+
 }
