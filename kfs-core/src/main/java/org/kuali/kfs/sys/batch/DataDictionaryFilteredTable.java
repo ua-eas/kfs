@@ -25,6 +25,7 @@ public class DataDictionaryFilteredTable {
     private boolean workflow;
     private boolean kim;
     private boolean audit;
+    private boolean unused;
 
     public DataDictionaryFilteredTable() {}
 
@@ -76,4 +77,15 @@ public class DataDictionaryFilteredTable {
         this.audit = audit;
     }
 
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public boolean isUnused() {
+        return unused;
+    }
+
+    public void setUnused(boolean unused) {
+        this.unused = unused;
+    }
 }

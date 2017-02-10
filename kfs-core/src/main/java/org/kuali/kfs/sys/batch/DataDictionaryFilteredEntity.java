@@ -27,6 +27,7 @@ public class DataDictionaryFilteredEntity {
     private boolean workflow;
     private boolean kim;
     private boolean audit;
+    private boolean unused;
 
     public DataDictionaryFilteredEntity() {}
 
@@ -76,6 +77,14 @@ public class DataDictionaryFilteredEntity {
 
     public void setAudit(boolean audit) {
         this.audit = audit;
+    }
+
+    public boolean isUnused() {
+        return unused;
+    }
+
+    public void setUnused(boolean unused) {
+        this.unused = unused;
     }
 
 }
