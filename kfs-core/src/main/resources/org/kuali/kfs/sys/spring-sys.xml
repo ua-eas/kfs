@@ -1388,25 +1388,23 @@
                 <bean parent="filteredEntity" p:filteredEntity="CCTY"/>
 
                 <!-- AR -->
-                <bean parent="filteredEntity" p:filteredEntity="CATP"/>
-                <bean parent="filteredEntity" p:filteredEntity="CATY"/>
-                <bean parent="filteredEntity" p:filteredEntity="CTY"/>
-                <bean parent="filteredEntity" p:filteredEntity="PMED"/>
+                <bean parent="filteredEntity" p:filteredEntity="CATY" />
+                <bean parent="filteredEntity" p:filteredEntity="CTY" />
+                <bean parent="filteredEntity" p:filteredEntity="PMED" />
 
                 <!-- VND -->
-                <bean parent="filteredEntity" p:filteredEntity="PMCP"/>
-                <bean parent="filteredEntity" p:filteredEntity="PMCS"/>
-                <bean parent="filteredEntity" p:filteredEntity="PMCT"/>
-                <bean parent="filteredEntity" p:filteredEntity="PMIR"/>
-                <bean parent="filteredEntity" p:filteredEntity="PMOC"/>
-                <bean parent="filteredEntity" p:filteredEntity="PMOT"/>
-                <bean parent="filteredEntity" p:filteredEntity="PMSD"/>
-                <bean parent="filteredEntity" p:filteredEntity="PMSP"/>
-                <bean parent="filteredEntity" p:filteredEntity="PMSS"/>
-                <bean parent="filteredEntity" p:filteredEntity="PMST"/>
-                <bean parent="filteredEntity" p:filteredEntity="PVFT"/>
-                <bean parent="filteredEntity" p:filteredEntity="PVCF"/>
-                <bean parent="filteredEntity" p:filteredEntity="PVCT"/>
+                <bean parent="filteredEntity" p:filteredEntity="PMCP" p:pdf="true"/>
+                <bean parent="filteredEntity" p:filteredEntity="PMCT" />
+                <bean parent="filteredEntity" p:filteredEntity="PMIR" />
+                <bean parent="filteredEntity" p:filteredEntity="PMOC" />
+                <bean parent="filteredEntity" p:filteredEntity="PMOT" />
+                <bean parent="filteredEntity" p:filteredEntity="PMSD" />
+                <bean parent="filteredEntity" p:filteredEntity="PMSP" p:pdf="true"/>
+                <bean parent="filteredEntity" p:filteredEntity="PMSS" />
+                <bean parent="filteredEntity" p:filteredEntity="PMST" p:pdf="true"/>
+                <bean parent="filteredEntity" p:filteredEntity="PVFT" />
+                <bean parent="filteredEntity" p:filteredEntity="PVCF" />
+                <bean parent="filteredEntity" p:filteredEntity="PVCT" />
 
             </list>
         </property>
@@ -1423,17 +1421,16 @@
                 <bean parent="filteredTable" p:filteredTable="CashieringDocument"/>
 
                 <!-- AR -->
-                <bean parent="filteredTable" p:filteredTable="CustomerProcessingType"/>
-                <bean parent="filteredTable" p:filteredTable="PrintInvoiceOptions"/>
+                <bean parent="filteredTable" p:filteredTable="CustomerProcessingType" />
+                <bean parent="filteredTable" p:filteredTable="PrintInvoiceOptions" />
 
                 <!-- VND -->
-                <bean parent="filteredTable" p:filteredTable="DebarredVendorDetail"/>
-                <bean parent="filteredTable" p:filteredTable="VendorAlias"/>
-                <bean parent="filteredTable" p:filteredTable="VendorShippingSpecialCondition"/>
-                <bean parent="filteredTable" p:filteredTable="VendorSupplierDiversity"/>
-                <bean parent="filteredTable" p:filteredTable="VendorTaxChange"/>
-                <bean parent="filteredTable" p:filteredTable="VendorTaxType"/>
-                <bean parent="filteredTable" p:filteredTable="W8TypeOwnershipType"/>
+                <bean parent="filteredTable" p:filteredTable="DebarredVendorDetail" p:unused="true"/>
+                <bean parent="filteredTable" p:filteredTable="VendorAlias" />
+                <bean parent="filteredTable" p:filteredTable="VendorShippingSpecialCondition" p:workflow="true"/>
+                <bean parent="filteredTable" p:filteredTable="VendorSupplierDiversity" p:workflow="true"/>
+                <bean parent="filteredTable" p:filteredTable="VendorTaxChange" />
+                <bean parent="filteredTable" p:filteredTable="W8TypeOwnershipType" />
 
             </list>
         </property>
@@ -1650,52 +1647,29 @@
                 <bean parent="filteredField" p:filteredField="TargetAccountingLine.projectCode"/>
                 <bean parent="filteredField" p:filteredField="GeneralLedgerPendingEntry.projectCode"/>
                 <!-- AR -->
-                <bean parent="filteredField" p:filteredField="AccountsReceivableDocumentHeader.entryDate"/>
+                <bean parent="filteredField" p:filteredField="AccountsReceivableDocumentHeader.entryDate" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="AccountsReceivableDocumentHeader.financialDocumentExplanationText"/>
                 <bean parent="filteredField" p:filteredField="CashControlDetail.customerPaymentMediumIdentifier"/>
-                <bean parent="filteredField" p:filteredField="CashControlDocument.customerPaymentMediumCode"/>
-                <bean parent="filteredField" p:filteredField="Customer.bankruptcyDate"/>
-                <bean parent="filteredField" p:filteredField="Customer.bankruptcyReviewDate"/>
-                <bean parent="filteredField" p:filteredField="Customer.bankruptcyType"/>
-                <bean parent="filteredField" p:filteredField="Customer.customerBirthDate"/>
-                <bean parent="filteredField" p:filteredField="Customer.customerTypeCode"/>
-                <bean parent="filteredField" p:filteredField="CustomerAddress.customerAddressTypeCode"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceWriteoffDocument.projectCode"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceDetail.accountsReceivableSubObjectCode"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceDetail.invoiceItemServiceDate"/>
+                <bean parent="filteredField" p:filteredField="Customer.bankruptcyDate" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="Customer.bankruptcyReviewDate" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="Customer.bankruptcyType" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="Customer.customerBirthDate" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="Customer.customerTypeCode" />
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceWriteoffDocument.projectCode" />
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDetail.accountsReceivableSubObjectCode" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDetail.invoiceItemServiceDate" p:unused="true"/>
                 <bean parent="filteredField" p:filteredField="CustomerInvoiceDetail.projectCode"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.agingReportSentTime"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.billingEmailAddress"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.closedDate"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.customerRecordAttachmentIndicator"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.customerSpecialProcessingCode"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.shippingAddressInternationalProvinceName"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.shippingAddressName"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.shippingAddressTypeCode"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.shippingEmailAddress"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.shippingInternationalMailCode"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.shippingLine1StreetAddress"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.shippingLine2StreetAddress"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.reportedDate"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.agingReportSentTime" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.customerRecordAttachmentIndicator" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceDocument.customerSpecialProcessingCode" p:unused="true"/>
                 <bean parent="filteredField" p:filteredField="CustomerInvoiceItemCode.defaultInvoiceProjectCode"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceItemCode.relatedStockNumber"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceWriteoffDocument.financialObjectCode"/>
-                <bean parent="filteredField" p:filteredField="CustomerInvoiceWriteoffDocument.subAccountNumber"/>
-                <bean parent="filteredField" p:filteredField="InvoiceGeneralDetail.costShareAmount"/>
-                <bean parent="filteredField" p:filteredField="Lockbox.customerPaymentMediumCode"/>
+                <bean parent="filteredField" p:filteredField="CustomerInvoiceItemCode.relatedStockNumber" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="InvoiceGeneralDetail.costShareAmount" p:unused="true"/>
                 <bean parent="filteredField" p:filteredField="NonInvoiced.projectCode"/>
-                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.defaultInvoiceProjectCode"/>
-                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.defaultPaymentAccountNumber"/>
-                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.defaultPaymentChartOfAccountsCode"/>
-                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.defaultPaymentFinancialSubObjectCode"/>
-                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.defaultPaymentFinancialObjectCode"/>
-                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.defaultPaymentOrganizationReferenceIdentifier"/>
-                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.defaultPaymentProjectCode"/>
-                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.defaultPaymentSubAccountNumber"/>
-                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.organizationLateChargeObjectCode"/>
+                <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.organizationLateChargeObjectCode" p:unused="true"/>
                 <bean parent="filteredField" p:filteredField="OrganizationAccountingDefault.writeoffProjectCode"/>
-                <bean parent="filteredField" p:filteredField="OrganizationOptions.cgBillerIndicator"/>
-                <bean parent="filteredField" p:filteredField="OrganizationOptions.organization800PhoneNumber"/>
+                <bean parent="filteredField" p:filteredField="OrganizationOptions.cgBillerIndicator" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="OrganizationOptions.organization800PhoneNumber" p:unused="true"/>
                 <!-- CAM -->
                 <bean parent="filteredField" p:filteredField="AssetPayment.projectCode"/>
                 <bean parent="filteredField" p:filteredField="AssetPaymentDetail.projectCode"/>
@@ -1717,46 +1691,46 @@
                 <bean parent="filteredField" p:filteredField="CreditMemoAccountRevision.projectCode"/>
                 <!-- VND -->
                 <bean parent="filteredField" p:filteredField="AddressType.vendorDefaultIndicator"/>
-                <bean parent="filteredField" p:filteredField="CommodityCode.sensitiveDataCode"/>
-                <bean parent="filteredField" p:filteredField="VendorAddress.vendorAddressEmailAddress"/>
-                <bean parent="filteredField" p:filteredField="VendorContact.vendorAddressInternationalProvinceName"/>
-                <bean parent="filteredField" p:filteredField="VendorAddress.vendorBusinessToBusinessUrlAddress"/>
-                <bean parent="filteredField" p:filteredField="VendorContact.vendorAttentionName"/>
-                <bean parent="filteredField" p:filteredField="VendorContact.vendorCityName"/>
-                <bean parent="filteredField" p:filteredField="VendorContact.vendorContactCommentText"/>
-                <bean parent="filteredField" p:filteredField="VendorContact.vendorContactEmailAddress"/>
-                <bean parent="filteredField" p:filteredField="VendorContact.vendorContactName"/>
-                <bean parent="filteredField" p:filteredField="VendorContact.vendorContactTypeCode"/>
-                <bean parent="filteredField" p:filteredField="VendorContact.vendorCountryCode"/>
-                <bean parent="filteredField" p:filteredField="VendorContact.vendorLine1Address"/>
-                <bean parent="filteredField" p:filteredField="VendorContact.vendorLine2Address"/>
-                <bean parent="filteredField" p:filteredField="VendorContact.vendorStateCode"/>
-                <bean parent="filteredField" p:filteredField="VendorContact.vendorZipCode"/>
-                <bean parent="filteredField" p:filteredField="VendorContract.vendorCampusCode"/>
-                <bean parent="filteredField" p:filteredField="VendorContract.vendorContractDescription"/>
-                <bean parent="filteredField" p:filteredField="VendorDetail.vendorConfirmationIndicator"/>
-                <bean parent="filteredField" p:filteredField="VendorDetail.vendorCreditCardIndicator"/>
-                <bean parent="filteredField" p:filteredField="VendorDetail.vendorInactiveReasonCode"/>
-                <bean parent="filteredField" p:filteredField="VendorDetail.vendorMinimumOrderAmount"/>
-                <bean parent="filteredField" p:filteredField="VendorDetail.vendorPrepaymentIndicator"/>
-                <bean parent="filteredField" p:filteredField="VendorDetail.vendorRemitName"/>
-                <bean parent="filteredField" p:filteredField="VendorDetail.vendorRestrictedDate"/>
-                <bean parent="filteredField" p:filteredField="VendorDetail.vendorRestrictedPersonIdentifier"/>
-                <bean parent="filteredField" p:filteredField="VendorDetail.vendorRestrictedReasonText"/>
+                <bean parent="filteredField" p:filteredField="CommodityCode.sensitiveDataCode" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="VendorAddress.vendorAddressEmailAddress" p:workflow="true"/>
+                <bean parent="filteredField" p:filteredField="VendorAddress.vendorBusinessToBusinessUrlAddress" p:workflow="true"/>
+                <bean parent="filteredField" p:filteredField="VendorContact.vendorAddressInternationalProvinceName" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="VendorContact.vendorAttentionName" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="VendorContact.vendorCityName" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="VendorContact.vendorContactCommentText" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="VendorContact.vendorContactEmailAddress" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="VendorContact.vendorContactName" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="VendorContact.vendorContactTypeCode" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="VendorContact.vendorCountryCode" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="VendorContact.vendorLine1Address" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="VendorContact.vendorLine2Address" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="VendorContact.vendorStateCode" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="VendorContact.vendorZipCode" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="VendorContract.vendorCampusCode" p:workflow="true"/>
+                <bean parent="filteredField" p:filteredField="VendorContract.vendorContractDescription" p:workflow="true"/>
+                <bean parent="filteredField" p:filteredField="VendorDetail.vendorConfirmationIndicator" p:workflow="true"/>
+                <bean parent="filteredField" p:filteredField="VendorDetail.vendorCreditCardIndicator" p:workflow="true"/>
+                <bean parent="filteredField" p:filteredField="VendorDetail.vendorInactiveReasonCode" p:workflow="true"/>
+                <bean parent="filteredField" p:filteredField="VendorDetail.vendorMinimumOrderAmount" p:workflow="true"/>
+                <bean parent="filteredField" p:filteredField="VendorDetail.vendorPrepaymentIndicator" p:workflow="true"/>
+                <bean parent="filteredField" p:filteredField="VendorDetail.vendorRemitName" p:workflow="true"/>
+                <bean parent="filteredField" p:filteredField="VendorDetail.vendorRestrictedDate" p:workflow="true"/>
+                <bean parent="filteredField" p:filteredField="VendorDetail.vendorRestrictedPersonIdentifier" p:workflow="true"/>
+                <bean parent="filteredField" p:filteredField="VendorDetail.vendorRestrictedReasonText" p:workflow="true"/>
                 <bean parent="filteredField" p:filteredField="VendorDetail.vendorSoldToAssignedIdentifier"/>
                 <bean parent="filteredField" p:filteredField="VendorDetail.vendorSoldToGeneratedIdentifier"/>
-                <bean parent="filteredField" p:filteredField="VendorDetail.vendorSoldToName"/>
-                <bean parent="filteredField" p:filteredField="VendorDetail.vendorUrlAddress"/>
-                <bean parent="filteredField" p:filteredField="VendorHeader.vendorChapter3StatusCode"/>
-                <bean parent="filteredField" p:filteredField="VendorHeader.vendorChapter4StatusCode"/>
+                <bean parent="filteredField" p:filteredField="VendorDetail.vendorSoldToName" p:workflow="true"/>
+                <bean parent="filteredField" p:filteredField="VendorDetail.vendorUrlAddress" p:workflow="true"/>
+                <bean parent="filteredField" p:filteredField="VendorHeader.vendorChapter3StatusCode" p:unused="true"/>
+                <bean parent="filteredField" p:filteredField="VendorHeader.vendorChapter4StatusCode" p:unused="true"/>
                 <bean parent="filteredField" p:filteredField="VendorHeader.vendorCorpCitizenCode"/>
                 <bean parent="filteredField" p:filteredField="VendorHeader.vendorDOB"/>
-                <bean parent="filteredField" p:filteredField="VendorHeader.vendorForeignTaxId"/>
+                <bean parent="filteredField" p:filteredField="VendorHeader.vendorForeignTaxId" p:unused="true"/>
                 <bean parent="filteredField" p:filteredField="VendorHeader.vendorGIIN"/>
                 <bean parent="filteredField" p:filteredField="VendorHeader.vendorW8TypeCode"/>
                 <bean parent="filteredField" p:filteredField="VendorHeader.vendorW8SignedDate"/>
                 <bean parent="filteredField" p:filteredField="VendorHeader.vendorW9SignedDate"/>
-                <bean parent="filteredField" p:filteredField="VendorPhoneNumber.vendorPhoneExtensionNumber"/>
+                <bean parent="filteredField" p:filteredField="VendorPhoneNumber.vendorPhoneExtensionNumber" p:unused="true"/>
 
             </list>
         </property>

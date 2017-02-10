@@ -28,6 +28,7 @@ public class DataDictionaryFilteredField {
     private boolean workflow;
     private boolean kim;
     private boolean audit;
+    private boolean unused;
 
     public DataDictionaryFilteredField() {}
 
@@ -96,5 +97,13 @@ public class DataDictionaryFilteredField {
 
     public void setAudit(boolean audit) {
         this.audit = audit;
+    }
+
+    public boolean isUnused() {
+        return unused;
+    }
+
+    public void setUnused(boolean unused) {
+        this.unused = unused;
     }
 }
