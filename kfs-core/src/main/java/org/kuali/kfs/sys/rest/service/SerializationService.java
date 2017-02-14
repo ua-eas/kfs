@@ -110,15 +110,21 @@ public class SerializationService {
         if (collectionSerializationHelpers.size() > 0) {
             collectionsToMap(businessObjectFieldsMap, collectionSerializationHelpers);
         }
+
         return businessObjectFieldsMap;
     }
 
     protected CollectionSerializationHelper buildCollectionSerializationHelper(MaintainableCollectionDefinition maintainableCollectionDefinition) {
-        CollectionSerializationHelper helper = new CollectionSerializationHelper(maintainableCollectionDefinition.getName(), maintainableCollectionDefinition.getBusinessObjectClass(), this);
+        CollectionSerializationHelper helper = new CollectionSerializationHelper(maintainableCollectionDefinition.getName(),
+            maintainableCollectionDefinition.getBusinessObjectClass(), this);
         for (MaintainableFieldDefinition fieldDefinition : maintainableCollectionDefinition.getMaintainableFields()) {
             if (!UNSERIALIZABLE_FIELDS.contains(fieldDefinition.getName())) {
                 helper.addField(fieldDefinition.getName());
             }
+        }
+        for (MaintainableCollectionDefinition collectionDefinition : maintainableCollectionDefinition
+            .getMaintainableCollections()) {
+            helper.addCollectionSerializationHelper(buildCollectionSerializationHelper(collectionDefinition));
         }
         return helper;
     }
@@ -187,11 +193,14 @@ public class SerializationService {
         return collectionsMap;
     }
 
-    public Map<String, Object> businessObjectToJson(Class<? extends PersistableBusinessObject> boClass, PersistableBusinessObject bo, Map<String, Object> fields, Person person) {
+    public Map<String, Object> businessObjectToJson(Class<? extends PersistableBusinessObject> boClass,
+        PersistableBusinessObject bo, Map<String, Object> fields, Person person) {
         return businessObjectToJson(boClass, boClass, bo, fields, person, "");
     }
 
-    public Map<String, Object> businessObjectToJson(Class<? extends PersistableBusinessObject> parentBoClass, Class<? extends PersistableBusinessObject> boClass, PersistableBusinessObject bo, Map<String, Object> fields, Person person, String parentField) {
+    public Map<String, Object> businessObjectToJson(Class<? extends PersistableBusinessObject> parentBoClass,
+        Class<? extends PersistableBusinessObject> boClass, PersistableBusinessObject bo, Map<String, Object> fields,
+        Person person, String parentField) {
         if (StringUtils.isNotBlank(parentField)) {
             parentField += ".";
         }
@@ -202,7 +211,8 @@ public class SerializationService {
                     try {
                         Object value = PropertyUtils.getProperty(bo, field);
                         if (value != null) {
-                            final Object possiblyMaskedJsonValue = maskJsonValueIfNecessary(parentBoClass.getSimpleName(), parentField +  field, value, person);
+                            final Object possiblyMaskedJsonValue = maskJsonValueIfNecessary(
+                                parentBoClass.getSimpleName(), parentField + field, value, person);
                             jsonObject.put(field, possiblyMaskedJsonValue);
                         } else {
                             jsonObject.put(field, null);

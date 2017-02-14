@@ -31,12 +31,15 @@ public class CollectionSerializationHelper {
     private List<String> fields;
     private Map<String, Object> translatedFields;
     private SerializationService serializationService;
+    private List<CollectionSerializationHelper> collectionSerializationHelpers;
 
-    public CollectionSerializationHelper(String collectionName, Class<? extends BusinessObject> collectionItemClass, SerializationService serializationService) {
+    public CollectionSerializationHelper(String collectionName, Class<? extends BusinessObject> collectionItemClass,
+        SerializationService serializationService) {
         this.collectionName = collectionName;
         this.collectionItemClass = collectionItemClass;
         this.fields = new ArrayList<>();
         this.serializationService = serializationService;
+        this.collectionSerializationHelpers = new ArrayList<>();
     }
 
     public String getCollectionName() {
@@ -59,9 +62,16 @@ public class CollectionSerializationHelper {
         fields.add(fieldName);
     }
 
+    public void addCollectionSerializationHelper(CollectionSerializationHelper collectionSerializationHelper) {
+        this.collectionSerializationHelpers.add(collectionSerializationHelper);
+    }
+
     public Map<String, Object> getTranslatedFields() {
         if (translatedFields == null) {
             translatedFields = serializationService.businessObjectFieldsToMap(fields);
+            if (!this.collectionSerializationHelpers.isEmpty()) {
+                translatedFields.put(SerializationService.COLLECTIONS_KEY, collectionSerializationHelpers);
+            }
         }
         return translatedFields;
     }

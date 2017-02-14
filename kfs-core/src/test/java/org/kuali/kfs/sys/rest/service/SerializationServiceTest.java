@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.sys.rest.service;
 
+import com.google.common.collect.Lists;
 import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Before;
@@ -43,6 +44,7 @@ import org.kuali.kfs.sys.businessobject.TaxRegionRate;
 import org.kuali.kfs.sys.rest.BusinessObjectApiResourceTestHelper;
 import org.kuali.kfs.sys.rest.helper.CollectionSerializationHelper;
 import org.kuali.kfs.vnd.businessobject.VendorAddress;
+import org.kuali.kfs.vnd.businessobject.VendorDefaultAddress;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.powermock.api.easymock.PowerMock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -204,6 +206,54 @@ public class SerializationServiceTest {
         EasyMock.verify(maintenanceDocumentEntry);
     }
 
+    // this is actually an integ test...
+    @Test
+    public void testFindBusinessObjectFields_NestedCollectionsMultipleLayers() {
+        addVendorWithDefaultAddressesMaintainbleSections();
+        EasyMock.replay(maintenanceDocumentEntry);
+        Map<String, Object> fields = serializationService.findBusinessObjectFields(maintenanceDocumentEntry);
+        Assert.assertEquals("expected both top level fields and helpers", 2, fields.size());
+        Assert.assertEquals("expected 7 top level fields at root", 7,
+            ((List<String>) fields.get(SerializationService.FIELDS_KEY)).size());
+        Assert.assertEquals("name of first field does not match expected", "vendorParentName",
+            ((List<String>) fields.get(SerializationService.FIELDS_KEY)).get(0));
+
+        List<CollectionSerializationHelper> serializationHelpers = (List<CollectionSerializationHelper>) fields
+            .get(SerializationService.COLLECTIONS_KEY);
+        Assert
+            .assertEquals("expected there to be one first level serialization helper", 1, serializationHelpers.size());
+        CollectionSerializationHelper serializationHelper = serializationHelpers.get(0);
+        Assert.assertEquals("collection name does not match expected", "vendorAddresses",
+            serializationHelper.getCollectionName());
+        Assert.assertEquals("expected there to be 2 fields on first level helper", 2,
+            serializationHelper.getFields().size());
+        Assert.assertEquals("expected both top level fields and nested helpers from first level helper", 2,
+            serializationHelper.getTranslatedFields().size());
+        List<String> collectionTopLevelFields = (List<String>) serializationHelper.getTranslatedFields()
+            .get(SerializationService.FIELDS_KEY);
+        Assert.assertEquals("expected 2 fields under fields key", 2, collectionTopLevelFields.size());
+        Assert.assertEquals("name of first field does not match expected ", "vendorAddressEmailAddress",
+            collectionTopLevelFields.get(0));
+
+        List<CollectionSerializationHelper> innerHelpers = (List<CollectionSerializationHelper>) serializationHelper
+            .getTranslatedFields()
+            .get(SerializationService.COLLECTIONS_KEY);
+        Assert.assertEquals("expected there to be one second level serialization helper", 1, innerHelpers.size());
+        CollectionSerializationHelper innerHelper = innerHelpers.get(0);
+        Assert.assertEquals("collection name does not match expected", "vendorDefaultAddresses",
+            innerHelper.getCollectionName());
+        Assert.assertEquals("expected there to be 2 fields on inner helper", 2, innerHelper.getFields().size());
+        Assert.assertEquals("expected only top level fields from inner helper", 1,
+            innerHelper.getTranslatedFields().size());
+        List<String> innerCollectionTopLevelFields = (List<String>) innerHelper.getTranslatedFields()
+            .get(SerializationService.FIELDS_KEY);
+        Assert.assertEquals("expected 2 fields under fields key", 2, innerCollectionTopLevelFields.size());
+        Assert.assertEquals("name of first field does not match expected", "vendorCampusCode",
+            innerCollectionTopLevelFields.get(0));
+
+        EasyMock.verify(maintenanceDocumentEntry);
+    }
+
     private void addTaxRegionMaintainbleSections() {
         List<MaintainableSectionDefinition> maintainableSections = new ArrayList<>();
         MaintainableSectionDefinition maintainableSectionDefinition = new MaintainableSectionDefinition();
@@ -227,7 +277,7 @@ public class SerializationServiceTest {
         MaintainableSectionDefinition maintainableSectionDefinition = new MaintainableSectionDefinition();
         maintainableSections.add(maintainableSectionDefinition);
         List<MaintainableItemDefinition> maintainableItemDefinitions = BusinessObjectApiResourceTestHelper.createItemDefinitions("vendorParentName",
-            "vendorNumber","vendorName","vendorLastName","vendorFirstName","vendorPaymentTermsCode","vendorHeader.vendorTaxTypeCode");
+            "vendorNumber","vendorName","vendorLastName","vendorFirstName","vendorPaymentTermsCode", "vendorHeader.vendorTaxTypeCode");
 
         MaintainableCollectionDefinition maintainableCollectionDefinition = new MaintainableCollectionDefinition();
         maintainableCollectionDefinition.setName("vendorAddresses");
@@ -246,6 +296,35 @@ public class SerializationServiceTest {
         maintainableSectionDefinition.setMaintainableItems(maintainableItemDefinitions);
         EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections).times(2);
     }
+
+    private void addVendorWithDefaultAddressesMaintainbleSections() {
+        List<MaintainableSectionDefinition> maintainableSections = new ArrayList<>();
+        MaintainableSectionDefinition maintainableSectionDefinition = new MaintainableSectionDefinition();
+        maintainableSections.add(maintainableSectionDefinition);
+        List<MaintainableItemDefinition> maintainableItemDefinitions = BusinessObjectApiResourceTestHelper
+            .createItemDefinitions("vendorParentName", "vendorNumber", "vendorName", "vendorLastName",
+                "vendorFirstName", "vendorPaymentTermsCode");
+
+        MaintainableCollectionDefinition innerCollectionDefinition = new MaintainableCollectionDefinition();
+        innerCollectionDefinition.setName("vendorDefaultAddresses");
+        innerCollectionDefinition.setBusinessObjectClass(VendorDefaultAddress.class);
+        List<MaintainableFieldDefinition> defaultAddressFields = BusinessObjectApiResourceTestHelper
+            .createFieldDefinitions("vendorCampusCode", "vendorAddressGeneratedIdentifier");
+        innerCollectionDefinition.setMaintainableFields(defaultAddressFields);
+
+        MaintainableCollectionDefinition maintainableCollectionDefinition = new MaintainableCollectionDefinition();
+        maintainableCollectionDefinition.setName("vendorAddresses");
+        maintainableCollectionDefinition.setBusinessObjectClass(VendorAddress.class);
+        List<MaintainableFieldDefinition> vendorAddressFieldDefinitions = BusinessObjectApiResourceTestHelper
+            .createFieldDefinitions("vendorAddressEmailAddress", "vendorCityName");
+        maintainableCollectionDefinition.setMaintainableFields(vendorAddressFieldDefinitions);
+        maintainableCollectionDefinition.setMaintainableCollections(Lists.newArrayList(innerCollectionDefinition));
+        maintainableItemDefinitions.add(maintainableCollectionDefinition);
+
+        maintainableSectionDefinition.setMaintainableItems(maintainableItemDefinitions);
+        EasyMock.expect(maintenanceDocumentEntry.getMaintainableSections()).andReturn(maintainableSections).times(2);
+    }
+
 
     @Test
     @PrepareForTest({KRADServiceLocator.class})
