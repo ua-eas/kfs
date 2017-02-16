@@ -1,3 +1,56 @@
+************************* 2017-02-16 *************************
+commit c6650e0b0b3d97246fe9519503fc941850a7d64f
+Author: lmarkes <lmarkes@users.noreply.github.com>
+Date:   2017-02-14 06:44:13 -0600
+
+    FINP-1042 serialization of subcollections (#1041)
+
+:100644 100644 d6c730e... e320811... M	kfs-core/src/main/java/org/kuali/kfs/sys/rest/helper/CollectionSerializationHelper.java
+:100644 100644 1e2a844... 27966ae... M	kfs-core/src/main/java/org/kuali/kfs/sys/rest/service/SerializationService.java
+:000000 100644 0000000... 3e6d5d2... A	kfs-core/src/test/java/org/kuali/kfs/sys/rest/helper/CollectionSerializationHelperTest.java
+:100644 100644 446f6ec... 06569d6... M	kfs-core/src/test/java/org/kuali/kfs/sys/rest/service/SerializationServiceTest.java
+
+commit d734ef38f32b939d891f13610f70501a8522d2c7
+Author: kkronenb <kevin@kuali.co>
+Date:   2017-02-10 12:34:15 -0700
+
+    FINI-3340 categorize filters things
+
+:100644 100644 cac1bab... b5a4429... M	kfs-core/src/main/java/org/kuali/kfs/sys/batch/DataDictionaryFilteredEntity.java
+:100644 100644 1bf6823... e2e4d93... M	kfs-core/src/main/java/org/kuali/kfs/sys/batch/DataDictionaryFilteredField.java
+:100644 100644 bd5488f... 364f144... M	kfs-core/src/main/java/org/kuali/kfs/sys/batch/DataDictionaryFilteredTable.java
+:100644 100644 6c7f758... e05b402... M	kfs-core/src/main/resources/org/kuali/kfs/sys/spring-sys.xml
+
+commit 77fead8b9e19fbabab686dbe2d44a28db9e2e8c0
+Author: kkronenb <kevin@kuali.co>
+Date:   2017-02-09 15:27:59 -0700
+
+    FINI-3288 filter dups from report and create beans for entity and table
+
+:000000 100644 0000000... cac1bab... A	kfs-core/src/main/java/org/kuali/kfs/sys/batch/DataDictionaryFilteredEntity.java
+:100644 100644 1ff7ca3... 1bf6823... M	kfs-core/src/main/java/org/kuali/kfs/sys/batch/DataDictionaryFilteredField.java
+:000000 100644 0000000... bd5488f... A	kfs-core/src/main/java/org/kuali/kfs/sys/batch/DataDictionaryFilteredTable.java
+:100644 100644 d30bbbf... cbea1c9... M	kfs-core/src/main/java/org/kuali/kfs/sys/businessobject/dto/FieldDTO.java
+:100644 100644 502f710... 3557470... M	kfs-core/src/main/java/org/kuali/kfs/sys/businessobject/dto/TableDTO.java
+:100644 100644 3f82e6c... 93d2d67... M	kfs-core/src/main/java/org/kuali/kfs/sys/service/impl/DataDictionaryMigrationServiceImpl.java
+:100644 100644 d267464... 6c7f758... M	kfs-core/src/main/resources/org/kuali/kfs/sys/spring-sys.xml
+:100644 100644 6208a83... c7182c3... M	kfs-core/src/test/java/org/kuali/kfs/sys/service/impl/DataDictionaryMigrationServiceImplTest.java
+
+commit 4624986cc67ffc33c7e842edd1ca26be7c4be05c
+Author: kkronenb <kevin@kuali.co>
+Date:   2017-02-09 13:06:03 -0700
+
+    Add attributes to filtered fields
+
+:100644 100644 3749b6d... 1ff7ca3... M	kfs-core/src/main/java/org/kuali/kfs/sys/batch/DataDictionaryFilteredField.java
+
+commit c5767eb7ace7a4d74671c2a4d4e3332003396304
+Author: Jay Sissom <jsissom@kuali.co>
+Date:   2017-02-09 13:39:17 -0500
+
+    Delete duplicate data from changelog
+
+:100644 100644 e6dba54... be29ffb... M	CHANGELOG.txt
 ************************* 2017-02-09 *************************
 commit 40ea0830e590e3bb5e1c64017663a5679f854cc2
 Author: Kelly Davis <kldavis4@users.noreply.github.com>
