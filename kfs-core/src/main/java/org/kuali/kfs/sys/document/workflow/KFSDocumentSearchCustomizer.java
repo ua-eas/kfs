@@ -20,6 +20,7 @@ package org.kuali.kfs.sys.document.workflow;
 //RICE20 Hook to document type is not working right now but needs to be changed to support pre-rice2.0 release
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.rice.core.api.uif.RemotableAttributeError;
 import org.kuali.rice.core.api.uif.RemotableAttributeField;
 import org.kuali.rice.kew.api.document.DocumentWithContent;
@@ -94,6 +95,10 @@ public class KFSDocumentSearchCustomizer implements SearchableAttribute, Documen
         if (LOG.isDebugEnabled()) {
             LOG.debug("validateDocumentAttributeCriteria( " + extensionDefinition + ", " + documentSearchCriteria + " )");
         }
+
+        //validateDocumentAttributeCriteria can update and display message map - so clear it before validation
+        GlobalVariables.clear();
+
         return getSearchableAttribute().validateDocumentAttributeCriteria(extensionDefinition, documentSearchCriteria);
     }
 
