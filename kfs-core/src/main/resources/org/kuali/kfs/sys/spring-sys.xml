@@ -1673,7 +1673,6 @@
                 <!-- CAM -->
                 <bean parent="filteredField" p:filteredField="AssetPayment.projectCode"/>
                 <bean parent="filteredField" p:filteredField="AssetPaymentDetail.projectCode"/>
-                <!-- EC -->
                 <!-- LD -->
                 <bean parent="filteredField" p:filteredField="LedgerEntry.projectCode"/>
                 <bean parent="filteredField" p:filteredField="ExpenseTransferSourceAccountingLine.projectCode"/>
