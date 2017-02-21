@@ -27,9 +27,6 @@ import javax.mail.MessagingException;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Defines methods for sending AR emails.
- */
 public interface AREmailService {
 
     /**
@@ -40,7 +37,7 @@ public interface AREmailService {
      * @throws InvalidAddressException
      * @throws MessagingException
      */
-    public boolean sendInvoicesViaEmail(Collection<ContractsGrantsInvoiceDocument> invoices) throws InvalidAddressException, MessagingException;
+    boolean sendInvoicesViaEmail(Collection<ContractsGrantsInvoiceDocument> invoices) throws InvalidAddressException, MessagingException;
 
     /**
      * Send email for upcoming milestones for Award
@@ -48,6 +45,5 @@ public interface AREmailService {
      * @param milestones
      * @param award
      */
-    public void sendEmailNotificationsForMilestones(List<Milestone> milestones, ContractsAndGrantsBillingAward award);
-
+    void sendEmailNotificationsForMilestones(List<Milestone> milestones, ContractsAndGrantsBillingAward award);
 }

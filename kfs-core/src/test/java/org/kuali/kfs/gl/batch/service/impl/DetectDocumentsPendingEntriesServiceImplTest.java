@@ -27,18 +27,18 @@ import org.junit.runner.RunWith;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.batch.DetectDocumentsMissingEntriesStep;
 import org.kuali.kfs.krad.exception.InvalidAddressException;
-import org.kuali.kfs.krad.service.MailService;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.businessobject.DocumentHeaderData;
+import org.kuali.kfs.sys.mail.BodyMailMessage;
+import org.kuali.kfs.sys.mail.MailMessage;
+import org.kuali.kfs.sys.service.EmailService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.mail.MailMessage;
 import org.powermock.api.easymock.PowerMock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import javax.mail.MessagingException;
-
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class DetectDocumentsPendingEntriesServiceImplTest {
     private Logger mockLogger;
     private ConfigurationService configurationService;
     private ParameterService parameterService;
-    private MailService mailService;
+    private EmailService emailService;
     private DetectDocumentsMissingEntriesServiceImpl detectDocumentsMissingEntriesService;
     private MailMessage savedMessage;
 
@@ -64,13 +64,13 @@ public class DetectDocumentsPendingEntriesServiceImplTest {
 
         configurationService = EasyMock.createMock(ConfigurationService.class);
         parameterService = EasyMock.createMock(ParameterService.class);
-        mailService = EasyMock.createMock(MailService.class);
+        emailService = EasyMock.createMock(EmailService.class);
     }
 
     @Test
     @PrepareForTest(Logger.class)
     public void testLogWithNoDocumentHeaders() throws Exception {
-        mockLogger.debug("Running reportDocumentsWithoutPendingEntries");
+        mockLogger.debug("reportDocumentsWithoutEntries() started");
         EasyMock.expect(parameterService.getParameterValuesAsString(DetectDocumentsMissingEntriesStep.class,
                 KFSParameterKeyConstants.DetectDocumentsMissingEntriesConstants.NOTIFICATION_EMAIL_ADDRESSES))
                 .andReturn(new ArrayList<>());
@@ -93,7 +93,7 @@ public class DetectDocumentsPendingEntriesServiceImplTest {
     public void testLogWithDocumentHeaders() throws Exception {
         Timestamp now = new Timestamp(new Date().getTime());
         String nowString = new SimpleDateFormat("yyyy-MM-dd").format(now);
-        mockLogger.debug("Running reportDocumentsWithoutPendingEntries");
+        mockLogger.debug("reportDocumentsWithoutEntries() started");
         EasyMock.expect(parameterService.getParameterValuesAsString(DetectDocumentsMissingEntriesStep.class,
                 KFSParameterKeyConstants.DetectDocumentsMissingEntriesConstants.NOTIFICATION_EMAIL_ADDRESSES))
                 .andReturn(new ArrayList<>());
@@ -124,21 +124,19 @@ public class DetectDocumentsPendingEntriesServiceImplTest {
     @Test
     @PrepareForTest(Logger.class)
     public void testEmailWithNoDocumentHeaders() throws Exception {
-        mockLogger.debug("Running reportDocumentsWithoutPendingEntries");
+        mockLogger.debug("reportDocumentsWithoutEntries() started");
         List<String> emailAddresses = new ArrayList<>();
         emailAddresses.add("to@kuali.co");
         EasyMock.expect(parameterService.getParameterValuesAsString(DetectDocumentsMissingEntriesStep.class,
                 KFSParameterKeyConstants.DetectDocumentsMissingEntriesConstants.NOTIFICATION_EMAIL_ADDRESSES))
                 .andReturn(emailAddresses);
-        EasyMock.expect(configurationService
-                .getPropertyValueAsString(KFSKeyConstants.DetectMissingEntriesMessages.FAILURE_HEADER))
+        EasyMock.expect(configurationService.getPropertyValueAsString(KFSKeyConstants.DetectMissingEntriesMessages.FAILURE_HEADER))
                 .andReturn("Could not find expected general ledger pending entries:");
-        EasyMock.expect(configurationService
-                .getPropertyValueAsString(KFSKeyConstants.DetectMissingEntriesMessages.EMAIL_SUBJECT))
+        EasyMock.expect(configurationService.getPropertyValueAsString(KFSKeyConstants.DetectMissingEntriesMessages.EMAIL_SUBJECT))
                 .andReturn("Email Header");
-        EasyMock.expect(mailService.getBatchMailingList()).andReturn("from@kuali.co");
+        EasyMock.expect(emailService.getFromAddress()).andReturn("from@kuali.co");
 
-        MailMessage mailMessage = new MailMessage();
+        BodyMailMessage mailMessage = new BodyMailMessage();
         mailMessage.setSubject("Email Header");
         Set<String> expectedEmailAddresses = new HashSet<>();
         expectedEmailAddresses.add("to@kuali.co");
@@ -148,14 +146,14 @@ public class DetectDocumentsPendingEntriesServiceImplTest {
 
         captureSendMessageResults();
 
-        EasyMock.replay(mockLogger, configurationService, mailService, parameterService);
+        EasyMock.replay(mockLogger, configurationService, emailService, parameterService);
 
         initializeDetectDocumentsMissingPendingEntriesService();
-        detectDocumentsMissingEntriesService.setMailService(mailService);
+        detectDocumentsMissingEntriesService.setEmailService(emailService);
         List<DocumentHeaderData> documentHeaderDataList = new ArrayList<>();
         detectDocumentsMissingEntriesService.reportDocumentsWithoutEntries(documentHeaderDataList);
 
-        EasyMock.verify(mockLogger, parameterService, configurationService, mailService);
+        EasyMock.verify(mockLogger, parameterService, configurationService, emailService);
 
         assertMailMessage(mailMessage, savedMessage);
     }
@@ -168,7 +166,7 @@ public class DetectDocumentsPendingEntriesServiceImplTest {
         List<String> emailAddresses = new ArrayList<>();
         emailAddresses.add("to@kuali.co");
         emailAddresses.add("to2@kuali.co");
-        mockLogger.debug("Running reportDocumentsWithoutPendingEntries");
+        mockLogger.debug("reportDocumentsWithoutEntries() started");
         EasyMock.expect(parameterService.getParameterValuesAsString(DetectDocumentsMissingEntriesStep.class,
                 KFSParameterKeyConstants.DetectDocumentsMissingEntriesConstants.NOTIFICATION_EMAIL_ADDRESSES))
                 .andReturn(emailAddresses);
@@ -181,9 +179,9 @@ public class DetectDocumentsPendingEntriesServiceImplTest {
         EasyMock.expect(configurationService
                 .getPropertyValueAsString(KFSKeyConstants.DetectMissingEntriesMessages.FAILURE_ENTRY))
                 .andReturn("Document Number: {0} Document Type: {1} Processed Date: {2}").times(3);
-        EasyMock.expect(mailService.getBatchMailingList()).andReturn("from@kuali.co");
+        EasyMock.expect(emailService.getFromAddress()).andReturn("from@kuali.co");
 
-        MailMessage mailMessage = new MailMessage();
+        BodyMailMessage mailMessage = new BodyMailMessage();
         mailMessage.setSubject("Email Header");
         Set<String> expectedEmailAddresses = new HashSet<>();
         expectedEmailAddresses.add("to@kuali.co");
@@ -197,10 +195,10 @@ public class DetectDocumentsPendingEntriesServiceImplTest {
 
         captureSendMessageResults();
 
-        EasyMock.replay(mockLogger, configurationService, mailService, parameterService);
+        EasyMock.replay(mockLogger, configurationService, emailService, parameterService);
 
         initializeDetectDocumentsMissingPendingEntriesService();
-        detectDocumentsMissingEntriesService.setMailService(mailService);
+        detectDocumentsMissingEntriesService.setEmailService(emailService);
         List<DocumentHeaderData> documentHeaderDataList = new ArrayList<>();
         DocumentHeaderData documentHeaderData1 = new DocumentHeaderData("AAAA", "DT1", now);
         DocumentHeaderData documentHeaderData2 = new DocumentHeaderData("BBBB", "DT2", now);
@@ -210,7 +208,7 @@ public class DetectDocumentsPendingEntriesServiceImplTest {
         documentHeaderDataList.add(documentHeaderData3);
         detectDocumentsMissingEntriesService.reportDocumentsWithoutEntries(documentHeaderDataList);
 
-        EasyMock.verify(mockLogger, parameterService, configurationService, mailService);
+        EasyMock.verify(mockLogger, parameterService, configurationService, emailService);
         assertMailMessage(mailMessage, savedMessage);
     }
 
@@ -222,20 +220,21 @@ public class DetectDocumentsPendingEntriesServiceImplTest {
     }
 
     private void captureSendMessageResults() throws InvalidAddressException, MessagingException {
-        mailService.sendMessage(EasyMock.isA(MailMessage.class));
-        EasyMock.expectLastCall().andDelegateTo(new MailService() {
+        emailService.sendMessage(EasyMock.isA(MailMessage.class),EasyMock.anyBoolean());
+        EasyMock.expectLastCall().andDelegateTo(new EmailService() {
             @Override
-            public void sendMessage(MailMessage message) throws InvalidAddressException, MessagingException {
-                savedMessage = message;
-            }
-
-            @Override
-            public void sendMessage(MailMessage message, boolean htmlMessage) throws InvalidAddressException, MessagingException {
-            }
-
-            @Override
-            public String getBatchMailingList() {
+            public String getFromAddress() {
                 return null;
+            }
+
+            @Override
+            public String getDefaultToAddress() {
+                return null;
+            }
+
+            @Override
+            public void sendMessage(MailMessage message,boolean htmlMessage) {
+                savedMessage = message;
             }
         });
     }
@@ -246,6 +245,6 @@ public class DetectDocumentsPendingEntriesServiceImplTest {
         detectDocumentsMissingEntriesService = new DetectDocumentsMissingEntriesServiceImpl();
         detectDocumentsMissingEntriesService.setConfigurationService(configurationService);
         detectDocumentsMissingEntriesService.setParameterService(parameterService);
-        detectDocumentsMissingEntriesService.setMailService(mailService);
+        detectDocumentsMissingEntriesService.setEmailService(emailService);
     }
 }

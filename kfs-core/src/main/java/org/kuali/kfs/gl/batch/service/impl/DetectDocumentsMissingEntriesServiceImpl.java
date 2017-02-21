@@ -18,6 +18,19 @@
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.gl.batch.DetectDocumentsMissingEntriesStep;
+import org.kuali.kfs.gl.batch.dataaccess.DetectDocumentsMissingEntriesDao;
+import org.kuali.kfs.gl.batch.service.DetectDocumentsMissingEntriesService;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.KFSParameterKeyConstants;
+import org.kuali.kfs.sys.businessobject.DocumentHeaderData;
+import org.kuali.kfs.sys.mail.BodyMailMessage;
+import org.kuali.kfs.sys.service.EmailService;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,39 +42,22 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.mail.MessagingException;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.gl.batch.DetectDocumentsMissingEntriesStep;
-import org.kuali.kfs.gl.batch.dataaccess.DetectDocumentsMissingEntriesDao;
-import org.kuali.kfs.gl.batch.service.DetectDocumentsMissingEntriesService;
-import org.kuali.kfs.krad.exception.InvalidAddressException;
-import org.kuali.kfs.krad.service.MailService;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.KFSParameterKeyConstants;
-import org.kuali.kfs.sys.businessobject.DocumentHeaderData;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.mail.MailMessage;
-import org.springframework.transaction.annotation.Transactional;
-
 @Transactional
 public class DetectDocumentsMissingEntriesServiceImpl implements DetectDocumentsMissingEntriesService {
-    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger
-            .getLogger(DetectDocumentsMissingEntriesServiceImpl.class);
+    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DetectDocumentsMissingEntriesServiceImpl.class);
 
     public static final String PAYMENT_MEDIUM_CODE_CHECK = "CK";
 
     protected ParameterService parameterService;
-    protected MailService mailService;
+    protected EmailService emailService;
     protected ConfigurationService configurationService;
     protected DetectDocumentsMissingEntriesDao detectDocumentsMissingEntriesDao;
 
     @Override
     public List<DocumentHeaderData> discoverGeneralLedgerDocumentsWithoutEntries() {
-        LOG.debug("Running discoverLedgerDocumentsWithoutEntries");
-        List<DocumentHeaderData> docs = detectDocumentsMissingEntriesDao
-                .discoverLedgerDocumentsWithoutEntries(calculateEarliestProcessingDate(), getSearchByDocumentTypes());
+        LOG.debug("discoverGeneralLedgerDocumentsWithoutEntries() started");
+
+        List<DocumentHeaderData> docs = detectDocumentsMissingEntriesDao.discoverLedgerDocumentsWithoutEntries(calculateEarliestProcessingDate(), getSearchByDocumentTypes());
 
         // Deal with exceptions before returning
         return docs.stream().filter(this::includeCtrlDocument).collect(Collectors.toList());
@@ -69,7 +65,8 @@ public class DetectDocumentsMissingEntriesServiceImpl implements DetectDocuments
 
     @Override
     public void reportDocumentsWithoutEntries(List<DocumentHeaderData> documentHeaders) {
-        LOG.debug("Running reportDocumentsWithoutPendingEntries");
+        LOG.debug("reportDocumentsWithoutEntries() started");
+
         final Collection<String> notificationEmailAddresses = parameterService.getParameterValuesAsString(
                 DetectDocumentsMissingEntriesStep.class,
                 KFSParameterKeyConstants.DetectDocumentsMissingEntriesConstants.NOTIFICATION_EMAIL_ADDRESSES);
@@ -125,22 +122,15 @@ public class DetectDocumentsMissingEntriesServiceImpl implements DetectDocuments
         LOG.warn("\n" + buildReportMessage(documentHeaders));
     }
 
-    protected void emailDocumentHeaders(List<DocumentHeaderData> documentHeaders,
-            Collection<String> notificationEmailAddresses) {
-        try {
-            mailService.sendMessage(buildNotificationMessage(documentHeaders, notificationEmailAddresses));
-        } catch (InvalidAddressException | MessagingException e) {
-            throw new RuntimeException("Could not send e-mail message for Detect Documents Missing PLEs Job", e);
-        }
+    protected void emailDocumentHeaders(List<DocumentHeaderData> documentHeaders, Collection<String> notificationEmailAddresses) {
+        emailService.sendMessage(buildNotificationMessage(documentHeaders, notificationEmailAddresses),false);
     }
 
-    protected MailMessage buildNotificationMessage(List<DocumentHeaderData> documentHeaders,
-            Collection<String> notificationEmailAddresses) {
-        MailMessage message = new MailMessage();
-        message.setSubject(configurationService
-                .getPropertyValueAsString(KFSKeyConstants.DetectMissingEntriesMessages.EMAIL_SUBJECT));
+    protected BodyMailMessage buildNotificationMessage(List<DocumentHeaderData> documentHeaders, Collection<String> notificationEmailAddresses) {
+        BodyMailMessage message = new BodyMailMessage();
+        message.setSubject(configurationService.getPropertyValueAsString(KFSKeyConstants.DetectMissingEntriesMessages.EMAIL_SUBJECT));
         message.setToAddresses(buildNotificationEmailAddressesSet(notificationEmailAddresses));
-        message.setFromAddress(mailService.getBatchMailingList());
+        message.setFromAddress(emailService.getFromAddress());
         message.setMessage(buildReportMessage(documentHeaders));
         return message;
     }
@@ -154,13 +144,11 @@ public class DetectDocumentsMissingEntriesServiceImpl implements DetectDocuments
     protected String buildReportMessage(List<DocumentHeaderData> documentHeaders) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         StringBuilder reportMessage = new StringBuilder();
-        reportMessage.append(configurationService
-                .getPropertyValueAsString(KFSKeyConstants.DetectMissingEntriesMessages.FAILURE_HEADER));
+        reportMessage.append(configurationService.getPropertyValueAsString(KFSKeyConstants.DetectMissingEntriesMessages.FAILURE_HEADER));
         reportMessage.append("\n");
         final String documentHeadersReport = documentHeaders.stream()
                 .map(documentHeader -> MessageFormat.format(
-                        configurationService
-                                .getPropertyValueAsString(KFSKeyConstants.DetectMissingEntriesMessages.FAILURE_ENTRY),
+                        configurationService.getPropertyValueAsString(KFSKeyConstants.DetectMissingEntriesMessages.FAILURE_ENTRY),
                         documentHeader.getDocumentNumber(), documentHeader.getWorkflowDocumentTypeName(),
                         dateFormatter.format(documentHeader.getProcessedDate())))
                 .collect(Collectors.joining("\n"));
@@ -168,36 +156,19 @@ public class DetectDocumentsMissingEntriesServiceImpl implements DetectDocuments
         return reportMessage.toString();
     }
 
-    public ParameterService getParameterService() {
-        return parameterService;
-    }
-
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
-    }
-
-    public MailService getMailService() {
-        return mailService;
-    }
-
-    public void setMailService(MailService mailService) {
-        this.mailService = mailService;
-    }
-
-    public ConfigurationService getConfigurationService() {
-        return configurationService;
     }
 
     public void setConfigurationService(ConfigurationService configurationService) {
         this.configurationService = configurationService;
     }
 
-    public DetectDocumentsMissingEntriesDao getDetectDocumentsMissingEntriesDao() {
-        return detectDocumentsMissingEntriesDao;
-    }
-
     public void setDetectDocumentsMissingEntriesDao(DetectDocumentsMissingEntriesDao detectDocumentsMissingEntriesDao) {
         this.detectDocumentsMissingEntriesDao = detectDocumentsMissingEntriesDao;
     }
 
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
 }

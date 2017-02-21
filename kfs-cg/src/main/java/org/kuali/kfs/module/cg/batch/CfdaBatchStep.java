@@ -20,17 +20,15 @@ package org.kuali.kfs.module.cg.batch;
 
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.exception.InvalidAddressException;
-import org.kuali.kfs.krad.service.MailService;
 import org.kuali.kfs.module.cg.businessobject.CfdaUpdateResults;
 import org.kuali.kfs.module.cg.service.CfdaService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.batch.AbstractStep;
+import org.kuali.kfs.sys.mail.BodyMailMessage;
+import org.kuali.kfs.sys.service.EmailService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.mail.MailMessage;
 
-import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
@@ -41,27 +39,22 @@ import java.util.Date;
  * Finally an email containing a summary of what was done by the step execution is sent to the member of the CG_CFDA_BATCH_NOTIFY workgroup.
  */
 public class CfdaBatchStep extends AbstractStep {
-
     private static final Logger LOG = org.apache.log4j.Logger.getLogger(CfdaBatchStep.class);
 
     protected CfdaService cfdaService;
-    protected MailService mailService;
+    protected EmailService emailService;
     protected ParameterService parameterService;
     protected ConfigurationService configurationService;
 
-    /**
-     * See the class description.
-     *
-     * @see org.kuali.kfs.sys.batch.Step#execute(String, Date)
-     */
     @Override
     public boolean execute(String jobName, Date jobRunDate) throws InterruptedException {
-        MailMessage message = new MailMessage();
+        LOG.debug("execute() started");
+
+        BodyMailMessage message = new BodyMailMessage();
 
         try {
             CfdaUpdateResults results = cfdaService.update();
 
-            // TODO this message should come from some config file.
             StringBuilder builder = new StringBuilder();
             builder.append("The CFDA batch script is complete.\n");
             builder.append(" - ");
@@ -95,79 +88,43 @@ public class CfdaBatchStep extends AbstractStep {
 
             Collection<String> listservAddresses = parameterService.getParameterValuesAsString(CfdaBatchStep.class, KFSConstants.RESULT_SUMMARY_TO_EMAIL_ADDRESSES);
             if (listservAddresses.isEmpty()) {
-                LOG.fatal("No addresses for notification to in " + KFSConstants.RESULT_SUMMARY_TO_EMAIL_ADDRESSES + " parameter.  Aborting Email.");
+                LOG.fatal("execute() No addresses for notification to in " + KFSConstants.RESULT_SUMMARY_TO_EMAIL_ADDRESSES + " parameter.  Aborting Email.");
                 return true;
             }
 
             for (String listserv : listservAddresses) {
-                if (LOG.isInfoEnabled()) {
-                    LOG.info("Mailing to: " + listserv);
-                }
+                LOG.info("execute() Mailing to: " + listserv);
+
                 message.addToAddress(listserv);
             }
 
             message.setFromAddress(listservAddresses.iterator().next());
 
-
-            message.setSubject(getConfigurationService().getPropertyValueAsString(KFSKeyConstants.CFDA_UPDATE_EMAIL_SUBJECT_LINE));
+            message.setSubject(configurationService.getPropertyValueAsString(KFSKeyConstants.CFDA_UPDATE_EMAIL_SUBJECT_LINE));
             message.setMessage(builder.toString());
-            mailService.sendMessage(message);
-
+            emailService.sendMessage(message,false);
         } catch (IOException ioe) {
             LOG.warn("Exception while updating CFDA codes.", ioe);
             return false;
-        } catch (MessagingException | InvalidAddressException ex) {
-            LOG.warn("The email address for " + CfdaBatchStep.class + ":" + KFSConstants.RESULT_SUMMARY_TO_EMAIL_ADDRESSES + " is invalid.", ex);
-            return true;
         }
         return true;
     }
 
-    /**
-     * Sets the {@link CfdaService}. For use by Spring.
-     *
-     * @param cfdaService The service to be assigned.
-     */
     public void setCfdaService(CfdaService cfdaService) {
         this.cfdaService = cfdaService;
     }
 
-    /**
-     * Set the {@link MailService}. For use by Spring.
-     *
-     * @param mailService The service to be assigned.
-     */
-    public void setMailService(MailService mailService) {
-        this.mailService = mailService;
-    }
-
-    /**
-     * Sets the {@link ParameterService}. For use by Spring.
-     *
-     * @param parameterService The service to be assigned.
-     */
     @Override
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }
 
-    /**
-     * Gets the configurationService attribute.
-     *
-     * @return Returns the configurationService.
-     */
-    public ConfigurationService getConfigurationService() {
-        return configurationService;
-    }
-
-    /**
-     * Sets the configurationService attribute value.
-     *
-     * @param configurationService The configurationService to set.
-     */
     public void setConfigurationService(ConfigurationService configurationService) {
         this.configurationService = configurationService;
     }
 
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
 }
 

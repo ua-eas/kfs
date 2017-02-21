@@ -40,19 +40,12 @@ import java.util.Set;
  * users.
  */
 public class KualiFeedbackServiceImpl implements KualiFeedbackService {
-
     private static final Logger LOG = Logger.getLogger(KualiFeedbackServiceImpl.class);
 
     private static final String FEEDBACK_EMAIL_SUBJECT_PARAM = "feedback.email.subject";
     private static final String FEEDBACK_EMAIL_BODY_PARAM = "feedback.email.body";
 
-    /**
-     * A Mailer for sending report.
-     */
     private Mailer mailer;
-    /**
-     * An email template is used to construct an email to be sent by the mail service.
-     */
     private MailMessage messageTemplate;
 
     /**
@@ -62,12 +55,7 @@ public class KualiFeedbackServiceImpl implements KualiFeedbackService {
      */
     @Override
     public void emailReport(String subject, String message) throws Exception {
-        if (LOG.isTraceEnabled()) {
-            String lm = String.format("ENTRY %s;%s",
-                (subject == null) ? "null" : subject.toString(),
-                (message == null) ? "null" : message.toString());
-            LOG.trace(lm);
-        }
+        LOG.debug("emailReport() started");
 
         if (mailer == null) {
             String errorMessage = "mailer property of KualiExceptionIncidentServiceImpl is null";
@@ -78,10 +66,6 @@ public class KualiFeedbackServiceImpl implements KualiFeedbackService {
         // Send mail
         MailMessage msg = createMailMessage(subject, message);
         mailer.sendEmail(msg);
-
-        if (LOG.isTraceEnabled()) {
-            LOG.trace("EXIT");
-        }
     }
 
     @Override
@@ -120,14 +104,8 @@ public class KualiFeedbackServiceImpl implements KualiFeedbackService {
      *                               or messageTemplate does not have ToAddresses already set.
      */
     @SuppressWarnings("unchecked")
-    protected MailMessage createMailMessage(String subject, String message)
-        throws Exception {
-        if (LOG.isTraceEnabled()) {
-            String lm = String.format("ENTRY %s%n%s",
-                (subject == null) ? "null" : subject.toString(),
-                (message == null) ? "null" : message.toString());
-            LOG.trace(lm);
-        }
+    protected MailMessage createMailMessage(String subject, String message) throws Exception {
+        LOG.debug("createMailMessage() started");
 
         MailMessage messageTemplate = this.getMessageTemplate();
         if (messageTemplate == null) {
@@ -179,7 +157,7 @@ public class KualiFeedbackServiceImpl implements KualiFeedbackService {
                 LOG.error(em);
                 throw new IllegalStateException(em);
             } else {
-                return new HashSet<String>(Arrays.asList(StringUtils.split(mailingList,
+                return new HashSet<>(Arrays.asList(StringUtils.split(mailingList,
                     KRADConstants.FIELD_CONVERSIONS_SEPARATOR)));
             }
         } else {

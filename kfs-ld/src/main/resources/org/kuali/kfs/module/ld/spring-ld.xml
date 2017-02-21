@@ -1863,19 +1863,14 @@
             <ref bean="laborOriginEntryEnterpriseFeederService"/>
         </property>
     </bean>
-    <bean id="laborOriginEntryEnterpriseFeederNotificationService" parent="laborOriginEntryEnterpriseFeederNotificationService-parentBean"/>
 
+    <bean id="laborOriginEntryEnterpriseFeederNotificationService" parent="laborOriginEntryEnterpriseFeederNotificationService-parentBean"/>
     <bean id="laborOriginEntryEnterpriseFeederNotificationService-parentBean" class="org.kuali.kfs.gl.batch.service.impl.EnterpriseFeederNotificationServiceImpl" abstract="true">
-        <property name="configurationService">
-            <ref bean="kualiConfigurationService"/>
-        </property>
-        <property name="parameterService">
-            <ref bean="parameterService"/>
-        </property>
-        <property name="mailService">
-            <ref bean="mailService"/>
-        </property>
+        <property name="configurationService" ref="kualiConfigurationService"/>
+        <property name="parameterService" ref="parameterService"/>
+        <property name="emailService" ref="emailService"/>
     </bean>
+
     <bean id="laborEnterpriseFeedReportWriterService" parent="laborEnterpriseFeedReportWriterService-parentBean"/>
 
     <bean id="laborEnterpriseFeedReportWriterService-parentBean" class="org.kuali.kfs.sys.service.impl.ReportWriterTextServiceImpl"

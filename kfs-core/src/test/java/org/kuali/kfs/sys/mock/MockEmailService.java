@@ -16,25 +16,32 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.sys.service;
+package org.kuali.kfs.sys.mock;
 
-import org.kuali.kfs.krad.exception.InvalidAddressException;
-import org.kuali.kfs.sys.mail.AttachmentMailMessage;
+import org.kuali.kfs.sys.mail.MailMessage;
+import org.kuali.kfs.sys.service.EmailService;
 
-import javax.mail.MessagingException;
+public class MockEmailService implements EmailService {
+    public String defaultToAddress = "defaultto@kuali.co";
+    public String fromAddress = "from@kuali.co";
+    public int emailCount = 0;
+    public MailMessage message;
+    public boolean htmlMessage;
 
-/**
- * This service extends the KRAD MailMessage to add attachment support
- */
-public interface AttachmentMailService extends org.kuali.kfs.krad.service.MailService {
+    @Override
+    public String getFromAddress() {
+        return fromAddress;
+    }
 
-    /**
-     * This method sends an email message with an attachment.
-     *
-     * @param message
-     * @throws InvalidAddressException
-     * @throws MessagingException
-     */
-    public void sendMessage(AttachmentMailMessage message) throws InvalidAddressException, MessagingException;
+    @Override
+    public String getDefaultToAddress() {
+        return defaultToAddress;
+    }
 
+    @Override
+    public void sendMessage(MailMessage message, boolean htmlMessage) {
+        emailCount++;
+        this.message = message;
+        this.htmlMessage = htmlMessage;
+    }
 }

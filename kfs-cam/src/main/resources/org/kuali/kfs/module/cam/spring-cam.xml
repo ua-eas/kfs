@@ -124,55 +124,23 @@
     <bean id="assetDepreciationService" parent="assetDepreciationService-parentBean"/>
     <bean id="assetDepreciationService-parentBean" class="org.kuali.kfs.module.cam.batch.service.impl.AssetDepreciationServiceImpl" abstract="true">
         <property name="cronExpression" value="0 * * ? * 5#3"/>
-        <property name="mailService" ref="mailService"/>
-        <property name="parameterService">
-            <ref bean="parameterService"/>
-        </property>
-        <property name="depreciableAssetsDao">
-            <ref bean="depreciableAssetsDao"/>
-        </property>
-        <property name="depreciationBatchDao">
-            <ref bean="depreciationBatchDao"/>
-        </property>
-        <property name="camsReportService">
-            <ref bean="camsReportService"/>
-        </property>
-        <property name="configurationService">
-            <ref bean="kualiConfigurationService"/>
-        </property>
-        <property name="generalLedgerPendingEntryService">
-            <ref bean="generalLedgerPendingEntryService"/>
-        </property>
-        <property name="dateTimeService">
-            <ref bean="dateTimeService"/>
-        </property>
-        <property name="dataDictionaryService">
-            <ref bean="dataDictionaryService"/>
-        </property>
-        <property name="businessObjectService">
-            <ref bean="businessObjectService"/>
-        </property>
-        <property name="optionsService">
-            <ref bean="optionsService"/>
-        </property>
-        <property name="assetDateService">
-            <ref bean="assetDateService"/>
-        </property>
-        <property name="universityDateService">
-            <ref bean="universityDateService"/>
-        </property>
-        <property name="schedulerService">
-            <ref bean="schedulerService"/>
-        </property>
-        <property name="assetService">
-            <ref bean="assetService"/>
-        </property>
-        <property name="objectCodeService">
-            <ref bean="objectCodeService"/>
-        </property>
-        <property name="workflowDocumentService">
-            <ref bean="workflowDocumentService"/>
-        </property>
+        <property name="emailService" ref="emailService"/>
+        <property name="parameterService" ref="parameterService"/>
+        <property name="depreciableAssetsDao" ref="depreciableAssetsDao"/>
+        <property name="depreciationBatchDao" ref="depreciationBatchDao"/>
+        <property name="camsReportService" ref="camsReportService"/>
+        <property name="configurationService" ref="kualiConfigurationService"/>
+        <property name="generalLedgerPendingEntryService" ref="generalLedgerPendingEntryService"/>
+        <property name="dateTimeService" ref="dateTimeService"/>
+        <property name="dataDictionaryService" ref="dataDictionaryService"/>
+        <property name="businessObjectService" ref="businessObjectService"/>
+        <property name="optionsService" ref="optionsService"/>
+        <property name="assetDateService" ref="assetDateService"/>
+        <property name="universityDateService" ref="universityDateService"/>
+        <property name="schedulerService" ref="schedulerService"/>
+        <property name="assetService" ref="assetService"/>
+        <property name="objectCodeService" ref="objectCodeService"/>
+        <property name="workflowDocumentService" ref="workflowDocumentService"/>
     </bean>
 
     <bean id="depreciableAssetsDao" parent="platformAwareDao" class="org.kuali.kfs.module.cam.document.dataaccess.impl.DepreciableAssetsDaoOjb">

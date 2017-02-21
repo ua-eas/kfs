@@ -31,7 +31,6 @@ import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.service.impl.MailServiceImpl;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
@@ -45,15 +44,12 @@ import org.kuali.kfs.module.ar.service.AREmailService;
 import org.kuali.kfs.module.ar.service.ContractsGrantsBillingUtilityService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.mail.AttachmentMailMessage;
-import org.kuali.kfs.sys.service.AttachmentMailService;
-import org.kuali.kfs.sys.service.NonTransactional;
+import org.kuali.kfs.sys.mail.BodyMailMessage;
+import org.kuali.kfs.sys.service.EmailService;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.mail.MailMessage;
 
 import javax.mail.MessagingException;
-import javax.mail.Session;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.MessageFormat;
@@ -63,14 +59,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-
-/**
- * Defines methods for sending AR emails.
- */
 public class AREmailServiceImpl implements AREmailService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AREmailServiceImpl.class);
 
-    protected AttachmentMailService mailService;
     protected ParameterService parameterService;
     protected DataDictionaryService dataDictionaryService;
     protected ConfigurationService kualiConfigurationService;
@@ -79,38 +70,7 @@ public class AREmailServiceImpl implements AREmailService {
     protected NoteService noteService;
     protected KualiModuleService kualiModuleService;
     protected ContractsGrantsBillingUtilityService contractsGrantsBillingUtilityService;
-
-    /**
-     * Sets the kualiModuleService attribute value.
-     *
-     * @param kualiModuleService The kualiModuleService to set.
-     */
-    @NonTransactional
-    public void setKualiModuleService(KualiModuleService kualiModuleService) {
-        this.kualiModuleService = kualiModuleService;
-    }
-
-    public void setBusinessObjectService(BusinessObjectService businessObjectService) {
-        this.businessObjectService = businessObjectService;
-    }
-
-    /**
-     * This method gets the document service
-     *
-     * @return the document service
-     */
-    public DocumentService getDocumentService() {
-        return documentService;
-    }
-
-    /**
-     * This method sets the document service
-     *
-     * @param documentService
-     */
-    public void setDocumentService(DocumentService documentService) {
-        this.documentService = documentService;
-    }
+    protected EmailService emailService;
 
     /**
      * This method is used to send emails to the agency
@@ -122,10 +82,7 @@ public class AREmailServiceImpl implements AREmailService {
         LOG.debug("sendInvoicesViaEmail() starting.");
 
         boolean success = true;
-        Properties props = getConfigProperties();
 
-        // Get session
-        Session session = Session.getInstance(props, null);
         for (ContractsGrantsInvoiceDocument invoice : invoices) {
             List<InvoiceAddressDetail> invoiceAddressDetails = invoice.getInvoiceAddressDetails();
             for (InvoiceAddressDetail invoiceAddressDetail : invoiceAddressDetails) {
@@ -133,7 +90,7 @@ public class AREmailServiceImpl implements AREmailService {
                     Note note = noteService.getNoteByNoteId(invoiceAddressDetail.getNoteId());
 
                     if (ObjectUtils.isNotNull(note)) {
-                        AttachmentMailMessage message = new AttachmentMailMessage();
+                        BodyMailMessage message = new BodyMailMessage();
 
                         String sender = parameterService.getParameterValueAsString(KFSConstants.OptionalModuleNamespaces.ACCOUNTS_RECEIVABLE, ArConstants.CONTRACTS_GRANTS_INVOICE_COMPONENT, ArConstants.FROM_EMAIL_ADDRESS);
                         message.setFromAddress(sender);
@@ -143,35 +100,34 @@ public class AREmailServiceImpl implements AREmailService {
                         if (StringUtils.isNotEmpty(recipients)) {
                             message.getToAddresses().add(recipients);
                         } else {
-                            LOG.warn("No recipients indicated.");
+                            LOG.warn("sendInvoicesViaEmail() No recipients indicated.");
                         }
 
                         String subject = getSubject(invoice);
                         message.setSubject(subject);
                         if (StringUtils.isEmpty(subject)) {
-                            LOG.warn("Empty subject being sent.");
+                            LOG.warn("sendInvoicesViaEmail() Empty subject being sent.");
                         }
 
                         String bodyText = getMessageBody(invoice, customerAddress);
                         message.setMessage(bodyText);
                         if (StringUtils.isEmpty(bodyText)) {
-                            LOG.warn("Empty bodyText being sent.");
+                            LOG.warn("sendInvoicesViaEmail() Empty bodyText being sent.");
                         }
 
                         Attachment attachment = note.getAttachment();
                         if (ObjectUtils.isNotNull(attachment)) {
                             try {
-                                message.setContent(IOUtils.toByteArray(attachment.getAttachmentContents()));
+                                message.setAttachmentContent(IOUtils.toByteArray(attachment.getAttachmentContents()));
                             } catch (IOException ex) {
                                 LOG.error("Error setting attachment contents", ex);
                                 throw new RuntimeException(ex);
                             }
-                            message.setFileName(attachment.getAttachmentFileName());
-                            message.setType(attachment.getAttachmentMimeTypeCode());
+                            message.setAttachmentFileName(attachment.getAttachmentFileName());
+                            message.setAttachmentContentType(attachment.getAttachmentMimeTypeCode());
                         }
 
-                        setupMailServiceForNonProductionInstance();
-                        mailService.sendMessage(message);
+                        emailService.sendMessage(message,false);
 
                         invoiceAddressDetail.setInitialTransmissionDate(new Date(new java.util.Date().getTime()));
                         documentService.updateDocument(invoice);
@@ -215,67 +171,15 @@ public class AREmailServiceImpl implements AREmailService {
     }
 
     /**
-     * Setup properties to handle mail messages in a non-production environment as appropriate.
-     * <p>
-     * NOTE: We should be setting up configuration properties for these values, and once that is done
-     * this method can be removed.
-     */
-    public void setupMailServiceForNonProductionInstance() {
-        if (!ConfigContext.getCurrentContextConfig().isProductionEnvironment()) {
-            ((MailServiceImpl) mailService).setRealNotificationsEnabled(false);
-            ((MailServiceImpl) mailService).setNonProductionNotificationMailingList(mailService.getBatchMailingList());
-        }
-    }
-
-    /**
-     * Sets the mailService attribute value.
-     *
-     * @param mailService The mailService to set.
-     */
-    public void setMailService(AttachmentMailService mailService) {
-        this.mailService = mailService;
-    }
-
-    /**
-     * Sets the parameterService attribute value.
-     *
-     * @param parameterService The parameterService to set.
-     */
-    public void setParameterService(ParameterService parameterService) {
-        this.parameterService = parameterService;
-    }
-
-    /**
-     * Sets the dataDictionaryService attribute value.
-     *
-     * @param dataDictionaryService The dataDictionaryService to set.
-     */
-    public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
-        this.dataDictionaryService = dataDictionaryService;
-    }
-
-    /**
-     * Retrieves the Properties used to configure the Mailer. The property names configured in the Workflow configuration should
-     * match those of Java Mail.
-     *
-     * @return
-     */
-    protected Properties getConfigProperties() {
-        return ConfigContext.getCurrentContextConfig().getProperties();
-    }
-
-    /**
      * This method sends out emails for upcoming milestones.
-     *
-     * @see org.kuali.kfs.module.ar.service.CGEmailService#sendEmail(java.util.List, org.kuali.kfs.module.ar.businessobject.Award)
      */
     @Override
     public void sendEmailNotificationsForMilestones(List<Milestone> milestones, ContractsAndGrantsBillingAward award) {
-        LOG.debug("sendEmail() starting");
+        LOG.debug("sendEmailNotificationsForMilestones() started");
 
-        MailMessage message = new MailMessage();
+        BodyMailMessage message = new BodyMailMessage();
 
-        message.setFromAddress(mailService.getBatchMailingList());
+        message.setFromAddress(emailService.getFromAddress());
         message.setSubject(getEmailSubject(ArConstants.REMINDER_EMAIL_SUBJECT));
         message.getToAddresses().add(award.getAwardPrimaryFundManager().getFundManager().getEmailAddress());
         StringBuffer body = new StringBuffer();
@@ -305,55 +209,57 @@ public class AREmailServiceImpl implements AREmailService {
 
         message.setMessage(body.toString());
 
-        try {
-            mailService.sendMessage(message);
-        } catch (InvalidAddressException | MessagingException ex) {
-            LOG.error("Problems sending milestones e-mail", ex);
-            throw new RuntimeException("Problems sending milestones e-mail", ex);
-        }
+        emailService.sendMessage(message,false);
     }
 
     /**
      * Retrieves the email subject text from system parameter then checks environment code and prepends to message if not
      * production.
      *
-     * @param subjectParmaterName name of parameter giving the subject text
+     * @param subjectParameterName name of parameter giving the subject text
      * @return subject text
      */
-    protected String getEmailSubject(String subjectParmaterName) {
-        String subject = parameterService.getParameterValueAsString(UpcomingMilestoneNotificationStep.class, subjectParmaterName);
-
-        String productionEnvironmentCode = kualiConfigurationService.getPropertyValueAsString(KFSConstants.PROD_ENVIRONMENT_CODE_KEY);
-        String environmentCode = kualiConfigurationService.getPropertyValueAsString(KFSConstants.ENVIRONMENT_KEY);
-        if (!StringUtils.equals(productionEnvironmentCode, environmentCode)) {
-            subject = environmentCode + ": " + subject;
-        }
-
-        return subject;
+    protected String getEmailSubject(String subjectParameterName) {
+        return parameterService.getParameterValueAsString(UpcomingMilestoneNotificationStep.class, subjectParameterName);
     }
 
-    /**
-     * Sets the noteService attribute value.
-     *
-     * @param noteService The noteService to set.
-     */
+    protected Properties getConfigProperties() {
+        return ConfigContext.getCurrentContextConfig().getProperties();
+    }
+
+    public void setParameterService(ParameterService parameterService) {
+        this.parameterService = parameterService;
+    }
+
+    public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
+        this.dataDictionaryService = dataDictionaryService;
+    }
+
     public void setNoteService(NoteService noteService) {
         this.noteService = noteService;
-    }
-
-    public ConfigurationService getKualiConfigurationService() {
-        return kualiConfigurationService;
     }
 
     public void setKualiConfigurationService(ConfigurationService kualiConfigurationService) {
         this.kualiConfigurationService = kualiConfigurationService;
     }
 
-    public ContractsGrantsBillingUtilityService getContractsGrantsBillingUtilityService() {
-        return contractsGrantsBillingUtilityService;
-    }
-
     public void setContractsGrantsBillingUtilityService(ContractsGrantsBillingUtilityService contractsGrantsBillingUtilityService) {
         this.contractsGrantsBillingUtilityService = contractsGrantsBillingUtilityService;
+    }
+
+    public void setKualiModuleService(KualiModuleService kualiModuleService) {
+        this.kualiModuleService = kualiModuleService;
+    }
+
+    public void setBusinessObjectService(BusinessObjectService businessObjectService) {
+        this.businessObjectService = businessObjectService;
+    }
+
+    public void setDocumentService(DocumentService documentService) {
+        this.documentService = documentService;
+    }
+
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
     }
 }

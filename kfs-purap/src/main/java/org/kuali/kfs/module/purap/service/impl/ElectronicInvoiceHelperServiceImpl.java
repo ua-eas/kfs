@@ -38,7 +38,6 @@ import org.kuali.kfs.krad.service.AttachmentService;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.service.MailService;
 import org.kuali.kfs.krad.service.NoteService;
 import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.krad.util.GlobalVariables;
@@ -82,13 +81,14 @@ import org.kuali.kfs.sys.batch.service.BatchInputFileService;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.ParseException;
+import org.kuali.kfs.sys.mail.BodyMailMessage;
 import org.kuali.kfs.sys.service.BankService;
+import org.kuali.kfs.sys.service.EmailService;
 import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.mail.MailMessage;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
@@ -124,7 +124,6 @@ import java.util.Map;
  * This is a helper service to parse electronic invoice file, match it with a PO and create PREQs based on the eInvoice. Also, it
  * provides helper methods to the reject document to match it with a PO and create PREQ.
  */
-
 public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase implements ElectronicInvoiceHelperService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicInvoiceHelperServiceImpl.class);
 
@@ -134,7 +133,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
     private StringBuffer emailTextErrorList;
 
     protected ElectronicInvoiceInputFileType electronicInvoiceInputFileType;
-    protected MailService mailService;
+    protected EmailService emailService;
     protected ElectronicInvoiceMatchingService matchingService;
     protected ElectronicInvoicingDao electronicInvoicingDao;
     protected BatchInputFileService batchInputFileService;
@@ -148,6 +147,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
     @Override
     @NonTransactional
     public ElectronicInvoiceLoad loadElectronicInvoices() {
+        LOG.debug("loadElectronicInvoices() started");
 
         //add a step to check for directory paths
         prepareDirectories(getRequiredDirectoryNames());
@@ -160,12 +160,10 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
 
         int failedCnt = 0;
 
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Invoice Base Directory - " + electronicInvoiceInputFileType.getDirectoryPath());
-            LOG.info("Invoice Accept Directory - " + acceptDirName);
-            LOG.info("Invoice Reject Directory - " + rejectDirName);
-            LOG.info("Is moving files allowed - " + moveFiles);
-        }
+        LOG.info("Invoice Base Directory - " + electronicInvoiceInputFileType.getDirectoryPath());
+        LOG.info("Invoice Accept Directory - " + acceptDirName);
+        LOG.info("Invoice Reject Directory - " + rejectDirName);
+        LOG.info("Is moving files allowed - " + moveFiles);
 
         if (StringUtils.isBlank(rejectDirName)) {
             throw new RuntimeException("Reject directory name should not be empty");
@@ -192,23 +190,17 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         }
 
         try {
-            /**
-             * Create, if not there
-             */
             FileUtils.forceMkdir(new File(acceptDirName));
             FileUtils.forceMkdir(new File(rejectDirName));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        if (LOG.isInfoEnabled()) {
-            LOG.info(filesToBeProcessed.length + " file(s) available for processing");
-        }
+        LOG.info(filesToBeProcessed.length + " file(s) available for processing");
 
         StringBuilder emailMsg = new StringBuilder();
 
         for (int i = 0; i < filesToBeProcessed.length; i++) {
-
             File xmlFile = filesToBeProcessed[i];
             LOG.info("Processing " + xmlFile.getName() + "....");
 
@@ -258,7 +250,6 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
                      */
                     GlobalVariables.getMessageMap().clearErrorMessages();
 
-                    //Do not execute rest of code below
                     continue;
                 }
             }
@@ -268,19 +259,16 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
              * then the entire file has been moved to the reject dir.
              */
             if (isRejected) {
-                if (LOG.isInfoEnabled()) {
-                    LOG.info(xmlFile.getName() + " has been rejected");
-                }
+                LOG.info(xmlFile.getName() + " has been rejected");
+
                 if (moveFiles) {
-                    if (LOG.isInfoEnabled()) {
-                        LOG.info(xmlFile.getName() + " has been marked to move to " + rejectDirName);
-                    }
+                    LOG.info(xmlFile.getName() + " has been marked to move to " + rejectDirName);
+
                     eInvoiceLoad.addRejectFileToMove(xmlFile, rejectDirName);
                 }
             } else {
-                if (LOG.isInfoEnabled()) {
-                    LOG.info(xmlFile.getName() + " has been accepted");
-                }
+                LOG.info(xmlFile.getName() + " has been accepted");
+
                 if (moveFiles) {
                     if (!moveFile(xmlFile, acceptDirName)) {
                         String msg = xmlFile.getName() + " unable to move";
@@ -396,13 +384,8 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         return description.toString();
     }
 
-    protected byte[] addNamespaceDefinition(ElectronicInvoiceLoad eInvoiceLoad,
-                                            File invoiceFile) {
-
-
-        boolean result = true;
-
-        LOG.info("addNamespaceDefinition: Adding namespace definition, DocumentBuilderFactory.newInstance()");
+    protected byte[] addNamespaceDefinition(ElectronicInvoiceLoad eInvoiceLoad, File invoiceFile) {
+        LOG.debug("addNamespaceDefinition() started");
 
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
         builderFactory.setValidating(false); // It's not needed to validate here
@@ -410,10 +393,9 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
 
         DocumentBuilder builder = null;
         try {
-            LOG.info("addNamespaceDefinition: builderFactory.newDocumentBuilder()");
             builder = builderFactory.newDocumentBuilder();  // Create the parser
         } catch (ParserConfigurationException e) {
-            LOG.error("addNamespaceDefinition: Error getting document builder - " + e.getMessage());
+            LOG.error("addNamespaceDefinition() Error getting document builder - " + e.getMessage());
             throw new RuntimeException(e);
         }
 
@@ -436,7 +418,6 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         String xmlnsXsiValue = element.getAttribute("xmlns:xsi");
 
         LOG.info("addNamespaceDefinition: getInvoiceFile");
-        File namespaceAddedFile = getInvoiceFile(invoiceFile.getName());
 
         if (StringUtils.equals(xmlnsValue, "http://www.kuali.org/kfs/purap/electronicInvoice") &&
             StringUtils.equals(xmlnsXsiValue, "http://www.w3.org/2001/XMLSchema-instance")) {
@@ -453,16 +434,15 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         XMLSerializer serializer = new XMLSerializer(out, outputFormat);
         try {
             serializer.asDOMSerializer();
-            LOG.info("addNamespaceDefinition: serializer.serialize");
+            LOG.info("addNamespaceDefinition() serializer.serialize");
             serializer.serialize(xmlDoc.getDocumentElement());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        LOG.info("addNamespaceDefinition: Namespace validation completed");
+        LOG.info("addNamespaceDefinition() Namespace validation completed");
 
         return out.toByteArray();
-
     }
 
     /**
@@ -471,12 +451,8 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
      * @param eInvoiceLoad the load summary to be modified
      * @return boolean where true means there has been some type of reject
      */
-
     @Transactional
-    protected boolean processElectronicInvoice(ElectronicInvoiceLoad eInvoiceLoad,
-                                               File invoiceFile,
-                                               byte[] xmlAsBytes) {
-
+    protected boolean processElectronicInvoice(ElectronicInvoiceLoad eInvoiceLoad, File invoiceFile, byte[] xmlAsBytes) {
         ElectronicInvoice eInvoice = null;
 
         try {
@@ -521,9 +497,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
                     order.setPurchaseOrderID(po.getPurapDocumentIdentifier());
                     order.setPurchaseOrderCampusCode(po.getDeliveryCampusCode());
 
-                    if (LOG.isInfoEnabled()) {
-                        LOG.info("PO matching Document found");
-                    }
+                    LOG.info("PO matching Document found");
                 }
             }
 
@@ -545,9 +519,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
                 ElectronicInvoiceLoadSummary loadSummary = getOrCreateLoadSummary(eInvoiceLoad, dunsNumber);
                 loadSummary.addFailedInvoiceOrder(rejectDocument.getTotalAmount(), eInvoice);
                 eInvoiceLoad.insertInvoiceLoadSummary(loadSummary);
-
             } else {
-
                 PaymentRequestDocument preqDoc = createPaymentRequest(orderHolder);
 
                 if (orderHolder.isInvoiceRejected()) {
@@ -566,7 +538,6 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
                     ElectronicInvoiceLoadSummary loadSummary = getOrCreateLoadSummary(eInvoiceLoad, eInvoice.getDunsNumber());
                     loadSummary.addFailedInvoiceOrder(rejectDocument.getTotalAmount(), eInvoice);
                     eInvoiceLoad.insertInvoiceLoadSummary(loadSummary);
-
                 } else {
                     ElectronicInvoiceLoadSummary loadSummary = getOrCreateLoadSummary(eInvoiceLoad, eInvoice.getDunsNumber());
                     loadSummary.addSuccessfulInvoiceOrder(preqDoc.getTotalDollarAmount(), eInvoice);
@@ -592,12 +563,10 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         }
 
         if (StringUtils.isNotEmpty((dunsNumber))) {
-            if (LOG.isInfoEnabled()) {
-                LOG.info("Setting Vendor DUNS number - " + dunsNumber);
-            }
+            LOG.info("Setting Vendor DUNS number - " + dunsNumber);
+
             eInvoice.setDunsNumber(dunsNumber);
         }
-
     }
 
     protected void setVendorDetails(ElectronicInvoice eInvoice) {
@@ -607,9 +576,8 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             VendorDetail vendorDetail = vendorService.getVendorByDunsNumber(eInvoice.getDunsNumber());
 
             if (vendorDetail != null) {
-                if (LOG.isInfoEnabled()) {
-                    LOG.info("Vendor match found - " + vendorDetail.getVendorNumber());
-                }
+                LOG.info("Vendor match found - " + vendorDetail.getVendorNumber());
+
                 eInvoice.setVendorHeaderID(vendorDetail.getVendorHeaderGeneratedIdentifier());
                 eInvoice.setVendorDetailID(vendorDetail.getVendorDetailAssignedIdentifier());
                 eInvoice.setVendorName(vendorDetail.getVendorName());
@@ -630,9 +598,8 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             VendorDetail vendorDetail = vendorService.getVendorByDunsNumber(rejectDocument.getVendorDunsNumber());
 
             if (vendorDetail != null) {
-                if (LOG.isInfoEnabled()) {
-                    LOG.info("Vendor [" + vendorDetail.getVendorNumber() + "] match found for the DUNS - " + rejectDocument.getVendorDunsNumber());
-                }
+                LOG.info("Vendor [" + vendorDetail.getVendorNumber() + "] match found for the DUNS - " + rejectDocument.getVendorDunsNumber());
+
                 rejectDocument.setVendorHeaderGeneratedIdentifier(vendorDetail.getVendorHeaderGeneratedIdentifier());
                 rejectDocument.setVendorDetailAssignedIdentifier(vendorDetail.getVendorDetailAssignedIdentifier());
                 rejectDocument.setVendorDetail(vendorDetail);
@@ -650,9 +617,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         rejectDocument.getDocumentHeader().setDocumentDescription(newDocumentDesc);
     }
 
-    protected Map getItemTypeMappings(Integer vendorHeaderId,
-                                      Integer vendorDetailId) {
-
+    protected Map getItemTypeMappings(Integer vendorHeaderId, Integer vendorDetailId) {
         Map itemTypeMappings = null;
 
         if (vendorHeaderId != null && vendorDetailId != null) {
@@ -667,9 +632,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         return itemTypeMappings;
     }
 
-    protected String getVendorNumber(Integer vendorHeaderId,
-                                     Integer vendorDetailId) {
-
+    protected String getVendorNumber(Integer vendorHeaderId, Integer vendorDetailId) {
         if (vendorHeaderId != null && vendorDetailId != null) {
             VendorDetail forVendorNo = new VendorDetail();
             forVendorNo.setVendorHeaderGeneratedIdentifier(vendorHeaderId);
@@ -686,7 +649,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         Map kualiItemTypes = new HashMap<String, ItemType>();
 
         if (collection == null || collection.size() == 0) {
-            throw new RuntimeException("Kauli Item types not available");
+            throw new RuntimeException("Kuali Item types not available");
         } else {
             if (collection != null) {
                 ItemType[] itemTypes = new ItemType[collection.size()];
@@ -700,13 +663,8 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         return kualiItemTypes;
     }
 
-    protected boolean checkForCompleteFailure(ElectronicInvoiceLoad electronicInvoiceLoad,
-                                              ElectronicInvoice electronicInvoice,
-                                              File invoiceFile) {
-
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Checking for complete failure...");
-        }
+    protected boolean checkForCompleteFailure(ElectronicInvoiceLoad electronicInvoiceLoad, ElectronicInvoice electronicInvoice, File invoiceFile) {
+        LOG.debug("checkForCompleteFailure() started");
 
         if (electronicInvoice.getInvoiceDetailRequestHeader().isHeaderInvoiceIndicator()) {
             rejectElectronicInvoiceFile(electronicInvoiceLoad, UNKNOWN_DUNS_IDENTIFIER, invoiceFile, PurapConstants.ElectronicInvoice.HEADER_INVOICE_IND_ON);
@@ -732,9 +690,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             }
         }
 
-        if (LOG.isInfoEnabled()) {
-            LOG.info("No Complete failure");
-        }
+        LOG.info("No Complete failure");
 
         return false;
 
@@ -744,22 +700,12 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         return matchingService.getElectronicInvoiceRejectReasonType(rejectReasonTypeCode);
     }
 
-    protected void rejectElectronicInvoiceFile(ElectronicInvoiceLoad eInvoiceLoad,
-                                               String fileDunsNumber,
-                                               File filename,
-                                               String rejectReasonTypeCode) {
-
+    protected void rejectElectronicInvoiceFile(ElectronicInvoiceLoad eInvoiceLoad, String fileDunsNumber, File filename, String rejectReasonTypeCode) {
         rejectElectronicInvoiceFile(eInvoiceLoad, fileDunsNumber, filename, null, rejectReasonTypeCode);
     }
 
-    protected void rejectElectronicInvoiceFile(ElectronicInvoiceLoad eInvoiceLoad,
-                                               String fileDunsNumber,
-                                               File invoiceFile,
-                                               String extraDescription,
-                                               String rejectReasonTypeCode) {
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Rejecting the entire invoice file - " + invoiceFile.getName());
-        }
+    protected void rejectElectronicInvoiceFile(ElectronicInvoiceLoad eInvoiceLoad, String fileDunsNumber, File invoiceFile, String extraDescription, String rejectReasonTypeCode) {
+        LOG.info("Rejecting the entire invoice file - " + invoiceFile.getName());
 
         ElectronicInvoiceLoadSummary eInvoiceLoadSummary = getOrCreateLoadSummary(eInvoiceLoad, fileDunsNumber);
         eInvoiceLoadSummary.addFailedInvoiceOrder();
@@ -791,31 +737,25 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             eInvoiceRejectDocument.setInvoiceRejectReasons(list);
             eInvoiceRejectDocument.getDocumentHeader().setDocumentDescription("Complete failure");
 
-            // KFSCNTRB-1369: Need to Save document
             SpringContext.getBean(DocumentService.class).saveDocument(eInvoiceRejectDocument);
 
             String noteText = "Invoice file";
             attachInvoiceXMLWithRejectDoc(eInvoiceRejectDocument, invoiceFile, noteText);
 
             eInvoiceLoad.addInvoiceReject(eInvoiceRejectDocument);
-
         } catch (WorkflowException e) {
+            LOG.error("rejectElectronicInvoiceFile() Workflow Error",e);
             throw new RuntimeException(e);
         }
 
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Complete failure document has been created (DocNo:" + eInvoiceRejectDocument.getDocumentNumber() + ")");
-        }
+        LOG.info("Complete failure document has been created (DocNo:" + eInvoiceRejectDocument.getDocumentNumber() + ")");
     }
 
-    protected void attachInvoiceXMLWithRejectDoc(ElectronicInvoiceRejectDocument eInvoiceRejectDocument,
-                                                 File attachmentFile,
-                                                 String noteText) {
+    protected void attachInvoiceXMLWithRejectDoc(ElectronicInvoiceRejectDocument eInvoiceRejectDocument, File attachmentFile, String noteText) {
 
         Note note = null;
         try {
             note = SpringContext.getBean(DocumentService.class).createNoteFromDocument(eInvoiceRejectDocument, noteText);
-            // KFSCNTRB-1369: Can't add note without remoteObjectIdentifier
             note.setRemoteObjectIdentifier(eInvoiceRejectDocument.getDocumentHeader().getObjectId());
         } catch (Exception e1) {
             throw new RuntimeException("Unable to create note from document: ", e1);
@@ -850,18 +790,12 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
     }
 
     @NonTransactional
-    public ElectronicInvoiceRejectDocument createRejectDocument(ElectronicInvoice eInvoice,
-                                                                ElectronicInvoiceOrder electronicInvoiceOrder,
-                                                                ElectronicInvoiceLoad eInvoiceLoad) {
-
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Creating reject document [DUNS=" + eInvoice.getDunsNumber() + ",POID=" + electronicInvoiceOrder.getInvoicePurchaseOrderID() + "]");
-        }
+    public ElectronicInvoiceRejectDocument createRejectDocument(ElectronicInvoice eInvoice, ElectronicInvoiceOrder electronicInvoiceOrder, ElectronicInvoiceLoad eInvoiceLoad) {
+        LOG.info("Creating reject document [DUNS=" + eInvoice.getDunsNumber() + ",POID=" + electronicInvoiceOrder.getInvoicePurchaseOrderID() + "]");
 
         ElectronicInvoiceRejectDocument eInvoiceRejectDocument;
 
         try {
-
             eInvoiceRejectDocument = (ElectronicInvoiceRejectDocument) SpringContext.getBean(DocumentService.class).getNewDocument("EIRT");
 
             eInvoiceRejectDocument.setInvoiceProcessTimestamp(SpringContext.getBean(DateTimeService.class).getCurrentTimestamp());
@@ -872,21 +806,18 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             eInvoiceRejectDocument.setFileLevelData(eInvoice);
             eInvoiceRejectDocument.setInvoiceOrderLevelData(eInvoice, electronicInvoiceOrder);
 
-            //MSU fix
             SpringContext.getBean(DocumentService.class).saveDocument(eInvoiceRejectDocument);
 
             String noteText = "Invoice file";
             attachInvoiceXMLWithRejectDoc(eInvoiceRejectDocument, getInvoiceFile(eInvoice.getFileName()), noteText);
 
             eInvoiceLoad.addInvoiceReject(eInvoiceRejectDocument);
-
         } catch (WorkflowException e) {
+            LOG.error("createRejectDocument() Workflow Exception",e);
             throw new RuntimeException(e);
         }
 
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Reject document has been created (DocNo=" + eInvoiceRejectDocument.getDocumentNumber() + ")");
-        }
+        LOG.info("Reject document has been created (DocNo=" + eInvoiceRejectDocument.getDocumentNumber() + ")");
 
         emailTextErrorList.append("DUNS Number - " + eInvoice.getDunsNumber() + " " + eInvoice.getVendorName() + ":\n");
         emailTextErrorList.append("An Invoice from file '" + eInvoice.getFileName() + "' has been rejected due to the following error(s):\n");
@@ -907,7 +838,6 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
 
         try {
             Note note = SpringContext.getBean(DocumentService.class).createNoteFromDocument(eInvoiceRejectDocument, rejectReasons);
-            // KFSCNTRB-1369: Can't add note without remoteObjectIdentifier
             note.setRemoteObjectIdentifier(eInvoiceRejectDocument.getDocumentHeader().getObjectId());
             PersistableBusinessObject noteParent = eInvoiceRejectDocument.getNoteTarget();
             SpringContext.getBean(NoteService.class).save(note);
@@ -917,9 +847,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
     }
 
 
-    protected String generateRejectDocumentDescription(ElectronicInvoice eInvoice,
-                                                       ElectronicInvoiceOrder electronicInvoiceOrder) {
-
+    protected String generateRejectDocumentDescription(ElectronicInvoice eInvoice, ElectronicInvoiceOrder electronicInvoiceOrder) {
         String poID = StringUtils.isEmpty(electronicInvoiceOrder.getInvoicePurchaseOrderID()) ?
             "UNKNOWN" :
             electronicInvoiceOrder.getInvoicePurchaseOrderID();
@@ -934,7 +862,6 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
     }
 
     protected String generateRejectDocumentDescription(ElectronicInvoiceRejectDocument rejectDoc) {
-
         String poID = StringUtils.isEmpty(rejectDoc.getInvoicePurchaseOrderNumber()) ?
             "UNKNOWN" :
             rejectDoc.getInvoicePurchaseOrderNumber();
@@ -950,7 +877,6 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
     }
 
     protected String checkDescriptionLengthAndStripIfNeeded(String description) {
-
         int noteTextMaxLength = SpringContext.getBean(DataDictionaryService.class).getAttributeMaxLength(DocumentHeader.class, KRADPropertyConstants.DOCUMENT_DESCRIPTION).intValue();
 
         if (noteTextMaxLength < description.length()) {
@@ -961,8 +887,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
     }
 
     @NonTransactional
-    public ElectronicInvoiceLoadSummary getOrCreateLoadSummary(ElectronicInvoiceLoad eInvoiceLoad,
-                                                               String fileDunsNumber) {
+    public ElectronicInvoiceLoadSummary getOrCreateLoadSummary(ElectronicInvoiceLoad eInvoiceLoad, String fileDunsNumber) {
         ElectronicInvoiceLoadSummary eInvoiceLoadSummary;
 
         if (eInvoiceLoad.getInvoiceLoadSummaries().containsKey(fileDunsNumber)) {
@@ -979,9 +904,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
     public ElectronicInvoice loadElectronicInvoice(byte[] xmlAsBytes)
         throws CxmlParseException {
 
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Loading Invoice File");
-        }
+        LOG.info("Loading Invoice File");
 
         ElectronicInvoice electronicInvoice = null;
 
@@ -991,9 +914,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             throw new CxmlParseException(e.getMessage());
         }
 
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Successfully loaded the Invoice File");
-        }
+        LOG.info("Successfully loaded the Invoice File");
 
         return electronicInvoice;
 
@@ -1042,8 +963,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         return summaryMessage;
     }
 
-    protected void routeRejectDocument(ElectronicInvoiceRejectDocument rejectDoc,
-                                       Map savedLoadSummariesMap) {
+    protected void routeRejectDocument(ElectronicInvoiceRejectDocument rejectDoc, Map savedLoadSummariesMap) {
 
         LOG.info("Saving Invoice Reject for DUNS '" + rejectDoc.getVendorDunsNumber() + "'");
 
@@ -1064,7 +984,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
     protected void sendSummary(StringBuffer message) {
 
         String fromMailId = SpringContext.getBean(ParameterService.class).getParameterValueAsString(ElectronicInvoiceStep.class, PurapParameterConstants.ElectronicInvoiceParameters.DAILY_SUMMARY_REPORT_FROM_EMAIL_ADDRESS);
-        List<String> toMailIds = new ArrayList<String>(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(ElectronicInvoiceStep.class, PurapParameterConstants.ElectronicInvoiceParameters.DAILY_SUMMARY_REPORT_TO_EMAIL_ADDRESSES));
+        List<String> toMailIds = new ArrayList<>(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(ElectronicInvoiceStep.class, PurapParameterConstants.ElectronicInvoiceParameters.DAILY_SUMMARY_REPORT_TO_EMAIL_ADDRESSES));
 
         LOG.info("From email address parameter value:" + fromMailId);
         LOG.info("To email address parameter value:" + toMailIds);
@@ -1073,14 +993,14 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             LOG.error("From/To mail addresses are empty. Unable to send the message");
         } else {
 
-            MailMessage mailMessage = new MailMessage();
+            BodyMailMessage mailMessage = new BodyMailMessage();
 
             mailMessage.setFromAddress(fromMailId);
             setMessageToAddressesAndSubject(mailMessage, toMailIds);
             mailMessage.setMessage(message.toString());
 
             try {
-                mailService.sendMessage(mailMessage);
+                emailService.sendMessage(mailMessage,false);
             } catch (Exception e) {
                 LOG.error("Invalid email address. Message not sent", e);
             }
@@ -1088,7 +1008,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
 
     }
 
-    protected MailMessage setMessageToAddressesAndSubject(MailMessage message, List<String> toAddressList) {
+    protected BodyMailMessage setMessageToAddressesAndSubject(BodyMailMessage message, List<String> toAddressList) {
 
         if (!toAddressList.isEmpty()) {
             for (int i = 0; i < toAddressList.size(); i++) {
@@ -1118,8 +1038,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
          */
         validateVendorDetails(rejectDocument);
 
-        Map itemTypeMappings = getItemTypeMappings(rejectDocument.getVendorHeaderGeneratedIdentifier(),
-            rejectDocument.getVendorDetailAssignedIdentifier());
+        Map itemTypeMappings = getItemTypeMappings(rejectDocument.getVendorHeaderGeneratedIdentifier(), rejectDocument.getVendorDetailAssignedIdentifier());
 
         Map kualiItemTypes = getKualiItemTypes();
 
@@ -1168,8 +1087,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             throw new RuntimeException("Not possible to create payment request since the reject document contains " + rejectDocument.getInvoiceRejectReasons().size() + " rejects");
         }
 
-        Map itemTypeMappings = getItemTypeMappings(rejectDocument.getVendorHeaderGeneratedIdentifier(),
-            rejectDocument.getVendorDetailAssignedIdentifier());
+        Map itemTypeMappings = getItemTypeMappings(rejectDocument.getVendorHeaderGeneratedIdentifier(), rejectDocument.getVendorDetailAssignedIdentifier());
 
         Map kualiItemTypes = getKualiItemTypes();
 
@@ -1187,10 +1105,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
     }
 
     protected PaymentRequestDocument createPaymentRequest(ElectronicInvoiceOrderHolder orderHolder) {
-
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Creating Payment Request document");
-        }
+        LOG.info("Creating Payment Request document");
 
         KNSGlobalVariables.getMessageList().clear();
 
@@ -1271,9 +1186,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             expiredOrClosedAccountList = new HashMap();
         }
 
-        if (LOG.isInfoEnabled()) {
-            LOG.info(expiredOrClosedAccountList.size() + " accounts has been found as Expired or Closed");
-        }
+        LOG.info(expiredOrClosedAccountList.size() + " accounts has been found as Expired or Closed");
 
         preqDoc.populatePaymentRequestFromPurchaseOrder(orderHolder.getPurchaseOrderDocument(), expiredOrClosedAccountList);
 
@@ -1282,7 +1195,6 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         /**
          * Validate totals,paydate
          */
-        //PaymentRequestDocumentRule.processCalculateAccountsPayableBusinessRules
         SpringContext.getBean(KualiRuleService.class).applyRules(new AttributedCalculateAccountsPayableEvent(preqDoc));
 
         SpringContext.getBean(PaymentRequestService.class).calculatePaymentRequest(preqDoc, true);
@@ -1297,13 +1209,11 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         /**
          * PaymentRequestReview
          */
-        //PaymentRequestDocumentRule.processRouteDocumentBusinessRules
         SpringContext.getBean(KualiRuleService.class).applyRules(new AttributedPaymentRequestForEInvoiceEvent(preqDoc));
 
         if (GlobalVariables.getMessageMap().hasErrors()) {
-            if (LOG.isInfoEnabled()) {
-                LOG.info("***************Error in rules processing - " + GlobalVariables.getMessageMap());
-            }
+            LOG.info("***************Error in rules processing - " + GlobalVariables.getMessageMap());
+
             Map<String, AutoPopulatingList<ErrorMessage>> errorMessages = GlobalVariables.getMessageMap().getErrorMessages();
 
             String errors = errorMessages.toString();
@@ -1362,8 +1272,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
 
     }
 
-    protected void addShipToNotes(PaymentRequestDocument preqDoc,
-                                  ElectronicInvoiceOrderHolder orderHolder) {
+    protected void addShipToNotes(PaymentRequestDocument preqDoc, ElectronicInvoiceOrderHolder orderHolder) {
 
         String shipToAddress = orderHolder.getInvoiceShipToAddressAsString();
 
@@ -1375,25 +1284,18 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         }
     }
 
-    protected void processItemsForDiscount(PaymentRequestDocument preqDocument,
-                                           ElectronicInvoiceOrderHolder orderHolder) {
-
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Processing payment request items for discount");
-        }
+    protected void processItemsForDiscount(PaymentRequestDocument preqDocument, ElectronicInvoiceOrderHolder orderHolder) {
+        LOG.info("Processing payment request items for discount");
 
         if (!orderHolder.isItemTypeAvailableInItemMapping(ElectronicInvoice.INVOICE_AMOUNT_TYPE_CODE_DISCOUNT)) {
-            if (LOG.isInfoEnabled()) {
-                LOG.info("Skipping discount processing since there is no mapping of discount type for this vendor");
-            }
+            LOG.info("Skipping discount processing since there is no mapping of discount type for this vendor");
             return;
         }
 
         if (orderHolder.getInvoiceDiscountAmount() == null ||
             orderHolder.getInvoiceDiscountAmount() == BigDecimal.ZERO) {
-            if (LOG.isInfoEnabled()) {
-                LOG.info("Skipping discount processing since there is no discount amount found in the invoice file");
-            }
+            LOG.info("Skipping discount processing since there is no discount amount found in the invoice file");
+
             return;
         }
 
@@ -1417,25 +1319,21 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
                 if (StringUtils.equals(preqItem.getItemTypeCode(), PurapConstants.ItemTypeCodes.ITEM_TYPE_PMT_TERMS_DISCOUNT_CODE)) {
                     //Item is kuali payment terms discount item... must perform calculation
                     // if discount item exists on PREQ and discount dollar amount exists... use greater amount
-                    if (LOG.isInfoEnabled()) {
-                        LOG.info("Discount Check - E-Invoice matches PREQ item type '" + preqItem.getItemTypeCode() + "'... now checking for amount");
-                    }
+                    LOG.info("Discount Check - E-Invoice matches PREQ item type '" + preqItem.getItemTypeCode() + "'... now checking for amount");
 
                     KualiDecimal preqExtendedPrice = preqItem.getExtendedPrice() == null ? KualiDecimal.ZERO : preqItem.getExtendedPrice();
                     if ((discountValueToUse.compareTo(preqExtendedPrice)) < 0) {
-                        if (LOG.isInfoEnabled()) {
-                            LOG.info("Discount Check - Using E-Invoice amount (" + discountValueToUse + ") as it is more discount than current payment terms amount " + preqExtendedPrice);
-                        }
+                        LOG.info("Discount Check - Using E-Invoice amount (" + discountValueToUse + ") as it is more discount than current payment terms amount " + preqExtendedPrice);
+
                         preqItem.setItemUnitPrice(discountValueToUse.bigDecimalValue());
                         preqItem.setExtendedPrice(discountValueToUse);
                     }
                 } else {
                     // item is not payment terms discount item... just add value
                     // if discount item exists on PREQ and discount dollar amount exists... use greater amount
-                    if (LOG.isInfoEnabled()) {
-                        LOG.info("Discount Check - E-Invoice matches PREQ item type '" + preqItem.getItemTypeCode() + "'");
-                        LOG.info("Discount Check - Using E-Invoice amount (" + discountValueToUse + ") as it is greater than payment terms amount");
-                    }
+                    LOG.info("Discount Check - E-Invoice matches PREQ item type '" + preqItem.getItemTypeCode() + "'");
+                    LOG.info("Discount Check - Using E-Invoice amount (" + discountValueToUse + ") as it is greater than payment terms amount");
+
                     preqItem.addToUnitPrice(discountValueToUse.bigDecimalValue());
                     preqItem.addToExtendedPrice(discountValueToUse);
                 }
@@ -1469,17 +1367,11 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             }
         }
 
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Completed processing payment request items for discount");
-        }
-
+        LOG.info("Completed processing payment request items for discount");
     }
 
     protected void populateItemDetails(PaymentRequestDocument preqDocument, ElectronicInvoiceOrderHolder orderHolder) {
-
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Populating invoice order items into the payment request document");
-        }
+        LOG.info("Populating invoice order items into the payment request document");
 
         List<PurApItem> preqItems = preqDocument.getItems();
 
@@ -1494,7 +1386,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
              * AccountsPayableItemBase.isConsideredEntered() returns true if there is any item desc available.
              *
              */
-//            setItemDefaultDescription(preqItem);
+            //  setItemDefaultDescription(preqItem);
         }
 
         //Now we'll add any missing mapping items that did not have
@@ -1504,10 +1396,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         //as part of a clean up, remove any preq items that have zero or null unit/extended price
         removeEmptyItems(preqItems);
 
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Successfully populated the invoice order items");
-        }
-
+        LOG.info("Successfully populated the invoice order items");
     }
 
     /**
@@ -1575,11 +1464,8 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
 
                         preqItems.add(preqItem);
                     }
-
-
                 }
             }
-
         }
     }
 
@@ -1642,15 +1528,10 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         } else if (isItemValidForUpdation(preqItem.getItemTypeCode(), ElectronicInvoice.INVOICE_AMOUNT_TYPE_CODE_EXMT, orderHolder)) {
             processAboveTheLineItem(preqItem, orderHolder);
         }
-
     }
 
-    protected void processAboveTheLineItem(PaymentRequestItem purapItem,
-                                           ElectronicInvoiceOrderHolder orderHolder) {
-
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Processing above the line item");
-        }
+    protected void processAboveTheLineItem(PaymentRequestItem purapItem, ElectronicInvoiceOrderHolder orderHolder) {
+        LOG.info("Processing above the line item");
 
         ElectronicInvoiceItemHolder itemHolder = orderHolder.getItemByLineNumber(purapItem.getItemLineNumber().intValue());
         if (itemHolder == null) {
@@ -1668,32 +1549,21 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
             itemHolder.getSubTotalAmount().compareTo(KualiDecimal.ZERO) != 0) {
 
             purapItem.setExtendedPrice(itemHolder.getSubTotalAmount());
-
         } else {
-
             if (purapItem.getItemQuantity() != null) {
-                if (LOG.isInfoEnabled()) {
-                    LOG.info("Item number " + purapItem.getItemLineNumber() + " needs calculation of extended " +
-                        "price from quantity " + purapItem.getItemQuantity() + " and unit cost " + purapItem.getItemUnitPrice());
-                }
+                LOG.info("Item number " + purapItem.getItemLineNumber() + " needs calculation of extended price from quantity " + purapItem.getItemQuantity() + " and unit cost " + purapItem.getItemUnitPrice());
+
                 purapItem.setExtendedPrice(purapItem.getItemQuantity().multiply(new KualiDecimal(purapItem.getItemUnitPrice())));
             } else {
-                if (LOG.isInfoEnabled()) {
-                    LOG.info("Item number " + purapItem.getItemLineNumber() + " has no quantity so extended price " +
-                        "equals unit price of " + purapItem.getItemUnitPrice());
-                }
+                LOG.info("Item number " + purapItem.getItemLineNumber() + " has no quantity so extended price equals unit price of " + purapItem.getItemUnitPrice());
+
                 purapItem.setExtendedPrice(new KualiDecimal(purapItem.getItemUnitPrice()));
             }
         }
-
     }
 
-    protected void processSpecialHandlingItem(PaymentRequestItem purapItem,
-                                              ElectronicInvoiceOrderHolder orderHolder) {
-
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Processing special handling item");
-        }
+    protected void processSpecialHandlingItem(PaymentRequestItem purapItem, ElectronicInvoiceOrderHolder orderHolder) {
+        LOG.info("Processing special handling item");
 
         purapItem.addToUnitPrice(orderHolder.getInvoiceSpecialHandlingAmount());
         purapItem.addToExtendedPrice(new KualiDecimal(orderHolder.getInvoiceSpecialHandlingAmount()));
@@ -1713,12 +1583,8 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
 
     }
 
-    protected void processTaxItem(PaymentRequestItem preqItem,
-                                  ElectronicInvoiceOrderHolder orderHolder) {
-
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Processing Tax Item");
-        }
+    protected void processTaxItem(PaymentRequestItem preqItem, ElectronicInvoiceOrderHolder orderHolder) {
+        LOG.info("Processing Tax Item");
 
         preqItem.addToUnitPrice(orderHolder.getTaxAmount());
         preqItem.addToExtendedPrice(new KualiDecimal(orderHolder.getTaxAmount()));
@@ -1733,12 +1599,8 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
 
     }
 
-    protected void processShippingItem(PaymentRequestItem preqItem,
-                                       ElectronicInvoiceOrderHolder orderHolder) {
-
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Processing Shipping Item");
-        }
+    protected void processShippingItem(PaymentRequestItem preqItem, ElectronicInvoiceOrderHolder orderHolder) {
+        LOG.info("Processing Shipping Item");
 
         preqItem.addToUnitPrice(orderHolder.getInvoiceShippingAmount());
         preqItem.addToExtendedPrice(new KualiDecimal(orderHolder.getInvoiceShippingAmount()));
@@ -1752,21 +1614,15 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         }
     }
 
-    protected void processDiscountItem(PaymentRequestItem preqItem,
-                                       ElectronicInvoiceOrderHolder orderHolder) {
-
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Processing Discount Item");
-        }
+    protected void processDiscountItem(PaymentRequestItem preqItem, ElectronicInvoiceOrderHolder orderHolder) {
+        LOG.info("Processing Discount Item");
 
         preqItem.addToUnitPrice(orderHolder.getInvoiceDiscountAmount());
         preqItem.addToExtendedPrice(new KualiDecimal(orderHolder.getInvoiceDiscountAmount()));
     }
 
 
-    protected void processDepositItem(PaymentRequestItem preqItem,
-                                      ElectronicInvoiceOrderHolder orderHolder) {
-
+    protected void processDepositItem(PaymentRequestItem preqItem, ElectronicInvoiceOrderHolder orderHolder) {
         LOG.info("Processing Deposit Item");
 
         preqItem.addToUnitPrice(orderHolder.getInvoiceDepositAmount());
@@ -1774,9 +1630,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
 
     }
 
-    protected void processDueItem(PaymentRequestItem preqItem,
-                                  ElectronicInvoiceOrderHolder orderHolder) {
-
+    protected void processDueItem(PaymentRequestItem preqItem, ElectronicInvoiceOrderHolder orderHolder) {
         LOG.info("Processing Deposit Item");
 
         preqItem.addToUnitPrice(orderHolder.getInvoiceDueAmount());
@@ -1812,10 +1666,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         }
     }
 
-    protected boolean isItemValidForUpdation(String itemTypeCode,
-                                             String invoiceItemTypeCode,
-                                             ElectronicInvoiceOrderHolder orderHolder) {
-
+    protected boolean isItemValidForUpdation(String itemTypeCode, String invoiceItemTypeCode, ElectronicInvoiceOrderHolder orderHolder) {
         boolean isItemTypeAvailableInItemMapping = orderHolder.isItemTypeAvailableInItemMapping(invoiceItemTypeCode);
         String itemTypeCodeFromMappings = orderHolder.getKualiItemTypeCodeFromMappings(invoiceItemTypeCode);
         return isItemTypeAvailableInItemMapping && StringUtils.equals(itemTypeCodeFromMappings, itemTypeCode);
@@ -1832,10 +1683,7 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
      */
     @NonTransactional
     public void validateInvoiceOrderValidForPREQCreation(ElectronicInvoiceOrderHolder orderHolder) {
-
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Validiting ElectronicInvoice Order to make sure that it can be turned into a Payment Request document");
-        }
+        LOG.info("Validating ElectronicInvoice Order to make sure that it can be turned into a Payment Request document");
 
         PurchaseOrderDocument poDoc = orderHolder.getPurchaseOrderDocument();
 
@@ -1914,11 +1762,9 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
                 errorMessage = (ErrorMessage) errorMessages.get(i);
 
                 // get error text
-                errorText = kualiConfigurationService
-                    .getPropertyValueAsString(errorMessage.getErrorKey());
+                errorText = kualiConfigurationService.getPropertyValueAsString(errorMessage.getErrorKey());
                 // apply parameters
-                errorText = MessageFormat.format(errorText,
-                    (Object[]) errorMessage.getMessageParameters());
+                errorText = MessageFormat.format(errorText, (Object[]) errorMessage.getMessageParameters());
 
                 // add key and error message together
                 errorList.append(errorText + "\n");
@@ -1952,64 +1798,6 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         return eils;
     }
 
-    @NonTransactional
-    public void setElectronicInvoiceInputFileType(ElectronicInvoiceInputFileType electronicInvoiceInputFileType) {
-        this.electronicInvoiceInputFileType = electronicInvoiceInputFileType;
-    }
-
-    @NonTransactional
-    public void setMailService(MailService mailService) {
-        this.mailService = mailService;
-    }
-
-    @NonTransactional
-    public void setElectronicInvoicingDao(ElectronicInvoicingDao electronicInvoicingDao) {
-        this.electronicInvoicingDao = electronicInvoicingDao;
-    }
-
-    @NonTransactional
-    public void setBatchInputFileService(BatchInputFileService batchInputFileService) {
-        this.batchInputFileService = batchInputFileService;
-    }
-
-    @NonTransactional
-    public void setElectronicInvoiceMatchingService(ElectronicInvoiceMatchingService matchingService) {
-        this.matchingService = matchingService;
-    }
-
-    @NonTransactional
-    public void setVendorService(VendorService vendorService) {
-        this.vendorService = vendorService;
-    }
-
-    @NonTransactional
-    public void setPurchaseOrderService(PurchaseOrderService purchaseOrderService) {
-        this.purchaseOrderService = purchaseOrderService;
-    }
-
-    @NonTransactional
-    public void setPaymentRequestService(PaymentRequestService paymentRequestService) {
-        this.paymentRequestService = paymentRequestService;
-    }
-
-    @NonTransactional
-    public void setConfigurationService(ConfigurationService kualiConfigurationService) {
-        this.kualiConfigurationService = kualiConfigurationService;
-    }
-
-    @NonTransactional
-    public void setDateTimeService(DateTimeService dateTimeService) {
-        this.dateTimeService = dateTimeService;
-    }
-
-    @NonTransactional
-    public void setParameterService(ParameterService parameterService) {
-        this.parameterService = parameterService;
-    }
-
-    /**
-     * @see org.kuali.kfs.sys.batch.service.impl.InitiateDirectoryImpl#getRequiredDirectoryNames()
-     */
     @Override
     @NonTransactional
     public List<String> getRequiredDirectoryNames() {
@@ -2020,5 +1808,48 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         }};
     }
 
+    public void setElectronicInvoiceInputFileType(ElectronicInvoiceInputFileType electronicInvoiceInputFileType) {
+        this.electronicInvoiceInputFileType = electronicInvoiceInputFileType;
+    }
+
+    public void setElectronicInvoicingDao(ElectronicInvoicingDao electronicInvoicingDao) {
+        this.electronicInvoicingDao = electronicInvoicingDao;
+    }
+
+    public void setBatchInputFileService(BatchInputFileService batchInputFileService) {
+        this.batchInputFileService = batchInputFileService;
+    }
+
+    public void setElectronicInvoiceMatchingService(ElectronicInvoiceMatchingService matchingService) {
+        this.matchingService = matchingService;
+    }
+
+    public void setVendorService(VendorService vendorService) {
+        this.vendorService = vendorService;
+    }
+
+    public void setPurchaseOrderService(PurchaseOrderService purchaseOrderService) {
+        this.purchaseOrderService = purchaseOrderService;
+    }
+
+    public void setPaymentRequestService(PaymentRequestService paymentRequestService) {
+        this.paymentRequestService = paymentRequestService;
+    }
+
+    public void setConfigurationService(ConfigurationService kualiConfigurationService) {
+        this.kualiConfigurationService = kualiConfigurationService;
+    }
+
+    public void setDateTimeService(DateTimeService dateTimeService) {
+        this.dateTimeService = dateTimeService;
+    }
+
+    public void setParameterService(ParameterService parameterService) {
+        this.parameterService = parameterService;
+    }
+
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
 }
 

@@ -339,19 +339,15 @@
 
     <bean id="arEmailService" parent="arEmailService-parentBean"/>
     <bean id="arEmailService-parentBean" class="org.kuali.kfs.module.ar.service.impl.AREmailServiceImpl" abstract="true">
-        <property name="mailService" ref="attachmentMailService"/>
+        <property name="emailService" ref="emailService"/>
         <property name="parameterService" ref="parameterService"/>
         <property name="dataDictionaryService" ref="dataDictionaryService"/>
         <property name="kualiConfigurationService" ref="kualiConfigurationService"/>
         <property name="businessObjectService" ref="businessObjectService"/>
         <property name="documentService" ref="documentService"/>
         <property name="noteService" ref="noteService"/>
-        <property name="kualiModuleService">
-            <ref bean="kualiModuleService"/>
-        </property>
-        <property name="contractsGrantsBillingUtilityService">
-            <ref bean="contractsGrantsBillingUtilityService"/>
-        </property>
+        <property name="kualiModuleService" ref="kualiModuleService"/>
+        <property name="contractsGrantsBillingUtilityService" ref="contractsGrantsBillingUtilityService"/>
     </bean>
 
     <bean id="contractsGrantsInvoiceDocumentBatchStep" class="org.kuali.kfs.module.ar.batch.ContractsGrantsInvoiceDocumentBatchStep" parent="step">
@@ -1571,21 +1567,15 @@
 
     <bean id="lockboxLoadService" parent="lockboxLoadService-parentBean"/>
     <bean id="lockboxLoadService-parentBean" class="org.kuali.kfs.module.ar.batch.service.impl.LockboxLoadServiceImpl" abstract="true">
-        <property name="batchInputFileService">
-            <ref bean="batchInputFileService"/>
-        </property>
-        <property name="batchInputFileType">
-            <ref bean="lockboxInputFileType"/>
-        </property>
-        <property name="businessObjectService">
-            <ref bean="businessObjectService"/>
-        </property>
+        <property name="batchInputFileService" ref="batchInputFileService"/>
+        <property name="batchInputFileType" ref="lockboxInputFileType"/>
+        <property name="businessObjectService" ref="businessObjectService"/>
         <property name="dateTimeService" ref="dateTimeService"/>
         <property name="reportsDirectory">
             <value>${reports.directory}</value>
         </property>
         <property name="parameterService" ref="parameterService"/>
-        <property name="mailService" ref="mailService"/>
+        <property name="emailService" ref="emailService"/>
     </bean>
 
     <bean id="lockboxInputFileType" parent="FlatFileParser">

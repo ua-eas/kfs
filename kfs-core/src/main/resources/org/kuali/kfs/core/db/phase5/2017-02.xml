@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns='http://www.liquibase.org/xml/ns/dbchangelog'
+                   xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+                   xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
+
+    <changeSet author="KFS701" id="FINI-3275A" context="bootstrap,demo,unit">
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD">KFS-SYS</column>
+            <column name="CMPNT_CD">All</column>
+            <column name="PARM_NM">NON_PRODUCTION_EMAIL_MODE</column>
+            <column name="OBJ_ID">FINI-3275A</column>
+            <column name="VER_NBR">1</column>
+            <column name="VAL">L</column>
+            <column name="PARM_TYP_CD">CONFG</column>
+            <column name="PARM_DESC_TXT">The mode used for sending email in non-production environments.  L = Log the email but do not send.  T = Send the email to the non-production email address (NON_PRODUCTION_TO_EMAIL_ADDRESS).  P = Send the email as if it were production.</column>
+            <column name="EVAL_OPRTR_CD">A</column>
+            <column name="APPL_ID">KFS</column>
+        </insert>
+    </changeSet>
+    <changeSet author="KFS701" id="FINI-3275B" context="bootstrap,demo,unit">
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD">KFS-SYS</column>
+            <column name="CMPNT_CD">All</column>
+            <column name="PARM_NM">FROM_EMAIL_ADDRESS</column>
+            <column name="OBJ_ID">FINI-3275B</column>
+            <column name="VER_NBR">1</column>
+            <column name="VAL">kfs.notification.batch@kuali.org</column>
+            <column name="PARM_TYP_CD">CONFG</column>
+            <column name="PARM_DESC_TXT">The from address for emails sent from the system for messages that do not have a specific address identified.</column>
+            <column name="EVAL_OPRTR_CD">A</column>
+            <column name="APPL_ID">KFS</column>
+        </insert>
+    </changeSet>
+    <changeSet author="KFS701" id="FINI-3275C" context="bootstrap,demo,unit">
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD">KFS-SYS</column>
+            <column name="CMPNT_CD">All</column>
+            <column name="PARM_NM">DEFAULT_TO_EMAIL_ADDRESS</column>
+            <column name="OBJ_ID">FINI-3275C</column>
+            <column name="VER_NBR">1</column>
+            <column name="VAL">kfs.notification.batch@kuali.org</column>
+            <column name="PARM_TYP_CD">CONFG</column>
+            <column name="PARM_DESC_TXT">The to address for emails sent from the system for messages that do not have specific recipients.</column>
+            <column name="EVAL_OPRTR_CD">A</column>
+            <column name="APPL_ID">KFS</column>
+        </insert>
+    </changeSet>
+    <changeSet author="KFS701" id="FINI-3275D" context="bootstrap,demo,unit">
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD">KFS-SYS</column>
+            <column name="CMPNT_CD">All</column>
+            <column name="PARM_NM">NON_PRODUCTION_TO_EMAIL_ADDRESS</column>
+            <column name="OBJ_ID">FINI-3275D</column>
+            <column name="VER_NBR">1</column>
+            <column name="VAL">kfs.test.notification.batch@kuali.org</column>
+            <column name="PARM_TYP_CD">CONFG</column>
+            <column name="PARM_DESC_TXT">The to address for all emails sent from the system if the system is not production and the NON_PRODUCTION_EMAIL_MODE is set to T.</column>
+            <column name="EVAL_OPRTR_CD">A</column>
+            <column name="APPL_ID">KFS</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

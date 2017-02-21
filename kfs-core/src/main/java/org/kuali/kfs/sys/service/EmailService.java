@@ -16,12 +16,12 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.cg.service;
+package org.kuali.kfs.sys.service;
 
-/**
- * Defines methods for sending AR emails.
- */
-public interface CGEmailService {
+import org.kuali.kfs.sys.mail.MailMessage;
 
-
+public interface EmailService {
+    String getFromAddress();
+    String getDefaultToAddress();
+    void sendMessage(MailMessage message, boolean htmlMessage);
 }

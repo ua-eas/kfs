@@ -25,9 +25,7 @@ import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.service.impl.StringHelper;
 import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.exception.InvalidAddressException;
 import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.MailService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
@@ -52,18 +50,18 @@ import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
+import org.kuali.kfs.sys.mail.BodyMailMessage;
+import org.kuali.kfs.sys.service.EmailService;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.mail.MailMessage;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.mail.MessagingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
@@ -111,15 +109,12 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
     protected DataDictionaryService dataDictionaryService;
     protected DepreciationBatchDao depreciationBatchDao;
     protected String cronExpression;
-    protected MailService mailService;
+    protected EmailService emailService;
     protected ObjectCodeService objectCodeService;
     protected WorkflowDocumentService workflowDocumentService;
     private AssetDateService assetDateService;
     private SchedulerService schedulerService;
 
-    /**
-     * @see org.kuali.kfs.module.cam.batch.service.AssetDepreciationService#runDepreciation()
-     */
     @Override
     public void runDepreciation() {
         LOG.debug("runDepreciation() started");
@@ -548,7 +543,7 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
      * @param transactionType                which can be [C]redit or [D]ebit
      * @param plantCOA                       plant fund char of account code
      * @param plantAccount                   plant fund char of account code
-     * @param financialObject                char of account object code linked to the payment
+     * @param deprObjectCode                 char of account object code linked to the payment
      * @param depreciationTransactionSummary
      * @return none
      */
@@ -685,11 +680,6 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
 
     /**
      * Depreciation object code is returned from cache or from DB
-     *
-     * @param capitalizationObjectCodes         collection cache
-     * @param assetPaymentInfo
-     * @param capitalizationFinancialObjectCode
-     * @return
      */
     protected ObjectCode getDepreciationObjectCode(Integer fiscalYear, Map<String, ObjectCode> capObjectCodesCache, AssetPaymentInfo assetPaymentInfo, String capitalizationFinancialObjectCode) {
         ObjectCode deprObjCode = null;
@@ -724,16 +714,15 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
     }
 
     private void sendWarningMail(List<String> errorMessages) {
+        LOG.debug("sendWarningMail() started");
 
-        LOG.debug("sendEmail() starting");
-        MailMessage message = new MailMessage();
+        BodyMailMessage message = new BodyMailMessage();
 
-        message.setFromAddress(mailService.getBatchMailingList());
+        message.setFromAddress(emailService.getFromAddress());
         String subject = "Asset Depreciation Job status";
         message.setSubject(subject);
         Collection<String> toAddresses = parameterService.getParameterValuesAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_NOTIFICATION_EMAIL_ADDRESSES);
-        message.getToAddresses().add(toAddresses);
-
+        toAddresses.stream().forEach(a -> message.addToAddress(a));
 
         StringBuffer sb = new StringBuffer();
         sb.append("Unable to run Depreciation process.Reason:\n");
@@ -745,21 +734,15 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
 
         message.setMessage(sb.toString());
 
-        try {
-            mailService.sendMessage(message);
-        } catch (MessagingException e) {
-            LOG.error("sendErrorEmail() Invalid email address. Message not sent", e);
-        } catch (InvalidAddressException e) {
-            LOG.error("sendErrorEmail() Invalid email address. Message not sent", e);
-        }
+        emailService.sendMessage(message,false);
     }
 
     /**
      * Depreciation (end of year) Period 13 assets incorrect depreciation start date Update asset created in period 13 with in
      * service date and depreciate date if batch runs in the last fiscal period
      *
-     * @param fiscalMonth2
-     * @param fiscalYear2
+     * @param fiscalMonth
+     * @param fiscalYear
      */
     protected void updateAssetsDatesForLastFiscalPeriod(Integer fiscalMonth, Integer fiscalYear) {
         if (fiscalMonth == 12) {
@@ -851,10 +834,6 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
         this.cronExpression = cronExpression;
     }
 
-    public void setMailService(MailService mailService) {
-        this.mailService = mailService;
-    }
-
     public void setOptionsService(OptionsService optionsService) {
         this.optionsService = optionsService;
     }
@@ -881,5 +860,9 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
 
     public void setWorkflowDocumentService(WorkflowDocumentService workflowDocumentService) {
         this.workflowDocumentService = workflowDocumentService;
+    }
+
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
     }
 }

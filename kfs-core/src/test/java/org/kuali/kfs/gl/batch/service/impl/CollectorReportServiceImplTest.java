@@ -26,8 +26,9 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.mail.MailMessage;
+import org.kuali.kfs.sys.mock.MockEmailService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.mail.MailMessage;
 
 import java.text.MessageFormat;
 
@@ -39,8 +40,8 @@ public class CollectorReportServiceImplTest extends KualiTestBase {
      */
     public void testSendEmailSendFailureNotice() throws Exception {
         CollectorReportServiceImpl collectorReportServiceImpl = (CollectorReportServiceImpl) SpringContext.getBean(CollectorReportService.class);
-        MockMailServiceImpl mockMailService = (MockMailServiceImpl) SpringContext.getService("mockMailService");
-        collectorReportServiceImpl.setMailService(mockMailService);
+        MockEmailService mockEmailService = new MockEmailService();
+        collectorReportServiceImpl.setEmailService(mockEmailService);
 
         ConfigurationService configurationService = SpringContext.getBean(ConfigurationService.class);
 
@@ -82,7 +83,7 @@ public class CollectorReportServiceImplTest extends KualiTestBase {
 
         collectorReportServiceImpl.sendEmailSendFailureNotice(reportData);
 
-        MailMessage message = mockMailService.getMailMessage();
+        MailMessage message = mockEmailService.message;
         assertTrue("message body does not contain failure batch id 2", StringUtils.contains(message.getMessage(), "Test Batch 2"));
         assertTrue("message body does not contain failure batch id 3", StringUtils.contains(message.getMessage(), "Test Batch 3"));
         assertTrue("message body does not contain failure email for batch 2", StringUtils.contains(message.getMessage(), "jonny@arizona"));

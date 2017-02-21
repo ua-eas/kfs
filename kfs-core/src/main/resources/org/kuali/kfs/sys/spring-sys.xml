@@ -88,6 +88,13 @@
 
     </bean>
 
+    <bean id="emailService" parent="emailService-parentBean"/>
+    <bean id="emailService-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.EmailServiceImpl">
+        <property name="configurationService" ref="configurationService"/>
+        <property name="parameterService" ref="parameterService"/>
+        <property name="javaMailSender" ref="mailSender"/>
+    </bean>
+
     <bean id="fileStorageService" parent="fileStorageService-parentBean"/>
     <bean id="fileStorageService-parentBean" class="org.kuali.kfs.sys.service.impl.FileSystemFileStorageServiceImpl" abstract="true">
         <!-- <property name="pathPrefix" value="${work.directory}" /> -->
@@ -200,13 +207,12 @@
         <property name="kualiModuleService" ref="kualiModuleService"/>
         <property name="parameterService" ref="parameterService"/>
         <property name="dateTimeService" ref="dateTimeService"/>
-        <property name="mailService" ref="mailService"/>
     </bean>
 
     <bean id="jobListener" parent="jobListener-parentBean"/>
     <bean id="jobListener-parentBean" class="org.kuali.kfs.sys.batch.JobListener" abstract="true">
         <property name="configurationService" ref="kualiConfigurationService"/>
-        <property name="mailService" ref="mailService"/>
+        <property name="emailService" ref="emailService"/>
         <property name="dateTimeService" ref="dateTimeService"/>
     </bean>
 
@@ -1182,13 +1188,6 @@
     <bean id="excludeSingleActorSeparationOfDutiesRoleTypeService" parent="excludeSingleActorSeparationOfDutiesRoleTypeService-parentBean"/>
     <bean id="excludeSingleActorSeparationOfDutiesRoleTypeService-parentBean" abstract="true" class="org.kuali.kfs.sys.identity.ExcludeSingleActorSeparationOfDutiesRoleTypeService"/>
 
-    <bean id="kfsNotificationService" parent="kfsNotificationService-parentBean"/>
-    <bean id="kfsNotificationService-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.KfsNotificationServiceImpl">
-        <property name="velocityEngine" ref="velocityEngine"/>
-        <property name="configurationService" ref="kualiConfigurationService"/>
-        <property name="mailService" ref="mailService"/>
-    </bean>
-
     <bean id="paymentSourceExtractionService" parent="paymentSourceExtractionService-parentBean"/>
     <bean id="paymentSourceExtractionService-parentBean" class="org.kuali.kfs.sys.batch.service.impl.PaymentSourceExtractionServiceImpl" abstract="true">
         <property name="dateTimeService" ref="dateTimeService"/>
@@ -1213,24 +1212,6 @@
         <property name="documentService" ref="documentService"/>
         <property name="optionsService" ref="optionsService"/>
         <property name="homeOriginationService" ref="homeOriginationService"/>
-    </bean>
-
-    <bean id="velocityEngine" parent="velocityEngine-parentBean"/>
-    <bean id="velocityEngine-parentBean" abstract="true" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-        <property name="velocityProperties">
-            <map>
-                <entry key="resource.loader" value="class"/>
-                <entry key="class.resource.loader.class" value="org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader"/>
-            </map>
-        </property>
-    </bean>
-    <bean id="velocityEmailServiceBase" abstract="true" parent="velocityEmailServiceBase-parentBean"/>
-    <bean id="velocityEmailServiceBase-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.VelocityEmailServiceBase">
-        <property name="mailService" ref="mailService"/>
-        <property name="velocityEngine" ref="velocityEngine"/>
-        <property name="businessObjectService" ref="businessObjectService"/>
-        <property name="parameterService" ref="parameterService"/>
-        <property name="htmlMessage" value="false"/>
     </bean>
 
     <bean id="customEditorConfigurer"
@@ -1282,22 +1263,6 @@
 
     <bean id="financialSystemDocumentHeaderPopulationDao" parent="financialSystemDocumentHeaderPopulationDao-parentBean"/>
     <bean id="financialSystemDocumentHeaderPopulationDao-parentBean" abstract="true" parent="platformAwareDao" class="org.kuali.kfs.sys.batch.dataaccess.impl.FinancialSystemDocumentHeaderPopulationDaoOjb"/>
-    <!-- **** -->
-
-    <bean id="attachmentMailer" parent="attachmentMailer-parentBean"/>
-    <bean id="attachmentMailer-parentBean" abstract="true" class="org.kuali.kfs.sys.mail.AttachmentMailerImpl">
-        <property name="mailSender" ref="mailSender"/>
-    </bean>
-
-    <bean id="attachmentMailService" parent="attachmentMailService-parentBean"/>
-    <bean id="attachmentMailService-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.AttachmentMailServiceImpl">
-        <property name="attachmentMailer" ref="attachmentMailer"/>
-        <property name="mailer" ref="mailer"/>
-        <property name="batchMailingList" value="${mailing.list.batch}"/>
-        <property name="nonProductionNotificationMailingList" value="${nonproduction.notification.mailing.list}"/>
-        <property name="realNotificationsEnabled" value="${real.notifications.enabled}"/>
-        <property name="configurationService" ref="kualiConfigurationService"/>
-    </bean>
 
     <mongo:mongo id="mongo" replica-set="${kfs.datasource.mongo.url}"/>
     <mongo:db-factory mongo-ref="mongo" dbname="${kfs.datasource.mongo.dbname}" username="${kfs.datasource.mongo.username}" password="${kfs.datasource.mongo.password}"/>

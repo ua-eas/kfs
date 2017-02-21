@@ -514,22 +514,11 @@
 
     <bean id="glCollectorReportService" parent="glCollectorReportService-parentBean"/>
     <bean id="glCollectorReportService-parentBean" class="org.kuali.kfs.gl.batch.service.impl.CollectorReportServiceImpl" abstract="true">
-        <property name="dateTimeService">
-            <ref bean="dateTimeService"/>
-        </property>
-        <property name="configurationService">
-            <ref bean="kualiConfigurationService"/>
-        </property>
-        <property name="parameterService">
-            <ref bean="parameterService"/>
-        </property>
-        <property name="mailService">
-            <ref bean="mailService"/>
-        </property>
-        <property name="collectorReportWriterService">
-            <!-- this report writer should be initialized by the collectorStep bean -->
-            <ref bean="collectorReportWriterService"/>
-        </property>
+        <property name="dateTimeService" ref="dateTimeService"/>
+        <property name="configurationService" ref="kualiConfigurationService"/>
+        <property name="parameterService" ref="parameterService"/>
+        <property name="emailService" ref="emailService"/>
+        <property name="collectorReportWriterService" ref="collectorReportWriterService"/>
         <property name="preScrubberService" ref="preScrubberService"/>
     </bean>
 
@@ -2342,15 +2331,9 @@
 
     <bean id="glOriginEntryEnterpriseFeederNotificationService" parent="glOriginEntryEnterpriseFeederNotificationService-parentBean"/>
     <bean id="glOriginEntryEnterpriseFeederNotificationService-parentBean" abstract="true" class="org.kuali.kfs.gl.batch.service.impl.EnterpriseFeederNotificationServiceImpl">
-        <property name="configurationService">
-            <ref bean="kualiConfigurationService"/>
-        </property>
-        <property name="parameterService">
-            <ref bean="parameterService"/>
-        </property>
-        <property name="mailService">
-            <ref bean="mailService"/>
-        </property>
+        <property name="configurationService" ref="kualiConfigurationService"/>
+        <property name="parameterService" ref="parameterService"/>
+        <property name="emailService" ref="emailService"/>
     </bean>
 
     <bean id="glOrgReversionUnitOfWorkService" parent="glOrgReversionUnitOfWorkService-parentBean"/>
@@ -2884,7 +2867,7 @@
     <bean id="detectDocumentsMissingEntriesService-parentBean" abstract="true" class="org.kuali.kfs.gl.batch.service.impl.DetectDocumentsMissingEntriesServiceImpl">
         <property name="parameterService" ref="parameterService"/>
         <property name="detectDocumentsMissingEntriesDao" ref="detectDocumentsMissingEntriesDao"/>
-        <property name="mailService" ref="mailService"/>
+        <property name="emailService" ref="emailService"/>
         <property name="configurationService" ref="configurationService"/>
     </bean>
 

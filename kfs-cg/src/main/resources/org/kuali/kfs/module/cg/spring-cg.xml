@@ -233,15 +233,9 @@
     </bean>
 
     <bean id="cfdaBatchStep" class="org.kuali.kfs.module.cg.batch.CfdaBatchStep" parent="step">
-        <property name="cfdaService">
-            <ref bean="cfdaService"/>
-        </property>
-        <property name="mailService">
-            <ref bean="mailService"/>
-        </property>
-        <property name="parameterService">
-            <ref bean="parameterService"/>
-        </property>
+        <property name="cfdaService" ref="cfdaService"/>
+        <property name="emailService" ref="emailService"/>
+        <property name="parameterService" ref="parameterService"/>
         <property name="configurationService" ref="kualiConfigurationService"/>
     </bean>
 

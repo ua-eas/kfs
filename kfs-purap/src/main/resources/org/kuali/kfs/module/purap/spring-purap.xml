@@ -323,7 +323,7 @@
         <property name="purapWorkflowIntegrationService" ref="purapWorkflowIntegrationService"/>
         <property name="maintenanceDocumentService" ref="maintenanceDocumentService"/>
         <property name="parameterService" ref="parameterService"/>
-        <property name="mailService" ref="mailService"/>
+        <property name="emailService" ref="emailService"/>
         <property name="printService" ref="printService"/>
         <property name="dataDictionaryService" ref="dataDictionaryService"/>
         <property name="financialSystemDocumentService" ref="financialSystemDocumentService"/>
@@ -628,7 +628,7 @@
         <property name="electronicInvoicingDao" ref="electronicInvoicingDao"/>
         <property name="electronicInvoiceInputFileType" ref="electronicInvoiceInputFileType"/>
         <property name="electronicInvoiceMatchingService" ref="electronicInvoiceMatchingService"/>
-        <property name="mailService" ref="mailService"/>
+        <property name="emailService" ref="emailService"/>
         <property name="batchInputFileService" ref="batchInputFileService"/>
         <property name="vendorService" ref="vendorService"/>
         <property name="purchaseOrderService" ref="purchaseOrderService"/>

@@ -22,14 +22,14 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.NDC;
-import org.kuali.kfs.krad.service.MailService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.batch.service.SchedulerService;
 import org.kuali.kfs.sys.context.NDCFilter;
+import org.kuali.kfs.sys.mail.BodyMailMessage;
+import org.kuali.kfs.sys.service.EmailService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.mail.MailMessage;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -44,12 +44,9 @@ public class JobListener implements org.quartz.JobListener {
     public static final String REQUESTOR_EMAIL_ADDRESS_KEY = "requestorEmailAdress";
     protected SchedulerService schedulerService;
     protected ConfigurationService configurationService;
-    protected MailService mailService;
+    protected EmailService emailService;
     protected DateTimeService dateTimeService;
 
-    /**
-     * @see org.quartz.JobListener#jobWasExecuted(org.quartz.JobExecutionContext, org.quartz.JobExecutionException)
-     */
     @Override
     public void jobWasExecuted(JobExecutionContext jobExecutionContext, JobExecutionException jobExecutionException) {
         if (jobExecutionContext.getJobInstance() instanceof Job) {
@@ -63,9 +60,6 @@ public class JobListener implements org.quartz.JobListener {
         }
     }
 
-    /**
-     * @see org.quartz.JobListener#jobToBeExecuted(org.quartz.JobExecutionContext)
-     */
     @Override
     public void jobToBeExecuted(JobExecutionContext jobExecutionContext) {
         if (jobExecutionContext.getJobInstance() instanceof Job) {
@@ -83,9 +77,6 @@ public class JobListener implements org.quartz.JobListener {
         }
     }
 
-    /**
-     * @see org.quartz.JobListener#jobExecutionVetoed(org.quartz.JobExecutionContext)
-     */
     @Override
     public void jobExecutionVetoed(JobExecutionContext jobExecutionContext) {
         if (jobExecutionContext.getJobInstance() instanceof Job) {
@@ -119,67 +110,44 @@ public class JobListener implements org.quartz.JobListener {
     protected void notify(JobExecutionContext jobExecutionContext, String jobStatus) {
         try {
             StringBuilder mailMessageSubject = new StringBuilder(jobExecutionContext.getJobDetail().getGroup()).append(": ").append(jobExecutionContext.getJobDetail().getName());
-            MailMessage mailMessage = new MailMessage();
-            mailMessage.setFromAddress(mailService.getBatchMailingList());
+            BodyMailMessage mailMessage = new BodyMailMessage();
+            mailMessage.setFromAddress(emailService.getFromAddress());
             if (jobExecutionContext.getMergedJobDataMap().containsKey(REQUESTOR_EMAIL_ADDRESS_KEY) && !StringUtils.isBlank(jobExecutionContext.getMergedJobDataMap().getString(REQUESTOR_EMAIL_ADDRESS_KEY))) {
                 mailMessage.addToAddress(jobExecutionContext.getMergedJobDataMap().getString(REQUESTOR_EMAIL_ADDRESS_KEY));
             }
             if (SchedulerService.FAILED_JOB_STATUS_CODE.equals(jobStatus) || SchedulerService.CANCELLED_JOB_STATUS_CODE.equals(jobStatus)) {
-                mailMessage.addToAddress(mailService.getBatchMailingList());
+                mailMessage.addToAddress(emailService.getFromAddress());
             }
             mailMessageSubject.append(": ").append(jobStatus);
             String messageText = MessageFormat.format(configurationService.getPropertyValueAsString(KFSKeyConstants.MESSAGE_BATCH_FILE_LOG_EMAIL_BODY), getLogFileName(NDC.peek()));
             mailMessage.setMessage(messageText);
             if (mailMessage.getToAddresses().size() > 0) {
                 mailMessage.setSubject(mailMessageSubject.toString());
-                mailService.sendMessage(mailMessage);
+                emailService.sendMessage(mailMessage,false);
             }
         } catch (Exception iae) {
             LOG.error("Caught exception while trying to send job completion notification e-mail for " + jobExecutionContext.getJobDetail().getName(), iae);
         }
     }
 
-    /**
-     * @see org.quartz.JobListener#getName()
-     */
     @Override
     public String getName() {
         return NAME;
     }
 
-    /**
-     * Sets the schedulerService attribute value.
-     *
-     * @param schedulerService The schedulerService to set.
-     */
     public void setSchedulerService(SchedulerService schedulerService) {
         this.schedulerService = schedulerService;
     }
 
-    /**
-     * Sets the configurationService attribute value.
-     *
-     * @param configurationService The configurationService to set.
-     */
     public void setConfigurationService(ConfigurationService configurationService) {
         this.configurationService = configurationService;
     }
 
-    /**
-     * Sets the mailService attribute value.
-     *
-     * @param mailService The mailService to set.
-     */
-    public void setMailService(MailService mailService) {
-        this.mailService = mailService;
-    }
-
-    /**
-     * Sets the dateTimeService attribute value.
-     *
-     * @param dateTimeService The dateTimeService to set.
-     */
     public void setDateTimeService(DateTimeService dateTimeService) {
         this.dateTimeService = dateTimeService;
+    }
+
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
     }
 }

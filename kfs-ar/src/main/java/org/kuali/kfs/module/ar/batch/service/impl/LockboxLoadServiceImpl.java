@@ -21,9 +21,7 @@ package org.kuali.kfs.module.ar.batch.service.impl;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.exception.InvalidAddressException;
 import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.MailService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.batch.LockboxLoadStep;
@@ -37,12 +35,12 @@ import org.kuali.kfs.sys.batch.FlatFileInformation;
 import org.kuali.kfs.sys.batch.FlatFileTransactionInformation;
 import org.kuali.kfs.sys.batch.service.BatchInputFileService;
 import org.kuali.kfs.sys.exception.ParseException;
+import org.kuali.kfs.sys.mail.BodyMailMessage;
+import org.kuali.kfs.sys.service.EmailService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.mail.MailMessage;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.mail.MessagingException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -51,9 +49,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @see org.kuali.kfs.module.ar.batch.service.LockboxLoadService
- */
 @Transactional
 public class LockboxLoadServiceImpl implements LockboxLoadService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LockboxLoadServiceImpl.class);
@@ -63,27 +58,25 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
     private BatchInputFileService batchInputFileService;
     private BusinessObjectService businessObjectService;
     private DateTimeService dateTimeService;
-    private MailService mailService;
+    private EmailService emailService;
     private ParameterService parameterService;
 
-
-    @Override
+   @Override
     public boolean loadFile() {
+        LOG.debug("loadFile() started");
 
         boolean result = true;
-        //List<LockboxLoadFileResult> fileResults = new ArrayList<LockboxLoadFileResult>();
-        List<FlatFileInformation> flatFileInformationList = new ArrayList<FlatFileInformation>();
-        //LockboxLoadFileResult fileResult = null;
+
+        List<FlatFileInformation> flatFileInformationList = new ArrayList<>();
         FlatFileInformation flatFileInformation = null;
 
         List<String> fileNamesToLoad = getListOfFilesToProcess();
-        LOG.info("Found " + fileNamesToLoad.size() + " file(s) to process.");
+        LOG.info("loadFile() Found " + fileNamesToLoad.size() + " file(s) to process.");
 
         List<String> processedFiles = new ArrayList<String>();
 
         for (String inputFileName : fileNamesToLoad) {
-
-            LOG.info("Beginning processing of filename: " + inputFileName + ".");
+            LOG.info("loadFile() Beginning processing of filename: " + inputFileName + ".");
             flatFileInformation = new FlatFileInformation(inputFileName);
             flatFileInformationList.add(flatFileInformation);
 
@@ -97,31 +90,27 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
 
         }
 
-        //  remove done files
         removeDoneFiles(processedFiles);
-
-        // SendEmail
         sendLoadSummaryEmail(flatFileInformationList);
 
         return result;
     }
 
-    public boolean loadFile(String fileName, FlatFileInformation flatFileInformation) {
+    protected boolean loadFile(String fileName, FlatFileInformation flatFileInformation) {
         boolean valid = true;
         //  load up the file into a byte array
         byte[] fileByteContent = safelyLoadFileBytes(fileName);
 
         //  parse the file against the configuration define in the spring file and load it into an object
-        LOG.info("Attempting to parse the file ");
+        LOG.info("loadFile() Attempting to parse the file");
         Object parsedObject = null;
 
         try {
             parsedObject = batchInputFileService.parse(batchInputFileType, fileByteContent);
         } catch (ParseException e) {
-            LOG.error("Error parsing batch file: " + e.getMessage());
+            LOG.error("loadFile() Error parsing batch file: " + e.getMessage());
             flatFileInformation.addFileErrorMessage("Error parsing batch file: " + e.getMessage());
             valid = false;
-            //    throw new ParseException(e.getMessage());
         }
 
         // validate the parsed data
@@ -133,12 +122,13 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
             }
         }
         return valid;
-
     }
 
 
     @Override
     public boolean validate(Object parsedFileContents) {
+       LOG.debug("validate() started");
+
         // compare header with detail record
         boolean valid = true;
         List<Lockbox> lockboxList = (List<Lockbox>) parsedFileContents;
@@ -171,16 +161,13 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
             totalDetailRecords++;
         }
 
-
-        if (headerTransBatchTotal.compareTo(detailInvPaidTotal) == 0
-            && headerTransBatchCount.compareTo(totalDetailRecords) == 0) {
+        if (headerTransBatchTotal.compareTo(detailInvPaidTotal) == 0 && headerTransBatchCount.compareTo(totalDetailRecords) == 0) {
 
             String message = "Good Transfer for lockbox number " + lockbox.getLockboxNumber() + "."
                 + " Transaction count : " + lockbox.getHeaderTransactionBatchCount()
                 + " Transaction total amount : $ " + lockbox.getHeaderTransactionBatchTotal();
             lockbox.getFlatFileTransactionInformation().addInfoMessage(message);
             GlobalVariables.getMessageMap().putInfo(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_CUSTOM, message);
-
         }
 
 
@@ -204,16 +191,14 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
             isHeaderMatchedDetails = false;
         }
 
-
         return isHeaderMatchedDetails;
-
     }
 
 
     /**
      * Send load lockbox file validation
      *
-     * @param report
+     * @param flatFileInformationList
      */
     public void sendLoadSummaryEmail(List<FlatFileInformation> flatFileInformationList) {
         for (FlatFileInformation information : flatFileInformationList) {
@@ -221,20 +206,13 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
         }
     }
 
-
     public void sendEmail(FlatFileInformation flatFileInformation) {
         LOG.debug("sendEmail() starting");
 
+        BodyMailMessage message = new BodyMailMessage();
 
-        MailMessage message = new MailMessage();
-
-        // String returnAddress = parameterService.getParameterValueAsString(KFSConstants.OptionalModuleNamespaces.ACCOUNTS_RECEIVABLE, ParameterConstants.BATCH_COMPONENT, "IU_FROM_EMAIL_ADDRESS");
-        // if(StringUtils.isEmpty(returnAddress)) {
-        String returnAddress = mailService.getBatchMailingList();
-        // }
-        message.setFromAddress(returnAddress);
+        message.setFromAddress(emailService.getFromAddress());
         String subject = parameterService.getParameterValueAsString(LockboxLoadStep.class, ArConstants.Lockbox.SUMMARY_AND_ERROR_NOTIFICATION_EMAIL_SUBJECT);
-        //KFSMI-11479: discovered that the backslashes don't work for Linux machines. Need to use File.separator instead for fileName to work.
         String fileName = StringUtils.substringAfterLast(flatFileInformation.getFileName(), "\\");
         message.setSubject(subject + "[ " + fileName + " ]");
         List<String> toAddressList = new ArrayList<String>(parameterService.getParameterValuesAsString(LockboxLoadStep.class, ArConstants.Lockbox.SUMMARY_AND_ERROR_NOTIFICATION_TO_EMAIL_ADDRESSES));
@@ -242,18 +220,10 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
         String body = composeLockboxLoadBody(flatFileInformation);
         message.setMessage(body);
 
-        try {
-            mailService.sendMessage(message);
-        } catch (InvalidAddressException e) {
-            LOG.error("sendErrorEmail() Invalid email address. Message not sent", e);
-        } catch (MessagingException me) {
-            throw new RuntimeException("Could not send mail", me);
-        }
-
+        emailService.sendMessage(message,false);
     }
 
     protected String composeLockboxLoadBody(FlatFileInformation flatFileInformation) {
-
         String contactText = parameterService.getParameterValueAsString(LockboxLoadStep.class, ArConstants.Lockbox.CONTACTS_TEXT);
         StringBuffer body = new StringBuffer();
         body.append(contactText);
@@ -266,7 +236,6 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
             }
         }
 
-
         for (String[] resultMessage : flatFileInformation.getMessages()) {
             body.append(resultMessage[1]);
             body.append("\n");
@@ -277,12 +246,11 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
 
 
     protected List<String> getListOfFilesToProcess() {
-
         //  create a list of the files to process
         List<String> fileNamesToLoad = batchInputFileService.listInputFileNamesWithDoneFile(batchInputFileType);
 
         if (fileNamesToLoad == null) {
-            LOG.error("BatchInputFileService.listInputFileNamesWithDoneFile(" +
+            LOG.error("getListOfFilesToProcess() BatchInputFileService.listInputFileNamesWithDoneFile(" +
                 batchInputFileType.getFileTypeIdentifer() + ") returned NULL which should never happen.");
             throw new RuntimeException("BatchInputFileService.listInputFileNamesWithDoneFile(" +
                 batchInputFileType.getFileTypeIdentifer() + ") returned NULL which should never happen.");
@@ -291,7 +259,7 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
         //  filenames returned should never be blank/empty/null
         for (String inputFileName : fileNamesToLoad) {
             if (StringUtils.isBlank(inputFileName)) {
-                LOG.error("One of the file names returned as ready to process [" + inputFileName +
+                LOG.error("getListOfFilesToProcess() One of the file names returned as ready to process [" + inputFileName +
                     "] was blank.  This should not happen, so throwing an error to investigate.");
                 throw new RuntimeException("One of the file names returned as ready to process [" + inputFileName +
                     "] was blank.  This should not happen, so throwing an error to investigate.");
@@ -314,10 +282,10 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
         try (InputStream fileContents = new FileInputStream(fileName)) {
             fileByteContent = IOUtils.toByteArray(fileContents);
         } catch (FileNotFoundException e1) {
-            LOG.error("Batch file not found [" + fileName + "]. " + e1.getMessage());
+            LOG.error("safelyLoadFileBytes() Batch file not found [" + fileName + "]. " + e1.getMessage());
             throw new RuntimeException("Batch File not found [" + fileName + "]. " + e1.getMessage());
         } catch (IOException e1) {
-            LOG.error("IO Exception loading: [" + fileName + "]. " + e1.getMessage());
+            LOG.error("safelyLoadFileBytes() IO Exception loading: [" + fileName + "]. " + e1.getMessage());
             throw new RuntimeException("IO Exception loading: [" + fileName + "]. " + e1.getMessage());
         }
         return fileByteContent;
@@ -335,10 +303,7 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
 
         // save lockbox data in AR_LOCKBOX_T
         businessObjectService.save(loadLockboxList);
-
-
     }
-
 
     /**
      * Clears out associated .done files for the processed data files.
@@ -352,10 +317,7 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
         }
     }
 
-
     protected void setLockboxToLoad(List loadLockboxList, Lockbox lockbox, int batchSequenceNumber) {
-
-
         for (LockboxDetail detail : lockbox.getLockboxDetails()) {
             Lockbox lockboxToLoad = new Lockbox();
             lockboxToLoad.setLockboxNumber(lockbox.getLockboxNumber());
@@ -370,8 +332,6 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
             lockboxToLoad.setCustomerPaymentMediumCode(detail.getCustomerPaymentMediumCode());
             loadLockboxList.add(lockboxToLoad);
         }
-
-
     }
 
     protected void copyAllMessage(Object parsedObject, FlatFileInformation flatFileInformation) {
@@ -384,7 +344,6 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
 
     @Override
     public String getFileName(String principalName, Object parsedFileContents, String fileUserIdentifier) {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -404,19 +363,15 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
         this.batchInputFileService = batchInputFileService;
     }
 
-
     public void setDateTimeService(DateTimeService dateTimeService) {
         this.dateTimeService = dateTimeService;
     }
-
-    public void setMailService(MailService mailService) {
-        this.mailService = mailService;
-    }
-
 
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }
 
-
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
 }

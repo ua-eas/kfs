@@ -22,9 +22,4 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" default-lazy-init="false">
 
-    <!-- SYS Module -->
-    <bean id="attachmentMailService" class="org.kuali.kfs.sys.service.impl.AttachmentDevelopmentMailServiceImpl">
-        <property name="batchMailingList" value="${mailing.list.batch}"/>
-    </bean>
-
 </beans>

@@ -27,7 +27,6 @@ import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleService;
 import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
 import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.MailService;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
@@ -35,8 +34,9 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
+import org.kuali.kfs.sys.mail.BodyMailMessage;
+import org.kuali.kfs.sys.service.EmailService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.mail.MailMessage;
 import org.kuali.rice.core.api.membership.MemberType;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.kim.api.KimConstants;
@@ -55,13 +55,12 @@ import java.util.Map;
 import java.util.Set;
 
 public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBase {
-
     protected AccountService accountService;
     protected ContractsAndGrantsModuleService contractsAndGrantsModuleService;
     protected AccountDelegateService accountDelegateService;
     protected ConfigurationService configurationService;
     protected IdentityManagementService identityManagementService;
-    protected MailService mailService;
+    protected EmailService emailService;
     protected ParameterService parameterService;
 
     protected final static String DERIVED_ROLE_MEMBER_INACTIVATION_NOTIFICATION_EMAIL_ADDRESSES_PARAMETER_NAME = "DERIVED_ROLE_MEMBER_INACTIVATION_NOTIFICATION_EMAIL_ADDRESSES";
@@ -72,15 +71,12 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
      * where ACCT_DLGT_PRMRT_CD = Y - KFS-SYS Fiscal Officer Secondary Delegate: CA_ACCT_DELEGATE_T.ACCT_DLGT_UNVL_ID where
      * ACCT_DLGT_PRMRT_CD = N - KFS-SYS Award Project Director: use the getProjectDirectorForAccount(String chartOfAccountsCode,
      * String accountNumber) method on the contracts and grants module service
-     *
-     * @see org.kuali.kfs.kns.kim.role.RoleTypeServiceBase#getPrincipalIdsFromApplicationRole(java.lang.String,
-     * java.lang.String, org.kuali.kfs.kim.bo.types.dto.AttributeSet)
      */
     @Override
     public List<RoleMembership> getRoleMembersFromDerivedRole(String namespaceCode, String roleName, Map<String, String> qualification) {
         // validate received attributes
         validateRequiredAttributesAgainstReceived(qualification);
-        List<RoleMembership> members = new ArrayList<RoleMembership>();
+        List<RoleMembership> members = new ArrayList<>();
         if (qualification != null && !qualification.isEmpty()) {
             String chartOfAccountsCode = qualification.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE);
             String accountNumber = qualification.get(KfsKimAttributes.ACCOUNT_NUMBER);
@@ -97,7 +93,7 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
                 totalDollarAmount = getDefaultTotalAmount();
             }
 
-            Map<String, String> roleQualifier = new HashMap<String, String>();
+            Map<String, String> roleQualifier = new HashMap<>();
             roleQualifier.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, chartOfAccountsCode);
             roleQualifier.put(KfsKimAttributes.ACCOUNT_NUMBER, accountNumber);
 
@@ -155,7 +151,7 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
     // build memebership information based on the given role name for the given principal when account information is unavailable
     protected RoleMembership getRoleMembershipWhenAccountInfoUnavailable(String roleName, String principalId, Map<String, String> roleQualifier) {
         BusinessObjectService businessObjectService = SpringContext.getBean(BusinessObjectService.class);
-        Map<String, Object> fieldValues = new HashMap<String, Object>();
+        Map<String, Object> fieldValues = new HashMap<>();
 
         RoleMembership roleMembership = null;
 
@@ -182,6 +178,29 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
         }
 
         return roleMembership;
+    }
+
+    //   @Override
+    public void principalInactivated(String principalId, String namespaceCode, String roleName) {
+        //    super.principalInactivated(principalId, namespaceCode, roleName);
+
+        if (KFSConstants.SysKimApiConstants.ACCOUNT_SUPERVISOR_KIM_ROLE_NAME.equals(roleName)) {
+            if (getAccountService().isPrincipalInAnyWayShapeOrFormAccountSupervisor(principalId)) {
+                handleAccountSupervisorInactivation(principalId, namespaceCode, roleName);
+            }
+        } else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_KIM_ROLE_NAME.equals(roleName)) {
+            if (getAccountService().isPrincipalInAnyWayShapeOrFormFiscalOfficer(principalId)) {
+                handleFiscalOfficerInactivation(principalId, namespaceCode, roleName);
+            }
+        } else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_PRIMARY_DELEGATE_KIM_ROLE_NAME.equals(roleName)) {
+            if (getAccountDelegateService().isPrincipalInAnyWayShapeOrFormPrimaryAccountDelegate(principalId)) {
+                handlePrimaryAccountDelegateInactivation(principalId, namespaceCode, roleName);
+            }
+        } else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_SECONDARY_DELEGATE_KIM_ROLE_NAME.equals(roleName)) {
+            if (getAccountDelegateService().isPrincipalInAnyWayShapeOrFormSecondaryAccountDelegate(principalId)) {
+                handleSecondaryAccountDelegateInactivation(principalId, namespaceCode, roleName);
+            }
+        }
     }
 
     protected Account getAccount(String chartOfAccountsCode, String accountNumber) {
@@ -214,119 +233,6 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
     }
 
     /**
-     * Gets the accountService attribute.
-     *
-     * @return Returns the accountService.
-     */
-    protected AccountService getAccountService() {
-        if (accountService == null) {
-            accountService = SpringContext.getBean(AccountService.class);
-        }
-        return accountService;
-    }
-
-    /**
-     * Sets the accountService attribute value.
-     *
-     * @param accountService The accountService to set.
-     */
-    public void setAccountService(AccountService accountService) {
-        this.accountService = accountService;
-    }
-
-    /**
-     * @return an implementation of the AccountDelegateService
-     */
-    protected AccountDelegateService getAccountDelegateService() {
-        if (accountDelegateService == null) {
-            accountDelegateService = SpringContext.getBean(AccountDelegateService.class);
-        }
-        return accountDelegateService;
-    }
-
-    /**
-     * Sets the accountDelegateService attribute value.
-     *
-     * @param accountDelegateService The accountDelegateService to set.
-     */
-    public void setAccountDelegateService(AccountDelegateService accountDelegateService) {
-        this.accountDelegateService = accountDelegateService;
-    }
-
-    /**
-     * @return an implementation of the ConfigurationService
-     */
-    protected ConfigurationService getConfigurationService() {
-        if (configurationService == null) {
-            configurationService = SpringContext.getBean(ConfigurationService.class);
-        }
-        return configurationService;
-    }
-
-    /**
-     * @return an implementation of the IdentityManagementService
-     */
-    protected IdentityManagementService getIdentityManagementService() {
-        if (identityManagementService == null) {
-            identityManagementService = SpringContext.getBean(IdentityManagementService.class);
-        }
-        return identityManagementService;
-    }
-
-    /**
-     * @return an implementation of the MailService
-     */
-    protected MailService getMailService() {
-        if (mailService == null) {
-            mailService = SpringContext.getBean(MailService.class);
-        }
-        return mailService;
-    }
-
-    /**
-     * @return an implementation of the ParameterService
-     */
-    protected ParameterService getParameterService() {
-        if (parameterService == null) {
-            parameterService = SpringContext.getBean(ParameterService.class);
-        }
-        return parameterService;
-    }
-
-    protected ContractsAndGrantsModuleService getContractsAndGrantsModuleService() {
-        if (contractsAndGrantsModuleService == null) {
-            contractsAndGrantsModuleService = SpringContext.getBean(ContractsAndGrantsModuleService.class);
-        }
-        return contractsAndGrantsModuleService;
-    }
-
-    /**
-     * @see org.kuali.rice.kns.kim.role.RoleTypeServiceBase#principalInactivated(java.lang.String, java.lang.String, java.lang.String)
-     */
-    //   @Override
-    public void principalInactivated(String principalId, String namespaceCode, String roleName) {
-        //    super.principalInactivated(principalId, namespaceCode, roleName);
-
-        if (KFSConstants.SysKimApiConstants.ACCOUNT_SUPERVISOR_KIM_ROLE_NAME.equals(roleName)) {
-            if (getAccountService().isPrincipalInAnyWayShapeOrFormAccountSupervisor(principalId)) {
-                handleAccountSupervisorInactivation(principalId, namespaceCode, roleName);
-            }
-        } else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_KIM_ROLE_NAME.equals(roleName)) {
-            if (getAccountService().isPrincipalInAnyWayShapeOrFormFiscalOfficer(principalId)) {
-                handleFiscalOfficerInactivation(principalId, namespaceCode, roleName);
-            }
-        } else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_PRIMARY_DELEGATE_KIM_ROLE_NAME.equals(roleName)) {
-            if (getAccountDelegateService().isPrincipalInAnyWayShapeOrFormPrimaryAccountDelegate(principalId)) {
-                handlePrimaryAccountDelegateInactivation(principalId, namespaceCode, roleName);
-            }
-        } else if (KFSConstants.SysKimApiConstants.FISCAL_OFFICER_SECONDARY_DELEGATE_KIM_ROLE_NAME.equals(roleName)) {
-            if (getAccountDelegateService().isPrincipalInAnyWayShapeOrFormSecondaryAccountDelegate(principalId)) {
-                handleSecondaryAccountDelegateInactivation(principalId, namespaceCode, roleName);
-            }
-        }
-    }
-
-    /**
      * Notifies the specified list that the given principal is being inactivated, listing any active or expired accounts the principal is fiscal officer of
      *
      * @param principalId   the principal id of the inactivating person
@@ -344,18 +250,9 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
 
         final String message = getMessage(KFSKeyConstants.MESSAGE_ACCOUNT_DERIVED_ROLE_PRINCIPAL_INACTIVATED_FISCAL_OFFICER_NOTIFICATION, roleNamespace, roleName, principal.getPrincipalName(), joinedActiveAccounts, joinedExpiredAccounts);
 
-        // get listserv to mail to
         String toAddress = getDeactivationInterestAddress();
-        try {
-
-            // get mail message
-            MailMessage mailMessage = buildMailMessage(toAddress, message, roleNamespace, roleName, principalId);
-            // send it
-            getMailService().sendMessage(mailMessage);
-        } catch (Exception iae) {
-            throw new RuntimeException("Could not mail principal inactivation notification to " + toAddress);
-        }
-
+        BodyMailMessage mailMessage = buildMailMessage(toAddress, message, roleNamespace, roleName, principalId);
+        getEmailService().sendMessage(mailMessage,false);
     }
 
     /**
@@ -376,17 +273,9 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
 
         final String message = getMessage(KFSKeyConstants.MESSAGE_ACCOUNT_DERIVED_ROLE_PRINCIPAL_INACTIVATED_ACCOUNT_SUPERVISOR_NOTIFICATION, roleNamespace, roleName, principal.getPrincipalName(), joinedActiveAccounts, joinedExpiredAccounts);
 
-        // get listserv to mail to
         String toAddress = getDeactivationInterestAddress();
-        try {
-
-            // get mail message
-            MailMessage mailMessage = buildMailMessage(toAddress, message, roleNamespace, roleName, principalId);
-            // send it
-            getMailService().sendMessage(mailMessage);
-        } catch (Exception iae) {
-            throw new RuntimeException("Could not mail principal inactivation notification to " + toAddress);
-        }
+        BodyMailMessage mailMessage = buildMailMessage(toAddress, message, roleNamespace, roleName, principalId);
+        getEmailService().sendMessage(mailMessage,false);
     }
 
     /**
@@ -420,8 +309,8 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
      * @param primary       whether primary delegates should be inactivated, rather than secondary
      */
     protected void handleAccountDelegateInactivation(String principalId, String roleNamespace, String roleName, boolean primary) {
-        List<String> accountDisdelegations = new ArrayList<String>();
-        List<String> blockedAccountDisdelegations = new ArrayList<String>();
+        List<String> accountDisdelegations = new ArrayList<>();
+        List<String> blockedAccountDisdelegations = new ArrayList<>();
 
         Iterator<AccountDelegate> accountDelegationsToInactivate = getAccountDelegateService().retrieveAllActiveDelegationsForPerson(principalId, primary);
         while (accountDelegationsToInactivate.hasNext()) {
@@ -499,14 +388,9 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
         final String message = getMessage((primary ? KFSKeyConstants.MESSAGE_ACCOUNT_DERIVED_ROLE_PRINCIPAL_INACTIVATED_FISCAL_OFFICER_PRIMARY_DELEGATE_NOTIFICATION : KFSKeyConstants.MESSAGE_ACCOUNT_DERIVED_ROLE_PRINCIPAL_INACTIVATED_FISCAL_OFFICER_SECONARY_DELEGATE_NOTIFICATION), roleNamespace, roleName, principal.getPrincipalName(), StringUtils.join(accountsDisdelegated, '\n'), StringUtils.join(blockedDisdelegations, '\n'));
 
         String toAddress = getDeactivationInterestAddress();
-        try {
-            // get mail message
-            MailMessage mailMessage = buildMailMessage(toAddress, message, roleNamespace, roleName, principalId);
-            // send it
-            getMailService().sendMessage(mailMessage);
-        } catch (Exception iae) {
-            throw new RuntimeException("Could not mail principal inactivation notification to " + toAddress);
-        }
+
+        BodyMailMessage mailMessage = buildMailMessage(toAddress, message, roleNamespace, roleName, principalId);
+        getEmailService().sendMessage(mailMessage,false);
     }
 
     /**
@@ -552,12 +436,12 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
      * @param roleName      the name of the role the inactivated principal is leaving
      * @return an appropriately constructed MailMessage
      */
-    protected MailMessage buildMailMessage(String toAddress, String message, String roleNamespace, String roleName, String principalId) {
-        MailMessage mailMessage = new MailMessage();
+    protected BodyMailMessage buildMailMessage(String toAddress, String message, String roleNamespace, String roleName, String principalId) {
+        BodyMailMessage mailMessage = new BodyMailMessage();
         mailMessage.setFromAddress(getFromAddress());
         mailMessage.setSubject(getMailMessageSubject(roleNamespace, roleName, principalId));
 
-        Set<String> toAddresses = new HashSet<String>();
+        Set<String> toAddresses = new HashSet<>();
         toAddresses.add(toAddress);
         mailMessage.setToAddresses(toAddresses);
         mailMessage.setMessage(message);
@@ -591,5 +475,60 @@ public class AccountDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBas
         return getParameterService().getParameterValueAsString(Account.class, AccountDerivedRoleTypeServiceImpl.DERIVED_ROLE_MEMBER_INACTIVATION_NOTIFICATION_EMAIL_ADDRESSES_PARAMETER_NAME);
     }
 
+    protected AccountService getAccountService() {
+        if (accountService == null) {
+            accountService = SpringContext.getBean(AccountService.class);
+        }
+        return accountService;
+    }
 
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
+    protected AccountDelegateService getAccountDelegateService() {
+        if (accountDelegateService == null) {
+            accountDelegateService = SpringContext.getBean(AccountDelegateService.class);
+        }
+        return accountDelegateService;
+    }
+
+    public void setAccountDelegateService(AccountDelegateService accountDelegateService) {
+        this.accountDelegateService = accountDelegateService;
+    }
+
+    protected ConfigurationService getConfigurationService() {
+        if (configurationService == null) {
+            configurationService = SpringContext.getBean(ConfigurationService.class);
+        }
+        return configurationService;
+    }
+
+    protected IdentityManagementService getIdentityManagementService() {
+        if (identityManagementService == null) {
+            identityManagementService = SpringContext.getBean(IdentityManagementService.class);
+        }
+        return identityManagementService;
+    }
+
+    protected EmailService getEmailService() {
+        if (emailService == null) {
+            emailService = SpringContext.getBean(EmailService.class);
+        }
+        return emailService;
+    }
+
+    protected ParameterService getParameterService() {
+        if (parameterService == null) {
+            parameterService = SpringContext.getBean(ParameterService.class);
+        }
+        return parameterService;
+    }
+
+    protected ContractsAndGrantsModuleService getContractsAndGrantsModuleService() {
+        if (contractsAndGrantsModuleService == null) {
+            contractsAndGrantsModuleService = SpringContext.getBean(ContractsAndGrantsModuleService.class);
+        }
+        return contractsAndGrantsModuleService;
+    }
 }

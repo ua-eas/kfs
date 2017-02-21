@@ -192,14 +192,6 @@
         <property name="serviceName" value="mailer"/>
     </bean>
 
-    <bean id="cf.mailService" class="org.kuali.kfs.krad.service.impl.MailServiceImpl">
-        <property name="mailer" ref="cf.mailer"/>
-        <property name="batchMailingList" value="${mailing.list.batch}"/>
-        <property name="nonProductionNotificationMailingList" value="${nonproduction.notification.mailing.list}"/>
-        <property name="realNotificationsEnabled" value="${real.notifications.enabled}"/>
-        <property name="configurationService" ref="cf.kualiConfigurationService"/>
-    </bean>
-
     <bean id="cf.kradExceptionIncidentService" class="org.kuali.kfs.krad.service.impl.KualiExceptionIncidentServiceImpl">
         <property name="mailer" ref="cf.mailer"/>
         <property name="messageTemplate">

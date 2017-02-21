@@ -37,13 +37,6 @@ public class KRADServiceLocatorInternal {
         return GlobalResourceLoader.<T>getService(serviceName);
     }
 
-
-    public static final String MAIL_SERVICE = "cf.mailService";
-
-    public static final MailService getMailService() {
-        return (MailService) getService(MAIL_SERVICE);
-    }
-
     public static final String POST_PROCESSOR_SERVICE = "cf.postProcessorService";
 
     public static PostProcessorService getPostProcessorService() {

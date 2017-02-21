@@ -29,7 +29,5 @@
     <bean id="securityProperties" class="org.kuali.kfs.sys.context.PropertyLoadingFactoryBean" p:secureMode="true" p:testMode="true"/>
 
     <!--  replace the kfsConfigurer bean with one which runs in test mode -->
-    <bean name="kfsConfigurer" class="org.kuali.kfs.sys.context.KFSConfigurer" lazy-init="false"
-          p:testMode="true"/>
-
+    <bean name="kfsConfigurer" class="org.kuali.kfs.sys.context.KFSConfigurer" lazy-init="false" p:testMode="true"/>
 </beans>
