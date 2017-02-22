@@ -174,7 +174,7 @@ public class ProcurementCardCreateDocumentServiceImpl implements ProcurementCard
 
         // Handle for email sending exception
         VelocityMailMessage msg = new VelocityMailMessage();
-        msg.setFromAddress(emailService.getFromAddress());
+        msg.setFromAddress(emailService.getDefaultFromAddress());
         getProdEmailReceivers().stream().forEach(r -> msg.addToAddress(r));
         msg.setSubject("KFS Pcard Load Summary");
         msg.setTemplateUrl(emailTemplateUrl);

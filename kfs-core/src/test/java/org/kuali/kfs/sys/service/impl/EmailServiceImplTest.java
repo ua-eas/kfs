@@ -40,10 +40,10 @@ public class EmailServiceImplTest {
 
     @Test
     public void testGetFromAddress() {
-        EasyMock.expect(parameterService.getParameterValueAsString("KFS-SYS", "All", "FROM_EMAIL_ADDRESS")).andReturn("me@me.com");
+        EasyMock.expect(parameterService.getParameterValueAsString("KFS-SYS", "All", "DEFAULT_FROM_EMAIL_ADDRESS")).andReturn("me@me.com");
         EasyMock.replay(parameterService, configurationService);
 
-        String fromAddress = emailService.getFromAddress();
+        String fromAddress = emailService.getDefaultFromAddress();
 
         EasyMock.verify(parameterService, configurationService);
         Assert.assertEquals("me@me.com", fromAddress);

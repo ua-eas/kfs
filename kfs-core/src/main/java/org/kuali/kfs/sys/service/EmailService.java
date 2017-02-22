@@ -21,7 +21,7 @@ package org.kuali.kfs.sys.service;
 import org.kuali.kfs.sys.mail.MailMessage;
 
 public interface EmailService {
-    String getFromAddress();
+    String getDefaultFromAddress();
     String getDefaultToAddress();
     void sendMessage(MailMessage message, boolean htmlMessage);
 }

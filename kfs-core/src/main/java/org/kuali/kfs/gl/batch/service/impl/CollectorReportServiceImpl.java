@@ -496,7 +496,7 @@ public class CollectorReportServiceImpl implements CollectorReportService {
 
         String returnAddress = parameterService.getParameterValueAsString(KFSConstants.ParameterNamespaces.GL, "Batch", KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM);
         if (StringUtils.isEmpty(returnAddress)) {
-            returnAddress = emailService.getFromAddress();
+            returnAddress = emailService.getDefaultFromAddress();
         }
         message.setFromAddress(returnAddress);
 
@@ -551,7 +551,7 @@ public class CollectorReportServiceImpl implements CollectorReportService {
 
         String returnAddress = parameterService.getParameterValueAsString(KFSConstants.ParameterNamespaces.GL, "Batch", KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM);
         if (StringUtils.isEmpty(returnAddress)) {
-            returnAddress = emailService.getFromAddress();
+            returnAddress = emailService.getDefaultFromAddress();
         }
         message.setFromAddress(returnAddress);
 
@@ -576,7 +576,7 @@ public class CollectorReportServiceImpl implements CollectorReportService {
 
         String returnAddress = parameterService.getParameterValueAsString(KFSConstants.ParameterNamespaces.GL, "Batch", KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM);
         if (StringUtils.isEmpty(returnAddress)) {
-            returnAddress = emailService.getFromAddress();
+            returnAddress = emailService.getDefaultFromAddress();
         }
         message.setFromAddress(returnAddress);
 

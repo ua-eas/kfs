@@ -211,7 +211,7 @@ public class LockboxLoadServiceImpl implements LockboxLoadService {
 
         BodyMailMessage message = new BodyMailMessage();
 
-        message.setFromAddress(emailService.getFromAddress());
+        message.setFromAddress(emailService.getDefaultFromAddress());
         String subject = parameterService.getParameterValueAsString(LockboxLoadStep.class, ArConstants.Lockbox.SUMMARY_AND_ERROR_NOTIFICATION_EMAIL_SUBJECT);
         String fileName = StringUtils.substringAfterLast(flatFileInformation.getFileName(), "\\");
         message.setSubject(subject + "[ " + fileName + " ]");

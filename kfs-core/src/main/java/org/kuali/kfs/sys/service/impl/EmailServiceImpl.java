@@ -40,7 +40,7 @@ public class EmailServiceImpl implements EmailService {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(EmailServiceImpl.class);
 
     protected static final String PARAM_NON_PRODUCTION_EMAIL_MODE = "NON_PRODUCTION_EMAIL_MODE";
-    protected static final String PARAM_FROM_EMAIL_ADDRESS = "FROM_EMAIL_ADDRESS";
+    protected static final String PARAM_DEFAULT_FROM_EMAIL_ADDRESS = "DEFAULT_FROM_EMAIL_ADDRESS";
     protected static final String PARAM_DEFAULT_TO_EMAIL_ADDRESS = "DEFAULT_TO_EMAIL_ADDRESS";
     protected static final String PARAM_NON_PRODUCTION_TO_EMAIL_ADDRESS = "NON_PRODUCTION_TO_EMAIL_ADDRESS";
 
@@ -63,8 +63,8 @@ public class EmailServiceImpl implements EmailService {
     //   send email normally
 
     @Override
-    public String getFromAddress() {
-        return parameterService.getParameterValueAsString("KFS-SYS","All",PARAM_FROM_EMAIL_ADDRESS);
+    public String getDefaultFromAddress() {
+        return parameterService.getParameterValueAsString("KFS-SYS","All", PARAM_DEFAULT_FROM_EMAIL_ADDRESS);
     }
 
     @Override

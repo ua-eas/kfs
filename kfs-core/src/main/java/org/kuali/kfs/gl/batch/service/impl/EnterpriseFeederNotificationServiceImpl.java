@@ -97,7 +97,7 @@ public class EnterpriseFeederNotificationServiceImpl implements EnterpriseFeeder
                 BodyMailMessage mailMessage = new BodyMailMessage();
                 String returnAddress = parameterService.getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM);
                 if (StringUtils.isEmpty(returnAddress)) {
-                    returnAddress = emailService.getFromAddress();
+                    returnAddress = emailService.getDefaultFromAddress();
                 }
                 mailMessage.setFromAddress(returnAddress);
                 mailMessage.setToAddresses(toEmailAddresses);

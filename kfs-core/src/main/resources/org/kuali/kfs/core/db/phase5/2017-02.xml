@@ -77,4 +77,21 @@
             <column name="APPL_ID">KFS</column>
         </insert>
     </changeSet>
+    <changeSet author="KFS701" id="FINI-3375" context="bootstrap,demo,unit">
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD">KFS-SYS</column>
+            <column name="CMPNT_CD">All</column>
+            <column name="PARM_NM">DEFAULT_FROM_EMAIL_ADDRESS</column>
+            <column name="OBJ_ID">FINI-3375</column>
+            <column name="VER_NBR">1</column>
+            <column name="VAL">kfs.notification.batch@kuali.org</column>
+            <column name="PARM_TYP_CD">CONFG</column>
+            <column name="PARM_DESC_TXT">The from address for emails sent from the system for messages that do not have a specific address identified.</column>
+            <column name="EVAL_OPRTR_CD">A</column>
+            <column name="APPL_ID">KFS</column>
+        </insert>
+        <delete tableName="KRCR_PARM_T">
+            <where>OBJ_ID = 'FINI-3275B'</where>
+        </delete>
+    </changeSet>
 </databaseChangeLog>

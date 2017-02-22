@@ -111,12 +111,12 @@ public class JobListener implements org.quartz.JobListener {
         try {
             StringBuilder mailMessageSubject = new StringBuilder(jobExecutionContext.getJobDetail().getGroup()).append(": ").append(jobExecutionContext.getJobDetail().getName());
             BodyMailMessage mailMessage = new BodyMailMessage();
-            mailMessage.setFromAddress(emailService.getFromAddress());
+            mailMessage.setFromAddress(emailService.getDefaultFromAddress());
             if (jobExecutionContext.getMergedJobDataMap().containsKey(REQUESTOR_EMAIL_ADDRESS_KEY) && !StringUtils.isBlank(jobExecutionContext.getMergedJobDataMap().getString(REQUESTOR_EMAIL_ADDRESS_KEY))) {
                 mailMessage.addToAddress(jobExecutionContext.getMergedJobDataMap().getString(REQUESTOR_EMAIL_ADDRESS_KEY));
             }
             if (SchedulerService.FAILED_JOB_STATUS_CODE.equals(jobStatus) || SchedulerService.CANCELLED_JOB_STATUS_CODE.equals(jobStatus)) {
-                mailMessage.addToAddress(emailService.getFromAddress());
+                mailMessage.addToAddress(emailService.getDefaultFromAddress());
             }
             mailMessageSubject.append(": ").append(jobStatus);
             String messageText = MessageFormat.format(configurationService.getPropertyValueAsString(KFSKeyConstants.MESSAGE_BATCH_FILE_LOG_EMAIL_BODY), getLogFileName(NDC.peek()));

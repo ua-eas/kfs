@@ -362,7 +362,7 @@ public class FormatServiceImpl implements FormatService {
         mailMessage.setTemplateUrl(emailTemplateUrl);
         mailMessage.setTemplateVariables(templateVariables);
         getSummaryEmailReceivers().stream().forEach(r -> mailMessage.addToAddress(r));
-        mailMessage.setFromAddress(emailService.getFromAddress());
+        mailMessage.setFromAddress(emailService.getDefaultFromAddress());
 
         emailService.sendMessage(mailMessage,true);
     }

@@ -130,7 +130,7 @@ public class DetectDocumentsMissingEntriesServiceImpl implements DetectDocuments
         BodyMailMessage message = new BodyMailMessage();
         message.setSubject(configurationService.getPropertyValueAsString(KFSKeyConstants.DetectMissingEntriesMessages.EMAIL_SUBJECT));
         message.setToAddresses(buildNotificationEmailAddressesSet(notificationEmailAddresses));
-        message.setFromAddress(emailService.getFromAddress());
+        message.setFromAddress(emailService.getDefaultFromAddress());
         message.setMessage(buildReportMessage(documentHeaders));
         return message;
     }

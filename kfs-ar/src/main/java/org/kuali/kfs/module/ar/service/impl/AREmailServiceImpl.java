@@ -179,7 +179,7 @@ public class AREmailServiceImpl implements AREmailService {
 
         BodyMailMessage message = new BodyMailMessage();
 
-        message.setFromAddress(emailService.getFromAddress());
+        message.setFromAddress(emailService.getDefaultFromAddress());
         message.setSubject(getEmailSubject(ArConstants.REMINDER_EMAIL_SUBJECT));
         message.getToAddresses().add(award.getAwardPrimaryFundManager().getFundManager().getEmailAddress());
         StringBuffer body = new StringBuffer();

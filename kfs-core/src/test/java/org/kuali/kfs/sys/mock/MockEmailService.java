@@ -29,7 +29,7 @@ public class MockEmailService implements EmailService {
     public boolean htmlMessage;
 
     @Override
-    public String getFromAddress() {
+    public String getDefaultFromAddress() {
         return fromAddress;
     }
 

@@ -84,7 +84,7 @@ public class PdpEmailServiceImpl implements PdpEmailService {
 
         String returnAddress = parameterService.getParameterValueAsString(KfsParameterConstants.PRE_DISBURSEMENT_BATCH.class, KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM);
         if (StringUtils.isEmpty(returnAddress)) {
-            returnAddress = emailService.getFromAddress();
+            returnAddress = emailService.getDefaultFromAddress();
         }
         message.setFromAddress(returnAddress);
         message.setSubject(getEmailSubject(PdpParameterConstants.PAYMENT_LOAD_FAILURE_EMAIL_SUBJECT_PARAMETER_NAME));
@@ -154,7 +154,7 @@ public class PdpEmailServiceImpl implements PdpEmailService {
 
         String returnAddress = parameterService.getParameterValueAsString(KfsParameterConstants.PRE_DISBURSEMENT_BATCH.class, KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM);
         if (StringUtils.isEmpty(returnAddress)) {
-            returnAddress = emailService.getFromAddress();
+            returnAddress = emailService.getDefaultFromAddress();
         }
         message.setFromAddress(returnAddress);
         message.setSubject(getEmailSubject(PdpParameterConstants.PAYMENT_LOAD_SUCCESS_EMAIL_SUBJECT_PARAMETER_NAME));
@@ -207,7 +207,7 @@ public class PdpEmailServiceImpl implements PdpEmailService {
 
         String returnAddress = parameterService.getParameterValueAsString(KfsParameterConstants.PRE_DISBURSEMENT_BATCH.class, KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM);
         if (StringUtils.isEmpty(returnAddress)) {
-            returnAddress = emailService.getFromAddress();
+            returnAddress = emailService.getDefaultFromAddress();
         }
         message.setFromAddress(returnAddress);
         message.setSubject(getEmailSubject(PdpParameterConstants.PAYMENT_LOAD_THRESHOLD_EMAIL_SUBJECT_PARAMETER_NAME));
@@ -257,7 +257,7 @@ public class PdpEmailServiceImpl implements PdpEmailService {
 
         String returnAddress = parameterService.getParameterValueAsString(KfsParameterConstants.PRE_DISBURSEMENT_BATCH.class, KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM);
         if (StringUtils.isEmpty(returnAddress)) {
-            returnAddress = emailService.getFromAddress();
+            returnAddress = emailService.getDefaultFromAddress();
         }
         message.setFromAddress(returnAddress);
         message.setSubject(getEmailSubject(PdpParameterConstants.PAYMENT_LOAD_TAX_EMAIL_SUBJECT_PARAMETER_NAME));
@@ -302,7 +302,7 @@ public class PdpEmailServiceImpl implements PdpEmailService {
 
         String returnAddress = parameterService.getParameterValueAsString(KfsParameterConstants.PRE_DISBURSEMENT_BATCH.class, KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM);
         if (StringUtils.isEmpty(returnAddress)) {
-            returnAddress = emailService.getFromAddress();
+            returnAddress = emailService.getDefaultFromAddress();
         }
         message.setFromAddress(returnAddress);
         message.setSubject(getEmailSubject(PdpParameterConstants.PAYMENT_LOAD_SUCCESS_EMAIL_SUBJECT_PARAMETER_NAME));
@@ -343,7 +343,7 @@ public class PdpEmailServiceImpl implements PdpEmailService {
         BodyMailMessage message = new BodyMailMessage();
         String returnAddress = parameterService.getParameterValueAsString(KFSConstants.ParameterNamespaces.PDP, "Batch", KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM);
         if (StringUtils.isEmpty(returnAddress)) {
-            returnAddress = emailService.getFromAddress();
+            returnAddress = emailService.getDefaultFromAddress();
         }
         message.setFromAddress(returnAddress);
 
@@ -384,7 +384,7 @@ public class PdpEmailServiceImpl implements PdpEmailService {
 
         String returnAddress = parameterService.getParameterValueAsString(KFSConstants.ParameterNamespaces.PDP, "Batch", KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM);
         if (StringUtils.isEmpty(returnAddress)) {
-            returnAddress = emailService.getFromAddress();
+            returnAddress = emailService.getDefaultFromAddress();
         }
         message.setFromAddress(returnAddress);
 
@@ -533,7 +533,7 @@ public class PdpEmailServiceImpl implements PdpEmailService {
 
             String returnAddress = parameterService.getParameterValueAsString(KFSConstants.ParameterNamespaces.PDP, "Batch", KFSConstants.FROM_EMAIL_ADDRESS_PARM_NM);
             if (StringUtils.isEmpty(returnAddress)) {
-                returnAddress = emailService.getFromAddress();
+                returnAddress = emailService.getDefaultFromAddress();
             }
             msg.setFromAddress(returnAddress);
             msg.setSubject(getMessage(PdpKeyConstants.MESSAGE_PDP_ACH_ADVICE_INVALID_EMAIL_ADDRESS));
@@ -576,7 +576,7 @@ public class PdpEmailServiceImpl implements PdpEmailService {
             }
         }
 
-        message.setFromAddress(emailService.getFromAddress());
+        message.setFromAddress(emailService.getDefaultFromAddress());
 
         StringBuilder body = new StringBuilder();
 

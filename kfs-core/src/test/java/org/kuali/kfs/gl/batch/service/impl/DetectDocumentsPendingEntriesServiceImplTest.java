@@ -134,7 +134,7 @@ public class DetectDocumentsPendingEntriesServiceImplTest {
                 .andReturn("Could not find expected general ledger pending entries:");
         EasyMock.expect(configurationService.getPropertyValueAsString(KFSKeyConstants.DetectMissingEntriesMessages.EMAIL_SUBJECT))
                 .andReturn("Email Header");
-        EasyMock.expect(emailService.getFromAddress()).andReturn("from@kuali.co");
+        EasyMock.expect(emailService.getDefaultFromAddress()).andReturn("from@kuali.co");
 
         BodyMailMessage mailMessage = new BodyMailMessage();
         mailMessage.setSubject("Email Header");
@@ -179,7 +179,7 @@ public class DetectDocumentsPendingEntriesServiceImplTest {
         EasyMock.expect(configurationService
                 .getPropertyValueAsString(KFSKeyConstants.DetectMissingEntriesMessages.FAILURE_ENTRY))
                 .andReturn("Document Number: {0} Document Type: {1} Processed Date: {2}").times(3);
-        EasyMock.expect(emailService.getFromAddress()).andReturn("from@kuali.co");
+        EasyMock.expect(emailService.getDefaultFromAddress()).andReturn("from@kuali.co");
 
         BodyMailMessage mailMessage = new BodyMailMessage();
         mailMessage.setSubject("Email Header");
@@ -223,7 +223,7 @@ public class DetectDocumentsPendingEntriesServiceImplTest {
         emailService.sendMessage(EasyMock.isA(MailMessage.class),EasyMock.anyBoolean());
         EasyMock.expectLastCall().andDelegateTo(new EmailService() {
             @Override
-            public String getFromAddress() {
+            public String getDefaultFromAddress() {
                 return null;
             }
 
