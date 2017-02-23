@@ -119,12 +119,8 @@ public class EmailServiceImplTest {
         verifyMimeMessage(mailSender.mimeMessage);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test()
     public void testSendMessagePrdNoTo() {
-        EasyMock.expect(configurationService.getPropertyValueAsString("production.environment.code")).andReturn("prd");
-        EasyMock.expect(configurationService.getPropertyValueAsString("environment")).andReturn("prd");
-        EasyMock.expect(configurationService.getPropertyValueAsString("application.id")).andReturn("fin");
-        EasyMock.expect(configurationService.getPropertyValueAsString("application.url")).andReturn("/fin");
         EasyMock.replay(parameterService, configurationService);
 
         BodyMailMessage message = new BodyMailMessage();
@@ -133,14 +129,13 @@ public class EmailServiceImplTest {
         message.setMessage("Hi there");
 
         emailService.sendMessage(message,false);
+
+        EasyMock.verify(parameterService, configurationService);
+        Assert.assertEquals(0,mailSender.sendMailCalls);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test()
     public void testSendMessagePrdNoFrom() {
-        EasyMock.expect(configurationService.getPropertyValueAsString("production.environment.code")).andReturn("prd");
-        EasyMock.expect(configurationService.getPropertyValueAsString("environment")).andReturn("prd");
-        EasyMock.expect(configurationService.getPropertyValueAsString("application.id")).andReturn("fin");
-        EasyMock.expect(configurationService.getPropertyValueAsString("application.url")).andReturn("/fin");
         EasyMock.replay(parameterService, configurationService);
 
         BodyMailMessage message = new BodyMailMessage();
@@ -149,6 +144,9 @@ public class EmailServiceImplTest {
         message.setMessage("Hi there");
 
         emailService.sendMessage(message,false);
+
+        EasyMock.verify(parameterService, configurationService);
+        Assert.assertEquals(0,mailSender.sendMailCalls);
     }
 
     @Test(expected = RuntimeException.class)

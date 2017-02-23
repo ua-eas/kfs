@@ -21,7 +21,10 @@
                    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
                    xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
 
-    <changeSet author="KFS701" id="FINI-3275A" context="bootstrap,demo,unit">
+    <changeSet author="KFS701" id="FINI-3383a" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>OBJ_ID in ('FINI-3275A','FINI-3275B','FINI-3275C','FINI-3275D','FINI-3375')</where>
+        </delete>
         <insert tableName="KRCR_PARM_T">
             <column name="NMSPC_CD">KFS-SYS</column>
             <column name="CMPNT_CD">All</column>
@@ -35,11 +38,12 @@
             <column name="APPL_ID">KFS</column>
         </insert>
     </changeSet>
-    <changeSet author="KFS701" id="FINI-3275B" context="bootstrap,demo,unit">
+
+    <changeSet author="KFS701" id="FINI-3383b" context="demo,unit">
         <insert tableName="KRCR_PARM_T">
             <column name="NMSPC_CD">KFS-SYS</column>
             <column name="CMPNT_CD">All</column>
-            <column name="PARM_NM">FROM_EMAIL_ADDRESS</column>
+            <column name="PARM_NM">DEFAULT_FROM_EMAIL_ADDRESS</column>
             <column name="OBJ_ID">FINI-3275B</column>
             <column name="VER_NBR">1</column>
             <column name="VAL">kfs.notification.batch@kuali.org</column>
@@ -48,8 +52,6 @@
             <column name="EVAL_OPRTR_CD">A</column>
             <column name="APPL_ID">KFS</column>
         </insert>
-    </changeSet>
-    <changeSet author="KFS701" id="FINI-3275C" context="bootstrap,demo,unit">
         <insert tableName="KRCR_PARM_T">
             <column name="NMSPC_CD">KFS-SYS</column>
             <column name="CMPNT_CD">All</column>
@@ -62,36 +64,56 @@
             <column name="EVAL_OPRTR_CD">A</column>
             <column name="APPL_ID">KFS</column>
         </insert>
-    </changeSet>
-    <changeSet author="KFS701" id="FINI-3275D" context="bootstrap,demo,unit">
         <insert tableName="KRCR_PARM_T">
             <column name="NMSPC_CD">KFS-SYS</column>
             <column name="CMPNT_CD">All</column>
             <column name="PARM_NM">NON_PRODUCTION_TO_EMAIL_ADDRESS</column>
             <column name="OBJ_ID">FINI-3275D</column>
             <column name="VER_NBR">1</column>
-            <column name="VAL">kfs.test.notification.batch@kuali.org</column>
+            <column name="VAL">kfs.notification.batch@kuali.org</column>
             <column name="PARM_TYP_CD">CONFG</column>
             <column name="PARM_DESC_TXT">The to address for all emails sent from the system if the system is not production and the NON_PRODUCTION_EMAIL_MODE is set to T.</column>
             <column name="EVAL_OPRTR_CD">A</column>
             <column name="APPL_ID">KFS</column>
         </insert>
     </changeSet>
-    <changeSet author="KFS701" id="FINI-3375" context="bootstrap,demo,unit">
+
+    <changeSet author="KFS701" id="FINI-3383c" context="bootstrap">
         <insert tableName="KRCR_PARM_T">
             <column name="NMSPC_CD">KFS-SYS</column>
             <column name="CMPNT_CD">All</column>
             <column name="PARM_NM">DEFAULT_FROM_EMAIL_ADDRESS</column>
-            <column name="OBJ_ID">FINI-3375</column>
+            <column name="OBJ_ID">FINI-3275B</column>
             <column name="VER_NBR">1</column>
-            <column name="VAL">kfs.notification.batch@kuali.org</column>
+            <column name="VAL"></column>
             <column name="PARM_TYP_CD">CONFG</column>
             <column name="PARM_DESC_TXT">The from address for emails sent from the system for messages that do not have a specific address identified.</column>
             <column name="EVAL_OPRTR_CD">A</column>
             <column name="APPL_ID">KFS</column>
         </insert>
-        <delete tableName="KRCR_PARM_T">
-            <where>OBJ_ID = 'FINI-3275B'</where>
-        </delete>
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD">KFS-SYS</column>
+            <column name="CMPNT_CD">All</column>
+            <column name="PARM_NM">DEFAULT_TO_EMAIL_ADDRESS</column>
+            <column name="OBJ_ID">FINI-3275C</column>
+            <column name="VER_NBR">1</column>
+            <column name="VAL"></column>
+            <column name="PARM_TYP_CD">CONFG</column>
+            <column name="PARM_DESC_TXT">The to address for emails sent from the system for messages that do not have specific recipients.</column>
+            <column name="EVAL_OPRTR_CD">A</column>
+            <column name="APPL_ID">KFS</column>
+        </insert>
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD">KFS-SYS</column>
+            <column name="CMPNT_CD">All</column>
+            <column name="PARM_NM">NON_PRODUCTION_TO_EMAIL_ADDRESS</column>
+            <column name="OBJ_ID">FINI-3275D</column>
+            <column name="VER_NBR">1</column>
+            <column name="VAL"></column>
+            <column name="PARM_TYP_CD">CONFG</column>
+            <column name="PARM_DESC_TXT">The to address for all emails sent from the system if the system is not production and the NON_PRODUCTION_EMAIL_MODE is set to T.</column>
+            <column name="EVAL_OPRTR_CD">A</column>
+            <column name="APPL_ID">KFS</column>
+        </insert>
     </changeSet>
 </databaseChangeLog>

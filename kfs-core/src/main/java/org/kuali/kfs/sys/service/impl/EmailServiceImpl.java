@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.mail.MailMessage;
@@ -76,10 +76,17 @@ public class EmailServiceImpl implements EmailService {
     public void sendMessage(MailMessage message, boolean htmlMessage) {
         LOG.debug("sendMessage() started");
 
-        // Note this is using org.apache.commons.lang instead of org.apache.commons.lang3
-        // The two versions throw different exceptions.
-        Validate.notEmpty(message.getToAddresses(),"No To Addresses");
-        Validate.notEmpty(message.getFromAddress(), "No From Address");
+        if ( message.getToAddresses().size() == 0 ) {
+            LOG.error("sendMessage() Attempting to send email with no TO addresses");
+            logMessage(message);
+            return;
+        }
+
+        if ( StringUtils.isEmpty(message.getFromAddress()) ) {
+            LOG.error("sendMessage() Attempting to send email with no FROM address");
+            logMessage(message);
+            return;
+        }
 
         String emailMode = getMode();
 
