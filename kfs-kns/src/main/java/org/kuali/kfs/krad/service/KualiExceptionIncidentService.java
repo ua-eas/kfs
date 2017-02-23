@@ -25,7 +25,17 @@ import java.util.Map;
 /**
  * This is used for sending report of an incident
  */
-public interface KualiExceptionIncidentService extends KualiFeedbackService {
+public interface KualiExceptionIncidentService {
+
+    /**
+     * This method send email to the defined mailing list with a specified subject and
+     * message.
+     *
+     * @param subject
+     * @param message
+     * @throws Exception
+     */
+    void emailReport(String subject, String message) throws Exception;
 
     /**
      * This method send email to the defined mailing list using the exception incident
@@ -34,7 +44,7 @@ public interface KualiExceptionIncidentService extends KualiFeedbackService {
      * @param exceptionIncident
      * @throws Exception
      */
-    public void report(KualiExceptionIncident exceptionIncident) throws Exception;
+    void report(KualiExceptionIncident exceptionIncident) throws Exception;
 
     /**
      * This method create an instance of the KualiExceptionIncident from its factory.
@@ -50,8 +60,7 @@ public interface KualiExceptionIncidentService extends KualiFeedbackService {
      *                   </ul>
      * @return
      */
-    public KualiExceptionIncident getExceptionIncident(
-        Exception exception, Map<String, String> properties);
+    KualiExceptionIncident getExceptionIncident(Exception exception, Map<String, String> properties);
 
     /**
      * This method create an instance of the KualiExceptionIncident from its factory.
@@ -62,5 +71,5 @@ public interface KualiExceptionIncidentService extends KualiFeedbackService {
      *                   information
      * @return
      */
-    public KualiExceptionIncident getExceptionIncident(Map<String, String> properties);
+    KualiExceptionIncident getExceptionIncident(Map<String, String> properties);
 }

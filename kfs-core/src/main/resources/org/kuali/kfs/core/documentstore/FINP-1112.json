@@ -1,0 +1,18 @@
+{
+  "changeLog": [
+    {
+      "jira": "FINP-1112",
+      "id": "Remove feedback link from menu",
+      "changes": [
+        {
+          "changeType": "deleteNode",
+          "collectionName": "InstitutionPreferences",
+          "query": {
+            "institutionId": "1232413535"
+          },
+          "path": "$.menu[?(@.label=='Feedback')]"
+        }
+      ]
+    }
+  ]
+}

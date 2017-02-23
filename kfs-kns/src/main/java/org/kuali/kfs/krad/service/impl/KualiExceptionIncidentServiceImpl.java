@@ -18,50 +18,147 @@
  */
 package org.kuali.kfs.krad.service.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.krad.exception.ExceptionIncident;
 import org.kuali.kfs.krad.exception.KualiExceptionIncident;
+import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KualiExceptionIncidentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.core.api.mail.MailMessage;
+import org.kuali.rice.core.api.mail.Mailer;
+import org.kuali.rice.kim.api.identity.Person;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
- * Modified this service so that it now extends the KualiFeedbackServiceImpl.
- * This has been done to allow user feedback and exception incidents to be
- * reported in the same way, but to potentially different email lists.  Part
- * of this refactor included moving the mailer and messageTemplate properties
+ * Part of this refactor included moving the mailer and messageTemplate properties
  * and the emailReport and createMailMessage methods to the new parent class.
  */
-public class KualiExceptionIncidentServiceImpl extends KualiFeedbackServiceImpl implements KualiExceptionIncidentService {
+public class KualiExceptionIncidentServiceImpl implements KualiExceptionIncidentService {
     private Logger LOG = Logger.getLogger(KualiExceptionIncidentServiceImpl.class);
-
-    /**
-     * An list to send incident emails to.
-     */
-    private String incidentMailingList;
 
     /**
      * This property must be defined in the base configuration file for specifying
      * the mailing list for the report to be sent.
      * <p>Example:
-     * <code>
-     * <param name="KualiReporterServiceImpl.REPORT_MAIL_LIST">a@y,b@z</param>
-     * </code>
+     * {@code <param name="KualiReporterServiceImpl.REPORT_MAIL_LIST">a@y,b@z</param>}
      */
     public static final String REPORT_MAIL_LIST = String.format("%s.REPORT_MAIL_LIST", KualiExceptionIncidentServiceImpl.class.getSimpleName());
 
+    private Mailer mailer;
+    private MailMessage messageTemplate;
+
     @Override
+    public void emailReport(String subject, String message) throws Exception {
+        LOG.debug("emailReport() started");
+
+        if (mailer == null) {
+            String errorMessage = "mailer property of KualiExceptionIncidentServiceImpl is null";
+            LOG.fatal(errorMessage);
+            throw new IllegalStateException(errorMessage);
+        }
+
+        MailMessage msg = createMailMessage(subject, message);
+        mailer.sendEmail(msg);
+    }
+
+    /**
+     * Creates an instance of MailMessage from the inputs using the given template.
+     *
+     * @param subject the subject line text
+     * @param message the body of the email message
+     * @return MailMessage
+     * @throws IllegalStateException if the {@code REPORT_MAIL_LIST} is not set
+     *                               or messageTemplate does not have ToAddresses already set.
+     */
+    @SuppressWarnings("unchecked")
+    protected MailMessage createMailMessage(String subject, String message) throws Exception {
+        LOG.debug("createMailMessage() started");
+
+        MailMessage messageTemplate = this.getMessageTemplate();
+        if (messageTemplate == null) {
+            throw new IllegalStateException(String.format("%s.templateMessage is null or not set",
+                this.getClass().getName()));
+        }
+
+        // Copy input message reference for creating an instance of mail message
+        MailMessage msg = new MailMessage();
+        msg.setFromAddress(this.getFromAddress());
+        msg.setToAddresses(this.getToAddresses());
+        msg.setBccAddresses(this.getBccAddresses());
+        msg.setCcAddresses(this.getCcAddresses());
+        msg.setSubject((subject == null) ? "" : subject);
+        msg.setMessage((message == null) ? "" : message);
+
+        if (LOG.isTraceEnabled()) {
+            String lm = String.format("EXIT %s", (msg == null) ? "null" : msg.toString());
+            LOG.trace(lm);
+        }
+
+        return msg;
+    }
+
+    protected String getFromAddress() {
+        Person actualUser = GlobalVariables.getUserSession().getActualPerson();
+
+        String fromEmail = actualUser.getEmailAddress();
+        if (StringUtils.isNotBlank(fromEmail)) {
+            return fromEmail;
+        } else {
+            return this.getMessageTemplate().getFromAddress();
+        }
+    }
+
+    protected Set<String> getToAddresses() {
+        // First check if message template already define mailing list
+        Set<String> emails = this.getMessageTemplate().getToAddresses();
+        if (emails == null || emails.isEmpty()) {
+            String mailingList = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(this.getToAddressesPropertyName());
+            if (StringUtils.isBlank(mailingList)) {
+                String em = REPORT_MAIL_LIST + " is not set or messageTemplate does not have ToAddresses already set.";
+                LOG.error(em);
+                throw new IllegalStateException(em);
+            } else {
+                return new HashSet<>(Arrays.asList(StringUtils.split(mailingList,
+                    KRADConstants.FIELD_CONVERSIONS_SEPARATOR)));
+            }
+        } else {
+            return emails;
+        }
+    }
+
+    protected Set<String> getCcAddresses() {
+        return this.getMessageTemplate().getCcAddresses();
+    }
+
+    protected Set<String> getBccAddresses() {
+        return this.getMessageTemplate().getBccAddresses();
+    }
+
+    public final void setMailer(Mailer mailer) {
+        this.mailer = mailer;
+    }
+
+    public MailMessage getMessageTemplate() {
+        return messageTemplate;
+    }
+
+    public void setMessageTemplate(MailMessage messageTemplate) {
+        this.messageTemplate = messageTemplate;
+    }
+
     protected String getToAddressesPropertyName() {
         return REPORT_MAIL_LIST;
     }
 
-    /**
-     * This overridden method send email to the specified list of addresses.
-     *
-     * @see KualiExceptionIncidentService#report(KualiExceptionIncident)
-     */
     @Override
     public void report(KualiExceptionIncident exceptionIncident) throws Exception {
         if (LOG.isTraceEnabled()) {
@@ -84,8 +181,7 @@ public class KualiExceptionIncidentServiceImpl extends KualiFeedbackServiceImpl 
     }
 
     /**
-     * This method first separate a composite string of the format
-     * "string token string".
+     * This method first separate a composite string of the format "string token string".
      * <p>Example: 1,2,a,b where ',' is the token
      *
      * @param s
@@ -112,12 +208,6 @@ public class KualiExceptionIncidentServiceImpl extends KualiFeedbackServiceImpl 
         return list;
     }
 
-    /**
-     * This overridden method create an instance of the KualiExceptionIncident.
-     *
-     * @see KualiExceptionIncidentService#getExceptionIncident(
-     *java.lang.Exception, java.util.Map)
-     */
     @Override
     public KualiExceptionIncident getExceptionIncident(Exception exception,
                                                        Map<String, String> properties) {
@@ -125,8 +215,7 @@ public class KualiExceptionIncidentServiceImpl extends KualiFeedbackServiceImpl 
             return getExceptionIncident(properties);
         }
         if (LOG.isTraceEnabled()) {
-            String lm = String.format("ENTRY %s;%s", exception.getMessage(),
-                properties.toString());
+            String lm = String.format("ENTRY %s;%s", exception.getMessage(), properties.toString());
             LOG.trace(lm);
         }
 
@@ -140,12 +229,6 @@ public class KualiExceptionIncidentServiceImpl extends KualiFeedbackServiceImpl 
         return ei;
     }
 
-    /**
-     * This overridden method create an instance of ExceptionIncident from list of
-     * name-value pairs as exception incident information.
-     *
-     * @see KualiExceptionIncidentService#getExceptionIncident(java.util.Map)
-     */
     @Override
     public KualiExceptionIncident getExceptionIncident(Map<String, String> properties) {
         if (LOG.isTraceEnabled()) {
@@ -163,22 +246,11 @@ public class KualiExceptionIncidentServiceImpl extends KualiFeedbackServiceImpl 
         return ei;
     }
 
-    /**
-     * Returns the incident report mailing list.
-     *
-     * @return the incidentMailingList
-     */
-    public String getIncidentMailingList() {
-        return this.incidentMailingList;
-    }
-
-    /**
-     * Sets the incident report mailing list.
-     *
-     * @param incidentMailingList the incidentMailingList to set
-     */
+    /** Rice will implode if you remove this method even though it isn't used in KFS. */
     public void setIncidentMailingList(String incidentMailingList) {
-        this.incidentMailingList = incidentMailingList;
+        // This property must be defined (even though it isn't used) in the base configuration file for specifying
+        // the mailing list for the report to be sent. Rice will complain if it's missing.
+        // Example:
+        // <param name="KualiReporterServiceImpl.REPORT_MAIL_LIST">a@y,b@z</param>
     }
-
 }
