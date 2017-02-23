@@ -1,3 +1,157 @@
+************************* 2017-02-23 *************************
+commit 65d7869aded90a24af4f1bfc11655dd4af5ffbd1
+Author: jsissom <jsissom@kuali.co>
+Date:   2017-02-23 11:05:22 -0500
+
+    FINI-3383 Change delivered parameter values, no To address or From address will log the error, not throw an exception (#1050)
+
+:100644 100644 7413ed3... 428b61c... M	kfs-core/src/main/java/org/kuali/kfs/sys/service/impl/EmailServiceImpl.java
+:100644 100644 7eb9752... 314ebe3... M	kfs-core/src/main/resources/org/kuali/kfs/core/db/phase5/2017-02.xml
+:100644 100644 d8bef86... 7f2bfdb... M	kfs-core/src/test/java/org/kuali/kfs/sys/service/impl/EmailServiceImplTest.java
+
+commit 3908414a0b3cb5de753167d5481e41cb0887ebb1
+Author: jsissom <jsissom@kuali.co>
+Date:   2017-02-23 10:20:51 -0500
+
+    FINI-3389 Add default to email address if parameter is empty (#1049)
+
+:100644 100644 a3821e0... 406b528... M	kfs-core/src/main/java/org/kuali/kfs/pdp/service/impl/FormatServiceImpl.java
+
+commit 17ef96aa4a85806880edcc6620cc2c188ef0b8d4
+Author: jsissom <jsissom@kuali.co>
+Date:   2017-02-22 11:47:21 -0500
+
+    FINI-3375 Rename parameter (#1048)
+
+:100644 100644 6dbc9d2... 2d7e0ec... M	kfs-ar/src/main/java/org/kuali/kfs/module/ar/batch/service/impl/LockboxLoadServiceImpl.java
+:100644 100644 8a433d9... 953af32... M	kfs-ar/src/main/java/org/kuali/kfs/module/ar/service/impl/AREmailServiceImpl.java
+:100644 100644 f50f34d... 43da82e... M	kfs-cam/src/main/java/org/kuali/kfs/module/cam/batch/service/impl/AssetDepreciationServiceImpl.java
+:100644 100644 c78010d... df1b3f7... M	kfs-core/src/main/java/org/kuali/kfs/fp/batch/service/impl/ProcurementCardCreateDocumentServiceImpl.java
+:100644 100644 7d3071f... a380095... M	kfs-core/src/main/java/org/kuali/kfs/gl/batch/service/impl/CollectorReportServiceImpl.java
+:100644 100644 56272b9... e75a17a... M	kfs-core/src/main/java/org/kuali/kfs/gl/batch/service/impl/DetectDocumentsMissingEntriesServiceImpl.java
+:100644 100644 a02845b... 49a8e09... M	kfs-core/src/main/java/org/kuali/kfs/gl/batch/service/impl/EnterpriseFeederNotificationServiceImpl.java
+:100644 100644 915a668... a3821e0... M	kfs-core/src/main/java/org/kuali/kfs/pdp/service/impl/FormatServiceImpl.java
+:100644 100644 1088548... 8249a18... M	kfs-core/src/main/java/org/kuali/kfs/pdp/service/impl/PdpEmailServiceImpl.java
+:100644 100644 c08a942... fe03326... M	kfs-core/src/main/java/org/kuali/kfs/sys/batch/JobListener.java
+:100644 100644 e3835dc... c68be4d... M	kfs-core/src/main/java/org/kuali/kfs/sys/service/EmailService.java
+:100644 100644 8140d13... 7413ed3... M	kfs-core/src/main/java/org/kuali/kfs/sys/service/impl/EmailServiceImpl.java
+:100644 100644 3c233667.. 7eb9752... M	kfs-core/src/main/resources/org/kuali/kfs/core/db/phase5/2017-02.xml
+:100644 100644 539aa8d... fccb9fa... M	kfs-core/src/test/java/org/kuali/kfs/gl/batch/service/impl/DetectDocumentsPendingEntriesServiceImplTest.java
+:100644 100644 767065b... 97815d7... M	kfs-core/src/test/java/org/kuali/kfs/sys/mock/MockEmailService.java
+:100644 100644 279323f... d8bef86... M	kfs-core/src/test/java/org/kuali/kfs/sys/service/impl/EmailServiceImplTest.java
+
+commit 437667933222375a48b9603269c8dcc3965d0b5d
+Author: jsissom <jsissom@kuali.co>
+Date:   2017-02-21 18:06:17 -0500
+
+    FINI-3275 Refactor to use new EmailService (#1047)
+    
+    * FINI-3275 Implement new Email Service to replace the many others
+    
+    * FINI-3275 Refactor to use new Email Service
+    
+    * FINI-3275 Refactor to use new EmailService
+    
+    * FINI-3275 Refactor to use new EmailService
+
+:100644 100644 5dc3e6f... 6dbc9d2... M	kfs-ar/src/main/java/org/kuali/kfs/module/ar/batch/service/impl/LockboxLoadServiceImpl.java
+:100644 100644 3b11a64... d672031... M	kfs-ar/src/main/java/org/kuali/kfs/module/ar/service/AREmailService.java
+:100644 100644 4c71eab... 8a433d9... M	kfs-ar/src/main/java/org/kuali/kfs/module/ar/service/impl/AREmailServiceImpl.java
+:100644 100644 274da09... 58a14b7... M	kfs-ar/src/main/resources/org/kuali/kfs/module/ar/spring-ar.xml
+:100644 100644 ccebbdd... f50f34d... M	kfs-cam/src/main/java/org/kuali/kfs/module/cam/batch/service/impl/AssetDepreciationServiceImpl.java
+:100644 100644 7781c3f... 2c92cb6... M	kfs-cam/src/main/resources/org/kuali/kfs/module/cam/spring-cam.xml
+:100644 100644 eea5bb4... fd29e2c... M	kfs-cg/src/main/java/org/kuali/kfs/module/cg/batch/CfdaBatchStep.java
+:100644 000000 45dc6c91.. 0000000... D	kfs-cg/src/main/java/org/kuali/kfs/module/cg/service/CGEmailService.java
+:100644 000000 d819e1f... 0000000... D	kfs-cg/src/main/java/org/kuali/kfs/module/cg/service/impl/CGEmailServiceImpl.java
+:100644 100644 3a97627... 739fc55... M	kfs-cg/src/main/resources/org/kuali/kfs/module/cg/spring-cg.xml
+:100644 100644 193bae2... 6a6dd99... M	kfs-core/src/main/java/org/kuali/kfs/coa/identity/AccountDerivedRoleTypeServiceImpl.java
+:100644 100644 a464cdb... c78010d... M	kfs-core/src/main/java/org/kuali/kfs/fp/batch/service/impl/ProcurementCardCreateDocumentServiceImpl.java
+:100644 000000 79402f7... 0000000... D	kfs-core/src/main/java/org/kuali/kfs/fp/batch/service/impl/ProcurementCardCreateEmailServiceImpl.java
+:100644 100644 f268227... 7d3071f... M	kfs-core/src/main/java/org/kuali/kfs/gl/batch/service/impl/CollectorReportServiceImpl.java
+:100644 100644 03030c3... 56272b9... M	kfs-core/src/main/java/org/kuali/kfs/gl/batch/service/impl/DetectDocumentsMissingEntriesServiceImpl.java
+:100644 100644 cd77e67... a02845b... M	kfs-core/src/main/java/org/kuali/kfs/gl/batch/service/impl/EnterpriseFeederNotificationServiceImpl.java
+:100644 000000 c03c6cd... 0000000... D	kfs-core/src/main/java/org/kuali/kfs/pdp/batch/service/FormatCheckACHEmailService.java
+:100644 000000 f060596... 0000000... D	kfs-core/src/main/java/org/kuali/kfs/pdp/batch/service/impl/FormatCheckACHEmailServiceImpl.java
+:100644 100644 a1a4d42... 915a668... M	kfs-core/src/main/java/org/kuali/kfs/pdp/service/impl/FormatServiceImpl.java
+:100644 100644 47c3e55... c975e37... M	kfs-core/src/main/java/org/kuali/kfs/pdp/service/impl/PaymentMaintenanceServiceImpl.java
+:100644 100644 6be87d5... 1088548... M	kfs-core/src/main/java/org/kuali/kfs/pdp/service/impl/PdpEmailServiceImpl.java
+:100644 100644 29ed87d... eda2fe7... M	kfs-core/src/main/java/org/kuali/kfs/sys/KFSConstants.java
+:100644 100644 de86a0a... c08a942... M	kfs-core/src/main/java/org/kuali/kfs/sys/batch/JobListener.java
+:100644 100644 e132eee... 2dabcea... M	kfs-core/src/main/java/org/kuali/kfs/sys/batch/service/impl/SchedulerServiceImpl.java
+:100644 000000 5dab682... 0000000... D	kfs-core/src/main/java/org/kuali/kfs/sys/mail/AttachmentMailMessage.java
+:100644 000000 50215c7... 0000000... D	kfs-core/src/main/java/org/kuali/kfs/sys/mail/AttachmentMailer.java
+:100644 000000 3b38fca... 0000000... D	kfs-core/src/main/java/org/kuali/kfs/sys/mail/AttachmentMailerImpl.java
+:000000 100644 0000000... b2b6d14... A	kfs-core/src/main/java/org/kuali/kfs/sys/mail/BodyMailMessage.java
+:000000 100644 0000000... d06e1e4... A	kfs-core/src/main/java/org/kuali/kfs/sys/mail/MailMessage.java
+:000000 100644 0000000... 3bb0dbd... A	kfs-core/src/main/java/org/kuali/kfs/sys/mail/VelocityMailMessage.java
+:100644 000000 1d7e9c5... 0000000... D	kfs-core/src/main/java/org/kuali/kfs/sys/service/AttachmentMailService.java
+:000000 100644 0000000... e3835dc... A	kfs-core/src/main/java/org/kuali/kfs/sys/service/EmailService.java
+:100644 000000 8c7e10a... 0000000... D	kfs-core/src/main/java/org/kuali/kfs/sys/service/KfsNotificationService.java
+:100644 000000 841da0b... 0000000... D	kfs-core/src/main/java/org/kuali/kfs/sys/service/impl/AttachmentDevelopmentMailServiceImpl.java
+:100644 000000 800daed... 0000000... D	kfs-core/src/main/java/org/kuali/kfs/sys/service/impl/AttachmentMailServiceImpl.java
+:100644 000000 98896f6... 0000000... D	kfs-core/src/main/java/org/kuali/kfs/sys/service/impl/DevelopmentMailServiceImpl.java
+:000000 100644 0000000... 8140d13... A	kfs-core/src/main/java/org/kuali/kfs/sys/service/impl/EmailServiceImpl.java
+:100644 000000 5208695... 0000000... D	kfs-core/src/main/java/org/kuali/kfs/sys/service/impl/KfsNotificationServiceImpl.java
+:100644 000000 cd4841a... 0000000... D	kfs-core/src/main/java/org/kuali/kfs/sys/service/impl/VelocityEmailServiceBase.java
+:000000 100644 0000000... 3c233667.. A	kfs-core/src/main/resources/org/kuali/kfs/core/db/phase5/2017-02.xml
+:100644 100644 0a4ffd1... e35b45f... M	kfs-core/src/main/resources/org/kuali/kfs/fp/spring-fp.xml
+:100644 100644 093ec41... 3e79520... M	kfs-core/src/main/resources/org/kuali/kfs/gl/spring-gl.xml
+:100644 100644 379e765... 3a2c962... M	kfs-core/src/main/resources/org/kuali/kfs/pdp/spring-pdp.xml
+:100644 100644 cad306a... ad560ee... M	kfs-core/src/main/resources/org/kuali/kfs/sys/spring-dev-env-beans.xml
+:100644 100644 0897396... 99cf1fb... M	kfs-core/src/main/resources/org/kuali/kfs/sys/spring-sys.xml
+:100644 100644 8f5c1fa... ad560ee... M	kfs-core/src/main/resources/spring-dev-rice-krad-overrides.xml
+:100644 100644 d0f6af5... d173ef1... M	kfs-core/src/test/java/org/kuali/kfs/gl/batch/service/impl/CollectorReportServiceImplTest.java
+:100644 100644 383c4ef... 539aa8d... M	kfs-core/src/test/java/org/kuali/kfs/gl/batch/service/impl/DetectDocumentsPendingEntriesServiceImplTest.java
+:100644 000000 007c5a8... 0000000... D	kfs-core/src/test/java/org/kuali/kfs/gl/batch/service/impl/MockMailServiceImpl.java
+:000000 100644 0000000... 767065b... A	kfs-core/src/test/java/org/kuali/kfs/sys/mock/MockEmailService.java
+:100644 000000 e021d63... 0000000... D	kfs-core/src/test/java/org/kuali/kfs/sys/service/impl/AttachmentDevelopmentMailServiceImplTest.java
+:100644 000000 9f16bb2... 0000000... D	kfs-core/src/test/java/org/kuali/kfs/sys/service/impl/AttachmentMailServiceImplTest.java
+:100644 000000 d8469a1... 0000000... D	kfs-core/src/test/java/org/kuali/kfs/sys/service/impl/DevelopmentMailServiceImplTest.java
+:000000 100644 0000000... 279323f... A	kfs-core/src/test/java/org/kuali/kfs/sys/service/impl/EmailServiceImplTest.java
+:100644 100644 d9f84d9... ecca978... M	kfs-core/src/test/resources/kfs-startup-test.xml
+:100644 100644 dc7c31b... 98e8960... M	kfs-core/src/test/resources/org/kuali/kfs/gl/spring-gl-test.xml
+:100644 100644 47e2c21... ed1c759... M	kfs-kns/src/main/java/org/kuali/kfs/krad/service/KRADServiceLocatorInternal.java
+:100644 000000 f6ced33... 0000000... D	kfs-kns/src/main/java/org/kuali/kfs/krad/service/MailService.java
+:100644 100644 e1f7477... 7585a68... M	kfs-kns/src/main/java/org/kuali/kfs/krad/service/impl/KualiFeedbackServiceImpl.java
+:100644 000000 18782d5... 0000000... D	kfs-kns/src/main/java/org/kuali/kfs/krad/service/impl/MailServiceImpl.java
+:100644 100644 72cec43... 30d21c9... M	kfs-kns/src/main/resources/org/kuali/kfs/krad/config/KRADSpringBeans.xml
+:100644 000000 5d8d252... 0000000... D	kfs-kns/src/test/java/org/kuali/kfs/krad/service/impl/MailServiceImplTest.java
+:100644 100644 34e4fcf... 5ea29d4... M	kfs-ld/src/main/resources/org/kuali/kfs/module/ld/spring-ld.xml
+:100644 100644 4d81431... 65d4a84... M	kfs-purap/src/main/java/org/kuali/kfs/module/purap/document/service/impl/PurchaseOrderServiceImpl.java
+:100644 100644 94e5ad6... 482273b... M	kfs-purap/src/main/java/org/kuali/kfs/module/purap/service/impl/ElectronicInvoiceHelperServiceImpl.java
+:100644 100644 63095b6... 6772cca... M	kfs-purap/src/main/resources/org/kuali/kfs/module/purap/spring-purap.xml
+
+commit 47280bc9e40fde637f06a825cfdc39d7d63cb530
+Author: James Smith <jksmith@kuali.co>
+Date:   2017-02-20 08:47:07 -0700
+
+    Revert "FINI-3362 #time 2h 25m"
+
+:100644 100644 f83d12a... e05b402... M	kfs-core/src/main/resources/org/kuali/kfs/sys/spring-sys.xml
+
+commit b1f55ff0927a72b0975cdbc46124c069f6904b8c
+Author: smith750 <jksmith@kuali.co>
+Date:   2017-02-20 08:44:23 -0700
+
+    FINI-3362 #time 2h 25m
+
+:100644 100644 e05b402... f83d12a... M	kfs-core/src/main/resources/org/kuali/kfs/sys/spring-sys.xml
+
+commit 8c92c6735aeb6a614d60160694c4fdf2b3116f16
+Author: smith750 <jksmith@kuali.co>
+Date:   2017-02-17 17:01:24 -0700
+
+    FINI-3287
+
+:100644 100644 e05b402... 0897396... M	kfs-core/src/main/resources/org/kuali/kfs/sys/spring-sys.xml
+
+commit f50fc82098e04cff6daf6a18990edda8bc69e14a
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2017-02-16 17:17:27 -0500
+
+    FINP-1110 Clear GlobalVariables for the thread before validation starts (#1043)
+
+:100644 100644 a2028b3... 6a555c5... M	kfs-core/src/main/java/org/kuali/kfs/sys/document/workflow/KFSDocumentSearchCustomizer.java
 ************************* 2017-02-16 *************************
 commit c6650e0b0b3d97246fe9519503fc941850a7d64f
 Author: lmarkes <lmarkes@users.noreply.github.com>
