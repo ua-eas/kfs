@@ -339,7 +339,6 @@ public class FormatServiceImpl implements FormatService {
             formatTotalAmount = formatTotalAmount.add(procSum.getProcessTotalAmount());
         }
 
-
         final Map<String, Object> templateVariables = new HashMap<>();
 
         DateFormatter dateFormatter = new DateFormatter();
@@ -362,6 +361,9 @@ public class FormatServiceImpl implements FormatService {
         mailMessage.setTemplateUrl(emailTemplateUrl);
         mailMessage.setTemplateVariables(templateVariables);
         getSummaryEmailReceivers().stream().forEach(r -> mailMessage.addToAddress(r));
+        if ( mailMessage.getToAddresses().size() == 0 ) {
+            mailMessage.addToAddress(emailService.getDefaultToAddress());
+        }
         mailMessage.setFromAddress(emailService.getDefaultFromAddress());
 
         emailService.sendMessage(mailMessage,true);
