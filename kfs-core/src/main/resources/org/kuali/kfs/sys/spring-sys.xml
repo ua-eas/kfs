@@ -1418,7 +1418,7 @@
                 <bean parent="filteredEntity" p:filteredEntity="PMRF" />
                 <bean parent="filteredEntity" p:filteredEntity="PMQT" />
                 <bean parent="filteredEntity" p:filteredEntity="PMQS" />
-                <bean parent="filteredEntity" p:filteredEntity="PMQL" />
+                <bean parent="filteredEntity" p:filteredEntity="PMQL" p:pdf="true"/>
                 <bean parent="filteredEntity" p:filteredEntity="IRAD" />
 
             </list>
@@ -1463,7 +1463,7 @@
                 <bean parent="filteredField" p:filteredField="Account.accountPhysicalCampusCode"/>
                 <bean parent="filteredField" p:filteredField="Account.financialHigherEdFunctionCd"/>
                 <bean parent="filteredField" p:filteredField="Account.accountRestrictedStatusDate"/>
-                <bean parent="filteredField" p:filteredField="Account.accountCreateDate"/>
+                <bean parent="filteredField" p:filteredField="Account.accountCreateDate" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="Account.endowmentIncomeAcctFinCoaCd"/>
                 <bean parent="filteredField" p:filteredField="Account.endowmentIncomeAccountNumber"/>
                 <bean parent="filteredField" p:filteredField="Account.acctCustomIndCstRcvyExclCd"/>
@@ -1519,7 +1519,7 @@
                 <bean parent="filteredField" p:filteredField="InternalBillingItem.itemServiceDate"/>
                 <bean parent="filteredField" p:filteredField="InternalBillingItem.unitOfMeasureCode"/>
                 <bean parent="filteredField" p:filteredField="PaymentReasonCode.description"/>
-                <bean parent="filteredField" p:filteredField="CashReceiptDocument.depositDate"/>
+                <bean parent="filteredField" p:filteredField="CashReceiptDocument.depositDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="CreditCardReceiptDocument.totalCreditCardAmount"/>
                 <bean parent="filteredField" p:filteredField="CreditCardDetail.financialDocumentCreditCardTypeCode"/>
                 <bean parent="filteredField" p:filteredField="CreditCardDetail.financialDocumentCreditCardVendorNumber"/>
@@ -1530,25 +1530,21 @@
                 <bean parent="filteredField" p:filteredField="AdvanceDepositDetail.financialDocumentAdvanceDepositReferenceNumber"/>
                 <bean parent="filteredField" p:filteredField="AdvanceDepositDetail.financialDocumentAdvanceDepositDescription"/>
                 <bean parent="filteredField" p:filteredField="CashDrawer.cashDrawerTotalAmount"/>
-                <bean parent="filteredField" p:filteredField="Deposit.depositDate"/>
+                <bean parent="filteredField" p:filteredField="Deposit.depositDate" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbVchrContactEmailId"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbVchrForeignCurrencyInd"/>
-                <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbursementVoucherDocumentationLocationCode"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbursementVoucherDocumentationLocationCode" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.dvCheckStubOverflowCode"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbVchrPayeeChangedInd"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbursementVoucherCheckNbr"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbursementVoucherCheckDate"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbVchrPayeeW9CompleteCode"/>
-                <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.paidDate"/>
+                <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.paidDate" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbVchrPdpBankCode"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherDocument.disbExcptAttachedIndicator"/>
-                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.federalIncomeTaxPercent"/>
-                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.stateIncomeTaxPercent"/>
-                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.incomeClassCode"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.postalCountryCode"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.incomeTaxTreatyExemptCode"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.foreignSourceIncomeCode"/>
-                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.incomeTaxGrossUpCode"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.referenceFinancialSystemOriginationCode"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.referenceFinancialDocumentNumber"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonResidentAlienTax.taxSpecialW4Amount"/>
@@ -1561,8 +1557,6 @@
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrTravelToCityName"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrTravelToStateCode"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrTravelToCountryCode"/>
-                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.dvPerdiemStartDttmStamp"/>
-                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.dvPerdiemEndDttmStamp"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrPerdiemActualAmount"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.dvPerdiemChangeReasonText"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.dvServicePerformedLocName"/>
@@ -1572,16 +1566,12 @@
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrAutoToCityName"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrAutoToStateCode"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrAutoRoundTripCode"/>
-                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.dvPersonalCarMileageAmount"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrPersonalCarRate"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrExceptionCode"/>
-                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.financialDocumentNextLineNbr"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrNonEmpTravelerName"/>
-                <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrPerdiemRate"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrPerdiemCategoryName"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherNonEmployeeTravel.disbVchrMileageCalculatedAmt"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherPreConferenceRegistrant.disbVchrPreConfDepartmentCd"/>
-                <bean parent="filteredField" p:filteredField="DisbursementVoucherPreConferenceRegistrant.dvConferenceRegistrantName"/>
                 <bean parent="filteredField" p:filteredField="DisbursementVoucherPreConferenceRegistrant.dvPreConferenceRequestNumber"/>
                 <bean parent="filteredField" p:filteredField="ProcurementCardVendor.vendorName"/>
                 <bean parent="filteredField" p:filteredField="ProcurementCardVendor.vendorLine1Address"/>
@@ -1618,7 +1608,6 @@
                 <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionPointOfSaleCode"/>
                 <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionCycleStartDate"/>
                 <bean parent="filteredField" p:filteredField="ProcurementCardTransactionDetail.transactionCycleEndDate"/>
-                <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionCreditCardNumber"/>
                 <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionOriginalCurrencyCode"/>
                 <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionBillingCurrencyCode"/>
                 <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.transactionOriginalCurrencyAmount"/>
@@ -1653,7 +1642,7 @@
                 <bean parent="filteredField" p:filteredField="ProcurementCardTransaction.cardNoteText"/>
                 <bean parent="filteredField" p:filteredField="FunctionControlCode.financialSystemFunctionDefaultIndicator"/>
                 <bean parent="filteredField" p:filteredField="FunctionControlCode.financialSystemFunctionDescription"/>
-                <bean parent="filteredField" p:filteredField="CashieringItemInProcess.itemClosedDate"/>
+                <bean parent="filteredField" p:filteredField="CashieringItemInProcess.itemClosedDate" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="CashieringItemInProcess.itemDescription"/>
                 <!-- GL -->
                 <bean parent="filteredField" p:filteredField="OriginEntryFull.projectCode"/>
@@ -1709,386 +1698,356 @@
                 <bean parent="filteredField" p:filteredField="AccountsPayableSummaryAccount.projectCode"/>
                 <bean parent="filteredField" p:filteredField="PaymentRequestAccountRevision.projectCode"/>
                 <bean parent="filteredField" p:filteredField="CreditMemoAccountRevision.projectCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderItem.itemAuxiliaryPartIdentifier"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderItem.externalOrganizationB2bProductReferenceNumber"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderItem.externalOrganizationB2bProductTypeName"/>
-                <bean parent="filteredField" p:filteredField="RequisitionItem.itemAuxiliaryPartIdentifier"/>
-                <bean parent="filteredField" p:filteredField="RequisitionItem.externalOrganizationB2bProductReferenceNumber"/>
-                <bean parent="filteredField" p:filteredField="RequisitionItem.externalOrganizationB2bProductTypeName"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.documentFundingSourceCode"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.requisitionSourceCode"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.purchaseOrderTransmissionMethodCode"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.deliveryRequiredDateReasonCode"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.recurringPaymentTypeCode"/>
+                <bean parent="filteredField" p:filteredField="RequisitionDocument.recurringPaymentTypeCode" p:workflow="true"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.vendorPhoneNumber"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.vendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="RequisitionDocument.vendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.justification"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.requestorPersonName"/>
+                <bean parent="filteredField" p:filteredField="RequisitionDocument.requestorPersonName" p:pdf="true" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.nonInstitutionFundOrgChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.nonInstitutionFundOrganizationCode"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.nonInstitutionFundChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.nonInstitutionFundAccountNumber"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.deliveryBuildingCode"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.deliveryBuildingName"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.deliveryBuildingRoomNumber"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.deliveryBuildingLine1Address"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.deliveryBuildingLine2Address"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.deliveryCityName"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.deliveryStateCode"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.deliveryPostalCode"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.deliveryCountryCode"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.deliveryToName"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.deliveryToEmailAddress"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.deliveryToPhoneNumber"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.deliveryRequiredDate"/>
+                <bean parent="filteredField" p:filteredField="RequisitionDocument.deliveryRequiredDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.requisitionOrganizationReference1Text"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.requisitionOrganizationReference2Text"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.requisitionOrganizationReference3Text"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.purchaseOrderBeginDate"/>
-                <bean parent="filteredField" p:filteredField="RequisitionDocument.purchaseOrderEndDate"/>
+                <bean parent="filteredField" p:filteredField="RequisitionDocument.purchaseOrderBeginDate" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="RequisitionDocument.purchaseOrderEndDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.alternate1VendorName"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.alternate2VendorName"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.alternate3VendorName"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.alternate4VendorName"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.alternate5VendorName"/>
                 <bean parent="filteredField" p:filteredField="RequisitionDocument.organizationAutomaticPurchaseOrderLimit"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.requisitionSourceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderVendorChoiceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.vendorShippingTitleCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.vendorPhoneNumber"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.vendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.vendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.justification"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.vendorShippingPaymentTermsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.documentFundingSourceCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.requestorPersonName"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.requestorPersonName" p:pdf="true" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.nonInstitutionFundOrgChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.nonInstitutionFundOrganizationCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.nonInstitutionFundChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.nonInstitutionFundAccountNumber"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.deliveryRequiredDateReasonCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderTransmissionMethodCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderBeginDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderEndDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderBeginDate" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderEndDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.recurringPaymentFrequencyCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.recurringPaymentAmount"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.recurringPaymentTypeCode"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.recurringPaymentTypeCode" p:workflow="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.recurringPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.initialPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.initialPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.finalPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.finalPaymentDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderInitialOpenTimestamp"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderQuoteDueDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderInitialOpenTimestamp" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderQuoteDueDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderQuoteTypeCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderQuoteVendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderQuoteVendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderConfirmedIndicator"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderCommodityDescription"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderPreviousIdentifier"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.alternateVendorName"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderQuoteInitializationDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderQuoteAwardedDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderQuoteInitializationDate" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.purchaseOrderQuoteAwardedDate" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderDocument.assignedUserPrincipalId"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.requisitionSourceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderVendorChoiceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.vendorShippingTitleCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.vendorPhoneNumber"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.vendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.vendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.justification"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.vendorShippingPaymentTermsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.documentFundingSourceCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.requestorPersonName"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.requestorPersonName" p:pdf="true" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.nonInstitutionFundOrgChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.nonInstitutionFundOrganizationCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.nonInstitutionFundChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.nonInstitutionFundAccountNumber"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.deliveryRequiredDateReasonCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderTransmissionMethodCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderBeginDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderEndDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderBeginDate" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderEndDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.recurringPaymentFrequencyCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.recurringPaymentAmount"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.recurringPaymentTypeCode"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.recurringPaymentTypeCode" p:workflow="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.recurringPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.initialPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.initialPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.finalPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.finalPaymentDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderInitialOpenTimestamp"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderQuoteDueDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderInitialOpenTimestamp" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderQuoteDueDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderQuoteTypeCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderQuoteVendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderQuoteVendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderConfirmedIndicator"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderCommodityDescription"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderPreviousIdentifier"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderQuoteInitializationDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderQuoteAwardedDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderQuoteInitializationDate" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.purchaseOrderQuoteAwardedDate" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCloseDocument.assignedUserPrincipalId"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.requisitionSourceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderVendorChoiceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.vendorShippingTitleCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.vendorPhoneNumber"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.vendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.vendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.justification"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.vendorShippingPaymentTermsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.documentFundingSourceCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.requestorPersonName"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.requestorPersonName" p:pdf="true" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.nonInstitutionFundOrgChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.nonInstitutionFundOrganizationCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.nonInstitutionFundChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.nonInstitutionFundAccountNumber"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.deliveryRequiredDateReasonCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderTransmissionMethodCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderBeginDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderEndDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderBeginDate" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderEndDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.recurringPaymentFrequencyCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.recurringPaymentAmount"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.recurringPaymentTypeCode"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.recurringPaymentTypeCode" p:workflow="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.recurringPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.initialPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.initialPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.finalPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.finalPaymentDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderInitialOpenTimestamp"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderQuoteDueDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderInitialOpenTimestamp" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderQuoteDueDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderQuoteTypeCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderQuoteVendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderQuoteVendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderConfirmedIndicator"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderCommodityDescription"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderPreviousIdentifier"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderQuoteInitializationDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderQuoteAwardedDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderQuoteInitializationDate" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.purchaseOrderQuoteAwardedDate" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderReopenDocument.assignedUserPrincipalId"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.requisitionSourceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderVendorChoiceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.vendorShippingTitleCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.vendorPhoneNumber"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.vendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.vendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.justification"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.vendorShippingPaymentTermsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.documentFundingSourceCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.requestorPersonName"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.requestorPersonName" p:pdf="true" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.nonInstitutionFundOrgChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.nonInstitutionFundOrganizationCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.nonInstitutionFundChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.nonInstitutionFundAccountNumber"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.deliveryRequiredDateReasonCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderTransmissionMethodCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderBeginDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderEndDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderBeginDate" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderEndDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.recurringPaymentFrequencyCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.recurringPaymentAmount"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.recurringPaymentTypeCode"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.recurringPaymentTypeCode" p:workflow="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.recurringPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.initialPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.initialPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.finalPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.finalPaymentDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderInitialOpenTimestamp"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderQuoteDueDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderInitialOpenTimestamp" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderQuoteDueDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderQuoteTypeCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderQuoteVendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderQuoteVendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderConfirmedIndicator"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderCommodityDescription"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderPreviousIdentifier"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderQuoteInitializationDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderQuoteAwardedDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderQuoteInitializationDate" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.purchaseOrderQuoteAwardedDate" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderAmendmentDocument.assignedUserPrincipalId"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.requisitionSourceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderVendorChoiceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.vendorShippingTitleCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.vendorPhoneNumber"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.vendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.vendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.justification"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.vendorShippingPaymentTermsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.documentFundingSourceCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.requestorPersonName"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.requestorPersonName" p:pdf="true" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.nonInstitutionFundOrgChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.nonInstitutionFundOrganizationCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.nonInstitutionFundChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.nonInstitutionFundAccountNumber"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.deliveryRequiredDateReasonCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderTransmissionMethodCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderBeginDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderEndDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderBeginDate" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderEndDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.recurringPaymentFrequencyCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.recurringPaymentAmount"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.recurringPaymentTypeCode"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.recurringPaymentTypeCode" p:workflow="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.recurringPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.initialPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.initialPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.finalPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.finalPaymentDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderInitialOpenTimestamp"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderQuoteDueDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderInitialOpenTimestamp" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderQuoteDueDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderQuoteTypeCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderQuoteVendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderQuoteVendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderConfirmedIndicator"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderCommodityDescription"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderPreviousIdentifier"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderQuoteInitializationDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderQuoteAwardedDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderQuoteInitializationDate" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.purchaseOrderQuoteAwardedDate" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderVoidDocument.assignedUserPrincipalId"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.requisitionSourceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderVendorChoiceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.vendorShippingTitleCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.vendorPhoneNumber"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.vendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.vendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.justification"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.vendorShippingPaymentTermsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.documentFundingSourceCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.requestorPersonName"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.requestorPersonName" p:pdf="true" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.nonInstitutionFundOrgChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.nonInstitutionFundOrganizationCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.nonInstitutionFundChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.nonInstitutionFundAccountNumber"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.deliveryRequiredDateReasonCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderTransmissionMethodCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderBeginDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderEndDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderBeginDate" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderEndDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.recurringPaymentFrequencyCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.recurringPaymentAmount"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.recurringPaymentTypeCode"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.recurringPaymentTypeCode" p:workflow="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.recurringPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.initialPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.initialPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.finalPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.finalPaymentDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderInitialOpenTimestamp"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderQuoteDueDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderInitialOpenTimestamp" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderQuoteDueDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderQuoteTypeCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderQuoteVendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderQuoteVendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderConfirmedIndicator"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderCommodityDescription"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderPreviousIdentifier"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderQuoteInitializationDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderQuoteAwardedDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderQuoteInitializationDate" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.purchaseOrderQuoteAwardedDate" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderPaymentHoldDocument.assignedUserPrincipalId"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.requisitionSourceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderVendorChoiceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.vendorShippingTitleCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.vendorPhoneNumber"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.vendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.vendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.justification"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.vendorShippingPaymentTermsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.documentFundingSourceCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.requestorPersonName"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.requestorPersonName" p:pdf="true" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.nonInstitutionFundOrgChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.nonInstitutionFundOrganizationCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.nonInstitutionFundChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.nonInstitutionFundAccountNumber"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.deliveryRequiredDateReasonCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderTransmissionMethodCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderBeginDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderEndDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderBeginDate" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderEndDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.recurringPaymentFrequencyCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.recurringPaymentAmount"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.recurringPaymentTypeCode"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.recurringPaymentTypeCode" p:workflow="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.recurringPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.initialPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.initialPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.finalPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.finalPaymentDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderInitialOpenTimestamp"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderQuoteDueDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderInitialOpenTimestamp" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderQuoteDueDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderQuoteTypeCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderQuoteVendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderQuoteVendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderConfirmedIndicator"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderCommodityDescription"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderPreviousIdentifier"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderQuoteInitializationDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderQuoteAwardedDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderQuoteInitializationDate" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.purchaseOrderQuoteAwardedDate" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRemoveHoldDocument.assignedUserPrincipalId"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.requisitionSourceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderVendorChoiceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.vendorShippingTitleCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.vendorPhoneNumber"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.vendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.vendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.justification"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.vendorShippingPaymentTermsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.documentFundingSourceCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.requestorPersonName"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.requestorPersonName" p:pdf="true" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.nonInstitutionFundOrgChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.nonInstitutionFundOrganizationCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.nonInstitutionFundChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.nonInstitutionFundAccountNumber"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.deliveryRequiredDateReasonCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderTransmissionMethodCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderBeginDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderEndDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderBeginDate" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderEndDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.recurringPaymentFrequencyCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.recurringPaymentAmount"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.recurringPaymentTypeCode"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.recurringPaymentTypeCode" p:workflow="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.recurringPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.initialPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.initialPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.finalPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.finalPaymentDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderInitialOpenTimestamp"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderQuoteDueDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderInitialOpenTimestamp" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderQuoteDueDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderQuoteTypeCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderQuoteVendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderQuoteVendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderConfirmedIndicator"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderCommodityDescription"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderPreviousIdentifier"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderQuoteInitializationDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderQuoteAwardedDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderQuoteInitializationDate" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.purchaseOrderQuoteAwardedDate" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderRetransmitDocument.assignedUserPrincipalId"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.requisitionSourceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderVendorChoiceCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.vendorShippingTitleCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.vendorPhoneNumber"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.vendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.vendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.justification"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.vendorShippingPaymentTermsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.documentFundingSourceCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.requestorPersonName"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.requestorPersonName" p:pdf="true" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.nonInstitutionFundOrgChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.nonInstitutionFundOrganizationCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.nonInstitutionFundChartOfAccountsCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.nonInstitutionFundAccountNumber"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.deliveryRequiredDateReasonCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderTransmissionMethodCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderBeginDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderEndDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderBeginDate" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderEndDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.recurringPaymentFrequencyCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.recurringPaymentAmount"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.recurringPaymentTypeCode"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.recurringPaymentTypeCode" p:workflow="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.initialPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.initialPaymentDate"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.finalPaymentAmount"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.finalPaymentDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderInitialOpenTimestamp"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderQuoteDueDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderInitialOpenTimestamp" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderQuoteDueDate" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderQuoteTypeCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderQuoteVendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderQuoteVendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderConfirmedIndicator"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderCommodityDescription"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderPreviousIdentifier"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderQuoteInitializationDate"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderQuoteAwardedDate"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderQuoteInitializationDate" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.purchaseOrderQuoteAwardedDate" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderSplitDocument.assignedUserPrincipalId"/>
-                <bean parent="filteredField" p:filteredField="PaymentRequestDocument.recurringPaymentTypeCode"/>
-                <bean parent="filteredField" p:filteredField="PaymentRequestDocument.invoiceNumber"/>
+                <bean parent="filteredField" p:filteredField="PaymentRequestDocument.recurringPaymentTypeCode" p:workflow="true"/>
                 <bean parent="filteredField" p:filteredField="PaymentRequestDocument.vendorShippingPaymentTermsCode"/>
                 <bean parent="filteredField" p:filteredField="PaymentRequestDocument.paymentRequestCostSourceCode"/>
                 <bean parent="filteredField" p:filteredField="PaymentRequestDocument.noteLine1Text"/>
                 <bean parent="filteredField" p:filteredField="PaymentRequestDocument.noteLine2Text"/>
                 <bean parent="filteredField" p:filteredField="PaymentRequestDocument.noteLine3Text"/>
-                <bean parent="filteredField" p:filteredField="PaymentRequestDocument.paymentPaidTimestamp"/>
-                <bean parent="filteredField" p:filteredField="PaymentRequestDocument.accountsPayableProcessorIdentifier"/>
-                <bean parent="filteredField" p:filteredField="PaymentRequestDocument.accountsPayableApprovalTimestamp"/>
-                <bean parent="filteredField" p:filteredField="PaymentRequestDocument.continuationAccountIndicator"/>
+                <bean parent="filteredField" p:filteredField="PaymentRequestDocument.paymentPaidTimestamp" p:workflow="true" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="PaymentRequestDocument.accountsPayableProcessorIdentifier" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="PaymentRequestDocument.accountsPayableApprovalTimestamp" p:workflow="true" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="PaymentRequestDocument.continuationAccountIndicator" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PaymentRequestDocument.taxCountryCode"/>
                 <bean parent="filteredField" p:filteredField="PaymentRequestDocument.taxNQIId"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderContractLanguage.contractLanguageCreateDate"/>
-                <bean parent="filteredField" p:filteredField="PaymentRequestItem.itemAuxiliaryPartIdentifier"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderContractLanguage.contractLanguageCreateDate" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="PaymentRequestItem.itemOutstandingInvoiceQuantity"/>
                 <bean parent="filteredField" p:filteredField="PaymentRequestItem.itemOutstandingInvoiceAmount"/>
-                <bean parent="filteredField" p:filteredField="SensitiveDataAssignment.sensitiveDataAssignmentPersonIdentifier"/>
-                <bean parent="filteredField" p:filteredField="SensitiveDataAssignment.sensitiveDataAssignmentChangeDate"/>
-                <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.paymentRequestIdentifier"/>
+                <bean parent="filteredField" p:filteredField="SensitiveDataAssignment.sensitiveDataAssignmentPersonIdentifier" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="SensitiveDataAssignment.sensitiveDataAssignmentChangeDate" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.paymentRequestIdentifier" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.purchaseOrderIdentifier"/>
-                <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.purchaseOrderDeliveryCampusCode"/>
+                <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.purchaseOrderDeliveryCampusCode" p:audit="true" p:workflow="true"/>
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.invoiceLoadSummaryIdentifier"/>
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.invoiceShipDate"/>
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.invoiceFilePurposeIdentifier"/>
@@ -2097,9 +2056,6 @@
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.invoiceFileHeaderTypeIndicator"/>
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.invoiceFileInformationOnlyIndicator"/>
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.invoiceFileTaxInLineIndicator"/>
-                <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.invoiceFileSpecialHandlingInLineIndicator"/>
-                <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.invoiceFileShippingInLineIndicator"/>
-                <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.invoiceFileDiscountInLineIndicator"/>
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.invoiceOrderReferenceOrderIdentifier"/>
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.invoiceOrderReferenceDocumentReferencePayloadIdentifier"/>
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.invoiceOrderReferenceDocumentReferenceText"/>
@@ -2141,8 +2097,7 @@
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.invoiceRemitToAddressPostalCode"/>
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.invoiceRemitToAddressCountryCode"/>
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.invoiceRemitToAddressCountryName"/>
-                <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.invoiceResearchIndicator"/>
-                <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.accountsPayableApprovalTimestamp"/>
+                <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectDocument.accountsPayableApprovalTimestamp" p:workflow="true" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectItem.invoiceItemLineNumber"/>
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectItem.invoiceItemSubTotalCurrencyCode"/>
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectItem.invoiceItemSpecialHandlingCurrencyCode"/>
@@ -2161,29 +2116,30 @@
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectItem.invoiceReferenceItemManufacturerName"/>
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectItem.invoiceReferenceItemCountryCode"/>
                 <bean parent="filteredField" p:filteredField="ElectronicInvoiceRejectItem.invoiceReferenceItemCountryName"/>
-                <bean parent="filteredField" p:filteredField="ElectronicInvoiceLoadSummary.fileProcessTimestamp"/>
+                <bean parent="filteredField" p:filteredField="ElectronicInvoiceLoadSummary.fileProcessTimestamp" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="LineItemReceivingView.deliveryBuildingOtherIndicator"/>
                 <bean parent="filteredField" p:filteredField="BulkReceivingView.deliveryBuildingOtherIndicator"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderView.recurringPaymentTypeCode"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderView.purchaseOrderInitialOpenTimestamp"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderView.recurringPaymentTypeCode" p:workflow="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderView.purchaseOrderInitialOpenTimestamp" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="CreditMemoView.creditMemoNumber"/>
                 <bean parent="filteredField" p:filteredField="CreditMemoView.creditHoldIndicator"/>
                 <bean parent="filteredField" p:filteredField="CreditMemoView.vendorCustomerNumber"/>
                 <bean parent="filteredField" p:filteredField="CreditMemoView.accountsPayableApprovalTimestamp"/>
                 <bean parent="filteredField" p:filteredField="CreditMemoView.creditMemoExtractedTimestamp"/>
-                <bean parent="filteredField" p:filteredField="AutoClosePurchaseOrderView.recurringPaymentTypeCode"/>
+                <bean parent="filteredField" p:filteredField="AutoClosePurchaseOrderView.recurringPaymentTypeCode" p:workflow="true"/>
                 <bean parent="filteredField" p:filteredField="AutoClosePurchaseOrderView.totalEncumbrance"/>
                 <bean parent="filteredField" p:filteredField="VendorCreditMemoDocument.noteLine1Text"/>
                 <bean parent="filteredField" p:filteredField="VendorCreditMemoDocument.noteLine2Text"/>
                 <bean parent="filteredField" p:filteredField="VendorCreditMemoDocument.noteLine3Text"/>
-                <bean parent="filteredField" p:filteredField="VendorCreditMemoDocument.accountsPayableProcessorIdentifier"/>
-                <bean parent="filteredField" p:filteredField="VendorCreditMemoDocument.continuationAccountIndicator"/>
-                <bean parent="filteredField" p:filteredField="CreditMemoItem.preqUnitPrice"/>
+                <bean parent="filteredField" p:filteredField="VendorCreditMemoDocument.accountsPayableProcessorIdentifier" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="VendorCreditMemoDocument.continuationAccountIndicator" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="CreditMemoItem.preqUnitPrice" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="AccountsPayableSummaryAccount.creditMemoIdentifier"/>
                 <bean parent="filteredField" p:filteredField="AccountsPayableSummaryAccount.updateTimestamp"/>
                 <bean parent="filteredField" p:filteredField="LineItemReceivingDocument.carrierCode"/>
                 <bean parent="filteredField" p:filteredField="LineItemReceivingDocument.shipmentReferenceNumber"/>
                 <bean parent="filteredField" p:filteredField="LineItemReceivingDocument.vendorName"/>
+                <bean parent="filteredField" p:filteredField="LineItemReceivingDocument.vendorLine1Address"/>
                 <bean parent="filteredField" p:filteredField="LineItemReceivingDocument.vendorLine2Address"/>
                 <bean parent="filteredField" p:filteredField="LineItemReceivingDocument.vendorCityName"/>
                 <bean parent="filteredField" p:filteredField="LineItemReceivingDocument.vendorStateCode"/>
@@ -2203,50 +2159,52 @@
                 <bean parent="filteredField" p:filteredField="LineItemReceivingDocument.deliveryRequiredDate"/>
                 <bean parent="filteredField" p:filteredField="LineItemReceivingDocument.deliveryRequiredDateReasonCode"/>
                 <bean parent="filteredField" p:filteredField="LineItemReceivingDocument.deliveryBuildingOtherIndicator"/>
-                <bean parent="filteredField" p:filteredField="RequisitionCapitalAssetItem.purapDocumentIdentifier"/>
+                <bean parent="filteredField" p:filteredField="RequisitionCapitalAssetItem.purapDocumentIdentifier" p:audit="true"/>
                 <bean parent="filteredField" p:filteredField="RequisitionCapitalAssetItem.capitalAssetTransactionTypeCode"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCapitalAssetItem.documentNumber"/>
                 <bean parent="filteredField" p:filteredField="PurchaseOrderCapitalAssetItem.capitalAssetTransactionTypeCode"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.carrierCode"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.trackingNumber"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.shipmentReferenceNumber"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.shipmentWeight"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.noOfCartons"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.vendorName"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.vendorLine1Address"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.vendorLine2Address"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.vendorCityName"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.vendorStateCode"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.vendorPostalCode"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.vendorCountryCode"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.vendorNoteText"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.carrierCode" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.trackingNumber" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.shipmentReferenceNumber" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.shipmentWeight" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.noOfCartons" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.vendorName" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.vendorLine1Address" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.vendorLine2Address" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.vendorCityName" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.vendorStateCode" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.vendorPostalCode" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.vendorCountryCode" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.vendorNoteText" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryBuildingCode"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryBuildingName"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryBuildingRoomNumber"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryBuildingLine1Address"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryBuildingLine2Address"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryCityName"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryStateCode"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryPostalCode"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryCountryCode"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryToName"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryBuildingName" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryBuildingRoomNumber" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryBuildingLine1Address" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryBuildingLine2Address" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryCityName" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryStateCode" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryPostalCode" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryCountryCode" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryToName" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryToEmailAddress"/>
                 <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryToPhoneNumber"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryAdditionalInstructionText"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.institutionContactName"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.institutionContactPhoneNumber"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.institutionContactEmailAddress"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.requestorPersonName"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.requestorPersonPhoneNumber"/>
-                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.requestorPersonEmailAddress"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryAdditionalInstructionText" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.institutionContactName" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.institutionContactPhoneNumber" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.institutionContactEmailAddress" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.requestorPersonName" p:pdf="true" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.requestorPersonPhoneNumber" p:pdf="true"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.requestorPersonEmailAddress" p:pdf="true"/>
                 <bean parent="filteredField" p:filteredField="BulkReceivingDocument.preparerPersonName"/>
                 <bean parent="filteredField" p:filteredField="BulkReceivingDocument.preparerPersonPhoneNumber"/>
-                <bean parent="filteredField" p:filteredField="CreditMemoItemUseTax.itemIdentifier"/>
-                <bean parent="filteredField" p:filteredField="PaymentRequestItemUseTax.itemIdentifier"/>
-                <bean parent="filteredField" p:filteredField="PurchaseOrderItemUseTax.itemIdentifier"/>
-                <bean parent="filteredField" p:filteredField="PurchaseRequisitionItemUseTax.itemIdentifier"/>
-                <bean parent="filteredField" p:filteredField="PaymentRequestAccountRevision.accountRevisionTimestamp"/>
-                <bean parent="filteredField" p:filteredField="CreditMemoAccountRevision.accountRevisionTimestamp"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryRequiredDate"/>
+                <bean parent="filteredField" p:filteredField="BulkReceivingDocument.deliveryRequiredDateReasonCode"/>
+                <bean parent="filteredField" p:filteredField="CreditMemoItemUseTax.itemIdentifier" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="PaymentRequestItemUseTax.itemIdentifier" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseOrderItemUseTax.itemIdentifier" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="PurchaseRequisitionItemUseTax.itemIdentifier" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="PaymentRequestAccountRevision.accountRevisionTimestamp" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="CreditMemoAccountRevision.accountRevisionTimestamp" p:audit="true"/>
                 <!-- VND -->
                 <bean parent="filteredField" p:filteredField="AddressType.vendorDefaultIndicator"/>
                 <bean parent="filteredField" p:filteredField="CommodityCode.sensitiveDataCode" p:unused="true"/>
