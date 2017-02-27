@@ -45,6 +45,7 @@ public class DocumentStoreLiquirelationalExporter {
 
     public final static String TABLE_INSTITUTIONAL_PREFS = "INST_PREF_T";
     public final static String TABLE_USER_PREFS = "USR_PREFS_T";
+    public final static String TABLE_MENU_LINK = "MENU_LNK_T";
     public final static String TABLE_NAV_LINK = "NAV_LNK_T";
     public final static String TABLE_NAV_LINK_GROUP = "NAV_LNK_GRP_T";
     public final static String TABLE_NAV_LINK_PERMISSION = "NAV_LNK_PERM_T";
@@ -102,6 +103,7 @@ public class DocumentStoreLiquirelationalExporter {
         Map<String,Object> prefs = preferencesDao.findInstitutionPreferences();
 
         emitInstPrefs(prefs);
+        emitMenuLinks(prefs);
         emitNavLinkGroups(prefs);
     }
 
@@ -110,6 +112,20 @@ public class DocumentStoreLiquirelationalExporter {
         emitInsertStart(TABLE_INSTITUTIONAL_PREFS);
         emitColumn("LOGO_DATA", (String)instPrefs.get("logoUrl"));
         emitInsertEnd();
+        emitChangesetEnd();
+    }
+
+    protected void emitMenuLinks(Map<String,Object> instPrefs) {
+        emitChangesetStart(TABLE_MENU_LINK);
+        int order = 0;
+        for (Map<String,String> menuLink : (List<Map<String, String>>) instPrefs.get("menu")) {
+            emitInsertStart(TABLE_NAV_LINK_GROUP);
+            emitColumn("OBJ_ID", generateObjectId());
+            emitColumn("LNK_LBL", menuLink.get("label"));
+            emitColumn("LNK_VAL", menuLink.get("link"));
+            emitColumn("ORDER", String.valueOf(order++));
+            emitInsertEnd();
+        }
         emitChangesetEnd();
     }
 
