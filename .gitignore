@@ -30,3 +30,4 @@ tmtags
 kfs-web/src/main/webapp/build
 .DS_Store
 kfs-api-test/dev.properties
+dependency-reduced-pom.xml
