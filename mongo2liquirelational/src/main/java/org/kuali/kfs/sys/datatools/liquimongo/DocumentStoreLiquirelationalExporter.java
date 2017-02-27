@@ -119,7 +119,7 @@ public class DocumentStoreLiquirelationalExporter {
         emitChangesetStart(TABLE_MENU_LINK);
         int order = 0;
         for (Map<String,String> menuLink : (List<Map<String, String>>) instPrefs.get("menu")) {
-            emitInsertStart(TABLE_NAV_LINK_GROUP);
+            emitInsertStart(TABLE_MENU_LINK);
             emitColumn("OBJ_ID", generateObjectId());
             emitColumn("LNK_LBL", menuLink.get("label"));
             emitColumn("LNK_VAL", menuLink.get("link"));
@@ -214,7 +214,7 @@ public class DocumentStoreLiquirelationalExporter {
     }
 
     protected void emitChangesetStart(String idSuffix) {
-        System.out.println(String.format("    <changeSet author=\"%s\" id=\"%s%s\" context=\"%s\">", author, idPrefix, idSuffix, context));
+        System.out.println(String.format("    <changeSet author=\"%s\" id=\"%s%s\" context=\"%s\">", author, idPrefix, idSuffix.replaceAll("[^A-Za-z0-9_]", ""), context));
     }
 
     protected void emitChangesetEnd() {
