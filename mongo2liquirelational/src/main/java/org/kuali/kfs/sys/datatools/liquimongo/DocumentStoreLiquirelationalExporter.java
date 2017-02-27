@@ -184,6 +184,7 @@ public class DocumentStoreLiquirelationalExporter {
 
                         emitInsertStart(TABLE_NAV_LINK_PERMISSION);
                         emitColumn("OBJ_ID", permissionId);
+                        emitColumn("NAV_LNK", linkId);
                         emitColumn("TMPL_NMSPC", (String) permission.get("templateNamespace"));
                         emitColumn("TMPL_NM", (String) permission.get("templateName"));
                         emitInsertEnd();
