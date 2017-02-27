@@ -26,6 +26,7 @@ public class TableDTO {
     private String name;
     private String description;
     private List<FieldDTO> fields;
+    private boolean collection;
 
     public String getCode() {
         return code;
@@ -57,6 +58,14 @@ public class TableDTO {
 
     public void setFields(List<FieldDTO> fields) {
         this.fields = fields;
+    }
+
+    public boolean isCollection() {
+        return collection;
+    }
+
+    public void setCollection(boolean collection) {
+        this.collection = collection;
     }
 
     @Override
