@@ -49,7 +49,7 @@ public class DocumentStoreLiquirelationalExporter {
     public final static String TABLE_NAV_LINK = "NAV_LNK_T";
     public final static String TABLE_NAV_LINK_GROUP = "NAV_LNK_GRP_T";
     public final static String TABLE_NAV_LINK_PERMISSION = "NAV_LNK_PERM_T";
-    public final static String TABLE_NAV_LINK_PERMISSION_DETAIL = "NAV_LNK_PERM_DETAIL_T";
+    public final static String TABLE_NAV_LINK_PERMISSION_DETAIL = "NAV_LNK_PERM_DTL_T";
 
     public static void main(String[] args) {
         try {
@@ -157,7 +157,7 @@ public class DocumentStoreLiquirelationalExporter {
 
                     emitInsertStart(TABLE_NAV_LINK);
                     emitColumn("OBJ_ID", linkId);
-                    emitColumn("NAV_LNK_GRP", linkGroupId);
+                    emitColumn("NAV_LNK_GRP_ID", linkGroupId);
                     emitColumn("LNK_CTGRY", linkCategory);
                     emitColumn("LNK_TYP", (String) link.get("linkType"));
                     emitColumn("ORDER", String.valueOf(j));
@@ -184,7 +184,7 @@ public class DocumentStoreLiquirelationalExporter {
 
                         emitInsertStart(TABLE_NAV_LINK_PERMISSION);
                         emitColumn("OBJ_ID", permissionId);
-                        emitColumn("NAV_LNK", linkId);
+                        emitColumn("NAV_LNK_ID", linkId);
                         emitColumn("TMPL_NMSPC", (String) permission.get("templateNamespace"));
                         emitColumn("TMPL_NM", (String) permission.get("templateName"));
                         emitInsertEnd();
@@ -195,7 +195,7 @@ public class DocumentStoreLiquirelationalExporter {
                                 String permissionDetailId = generateObjectId();
                                 emitInsertStart(TABLE_NAV_LINK_PERMISSION_DETAIL);
                                 emitColumn("OBJ_ID", permissionDetailId);
-                                emitColumn("NAV_LNK_PERM", permissionId);
+                                emitColumn("NAV_LNK_PERM_ID", permissionId);
                                 emitColumn("KEY_CD", key);
                                 emitColumn("VAL", details.get(key));
                                 emitInsertEnd();
