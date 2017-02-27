@@ -125,7 +125,6 @@
         </createTable>
 
         <modifySql dbms="mysql">
-            <append value="ENGINE=INNODB DEFAULT CHARSET=UTF8 COLLATE=utf8_bin"/>
             <replace replace="CLOB" with="TEXT"/>
         </modifySql>
     </changeSet>
@@ -145,10 +144,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <modifySql dbms="mysql">
-            <append value="ENGINE=INNODB DEFAULT CHARSET=UTF8 COLLATE=utf8_bin"/>
-        </modifySql>
     </changeSet>
 
     <changeSet author="KFS701" id="FINP-1126_CREATE_NAV_LNK_GRP_T" context="bootstrap,demo,unit">
@@ -163,10 +158,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <modifySql dbms="mysql">
-            <append value="ENGINE=INNODB DEFAULT CHARSET=UTF8 COLLATE=utf8_bin"/>
-        </modifySql>
     </changeSet>
 
     <changeSet author="KFS701" id="FINP-1126_CREATE_NAV_LNK_T" context="bootstrap,demo,unit">
@@ -180,7 +171,7 @@
             <column name="LNK_CTGRY" type="VARCHAR(16)">
                 <constraints nullable="false"/>
             </column>
-            <column name="NAV_LNK_GRP" type="VARCHAR(36)">
+            <column name="NAV_LNK_GRP_ID" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
             <column name="ORDER" type="INTEGER">
@@ -202,10 +193,6 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
-
-        <modifySql dbms="mysql">
-            <append value="ENGINE=INNODB DEFAULT CHARSET=UTF8 COLLATE=utf8_bin"/>
-        </modifySql>
     </changeSet>
 
     <changeSet author="KFS701" id="FINP-1126_CREATE_NAV_LNK_PERM_T" context="bootstrap,demo,unit">
@@ -213,7 +200,7 @@
             <column name="OBJ_ID" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="NAV_LNK" type="VARCHAR(36)">
+            <column name="NAV_LNK_ID" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
             <column name="TMPL_NMSPC" type="VARCHAR(40)">
@@ -223,18 +210,14 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <modifySql dbms="mysql">
-            <append value="ENGINE=INNODB DEFAULT CHARSET=UTF8 COLLATE=utf8_bin"/>
-        </modifySql>
     </changeSet>
 
-    <changeSet author="KFS701" id="FINP-1126_CREATE_NAV_LNK_PERM_DETAIL_T" context="bootstrap,demo,unit">
-        <createTable tableName="NAV_LNK_PERM_DETAIL_T">
+    <changeSet author="KFS701" id="FINP-1126_CREATE_NAV_LNK_PERM_DTL_T" context="bootstrap,demo,unit">
+        <createTable tableName="NAV_LNK_PERM_DTL_T">
             <column name="OBJ_ID" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="NAV_LNK_PERM" type="VARCHAR(36)">
+            <column name="NAV_LNK_PERM_ID" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
             <column name="KEY_CD" type="VARCHAR(32)">
@@ -244,10 +227,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <modifySql dbms="mysql">
-            <append value="ENGINE=INNODB DEFAULT CHARSET=UTF8 COLLATE=utf8_bin"/>
-        </modifySql>
     </changeSet>
 
     <changeSet author="KFS701" id="FINP-1126_CREATE_USR_PREFS_T" context="bootstrap,demo,unit">
@@ -265,15 +244,11 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <modifySql dbms="mysql">
-            <append value="ENGINE=INNODB DEFAULT CHARSET=UTF8 COLLATE=utf8_bin"/>
-        </modifySql>
     </changeSet>
 
     <changeSet author="KFS701" id="FINP-1126_ADD_FK_CONSTRAINTS" context="bootstrap,demo,unit">
-        <addForeignKeyConstraint baseColumnNames="NAV_LNK_GRP" baseTableName="NAV_LNK_T" constraintName="NAV_LNK_T_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="OBJ_ID" referencedTableName="NAV_LNK_GRP_T"/>
-        <addForeignKeyConstraint baseColumnNames="NAV_LNK" baseTableName="NAV_LNK_PERM_T" constraintName="NAV_LNK_PERM_T_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="OBJ_ID" referencedTableName="NAV_LNK_T"/>
-        <addForeignKeyConstraint baseColumnNames="NAV_LNK_PERM" baseTableName="NAV_LNK_PERM_DETAIL_T" constraintName="NAV_LNK_PERM_DETAIL_T_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="OBJ_ID" referencedTableName="NAV_LNK_PERM_T"/>
+        <addForeignKeyConstraint baseColumnNames="NAV_LNK_GRP_ID" baseTableName="NAV_LNK_T" constraintName="NAV_LNK_T_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="OBJ_ID" referencedTableName="NAV_LNK_GRP_T"/>
+        <addForeignKeyConstraint baseColumnNames="NAV_LNK_ID" baseTableName="NAV_LNK_PERM_T" constraintName="NAV_LNK_PERM_T_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="OBJ_ID" referencedTableName="NAV_LNK_T"/>
+        <addForeignKeyConstraint baseColumnNames="NAV_LNK_PERM_ID" baseTableName="NAV_LNK_PERM_DTL_T" constraintName="NAV_LNK_PERM_DTL_T_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="OBJ_ID" referencedTableName="NAV_LNK_PERM_T"/>
     </changeSet>
 </databaseChangeLog>
