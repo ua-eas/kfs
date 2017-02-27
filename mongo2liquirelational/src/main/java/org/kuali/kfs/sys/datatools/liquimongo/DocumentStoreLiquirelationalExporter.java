@@ -49,7 +49,7 @@ public class DocumentStoreLiquirelationalExporter {
     public final static String TABLE_NAV_LINK = "NAV_LNK_T";
     public final static String TABLE_NAV_LINK_GROUP = "NAV_LNK_GRP_T";
     public final static String TABLE_NAV_LINK_PERMISSION = "NAV_LNK_PERM_T";
-    public final static String TABLE_NAV_LINK_PERMISSION_DETAIL = "NAV_LINK_PERM_DETAIL_T";
+    public final static String TABLE_NAV_LINK_PERMISSION_DETAIL = "NAV_LNK_PERM_DETAIL_T";
 
     public static void main(String[] args) {
         try {
