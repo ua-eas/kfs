@@ -77,6 +77,8 @@ public class KFSConstants extends org.kuali.kfs.sys.KFSConstants {
         public static final String ORGANIZATION_HIERARCHY = "OrganizationHierarchy";
         public static final String PAYMENT_METHOD = "PaymentMethod";
         public static final String ORGANIZATION_FUND_REVIEW = "OrganizationFundReview";
+        public static final String PROCUREMENT_CARD_RECONCILER = "ProcurementCardReconciler";
+        public static final String HAS_RECONCILER = "HasReconciler";
     }
 
     public static class COAConstants {

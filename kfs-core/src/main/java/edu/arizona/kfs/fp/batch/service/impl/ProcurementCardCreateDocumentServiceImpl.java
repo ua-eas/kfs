@@ -68,6 +68,7 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
 
     private static final int CARDHOLDER_NAME_MAX_LENGTH = 24;
     private static final String AUTO_APPROVE_ERROR_LOG_SEPARATOR = "-----------------\n";
+    private static final String BATCH_REROUTE_TO_RECONCILER_ANNOTATION = " Batch Reroute to Reconciler";
     
     public GroupService getProcurementCardGroupService() {
         return procurementCardGroupService;
@@ -104,66 +105,69 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
      */
     @Override
     public boolean rerouteProcurementCardDocuments() {
-        
+
         // check for reconciler group rerouting
         boolean groupRerouting = parameterService.getParameterValueAsBoolean(ProcurementCardRerouteDocumentsStep.class, KFSParameterKeyConstants.ProcurementCardParameterConstants.REROUTE_PCDO_DOCUMENTS_IND_PARM_NM);
-        
+        // this change requested during review of UAF-2975
+        String reconcilerGroups = parameterService.getParameter(ProcurementCardRerouteDocumentsStep.class, KFSParameterKeyConstants.ProcurementCardParameterConstants.RECONCILER_GROUPS_TO_REROUTE_PARM_NM).getValue();
+
         Collection<ProcurementCardDocument> documents = null;
         documents = retrieveUAProcurementCardDocumentsToRoute(KewApiConstants.ROUTE_HEADER_ENROUTE_CD);
-        
+
         LOG.info("PCards to Reroute: " + documents.size());
 
         for (ProcurementCardDocument pcardDocument : documents) {
-        
+
             String pcardDocumentId = pcardDocument.getDocumentNumber();
-            //get document route node
+            // get document route node
             List<RouteNodeInstance> routeNodeInstances = pcardDocument.getDocumentHeader().getWorkflowDocument().getCurrentRouteNodeInstances();
             String node = routeNodeInstances.get(0).getName();
-            //get Procurement Card Default information
+            // get Procurement Card Default information
             ProcurementCardDefault procurementCardHolderDetail = getProcurementCardDefault(pcardDocument.getProcurementCardHolder().getTransactionCreditCardNumber());
             boolean hasReconciler = hasReconciler(procurementCardHolderDetail);
-            if (hasReconciler) {   
-                //step one, reroute documents enroute to the error account Fiscal officer
-                if (node.equals("AccountFullEdit") && 
-                        pcardDocument.getTargetAccountingLine(0).getAccountNumber().equals(getErrorAccountNumber())) {
-                    pcardDocument.getTargetAccountingLine(0).setChartOfAccountsCode(StringUtils.isNotEmpty(procurementCardHolderDetail.getChartOfAccountsCode()) ? procurementCardHolderDetail.getChartOfAccountsCode() : getErrorChartCode());
-                    pcardDocument.getTargetAccountingLine(0).setAccountNumber(StringUtils.isNotEmpty(procurementCardHolderDetail.getAccountNumber()) ? procurementCardHolderDetail.getAccountNumber() : getErrorAccountNumber());
-                    pcardDocument.getTargetAccountingLine(0).setFinancialObjectCode(StringUtils.isNotEmpty(procurementCardHolderDetail.getFinancialObjectCode()) ? procurementCardHolderDetail.getFinancialObjectCode() : getDefaultObjectCode());
+            if (hasReconciler) {
+                // step one, reroute documents enroute to the error account Fiscal officer
+                if (node.equals(KFSConstants.RouteLevelNames.ACCOUNT_REVIEW_FULL_EDIT) && pcardDocument.getTargetAccountingLine(0).getAccountNumber().equals(getErrorAccountNumber())) {
+                    if (StringUtils.isNotEmpty(procurementCardHolderDetail.getChartOfAccountsCode())) {
+                        pcardDocument.getTargetAccountingLine(0).setChartOfAccountsCode(procurementCardHolderDetail.getChartOfAccountsCode());
+                    } else {
+                        pcardDocument.getTargetAccountingLine(0).setChartOfAccountsCode(getErrorChartCode());
+                    }
+                    if (StringUtils.isNotEmpty(procurementCardHolderDetail.getAccountNumber())) {
+                        pcardDocument.getTargetAccountingLine(0).setAccountNumber(procurementCardHolderDetail.getAccountNumber());
+                    } else {
+                        pcardDocument.getTargetAccountingLine(0).setAccountNumber(getErrorAccountNumber());
+                    }
+                    if (StringUtils.isNotEmpty(procurementCardHolderDetail.getFinancialObjectCode())) {
+                        pcardDocument.getTargetAccountingLine(0).setFinancialObjectCode(procurementCardHolderDetail.getFinancialObjectCode());
+                    } else {
+                        pcardDocument.getTargetAccountingLine(0).setFinancialObjectCode(getDefaultObjectCode());
+                    }
                     pcardDocument.getTargetAccountingLine(0).setSubAccountNumber(procurementCardHolderDetail.getSubAccountNumber());
                     pcardDocument.getTargetAccountingLine(0).setFinancialSubObjectCode(procurementCardHolderDetail.getFinancialSubObjectCode());
-                    LOG.info("Rerouting doc #" + pcardDocumentId + " at AccountFullEdit for error account Fiscal Officer.");             
-                    requeueDocument(pcardDocumentId, node, "HasReconciler", " Batch Reroute to Reconciler"); 
+                    LOG.info("Rerouting doc #" + pcardDocumentId + " at AccountFullEdit for error account Fiscal Officer.");
+                    requeueDocument(pcardDocumentId, node, KFSConstants.RouteLevelNames.HAS_RECONCILER, BATCH_REROUTE_TO_RECONCILER_ANNOTATION);
                     // pause between reroutes
                     try {
                         Thread.sleep(3000);
-                    }
-                    catch (InterruptedException e) {
+                    } catch (InterruptedException e) {
                         LOG.error("Thread interrupted in rerouteProcurementCardDocuments method " + e.getMessage());
                     }
                 }
-                
-              //step two, reroute documents enroute to the reconciler group(s) that had group membership problems
-                else if (node.equals("ProcurementCardReconciler") && groupRerouting && 
-                        parameterService.getParameter(ProcurementCardRerouteDocumentsStep.class,
-                                KFSParameterKeyConstants.ProcurementCardParameterConstants.RECONCILER_GROUPS_TO_REROUTE_PARM_NM).getValue() != null
-                        && parameterService
-                                .getParameter(ProcurementCardRerouteDocumentsStep.class,
-                                        KFSParameterKeyConstants.ProcurementCardParameterConstants.RECONCILER_GROUPS_TO_REROUTE_PARM_NM)
-                                .getValue().contains(procurementCardHolderDetail.getReconcilerGroupId())) {
-                    LOG.info("Rerouting doc #" + pcardDocumentId + " at ProcurementCardReconciler, in "
-                            + KFSParameterKeyConstants.ProcurementCardParameterConstants.RECONCILER_GROUPS_TO_REROUTE_PARM_NM + " group "
-                            + procurementCardHolderDetail.getReconcilerGroupId());
-                    requeueDocument(pcardDocumentId, node, "ProcurementCardReconciler", " Batch Reroute to Reconciler"); 
+
+                // step two, reroute documents enroute to the reconciler group(s) that had group membership problems
+                else if (node.equals(KFSConstants.RouteLevelNames.PROCUREMENT_CARD_RECONCILER) && groupRerouting && reconcilerGroups != null && reconcilerGroups.contains(procurementCardHolderDetail.getReconcilerGroupId())) {
+                    LOG.info("Rerouting doc #" + pcardDocumentId + " at ProcurementCardReconciler, in " + KFSParameterKeyConstants.ProcurementCardParameterConstants.RECONCILER_GROUPS_TO_REROUTE_PARM_NM + " group " + procurementCardHolderDetail.getReconcilerGroupId());
+                    requeueDocument(pcardDocumentId, node, KFSConstants.RouteLevelNames.PROCUREMENT_CARD_RECONCILER, BATCH_REROUTE_TO_RECONCILER_ANNOTATION);
                     // pause between reroutes
                     try {
                         Thread.sleep(3000);
-                    }
-                    catch (InterruptedException e) {
+                    } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                 }
-                
-            }                            
+
+            }
         }
 
         return true;
@@ -174,17 +178,17 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
      * 
      */
     private ProcurementCardDefault getProcurementCardDefault(String creditCardNumber) {
-                
+
         Map<String, String> pkMap = new HashMap<String, String>();
         pkMap.put("creditCardNumber", creditCardNumber);
         ProcurementCardDefault procurementCardDefault = (ProcurementCardDefault) getBusinessObjectService().findByPrimaryKey(ProcurementCardDefault.class, pkMap);
-                
+
         return procurementCardDefault;
     }
     
     @Override
     public void requeueDocument(String pcardDocumentId, String node, String prevNode, String annotation) {
-        //pcardDocumentId could have leading 0's; want these removed for processing calls
+        // pcardDocumentId could have leading 0's; want these removed for processing calls
         String documentId = StringUtils.stripStart(pcardDocumentId, "0");
         WorkflowDocumentActionsService documentActions = KewApiServiceLocator.getWorkflowDocumentActionsService();
         String systemUserPrincipalId = getSystemUserPrincipalId();
@@ -193,8 +197,8 @@ public class ProcurementCardCreateDocumentServiceImpl extends org.kuali.kfs.fp.b
         documentActions.superUserReturnToPreviousNode(actionParameters, false, returnPoint);
         // Use requeuer service to put the document back into action list of reconciler
         DocumentRefreshQueue docRequeue = KewApiServiceLocator.getDocumentRequeuerService(KFSConstants.APPLICATION_NAMESPACE_CODE, documentId, 0x0);
-        docRequeue.refreshDocument(documentId);    
-       
+        docRequeue.refreshDocument(documentId);
+
         LOG.info("Rerouting PCDO document # " + pcardDocumentId + ".");
     }
     
