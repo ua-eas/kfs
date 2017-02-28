@@ -3924,4 +3924,18 @@
             <column name="DOC_TYP_CD"><![CDATA[PVFT]]></column>
         </insert>
     </changeSet>
+    <changeSet author="KFS701" id="FINP-1076_CREATE_COLLECTOR_PARAMETER" context="bootstrap,demo,unit">
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD">KFS-GL</column>
+            <column name="CMPNT_CD">All</column>
+            <column name="PARM_NM">COLLECTOR_CHECK_SUFFICIENT_FUNDS_IND</column>
+            <column name="OBJ_ID">FINP-1076</column>
+            <column name="VER_NBR">1</column>
+            <column name="VAL">N</column>
+            <column name="PARM_TYP_CD">CONFG</column>
+            <column name="PARM_DESC_TXT">Indicates whether or not the collector should perform sufficient funds checks.</column>
+            <column name="EVAL_OPRTR_CD">A</column>
+            <column name="APPL_ID">KFS</column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
