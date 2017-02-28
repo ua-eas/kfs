@@ -123,7 +123,7 @@ public class DocumentStoreLiquirelationalExporter {
             emitColumn("OBJ_ID", generateObjectId());
             emitColumn("LNK_LBL", menuLink.get("label"));
             emitColumn("LNK_VAL", menuLink.get("link"));
-            emitColumn("ORDER", String.valueOf(order++));
+            emitColumn("POSN", String.valueOf(order++));
             emitInsertEnd();
         }
         emitChangesetEnd();
@@ -143,7 +143,7 @@ public class DocumentStoreLiquirelationalExporter {
             emitInsertStart(TABLE_NAV_LINK_GROUP);
             emitColumn("OBJ_ID", linkGroupId);
             emitColumn("LNK_GRP_LBL", linkGroupLabel);
-            emitColumn("ORDER", String.valueOf(i));
+            emitColumn("POSN", String.valueOf(i));
             emitInsertEnd();
 
             Map<String,Object> linkCategories = (Map<String, Object>) linkGroup.get("links");
@@ -160,7 +160,7 @@ public class DocumentStoreLiquirelationalExporter {
                     emitColumn("NAV_LNK_GRP_ID", linkGroupId);
                     emitColumn("LNK_CTGRY", linkCategory);
                     emitColumn("LNK_TYP", (String) link.get("linkType"));
-                    emitColumn("ORDER", String.valueOf(j));
+                    emitColumn("POSN", String.valueOf(j));
                     if (link.get("newTarget") != null) {
                         emitColumn("NEW_TGT", (Boolean)link.get("newTarget") ? "Y" : "N");
                     }
