@@ -1,3 +1,178 @@
+************************* 2017-03-02 *************************
+commit 747411e79231fb272ac8d487c2ae56036d9f9c9d
+Author: jsissom <jsissom@kuali.co>
+Date:   2017-03-02 09:54:14 -0500
+
+    FINP-1121 Add sufficient funds checking to collector (#1060)
+
+:100644 100644 63391d1... c52790c... M	kfs-core/src/main/java/org/kuali/kfs/gl/batch/CollectorFlatFileInputType.java
+:100644 100644 87fab91... e994712... M	kfs-core/src/main/java/org/kuali/kfs/gl/batch/service/impl/CollectorHelperServiceImpl.java
+:100644 100644 6bdcd7c... ed7d27c... M	kfs-core/src/main/java/org/kuali/kfs/gl/batch/service/impl/CollectorServiceImpl.java
+:100644 100644 f27c7c8... 550be3a... M	kfs-core/src/main/java/org/kuali/kfs/gl/service/SufficientFundsService.java
+:100644 100644 6cfd7cd... 187936e... M	kfs-core/src/main/java/org/kuali/kfs/sys/KFSKeyConstants.java
+:100644 100644 c55d019... ff91c87... M	kfs-core/src/main/resources/org/kuali/kfs/gl/gl-resources.properties
+:100644 100644 3e79520... 0800133... M	kfs-core/src/main/resources/org/kuali/kfs/gl/spring-gl.xml
+:000000 100644 0000000... dd14583... A	kfs-core/src/test/java/org/kuali/kfs/gl/batch/service/impl/CollectorHelperServiceImplTest.java
+
+commit 7a28e60b5450fa7b38f9dbce7df95bc7f6c56d35
+Author: jsissom <jsissom@kuali.co>
+Date:   2017-02-28 17:16:02 -0500
+
+    FINP-1076 Add Collector Sufficient Funds Checking Parameter (#1059)
+
+:100644 100644 9b8b7cd... 14896b9... M	kfs-core/src/main/resources/org/kuali/kfs/core/db/phase5/2017-02.xml
+
+commit add0cd6b6667edcc966d552d73e205f7277b9d78
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2017-02-28 12:26:33 -0500
+
+    FINP-1130 Add cache for institution prefs (#1058)
+    
+    * FINP-1130 Configure cache for institution preferences
+    
+    * FINP-1130 Rename cache to be more consistent
+
+:100644 100644 73c0d09... d111eb4... M	kfs-core/src/main/resources/kfs.ehcache.xml
+
+commit 5efc17b9c601558a70c9043ff877b5fa16557dce
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2017-02-28 09:32:17 -0500
+
+    FINP-1127 Bootstrap/Demo inst prefs data set (#1057)
+    
+    * FINP-1127 Bootstrap/Demo inst prefs data set
+    
+    * FINP-1127 Rename ORDER to POSN to fix Oracle
+    
+    * FINP-1127 Modify exporter to use POSN instead of ORDER
+
+:100644 100644 59fdd55... 9b8b7cd... M	kfs-core/src/main/resources/org/kuali/kfs/core/db/phase5/2017-02.xml
+:100644 100644 c77c1a2... 90634b7... M	mongo2liquirelational/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/DocumentStoreLiquirelationalExporter.java
+
+commit ed6abaace1b909b4270865a95e1a3dc65d7389a1
+Author: kkronenb <kevin@kuali.co>
+Date:   2017-02-27 14:22:44 -0700
+
+    FINP-1189 add collection support
+
+:100644 100644 3557470... 05b8cab... M	kfs-core/src/main/java/org/kuali/kfs/sys/businessobject/dto/TableDTO.java
+:100644 100644 93d2d67... fb36fa9... M	kfs-core/src/main/java/org/kuali/kfs/sys/service/impl/DataDictionaryMigrationServiceImpl.java
+:100644 100644 c7182c3... afe4dc3... M	kfs-core/src/test/java/org/kuali/kfs/sys/service/impl/DataDictionaryMigrationServiceImplTest.java
+
+commit ac9f17415c2ded432abc8eeeb9e6bddd838d5da1
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2017-02-27 15:47:38 -0500
+
+    FINP-1126 Revised based on feedback from commandos
+
+:100644 100644 f1c8922... 59fdd55... M	kfs-core/src/main/resources/org/kuali/kfs/core/db/phase5/2017-02.xml
+
+commit 3707e125738d694b600e253a4870a88ba86fd8ac
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2017-02-27 15:42:59 -0500
+
+    FINI-3388 Revise based on feedback from commandos
+
+:100644 100644 83489ba... c77c1a2... M	mongo2liquirelational/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/DocumentStoreLiquirelationalExporter.java
+
+commit 09c5e8a800d4582d8b655b079ff8fbb729ccff38
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2017-02-27 15:04:49 -0500
+
+    FINP-1126 Initial impl of data changes for relational inst prefs
+
+:100644 100644 314ebe3... f1c8922... M	kfs-core/src/main/resources/org/kuali/kfs/core/db/phase5/2017-02.xml
+
+commit 2eb60b763b7b3ac64cae9b73120c6e2380e49090
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2017-02-27 14:47:13 -0500
+
+    FINI-3388 Fix bad table name
+
+:100644 100644 86b7aef... 83489ba... M	mongo2liquirelational/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/DocumentStoreLiquirelationalExporter.java
+
+commit df2588a85ac9cdf485ffc739bc934e8fe4f927da
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2017-02-27 14:37:15 -0500
+
+    FINI-3388 Fix incorrect table and cleanup xml
+
+:100644 100644 e87f6c8... 86b7aef... M	mongo2liquirelational/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/DocumentStoreLiquirelationalExporter.java
+
+commit d7e4248e9241d713ef85606df1193c79d8fb96dc
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2017-02-27 13:44:32 -0500
+
+    FINI-3388 Fix missing FK
+
+:100644 100644 95d7c21... e87f6c8... M	mongo2liquirelational/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/DocumentStoreLiquirelationalExporter.java
+
+commit 8b212977c70f402f1135364de42684e85aeda359
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2017-02-27 11:35:25 -0500
+
+    FINI-3388 Dump menu links as well
+
+:100644 100644 5b04ee7... 95d7c21... M	mongo2liquirelational/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/DocumentStoreLiquirelationalExporter.java
+
+commit e703d3286a331a59b6e09d3d5b237c1856205b99
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2017-02-27 10:38:14 -0500
+
+    FINI-3388 Implement utility liquirelational mongo exporter
+
+:100644 100644 3f4dc98... 09a8f55... M	.gitignore
+:000000 100644 0000000... b9c560c... A	mongo2liquirelational/pom.xml
+:000000 100644 0000000... 5b04ee7... A	mongo2liquirelational/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/DocumentStoreLiquirelationalExporter.java
+:000000 100644 0000000... b70de03... A	mongo2liquirelational/src/main/resources/org/kuali/kfs/sys/datatools/liquimongo/spring-mongo2liquirelational.xml
+
+commit e87dcb57c921e321dce10ec9fdd5df0f36257ef0
+Author: smith750 <jksmith@kuali.co>
+Date:   2017-02-23 17:01:15 -0700
+
+    FINI-3341
+
+:100644 100644 0897396... 9b536f3... M	kfs-core/src/main/resources/org/kuali/kfs/sys/spring-sys.xml
+
+commit 56baf53fbe21bdc4b47bde4f775180702a250533
+Author: lmarkes <lmarkes@users.noreply.github.com>
+Date:   2017-02-23 15:04:24 -0600
+
+    FINP-1112 remove feedback (#1051)
+    
+    * FINP-1112: removed some files related to feedback
+    
+    Still need to remove feedback service but that is gonna trigger some
+    refactoring so I’ll isolate that change.
+    
+    * Deleted duplicate bean declaration
+    
+    while not related to my story, I noticed this while working on my story
+    
+    * FINP-1112: remove FeedbackService & Impl
+    
+    Folded methods used by ExceptionIncidentService into that interface and
+    implementation before deleting.
+    
+    * Little cleanup of ExceptionIncidentService
+    
+    * FINP-1112: removed feedbackPage.tag which seemed to be unused
+    
+    * Add liquimongo for removing feedback link
+
+:000000 100644 0000000... c24885e... A	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINP-1112.json
+:100644 100644 1c4444a... a41c243... M	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/updates.json
+:100644 000000 930c323... 0000000... D	kfs-kns/src/main/java/org/kuali/kfs/kns/web/struts/action/KualiFeedbackHandlerAction.java
+:100644 000000 d7eeaeb... 0000000... D	kfs-kns/src/main/java/org/kuali/kfs/kns/web/struts/form/KualiFeedbackHandlerForm.java
+:100644 100644 4434e44... 0ccaf9f... M	kfs-kns/src/main/java/org/kuali/kfs/krad/service/KRADServiceLocatorWeb.java
+:100644 100644 30c995a... 9e9e5c7... M	kfs-kns/src/main/java/org/kuali/kfs/krad/service/KualiExceptionIncidentService.java
+:100644 000000 a800079... 0000000... D	kfs-kns/src/main/java/org/kuali/kfs/krad/service/KualiFeedbackService.java
+:100644 100644 da0c440... 5a7b65e... M	kfs-kns/src/main/java/org/kuali/kfs/krad/service/impl/KualiExceptionIncidentServiceImpl.java
+:100644 000000 7585a68... 0000000... D	kfs-kns/src/main/java/org/kuali/kfs/krad/service/impl/KualiFeedbackServiceImpl.java
+:100644 100644 30d21c9... acfe1a2... M	kfs-kns/src/main/resources/org/kuali/kfs/krad/config/KRADSpringBeans.xml
+:100644 000000 ab4f023... 0000000... D	kfs-web/src/main/webapp/WEB-INF/tags/kr/feedbackPage.tag
+:100644 000000 e94aa38... 0000000... D	kfs-web/src/main/webapp/kr/WEB-INF/jsp/KualiFeedback.jsp
+:100644 100644 1e7e7bc... cfdeb1e... M	kfs-web/src/main/webapp/kr/WEB-INF/struts-config.xml
 ************************* 2017-02-23 *************************
 commit 65d7869aded90a24af4f1bfc11655dd4af5ffbd1
 Author: jsissom <jsissom@kuali.co>
