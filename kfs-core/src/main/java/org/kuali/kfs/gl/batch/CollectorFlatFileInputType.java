@@ -33,7 +33,6 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.Message;
 import org.kuali.kfs.sys.batch.BatchInputFileTypeBase;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
@@ -52,12 +51,10 @@ import java.util.Map;
 public class CollectorFlatFileInputType extends BatchInputFileTypeBase {
     protected static Logger LOG = Logger.getLogger(CollectorFlatFileInputType.class);
     protected DateTimeService dateTimeService;
+    protected UniversityDateService universityDateService;
     protected CollectorHelperService collectorHelperService;
     protected static final String FILE_NAME_PREFIX = "gl_collectorflatfile_";
 
-    /**
-     * @see org.kuali.kfs.sys.batch.BatchInputType#getAuthorPrincipalName(java.io.File)
-     */
     public String getAuthorPrincipalName(File file) {
         return org.apache.commons.lang.StringUtils.substringBetween(file.getName(), FILE_NAME_PREFIX, "_");
     }
@@ -66,13 +63,6 @@ public class CollectorFlatFileInputType extends BatchInputFileTypeBase {
      * Builds the file name using the following construction: All collector files start with gl_collectorflatfile_ append the chartorg
      * from the batch header append the username of the user who is uploading the file then the user supplied indentifier finally
      * the timestamp
-     *
-     * @param user               who uploaded the file
-     * @param parsedFileContents represents collector batch object
-     * @param userIdentifier     user identifier for user who uploaded file
-     * @return String returns file name using the convention mentioned in the description
-     * @see org.kuali.kfs.sys.batch.BatchInputFileType#getFileName(org.kuali.rice.kim.api.identity.Person, java.lang.Object,
-     * java.lang.String)
      */
     public String getFileName(String principalName, Object parsedFileContents, String fileUserIdentifer) {
         String fileName = FILE_NAME_PREFIX;
@@ -88,30 +78,21 @@ public class CollectorFlatFileInputType extends BatchInputFileTypeBase {
         return fileName;
     }
 
-    /**
-     * @see org.kuali.kfs.sys.batch.BatchInputFileType#getFileTypeIdentifer()
-     */
     public String getFileTypeIdentifer() {
         return KFSConstants.COLLECTOR_FLAT_FILE_TYPE_INDENTIFIER;
     }
 
-    /**
-     * @see org.kuali.kfs.sys.batch.BatchInputType#getTitleKey()
-     */
     public String getTitleKey() {
         return KFSKeyConstants.MESSAGE_BATCH_UPLOAD_TITLE_COLLECTOR_FLAT_FILE;
     }
 
-    /**
-     * @see org.kuali.kfs.sys.batch.BatchInputFileType#parse(byte[])
-     */
     public Object parse(byte[] fileByteContent) throws ParseException {
         List<CollectorBatch> batchList = new ArrayList<CollectorBatch>();
         CollectorBatch currentBatch = null;
         BufferedReader bufferedFileReader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(fileByteContent)));
         String fileLine;
-        Date curDate = SpringContext.getBean(DateTimeService.class).getCurrentSqlDate();
-        UniversityDate universityDate = SpringContext.getBean(UniversityDateService.class).getCurrentUniversityDate();
+        Date curDate = dateTimeService.getCurrentSqlDate();
+        UniversityDate universityDate = universityDateService.getCurrentUniversityDate();
         int lineNumber = 0;
 
         //temporary storage of the balance type map of each accounting record/origin entry
@@ -338,24 +319,6 @@ public class CollectorFlatFileInputType extends BatchInputFileTypeBase {
         return true;
     }
 
-    /**
-     * Sets the dateTimeService attribute value.
-     *
-     * @param dateTimeService The dateTimeService to set.
-     */
-    public void setDateTimeService(DateTimeService dateTimeService) {
-        this.dateTimeService = dateTimeService;
-    }
-
-    /**
-     * Sets the collectorHelperService attribute value.
-     *
-     * @param collectorHelperService The collectorHelperService to set.
-     */
-    public void setCollectorHelperService(CollectorHelperService collectorHelperService) {
-        this.collectorHelperService = collectorHelperService;
-    }
-
     protected String extractRecordType(String line) {
         if (line == null || line.length() < 27) {
             return null;
@@ -371,5 +334,17 @@ public class CollectorFlatFileInputType extends BatchInputFileTypeBase {
 
     protected String preprocessLine(String line) {
         return line;
+    }
+
+    public void setDateTimeService(DateTimeService dateTimeService) {
+        this.dateTimeService = dateTimeService;
+    }
+
+    public void setCollectorHelperService(CollectorHelperService collectorHelperService) {
+        this.collectorHelperService = collectorHelperService;
+    }
+
+    public void setUniversityDateService(UniversityDateService universityDateService) {
+        this.universityDateService = universityDateService;
     }
 }

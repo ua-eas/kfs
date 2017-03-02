@@ -25,10 +25,6 @@ import org.kuali.kfs.sys.document.GeneralLedgerPostingDocument;
 
 import java.util.List;
 
-
-/**
- * Service used for manipulating disbursement voucher cover sheets.
- */
 public interface SufficientFundsService {
 
     /**
@@ -37,7 +33,7 @@ public interface SufficientFundsService {
      * @param document document to check
      * @return Empty List if has sufficient funds for all accounts, List of SufficientFundsItem if not
      */
-    public List<SufficientFundsItem> checkSufficientFunds(GeneralLedgerPostingDocument document);
+    List<SufficientFundsItem> checkSufficientFunds(GeneralLedgerPostingDocument document);
 
     /**
      * Checks for sufficient funds on a list of transactions
@@ -45,7 +41,7 @@ public interface SufficientFundsService {
      * @param transactions list of transactions
      * @return Empty List if has sufficient funds for all accounts, List of SufficientFundsItem if not
      */
-    public List<SufficientFundsItem> checkSufficientFunds(List<? extends Transaction> transactions);
+    List<SufficientFundsItem> checkSufficientFunds(List<? extends Transaction> transactions);
 
     /**
      * This operation derives the acct_sf_finobj_cd which is used to populate the General Ledger Pending entry table, so that later
@@ -55,7 +51,7 @@ public interface SufficientFundsService {
      * @param accountSufficientFundsCode the kind of sufficient funds checking turned on in this system
      * @return the object code that should be used for the sufficient funds inquiry, or a blank String
      */
-    public String getSufficientFundsObjectCode(ObjectCode financialObject, String accountSufficientFundsCode);
+    String getSufficientFundsObjectCode(ObjectCode financialObject, String accountSufficientFundsCode);
 
     /**
      * Purge the sufficient funds balance table by year/chart
@@ -63,5 +59,5 @@ public interface SufficientFundsService {
      * @param chart chart of sufficient fund balances to purge
      * @param year  fiscal year of sufficent fund balances to purge
      */
-    public void purgeYearByChart(String chart, int year);
+    void purgeYearByChart(String chart, int year);
 }
