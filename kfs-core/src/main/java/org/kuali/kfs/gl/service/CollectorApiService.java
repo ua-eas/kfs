@@ -16,24 +16,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.gl.rest.application;
+package org.kuali.kfs.gl.service;
 
-import org.kuali.kfs.gl.rest.resource.CollectorResource;
-import org.kuali.kfs.gl.rest.resource.GeneralLedgerConfigurationResource;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.rest.application.BaseApiApplication;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
+import java.io.InputStream;
+import java.util.List;
 
-import javax.ws.rs.ApplicationPath;
-
-@ApplicationPath("/gl/api/v1")
-public class GlApiApplication extends BaseApiApplication {
-
-    public GlApiApplication() {
-        super();
-        if (SpringContext.getBean(ConfigurationService.class).getPropertyValueAsBoolean("apis.enabled")) {
-            singletons.add(new GeneralLedgerConfigurationResource());
-            singletons.add(new CollectorResource());
-        }
-    }
+public interface CollectorApiService {
+    List<String> collectorApiLoad(InputStream inputStream,String contentType);
 }

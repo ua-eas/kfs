@@ -29,6 +29,7 @@ import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.CollectorBatch;
 import org.kuali.kfs.gl.batch.CollectorStep;
 import org.kuali.kfs.gl.batch.service.CollectorHelperService;
+import org.kuali.kfs.gl.batch.service.CollectorReportService;
 import org.kuali.kfs.gl.batch.service.CollectorScrubberService;
 import org.kuali.kfs.gl.businessobject.CollectorDetail;
 import org.kuali.kfs.gl.businessobject.CollectorHeader;
@@ -40,6 +41,7 @@ import org.kuali.kfs.gl.service.PreScrubberService;
 import org.kuali.kfs.gl.service.SufficientFundsService;
 import org.kuali.kfs.gl.service.impl.CollectorScrubberStatus;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.krad.util.ObjectUtils;
@@ -49,9 +51,13 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.batch.BatchInputFileType;
 import org.kuali.kfs.sys.batch.service.BatchInputFileService;
+import org.kuali.kfs.sys.batch.service.WrappingBatchService;
+import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.SufficientFundsItem;
 import org.kuali.kfs.sys.exception.ParseException;
+import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.springframework.util.AutoPopulatingList;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -82,10 +88,62 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
     private String batchFileDirectoryName;
     private SufficientFundsService sufficientFundsService;
     private BusinessObjectService businessObjectService;
+    private CollectorReportService collectorReportService;
+    private ReportWriterService collectorReportWriterService;
 
-    /**
-     * Parses the given file, validates the batch, stores the entries, and sends email.
-     */
+    @Override
+    public List<ErrorMessage> loadCollectorApiData(InputStream inputStream, BatchInputFileType collectorInputFileType) {
+        LOG.debug("loadCollectorApiData() started");
+
+        initializeCollectorReportWriterService();
+
+        List<ErrorMessage> errorMessages = new ArrayList<>();
+        boolean isValid = true;
+
+        CollectorReportData collectorReportData = new CollectorReportData();
+        MessageMap fileMessageMap = collectorReportData.getMessageMapForFileName("api");
+
+        List<CollectorBatch> batches = doCollectorFileParse(inputStream,"api", fileMessageMap, collectorInputFileType, collectorReportData);
+
+        for (int i = 0; i < batches.size(); i++) {
+            CollectorBatch batch = batches.get(i);
+
+            batch.setBatchName("api Batch " + String.valueOf(i + 1));
+            collectorReportData.addBatch(batch);
+
+            MessageMap messageMap = batch.getMessageMap();
+
+            // terminate if there were parse errors
+            if (messageMap.hasErrors()) {
+                isValid = false;
+            }
+
+            if (isValid) {
+                collectorReportData.setNumInputDetails(batch);
+                // check totals
+                isValid = checkTrailerTotals(batch, collectorReportData, messageMap);
+            }
+
+            // do validation, base collector files rules and total checks
+            if (isValid) {
+                isValid = performValidation(batch, messageMap);
+            }
+
+            // Load the GL entries if valid
+            if (isValid) {
+                loadGlEntriesIntoGlPendingTable(batch);
+            }
+            collectorReportData.markValidationStatus(batch, isValid);
+
+            Map<String,AutoPopulatingList<ErrorMessage>> messages = messageMap.getErrorMessages();
+            messages.keySet().forEach(key -> messages.get(key).forEach(message -> errorMessages.add(message)));
+        }
+
+        collectorReportService.generateCollectorRunReports(collectorReportData);
+
+        return errorMessages;
+    }
+
     @Override
     public boolean loadCollectorFile(String fileName, CollectorReportData collectorReportData, List<CollectorScrubberStatus> collectorScrubberStatuses, BatchInputFileType collectorInputFileType, PrintStream originEntryOutputPs) {
         LOG.debug("loadCollectorFile() started");
@@ -104,6 +162,19 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
             isValid &= loadCollectorBatch(collectorBatch, fileName, i + 1, collectorReportData, collectorScrubberStatuses, collectorInputFileType, originEntryOutputPs);
         }
         return isValid;
+    }
+
+    protected void initializeCollectorReportWriterService() {
+        ((WrappingBatchService)collectorReportWriterService).initialize();
+    }
+
+    protected void loadGlEntriesIntoGlPendingTable(CollectorBatch batch) {
+        batch.getOriginEntries().stream().forEach(entry -> {
+            GeneralLedgerPendingEntry pendingEntry = new GeneralLedgerPendingEntry(entry);
+            pendingEntry.setAcctSufficientFundsFinObjCd(KFSConstants.NOT_AVAILABLE_STRING);
+            pendingEntry.setFinancialDocumentApprovedCode(KFSConstants.DocumentStatusCodes.APPROVED);
+            businessObjectService.save(pendingEntry);
+        });
     }
 
     protected boolean loadCollectorBatch(CollectorBatch batch, String fileName, int batchIndex, CollectorReportData collectorReportData, List<CollectorScrubberStatus> collectorScrubberStatuses, BatchInputFileType collectorInputFileType, PrintStream originEntryOutputPs) {
@@ -183,6 +254,14 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
             collectorReportData.markUnparsableFileNames(fileName);
             throw e;
         }
+
+        return doCollectorFileParse(inputStream,fileName,messageMap,collectorInputFileType,collectorReportData);
+    }
+
+    /**
+     * Calls batch input service to parse the xml contents into an object. Any errors will be contained in GlobalVariables.MessageMap
+     */
+    protected List<CollectorBatch> doCollectorFileParse(InputStream inputStream, String fileName, MessageMap messageMap, BatchInputFileType collectorInputFileType, CollectorReportData collectorReportData) {
 
         List<CollectorBatch> parsedObject = null;
         try {
@@ -672,5 +751,13 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;
+    }
+
+    public void setCollectorReportService(CollectorReportService collectorReportService) {
+        this.collectorReportService = collectorReportService;
+    }
+
+    public void setCollectorReportWriterService(ReportWriterService collectorReportWriterService) {
+        this.collectorReportWriterService = collectorReportWriterService;
     }
 }

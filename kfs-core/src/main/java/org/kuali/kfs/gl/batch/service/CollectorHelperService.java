@@ -21,28 +21,34 @@ package org.kuali.kfs.gl.batch.service;
 import org.kuali.kfs.gl.batch.CollectorBatch;
 import org.kuali.kfs.gl.report.CollectorReportData;
 import org.kuali.kfs.gl.service.impl.CollectorScrubberStatus;
+import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.sys.batch.BatchInputFileType;
 
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.List;
 
-/**
- * Provides methods for processing gl incoming batch files.
- */
 public interface CollectorHelperService {
+    /**
+     * Load collector data from the API
+     *
+     * @param inputStream             collector data stream
+     * @param collectorInputFileType  input data type
+     * @return            empty list for no errors, a list of errors for problems
+     */
+    List<ErrorMessage> loadCollectorApiData(InputStream inputStream, BatchInputFileType collectorInputFileType);
 
     /**
      * Loads the file given by the filename, then performs the collector process: parse, validate, store, email.
      *
      * @param fileName                  - name of file to load (including path)
-     * @param group                     the group into which to persist the origin entries for the collector batch/file
      * @param collectorReportData       the object used to store all of the collector status information for reporting
      * @param collectorScrubberStatuses if the collector scrubber is able to be invoked upon this collector batch, then the status
      *                                  info of the collector status run is added to the end of this list
-     * @param the                       output stream to which to store origin entries that properly pass validation
+     * @param originEntryOutputPs       output stream to which to store origin entries that properly pass validation
      * @return boolean - true if load was successful, false if errors were encountered
      */
-    public boolean loadCollectorFile(String fileName, CollectorReportData collectorReportData, List<CollectorScrubberStatus> collectorScrubberStatuses, BatchInputFileType collectorInputFileType, PrintStream originEntryOutputPs);
+    boolean loadCollectorFile(String fileName, CollectorReportData collectorReportData, List<CollectorScrubberStatus> collectorScrubberStatuses, BatchInputFileType collectorInputFileType, PrintStream originEntryOutputPs);
 
     /**
      * Validates the contents of a parsed file.
@@ -50,7 +56,7 @@ public interface CollectorHelperService {
      * @param batch - batch to validate
      * @return boolean - true if validation was OK, false if there were errors
      */
-    public boolean performValidation(CollectorBatch batch);
+    boolean performValidation(CollectorBatch batch);
 
     /**
      * Reconciles the trailer total count and amount to the actual parsed contents.
@@ -61,6 +67,5 @@ public interface CollectorHelperService {
      *                            is not needed, then null may be passed in
      * @return boolean - true if trailer check was OK, false if totals did not match
      */
-    public boolean checkTrailerTotals(CollectorBatch batch, CollectorReportData collectorReportData);
-
+    boolean checkTrailerTotals(CollectorBatch batch, CollectorReportData collectorReportData);
 }

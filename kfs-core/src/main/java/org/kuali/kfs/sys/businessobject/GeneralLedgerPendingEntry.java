@@ -104,9 +104,6 @@ public class GeneralLedgerPendingEntry extends PersistableBusinessObjectBase imp
     @Deprecated
     private transient AccountingPeriod accountingPeriod;
 
-    /**
-     * Default no-arg constructor.
-     */
     public GeneralLedgerPendingEntry() {
         this.objectType = new ObjectType();
         this.balanceType = new BalanceType();
@@ -115,11 +112,6 @@ public class GeneralLedgerPendingEntry extends PersistableBusinessObjectBase imp
         this.financialDocumentApprovedCode = KFSConstants.PENDING_ENTRY_APPROVED_STATUS_CODE.NOT_PROCESSED;
     }
 
-    /**
-     * Copy constructor Constructs a GeneralLedgerPendingEntry.java.
-     *
-     * @param original entry to copy
-     */
     public GeneralLedgerPendingEntry(GeneralLedgerPendingEntry original) {
         financialSystemOriginationCode = original.getFinancialSystemOriginationCode();
         documentNumber = original.getDocumentNumber();
@@ -167,6 +159,36 @@ public class GeneralLedgerPendingEntry extends PersistableBusinessObjectBase imp
         project = original.getProject();
         referenceOriginationCode = original.getReferenceOriginationCode();
         referenceFinancialSystemDocumentTypeCode = original.getReferenceFinancialSystemDocumentTypeCode();
+    }
+
+    public GeneralLedgerPendingEntry(Transaction original) {
+        financialSystemOriginationCode = original.getFinancialSystemOriginationCode();
+        documentNumber = original.getDocumentNumber();
+        transactionLedgerEntrySequenceNumber = original.getTransactionLedgerEntrySequenceNumber();
+        chartOfAccountsCode = original.getChartOfAccountsCode();
+        accountNumber = original.getAccountNumber();
+        subAccountNumber = original.getSubAccountNumber();
+        financialObjectCode = original.getFinancialObjectCode();
+        financialSubObjectCode = original.getFinancialSubObjectCode();
+        financialBalanceTypeCode = original.getFinancialBalanceTypeCode();
+        financialObjectTypeCode = original.getFinancialObjectTypeCode();
+        universityFiscalYear = original.getUniversityFiscalYear();
+        universityFiscalPeriodCode = original.getUniversityFiscalPeriodCode();
+        transactionLedgerEntryDescription = original.getTransactionLedgerEntryDescription();
+        transactionLedgerEntryAmount = original.getTransactionLedgerEntryAmount();
+        transactionDebitCreditCode = original.getTransactionDebitCreditCode();
+        transactionDate = original.getTransactionDate();
+        financialDocumentTypeCode = original.getFinancialDocumentTypeCode();
+        organizationDocumentNumber = original.getOrganizationDocumentNumber();
+        projectCode = original.getProjectCode();
+        organizationReferenceId = original.getOrganizationReferenceId();
+        referenceFinancialDocumentTypeCode = original.getReferenceFinancialDocumentTypeCode();
+        referenceFinancialSystemOriginationCode = original.getReferenceFinancialSystemOriginationCode();
+        referenceFinancialDocumentNumber = original.getReferenceFinancialDocumentNumber();
+        financialDocumentReversalDate = original.getFinancialDocumentReversalDate();
+        transactionEncumbranceUpdateCode = original.getTransactionEncumbranceUpdateCode();
+
+        financialSystemDocumentTypeCode = original.getFinancialSystemDocumentTypeCode();
     }
 
     public DocumentTypeEBO getReferenceFinancialSystemDocumentTypeCode() {

@@ -459,6 +459,8 @@
         <property name="batchFileDirectoryName" value="${staging.directory}/gl/originEntry"/>
         <property name="sufficientFundsService" ref="sufficientFundsService"/>
         <property name="businessObjectService" ref="businessObjectService"/>
+        <property name="collectorReportService" ref="glCollectorReportService"/>
+        <property name="collectorReportWriterService" ref="collectorReportWriterService"/>
     </bean>
 
     <bean id="glCollectorScrubberService" parent="glCollectorScrubberService-parentBean"/>
@@ -2185,26 +2187,22 @@
         </property>
     </bean>
 
+    <bean id="glCollectorApiService" parent="glCollectorApiService-parentBean"/>
+    <bean id="glCollectorApiService-parentBean" abstract="true" class="org.kuali.kfs.gl.service.impl.CollectorApiServiceImpl">
+        <property name="collectorFlatFileInputFileType" ref="collectorFlatFileInputFileType"/>
+        <property name="collectorXmlInputFileType" ref="collectorXmlInputFileType"/>
+        <property name="collectorHelperService" ref="glCollectorHelperService"/>
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
     <bean id="collectorXmlInputFileType" parent="collectorXmlInputFileType-parentBean"/>
     <bean id="collectorXmlInputFileType-parentBean" abstract="true" class="org.kuali.kfs.gl.batch.CollectorXmlInputFileType">
-        <property name="directoryPath">
-            <value>${staging.directory}/gl/collectorXml</value>
-        </property>
-        <property name="fileExtension">
-            <value>xml</value>
-        </property>
-        <property name="digestorRulesFileName">
-            <value>org/kuali/kfs/gl/batch/collectorDigesterRules.xml</value>
-        </property>
-        <property name="schemaLocation">
-            <value>${externalizable.static.content.url}/xsd/gl/collector.xsd</value>
-        </property>
-        <property name="dateTimeService">
-            <ref bean="dateTimeService"/>
-        </property>
-        <property name="collectorHelperService">
-            <ref bean="glCollectorHelperService"/>
-        </property>
+        <property name="directoryPath" value="${staging.directory}/gl/collectorXml"/>
+        <property name="fileExtension" value="xml"/>
+        <property name="digestorRulesFileName" value="org/kuali/kfs/gl/batch/collectorDigesterRules.xml"/>
+        <property name="schemaLocation" value="${externalizable.static.content.url}/xsd/gl/collector.xsd"/>
+        <property name="dateTimeService" ref="dateTimeService"/>
+        <property name="collectorHelperService" ref="glCollectorHelperService"/>
     </bean>
 
     <bean id="collectorFlatFileInputFileType" parent="collectorFlatFileInputFileType-parentBean"/>
@@ -2217,7 +2215,6 @@
     </bean>
 
     <bean id="enterpriseFeederFileSetType" class="org.kuali.kfs.gl.batch.EnterpriseFeederFileSetType">
-
     </bean>
 
     <bean id="glReconciliationParserService" parent="glReconciliationParserService-parentBean"/>

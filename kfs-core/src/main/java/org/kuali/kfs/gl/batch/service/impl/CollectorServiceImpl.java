@@ -37,6 +37,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Transactional
@@ -57,14 +58,12 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
         //add a step to check for directory paths
         prepareDirectories(getRequiredDirectoryNames());
 
-        List<String> processedFiles = new ArrayList<>();
-
         CollectorReportData collectorReportData = new CollectorReportData();
         List<CollectorScrubberStatus> collectorScrubberStatuses = new ArrayList<>();
 
         String collectorFinalOutputFileName = batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.COLLECTOR_OUTPUT + GeneralLedgerConstants.BatchFileSystem.EXTENSION;
 
-        PrintStream collectorFinalOutputFilePs = null;
+        PrintStream collectorFinalOutputFilePs;
         try {
             collectorFinalOutputFilePs = new PrintStream(collectorFinalOutputFileName);
         } catch (FileNotFoundException e) {
@@ -74,9 +73,10 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
         for (BatchInputFileType collectorInputFileType : collectorInputFileTypes) {
             List<String> fileNamesToLoad = batchInputFileService.listInputFileNamesWithDoneFile(collectorInputFileType);
             for (String inputFileName : fileNamesToLoad) {
-                LOG.info("Collecting file: " + inputFileName);
+                LOG.info("performCollection() Collecting file: " + inputFileName);
+
                 boolean processSuccess = collectorHelperService.loadCollectorFile(inputFileName, collectorReportData, collectorScrubberStatuses, collectorInputFileType, collectorFinalOutputFilePs);
-                processedFiles.add(inputFileName);
+
                 if (processSuccess) {
                     renameCollectorScrubberFiles();
                 }
@@ -95,7 +95,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
         LOG.debug("finalizeCollector() started");
 
         // remove all done files for processed files
-        removeDoneFiles((List) collectorReportData.getLoadedfileNames());
+        removeDoneFiles(collectorReportData.getLoadedfileNames());
 
         // create a done file for collector gl output
         String collectorFinalOutputDoneFileName = batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.COLLECTOR_OUTPUT + GeneralLedgerConstants.BatchFileSystem.DONE_FILE_EXTENSION;
@@ -125,7 +125,7 @@ public class CollectorServiceImpl extends InitiateDirectoryBase implements Colle
      *
      * @param dataFileNames the name of files with done files to remove
      */
-    protected void removeDoneFiles(List<String> dataFileNames) {
+    protected void removeDoneFiles(Collection<String> dataFileNames) {
         for (String dataFileName : dataFileNames) {
             File doneFile = new File(StringUtils.substringBeforeLast(dataFileName, ".") + ".done");
             if (doneFile.exists()) {
