@@ -3,14 +3,13 @@
 ## Documentation Links
 
 ### Main Documentation Home
-[https://wiki.kuali.org/x/UgACEw](https://wiki.kuali.org/x/UgACEw)
+[https://kualico.atlassian.net/wiki/display/FINDOC/Kuali+Financials+Documentation](https://kualico.atlassian.net/wiki/display/FINDOC/Kuali+Financials+Documentation)
 
 ## Quick Start
 
-1. Ensure that you have Java 7+ and Maven 3+ installed
-2. Setup a local MySQL 5.5.x database (see technical document link above for details)
-3. Switch to the kfs directory of the distribution
-4. Run mvn package
+1. Ensure that you have Java 8+ and Maven 3+ installed
+2. Setup a local MySQL 5.5+ database (see technical document link above for details)
+3. Run mvn package
 
 ## What's Here
 
