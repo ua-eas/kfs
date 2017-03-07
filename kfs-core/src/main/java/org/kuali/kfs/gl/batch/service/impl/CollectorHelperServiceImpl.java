@@ -105,41 +105,46 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
         List<CollectorBatch> batches = doCollectorFileParse(inputStream,"api", fileMessageMap, collectorInputFileType, collectorReportData);
 
-        for (int i = 0; i < batches.size(); i++) {
-            CollectorBatch batch = batches.get(i);
+        if ( batches != null ) {
+            for (int i = 0; i < batches.size(); i++) {
+                CollectorBatch batch = batches.get(i);
 
-            batch.setBatchName("api Batch " + String.valueOf(i + 1));
-            collectorReportData.addBatch(batch);
+                batch.setBatchName("api Batch " + String.valueOf(i + 1));
+                collectorReportData.addBatch(batch);
 
-            MessageMap messageMap = batch.getMessageMap();
+                MessageMap messageMap = batch.getMessageMap();
 
-            // terminate if there were parse errors
-            if (messageMap.hasErrors()) {
-                isValid = false;
+                // terminate if there were parse errors
+                if (messageMap.hasErrors()) {
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    collectorReportData.setNumInputDetails(batch);
+                    // check totals
+                    isValid = checkTrailerTotals(batch, collectorReportData, messageMap);
+                }
+
+                // do validation, base collector files rules and total checks
+                if (isValid) {
+                    isValid = performValidation(batch, messageMap);
+                }
+
+                // Load the GL entries if valid
+                if (isValid) {
+                    loadGlEntriesIntoGlPendingTable(batch);
+                }
+                collectorReportData.markValidationStatus(batch, isValid);
+
+                Map<String, AutoPopulatingList<ErrorMessage>> messages = messageMap.getErrorMessages();
+                messages.keySet().forEach(key -> messages.get(key).forEach(message -> errorMessages.add(message)));
             }
-
-            if (isValid) {
-                collectorReportData.setNumInputDetails(batch);
-                // check totals
-                isValid = checkTrailerTotals(batch, collectorReportData, messageMap);
-            }
-
-            // do validation, base collector files rules and total checks
-            if (isValid) {
-                isValid = performValidation(batch, messageMap);
-            }
-
-            // Load the GL entries if valid
-            if (isValid) {
-                loadGlEntriesIntoGlPendingTable(batch);
-            }
-            collectorReportData.markValidationStatus(batch, isValid);
-
-            Map<String,AutoPopulatingList<ErrorMessage>> messages = messageMap.getErrorMessages();
-            messages.keySet().forEach(key -> messages.get(key).forEach(message -> errorMessages.add(message)));
         }
 
         collectorReportService.generateCollectorRunReports(collectorReportData);
+
+        Map<String,AutoPopulatingList<ErrorMessage>> messages = fileMessageMap.getErrorMessages();
+        messages.keySet().forEach(key -> messages.get(key).forEach(message -> errorMessages.add(message)));
 
         return errorMessages;
     }
