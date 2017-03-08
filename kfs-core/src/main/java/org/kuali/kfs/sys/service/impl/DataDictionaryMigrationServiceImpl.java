@@ -39,11 +39,13 @@ import org.kuali.kfs.krad.bo.GlobalBusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.krad.datadictionary.DocumentEntry;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.sys.batch.DataDictionaryFilteredEntity;
-import org.kuali.kfs.sys.batch.DataDictionaryFilteredTable;
 import org.kuali.kfs.sys.batch.DataDictionaryFilteredField;
+import org.kuali.kfs.sys.batch.DataDictionaryFilteredTable;
+import org.kuali.kfs.sys.businessobject.dto.ConcernDTO;
 import org.kuali.kfs.sys.businessobject.dto.EntityDTO;
 import org.kuali.kfs.sys.businessobject.dto.FieldDTO;
 import org.kuali.kfs.sys.businessobject.dto.TableDTO;
@@ -75,6 +77,7 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
     private List<DataDictionaryFilteredEntity> filteredEntities = new ArrayList<>();
     private List<DataDictionaryFilteredTable> filteredTables = new ArrayList<>();
     private List<DataDictionaryFilteredField> filteredFields = new ArrayList<>();
+    private List<String> concerns = new ArrayList<>();
 
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DataDictionaryMigrationServiceImpl.class);
 
@@ -100,11 +103,25 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
         }
 
         Set<String> migratedEntities = new HashSet<>();
-        List<EntityDTO> entitiesMap = entities.stream()
+        List<EntityDTO> maintenanceEntities = entities.stream()
             .map(maintenanceDocumentEntry -> convertMaintenanceDocumentToEntityDTO(maintenanceDocumentEntry, entityBusinessObjectClasses, migratedEntities, collectionClasses))
             .filter(entityDTO -> entityDTO != null)
             .distinct()
             .collect(Collectors.toList());
+
+        Map<String, ConcernDTO> takenTables = new HashMap<>();
+        List<EntityDTO> transactionalEntities = new ArrayList<>();
+        EntityDTO tf = gatherTransactionalEntities("TF", "Transfer of Funds", "KFS-FP", businessObjectsOwnedByEntities, takenTables);
+        transactionalEntities.add(tf);
+        EntityDTO ib = gatherTransactionalEntities("IB", "Internal Billing", "KFS-FP", businessObjectsOwnedByEntities, takenTables);
+        transactionalEntities.add(ib);
+
+
+        List<EntityDTO> allEntities = new ArrayList<>();
+        allEntities.addAll(maintenanceEntities);
+        allEntities.addAll(transactionalEntities);
+
+
         String finConfigUrl = configurationService.getPropertyValueAsString("config.url");
         String finConfigToken = configurationService.getPropertyValueAsString("config.authToken");
         HttpClient httpClient = HttpClientBuilder.create().build();
@@ -114,7 +131,7 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             Map<String, Object> finalMap = new HashMap<>();
-            finalMap.put("entities", entitiesMap);
+            finalMap.put("entities", allEntities);
             String entitiesMapString = objectMapper.writeValueAsString(finalMap);
             LOG.warn(entitiesMapString);
             StringEntity stringEntity = new StringEntity(entitiesMapString, "UTF-8");
@@ -131,6 +148,78 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
             throw new RuntimeException(ioException);
         }
     }
+
+    protected EntityDTO gatherTransactionalEntities(String documentTypeCode, String documentName, String moduleCode, Map<Class<? extends PersistableBusinessObject>, String> businessObjectsOwnedByEntities, Map<String, ConcernDTO> takenTables) {
+        DocumentEntry transactionalDoc = dataDictionaryService.getDataDictionary().getDocumentEntry(documentTypeCode);
+        Set<TableDTO> refTableDTOs = new HashSet<>();
+        Set<ConcernDTO> concernDTOs = new HashSet<>();
+
+        Map<String, Class> refObjectFields = persistenceStructureService.listReferenceObjectFields(transactionalDoc.getDocumentClass());
+        Iterator<Map.Entry<String, Class>> refObjIter = refObjectFields.entrySet().iterator();
+        while (refObjIter.hasNext()) {
+            Map.Entry refObj = refObjIter.next();
+            Class<? extends PersistableBusinessObject> refObjClass = (Class<? extends PersistableBusinessObject>)refObj.getValue();
+            if (!businessObjectsOwnedByEntities.containsKey(refObjClass)) {
+                String tableName = persistenceStructureService.getTableName(refObjClass);
+                if (concerns.contains(persistenceStructureService.getTableName(refObjClass))) {
+                    ConcernDTO concern;
+                    if (!takenTables.containsKey(tableName)) {
+                        concern = buildConcernDTO(refObjClass, false);
+                        takenTables.put(tableName, concern);
+                    } else {
+                        concern = takenTables.get(tableName);
+                    }
+                    concernDTOs.add(concern);
+                } else {
+                    refTableDTOs.add(buildTableDTO(refObjClass, false));
+                }
+            }
+        }
+
+        Map<String, Class> collectionObjectTypes = persistenceStructureService.listCollectionObjectTypes(transactionalDoc.getDocumentClass());
+        Iterator<Map.Entry<String, Class>> collObjIter = collectionObjectTypes.entrySet().iterator();
+        while (collObjIter.hasNext()) {
+            Map.Entry collObj = collObjIter.next();
+            Class<? extends PersistableBusinessObject> collObjClass = (Class<? extends PersistableBusinessObject>)collObj.getValue();
+            if (!businessObjectsOwnedByEntities.containsKey(collObjClass)) {
+                String tableName = persistenceStructureService.getTableName(collObjClass);
+                if (concerns.contains(persistenceStructureService.getTableName(collObjClass))) {
+                    ConcernDTO concern;
+                    if (!takenTables.containsKey(tableName)) {
+                        concern = buildConcernDTO(collObjClass, true);
+                        takenTables.put(tableName, concern);
+                    } else {
+                        concern = takenTables.get(tableName);
+                    }
+                    concernDTOs.add(concern);
+                } else {
+                    refTableDTOs.add(buildTableDTO(collObjClass, true));
+                }
+            }
+        }
+
+        EntityDTO entityDTO = new EntityDTO();
+        entityDTO.setTables(refTableDTOs);
+        entityDTO.setConcerns(concernDTOs);
+        entityDTO.setName(documentName);
+        entityDTO.setCode(documentTypeCode);
+        entityDTO.setModuleCode(moduleCode);
+
+        return entityDTO;
+    }
+
+    protected ConcernDTO buildConcernDTO(Class<? extends PersistableBusinessObject> tableClass, boolean collection) {
+        ConcernDTO concernDTO = new ConcernDTO();
+        if (persistenceStructureService.isPersistable(tableClass)) {
+            TableDTO tableDTO = buildTableDTO(tableClass, collection);
+            concernDTO.setTable(tableDTO);
+            concernDTO.setCode(tableDTO.getCode());
+            concernDTO.setDescription(tableDTO.getDescription());
+            concernDTO.setName(tableDTO.getName());
+        }
+        return concernDTO;
+    }
+
 
     protected Map<Class<? extends PersistableBusinessObject>,String> listNestedBusinessObjects(List<MaintenanceDocumentEntry> entities, Map<Class<? extends PersistableBusinessObject>, String> businessObjectsOwnedByEntities, Set<Class<? extends PersistableBusinessObject>> collectionClasses) {
         Map<Class<? extends PersistableBusinessObject>,String> nestedBusinessObjects = new HashMap<>();
@@ -240,7 +329,7 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
             entityDTO.setModuleCode(kualiModuleService.getResponsibleModuleService(maintenanceDocumentEntry.getDataObjectClass()).getModuleConfiguration().getNamespaceCode());
             entityDTO.setCode(maintenanceDocumentEntry.getDocumentTypeName());
             entityDTO.setName(retrieveObjectLabel((Class<? extends PersistableBusinessObject>) maintenanceDocumentEntry.getDataObjectClass()));
-            List<TableDTO> tables = buildTableDTOs(businessObjectsOwnedByEntities.get(maintenanceDocumentEntry.getDocumentTypeName()), collectionClasses);
+            Set<TableDTO> tables = buildTableDTOs(businessObjectsOwnedByEntities.get(maintenanceDocumentEntry.getDocumentTypeName()), collectionClasses);
             entityDTO.setTables(tables);
             return entityDTO;
         } else {
@@ -248,7 +337,7 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
         }
     }
 
-    protected List<TableDTO> buildTableDTOs(List<Class<? extends PersistableBusinessObject>> businessObjectClassesForEntity, Set<Class<? extends PersistableBusinessObject>> collectionClasses) {
+    protected Set<TableDTO> buildTableDTOs(List<Class<? extends PersistableBusinessObject>> businessObjectClassesForEntity, Set<Class<? extends PersistableBusinessObject>> collectionClasses) {
         Map<Boolean, List<Class<? extends PersistableBusinessObject>>> partitionedTables = businessObjectClassesForEntity.stream()
                 .collect(Collectors.partitioningBy(businessObjectClass -> filteredTables.stream()
                         .noneMatch(filteredTable -> filteredTable.matches(businessObjectClass.getSimpleName()))));
@@ -259,7 +348,7 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
         });
 
         return partitionedTables.get(true).stream().map(businessObjectClass -> buildTableDTO(businessObjectClass, collectionClasses.contains(businessObjectClass)))
-                .filter(tableDTO -> tableDTO != null).distinct().collect(Collectors.toList());
+                .filter(tableDTO -> tableDTO != null).distinct().collect(Collectors.toSet());
 
     }
 
@@ -419,5 +508,13 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
 
     public void setFilteredFields(List<DataDictionaryFilteredField> filteredFields) {
         this.filteredFields = filteredFields;
+    }
+
+    public List<String> getConcerns() {
+        return concerns;
+    }
+
+    public void setConcerns(List<String> concerns) {
+        this.concerns = concerns;
     }
 }

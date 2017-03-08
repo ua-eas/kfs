@@ -19,6 +19,7 @@
 
 package org.kuali.kfs.sys.service.impl;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.easymock.EasyMock;
 import org.easymock.EasyMockRunner;
 import org.easymock.Mock;
@@ -28,8 +29,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.AccountGlobal;
+import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.OrganizationType;
+import org.kuali.kfs.fp.document.TransferOfFundsDocument;
 import org.kuali.kfs.kns.datadictionary.MaintainableCollectionDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableItemDefinition;
@@ -50,7 +53,10 @@ import org.kuali.kfs.sys.batch.DataDictionaryFilteredEntity;
 import org.kuali.kfs.sys.batch.DataDictionaryFilteredField;
 import org.kuali.kfs.sys.batch.DataDictionaryFilteredTable;
 import org.kuali.kfs.sys.businessobject.Bank;
+import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
+import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
+import org.kuali.kfs.sys.businessobject.dto.ConcernDTO;
 import org.kuali.kfs.sys.businessobject.dto.EntityDTO;
 import org.kuali.kfs.sys.businessobject.dto.FieldDTO;
 import org.kuali.kfs.sys.businessobject.dto.TableDTO;
@@ -69,6 +75,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -179,7 +186,7 @@ public class DataDictionaryMigrationServiceImplTest {
         EasyMock.expect(persistenceStructureService.isPersistable(EasyMock.anyObject())).andReturn(false);
         EasyMock.replay(persistenceStructureService);
 
-        final List<TableDTO> tableDTOs = dataDictionaryMigrationService.buildTableDTOs(Arrays.asList((Class<? extends PersistableBusinessObject>)Account.class), new HashSet<Class<? extends PersistableBusinessObject>>());
+        final Set<TableDTO> tableDTOs = dataDictionaryMigrationService.buildTableDTOs(Arrays.asList((Class<? extends PersistableBusinessObject>)Account.class), new HashSet<Class<? extends PersistableBusinessObject>>());
 
         EasyMock.verify(persistenceStructureService);
         Assert.assertEquals(0, tableDTOs.size());
@@ -193,7 +200,7 @@ public class DataDictionaryMigrationServiceImplTest {
 
         EasyMock.replay(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService);
 
-        final List<TableDTO> tableDTOs = dataDictionaryMigrationService.buildTableDTOs(Arrays.asList((Class<? extends PersistableBusinessObject>)documentEntry.getDataObjectClass()), new HashSet<Class<? extends PersistableBusinessObject>>());
+        final Set<TableDTO> tableDTOs = dataDictionaryMigrationService.buildTableDTOs(Arrays.asList((Class<? extends PersistableBusinessObject>)documentEntry.getDataObjectClass()), new HashSet<Class<? extends PersistableBusinessObject>>());
 
         EasyMock.verify(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService);
         assertAgainstTableDTOs(tableDTOs);
@@ -209,11 +216,11 @@ public class DataDictionaryMigrationServiceImplTest {
         Set collectionClasses = new HashSet<Class<? extends PersistableBusinessObject>>();
         collectionClasses.add(documentEntry.getDataObjectClass());
 
-        final List<TableDTO> tableDTOs = dataDictionaryMigrationService.buildTableDTOs(Arrays.asList((Class<? extends PersistableBusinessObject>)documentEntry.getDataObjectClass()), collectionClasses);
+        final Set<TableDTO> tableDTOs = dataDictionaryMigrationService.buildTableDTOs(Arrays.asList((Class<? extends PersistableBusinessObject>)documentEntry.getDataObjectClass()), collectionClasses);
 
         EasyMock.verify(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService);
         assertAgainstTableDTOs(tableDTOs);
-        Assert.assertTrue("DataObject class should have collection", tableDTOs.get(0).isCollection());
+        Assert.assertTrue("DataObject class should have collection", tableDTOs.iterator().next().isCollection());
     }
 
     protected void setupFilteredFields() {
@@ -228,7 +235,7 @@ public class DataDictionaryMigrationServiceImplTest {
         MaintenanceDocumentEntry documentEntry = buildAccountMaintenanceDocumentEntryFixture();
         dataDictionaryMigrationService.setFilteredTables(Arrays.asList(new DataDictionaryFilteredTable("Account")));
 
-        final List<TableDTO> tableDTOs = dataDictionaryMigrationService.buildTableDTOs(Arrays.asList((Class<? extends PersistableBusinessObject>)documentEntry.getDataObjectClass()), new HashSet<Class<? extends PersistableBusinessObject>>());
+        final Set<TableDTO> tableDTOs = dataDictionaryMigrationService.buildTableDTOs(Arrays.asList((Class<? extends PersistableBusinessObject>)documentEntry.getDataObjectClass()), new HashSet<Class<? extends PersistableBusinessObject>>());
 
         Assert.assertNotNull("We should have gotten back a List of TableDTOs", tableDTOs);
         Assert.assertTrue("That list of TableDTOs should be empty", tableDTOs.isEmpty());
@@ -622,6 +629,85 @@ public class DataDictionaryMigrationServiceImplTest {
         Assert.assertEquals("PVEN", nestedBusinessObjects.get(CampusParameter.class));
     }
 
+    @Test
+    public void testGatherTransacationalEntities() {
+        TransactionalDocumentEntry documentEntry = buildTransferOfFundsDocumentEntryFixture();
+        EasyMock.expect(dataDictionary.getDocumentEntry("TF")).andReturn(documentEntry);
+        EasyMock.expect(dataDictionary.getBusinessObjectEntry(AccountingPeriod.class.getName())).andReturn(buildBusinessObjectEntryFixture(AccountingPeriod.class));
+        EasyMock.expect(dataDictionary.getBusinessObjectEntry(FinancialSystemDocumentHeader.class.getName())).andReturn(buildBusinessObjectEntryFixture(FinancialSystemDocumentHeader.class));
+        EasyMock.expect(dataDictionary.getBusinessObjectEntry(TargetAccountingLine.class.getName())).andReturn(buildBusinessObjectEntryFixture(TargetAccountingLine.class));
+        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).anyTimes();
+        Map<String, Class> referenceObjectFields = new HashMap<>();
+        referenceObjectFields.put("documentHeader", FinancialSystemDocumentHeader.class);
+        referenceObjectFields.put("accoutingPeriod", AccountingPeriod.class);
+        EasyMock.expect(persistenceStructureService.listReferenceObjectFields(documentEntry.getDocumentClass())).andReturn(referenceObjectFields);
+        Map<String, Class> collectionObjectFields = new HashMap<>();
+        collectionObjectFields.put("targetAccountingLines", TargetAccountingLine.class);
+        EasyMock.expect(persistenceStructureService.listCollectionObjectTypes(documentEntry.getDocumentClass())).andReturn(collectionObjectFields);
+
+        EasyMock.expect(persistenceStructureService.listFieldNames(EasyMock.anyObject())).andReturn(new ArrayList()).anyTimes();
+        EasyMock.expect(persistenceStructureService.getTableName(AccountingPeriod.class)).andReturn("SH_ACCT_PERIOD_T").anyTimes();
+        EasyMock.expect(persistenceStructureService.getTableName(FinancialSystemDocumentHeader.class)).andReturn("FS_DOC_HEADER_T").anyTimes();
+        EasyMock.expect(persistenceStructureService.getTableName(TargetAccountingLine.class)).andReturn("FP_ACCT_LINES_T").anyTimes();
+
+        EasyMock.expect(persistenceStructureService.isPersistable(EasyMock.anyObject())).andReturn(true).anyTimes();
+
+        dataDictionaryMigrationService.setConcerns(Arrays.asList("FP_ACCT_LINES_T", "GL_PENDING_ENTRY_T", "FS_DOC_HEADER_T"));
+
+        Map<String, ConcernDTO> takenTables = new HashedMap();
+        Map<Class<? extends PersistableBusinessObject>, String> businessObjectsOwnedByEntities = new HashMap<>();
+
+        EasyMock.replay(dataDictionary, dataDictionaryService, persistenceStructureService);
+
+        EntityDTO entity = dataDictionaryMigrationService.gatherTransactionalEntities("TF", "Transfer of Funds", "KFS-FP", businessObjectsOwnedByEntities, takenTables);
+
+        EasyMock.verify(dataDictionary, dataDictionaryService, persistenceStructureService);
+
+        Assert.assertEquals("TF", entity.getCode());
+        Assert.assertEquals("Transfer of Funds", entity.getName());
+        Assert.assertEquals("KFS-FP", entity.getModuleCode());
+        Assert.assertEquals(1, entity.getTables().size());
+        Assert.assertEquals("SH_ACCT_PERIOD_T", entity.getTables().iterator().next().getCode());
+        Assert.assertEquals(2, entity.getConcerns().size());
+        Iterator<ConcernDTO> concernIter = entity.getConcerns().iterator();
+        Assert.assertEquals("FS_DOC_HEADER_T", concernIter.next().getCode());
+        Assert.assertEquals("FP_ACCT_LINES_T", concernIter.next().getCode());
+        Assert.assertEquals(2, takenTables.size());
+        Assert.assertTrue(takenTables.containsKey("FP_ACCT_LINES_T"));
+        Assert.assertTrue(takenTables.containsKey("FS_DOC_HEADER_T"));
+    }
+
+    @Test
+    public void testBuildConcernDTO() {
+        MaintenanceDocumentEntry documentEntry = buildAccountMaintenanceDocumentEntryFixture();
+        EasyMock.expect(persistenceStructureService.isPersistable(Account.class)).andReturn(true).times(2);
+        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary);
+        EasyMock.expect(dataDictionary.getBusinessObjectEntry("org.kuali.kfs.coa.businessobject.Account")).andReturn(businessObjectEntry);
+        EasyMock.expect(businessObjectEntry.getObjectLabel()).andReturn("Account");
+        EasyMock.expect(persistenceStructureService.getTableName(Account.class)).andReturn("CA_ACCOUNT_T");
+        final AttributeDefinition chartOfAccountsAttributeDefinition = buildChartOfAccountsCodeAttributeDefintion();
+        final AttributeDefinition accountNumberAttributeDefinition = buildAccountNumberAttributeDefintion();
+        EasyMock.expect(persistenceStructureService.listFieldNames(Account.class)).andReturn(Arrays.asList("chartOfAccountsCode", "accountNumber", "goodToBeOnTheRoadBackHome"));
+        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).times(3);
+        EasyMock.expect(dataDictionary.getBusinessObjectEntry("org.kuali.kfs.coa.businessobject.Account")).andReturn(businessObjectEntry).times(3);
+        EasyMock.expect(businessObjectEntry.getAttributeDefinition("chartOfAccountsCode")).andReturn(chartOfAccountsAttributeDefinition);
+        EasyMock.expect(persistenceStructureService.getColumnNameForFieldName(Account.class, "chartOfAccountsCode")).andReturn("FIN_COA_CD");
+        EasyMock.expect(businessObjectEntry.getAttributeDefinition("accountNumber")).andReturn(accountNumberAttributeDefinition);
+        EasyMock.expect(persistenceStructureService.getColumnNameForFieldName(Account.class, "accountNumber")).andReturn("ACCOUNT_NBR");
+        EasyMock.expect(businessObjectEntry.getAttributeDefinition("goodToBeOnTheRoadBackHome")).andReturn(null);
+
+        EasyMock.replay(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService);
+
+        final ConcernDTO concernDTO = dataDictionaryMigrationService.buildConcernDTO((Class<? extends PersistableBusinessObject>)documentEntry.getDataObjectClass(), false);
+
+        EasyMock.verify(dataDictionaryService, dataDictionary, businessObjectEntry, persistenceStructureService);
+        Assert.assertEquals("Account", concernDTO.getName());
+        Assert.assertEquals("CA_ACCOUNT_T", concernDTO.getCode());
+        Assert.assertNull(concernDTO.getDescription());
+        Assert.assertNotNull(concernDTO.getTable());
+        assertAgainstAccountTableDTO(concernDTO.getTable());
+    }
+
     private AttributeDefinition buildChartOfAccountsCodeAttributeDefintion() {
         AttributeDefinition chartOfAccountsAttributeDefinition = new AttributeDefinition();
         chartOfAccountsAttributeDefinition.setName("chartOfAccountsCode");
@@ -729,6 +815,13 @@ public class DataDictionaryMigrationServiceImplTest {
         Assert.assertEquals("The TableDTO name should be \"Account\"", "Account", tableDTO.getName());
         Assert.assertNull("The TableDTO description should be null", tableDTO.getDescription());
         assertAgainstFieldDTOs(tableDTO.getFields());
+    }
+
+    private TransactionalDocumentEntry buildTransferOfFundsDocumentEntryFixture() {
+        TransactionalDocumentEntry documentEntry = new TransactionalDocumentEntry();
+        documentEntry.setDocumentClass(TransferOfFundsDocument.class);
+        documentEntry.setDocumentTypeName("TF");
+        return documentEntry;
     }
 
     private MaintenanceDocumentEntry buildAccountMaintenanceDocumentEntryFixture() {
@@ -847,12 +940,6 @@ public class DataDictionaryMigrationServiceImplTest {
         return documentEntry;
     }
 
-    private TransactionalDocumentEntry buildFakeTransactionalDocumentEntryFixture() {
-        TransactionalDocumentEntry transactionalDocumentEntry = new TransactionalDocumentEntry();
-        transactionalDocumentEntry.setDocumentTypeName("FollowYourArrow");
-        return transactionalDocumentEntry;
-    }
-
     private MaintenanceDocumentEntry buildAccountGlobalDocumentEntryFixture() {
         MaintenanceDocumentEntry documentEntry = new MaintenanceDocumentEntry();
         documentEntry.setDataObjectClass(AccountGlobal.class);
@@ -860,9 +947,21 @@ public class DataDictionaryMigrationServiceImplTest {
         return documentEntry;
     }
 
-    private void assertAgainstTableDTOs(List<TableDTO> tableDTOs) {
+    private BusinessObjectEntry buildBusinessObjectEntryFixture(Class clazz) {
+        BusinessObjectEntry bo = new BusinessObjectEntry();
+        bo.setBaseBusinessObjectClass(clazz);
+        return bo;
+    }
+
+    private TransactionalDocumentEntry buildFakeTransactionalDocumentEntryFixture() {
+        TransactionalDocumentEntry transactionalDocumentEntry = new TransactionalDocumentEntry();
+        transactionalDocumentEntry.setDocumentTypeName("FollowYourArrow");
+        return transactionalDocumentEntry;
+    }
+
+    private void assertAgainstTableDTOs(Set<TableDTO> tableDTOs) {
         Assert.assertNotNull("We should have gotten back a list of TableDTOs", tableDTOs);
         Assert.assertEquals("The size of the list should be 1", 1, tableDTOs.size());
-        assertAgainstAccountTableDTO(tableDTOs.get(0));
+        assertAgainstAccountTableDTO(tableDTOs.iterator().next());
     }
 }

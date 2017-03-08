@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2017 The Kuali Foundation
+ * Copyright 2005-2017 Kuali, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,25 +18,12 @@
  */
 package org.kuali.kfs.sys.businessobject.dto;
 
-import java.util.HashSet;
-import java.util.Set;
+public class ConcernDTO {
 
-public class EntityDTO {
-
-    private String moduleCode;
     private String code;
     private String name;
     private String description;
-    private Set<TableDTO> tables;
-    private Set<ConcernDTO> concerns = new HashSet<>();
-
-    public String getModuleCode() {
-        return moduleCode;
-    }
-
-    public void setModuleCode(String moduleCode) {
-        this.moduleCode = moduleCode;
-    }
+    private TableDTO table;
 
     public String getCode() {
         return code;
@@ -62,37 +49,11 @@ public class EntityDTO {
         this.description = description;
     }
 
-    public Set<TableDTO> getTables() {
-        return tables;
+    public TableDTO getTable() {
+        return table;
     }
 
-    public void setTables(Set<TableDTO> tables) {
-        this.tables = tables;
-    }
-
-    public Set<ConcernDTO> getConcerns() {
-        return concerns;
-    }
-
-    public void setConcerns(Set<ConcernDTO> concerns) {
-        this.concerns = concerns;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        EntityDTO entityDTO = (EntityDTO) o;
-
-        if (!moduleCode.equals(entityDTO.moduleCode)) return false;
-        return code.equals(entityDTO.code);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = moduleCode.hashCode();
-        result = 31 * result + code.hashCode();
-        return result;
+    public void setTable(TableDTO table) {
+        this.table = table;
     }
 }

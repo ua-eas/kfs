@@ -2215,6 +2215,13 @@
 
             </list>
         </property>
+        <property name="concerns">
+            <list>
+                <value>FP_ACCT_LINES_T</value>
+                <value>GL_PENDING_ENTRY_T</value>
+                <value>FS_DOC_HEADER_T</value>
+            </list>
+        </property>
     </bean>
 
     <import resource="spring-sys-bus-exports.xml"/>
