@@ -40,9 +40,6 @@ import org.powermock.api.easymock.PowerMock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-/**
- * Created by kelly on 12/8/16.
- */
 @RunWith(PowerMockRunner.class)
 public class LaborPendingEntryConverterServiceImplTest {
     protected LaborPendingEntryConverterServiceImpl laborPendingEntryConverterService;

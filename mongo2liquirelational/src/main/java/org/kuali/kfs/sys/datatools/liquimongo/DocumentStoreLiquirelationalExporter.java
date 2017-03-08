@@ -30,9 +30,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * Created by kelly on 2/24/17.
- */
 public class DocumentStoreLiquirelationalExporter {
     private ClassPathXmlApplicationContext applicationContext;
     private PreferencesDao preferencesDao;

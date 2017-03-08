@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2017 Kuali, Inc.
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+    <bean id="properties" class="org.kuali.kfs.sys.context.PropertyLoadingFactoryBean"/>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="propertiesArray">
+            <list>
+                <ref bean="properties"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="transactionManagerXAPool" class="org.springframework.transaction.jta.JotmFactoryBean" lazy-init="true">
+        <property name="defaultTimeout" value="30"/>
+    </bean>
+
+    <bean id="jtaTransactionManager"
+          class="org.springframework.transaction.jta.JtaTransactionManager">
+        <property name="userTransaction" ref="transactionManagerXAPool" />
+        <property name="allowCustomIsolationLevels" value="true" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="jtaTransactionManager" proxy-target-class="true"/>
+
+    <bean id="dataSource" class="org.kuali.rice.core.framework.persistence.jdbc.datasource.XAPoolDataSource">
+        <property name="transactionManager" ref="transactionManagerXAPool"/>
+        <property name="driverClassName" value="${kfs.datasource.driver.name}"/>
+        <property name="url" value="${kfs.datasource.url}"/>
+        <property name="maxSize" value="50"/>
+        <property name="minSize" value="5"/>
+        <property name="maxWait" value="30000"/>
+        <property name="validationQuery" value="select 1"/>
+        <property name="username" value="${kfs.datasource.username}"/>
+        <property name="password" value="${kfs.datasource.password}"/>
+    </bean>
+
+    <bean id="preferencesDao" parent="preferencesDao-parentBean"/>
+    <bean id="preferencesDao-parentBean" abstract="true" class="org.kuali.kfs.sys.dataaccess.impl.PreferencesDaoJdbc">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+</beans>
