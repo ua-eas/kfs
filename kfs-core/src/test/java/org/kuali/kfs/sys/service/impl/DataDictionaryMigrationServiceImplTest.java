@@ -669,9 +669,14 @@ public class DataDictionaryMigrationServiceImplTest {
         Assert.assertEquals(1, entity.getTables().size());
         Assert.assertEquals("SH_ACCT_PERIOD_T", entity.getTables().iterator().next().getCode());
         Assert.assertEquals(2, entity.getConcerns().size());
+        List<String> concernCodes = new ArrayList<>();
         Iterator<ConcernDTO> concernIter = entity.getConcerns().iterator();
-        Assert.assertEquals("FS_DOC_HEADER_T", concernIter.next().getCode());
-        Assert.assertEquals("FP_ACCT_LINES_T", concernIter.next().getCode());
+        while (concernIter.hasNext()) {
+            concernCodes.add(concernIter.next().getCode());
+        }
+        Assert.assertEquals(2, concernCodes.size());
+        Assert.assertTrue(concernCodes.contains("FS_DOC_HEADER_T"));
+        Assert.assertTrue(concernCodes.contains("FP_ACCT_LINES_T"));
         Assert.assertEquals(2, takenTables.size());
         Assert.assertTrue(takenTables.containsKey("FP_ACCT_LINES_T"));
         Assert.assertTrue(takenTables.containsKey("FS_DOC_HEADER_T"));

@@ -19,12 +19,18 @@
 
 package org.kuali.kfs.sys.dataaccess.impl;
 
+import org.easymock.EasyMock;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
+import org.kuali.rice.core.api.cache.CacheManagerRegistry;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -41,6 +47,78 @@ public class PreferencesDaoJdbcTest {
     @Before
     public void setUp() throws Exception {
         preferencesDao = new PreferencesDaoJdbc();
+    }
+
+    public static class TestCache implements Cache {
+        Map<Object,Object> cacheMap = new HashMap<>();
+
+        @Override
+        public String getName() { return "unittestcache"; }
+
+        @Override
+        public Object getNativeCache() {return null;}
+
+        @Override
+        public ValueWrapper get(Object key) { return () -> cacheMap.get(key); }
+
+        @Override
+        public void put(Object key, Object value) { cacheMap.put(key, value); }
+
+        @Override
+        public void evict(Object key) { cacheMap.remove(key); }
+
+        @Override
+        public void clear() { cacheMap.clear(); }
+    }
+
+    @Test
+    public void cacheInstitutionPreferences() {
+        CacheManager cacheManager = EasyMock.createMock(CacheManager.class);
+        CacheManagerRegistry cacheManagerRegistry = EasyMock.createMock(CacheManagerRegistry.class);
+        TestCache cache = new TestCache();
+
+        EasyMock.expect(cacheManager.getCache(PreferencesDaoJdbc.INSTITUTION_PREFERENCES_CACHE)).andReturn(cache).anyTimes();
+        EasyMock.expect(cacheManagerRegistry.getCacheManagerByCacheName(PreferencesDaoJdbc.INSTITUTION_PREFERENCES_CACHE)).andReturn(cacheManager).anyTimes();
+
+        EasyMock.replay(cacheManager);
+        EasyMock.replay(cacheManagerRegistry);
+
+        preferencesDao = new PreferencesDaoJdbc();
+        ((PreferencesDaoJdbc)preferencesDao).setCacheManagerRegistry(cacheManagerRegistry);
+
+        String expected = "/mylogo.png";
+        Map<String,Object> prefs = new HashMap<>();
+        prefs.put("logoUrl", expected);
+
+        preferencesDao.cacheInstitutionPreferences("khuntley", prefs);
+
+        Assert.assertEquals(expected, ((Map<String, Object>) cache.cacheMap.get("khuntley")).get("logoUrl"));
+    }
+
+    @Test
+    public void findInstitutionPreferencesCache() {
+        CacheManager cacheManager = EasyMock.createMock(CacheManager.class);
+        CacheManagerRegistry cacheManagerRegistry = EasyMock.createMock(CacheManagerRegistry.class);
+        TestCache cache = new TestCache();
+
+        EasyMock.expect(cacheManager.getCache(PreferencesDaoJdbc.INSTITUTION_PREFERENCES_CACHE)).andReturn(cache).anyTimes();
+        EasyMock.expect(cacheManagerRegistry.getCacheManagerByCacheName(PreferencesDaoJdbc.INSTITUTION_PREFERENCES_CACHE)).andReturn(cacheManager).anyTimes();
+
+        EasyMock.replay(cacheManager);
+        EasyMock.replay(cacheManagerRegistry);
+
+        preferencesDao = new PreferencesDaoJdbc();
+        ((PreferencesDaoJdbc)preferencesDao).setCacheManagerRegistry(cacheManagerRegistry);
+
+        String expected = "/mylogo.png";
+        Map<String,Object> prefs = new HashMap<>();
+        prefs.put("logoUrl", expected);
+
+        cache.cacheMap.put("khuntley", prefs);
+
+        prefs = preferencesDao.findInstitutionPreferencesCache("khuntley");
+
+        Assert.assertEquals(expected, prefs.get("logoUrl"));
     }
 
     @Test

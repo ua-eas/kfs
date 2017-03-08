@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
+import org.kuali.rice.core.api.cache.CacheManagerRegistry;
 import org.kuali.rice.core.impl.services.CoreImplServiceLocator;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -47,7 +48,7 @@ import java.util.Map;
 public class PreferencesDaoJdbc implements PreferencesDao {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PreferencesDaoJdbc.class);
 
-    private static final String INSTITUTION_PREFERENCES_CACHE = KFSConstants.APPLICATION_NAMESPACE_CODE + "/InstitutionPreferences";
+    public static final String INSTITUTION_PREFERENCES_CACHE = KFSConstants.APPLICATION_NAMESPACE_CODE + "/InstitutionPreferences";
 
     private ColumnMapRowMapperQuery userPreferencesQuery;
     private ColumnMapRowMapperQuery navLinksQuery;
@@ -62,6 +63,7 @@ public class PreferencesDaoJdbc implements PreferencesDao {
     private SimpleJdbcInsert navLinkPermissionDetailsInsert;
 
     private JdbcTemplate jdbcTemplate;
+    private CacheManagerRegistry cacheManagerRegistry;
 
     private static final String TABLE_INST_PREFS = "inst_pref_t";
     private static final String TABLE_USER_PREFS = "usr_prefs_t";
@@ -170,11 +172,6 @@ public class PreferencesDaoJdbc implements PreferencesDao {
         }
     }
 
-    protected Cache getInstitutionPreferencesCache() {
-        CacheManager cm = CoreImplServiceLocator.getCacheManagerRegistry().getCacheManagerByCacheName(INSTITUTION_PREFERENCES_CACHE);
-        return cm.getCache(INSTITUTION_PREFERENCES_CACHE);
-    }
-
     @Override
     public void cacheInstitutionPreferences(String principalName, Map<String, Object> institutionPreferences) {
         LOG.debug("cacheInstitutionPreferences() started");
@@ -224,6 +221,19 @@ public class PreferencesDaoJdbc implements PreferencesDao {
     @Override
     public int getInstitutionPreferencesCacheLength() {
         return 0;
+    }
+
+    public CacheManagerRegistry getCacheManagerRegistry() {
+        return cacheManagerRegistry;
+    }
+
+    public void setCacheManagerRegistry(CacheManagerRegistry cacheManagerRegistry) {
+        this.cacheManagerRegistry = cacheManagerRegistry;
+    }
+
+    protected Cache getInstitutionPreferencesCache() {
+        CacheManager cm = cacheManagerRegistry.getCacheManagerByCacheName(INSTITUTION_PREFERENCES_CACHE);
+        return cm.getCache(INSTITUTION_PREFERENCES_CACHE);
     }
 
     protected void saveMenuLinks(List<Map<String,Object>> menuLinks) {
