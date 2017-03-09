@@ -24,7 +24,6 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
 import org.kuali.rice.core.api.cache.CacheManagerRegistry;
-import org.kuali.rice.core.impl.services.CoreImplServiceLocator;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.jdbc.core.ColumnMapRowMapper;
@@ -32,13 +31,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.object.MappingSqlQuery;
+import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.jdbc.support.lob.DefaultLobHandler;
 import org.springframework.jdbc.support.lob.LobHandler;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.HashMap;
@@ -85,10 +86,10 @@ public class PreferencesDaoJdbc implements PreferencesDao {
     public void setDataSource(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
 
-        userPreferencesQuery = new ColumnMapRowMapperQuery(dataSource,
+        userPreferencesQuery = new ColumnMapRowMapperQuery(new ColumnMapRowMapper(), dataSource,
                 "select obj_id, prncpl_nm, key_cd, val from usr_prefs_t where prncpl_nm = ?",
                 new SqlParameter("principalName", Types.VARCHAR));
-        navLinksQuery = new ColumnMapRowMapperQuery(dataSource,
+        navLinksQuery = new ColumnMapRowMapperQuery(new BigDecimalToIntColumnMapRowMapper(), dataSource,
                 "select g.lnk_grp_lbl as groupLabel, g.posn as groupPosition, l.lnk_typ as linkType, l.lnk_ctgry as linkCategory, " +
                         "l.posn as linkPosition, l.new_tgt as newTarget, l.bo_cls as businessObjectClass, l.doc_typ_cd as documentTypeCode, l.lnk_lbl as linkLabel, " +
                         "l.lnk_val as linkValue, lp.tmpl_nmspc as permTemplateNamespace, lp.tmpl_nm as permTemplateName, " +
@@ -98,7 +99,7 @@ public class PreferencesDaoJdbc implements PreferencesDao {
                         "left outer join nav_lnk_perm_dtl_t lpd on lp.obj_id = lpd.nav_lnk_perm_id " +
                         "order by groupPosition, linkCategory, linkPosition");
 
-        menuLinksQuery = new ColumnMapRowMapperQuery(dataSource,
+        menuLinksQuery = new ColumnMapRowMapperQuery(new ColumnMapRowMapper(), dataSource,
                 "select lnk_lbl as linkLabel, lnk_val as linkValue, posn from menu_lnk_t order by posn");
         logoQuery = new LogoQuery(dataSource);
 
@@ -249,13 +250,13 @@ public class PreferencesDaoJdbc implements PreferencesDao {
     public static class ColumnMapRowMapperQuery extends MappingSqlQuery<Map<String,Object>> {
         private ColumnMapRowMapper rowMapper;
 
-        ColumnMapRowMapperQuery(DataSource dataSource, String sql, SqlParameter... parameters) {
+        ColumnMapRowMapperQuery(ColumnMapRowMapper rowMapper, DataSource dataSource, String sql, SqlParameter... parameters) {
             super(dataSource, sql);
             for (SqlParameter parameter : parameters) {
                 super.declareParameter(parameter);
             }
             super.compile();
-            this.rowMapper = new ColumnMapRowMapper();
+            this.rowMapper = rowMapper;
         }
 
         @Override
@@ -277,6 +278,25 @@ public class PreferencesDaoJdbc implements PreferencesDao {
             Map<String, Object> result = new HashMap<>();
             result.put("logo_data", lobHandler.getClobAsString(resultSet, i + 1));
             return result;
+        }
+    }
+
+    public static class BigDecimalToIntColumnMapRowMapper extends ColumnMapRowMapper {
+        public Map<String, Object> mapRow(ResultSet rs, int rowNum) throws SQLException {
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            Map mapOfColValues = this.createColumnMap(columnCount);
+
+            for(int i = 1; i <= columnCount; ++i) {
+                String key = this.getColumnKey(JdbcUtils.lookupColumnName(rsmd, i));
+                Object obj = this.getColumnValue(rs, i);
+                if (obj instanceof BigDecimal) {
+                    obj = ((BigDecimal)obj).intValue();
+                }
+                mapOfColValues.put(key, obj);
+            }
+
+            return mapOfColValues;
         }
     }
 }
