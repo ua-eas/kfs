@@ -171,4 +171,18 @@ public class PreferencesDaoJdbcTest {
 
         preferencesDao.saveInstitutionPreferences(null, preferences);
     }
+
+    @Test
+    public void saveInstitutionPreferencesBadLogoUrlType() {
+        thrown.expect(RuntimeException.class);
+        thrown.expectMessage("Invalid type for logoUrl property - expecting String");
+
+        Map<String, Object> preferences = new LinkedHashMap<String, Object>() {{
+            put(MENU_LINKS_KEY, new Object());
+            put(LINK_GROUPS_KEY, new Object());
+            put(LOGO_URL_KEY, new Object());
+        }};
+
+        preferencesDao.saveInstitutionPreferences(null, preferences);
+    }
 }

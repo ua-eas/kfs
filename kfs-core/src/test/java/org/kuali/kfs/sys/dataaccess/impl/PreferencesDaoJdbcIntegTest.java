@@ -395,17 +395,6 @@ public class PreferencesDaoJdbcIntegTest {
     }
 
     @Test
-    public void saveInstitutionPreferencesBadLogoUrlType() {
-        thrown.expect(RuntimeException.class);
-        thrown.expectMessage("NotSerializableException");
-
-        Map<String,Object> preferences = preferencesDao.findInstitutionPreferences();
-        preferences.put(LOGO_URL_KEY, new Object());
-
-        preferencesDao.saveInstitutionPreferences(null, preferences);
-    }
-
-    @Test
     public void findInstitutionPreferences() {
         Map<String,Object> preferences = preferencesDao.findInstitutionPreferences();
 

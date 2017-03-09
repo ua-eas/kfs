@@ -145,6 +145,10 @@ public class PreferencesDaoJdbc implements PreferencesDao {
             throw new RuntimeException("logoUrl attribute missing");
         }
 
+        if (!(preferences.get("logoUrl") instanceof String)) {
+            throw new RuntimeException("Invalid type for logoUrl property - expecting String");
+        }
+
         jdbcTemplate.update(DELETE_NAV_LINK_PERMISSION_DETAILS);
         jdbcTemplate.update(DELETE_NAV_LINK_PERMISSIONS);
         jdbcTemplate.update(DELETE_NAV_LINKS);
