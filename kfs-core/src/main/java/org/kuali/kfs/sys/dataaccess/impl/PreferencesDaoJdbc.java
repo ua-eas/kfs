@@ -92,10 +92,10 @@ public class PreferencesDaoJdbc implements PreferencesDao {
                 "select g.lnk_grp_lbl as groupLabel, g.posn as groupPosition, l.lnk_typ as linkType, l.lnk_ctgry as linkCategory, " +
                         "l.posn as linkPosition, l.new_tgt as newTarget, l.bo_cls as businessObjectClass, l.doc_typ_cd as documentTypeCode, l.lnk_lbl as linkLabel, " +
                         "l.lnk_val as linkValue, lp.tmpl_nmspc as permTemplateNamespace, lp.tmpl_nm as permTemplateName, " +
-                        "lpd.key_cd as permDetailKey, lpd.val as permDetailValue from nav_lnk_grp_t as g " +
-                        "left outer join nav_lnk_t as l on g.obj_id = l.nav_lnk_grp_id " +
-                        "left outer join nav_lnk_perm_t as lp on l.obj_id = lp.nav_lnk_id " +
-                        "left outer join nav_lnk_perm_dtl_t as lpd on lp.obj_id = lpd.nav_lnk_perm_id " +
+                        "lpd.key_cd as permDetailKey, lpd.val as permDetailValue from nav_lnk_grp_t g " +
+                        "left outer join nav_lnk_t l on g.obj_id = l.nav_lnk_grp_id " +
+                        "left outer join nav_lnk_perm_t lp on l.obj_id = lp.nav_lnk_id " +
+                        "left outer join nav_lnk_perm_dtl_t lpd on lp.obj_id = lpd.nav_lnk_perm_id " +
                         "order by groupPosition, linkCategory, linkPosition");
 
         menuLinksQuery = new ColumnMapRowMapperQuery(dataSource,
