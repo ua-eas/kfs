@@ -457,7 +457,7 @@ public class SpringContext {
 
     public static void updateDatabase() {
         if (Boolean.parseBoolean(PropertyLoadingFactoryBean.getBaseProperty(KFSPropertyConstants.UPDATE_DATABASE_ON_STARTUP))) {
-            new LiquiRelational().updateDatabase();
+            new LiquiRelational(new org.kuali.kfs.sys.context.PropertyLoadingFactoryBean().getObject()).updateDatabase();
         }
     }
 

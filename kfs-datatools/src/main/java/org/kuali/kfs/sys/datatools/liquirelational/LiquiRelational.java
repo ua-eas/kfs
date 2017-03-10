@@ -32,6 +32,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.sys.datatools.util.PropertyLoadingFactoryBean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.env.PropertySource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternUtils;
 
@@ -41,8 +42,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 public class LiquiRelational {
     private static final Logger LOG = Logger.getLogger(LiquiRelational.class);
@@ -55,6 +58,7 @@ public class LiquiRelational {
     protected static final String UPDATE_DATABASE_PACKAGES_RICE = "updateDatabasePackagesRice";
 
     private ClassPathXmlApplicationContext applicationContext;
+    protected Properties properties = null;
 
     public static void main(String[] args) {
         BasicConfigurator.configure();
@@ -62,6 +66,13 @@ public class LiquiRelational {
         LiquiRelational liquiRelational = new LiquiRelational();
         liquiRelational.updateDatabase();
         System.exit(0);
+    }
+
+    public LiquiRelational() {
+    }
+
+    public LiquiRelational(Properties properties) {
+        this.properties = properties;
     }
 
     public void updateDatabase() {
@@ -77,6 +88,11 @@ public class LiquiRelational {
         }
 
         applicationContext = new ClassPathXmlApplicationContext("org/kuali/kfs/sys/datatools/liquirelational/kfs-liqui-relational-bootstrap.xml");
+        if (this.properties != null) {
+            applicationContext.getEnvironment().getPropertySources().addFirst(new PropertiesSource("properties", this.properties));
+        } else {
+            this.properties = applicationContext.getBean("properties", Properties.class);
+        }
         applicationContext.start();
 
         long endInit = System.currentTimeMillis();
@@ -92,7 +108,7 @@ public class LiquiRelational {
 
     private void applyDatabaseUpdates(String dataSource, String databaseUpdatePackages) {
         DataSource kfsDataSource = applicationContext.getBean(dataSource, DataSource.class);
-        List<String> packages = PropertyLoadingFactoryBean.getBaseListProperty(databaseUpdatePackages);
+        List<String> packages = getBaseListProperty(databaseUpdatePackages);
         if (isEmptyList(packages)) {
             LOG.info(databaseUpdatePackages + " property is empty, nothing to update.");
         } else {
@@ -121,7 +137,7 @@ public class LiquiRelational {
             Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
 
             ResourceAccessor resourceAccessor = new ClassLoaderResourceAccessor(applicationContext.getClassLoader());
-            String liquibaseContext = PropertyLoadingFactoryBean.getBaseProperty(UPDATE_DATABASE_CONTEXT);
+            String liquibaseContext = getBaseProperty(UPDATE_DATABASE_CONTEXT);
 
             runUpdatesPhase(database, resourceAccessor, liquibaseContext, packages);
         } catch (SQLException | DatabaseException e) {
@@ -149,8 +165,8 @@ public class LiquiRelational {
     }
 
     private List<String> getManualPhasesToRun(List<String> packages) {
-        String start = PropertyLoadingFactoryBean.getBaseProperty(UPDATE_DATABASE_MANUAL_START);
-        String end = PropertyLoadingFactoryBean.getBaseProperty(UPDATE_DATABASE_MANUAL_END);
+        String start = getBaseProperty(UPDATE_DATABASE_MANUAL_START);
+        String end = getBaseProperty(UPDATE_DATABASE_MANUAL_END);
         if (start == null) {
             return null;
         }
@@ -185,7 +201,7 @@ public class LiquiRelational {
     }
 
     private List<String> getAutoPhasesToRun(List<String> packages) {
-        String updateDatabaseFullRebuild = PropertyLoadingFactoryBean.getBaseProperty(UPDATE_DATABASE_FULL_REBUILD);
+        String updateDatabaseFullRebuild = getBaseProperty(UPDATE_DATABASE_FULL_REBUILD);
 
         List<String> phaseFilenames = new ArrayList<>();
         if (Boolean.parseBoolean(updateDatabaseFullRebuild)) {
@@ -241,4 +257,33 @@ public class LiquiRelational {
         return phaseFilenames;
     }
 
+    public String getBaseProperty(String propertyName) {
+        return properties.getProperty(propertyName);
+    }
+
+    public List<String> getBaseListProperty(String propertyName) {
+        if (properties.containsKey(propertyName)) {
+            return Arrays.asList(properties.getProperty(propertyName).split(","));
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    public static class PropertiesSource extends PropertySource<String> {
+        protected Properties properties;
+
+        public PropertiesSource(String name, Properties properties) {
+            super(name);
+            this.properties = properties;
+        }
+
+        @Override
+        public String getProperty(String s) {
+            if (properties != null) {
+                return String.valueOf(properties.get(s));
+            } else {
+                return null;
+            }
+        }
+    }
 }
