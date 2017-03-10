@@ -1289,8 +1289,9 @@
     </bean>
 
     <bean id="preferencesDao" parent="preferencesDao-parentBean"/>
-    <bean id="preferencesDao-parentBean" abstract="true" class="org.kuali.kfs.sys.dataaccess.impl.PreferencesDaoMongo">
-        <property name="mongoTemplate" ref="mongoTemplate"/>
+    <bean id="preferencesDao-parentBean" abstract="true" class="org.kuali.kfs.sys.dataaccess.impl.PreferencesDaoJdbc">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="cacheManagerRegistry" ref="kfs.core.cacheManagerRegistry"/>
     </bean>
 
     <bean id="payeeACHService" parent="payeeACHService-parentBean"/>

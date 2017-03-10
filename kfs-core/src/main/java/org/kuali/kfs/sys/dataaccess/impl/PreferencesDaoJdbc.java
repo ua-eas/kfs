@@ -24,6 +24,8 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
 import org.kuali.rice.core.api.cache.CacheManagerRegistry;
+import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.jdbc.core.ColumnMapRowMapper;
@@ -46,7 +48,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PreferencesDaoJdbc implements PreferencesDao {
+public class PreferencesDaoJdbc extends PlatformAwareDaoBaseJdbc implements PreferencesDao, InitializingBean {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PreferencesDaoJdbc.class);
 
     public static final String INSTITUTION_PREFERENCES_CACHE = KFSConstants.APPLICATION_NAMESPACE_CODE + "/InstitutionPreferences";
@@ -83,13 +85,15 @@ public class PreferencesDaoJdbc implements PreferencesDao {
     private static final String DELETE_NAV_LINK_PERMISSION_DETAILS = String.format("delete from %s", TABLE_NAV_LINK_PERMISSION_DETAILS);
     private static final String DELETE_USER_PREFERENCES = String.format("delete from %s where prncpl_nm = ?", TABLE_USER_PREFS);
 
-    public void setDataSource(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
+    private static final String DEFAULT_INSTITUTION_ID = "1232413535";
 
-        userPreferencesQuery = new ColumnMapRowMapperQuery(new ColumnMapRowMapper(), dataSource,
+    protected void initDao() throws Exception {
+        jdbcTemplate = new JdbcTemplate(super.getDataSource());
+
+        userPreferencesQuery = new ColumnMapRowMapperQuery(new ColumnMapRowMapper(), super.getDataSource(),
                 "select obj_id, prncpl_nm, key_cd, val from usr_prefs_t where prncpl_nm = ?",
                 new SqlParameter("principalName", Types.VARCHAR));
-        navLinksQuery = new ColumnMapRowMapperQuery(new BigDecimalToIntColumnMapRowMapper(), dataSource,
+        navLinksQuery = new ColumnMapRowMapperQuery(new BigDecimalToIntColumnMapRowMapper(), super.getDataSource(),
                 "select g.lnk_grp_lbl as groupLabel, g.posn as groupPosition, l.lnk_typ as linkType, l.lnk_ctgry as linkCategory, " +
                         "l.posn as linkPosition, l.new_tgt as newTarget, l.bo_cls as businessObjectClass, l.doc_typ_cd as documentTypeCode, l.lnk_lbl as linkLabel, " +
                         "l.lnk_val as linkValue, lp.tmpl_nmspc as permTemplateNamespace, lp.tmpl_nm as permTemplateName, " +
@@ -99,16 +103,16 @@ public class PreferencesDaoJdbc implements PreferencesDao {
                         "left outer join nav_lnk_perm_dtl_t lpd on lp.obj_id = lpd.nav_lnk_perm_id " +
                         "order by groupPosition, linkCategory, linkPosition");
 
-        menuLinksQuery = new ColumnMapRowMapperQuery(new ColumnMapRowMapper(), dataSource,
+        menuLinksQuery = new ColumnMapRowMapperQuery(new ColumnMapRowMapper(), super.getDataSource(),
                 "select lnk_lbl as linkLabel, lnk_val as linkValue, posn from menu_lnk_t order by posn");
-        logoQuery = new LogoQuery(dataSource);
+        logoQuery = new LogoQuery(super.getDataSource());
 
-        userPreferencesInsert = new SimpleJdbcInsert(dataSource).withTableName(TABLE_USER_PREFS);
-        menuLinksInsert = new SimpleJdbcInsert(dataSource).withTableName(TABLE_MENU_LINKS);
-        navLinkGroupsInsert = new SimpleJdbcInsert(dataSource).withTableName(TABLE_NAV_LINK_GROUPS);
-        navLinksInsert = new SimpleJdbcInsert(dataSource).withTableName(TABLE_NAV_LINKS);
-        navLinkPermissionsInsert = new SimpleJdbcInsert(dataSource).withTableName(TABLE_NAV_LINK_PERMISSIONS);
-        navLinkPermissionDetailsInsert = new SimpleJdbcInsert(dataSource).withTableName(TABLE_NAV_LINK_PERMISSION_DETAILS);
+        userPreferencesInsert = new SimpleJdbcInsert(super.getDataSource()).withTableName(TABLE_USER_PREFS);
+        menuLinksInsert = new SimpleJdbcInsert(super.getDataSource()).withTableName(TABLE_MENU_LINKS);
+        navLinkGroupsInsert = new SimpleJdbcInsert(super.getDataSource()).withTableName(TABLE_NAV_LINK_GROUPS);
+        navLinksInsert = new SimpleJdbcInsert(super.getDataSource()).withTableName(TABLE_NAV_LINKS);
+        navLinkPermissionsInsert = new SimpleJdbcInsert(super.getDataSource()).withTableName(TABLE_NAV_LINK_PERMISSIONS);
+        navLinkPermissionDetailsInsert = new SimpleJdbcInsert(super.getDataSource()).withTableName(TABLE_NAV_LINK_PERMISSION_DETAILS);
     }
 
     @Override
@@ -120,7 +124,7 @@ public class PreferencesDaoJdbc implements PreferencesDao {
         prefs.put("linkGroups", linkGroups);
         prefs.put("menu", PreferencesDeserializer.deserializeMenuLinks(menuLinksQuery.execute()));
         prefs.put("logoUrl", logoQuery.execute().get(0).get("logo_data"));
-        prefs.put(KFSPropertyConstants.INSTITUTION_ID, "1232413535");
+        prefs.put(KFSPropertyConstants.INSTITUTION_ID, DEFAULT_INSTITUTION_ID);
 
         return prefs;
     }
