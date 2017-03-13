@@ -9,6 +9,8 @@
     </changeSet>
 
     <changeSet author="KFS701" id="FINP-1208" context="bootstrap,demo,unit">
+        <preConditions onError="MARK_RAN" onFail="MARK_RAN"><dbms type="mysql"/></preConditions>
+
         <modifyDataType columnName="DOC_TYP_CD"
                         newDataType="VARCHAR(64)"
                         tableName="NAV_LNK_T"/>
@@ -16,5 +18,13 @@
         <addNotNullConstraint columnDataType="VARCHAR(64)"
                               columnName="KEY_CD"
                               tableName="USR_PREFS_T"/>
+    </changeSet>
+
+    <changeSet author="KFS701" id="FINP-1211" context="bootstrap,demo,unit">
+        <preConditions onError="MARK_RAN" onFail="MARK_RAN"><dbms type="oracle"/></preConditions>
+
+        <modifyDataType columnName="DOC_TYP_CD"
+                        newDataType="VARCHAR(64)"
+                        tableName="NAV_LNK_T"/>
     </changeSet>
 </databaseChangeLog>
