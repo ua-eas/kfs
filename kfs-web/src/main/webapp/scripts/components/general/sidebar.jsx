@@ -417,8 +417,14 @@ var addHeading = function(links, type) {
 
 var determineSublinkClass = function(links, headingCount, expanded) {
     let sublinksClass = "sublinks collapse";
+    // 1400px is the width at which links in 3rd column start to clip (unzoomed)
+    let mq = window.matchMedia("screen and (min-width: 1400px)");
     if (links.length > (36 - headingCount)) {
-        sublinksClass += " col-3";
+        if (mq.matches) {
+            sublinksClass += " col-3";
+        } else {
+            sublinksClass += " col-2";
+        }
     } else if (links.length > (18 - headingCount)) {
         sublinksClass += " col-2";
     }
