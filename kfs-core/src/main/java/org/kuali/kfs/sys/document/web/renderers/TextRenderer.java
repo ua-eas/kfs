@@ -20,6 +20,7 @@ package org.kuali.kfs.sys.document.web.renderers;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.kns.web.taglib.html.KNSTextTag;
+import org.kuali.kfs.kns.web.ui.Field;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -48,6 +49,7 @@ public class TextRenderer extends FieldRendererBase {
         tag.setValue(null);
         tag.setStyleId(null);
         tag.setTabindex(null);
+        tag.setOnchange(null);
     }
 
     /**
@@ -59,7 +61,12 @@ public class TextRenderer extends FieldRendererBase {
         tag.setPageContext(pageContext);
         tag.setParent(parentTag);
         tag.setProperty(getFieldName());
-        tag.setTitle(getAccessibleTitle());
+        if (Field.TITLE_LINKED_TEXT.equals(getField().getFieldType())) {
+            tag.setTitle(getField().getPropertyValue());
+            tag.setOnchange("this.title=this.value;"); //Links the title attribute to the value attribute
+        } else {
+            tag.setTitle(getAccessibleTitle());
+        }
         tag.setSize(getFieldSize());
         //tag.setTabIndex();
         tag.setMaxlength(getFieldMaxLength());

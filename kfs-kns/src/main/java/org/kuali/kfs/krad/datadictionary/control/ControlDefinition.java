@@ -119,6 +119,8 @@ public interface ControlDefinition extends DataDictionaryDefinition {
      */
     public boolean isRanged();
 
+    public boolean isTitleLinkedText();
+
     /**
      * Sets the Class used to retrieve the complete range of values for radiobutton and select controls.
      *

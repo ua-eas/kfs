@@ -227,6 +227,10 @@ public final class FieldUtils {
                 fieldType = Field.LINK;
             }
 
+            if (control.isTitleLinkedText()) {
+                fieldType = Field.TITLE_LINKED_TEXT;
+            }
+
             if (Field.CURRENCY.equals(fieldType) && control instanceof CurrencyControlDefinition) {
                 CurrencyControlDefinition currencyControl = (CurrencyControlDefinition) control;
                 field.setStyleClass("amount");
@@ -235,7 +239,8 @@ public final class FieldUtils {
             }
 
             // for text controls, set size attribute
-            if (Field.TEXT.equals(fieldType)) {
+            if (Field.TEXT.equals(fieldType) ||
+                    Field.TITLE_LINKED_TEXT.equals(fieldType)) {
                 Integer size = control.getSize();
                 if (size != null) {
                     field.setSize(size.intValue());

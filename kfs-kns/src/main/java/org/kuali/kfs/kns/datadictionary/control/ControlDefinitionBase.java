@@ -190,6 +190,7 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
         return false;
     }
 
+    public boolean isTitleLinkedText() { return false; }
 
     /**
      * @see ControlDefinition#setKeyValuesFinder(java.lang.String)

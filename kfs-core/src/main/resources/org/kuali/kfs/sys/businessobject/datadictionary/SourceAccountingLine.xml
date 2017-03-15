@@ -408,7 +408,7 @@
         <property name="maxLength" value="40"/>
         <property name="required" value="false"/>
         <property name="control">
-            <ref bean="StandardNameTextControl"/>
+            <bean parent="TitleLinkedTextControl" p:size="40"/>
         </property>
 
 

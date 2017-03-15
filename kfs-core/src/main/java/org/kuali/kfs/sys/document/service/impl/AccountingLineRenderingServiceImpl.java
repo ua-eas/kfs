@@ -209,7 +209,7 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
         else if (field.getPropertyName().equals(KFSConstants.CHART_OF_ACCOUNTS_CODE_PROPERTY_NAME) && !SpringContext.getBean(AccountService.class).accountsCanCrossCharts()) {
             // the special case for rendering chart of accounts code when accounts can't cross charts
             renderer = new DynamicReadOnlyRender();
-        } */ else if (field.getFieldType().equals(Field.TEXT)) {
+        } */ else if (field.getFieldType().equals(Field.TEXT) || field.getFieldType().equals(Field.TITLE_LINKED_TEXT)) {
             if (field.isDatePicker() || usesDateValidation(field.getPropertyName(), accountingLineToRender)) { // are we a date?
                 renderer = new DateRenderer();
             } else {

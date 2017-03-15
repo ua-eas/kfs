@@ -74,6 +74,7 @@ public class Field implements java.io.Serializable, PropertyRenderingConfigEleme
     public static final String BLANK_SPACE = "blankSpace";
     public static final String BUTTON = "button";
     public static final String LINK = "link";
+    public static final String TITLE_LINKED_TEXT = "titleLinkedText";
 
     //#START MOVED FROM DOC SEARCH RELATED
     public static final String DATEPICKER = "datePicker";

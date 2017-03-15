@@ -54,6 +54,9 @@
     <bean id="PhoneNumberValidationPattern"
           class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.PhoneNumberValidationPattern"
           abstract="true"/>
+    <bean id="TitleLinkedTextControl"
+          class="org.kuali.kfs.kns.datadictionary.control.TitleLinkedTextControlDefinition"
+          abstract="true"/>
 
     <bean id="JavaClassValidationPattern"
           class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.JavaClassValidationPattern"
