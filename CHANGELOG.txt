@@ -1,3 +1,256 @@
+************************* 2017-03-16 *************************
+commit 8177b67352b4aa4c304353ae87028b61a1d5b21c
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2017-03-15 16:54:26 -0400
+
+    FINP-1234 Proof of concept implementation of TitleLinkedTextControl (#1072)
+
+:100644 100644 9181076... 1957b22... M	kfs-core/src/main/java/org/kuali/kfs/sys/document/service/impl/AccountingLineRenderingServiceImpl.java
+:100644 100644 c8432aa... d5616a7... M	kfs-core/src/main/java/org/kuali/kfs/sys/document/web/renderers/TextRenderer.java
+:100644 100644 7fcfb0f... 1a01212... M	kfs-core/src/main/resources/org/kuali/kfs/sys/businessobject/datadictionary/GeneralLedgerPendingEntry.xml
+:100644 100644 98b63c2... 72ca79e... M	kfs-core/src/main/resources/org/kuali/kfs/sys/businessobject/datadictionary/SourceAccountingLine.xml
+:100644 100644 7b74400... cde2d4b... M	kfs-kns/src/main/java/org/kuali/kfs/kns/datadictionary/control/ControlDefinitionBase.java
+:000000 100644 0000000... a0a8a16... A	kfs-kns/src/main/java/org/kuali/kfs/kns/datadictionary/control/TitleLinkedTextControlDefinition.java
+:100644 100644 9576d0e... 9af6330... M	kfs-kns/src/main/java/org/kuali/kfs/kns/util/FieldUtils.java
+:100644 100644 23f04b8... 3918732... M	kfs-kns/src/main/java/org/kuali/kfs/kns/web/ui/Field.java
+:100644 100644 03bb9ab... 3cd3700... M	kfs-kns/src/main/java/org/kuali/kfs/krad/datadictionary/control/ControlDefinition.java
+:100644 100644 eaa0212... 8321a90... M	kfs-kns/src/main/resources/org/kuali/kfs/kns/bo/datadictionary/DataDictionaryBaseTypes.xml
+
+commit b2526b7deae42c60c2d719a941e5e58d41e1ee80
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2017-03-13 09:48:16 -0400
+
+    FINP-1211 Add separate oracle only changeset that only updates col len (#1071)
+    
+    - The not null constraint isn't dropped in oracle, so it doesn't need
+       to be run there.
+
+:100644 100644 a6db5e5... d4f047e... M	kfs-core/src/main/resources/org/kuali/kfs/core/db/phase5/2017-03.xml
+
+commit 6de4e97ed2ff3ba637ab0a24e07b89168fe1e61d
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2017-03-10 12:48:50 -0500
+
+    FINP-1133 Wire up the JDBC prefs dao impl (#1070)
+    
+    * FINP-1133 Wire up the JDBC prefs dao impl
+    
+    * FINP-1133 Fix prefs dao implementation to conform to consistency checks
+
+:100644 100644 d963fd6... 414742e... M	kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDaoJdbc.java
+:100644 100644 3ec7b22... 2613a29... M	kfs-core/src/main/resources/org/kuali/kfs/sys/spring-sys.xml
+
+commit a87137a46d852e923df827ec56f7639ceedc63e0
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2017-03-10 10:02:13 -0500
+
+    FINP-1208 Allows Liquirelational to inherit properties from finweb context (#1069)
+    
+    * FINP-1208 Fix column length of doc typ cd for stevens
+     - Also re-add not null constraint to USR_PREFS_T.KEY_CD
+    
+    * FINP-1208 Allow overriding properties to LiquiRelational
+     - Pass in the properties from finweb when initializing so that
+       inititutional-config overrides are present
+     - When run standalone, the default existing datatools properties will be used
+    
+    * FINP-1208 Fix to grab properties from ctx when running standalone
+    
+    * FINP-1208 Fix type of properties bean
+
+:100644 100644 a5c6bc7... b951c50... M	kfs-core/src/main/java/org/kuali/kfs/sys/context/SpringContext.java
+:100644 100644 eb8baf4... a6db5e5... M	kfs-core/src/main/resources/org/kuali/kfs/core/db/phase5/2017-03.xml
+:100644 100644 2711136... a26e33f... M	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquirelational/LiquiRelational.java
+
+commit a3a30feb1cde02fa18284b60ca069ee1c50810f9
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2017-03-09 14:29:49 -0500
+
+    FINP-1207 Implement svc layer type validation for logoUrl (#1068)
+
+:100644 100644 2846a85... d963fd6... M	kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDaoJdbc.java
+:100644 100644 ad8bab1... c35f6b8... M	kfs-core/src/test/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDaoJdbcIntegTest.java
+:100644 100644 32a1033... db0e63e... M	kfs-core/src/test/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDaoJdbcTest.java
+
+commit fa6c15f0732386725bcdb54b1a8b446817fa549b
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2017-03-09 12:18:07 -0500
+
+    FINP-1205 Implement row mapper to convert BigDecimal to Int (#1067)
+    
+    - in oracle the integer type gets converted to BigDecimal and the
+       deserializer assumes a Java Integer
+
+:100644 100644 7370e84... 2846a85... M	kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDaoJdbc.java
+
+commit ee7d4d1080b5c7450e9891760754675124f8609f
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2017-03-09 10:01:36 -0500
+
+    FINP-1204 Remove as from table aliases (#1066)
+
+:100644 100644 9ec1633... 7370e84... M	kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDaoJdbc.java
+
+commit 1fe5e74ed9b521f360ddc1bee9ad9903b463b4b7
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2017-03-08 17:05:16 -0500
+
+    FINP-1131 Inject cache manager registry into prefs dao (#1065)
+    
+    * FINP-1131 Inject cache manager registry into prefs dao
+     - Write unit tests for cache methods
+    
+    * Fix test that was relying on the order of a set
+
+:100644 100644 82a1aba... 9ec1633... M	kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDaoJdbc.java
+:100644 100644 fd25009... 32a1033... M	kfs-core/src/test/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDaoJdbcTest.java
+:100644 100644 b799f96... e0e1436... M	kfs-core/src/test/java/org/kuali/kfs/sys/service/impl/DataDictionaryMigrationServiceImplTest.java
+
+commit 2d5c22791fe7d807d0c57fdc3cc817e2f58660d5
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2017-03-08 15:47:00 -0500
+
+    FINP-1129 DAO implementation (#1064)
+    
+    * FINP-1129 Initial DAO implementation
+     - needs refactoring of the transformer logic
+      - and unit tests for transformer logic
+      - and integ tests for inst prefs
+    
+    * FINP-1129 Add a default pref that exceeded orig column length
+    
+    * FINP-1129 Refactor to reduce extraneous classes
+    
+    * Removed a few extra stream() calls
+    
+    Today I learned collection has a direct forEach method. Leverage that.
+    
+    * Split Transformer into 2 better named classes
+    
+    * Refactored method names for consistency with class naming
+    
+    * Tighten up some scope
+    
+    * Added tests for (de)serialization of user prefs
+    
+    Added some param validation
+    More tests coming
+    
+    * implemented menu ordering & tightened up the contract
+    
+    Also added tests for (de)serialization
+    
+    * FINP-1129 Fix Transactional annotations in integ tests
+    
+    * FINP-1129 Add integ test for findInstPrefs
+     * remove unnecessary stream() calls
+     * Refactor to use spring junit 4 class runner and transactional
+       to automatically rollback
+    
+    * Added tests for deserializing navLinks
+    
+    * FINP-1129 remove unnecessary sorting
+     - rows should be in order already
+    
+    * FINP-1129 Add validation of the category
+    
+    * FINP-1129 Add validation of the top-level attributes
+    
+    * FINP-1129 save institution prefs tests
+    
+    * FINP-1129 Fix deserializer tests affected by removal of ordering code
+    
+    * Added tests for serializing nav links
+    
+    * FINP-1129 Move unit tests to separate test class
+    
+    * FINP-1129 Migrate string keys to constants
+    
+    * FINP-1129 remove bad class headers
+    
+    * FINP-1129 remove TODO comment
+    
+    * FINP-1129 Move transactional annotations to InstitutionalServiceImpl
+    
+    * FINP-1129 Fix to use correct property loading factory bean
+    
+    * Remove redundant @Transactional annotations
+
+:000000 100644 0000000... 82a1aba... A	kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDaoJdbc.java
+:000000 100644 0000000... 1261d8c... A	kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDeserializer.java
+:000000 100644 0000000... a0f296e... A	kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesSerializer.java
+:000000 100644 0000000... eb8baf4... A	kfs-core/src/main/resources/org/kuali/kfs/core/db/phase5/2017-03.xml
+:000000 100644 0000000... ad8bab1... A	kfs-core/src/test/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDaoJdbcIntegTest.java
+:000000 100644 0000000... fd25009... A	kfs-core/src/test/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDaoJdbcTest.java
+:000000 100644 0000000... e41d46e... A	kfs-core/src/test/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDeserializerTest.java
+:000000 100644 0000000... d22d8e9... A	kfs-core/src/test/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesSerializerTest.java
+:000000 100644 0000000... 118504b... A	kfs-core/src/test/resources/org/kuali/kfs/sys/dataaccess/impl/spring-sys-test-preferences-dao-jdbc.xml
+:100644 100644 a4847e4... 39b9f85... M	kfs-ld/src/test/java/org/kuali/kfs/module/ld/document/service/impl/LaborPendingEntryConverterServiceImplTest.java
+:100644 100644 90634b7... 51d0d4e... M	mongo2liquirelational/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/DocumentStoreLiquirelationalExporter.java
+
+commit fafd1c2cd7130edd20de7e161663fe66f7ad1e1d
+Author: Travis Foxley <travisfoxley@gmail.com>
+Date:   2017-03-08 10:04:22 -0700
+
+    FINP-1186 (#1063)
+    
+    * FINP-1186 first swing at trans doc (Transfer of Funds) in migration
+    
+    * FINP-1186 add “concerns” to the migration process
+    
+    * FINP-1186 fix typo in method name
+
+:000000 100644 0000000... 14de3ef... A	kfs-core/src/main/java/org/kuali/kfs/sys/businessobject/dto/ConcernDTO.java
+:100644 100644 2bf3796... 3c8cf1f... M	kfs-core/src/main/java/org/kuali/kfs/sys/businessobject/dto/EntityDTO.java
+:100644 100644 fb36fa9... 91338fc... M	kfs-core/src/main/java/org/kuali/kfs/sys/service/impl/DataDictionaryMigrationServiceImpl.java
+:100644 100644 c7b1634... 3ec7b22... M	kfs-core/src/main/resources/org/kuali/kfs/sys/spring-sys.xml
+:100644 100644 afe4dc3... b799f96... M	kfs-core/src/test/java/org/kuali/kfs/sys/service/impl/DataDictionaryMigrationServiceImplTest.java
+
+commit eed0ea417bd495e63feed6d65c52e6c7fc18720e
+Author: jsissom <jsissom@kuali.co>
+Date:   2017-03-07 16:11:09 -0500
+
+    Fix documentation in file
+
+:100644 100644 3eb0fe3... 1ee3b8e... M	README.md
+
+commit b875046f4a6ce57801568514d78a016a12919cca
+Author: jsissom <jsissom@kuali.co>
+Date:   2017-03-07 11:03:14 -0500
+
+    FINP-1078 Fix errors in collector API, add API tests (#1062)
+
+:000000 100644 0000000... e69c06c... A	kfs-api-test/src/test/java/org/kuali/kfs/apitest/test/rest/businessobjectapi/CollectorFlatFileTest.java
+:000000 100644 0000000... eddcc29... A	kfs-api-test/src/test/java/org/kuali/kfs/apitest/test/rest/businessobjectapi/CollectorOtherTest.java
+:000000 100644 0000000... ad3c5cb... A	kfs-api-test/src/test/java/org/kuali/kfs/apitest/test/rest/businessobjectapi/CollectorXmlTest.java
+:000000 100644 0000000... 5887da0... A	kfs-api-test/src/test/java/org/kuali/kfs/apitest/utils/CollectorUtilities.java
+:100644 100644 b39bbdb... faa0cfe... M	kfs-core/src/main/java/org/kuali/kfs/gl/batch/service/impl/CollectorHelperServiceImpl.java
+
+commit ce81781c6a573ee0cbe3846a36f9e0a69bfbf6d9
+Author: jsissom <jsissom@kuali.co>
+Date:   2017-03-07 09:26:48 -0500
+
+    FINP-1077 Implement Collector API (#1061)
+    
+    * FINP-1077 Implement Collector API stub
+    
+    * FINP-1077 Implement Collector API
+    
+    * FINP-1077 Fix return value for REST endpoint
+    
+    * FINP-1077 Fix invalid testing for an empty list
+
+:100644 100644 22aa7d5... 813a6f6... M	kfs-core/src/main/java/org/kuali/kfs/gl/batch/service/CollectorHelperService.java
+:100644 100644 e994712... b39bbdb... M	kfs-core/src/main/java/org/kuali/kfs/gl/batch/service/impl/CollectorHelperServiceImpl.java
+:100644 100644 ed7d27c... 350e73a... M	kfs-core/src/main/java/org/kuali/kfs/gl/batch/service/impl/CollectorServiceImpl.java
+:100644 100644 7c7de20... 2675e1b... M	kfs-core/src/main/java/org/kuali/kfs/gl/rest/application/GlApiApplication.java
+:000000 100644 0000000... 3843e31... A	kfs-core/src/main/java/org/kuali/kfs/gl/rest/resource/CollectorResource.java
+:000000 100644 0000000... 888c85e... A	kfs-core/src/main/java/org/kuali/kfs/gl/service/CollectorApiService.java
+:000000 100644 0000000... d887f39... A	kfs-core/src/main/java/org/kuali/kfs/gl/service/impl/CollectorApiServiceImpl.java
+:100644 100644 c909d0e... 1ccc630... M	kfs-core/src/main/java/org/kuali/kfs/sys/businessobject/GeneralLedgerPendingEntry.java
+:100644 100644 0800133... a46c24d... M	kfs-core/src/main/resources/org/kuali/kfs/gl/spring-gl.xml
+:100644 100644 dd14583... 15f7384... M	kfs-core/src/test/java/org/kuali/kfs/gl/batch/service/impl/CollectorHelperServiceImplTest.java
+:000000 100644 0000000... a1f1edf... A	kfs-core/src/test/java/org/kuali/kfs/gl/rest/resource/CollectorResourceTest.java
 ************************* 2017-03-02 *************************
 commit 747411e79231fb272ac8d487c2ae56036d9f9c9d
 Author: jsissom <jsissom@kuali.co>
