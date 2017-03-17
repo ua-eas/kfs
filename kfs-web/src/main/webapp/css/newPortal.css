@@ -306,7 +306,7 @@ nav ul.nav li {
     bottom: 0;
 }
 
-.test-env > #sidebar {
+.test-env > #sidebar, .test-env ~ #sidebar {
     top: 100px;
 }
 
