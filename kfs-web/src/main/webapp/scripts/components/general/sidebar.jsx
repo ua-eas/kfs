@@ -116,18 +116,25 @@ var Sidebar = React.createClass({
                 let sidebarHeight = $('#sidebar>div').outerHeight();
                 let distanceFromTop = activeLink.offset().top - $('#sidebar>div').offset().top;
                 let distanceFromBottom = sidebarHeight - distanceFromTop;
+                let centerY = (activeLink.outerHeight() / 2 + panelHeight / 2);
                 if (distanceFromBottom < distanceFromTop && distanceFromBottom < panelHeight) {
-                    if (distanceFromTop > distanceFromBottom && distanceFromBottom > (activeLink.outerHeight() / 2 + panelHeight / 2)) {
+                    if (distanceFromTop > distanceFromBottom && distanceFromBottom > centerY) {
                         newClass = 'flowCenter';
                     } else {
                         newClass = 'flowUp';
                     }
+                } else if (distanceFromBottom < panelHeight && distanceFromBottom > centerY) {
+                    newClass = 'flowCenter';
                 }
 
                 if (newClass) {
                     activePanel.addClass(newClass);
                     if (newClass === 'flowCenter') {
-                        activePanel.css('top', (distanceFromTop + activeLink.outerHeight() / 2 - panelHeight / 2));
+                        let centeredTop = (distanceFromTop + activeLink.outerHeight() / 2 - panelHeight / 2);
+                        if (centeredTop < 0) {
+                            centeredTop = 10;
+                        }
+                        activePanel.css('top', centeredTop);
                     } else if (newClass === 'flowUp') {
                         activePanel.css('bottom', distanceFromBottom - activeLink.outerHeight() + 1);
                     }
@@ -135,6 +142,9 @@ var Sidebar = React.createClass({
                     activePanel.css('top', distanceFromTop);
                 }
             }
+        }
+        if (activePanel) {
+            activePanel.scrollTop(0);
         }
     },
     modifyLinkFilter(type) {
@@ -417,8 +427,14 @@ var addHeading = function(links, type) {
 
 var determineSublinkClass = function(links, headingCount, expanded) {
     let sublinksClass = "sublinks collapse";
+    // 1400px is the width at which links in 3rd column start to clip (unzoomed)
+    let mq = window.matchMedia("screen and (min-width: 1400px)");
     if (links.length > (36 - headingCount)) {
-        sublinksClass += " col-3";
+        if (mq.matches) {
+            sublinksClass += " col-3";
+        } else {
+            sublinksClass += " col-2";
+        }
     } else if (links.length > (18 - headingCount)) {
         sublinksClass += " col-2";
     }
