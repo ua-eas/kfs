@@ -310,6 +310,10 @@ nav ul.nav li {
     top: 100px;
 }
 
+.test-env ~ #sidebar {
+    top: 100px;
+}
+
 #sidebar > div {
     position: fixed;
     height: calc(100% - 100px);
