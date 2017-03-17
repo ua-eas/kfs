@@ -408,6 +408,10 @@ nav ul.nav li {
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, .15);
 }
 
+#sidebar ul > li.search > div.sublinks {
+    max-height: 625px;
+}
+
 #sidebar.collapsed ul > li.list-item,
 #sidebar.collapsed .refresh {
     opacity: 0;
@@ -536,7 +540,7 @@ nav ul.nav li {
     border-bottom-left-radius: 3px;
     max-height: 97%;
     min-height: 75px;
-    overflow-x: auto;
+    overflow-x: hidden;
 }
 
 #sidebar .sublinks.col-3 {
