@@ -40,6 +40,7 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.krad.datadictionary.DocumentEntry;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.sys.batch.DataDictionaryFilteredEntity;
@@ -64,6 +65,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -84,44 +86,46 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
     @Override
     public void migrate() {
         final List<MaintenanceDocumentEntry> entities = retrieveAllMaintenanceDocumentEntries();
-        Set<Class<? extends PersistableBusinessObject>> collectionClasses = new HashSet<>();
-        Map<Class<? extends PersistableBusinessObject>, String> businessObjectsOwnedByEntities = listAllTakenBusinessObjects(entities);
-        Map<Class<? extends PersistableBusinessObject>, String> nestedBusinessObjectsByEntity = listNestedBusinessObjects(entities, businessObjectsOwnedByEntities, collectionClasses);
-        businessObjectsOwnedByEntities.putAll(nestedBusinessObjectsByEntity);
+        Set<Class<? extends PersistableBusinessObject>> businessObjectsOwnedByEntities = new HashSet<>();
+        List<EntityDTO> allEntities = new ArrayList<>();
+        allEntities.addAll(processMaintenanceDocuments(entities, businessObjectsOwnedByEntities));
+        allEntities.addAll(processTransactionalDocuments(businessObjectsOwnedByEntities));
+        sendToFinConfig(allEntities);
+    }
 
-        Iterator iterator = businessObjectsOwnedByEntities.entrySet().iterator();
-        Map<String, List<Class<? extends PersistableBusinessObject>>> entityBusinessObjectClasses = new HashMap<>();
-        while (iterator.hasNext()) {
-            Map.Entry<Class<? extends PersistableBusinessObject>, String> entry = (Map.Entry<Class<? extends PersistableBusinessObject>, String>) iterator.next();
-            if (entityBusinessObjectClasses.containsKey(entry.getValue())) {
-                entityBusinessObjectClasses.get(entry.getValue()).add(entry.getKey());
-            } else {
-                List<Class<? extends PersistableBusinessObject>> businessObjectClasses = new ArrayList<>();
-                businessObjectClasses.add(entry.getKey());
-                entityBusinessObjectClasses.put(entry.getValue(), businessObjectClasses);
-            }
-        }
-
+    private List<EntityDTO> processMaintenanceDocuments(List<MaintenanceDocumentEntry> entities, Set<Class<? extends PersistableBusinessObject>> businessObjectsOwnedByEntities) {
+        List<EntityDTO> maintenanceEntities = new ArrayList<>();
         Set<String> migratedEntities = new HashSet<>();
-        List<EntityDTO> maintenanceEntities = entities.stream()
-            .map(maintenanceDocumentEntry -> convertMaintenanceDocumentToEntityDTO(maintenanceDocumentEntry, entityBusinessObjectClasses, migratedEntities, collectionClasses))
-            .filter(entityDTO -> entityDTO != null)
-            .distinct()
-            .collect(Collectors.toList());
+        Map<String, EntityDTO> entityDTOs = new HashMap<>();
+        entities.forEach(entity -> {
+            EntityDTO entityDTO = convertMaintenanceDocumentToEntityDTO(entity, migratedEntities, businessObjectsOwnedByEntities);
+            if (entityDTO != null) {
+                maintenanceEntities.add(entityDTO);
+                populateEntityDTO(entity, entityDTO, businessObjectsOwnedByEntities);
+                entityDTOs.put(entity.getDocumentTypeName(), entityDTO);
+            }
+        });
 
+        entities.forEach(entity -> {
+            EntityDTO entityDTO = entityDTOs.get(entity.getDocumentTypeName());
+            if (entityDTO != null) {
+                populateEntityDTOWithNestedBOs(entity, entityDTO, businessObjectsOwnedByEntities);
+            }
+        });
+        return maintenanceEntities;
+    }
+
+    private List<EntityDTO> processTransactionalDocuments(Set<Class<? extends PersistableBusinessObject>> businessObjectsOwnedByEntities) {
         Map<String, ConcernDTO> takenTables = new HashMap<>();
         List<EntityDTO> transactionalEntities = new ArrayList<>();
         EntityDTO tf = gatherTransactionalEntities("TF", "Transfer of Funds", "KFS-FP", businessObjectsOwnedByEntities, takenTables);
         transactionalEntities.add(tf);
         EntityDTO ib = gatherTransactionalEntities("IB", "Internal Billing", "KFS-FP", businessObjectsOwnedByEntities, takenTables);
         transactionalEntities.add(ib);
+        return transactionalEntities;
+    }
 
-
-        List<EntityDTO> allEntities = new ArrayList<>();
-        allEntities.addAll(maintenanceEntities);
-        allEntities.addAll(transactionalEntities);
-
-
+    private void sendToFinConfig(List<EntityDTO> allEntities) {
         String finConfigUrl = configurationService.getPropertyValueAsString("config.url");
         String finConfigToken = configurationService.getPropertyValueAsString("config.authToken");
         HttpClient httpClient = HttpClientBuilder.create().build();
@@ -149,17 +153,20 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
         }
     }
 
-    protected EntityDTO gatherTransactionalEntities(String documentTypeCode, String documentName, String moduleCode, Map<Class<? extends PersistableBusinessObject>, String> businessObjectsOwnedByEntities, Map<String, ConcernDTO> takenTables) {
+    protected EntityDTO gatherTransactionalEntities(String documentTypeCode, String documentName, String moduleCode, Set<Class<? extends PersistableBusinessObject>> businessObjectsOwnedByEntities, Map<String, ConcernDTO> takenTables) {
         DocumentEntry transactionalDoc = dataDictionaryService.getDataDictionary().getDocumentEntry(documentTypeCode);
-        Set<TableDTO> refTableDTOs = new HashSet<>();
-        Set<ConcernDTO> concernDTOs = new HashSet<>();
 
+        TableDTO rootTable = buildTransactionDocumentTableDTO(transactionalDoc.getDocumentClass(), documentName);
+        List<TableDTO> refTableDTOs = new ArrayList<>();
+        rootTable.setTables(refTableDTOs);
+
+        Set<ConcernDTO> concernDTOs = new HashSet<>();
         Map<String, Class> refObjectFields = persistenceStructureService.listReferenceObjectFields(transactionalDoc.getDocumentClass());
         Iterator<Map.Entry<String, Class>> refObjIter = refObjectFields.entrySet().iterator();
         while (refObjIter.hasNext()) {
             Map.Entry refObj = refObjIter.next();
             Class<? extends PersistableBusinessObject> refObjClass = (Class<? extends PersistableBusinessObject>)refObj.getValue();
-            if (!businessObjectsOwnedByEntities.containsKey(refObjClass)) {
+            if (!businessObjectsOwnedByEntities.contains(refObjClass)) {
                 String tableName = persistenceStructureService.getTableName(refObjClass);
                 if (concerns.contains(persistenceStructureService.getTableName(refObjClass))) {
                     ConcernDTO concern;
@@ -181,7 +188,7 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
         while (collObjIter.hasNext()) {
             Map.Entry collObj = collObjIter.next();
             Class<? extends PersistableBusinessObject> collObjClass = (Class<? extends PersistableBusinessObject>)collObj.getValue();
-            if (!businessObjectsOwnedByEntities.containsKey(collObjClass)) {
+            if (!businessObjectsOwnedByEntities.contains(collObjClass)) {
                 String tableName = persistenceStructureService.getTableName(collObjClass);
                 if (concerns.contains(persistenceStructureService.getTableName(collObjClass))) {
                     ConcernDTO concern;
@@ -199,7 +206,7 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
         }
 
         EntityDTO entityDTO = new EntityDTO();
-        entityDTO.setTables(refTableDTOs);
+        entityDTO.setRootTable(rootTable);
         entityDTO.setConcerns(concernDTOs);
         entityDTO.setName(documentName);
         entityDTO.setCode(documentTypeCode);
@@ -220,36 +227,40 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
         return concernDTO;
     }
 
-
-    protected Map<Class<? extends PersistableBusinessObject>,String> listNestedBusinessObjects(List<MaintenanceDocumentEntry> entities, Map<Class<? extends PersistableBusinessObject>, String> businessObjectsOwnedByEntities, Set<Class<? extends PersistableBusinessObject>> collectionClasses) {
-        Map<Class<? extends PersistableBusinessObject>,String> nestedBusinessObjects = new HashMap<>();
-
-        entities.stream().forEach(entity -> {
-            final String documentTypeName = entity.getDocumentTypeName();
-            final Class<? extends BusinessObject> businessObjectClass = entity.getBusinessObjectClass();
-            entity.getMaintainableSections().stream().forEach(maintainableSection -> {
-                List<MaintainableItemDefinition> maintainableItems = maintainableSection.getMaintainableItems();
-                assignUnclaimedAttributeClasses(businessObjectsOwnedByEntities, nestedBusinessObjects, documentTypeName, businessObjectClass, maintainableItems);
-                maintainableItems.stream()
-                    .filter(maintainbleItem -> maintainbleItem instanceof MaintainableCollectionDefinition)
-                    .map(maintainableItem -> (MaintainableCollectionDefinition)maintainableItem)
-                    .forEach(maintainableCollectionDefinition -> {
-                        collectionClasses.add((Class<? extends PersistableBusinessObject>)maintainableCollectionDefinition.getBusinessObjectClass());
-                        assignUnclaimedAttributeClasses(businessObjectsOwnedByEntities, nestedBusinessObjects, documentTypeName, maintainableCollectionDefinition.getBusinessObjectClass(), maintainableCollectionDefinition.getMaintainableFields());
-                        if (maintainableCollectionDefinition.getMaintainableCollections() != null && !maintainableCollectionDefinition.getMaintainableCollections().isEmpty()) {
-                            maintainableCollectionDefinition.getMaintainableCollections().forEach(maintainableCollection -> {
-                                collectionClasses.add((Class<? extends PersistableBusinessObject>)maintainableCollection.getBusinessObjectClass());
-                                assignUnclaimedAttributeClasses(businessObjectsOwnedByEntities, nestedBusinessObjects, documentTypeName, maintainableCollection.getBusinessObjectClass(), maintainableCollection.getMaintainableFields());
-                            });
-                        }
-                    });
-            });
+    protected void populateEntityDTOWithNestedBOs(MaintenanceDocumentEntry entity, EntityDTO entityDTO, Set<Class<? extends PersistableBusinessObject>> businessObjectsOwnedByEntities) {
+        final String documentTypeName = entity.getDocumentTypeName();
+        final Class<? extends BusinessObject> businessObjectClass = entity.getBusinessObjectClass();
+        entity.getMaintainableSections().stream().forEach(maintainableSection -> {
+            List<MaintainableItemDefinition> maintainableItems = maintainableSection.getMaintainableItems();
+            assignUnclaimedAttributeClasses(entityDTO.getRootTable(), businessObjectsOwnedByEntities, documentTypeName, businessObjectClass, maintainableItems);
+            maintainableItems.stream()
+                .filter(maintainbleItem -> maintainbleItem instanceof MaintainableCollectionDefinition)
+                .map(maintainableItem -> (MaintainableCollectionDefinition)maintainableItem)
+                .forEach(maintainableCollectionDefinition -> {
+                    TableDTO collectionTableDTO = pickMatchingTableDTO(entityDTO.getRootTable().getTables(), maintainableCollectionDefinition.getBusinessObjectClass());
+                    assignUnclaimedAttributeClasses(collectionTableDTO, businessObjectsOwnedByEntities, documentTypeName, maintainableCollectionDefinition.getBusinessObjectClass(), maintainableCollectionDefinition.getMaintainableFields());
+                    if (maintainableCollectionDefinition.getMaintainableCollections() != null && !maintainableCollectionDefinition.getMaintainableCollections().isEmpty()) {
+                        maintainableCollectionDefinition.getMaintainableCollections().forEach(maintainableCollection -> {
+                            TableDTO subCollectionTableDTO = pickMatchingTableDTO(collectionTableDTO.getTables(), maintainableCollection.getBusinessObjectClass());
+                            assignUnclaimedAttributeClasses(subCollectionTableDTO, businessObjectsOwnedByEntities, documentTypeName, maintainableCollection.getBusinessObjectClass(), maintainableCollection.getMaintainableFields());
+                        });
+                    }
+                });
         });
-
-        return nestedBusinessObjects;
     }
 
-    protected void assignUnclaimedAttributeClasses(Map<Class<? extends PersistableBusinessObject>, String> businessObjectsOwnedByEntities, Map<Class<? extends PersistableBusinessObject>, String> nestedBusinessObjects, String documentTypeName, Class<? extends BusinessObject> businessObjectClass, List<? extends MaintainableItemDefinition> maintainableItems) {
+    private TableDTO pickMatchingTableDTO(List<TableDTO> tables, Class<? extends BusinessObject> businessObjectClass) {
+        final String tableName = persistenceStructureService.getTableName((Class<? extends PersistableBusinessObject>)businessObjectClass);
+        Optional<TableDTO> tableDTO = tables.stream()
+            .filter(currTableDTO -> StringUtils.equals(currTableDTO.getCode(), tableName))
+            .findFirst();
+        if (tableDTO.isPresent()) {
+            return tableDTO.get();
+        }
+        return null;
+    }
+
+    protected void assignUnclaimedAttributeClasses(TableDTO tableDTO, Set<Class<? extends PersistableBusinessObject>> businessObjectsOwnedByEntities, String documentTypeName, Class<? extends BusinessObject> businessObjectClass, List<? extends MaintainableItemDefinition> maintainableItems) {
         maintainableItems.stream()
             .filter(maintainableItem -> maintainableItem instanceof MaintainableFieldDefinition)
             .filter(maintainableField -> maintainableField.getName().contains("."))
@@ -258,19 +269,20 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
                 String attributeKey = maintainableField.getName().substring(0, maintainableField.getName().indexOf("."));
                 return thieveAttributeClassFromBusinessObjectClass(businessObjectClass, attributeKey);
             })
-            .filter(attributeClass -> attributeClass != null && PersistableBusinessObject.class.isAssignableFrom(attributeClass) && !businessObjectsOwnedByEntities.containsKey((Class<? extends PersistableBusinessObject>)attributeClass) )
+            .filter(attributeClass -> attributeClass != null && PersistableBusinessObject.class.isAssignableFrom(attributeClass))
             .map(attributeClass -> (Class<? extends PersistableBusinessObject>)attributeClass)
             .forEach(attributeClass -> {
-                if (nestedBusinessObjects.containsKey(attributeClass)) {
+                if (businessObjectsOwnedByEntities.contains(attributeClass)) {
                     LOG.error("Attribute Class already taken: " + attributeClass.getSimpleName() + "(" + documentTypeName + ")");
                 } else {
-                    nestedBusinessObjects.put(attributeClass, documentTypeName);
+                    TableDTO subTable = buildTableDTO(attributeClass, false);
+                    tableDTO.addTable(subTable);
+                    businessObjectsOwnedByEntities.add(attributeClass);
                 }
             });
     }
 
     protected List<MaintenanceDocumentEntry> retrieveAllMaintenanceDocumentEntries() {
-
          final Map<Boolean, List<MaintenanceDocumentEntry>> partitionedEntries = dataDictionaryService.getDataDictionary().getDocumentEntries().values().stream()
                 .filter(entry -> entry instanceof MaintenanceDocumentEntry)
                 .map(entry -> (MaintenanceDocumentEntry)entry)
@@ -283,89 +295,103 @@ public class DataDictionaryMigrationServiceImpl implements DataDictionaryMigrati
          });
 
          return partitionedEntries.get(true);
-
     }
 
-    protected Map<Class<? extends PersistableBusinessObject>, String> listAllTakenBusinessObjects(List<MaintenanceDocumentEntry> maintenanceDocumentEntries) {
-        Map<Class<? extends PersistableBusinessObject>, String> takenBusinessObjects = new HashMap<>();
-        maintenanceDocumentEntries.forEach(entry -> {
-            if (PersistableBusinessObject.class.isAssignableFrom(entry.getDataObjectClass())) {
-                String documentTypeName = entry.getDocumentTypeName();
-                takenBusinessObjects.put((Class<? extends PersistableBusinessObject>)entry.getDataObjectClass(), documentTypeName);
+    protected void populateEntityDTO(MaintenanceDocumentEntry entry, EntityDTO entityDTO, Set<Class<? extends PersistableBusinessObject>> businessObjectsOwnedByEntities) {
+        if (PersistableBusinessObject.class.isAssignableFrom(entry.getDataObjectClass())) {
+            String documentTypeName = entry.getDocumentTypeName();
+            businessObjectsOwnedByEntities.add((Class<? extends PersistableBusinessObject>)entry.getDataObjectClass());
 
-                entry.getMaintainableSections().stream().forEach(maintainableSection ->
-                    maintainableSection.getMaintainableItems().stream()
-                        .filter(maintainableItem -> maintainableItem instanceof MaintainableCollectionDefinition)
-                        .map(maintainableItem -> (MaintainableCollectionDefinition) maintainableItem)
-                        .forEach(maintainableCollectionDefinition -> {
-                            Class<? extends PersistableBusinessObject> businessObjectClass = (Class<? extends PersistableBusinessObject>) maintainableCollectionDefinition.getBusinessObjectClass();
-                            if (takenBusinessObjects.containsKey(businessObjectClass)) {
-                                LOG.error("Collection Class already taken: " + businessObjectClass.getSimpleName() + "(" + documentTypeName + ")");
-                            } else {
-                                takenBusinessObjects.put(((Class<? extends PersistableBusinessObject>) maintainableCollectionDefinition.getBusinessObjectClass()), documentTypeName);
-                            }
+            entry.getMaintainableSections().stream().forEach(maintainableSection ->
+                maintainableSection.getMaintainableItems().stream()
+                    .filter(maintainableItem -> maintainableItem instanceof MaintainableCollectionDefinition)
+                    .map(maintainableItem -> (MaintainableCollectionDefinition) maintainableItem)
+                    .forEach(maintainableCollectionDefinition -> {
+                        Class<? extends PersistableBusinessObject> businessObjectClass = (Class<? extends PersistableBusinessObject>) maintainableCollectionDefinition.getBusinessObjectClass();
+                        if (businessObjectsOwnedByEntities.contains(businessObjectClass)) {
+                            LOG.error("Collection Class already taken: " + businessObjectClass.getSimpleName() + "(" + documentTypeName + ")");
+                        } else {
+                            final TableDTO collectionTable = buildTableDTO(businessObjectClass, true);
+                            businessObjectsOwnedByEntities.add(((Class<? extends PersistableBusinessObject>) maintainableCollectionDefinition.getBusinessObjectClass()));
+                            entityDTO.getRootTable().addTable(collectionTable);
+
                             if (maintainableCollectionDefinition.getMaintainableCollections() != null && !maintainableCollectionDefinition.getMaintainableCollections().isEmpty()) {
                                 maintainableCollectionDefinition.getMaintainableCollections().forEach(maintainableSubCollection -> {
                                     Class<? extends PersistableBusinessObject> subCollectionBusinessObjectClass = (Class<? extends PersistableBusinessObject>) maintainableSubCollection.getBusinessObjectClass();
-                                    if (takenBusinessObjects.containsKey(subCollectionBusinessObjectClass)) {
+                                    if (businessObjectsOwnedByEntities.contains(subCollectionBusinessObjectClass)) {
                                         LOG.error("Collection Class already taken: " + subCollectionBusinessObjectClass.getSimpleName() + "(" + documentTypeName + ")");
                                     } else {
-                                        takenBusinessObjects.put(subCollectionBusinessObjectClass, documentTypeName);
+                                        final TableDTO subTableDTO = buildTableDTO(subCollectionBusinessObjectClass, true);
+                                        businessObjectsOwnedByEntities.add(subCollectionBusinessObjectClass);
+                                        collectionTable.addTable(subTableDTO);
                                     }
                                 });
                             }
-                        })
-                );
+                        }
+                    })
+            );
 
-            }
-
-        });
-        return takenBusinessObjects;
+        }
     }
 
-    protected EntityDTO convertMaintenanceDocumentToEntityDTO(MaintenanceDocumentEntry maintenanceDocumentEntry, Map<String, List<Class<? extends PersistableBusinessObject>>> businessObjectsOwnedByEntities, Set<String> migratedEntities, Set<Class<? extends PersistableBusinessObject>> collectionClasses) {
+    protected EntityDTO convertMaintenanceDocumentToEntityDTO(MaintenanceDocumentEntry maintenanceDocumentEntry, Set<String> migratedEntities, Set<Class<? extends PersistableBusinessObject>> businessObjectsOwnedByEntities) {
         if (!migratedEntities.contains(maintenanceDocumentEntry.getDocumentTypeName())) {
+            migratedEntities.add(maintenanceDocumentEntry.getDocumentTypeName());
             EntityDTO entityDTO = new EntityDTO();
             entityDTO.setModuleCode(kualiModuleService.getResponsibleModuleService(maintenanceDocumentEntry.getDataObjectClass()).getModuleConfiguration().getNamespaceCode());
             entityDTO.setCode(maintenanceDocumentEntry.getDocumentTypeName());
             entityDTO.setName(retrieveObjectLabel((Class<? extends PersistableBusinessObject>) maintenanceDocumentEntry.getDataObjectClass()));
-            Set<TableDTO> tables = buildTableDTOs(businessObjectsOwnedByEntities.get(maintenanceDocumentEntry.getDocumentTypeName()), collectionClasses);
-            entityDTO.setTables(tables);
+            TableDTO rootTable = buildTableDTO((Class<? extends PersistableBusinessObject>)maintenanceDocumentEntry.getBusinessObjectClass(), false);
+            businessObjectsOwnedByEntities.add((Class<? extends PersistableBusinessObject>)maintenanceDocumentEntry.getBusinessObjectClass());
+            entityDTO.setRootTable(rootTable);
             return entityDTO;
         } else {
             return null;
         }
     }
 
-    protected Set<TableDTO> buildTableDTOs(List<Class<? extends PersistableBusinessObject>> businessObjectClassesForEntity, Set<Class<? extends PersistableBusinessObject>> collectionClasses) {
-        Map<Boolean, List<Class<? extends PersistableBusinessObject>>> partitionedTables = businessObjectClassesForEntity.stream()
-                .collect(Collectors.partitioningBy(businessObjectClass -> filteredTables.stream()
-                        .noneMatch(filteredTable -> filteredTable.matches(businessObjectClass.getSimpleName()))));
-
-
-        partitionedTables.get(false).stream().forEach(businessObjectClass -> {
-            LOG.warn("Filtered out Table for " + businessObjectClass.getSimpleName());
-        });
-
-        return partitionedTables.get(true).stream().map(businessObjectClass -> buildTableDTO(businessObjectClass, collectionClasses.contains(businessObjectClass)))
-                .filter(tableDTO -> tableDTO != null).distinct().collect(Collectors.toSet());
-
+    protected boolean isTableFiltered(Class<? extends PersistableBusinessObject> businessObjectClass) {
+        return filteredTables.stream()
+                .anyMatch(filteredTable -> filteredTable.matches(businessObjectClass.getSimpleName()));
     }
 
     protected TableDTO buildTableDTO(Class<? extends PersistableBusinessObject> tableClass, boolean collection) {
-        TableDTO tableDTO = new TableDTO();
         if (persistenceStructureService.isPersistable(tableClass)) {
-            tableDTO.setCode(persistenceStructureService.getTableName(tableClass));
-            tableDTO.setName(retrieveObjectLabel(tableClass));
-            tableDTO.setFields(buildFieldDTOs(tableClass));
-            tableDTO.setCollection(collection);
-            return tableDTO;
+
+            if (isTableFiltered(tableClass)) {
+                LOG.warn("Filtered out Table for " + tableClass.getSimpleName());
+            } else {
+                TableDTO tableDTO = new TableDTO();
+                tableDTO.setCode(persistenceStructureService.getTableName(tableClass));
+                tableDTO.setName(retrieveObjectLabel(tableClass));
+                tableDTO.setFields(buildFieldDTOs(tableClass));
+                tableDTO.setCollection(collection);
+                return tableDTO;
+            }
         }
         return null;
     }
 
-    protected List<FieldDTO> buildFieldDTOs(final Class<? extends PersistableBusinessObject> tableClass) {
+    protected TableDTO buildTransactionDocumentTableDTO(Class<? extends Document> tableClass, String tableName) {
+        if (persistenceStructureService.isPersistable(tableClass)) {
 
+            if (isTableFiltered(tableClass)) {
+                LOG.warn("Filtered out Table for " + tableClass.getSimpleName());
+            } else {
+                TableDTO tableDTO = new TableDTO();
+                tableDTO.setCode(persistenceStructureService.getTableName(tableClass));
+                tableDTO.setName(tableName);
+                tableDTO.setFields(buildFieldDTOs(tableClass));
+                tableDTO.setCollection(false);
+                return tableDTO;
+            }
+        }
+        return null;
+    }
+
+
+
+    protected List<FieldDTO> buildFieldDTOs(final Class<? extends PersistableBusinessObject> tableClass) {
         Map<Boolean, List<String>> partitionedFields = (Map<Boolean, List<String>>)persistenceStructureService
                                             .listFieldNames(tableClass)
                                             .stream()

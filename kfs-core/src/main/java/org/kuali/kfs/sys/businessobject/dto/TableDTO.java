@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.sys.businessobject.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TableDTO {
@@ -27,6 +28,7 @@ public class TableDTO {
     private String description;
     private List<FieldDTO> fields;
     private boolean collection;
+    private List<TableDTO> tables;
 
     public String getCode() {
         return code;
@@ -66,6 +68,24 @@ public class TableDTO {
 
     public void setCollection(boolean collection) {
         this.collection = collection;
+    }
+
+    public List<TableDTO> getTables() {
+        return tables;
+    }
+
+    public void setTables(List<TableDTO> tables) {
+        this.tables = tables;
+    }
+
+    public void addTable(TableDTO table) {
+        if (table != null) {
+            if (tables == null) {
+                tables = new ArrayList<>();
+            }
+
+            tables.add(table);
+        }
     }
 
     @Override

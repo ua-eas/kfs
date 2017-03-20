@@ -27,7 +27,7 @@ public class EntityDTO {
     private String code;
     private String name;
     private String description;
-    private Set<TableDTO> tables;
+    private TableDTO rootTable;
     private Set<ConcernDTO> concerns = new HashSet<>();
 
     public String getModuleCode() {
@@ -62,12 +62,12 @@ public class EntityDTO {
         this.description = description;
     }
 
-    public Set<TableDTO> getTables() {
-        return tables;
+    public TableDTO getRootTable() {
+        return rootTable;
     }
 
-    public void setTables(Set<TableDTO> tables) {
-        this.tables = tables;
+    public void setRootTable(TableDTO rootTable) {
+        this.rootTable = rootTable;
     }
 
     public Set<ConcernDTO> getConcerns() {
