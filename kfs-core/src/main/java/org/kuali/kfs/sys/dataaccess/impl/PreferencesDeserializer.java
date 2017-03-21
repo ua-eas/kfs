@@ -22,6 +22,7 @@ package org.kuali.kfs.sys.dataaccess.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -84,7 +85,10 @@ class PreferencesDeserializer {
     static void deserializeLinkCategory(Map<String, Object> row, Map<String, Object> group) {
         Map<String,List<Map<String,Object>>> linkCategories = (Map<String, List<Map<String, Object>>>) group.get("links");
         if (linkCategories == null) {
-            linkCategories = new TreeMap<>(Comparator.comparingInt(LINK_GROUP_CATEGORIES::indexOf));
+            //Comparator.comparingInt doesn't seem to generate a Serializable Comparator so we do this...
+            linkCategories = new TreeMap<>((Comparator<String> & Serializable)
+                    (c1, c2) -> Integer.compare(LINK_GROUP_CATEGORIES.indexOf(c1), LINK_GROUP_CATEGORIES.indexOf(c2)));
+
             group.put("links", linkCategories);
         }
 
@@ -161,5 +165,4 @@ class PreferencesDeserializer {
             permDetails.put(permDetailKey, permDetailValue);
         }
     }
-
 }

@@ -54,6 +54,6 @@
     <cache name="KFS/AssetObjectCode" maxEntriesLocalHeap="10000"/>
     <cache name="KFS/MileageRate" maxEntriesLocalHeap="10000" statistics="true"/>
 
-    <cache name="KFS/InstitutionPreferences" maxEntriesLocalHeap="10000" timeToLiveSeconds="86760"/>
-
+    <cache name="KFS/InstitutionPreferences" maxEntriesLocalHeap="10000" timeToLiveSeconds="86760"
+           overflowToDisk="true" diskPersistent="true"/>
 </ehcache>
