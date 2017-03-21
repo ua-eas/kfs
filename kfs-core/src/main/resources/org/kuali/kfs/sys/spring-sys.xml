@@ -1401,6 +1401,9 @@
                 <bean parent="filteredTable" p:filteredTable="CustomerCreditCardInformation"/>
                 <bean parent="filteredTable" p:filteredTable="CashieringDocument"/>
 
+                <!-- GL -->
+                <bean parent="filteredTable" p:filteredTable="PendingBalancesMove"/>
+
                 <!-- AR -->
                 <bean parent="filteredTable" p:filteredTable="CustomerProcessingType" />
                 <bean parent="filteredTable" p:filteredTable="PrintInvoiceOptions" />
@@ -1615,6 +1618,49 @@
                 <bean parent="filteredField" p:filteredField="Entry.projectCode"/>
                 <bean parent="filteredField" p:filteredField="Reversal.projectCode"/>
                 <bean parent="filteredField" p:filteredField="ExpenditureTransaction.projectCode"/>
+                <bean parent="filteredField" p:filteredField="OriginEntryGroup.sourceCode"/>
+                <bean parent="filteredField" p:filteredField="OriginEntryGroup.valid"/>
+                <bean parent="filteredField" p:filteredField="OriginEntryGroup.process"/>
+                <bean parent="filteredField" p:filteredField="OriginEntryGroup.scrub"/>
+                <bean parent="filteredField" p:filteredField="Entry.transactionDateTimeStamp" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="Reversal.transactionDateTimeStamp" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="Encumbrance.transactionEncumbranceDate"/>
+                <bean parent="filteredField" p:filteredField="Encumbrance.accountLineEncumbrancePurgeCode"/>
+                <bean parent="filteredField" p:filteredField="Encumbrance.timestamp" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="Balance.accountLineAnnualBalanceAmount"/>
+                <bean parent="filteredField" p:filteredField="Balance.beginningBalanceLineAmount"/>
+                <bean parent="filteredField" p:filteredField="Balance.contractsGrantsBeginningBalanceAmount"/>
+                <bean parent="filteredField" p:filteredField="Balance.month1Amount"/>
+                <bean parent="filteredField" p:filteredField="Balance.month2Amount"/>
+                <bean parent="filteredField" p:filteredField="Balance.month3Amount"/>
+                <bean parent="filteredField" p:filteredField="Balance.month4Amount"/>
+                <bean parent="filteredField" p:filteredField="Balance.month5Amount"/>
+                <bean parent="filteredField" p:filteredField="Balance.month6Amount"/>
+                <bean parent="filteredField" p:filteredField="Balance.month7Amount"/>
+                <bean parent="filteredField" p:filteredField="Balance.month8Amount"/>
+                <bean parent="filteredField" p:filteredField="Balance.month9Amount"/>
+                <bean parent="filteredField" p:filteredField="Balance.month10Amount"/>
+                <bean parent="filteredField" p:filteredField="Balance.month11Amount"/>
+                <bean parent="filteredField" p:filteredField="Balance.month12Amount"/>
+                <bean parent="filteredField" p:filteredField="Balance.month13Amount"/>
+                <bean parent="filteredField" p:filteredField="Balance.timestamp" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="SufficientFundBalances.transactionDateTimeStamp" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="GeneralLedgerCorrectionProcessDocument.correctionOutputFileName"/>
+                <bean parent="filteredField" p:filteredField="GeneralLedgerCorrectionProcessDocument.correctionScriptText"/>
+                <bean parent="filteredField" p:filteredField="GeneralLedgerCorrectionProcessDocument.correctionInputGroupId"/>
+                <bean parent="filteredField" p:filteredField="GeneralLedgerCorrectionProcessDocument.correctionOutputGroupId"/>
+                <bean parent="filteredField" p:filteredField="CorrectionCriteria.correctionStartPosition"/>
+                <bean parent="filteredField" p:filteredField="CorrectionCriteria.correctionEndPosition"/>
+                <bean parent="filteredField" p:filteredField="CorrectionChange.correctionStartPosition"/>
+                <bean parent="filteredField" p:filteredField="CorrectionChange.correctionEndPosition"/>
+                <bean parent="filteredField" p:filteredField="CollectorDetail.createDate" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="CollectorDetail.transactionLedgerEntrySequenceNumber" p:audit="true"/>
+                <bean parent="filteredField" p:filteredField="CollectorDetail.collectorDetailNoteText"/>
+                <bean parent="filteredField" p:filteredField="CollectorHeader.campusCode"/>
+                <bean parent="filteredField" p:filteredField="CollectorHeader.contactPersonPhoneNumber"/>
+                <bean parent="filteredField" p:filteredField="CollectorHeader.contactMailingAddress"/>
+                <bean parent="filteredField" p:filteredField="CollectorHeader.contactDepartmentName"/>
+
                 <!-- PDP -->
                 <bean parent="filteredField" p:filteredField="PaymentAccountDetail.projectCode"/>
                 <!-- SYS -->
@@ -2213,7 +2259,6 @@
                 <bean parent="filteredField" p:filteredField="VendorHeader.vendorW8SignedDate"/>
                 <bean parent="filteredField" p:filteredField="VendorHeader.vendorW9SignedDate"/>
                 <bean parent="filteredField" p:filteredField="VendorPhoneNumber.vendorPhoneExtensionNumber" p:unused="true"/>
-
             </list>
         </property>
         <property name="concerns">
