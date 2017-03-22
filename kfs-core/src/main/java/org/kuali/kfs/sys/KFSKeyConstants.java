@@ -862,7 +862,6 @@ public class KFSKeyConstants {
         public static final String HEADER_MAILING_ADDRESS_REQUIRED = "error.collector.header.mailing.address.required";
         public static final String HEADER_DEPARTMENT_NAME_REQUIRED = "error.collector.header.department.name.required";
         public static final String HEADER_BAD_TRANSMISSION_DATE_FORMAT = "error.collector.header.bad.transmission.date.format";
-        public static final String INSUFFICIENT_FUNDS = "error.collector.insufficientfunds";
     }
 
     public static final class OrganizationReversionProcess {

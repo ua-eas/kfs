@@ -14,9 +14,7 @@ import org.kuali.kfs.gl.batch.CollectorFlatFileInputType;
 import org.kuali.kfs.gl.batch.CollectorStep;
 import org.kuali.kfs.gl.batch.service.CollectorReportService;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
-import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.gl.report.CollectorReportData;
-import org.kuali.kfs.gl.service.SufficientFundsService;
 import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.sys.KFSConstants;
@@ -38,7 +36,6 @@ import java.util.List;
 public class CollectorHelperServiceImplTest {
     private CollectorHelperServiceImpl collectorHelperService;
     private ParameterService parameterService;
-    private SufficientFundsService sufficientFundsService;
     private CollectorFlatFileInputType collectorFlatFileType;
     private DateTimeService dateTimeService;
     private UniversityDateService universityDateService;
@@ -81,7 +78,6 @@ public class CollectorHelperServiceImplTest {
         };
 
         parameterService = EasyMock.createMock(ParameterService.class);
-        sufficientFundsService = EasyMock.createMock(SufficientFundsService.class);
         dateTimeService = EasyMock.createMock(DateTimeService.class);
         universityDateService = EasyMock.createMock(UniversityDateService.class);
         collectorReportService = EasyMock.createMock(CollectorReportService.class);
@@ -89,7 +85,6 @@ public class CollectorHelperServiceImplTest {
         batchInputFileService = new BatchInputFileServiceImpl();
 
         collectorHelperService.setParameterService(parameterService);
-        collectorHelperService.setSufficientFundsService(sufficientFundsService);
         collectorHelperService.setBatchInputFileService(batchInputFileService);
         collectorHelperService.setCollectorReportService(collectorReportService);
 
@@ -102,60 +97,6 @@ public class CollectorHelperServiceImplTest {
     }
 
     @Test
-    public void testPerformValidationNoCheckSufficientFunds() {
-        CollectorBatch batch = getBatch(true);
-        MessageMap messageMap = new MessageMap();
-
-        EasyMock.expect(parameterService.getParameterValueAsBoolean(CollectorStep.class,"PERFORM_DUPLICATE_HEADER_CHECK_IND")).andReturn(false);
-        EasyMock.expect(parameterService.getParameterValueAsBoolean("KFS-GL","All","COLLECTOR_CHECK_SUFFICIENT_FUNDS_IND")).andReturn(false);
-        EasyMock.replay(parameterService,sufficientFundsService);
-
-        boolean isValid = collectorHelperService.performValidation(batch,messageMap);
-
-        EasyMock.verify(parameterService,sufficientFundsService);
-        Assert.assertEquals(true,isValid);
-        Assert.assertEquals(0,messageMap.getErrorCount());
-    }
-
-    @Test
-    public void testPerformValidationCheckSufficientFunds_withSufficientFunds() {
-        CollectorBatch batch = getBatch(true);
-        MessageMap messageMap = new MessageMap();
-
-        EasyMock.expect(parameterService.getParameterValueAsBoolean(CollectorStep.class,"PERFORM_DUPLICATE_HEADER_CHECK_IND")).andReturn(false);
-        EasyMock.expect(parameterService.getParameterValueAsBoolean("KFS-GL","All","COLLECTOR_CHECK_SUFFICIENT_FUNDS_IND")).andReturn(true);
-        EasyMock.expect(sufficientFundsService.checkSufficientFunds((List<Transaction>)EasyMock.anyObject())).andReturn(new ArrayList<>());
-        EasyMock.replay(parameterService,sufficientFundsService);
-
-        boolean isValid = collectorHelperService.performValidation(batch,messageMap);
-
-        EasyMock.verify(parameterService,sufficientFundsService);
-        Assert.assertEquals(true,isValid);
-        Assert.assertEquals(0,messageMap.getErrorCount());
-    }
-
-    @Test
-    public void testPerformValidationCheckSufficientFunds_noSufficientFunds() {
-        CollectorBatch batch = getBatch(true);
-        MessageMap messageMap = new MessageMap();
-
-        EasyMock.expect(parameterService.getParameterValueAsBoolean(CollectorStep.class,"PERFORM_DUPLICATE_HEADER_CHECK_IND")).andReturn(false);
-        EasyMock.expect(parameterService.getParameterValueAsBoolean("KFS-GL","All","COLLECTOR_CHECK_SUFFICIENT_FUNDS_IND")).andReturn(true);
-        EasyMock.expect(sufficientFundsService.checkSufficientFunds((List<Transaction>)EasyMock.anyObject())).andReturn(getSufficientFundsItems());
-        EasyMock.replay(parameterService,sufficientFundsService);
-
-        boolean isValid = collectorHelperService.performValidation(batch,messageMap);
-
-        EasyMock.verify(parameterService,sufficientFundsService);
-        Assert.assertEquals(false,isValid);
-        Assert.assertEquals(1,messageMap.getErrorCount());
-        List<ErrorMessage> messages = messageMap.getErrorMessagesForProperty(KFSConstants.GLOBAL_ERRORS);
-        Assert.assertEquals(1,messages.size());
-        Assert.assertEquals("error.collector.insufficientfunds",messages.get(0).getErrorKey());
-        Assert.assertEquals("BL-0211908-2400-SB-AC-EX-50.00",messages.get(0).getMessageParameters()[0]);
-    }
-
-    @Test
     public void testLoadCollectorApiDataGood() {
         Collection<String> docTypes = new ArrayList<>();
         docTypes.add("ID*");
@@ -163,13 +104,12 @@ public class CollectorHelperServiceImplTest {
         EasyMock.expect(parameterService.getParameterValuesAsString(CollectorStep.class,"EQUAL_DEBIT_CREDIT_TOTAL_DOCUMENT_TYPES")).andReturn(docTypes);
         collectorReportService.generateCollectorRunReports(EasyMock.anyObject());
         EasyMock.expect(parameterService.getParameterValueAsBoolean(CollectorStep.class,"PERFORM_DUPLICATE_HEADER_CHECK_IND")).andReturn(false);
-        EasyMock.expect(parameterService.getParameterValueAsBoolean("KFS-GL","All","COLLECTOR_CHECK_SUFFICIENT_FUNDS_IND")).andReturn(false);
 
-        EasyMock.replay(parameterService,sufficientFundsService,dateTimeService,universityDateService,collectorReportService);
+        EasyMock.replay(parameterService,dateTimeService,universityDateService,collectorReportService);
 
         List<ErrorMessage> errors = collectorHelperService.loadCollectorApiData(getUnusedInputStream(),collectorFlatFileType);
 
-        EasyMock.verify(parameterService,sufficientFundsService,dateTimeService,universityDateService,collectorReportService);
+        EasyMock.verify(parameterService,dateTimeService,universityDateService,collectorReportService);
         Assert.assertEquals(0,errors.size());
     }
 
@@ -208,7 +148,6 @@ public class CollectorHelperServiceImplTest {
             }
         };
         collectorHelperService.setParameterService(parameterService);
-        collectorHelperService.setSufficientFundsService(sufficientFundsService);
         collectorHelperService.setBatchInputFileService(batchInputFileService);
         collectorHelperService.setCollectorReportService(collectorReportService);
 
@@ -218,11 +157,11 @@ public class CollectorHelperServiceImplTest {
         EasyMock.expect(parameterService.getParameterValuesAsString(CollectorStep.class,"EQUAL_DEBIT_CREDIT_TOTAL_DOCUMENT_TYPES")).andReturn(docTypes);
         collectorReportService.generateCollectorRunReports(EasyMock.anyObject());
 
-        EasyMock.replay(parameterService,sufficientFundsService,dateTimeService,universityDateService,collectorReportService);
+        EasyMock.replay(parameterService,dateTimeService,universityDateService,collectorReportService);
 
         List<ErrorMessage> errors = collectorHelperService.loadCollectorApiData(getUnusedInputStream(),collectorFlatFileType);
 
-        EasyMock.verify(parameterService,sufficientFundsService,dateTimeService,universityDateService,collectorReportService);
+        EasyMock.verify(parameterService,dateTimeService,universityDateService,collectorReportService);
         Assert.assertEquals(1,errors.size());
         Assert.assertEquals("error.collector.countNoMatch",errors.get(0).getErrorKey());
     }
@@ -263,16 +202,15 @@ public class CollectorHelperServiceImplTest {
             }
         };
         collectorHelperService.setParameterService(parameterService);
-        collectorHelperService.setSufficientFundsService(sufficientFundsService);
         collectorHelperService.setBatchInputFileService(batchInputFileService);
         collectorHelperService.setCollectorReportService(collectorReportService);
         collectorReportService.generateCollectorRunReports(EasyMock.anyObject());
 
-        EasyMock.replay(parameterService,sufficientFundsService,dateTimeService,universityDateService,collectorReportService);
+        EasyMock.replay(parameterService,dateTimeService,universityDateService,collectorReportService);
 
         List<ErrorMessage> errors = collectorHelperService.loadCollectorApiData(getUnusedInputStream(),collectorFlatFileType);
 
-        EasyMock.verify(parameterService,sufficientFundsService,dateTimeService,universityDateService,collectorReportService);
+        EasyMock.verify(parameterService,dateTimeService,universityDateService,collectorReportService);
         Assert.assertEquals(1,errors.size());
         Assert.assertEquals("parse.error",errors.get(0).getErrorKey());
     }

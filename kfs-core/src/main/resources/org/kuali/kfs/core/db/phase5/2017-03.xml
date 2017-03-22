@@ -27,4 +27,10 @@
                         newDataType="VARCHAR(64)"
                         tableName="NAV_LNK_T"/>
     </changeSet>
+
+    <changeSet author="KFS701" id="FINP-1241_REMOVE_COLLECTOR_PARAMETER" context="bootstrap,demo,unit">
+        <delete tableName="KRCR_PARM_T">
+            <where>obj_id = 'FINP-1076'</where>
+        </delete>
+    </changeSet>
 </databaseChangeLog>

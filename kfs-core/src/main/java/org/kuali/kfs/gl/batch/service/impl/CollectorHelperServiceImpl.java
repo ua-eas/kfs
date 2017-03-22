@@ -38,7 +38,6 @@ import org.kuali.kfs.gl.businessobject.OriginEntryInformation;
 import org.kuali.kfs.gl.report.CollectorReportData;
 import org.kuali.kfs.gl.report.PreScrubberReportData;
 import org.kuali.kfs.gl.service.PreScrubberService;
-import org.kuali.kfs.gl.service.SufficientFundsService;
 import org.kuali.kfs.gl.service.impl.CollectorScrubberStatus;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.ErrorMessage;
@@ -53,7 +52,6 @@ import org.kuali.kfs.sys.batch.BatchInputFileType;
 import org.kuali.kfs.sys.batch.service.BatchInputFileService;
 import org.kuali.kfs.sys.batch.service.WrappingBatchService;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
-import org.kuali.kfs.sys.businessobject.SufficientFundsItem;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
@@ -77,16 +75,12 @@ import java.util.Set;
 public class CollectorHelperServiceImpl implements CollectorHelperService {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CollectorHelperServiceImpl.class);
 
-    public static final String ALL = "All";
-    public static final String COLLECTOR_CHECK_SUFFICIENT_FUNDS_IND = "COLLECTOR_CHECK_SUFFICIENT_FUNDS_IND";
-
     private ParameterService parameterService;
     private BatchInputFileService batchInputFileService;
     private CollectorScrubberService collectorScrubberService;
     private AccountService accountService;
     private PreScrubberService preScrubberService;
     private String batchFileDirectoryName;
-    private SufficientFundsService sufficientFundsService;
     private BusinessObjectService businessObjectService;
     private CollectorReportService collectorReportService;
     private ReportWriterService collectorReportWriterService;
@@ -396,10 +390,6 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
             valid = checkDetailKeys(batch, messageMap);
         }
 
-        boolean performSufficientFundsCheck = parameterService.getParameterValueAsBoolean(KFSConstants.CoreModuleNamespaces.GL, ALL, COLLECTOR_CHECK_SUFFICIENT_FUNDS_IND);
-        if (valid && performSufficientFundsCheck) {
-            valid = checkSufficientFunds(batch, messageMap);
-        }
         return valid;
     }
 
@@ -600,43 +590,6 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
     }
 
     /**
-     * Checks for sufficient funds on each entry
-     *
-     * @param batch - batch to validate
-     * @return true if all entries had sufficient funds, false otherwise
-     */
-    protected boolean checkSufficientFunds(CollectorBatch batch, MessageMap messageMap) {
-        List<SufficientFundsItem> sufficientFundsItems = sufficientFundsService.checkSufficientFunds(batch.getOriginEntries());
-
-        if ( sufficientFundsItems.size() > 0 ) {
-            sufficientFundsItems.stream().forEach(item -> reportSufficientFundsError(item,messageMap));
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Add error message for sufficient funds problem
-     */
-    protected void reportSufficientFundsError(SufficientFundsItem item,MessageMap messageMap) {
-        StringBuilder key = new StringBuilder();
-        key.append(item.getAccount().getChartOfAccountsCode());
-        key.append("-");
-        key.append(item.getAccount().getAccountNumber());
-        key.append("-");
-        key.append(item.getFinancialObject().getFinancialObjectCode());
-        key.append("-");
-        key.append(item.getDocumentTypeCode());
-        key.append("-");
-        key.append(item.getBalanceTyp().getFinancialBalanceTypeCode());
-        key.append("-");
-        key.append(item.getFinancialObjectType().getCode());
-        key.append("-");
-        key.append(item.getAmount());
-        messageMap.putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.Collector.INSUFFICIENT_FUNDS, key.toString());
-    }
-
-    /**
      * Generates a String representation of the OriginEntryFull's primary key
      *
      * @param entry     origin entry to get key from
@@ -748,10 +701,6 @@ public class CollectorHelperServiceImpl implements CollectorHelperService {
 
     public void setPreScrubberService(PreScrubberService preScrubberService) {
         this.preScrubberService = preScrubberService;
-    }
-
-    public void setSufficientFundsService(SufficientFundsService sufficientFundsService) {
-        this.sufficientFundsService = sufficientFundsService;
     }
 
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {

@@ -457,7 +457,6 @@
         <property name="accountService" ref="accountService"/>
         <property name="preScrubberService" ref="preScrubberService"/>
         <property name="batchFileDirectoryName" value="${staging.directory}/gl/originEntry"/>
-        <property name="sufficientFundsService" ref="sufficientFundsService"/>
         <property name="businessObjectService" ref="businessObjectService"/>
         <property name="collectorReportService" ref="glCollectorReportService"/>
         <property name="collectorReportWriterService" ref="collectorReportWriterService"/>
