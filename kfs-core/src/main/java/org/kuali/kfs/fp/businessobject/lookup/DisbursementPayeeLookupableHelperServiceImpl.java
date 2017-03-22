@@ -313,7 +313,7 @@ public class DisbursementPayeeLookupableHelperServiceImpl extends AbstractPayeeL
     }
 
     // get the search criteria valid for customer lookup
-    private Map<String, String> getCustomerFieldValues(Map<String, String> fieldValues) {
+    protected Map<String, String> getCustomerFieldValues(Map<String, String> fieldValues) {
         Map<String, String> customerFieldValues = new HashMap<String, String>();
 
         customerFieldValues.put(KFSPropertyConstants.CUSTOMER_NUMBER, fieldValues.get(KFSPropertyConstants.CUSTOMER_NUMBER));
