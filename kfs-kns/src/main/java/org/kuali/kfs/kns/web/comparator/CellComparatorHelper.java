@@ -30,12 +30,8 @@ import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * This class...
- */
 public class CellComparatorHelper {
-
-    static private Pattern HREF_ENCLOSURE = Pattern.compile("<a [^>]+>([^<]*)</a>.*", Pattern.MULTILINE);
+    private static Pattern SPAN_ENCLOSURE = Pattern.compile(".*<span class=\"actualValue\">([^<]*)</span>.*", Pattern.MULTILINE);
 
     /**
      * This method is intended to be used in conjunction with displaytag.
@@ -44,7 +40,7 @@ public class CellComparatorHelper {
      * @return a sanitized version of cell.getStaticValue().toString().
      * @see #getSanitizedStaticValue(String)
      */
-    static public String getSanitizedStaticValue(Cell cell) {
+    public static String getSanitizedStaticValue(Cell cell) {
         if (null == cell) {
             return null;
         }
@@ -53,14 +49,13 @@ public class CellComparatorHelper {
     }
 
     /**
-     * Remove all end-of-line and tab characters (\r, \n, \t). If the value is enclosed in an html anchor tag, strip the html anchor
-     * tag. If the value ends in one or many "&nbsp;"s, strip them off. Return the modified String.
+     * Remove all end-of-line and tab characters (\r, \n, \t). If the value is enclosed in an html span tag, get the contents.
+     * If the value ends in one or many "&nbsp;"s, strip them off. Return the modified String.
      *
      * @param staticValue
      * @return a sanitized version of staticValue
      */
-    static public String getSanitizedStaticValue(String staticValue) {
-
+    public static String getSanitizedStaticValue(String staticValue) {
         if (null == staticValue) {
             return null;
         }
@@ -71,23 +66,17 @@ public class CellComparatorHelper {
 
         String sanitizedValue = staticValue;
 
-        // Extract the value if it's wrapped in an href.
-        Matcher matcher = HREF_ENCLOSURE.matcher(staticValue);
+        Matcher matcher = SPAN_ENCLOSURE.matcher(staticValue);
         if (matcher.matches()) {
-
             sanitizedValue = matcher.group(1).trim();
-
         }
 
         // Strip off any "&nbsp;"s if they come at the end of the value.
         while (sanitizedValue.endsWith("&nbsp;")) {
-
             sanitizedValue = sanitizedValue.substring(0, sanitizedValue.length() - 6).trim();
-
         }
 
         return sanitizedValue;
-
     }
 
     /**
