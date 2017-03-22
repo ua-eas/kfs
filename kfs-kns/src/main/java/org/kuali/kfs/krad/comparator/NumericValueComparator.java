@@ -67,18 +67,25 @@ public class NumericValueComparator implements Serializable, Comparator {
             numericCompare2 = "-" + numericCompare2;
         }
 
-        KualiDecimal k1 = null;
+        boolean invalidValue = false;
+        KualiDecimal k1;
         try {
             k1 = new KualiDecimal(numericCompare1);
         } catch (Throwable t) {
             k1 = KualiDecimal.ZERO;
+            invalidValue = true;
         }
 
-        KualiDecimal k2 = null;
+        KualiDecimal k2;
         try {
             k2 = new KualiDecimal(numericCompare2);
         } catch (Throwable t) {
             k2 = KualiDecimal.ZERO;
+            invalidValue = true;
+        }
+
+        if ( invalidValue ) {
+            return numericCompare1.compareTo(numericCompare2);
         }
 
         double d1 = k1.doubleValue();
