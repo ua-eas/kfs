@@ -122,6 +122,36 @@ public class PreferencesDaoJdbcTest {
     }
 
     @Test
+    public void clearInstitutionPreferencesCache() {
+        CacheManager cacheManager = EasyMock.createMock(CacheManager.class);
+        CacheManagerRegistry cacheManagerRegistry = EasyMock.createMock(CacheManagerRegistry.class);
+        TestCache cache = new TestCache();
+
+        EasyMock.expect(cacheManager.getCache(PreferencesDaoJdbc.INSTITUTION_PREFERENCES_CACHE)).andReturn(cache).anyTimes();
+        EasyMock.expect(cacheManagerRegistry.getCacheManagerByCacheName(PreferencesDaoJdbc.INSTITUTION_PREFERENCES_CACHE)).andReturn(cacheManager).anyTimes();
+
+        EasyMock.replay(cacheManager);
+        EasyMock.replay(cacheManagerRegistry);
+
+        preferencesDao = new PreferencesDaoJdbc();
+        ((PreferencesDaoJdbc)preferencesDao).setCacheManagerRegistry(cacheManagerRegistry);
+
+        String expected = "/mylogo.png";
+        Map<String,Object> prefs = new HashMap<>();
+        prefs.put("logoUrl", expected);
+
+        cache.cacheMap.put("khuntley", prefs);
+
+        prefs = preferencesDao.findInstitutionPreferencesCache("khuntley");
+
+        Assert.assertEquals(expected, prefs.get("logoUrl"));
+
+        preferencesDao.clearInstitutionPreferencesCache();
+
+        Assert.assertNull(cache.cacheMap.get("khuntley"));
+    }
+
+    @Test
     public void saveInstitutionPreferencesNull() {
         thrown.expect(RuntimeException.class);
         thrown.expectMessage("Preferences must not be null");

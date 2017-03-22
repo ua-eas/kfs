@@ -99,25 +99,7 @@ public class PreferencesDaoMongo implements PreferencesDao {
     }
 
     @Override
-    public void setInstitutionPreferencesCacheLength(int seconds) {
-        LOG.debug("setInstitutionPreferencesCacheLength() started");
-
-        dropIndexIfExists(EXPIRE_INDEX_NAME);
-        createExpireIndex(EXPIRE_INDEX_NAME, seconds);
-    }
-
-    @Override
-    public int getInstitutionPreferencesCacheLength() {
-        LOG.debug("getInstitutionPreferencesCacheLength() started");
-
-        // Spring doesn't retrieve all index options so we need to save/get it using another way
-        // rather than looking at the index itself.
-        List<CacheLength> lengths = mongoTemplate.findAll(CacheLength.class, INSTITUTION_PREFERENCES_CACHE_LENGTH);
-        if (lengths.size() > 0) {
-            return lengths.get(0).expireSeconds;
-        }
-        return 0;
-    }
+    public void clearInstitutionPreferencesCache() {}
 
     private void dropCacheLengthObject() {
         mongoTemplate.remove(getCacheLengthQuery(), INSTITUTION_PREFERENCES_CACHE_LENGTH);

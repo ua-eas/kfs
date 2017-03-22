@@ -21,6 +21,7 @@
          updateCheck="false" monitoring="autodetect"
          dynamicConfig="true" name="kfs.core.LocalCacheManager">
 
+    <diskStore path="java.io.tmpdir"/>
 
     <defaultCache
             maxElementsInMemory="10000"

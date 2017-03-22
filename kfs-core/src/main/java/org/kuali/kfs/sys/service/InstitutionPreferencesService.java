@@ -44,9 +44,7 @@ public interface InstitutionPreferencesService {
 
     Map<String, String> saveLogo(String logo);
 
-    void setInstitutionPreferencesCacheLength(int seconds);
-
-    int getInstitutionPreferencesCacheLength();
+    void clearInstitutionPreferencesCache();
 
     boolean hasConfigurationPermission(String principalName);
 }

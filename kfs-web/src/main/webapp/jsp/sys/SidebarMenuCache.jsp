@@ -39,30 +39,9 @@
             <td>
                 <div id="lookup" align="center">
                     <table align="center" cellpadding="0" class="multi-column-table">
-                        <tr>
-                            <td>
-                                <table>
-                                    <tr>
-                                        <th class="grid right" style="width:50.0%;">
-                                            <label id="cacheLength.label" for="cacheLength">
-                                                Cache Expiration Time (in seconds)*:
-                                            </label>
-                                        </th>
-                                        <td class="grid" style="width:50.0%;">
-                                            <input type="text" name='cacheLength'
-                                                   id='cacheLength'
-                                                   value="${KualiForm.cacheLength}"
-                                                   maxlength='32'
-                                                   style=""
-                                                   class="" tabindex="0"/>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
                         <tr align="center">
                             <td height="30" colspan="4" class="infoline">
-                                <input type="submit" name="methodToCall.save" value="Save" class="tinybutton btn btn-default" title="Search" alt="Search">
+                                <input type="submit" name="methodToCall.clear" value="Clear Sidebar Menu Cache" class="tinybutton btn btn-default" title="Clear Cache" alt="Clear Cache">
                                 <!-- KULRICE-8092: Enter key won't return values in Parameter Component in IE-->
                                 <input name="" type="t" value="" style="display:none"/>
                                 <!-- Optional extra buttons -->

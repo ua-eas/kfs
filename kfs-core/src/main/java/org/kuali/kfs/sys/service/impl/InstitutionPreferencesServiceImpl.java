@@ -164,19 +164,10 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     }
 
     @Override
-    public void setInstitutionPreferencesCacheLength(int seconds) {
-        LOG.debug("setInstitutionPreferencesCacheLength() started");
+    public void clearInstitutionPreferencesCache() {
+        LOG.debug("clearInstitutionPreferences() started");
 
-        preferencesDao.setInstitutionPreferencesCacheLength(seconds);
-    }
-
-    @Override
-    public int getInstitutionPreferencesCacheLength() {
-        LOG.debug("getInstitutionPreferencesCacheLength() started");
-
-        int i = preferencesDao.getInstitutionPreferencesCacheLength();
-        LOG.error("getInstitutionPreferencesCacheLength() " + i);
-        return i;
+        preferencesDao.clearInstitutionPreferencesCache();
     }
 
     /**

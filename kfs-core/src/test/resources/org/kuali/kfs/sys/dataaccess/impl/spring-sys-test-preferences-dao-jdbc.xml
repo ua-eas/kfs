@@ -20,6 +20,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
         http://www.springframework.org/schema/tx
@@ -63,5 +64,16 @@
     <bean id="preferencesDao" parent="preferencesDao-parentBean"/>
     <bean id="preferencesDao-parentBean" abstract="true" class="org.kuali.kfs.sys.dataaccess.impl.PreferencesDaoJdbc">
         <property name="dataSource" ref="dataSource"/>
+        <property name="cacheManagerRegistry" ref="kfs.core.cacheManagerRegistry"/>
+    </bean>
+
+    <bean id="kfs.core.LocalCacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+        <property name="caches">
+            <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="default"/>
+        </property>
+    </bean>
+
+    <bean id="kfs.core.cacheManagerRegistry" class="org.kuali.rice.core.impl.cache.CacheManagerRegistryImpl">
+        <property name="cacheManager" ref="kfs.core.LocalCacheManager"/>
     </bean>
 </beans>

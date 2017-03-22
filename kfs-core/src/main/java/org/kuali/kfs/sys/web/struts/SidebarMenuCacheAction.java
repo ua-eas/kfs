@@ -22,6 +22,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.InstitutionPreferencesService;
@@ -37,27 +38,15 @@ public class SidebarMenuCacheAction extends KualiAction {
     public ActionForward start(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("start() started");
 
-        SidebarMenuCacheForm smcForm = (SidebarMenuCacheForm) form;
-
-        if (smcForm.getCacheLength() == null) {
-            smcForm.setCacheLengthValue(getInstitutionPreferencesService().getInstitutionPreferencesCacheLength());
-        }
-
-        request.setAttribute("KualiForm", smcForm);
+        request.setAttribute("KualiForm", new KualiForm());
 
         return mapping.findForward("basic");
     }
 
-    public ActionForward save(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        LOG.debug("save() started");
+    public ActionForward clear(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        LOG.debug("clear() started");
 
-        SidebarMenuCacheForm smcForm = (SidebarMenuCacheForm) form;
-        if (smcForm.isValid()) {
-            getInstitutionPreferencesService().setInstitutionPreferencesCacheLength(smcForm.getCacheLengthValue());
-        } else {
-            GlobalVariables.getMessageMap().putErrorForSectionId("top", "error.sys.sidebar.menu.cache");
-            return start(mapping, form, request, response);
-        }
+        getInstitutionPreferencesService().clearInstitutionPreferencesCache();
 
         return mapping.findForward("portal");
     }

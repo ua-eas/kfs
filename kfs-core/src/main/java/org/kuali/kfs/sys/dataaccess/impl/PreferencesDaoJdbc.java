@@ -225,11 +225,9 @@ public class PreferencesDaoJdbc extends PlatformAwareDaoBaseJdbc implements Pref
     }
 
     @Override
-    public void setInstitutionPreferencesCacheLength(int seconds) {}
-
-    @Override
-    public int getInstitutionPreferencesCacheLength() {
-        return 0;
+    public void clearInstitutionPreferencesCache() {
+        CacheManager cm = cacheManagerRegistry.getCacheManagerByCacheName(INSTITUTION_PREFERENCES_CACHE);
+        cm.getCache(INSTITUTION_PREFERENCES_CACHE).clear();
     }
 
     public CacheManagerRegistry getCacheManagerRegistry() {
