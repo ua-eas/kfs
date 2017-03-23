@@ -1,3 +1,291 @@
+************************* 2017-03-23 *************************
+commit f78d6541f1c890917221c529e5aa3a29af191495
+Author: lmarkes <lesley@kuali.co>
+Date:   2017-03-23 11:06:02 -0500
+
+    FINP-1184: remove mongo migration utility
+
+:100644 100644 33b3487... ced6743... M	kfs-core/src/main/config/kfs-security-skel-config.properties
+:100644 100644 896dc46... 9d4914b... M	kfs-core/src/main/resources/kfs-security-default-config.properties
+:100644 100644 72d8c6e... 494b4e4... M	kfs-core/src/main/resources/org/kuali/kfs/sys/spring-sys.xml
+:100644 100644 f3e8ad9... 88dc0b1... M	kfs-core/src/main/resources/spring-kfs-imported-rice-beans.xml
+:100644 000000 b9c560c... 0000000... D	mongo2liquirelational/pom.xml
+:100644 000000 51d0d4e... 0000000... D	mongo2liquirelational/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/DocumentStoreLiquirelationalExporter.java
+:100644 000000 b70de03... 0000000... D	mongo2liquirelational/src/main/resources/org/kuali/kfs/sys/datatools/liquimongo/spring-mongo2liquirelational.xml
+:100644 100644 b1144e1... 4f724f8... M	pom.xml
+
+commit 6d127876ea9267cf1d5aeb4d8600b1a0b00ef044
+Author: lmarkes <lmarkes@users.noreply.github.com>
+Date:   2017-03-23 10:38:43 -0500
+
+    FINP-1147: remove DocStoreLiquiMongo & associated files (#1084)
+    
+    * FINP-1147: remove DocStoreLiquiMongo & associated files
+    
+    A little more dependency clean up is coming in a third jira
+    
+    * Remove test that is not longer needed -- missed on earlier cleanup
+
+:100644 100644 5a40f52... a0ed0da... M	kfs-ar/src/test/config/kfs-ar.properties
+:100644 100644 6d96157... fd701c2... M	kfs-cam/src/test/config/kfs-cam.properties
+:100644 100644 9c9b4b3... b73e756... M	kfs-cg/src/test/config/kfs-cg.properties
+:100644 100644 98d8fcd... d356a6b... M	kfs-core/src/main/config/kfs-skel-config.properties
+:100644 100644 5ad52a6... 554d970... M	kfs-core/src/main/java/org/kuali/kfs/sys/KFSPropertyConstants.java
+:100644 100644 b951c50... b864778... M	kfs-core/src/main/java/org/kuali/kfs/sys/context/SpringContext.java
+:100644 100644 ab29550... 10f89ac... M	kfs-core/src/main/resources/kfs-default-config.properties
+:100644 000000 28458d1... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/2015-08.json
+:100644 000000 7bbc3ad... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/2015-09.json
+:100644 000000 5943930... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/2015-10.json
+:100644 000000 b20e891... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-1026.json
+:100644 000000 e1237b4... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-1131.json
+:100644 000000 1081441... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-1133.json
+:100644 000000 1e16a77... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-1147.json
+:100644 000000 4f0ce25... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-1213.json
+:100644 000000 f27cc2d... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-1242.json
+:100644 000000 93128ce... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-1265.json
+:100755 000000 ab830c2... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-1853.json
+:100644 000000 7021a1e... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-2146.json
+:100755 000000 86c8fd6... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-2249.json
+:100644 000000 1f2b212... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-2304.json
+:100644 000000 04068fd... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-2308.json
+:100644 000000 896c402... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-2310.json
+:100644 000000 56c78f3... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-2435.json
+:100644 000000 4787b56... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-2640.json
+:100644 000000 1a42ed0... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-2641.json
+:100644 000000 5f00014... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-3062.json
+:100644 000000 997a8fb... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-408.json
+:100644 000000 48f8809... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-408b.json
+:100644 000000 268807e... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-537.json
+:100644 000000 e2f6856... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-584.json
+:100644 000000 68244b7... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINI-98.json
+:100644 000000 0d856b6... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINP-1005.json
+:100644 000000 c36642b... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINP-1006.json
+:100644 000000 fa10b08... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINP-1007.json
+:100644 000000 415a144... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINP-1016.json
+:100644 000000 2d472f5... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINP-1031.json
+:100644 000000 c24885e... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINP-1112.json
+:100644 000000 4604bf6... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINP-126.json
+:100644 000000 4f843c0... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINP-159.json
+:100644 000000 e3196ab... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINP-164.json
+:100644 000000 274a0a7... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINP-167.json
+:100755 000000 3928066... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINP-275.json
+:100644 000000 c859768... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINP-430.json
+:100644 000000 18f2624... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINP-55.json
+:100644 000000 2d34048... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINP-587.json
+:100644 000000 cd371f6... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/FINP-982.json
+:100644 000000 a709ca1... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/InstitutionPreferences.7.0.0.json
+:100644 000000 a41c243... 0000000... D	kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/updates.json
+:100644 100644 b2c9a86... 2e42cd2... M	kfs-core/src/test/config/kfs-core.properties
+:100644 000000 b3feae5... 0000000... D	kfs-core/src/test/java/org/kuali/kfs/sys/datatools/documentstore/DocumentStoreFileTest.java
+:100644 000000 845a5ed... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/DocumentStoreSchemaUpdater.java
+:100644 000000 269b225... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/businessobject/DocumentStoreChange.java
+:100644 000000 4bf8ac3... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/change/AbstractDocumentStoreChangeHandler.java
+:100644 000000 9e94504... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/change/AbstractNodeChangeHandler.java
+:100644 000000 32e7dd5... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/change/AddDocumentHandler.java
+:100644 000000 8dfd2df... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/change/AddIndexHandler.java
+:100644 000000 d77b3ee... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/change/AddNodeHandler.java
+:100644 000000 5ceb729... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/change/DeleteDocumentsHandler.java
+:100644 000000 0887888... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/change/DeleteNodeHandler.java
+:100644 000000 85bd08e... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/change/DocumentStoreChangeHandler.java
+:100644 000000 583ade8... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/change/JsonUtils.java
+:100644 000000 d36fd0f... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/change/UpdateDocumentHandler.java
+:100644 000000 67eadef... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/change/UpdateNodeHandler.java
+:100644 000000 6db6031... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/dataaccess/DocumentStoreUpdateProcessDao.java
+:100644 000000 c974eac... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/dataaccess/impl/DocumentStoreUpdateProcessDaoMongo.java
+:100644 000000 044259b... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/service/DocumentStoreSchemaUpdateService.java
+:100644 000000 40c44b2... 0000000... D	kfs-datatools/src/main/java/org/kuali/kfs/sys/datatools/liquimongo/service/impl/DocumentStoreSchemaUpdateServiceImpl.java
+:100644 100644 6e6cd71... 097d43c... M	kfs-datatools/src/main/resources/org/kuali/kfs/sys/datatools/financials-security-default-config.properties
+:100644 000000 2552227... 0000000... D	kfs-datatools/src/main/resources/org/kuali/kfs/sys/datatools/liquimongo/spring-liquimongo-bootstrap.xml
+:100644 000000 836f9db... 0000000... D	kfs-datatools/src/main/resources/org/kuali/kfs/sys/datatools/liquimongo/spring-liquimongo.xml
+:100644 000000 f2ba95e... 0000000... D	kfs-datatools/src/test/java/org/kuali/kfs/sys/datatools/businessobject/DocumentStoreChangeTest.java
+:100644 000000 3114827... 0000000... D	kfs-datatools/src/test/java/org/kuali/kfs/sys/datatools/handler/AddDocumentHandlerTest.java
+:100644 000000 68c044a... 0000000... D	kfs-datatools/src/test/java/org/kuali/kfs/sys/datatools/handler/AddIndexHandlerTest.java
+:100644 000000 f40a8ee... 0000000... D	kfs-datatools/src/test/java/org/kuali/kfs/sys/datatools/handler/AddNodeHandlerTest.java
+:100644 000000 270097a... 0000000... D	kfs-datatools/src/test/java/org/kuali/kfs/sys/datatools/handler/DeleteDocumentsHandlerTest.java
+:100644 000000 39df06b... 0000000... D	kfs-datatools/src/test/java/org/kuali/kfs/sys/datatools/handler/DeleteNodeHandlerTest.java
+:100644 000000 2f7eafd... 0000000... D	kfs-datatools/src/test/java/org/kuali/kfs/sys/datatools/handler/UpdateDocumentHandlerTest.java
+:100644 000000 84a7647... 0000000... D	kfs-datatools/src/test/java/org/kuali/kfs/sys/datatools/handler/UpdateNodeHandlerTest.java
+:100644 000000 9110acd... 0000000... D	kfs-datatools/src/test/java/org/kuali/kfs/sys/datatools/mock/MockDocumentStoreChangeHandler.java
+:100644 000000 8a443d6... 0000000... D	kfs-datatools/src/test/java/org/kuali/kfs/sys/datatools/mock/MockDocumentStoreUpdateProcessDao.java
+:100644 000000 69d9c79... 0000000... D	kfs-datatools/src/test/java/org/kuali/kfs/sys/datatools/service/DocumentStoreSchemaUpdateServiceTest.java
+:100644 000000 25a3a5e... 0000000... D	kfs-datatools/src/test/resources/org/kuali/kfs/sys/datatools/liquimongo/batch/fixture/documentstoreschemaupdate/2015-06.json
+:100644 000000 25a3a5e... 0000000... D	kfs-datatools/src/test/resources/org/kuali/kfs/sys/datatools/liquimongo/batch/fixture/documentstoreschemaupdate/2015-07.json
+:100644 000000 25a3a5e... 0000000... D	kfs-datatools/src/test/resources/org/kuali/kfs/sys/datatools/liquimongo/batch/fixture/documentstoreschemaupdate/2015-08.json
+:100644 000000 e8c11cb... 0000000... D	kfs-datatools/src/test/resources/org/kuali/kfs/sys/datatools/liquimongo/batch/fixture/documentstoreschemaupdate/updates1.json
+:100644 000000 248f011... 0000000... D	kfs-datatools/src/test/resources/org/kuali/kfs/sys/datatools/liquimongo/batch/fixture/documentstoreschemaupdate/updates2.json
+:100644 100644 5258bca8.. 7260693... M	kfs-ec/src/test/config/kfs-ec.properties
+:100644 100644 e2523de... 4e6f0c0... M	kfs-ld/src/test/config/kfs-ld.properties
+:100644 100644 b8a8935... 300913e... M	kfs-purap/src/test/config/kfs-purap.properties
+
+commit 95831a258d8482b3c8388ee378f7501098229a75
+Author: lmarkes <lesley@kuali.co>
+Date:   2017-03-22 16:50:29 -0500
+
+    FINP-1146 remove mongo dao
+    
+    removing the rest comes in other jiras
+
+:100644 000000 a977ecb... 0000000... D	kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDaoMongo.java
+
+commit fbd2651cb34919b2e14db184e3720e12b4f6bdce
+Author: Kelly Davis <kldavis4@users.noreply.github.com>
+Date:   2017-03-22 16:31:51 -0400
+
+    FINP-1258 Remove cache timeout and add cache clear to API/UI (#1080)
+    
+    * FINP-1258 Remove cache timeout and add cache clear to API/UI
+     - Also fix the diskstore temp directory for ehcache
+    
+    * FINP-1258 Fix bean names to not conflict when run in same vm as std config
+    
+    * FINP-1258 _really_ fix the integ test cache config this time
+
+:100644 100644 b76f270... 29223cc... M	kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/PreferencesDao.java
+:100644 100644 414742e... cee3435... M	kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDaoJdbc.java
+:100644 100644 68b87aa... a977ecb... M	kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDaoMongo.java
+:100644 100644 98cb024... 4287016... M	kfs-core/src/main/java/org/kuali/kfs/sys/service/InstitutionPreferencesService.java
+:100644 100644 11a5871... 7bd221f... M	kfs-core/src/main/java/org/kuali/kfs/sys/service/impl/InstitutionPreferencesServiceImpl.java
+:100644 100644 8149b2d... 520fa31... M	kfs-core/src/main/java/org/kuali/kfs/sys/web/struts/SidebarMenuCacheAction.java
+:100644 000000 5f7e4e3... 0000000... D	kfs-core/src/main/java/org/kuali/kfs/sys/web/struts/SidebarMenuCacheForm.java
+:100644 100644 8dc5727... d036044... M	kfs-core/src/main/resources/kfs.ehcache.xml
+:100644 100644 db0e63e... f588374... M	kfs-core/src/test/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDaoJdbcTest.java
+:100644 100644 81548a9... bf8baa7... M	kfs-core/src/test/java/org/kuali/kfs/sys/service/impl/InstitutionPreferencesServiceImplTest.java
+:100644 100644 118504b... 5c9ae84... M	kfs-core/src/test/resources/org/kuali/kfs/sys/dataaccess/impl/spring-sys-test-preferences-dao-jdbc.xml
+:100644 100644 2aec844... 972087e... M	kfs-web/src/main/webapp/jsp/sys/SidebarMenuCache.jsp
+
+commit cc2ee3a47da339ddbbb976716ab84e59cfa8d7c3
+Author: jsissom <jsissom@kuali.co>
+Date:   2017-03-22 14:58:54 -0400
+
+    FINP-1241 Remove Sufficient Funds Checking from Collector (#1082)
+    
+    * FINP-1241 Remove Sufficient Funds checking from Collector
+    
+    * FINP-1241 Remove Collector Sufficient Funds parameter
+
+:100644 100644 faa0cfe... 39ada04... M	kfs-core/src/main/java/org/kuali/kfs/gl/batch/service/impl/CollectorHelperServiceImpl.java
+:100644 100644 187936e... 6cfd7cd... M	kfs-core/src/main/java/org/kuali/kfs/sys/KFSKeyConstants.java
+:100644 100644 d4f047e... 3a24e34... M	kfs-core/src/main/resources/org/kuali/kfs/core/db/phase5/2017-03.xml
+:100644 100644 ff91c87... c55d019... M	kfs-core/src/main/resources/org/kuali/kfs/gl/gl-resources.properties
+:100644 100644 a46c24d... 8581ff5... M	kfs-core/src/main/resources/org/kuali/kfs/gl/spring-gl.xml
+:100644 100644 15f7384... 6329a08... M	kfs-core/src/test/java/org/kuali/kfs/gl/batch/service/impl/CollectorHelperServiceImplTest.java
+
+commit 9428c78c4d2f7518d47eaa5d117ee20a4b056582
+Author: wliang <wliang@uci.edu>
+Date:   2017-03-22 10:48:16 -0700
+
+    make the method protected
+
+:100644 100644 c4c6b1d... 7221e04... M	kfs-core/src/main/java/org/kuali/kfs/fp/businessobject/lookup/DisbursementPayeeLookupableHelperServiceImpl.java
+
+commit 08797e7a4a373c2bc2f1747a247b369942fef686
+Author: Jay Sissom <jsissom@kuali.co>
+Date:   2017-03-22 10:29:50 -0400
+
+    FINP-1219 Fix extraction of data for sorting in lookup data
+
+:100644 100644 35c3f3d... 53f3095... M	kfs-kns/src/main/java/org/kuali/kfs/kns/web/comparator/CellComparatorHelper.java
+:100644 100644 0477bd6... 9563403... M	kfs-kns/src/test/java/org/kuali/kfs/kns/web/comparator/CellComparatorHelperTest.java
+:100644 100644 7bab15b... f36c17c... M	kfs-web/src/main/webapp/kr/WEB-INF/jsp/KualiLookup.jsp
+
+commit 436f0e8f9f4f2031685e06916c623259253f5732
+Author: Jay Sissom <jsissom@kuali.co>
+Date:   2017-03-22 09:45:46 -0400
+
+    FINP-1219 If invalid numbers are sorted, sort as a string instead
+
+:100644 100644 2dd52dc... 4252369... M	kfs-kns/src/main/java/org/kuali/kfs/krad/comparator/NumericValueComparator.java
+:000000 100644 0000000... 1b0fd4e... A	kfs-kns/src/test/java/org/kuali/kfs/krad/comparator/NumericValueComparatorTest.java
+
+commit 5cabaa1038d16565db9b764ac91d9049aa64ccb5
+Author: James Smith <jksmith@kuali.co>
+Date:   2017-03-21 12:43:45 -0600
+
+    FINP-1247 throttle gl attributes
+
+:100644 100644 2613a29... 72d8c6e... M	kfs-core/src/main/resources/org/kuali/kfs/sys/spring-sys.xml
+
+commit 22017c38f9f21fcc4a6033149b50284d8cc6e618
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2017-03-20 18:24:46 -0400
+
+    FINP-1255 Modify to serialize inst prefs cache to persist across restarts
+
+:100644 100644 1261d8c... 86ad719... M	kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/impl/PreferencesDeserializer.java
+:100644 100644 d111eb4... 8dc5727... M	kfs-core/src/main/resources/kfs.ehcache.xml
+
+commit 4ef2dfae77c3bb9e430156e0e5030030462df612
+Author: Travis Foxley <travisfoxley@gmail.com>
+Date:   2017-03-20 08:34:40 -0600
+
+    FINI-3455 preserve DD relationships during migration (#1075)
+    
+    * FINI-3455 preserve relationships on dd migration
+    
+    * FINI-3455 fix unit tests
+    
+    * FINI-3455 improve test coverage, refactor
+
+:100644 100644 3c8cf1f... 2493064... M	kfs-core/src/main/java/org/kuali/kfs/sys/businessobject/dto/EntityDTO.java
+:100644 100644 05b8cab... ce7db1a... M	kfs-core/src/main/java/org/kuali/kfs/sys/businessobject/dto/TableDTO.java
+:100644 100644 91338fc... 1cc34f3... M	kfs-core/src/main/java/org/kuali/kfs/sys/service/impl/DataDictionaryMigrationServiceImpl.java
+:100644 100644 e0e1436... f6ffae0... M	kfs-core/src/test/java/org/kuali/kfs/sys/service/impl/DataDictionaryMigrationServiceImplTest.java
+
+commit ac041f97cce431e6356838fa942586578efa3053
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2017-03-17 18:17:10 -0400
+
+    Cleanup css based on review
+
+:100644 100644 91614fb... ad736c1... M	kfs-web/src/main/webapp/css/newPortal.css
+
+commit 0379850cc4c8d817f6cdeb9deac33ce8e8604c04
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2017-03-17 17:23:15 -0400
+
+    FINP-1216 Fix sidebar on auth exception
+     - Unsurprisingly, this turns out to be a bit more complicated than
+       it would seem. The css which moves the sidebar down (.test-env #sidebar)
+       isn't applied because on that auth error, the #sidebar div is rendered in
+       parallel with #body div instead of as a child. I believe this is due to
+       some bad html which the browser is attempting to fix. The best solution
+       is probably to track down what is generating the bad html and fixing it.
+       That not going to be easy and there is no guarantee that there are not
+       other pages that cause similar issues. The quick solution is to add a css
+       selector for sibling #sidebar div. That seems to resolve it for this
+       particular page. It is possible that other broken html would cause
+       different rendering that would break the css, so ultimately it
+       probably makes sense to find and fix the bad html as well..
+
+:100644 100644 8a6fccd... 91614fb... M	kfs-web/src/main/webapp/css/newPortal.css
+
+commit 3e603bf9c86fc22088815a64c53ea04bcd1b4796
+Author: Kelly Davis <kldavis4@gmail.com>
+Date:   2017-03-17 13:47:30 -0400
+
+    FINP-1238 Correct positioning defect
+     - The logic which positions the linkgroups did not take into account
+       a particular height/width that would cause it to render with the bottom
+       cutoff. This has been fixed.
+     - horizontal scrolling is turned off in linkgroups and when a linkgroup
+       activates it autoscrolls to the top
+     - Fix search results to be sized correctly (max-height fixed)
+
+:100644 100644 b362f10... 8a6fccd... M	kfs-web/src/main/webapp/css/newPortal.css
+:100644 100644 5501f78... 91fe59c... M	kfs-web/src/main/webapp/scripts/components/general/sidebar.jsx
+
+commit 3524c1c5a90e14dc9fe5d0c0c8aed81b2e255a1b
+Author: lmarkes <lesley@kuali.co>
+Date:   2017-03-15 16:38:51 -0500
+
+    FINI-3421: POC for improving menu link visibility on lower resolutions
+    
+    This is not perfect. Ideally the UI would be responsive. This is a
+    rough patch to improve it some in hopes that it’s good enough for
+    Cornell.
+
+:100644 100644 7e51f9c... b362f10... M	kfs-web/src/main/webapp/css/newPortal.css
+:100644 100644 f97cb68... 5501f78... M	kfs-web/src/main/webapp/scripts/components/general/sidebar.jsx
 ************************* 2017-03-16 *************************
 commit 8177b67352b4aa4c304353ae87028b61a1d5b21c
 Author: Kelly Davis <kldavis4@users.noreply.github.com>
