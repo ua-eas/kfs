@@ -23,7 +23,7 @@
     <parent>
         <artifactId>kfs</artifactId>
         <groupId>org.kuali.kfs</groupId>
-        <version>current-SNAPSHOT</version>
+        <version>2017-03-23</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

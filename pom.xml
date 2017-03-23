@@ -35,7 +35,7 @@
     </modules>
     <groupId>org.kuali.kfs</groupId>
     <artifactId>kfs</artifactId>
-    <version>current-SNAPSHOT</version>
+    <version>2017-03-23</version>
     <name>Kuali Financial System</name>
     <description>Kuali Financials</description>
     <inceptionYear>2004</inceptionYear>
