@@ -1302,8 +1302,6 @@ public class KFSPropertyConstants {
     public static final String USE_QUARTZ_SCHEDULING_KEY = "use.quartz.scheduling";
     public static final String DIRECTORIES_TO_CREATE_PATH = "directoriesToCreateOnStartup";
     public static final String UPDATE_DATABASE_ON_STARTUP = "updateDatabaseOnStartup";
-    public static final String UPDATE_DOCUMENTSTORE_ON_STARTUP = "updateDocumentstoreOnStartup";
-    public static final String UPDATE_DOCUMENTSTORE_FILE_PATH = "updateDocumentstoreFilePath";
     public static final String UPDATE_WORKFLOW_ON_STARTUP = "updateWorkflowOnStartup";
 
     public static final String HAS_DOCUMENTATION = "hasDocumentation";

@@ -32,7 +32,6 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.MemoryMonitor;
 import org.kuali.kfs.sys.batch.service.SchedulerService;
-import org.kuali.kfs.sys.datatools.liquimongo.service.DocumentStoreSchemaUpdateService;
 import org.kuali.kfs.sys.datatools.liquirelational.LiquiRelational;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.core.framework.resourceloader.SpringResourceLoader;
@@ -431,12 +430,11 @@ public class SpringContext {
     }
 
     public static void finishInitializationAfterRiceStartup() {
-        SpringResourceLoader mainKfsSpringResourceLoader = (SpringResourceLoader) GlobalResourceLoader.getResourceLoader(new QName("KFS", "KFS_RICE_SPRING_RESOURCE_LOADER_NAME"));
+        SpringResourceLoader mainKfsSpringResourceLoader = (SpringResourceLoader) GlobalResourceLoader
+                .getResourceLoader(new QName("KFS", "KFS_RICE_SPRING_RESOURCE_LOADER_NAME"));
         SpringContext.applicationContext = mainKfsSpringResourceLoader.getContext();
 
-        //  if ( LOG.isTraceEnabled() ) {
         GlobalResourceLoader.logAllContents();
-        //}
 
         // KFS addition - republish all components now - until this point, the KFS DD has not been loaded
         KRADServiceLocatorInternal.getDataDictionaryComponentPublisherService().publishAllComponents();
@@ -446,7 +444,6 @@ public class SpringContext {
         publishBatchStepComponents();
         initDirectories();
         updateWorkflow();
-        updateDocumentstore();
     }
 
     private static void updateWorkflow() {
@@ -458,14 +455,6 @@ public class SpringContext {
     public static void updateDatabase() {
         if (Boolean.parseBoolean(PropertyLoadingFactoryBean.getBaseProperty(KFSPropertyConstants.UPDATE_DATABASE_ON_STARTUP))) {
             new LiquiRelational(new org.kuali.kfs.sys.context.PropertyLoadingFactoryBean().getObject()).updateDatabase();
-        }
-    }
-
-    static void updateDocumentstore() {
-        if (KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean(KFSPropertyConstants.UPDATE_DOCUMENTSTORE_ON_STARTUP)) {
-            DocumentStoreSchemaUpdateService documentStoreSchemaUpdateService = getBean(DocumentStoreSchemaUpdateService.class);
-            String updateFilePath = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KFSPropertyConstants.UPDATE_DOCUMENTSTORE_FILE_PATH);
-            documentStoreSchemaUpdateService.updateDocumentStoreSchemaForLocation(updateFilePath);
         }
     }
 
