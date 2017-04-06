@@ -41,7 +41,7 @@
 
     <changeSet id="UAF-3004_00" author="Scott Skinner">
         <comment>
-            UAF-3004_00 (1/12) - Disable BI trigger, otherwise the DB will thrash, and redo logs will overfill.
+            Disable BI trigger, otherwise the DB will thrash, and redo logs will overfill.
         </comment>
         <sql>
             <!--
@@ -64,7 +64,7 @@
     </changeSet>
     <changeSet id="UAF-3004_01" author="Scott Skinner">
         <comment>
-            UAF-3004_01 (2/12) - Create new columns in GLE table, subsequent changesets rely on these.
+            Create new columns in GLE table, subsequent changesets rely on these.
         </comment>
         <sql dbms="oracle">
              <!--
@@ -92,7 +92,7 @@
     </changeSet>
     <changeSet id="UAF-3004_02" author="Scott Skinner">
         <comment>
-            UAF-3004_02 (3/12) - Populate two of the new GLE columns with Oracle DB internal functions.
+            Populate two of the new GLE columns with Oracle DB internal functions.
         </comment>
         <sql dbms="oracle">
             <!--
@@ -116,7 +116,7 @@
     </changeSet>
     <changeSet id="UAF-3004_03" author="Scott Skinner">
         <comment>
-            UAF-3004_03 (4/12) - Add not-null constraints and indexes on newly populated ENTRY_ID and OBJ_ID.
+            Add not-null constraints and indexes on newly populated ENTRY_ID and OBJ_ID.
         </comment>
         <sql>
             <!--
@@ -141,7 +141,7 @@
     </changeSet>
     <changeSet id="UAF-3004_04" author="Scott Skinner">
         <comment>
-            UAF-3004_04 (5/12) - Create sequence for use on new GLE ENTRY_ID column.
+            Create sequence for use on new GLE ENTRY_ID column.
         </comment>
         <sql dbms="oracle" endDelimiter="/">
             <!--
@@ -169,43 +169,16 @@
             </sql>
         </rollback>
     </changeSet>
-    <changeSet id="UAF-3004_05" author="Scott Skinner">
-        <comment>
-            UAF-3004_05 (6/12) - Associate existing Entries to their related GEC documents.
-        </comment>
-        <sql dbms="oracle">
-            <!--
-                Note the 'dbms' attribute of the sql element here: the following code block uses
-                an oracle specific join for update, which is the only valid syntax that oracle accepts
-                for a join within an update clause.
-            -->
-            update
-            (select GL_ENTRY_T.GEC_FDOC_NBR as GLE_FDOC_NBR,
-                FP_ERROR_COR_DOC_T.FDOC_NBR as GEC_FDOC_NBR
-                from GL_ENTRY_T
-                inner join FP_ERROR_COR_DOC_T
-                on GL_ENTRY_T.FDOC_NBR = FP_ERROR_COR_DOC_T.FDOC_NBR
-            ) u
-            set u.GLE_FDOC_NBR = u.GEC_FDOC_NBR;
-        </sql>
-        <rollback>
-            <sql dbms="oracle">
-                <!--
-                    No rollback here, since UAF-3004_01's rollback drops these columns, which means
-                    we don't want to waste our time nulling the column out. This is a hack to save time.
-                -->
-                select 1 from dual;
-            </sql>
-        </rollback>
-    </changeSet>
     <changeSet id="UAF-3004_06" author="Scott Skinner">
         <comment>
-            UAF-3004_06 (7/12) - Create new GEC Entry Relationship table.
+            Create new GEC Entry Relationship table. Note, the gec_fdoc_ref_nbr field is for backend work,
+            purposely excluded from ORM and POJO.
         </comment>
         <sql>
             CREATE TABLE FP_GEC_ENTRY_REL_T  (
                 ENTRY_ID            NUMBER(19,0),
                 GEC_FDOC_NBR        VARCHAR2(14),
+                GEC_FDOC_REF_NBR    VARCHAR2(14),
                 GEC_FDOC_LN_TYP_CD  VARCHAR2(1),
                 GEC_ACCT_LINE_NBR   NUMBER(7,0),
                 GEC_DOC_HDR_STAT_CD VARCHAR2(1),
@@ -225,30 +198,41 @@
     </changeSet>
     <changeSet id="UAF-3004_07" author="Scott Skinner">
         <comment>
-            UAF-3004_07 (8/12) - Populate the new GEC Entry Relationship table.
+            Populate the new GEC Entry Relationship table.
         </comment>
         <sql>
             <!--
-                For every GEC doc, join on all it's associated lines, then join each line on its related
-                entry, and finally insert a new GEC Entry Relation record of each result.
+                For every GEC doc, join on doc headers to filter out non-binding status codes, then join each GEC-created
+                line on its related original source GLE (i.e. the GLE the line was built from). Finally insert a new GEC
+                Entry Relation record of each result. This should end up with the ENTRY_ID being a unique column, but
+                about 100 dirty records need to be deleted in the next step.
             -->
-            insert into FP_GEC_ENTRY_REL_T (ENTRY_ID, GEC_FDOC_NBR, GEC_FDOC_LN_TYP_CD, GEC_ACCT_LINE_NBR, VER_NBR, OBJ_ID)
-            select c.ENTRY_ID, a.FDOC_NBR, b.FDOC_LN_TYP_CD, b.FDOC_LINE_NBR, 1, SYS_GUID()
-            from FP_ERROR_COR_DOC_T a
-            inner join FP_ACCT_LINES_T b
-                on a.FDOC_NBR = b.FDOC_NBR
-            inner join GL_ENTRY_T c
-                on b.FDOC_POST_YR = c.UNIV_FISCAL_YR
-                and b.FDOC_NBR = c.FDOC_NBR
-                and b.ACCOUNT_NBR = c.ACCOUNT_NBR
-                and b.FIN_OBJECT_CD = c.FIN_OBJECT_CD
-                and b.FDOC_LINE_NBR = c.TRN_ENTR_SEQ_NBR;
+            insert into FP_GEC_ENTRY_REL_T (ENTRY_ID, GEC_FDOC_NBR, GEC_FDOC_REF_NBR, GEC_FDOC_LN_TYP_CD, GEC_ACCT_LINE_NBR, GEC_DOC_HDR_STAT_CD, VER_NBR, OBJ_ID)
+            select gle.ENTRY_ID, gecd.FDOC_NBR, lines.FDOC_REF_NBR, lines.FDOC_LN_TYP_CD, lines.FDOC_LINE_NBR, hdr.DOC_HDR_STAT_CD, 1, SYS_GUID()
+                from FP_ERROR_COR_DOC_T gecd
+                inner join KREW_DOC_HDR_T hdr
+                    on gecd.FDOC_NBR = hdr.DOC_HDR_ID
+                    and hdr.DOC_HDR_STAT_CD in ('I', 'P', 'F', 'S', 'R')
+                inner join FP_ACCT_LINES_T lines
+                    on gecd.FDOC_NBR = lines.FDOC_NBR
+                inner join GL_ENTRY_T gle
+                    on gle.UNIV_FISCAL_YR in ('2017', '2016')
+                    and lines.FDOC_POST_YR     = gle.UNIV_FISCAL_YR
+                    and lines.FIN_COA_CD       = gle.FIN_COA_CD
+                    and lines.FDOC_REF_NBR     = gle.FDOC_NBR
+                    and lines.ACCOUNT_NBR      = gle.ACCOUNT_NBR
+                    and lines.FS_REF_ORIGIN_CD = gle.FS_ORIGIN_CD
+                    and lines.FIN_OBJECT_CD    = gle.FIN_OBJECT_CD
+                    and lines.FDOC_LINE_NBR    = gle.TRN_ENTR_SEQ_NBR
+                    and lines.FDOC_LINE_AMT    = gle.TRN_LDGR_ENTR_AMT
+                    and ((lines.FDOC_LN_TYP_CD = 'F' and gle.TRN_DEBIT_CRDT_CD = 'D')
+                            or
+                        (lines.FDOC_LN_TYP_CD = 'T' and gle.TRN_DEBIT_CRDT_CD = 'C'));
         </sql>
         <rollback>
             <sql  dbms="oracle">
                 <!--
-                    No need to rollback records, since UAF-3004_06's rollback drops this table anyway; this
-                    saves us time in the liquibase tests.
+                    No need to rollback values here, since a drop of the columns occurs in a previoius rollback
                 -->
                 select 1 from dual;
             </sql>
@@ -256,7 +240,7 @@
     </changeSet>
     <changeSet id="UAF-3004_08" author="Scott Skinner">
         <comment>
-            UAF-3004_08 (9/12) - Create indexes on the new GEC Entry Relationship table.
+            Create indexes on the new GEC Entry Relationship table.
         </comment>
         <sql>
             CREATE INDEX FDOC_NBR_IDX ON FP_GEC_ENTRY_REL_T(GEC_FDOC_NBR);
@@ -265,33 +249,7 @@
         <rollback>
             <sql dbms="oracle">
                 <!--
-                    No need to rollback indexes, since UAF-3004_06's rollback drops this table anyway; this
-                    saves us time in liquibase tests.
-                -->
-                select 1 from dual;
-            </sql>
-        </rollback>
-    </changeSet>
-    <changeSet id="UAF-3004_09" author="Scott Skinner">
-        <comment>
-            UAF-3004_09 (10/12) - Populate the route status code for each GEC Entry Relationship record.
-        </comment>
-        <sql>
-            <!--
-                This works since KREW_DOC_HDR_T.DOC_HDR_ID is a unique PK.
-            -->
-            update FP_GEC_ENTRY_REL_T a
-            set a.GEC_DOC_HDR_STAT_CD = (
-                select b.DOC_HDR_STAT_CD
-                from KREW_DOC_HDR_T b
-                where a.GEC_FDOC_NBR = b.DOC_HDR_ID
-            );
-        </sql>
-        <rollback>
-            <sql dbms="oracle">
-                <!--
-                    No need to rollback records, since UAF-3004_06's rollback drops this table anyway; this
-                    saves us time in liquibase tests.
+                    No need to rollback indexes here, since a drop of the table occurs in a previoius rollback
                 -->
                 select 1 from dual;
             </sql>
@@ -299,7 +257,7 @@
     </changeSet>
     <changeSet id="UAF-3004_10" author="Scott Skinner">
         <comment>
-            UAF-3004_10 (11/12) - Set constraints on the GEC Entry Relationship table, now that it's populated.
+            Set constraints on the GEC Entry Relationship table, now that it's populated.
         </comment>
         <sql>
             <!--
@@ -317,8 +275,92 @@
         <rollback>
             <sql dbms="oracle">
                 <!--
-                    No need to drop constraints, since UAF-3004_06's rollback drops this table anyway; this
-                    saves us time in liquibase tests.
+                    No need to rollback constraints here, since a drop of the table occurs in a previoius rollback
+                -->
+                select 1 from dual;
+            </sql>
+        </rollback>
+    </changeSet>
+    <changeSet id="UAF-3849_0" author="Scott Skinner">
+        <comment>
+            Stamp a sentinal mark on the GLEs that don't have enough data to associate to the source GLE correctly. This
+            condition can be caused by external systems dropping us OriginEntry files that have less validation, and
+            also the manual nature of GEC in v3 KFS.
+        </comment>
+        <sql>
+            update GL_ENTRY_T gle
+                set GEC_FDOC_NBR = "LOCKED"
+                where ENTRY_ID in
+                    (select
+                        ENTRY_ID
+                        from FP_GEC_ENTRY_REL_T
+                        group by ENTRY_ID
+                        having count(*) > 1
+                    );
+        </sql>
+        <rollback>
+            <sql dbms="oracle">
+                <!--
+                    No need to rollback values here, since a drop of the columns occurs in a previous rollback
+                -->
+                select 1 from dual;
+            </sql>
+        </rollback>
+    </changeSet>
+    <changeSet id="UAF-3849_0" author="Scott Skinner">
+        <comment>
+            Remove the duplicate relationships in the new GEC Relationship table; these relate to the GLEs we stamped
+            as "LOCKED" in the last step. As a historical note, when this was created, the FY16/17 produced 94 bad
+            records. Lastly, this allows us to remain key-constrained across the lines/gle tables for the next step
+            (marking the good relationships).
+        </comment>
+        <sql>
+            delete
+                from FP_GEC_ENTRY_REL_T
+                where ENTRY_ID in (
+                    select ENTRY_ID
+                        from FP_GEC_ENTRY_REL_T
+                        group by entry_id
+                        having count(*) > 1
+                );
+        </sql>
+        <rollback>
+            <sql dbms="oracle">
+                <!--
+                    No need to rollback values here, since a drop of the table occurs in a previous rollback.
+                -->
+                select 1 from dual;
+            </sql>
+        </rollback>
+    </changeSet>
+    <changeSet id="UAF-3004_05" author="Scott Skinner">
+        <comment>
+            Associate existing Entries to their related GEC documents. This needs to be key-constrained, as in, the
+            relationship table should never have a GLE listed more than once.
+        </comment>
+        <sql dbms="oracle">
+            <!--
+                Note the 'dbms' attribute of the sql element here: the following code block uses
+                an oracle specific join for update, which is the only valid syntax that oracle accepts
+                for a join within an update clause. Also, since we are not setting an FK relationship
+                here (don't want any overhead from checking the constraint), this method ensures there
+                is a 1:1 Entry ID relationship between the tables (ie, both tables are key-constrained).
+            -->
+            update GL_ENTRY_T gle
+            set GEC_FDOC_NBR =
+                (select gec.GEC_FDOC_NBR
+                    from FP_GEC_ENTRY_REL_T gec
+                    where gle.ENTRY_ID = gec.ENTRY_ID)
+                where exists
+                (select 1
+                    from FP_GEC_ENTRY_REL_T gec
+                    where gle.ENTRY_ID = gec.ENTRY_ID
+                );
+        </sql>
+        <rollback>
+            <sql dbms="oracle">
+                <!--
+                    No need to rollback values here, since a drop of the column in a previous step will clear these.
                 -->
                 select 1 from dual;
             </sql>
