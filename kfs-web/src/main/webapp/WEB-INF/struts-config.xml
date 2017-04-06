@@ -436,11 +436,11 @@
             name="MultipleValueLookupForm"
             type="edu.arizona.kfs.gl.web.struts.YegecEntryLookupAction"
             scope="request"
-            input="/jsp/gl/gecEntryMultipleValueLookup.jsp"
+            input="/jsp/gl/yegecEntryMultipleValueLookup.jsp"
             parameter="methodToCall"
             attribute="KualiForm">
             <set-property property="cancellable" value="true" />
-            <forward name="basic" path="/jsp/gl/gecEntryMultipleValueLookup.jsp" />
+            <forward name="basic" path="/jsp/gl/yegecEntryMultipleValueLookup.jsp" />
         </action>
 		<!-- Core Action Mappings -->
 		<action path="/portal" name="KualiForm"
