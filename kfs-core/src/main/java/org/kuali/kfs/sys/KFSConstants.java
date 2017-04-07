@@ -942,6 +942,8 @@ public class KFSConstants {
     public static final String COLLECTOR_XML_FILE_TYPE_INDENTIFIER = "collectorXmlInputFileType";
     public static final String COLLECTOR_FLAT_FILE_TYPE_INDENTIFIER = "collectorFlatFileInputFileType";
     public static final String ENTERPRISE_FEEDER_FILE_SET_TYPE_INDENTIFIER = "enterpriseFeederFileSetType";
+    public static final String BANK_TRANSACTIONS_FILE_TYPE_IDENTIFIER = "csvBankInputFileType";
+    public static final String BANK_TRANSACTIONS_VALIDATED_FILE_TYPE_IDENTIFIER = "csvBankValidatedFileType";
 
     // next 2 variables for the enterprise feeder batch upload
     public static final String DATA_FILE_TYPE = "DATA";
