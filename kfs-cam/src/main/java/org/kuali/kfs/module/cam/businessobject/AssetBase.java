@@ -155,6 +155,15 @@ public class AssetBase extends PersistableBusinessObjectBase {
     protected List<Note> boNotes = new ArrayList<Note>();
 
     private static NoteService noteService;
+    private Note previousNote;
+
+    public Note getPreviousNote() {
+        return previousNote;
+    }
+
+    public void setPreviousNote(Note previousNote) {
+        this.previousNote = previousNote;
+    }
 
     // Non-persisted attributes:
     protected KualiDecimal paymentTotalCost;

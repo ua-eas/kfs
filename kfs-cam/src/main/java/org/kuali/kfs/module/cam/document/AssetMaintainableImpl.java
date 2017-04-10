@@ -57,6 +57,7 @@ import org.kuali.rice.kns.maintenance.Maintainable;
 import org.kuali.rice.kns.web.ui.Section;
 import org.kuali.rice.krad.bo.DocumentHeader;
 import org.kuali.rice.krad.bo.Note;
+import org.kuali.rice.krad.bo.PersistableBusinessObject;
 import org.kuali.rice.krad.maintenance.MaintenanceLock;
 import org.kuali.rice.krad.service.DocumentService;
 import org.kuali.rice.krad.service.NoteService;
@@ -71,7 +72,7 @@ public class AssetMaintainableImpl extends FinancialSystemMaintainable {
 
     private static final Logger LOG = Logger.getLogger(AssetMaintainableImpl.class);
 
-    private Asset asset;
+    protected Asset asset;
     private Asset copyAsset;
     private boolean fabricationOn;
     protected static volatile IdentityService identityService;
@@ -90,6 +91,14 @@ public class AssetMaintainableImpl extends FinancialSystemMaintainable {
         FINANCIAL_DOC_NAME_MAP.put(KFSConstants.FinancialDocumentTypeCodes.PROCUREMENT_CARD, KFSConstants.FinancialDocumentTypeNames.PROCUREMENT_CARD);
     }
 
+    public AssetMaintainableImpl() {
+        super();
+    }
+    
+    public AssetMaintainableImpl(PersistableBusinessObject businessObject) {
+        super();
+    }
+    
     /**
      * We are using a substitute mechanism for asset locking which can lock on assets when rule check passed. Return empty list from
      * this method.
