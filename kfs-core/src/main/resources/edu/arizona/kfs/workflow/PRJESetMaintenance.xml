@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<data xmlns="ns:workflow" xsi:schemaLocation="ns:workflow resource:WorkflowData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <documentTypes xmlns="ns:workflow/DocumentType" xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
+    <documentType>
+      <name>PRJS</name>
+      <label>ProRate Journal Entry Set</label>
+      <parent>FSSM</parent>
+      <helpDefinitionURL>default.htm?turl=WordDocuments/proratejournalentry.htm</helpDefinitionURL>
+      <routePaths>
+        <routePath>
+          <start name="AdHoc" nextNode="PRJERole"/>
+          <requests name="PRJERole"/>
+        </routePath>
+      </routePaths>
+      <routeNodes>
+        <start name="AdHoc"/>
+        <role name="PRJERole">
+          <qualifierResolverClass>org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver</qualifierResolverClass>
+          <activationType>P</activationType>
+        </role>
+      </routeNodes>
+    </documentType>
+  </documentTypes>
+</data>
