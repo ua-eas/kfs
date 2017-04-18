@@ -19,6 +19,8 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.SequenceAccessorService;
 import org.kuali.rice.krad.valuefinder.ValueFinder;
 
+import edu.arizona.kfs.module.prje.businessobject.PRJEType;
+
 /**
  * An abstract sequence id finder
  */
@@ -38,9 +40,7 @@ public abstract class NextSequenceIdFinder implements ValueFinder {
     public Long getLongValue() {
         // no constant because this is the only place the sequence name is used
         SequenceAccessorService sas = KRADServiceLocator.getSequenceAccessorService();
-        // TODO : uncomment in next festure step
-        return new Long(1);
-//        return sas.getNextAvailableSequenceNumber("PRJE_TYPE_ID_SEQ", PRJEType.class);
+        return sas.getNextAvailableSequenceNumber("PRJE_TYPE_ID_SEQ", PRJEType.class);
     }
     
     /**

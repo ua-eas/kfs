@@ -16,20 +16,19 @@
 package edu.arizona.kfs.module.prje.businessobject.defaultvalue;
 
 
-
 /**
- * A class which lets the PRJE set maintenance document pre-populate the ID for the PRJE set before routing
+ * A class which lets the PRJE type maintenance document pre-populate the ID for the PRJE type before routing
  */
-public class NextPRJESetIdFinder extends NextSequenceIdFinder {
+public class NextPRJETypeIdFinder extends NextSequenceIdFinder {
 
     /**
-     * The name of PRJE Set's ID sequence, "PRJE_SET_ID_SEQ"
-     * @see edu.arizona.kfs.module.prje.businessobject.defaultvalue.NextSequenceIdFinder#getSequenceName()
+     * The name of PRJE Type's sequence, PRJE_TYPE_ID_SEQ
+     * @see edu.arizona.kfs.prje.businessobject.defaultvalue.NextSequenceIdFinder#getSequenceName()
      */
     @Override
     public String getSequenceName() {
-        return "PRJE_SET_ID_SEQ";
+        return "PRJE_TYPE_ID_SEQ";
     }
 
-
+    
 }

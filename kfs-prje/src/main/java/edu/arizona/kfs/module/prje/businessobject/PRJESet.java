@@ -18,6 +18,8 @@ package edu.arizona.kfs.module.prje.businessobject;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
@@ -30,15 +32,15 @@ public class PRJESet
         extends PersistableBusinessObjectBase
         implements Serializable {
 
-    private Integer setId;          // PRJE_SET_ID
+	private static final long serialVersionUID = -3330759186876159319L;
+	private Integer setId;          // PRJE_SET_ID
     private Integer fiscalYear;     // UNIV_FISCAL_YEAR
     private String setName;         // PRJE_SET_NAME
     private String setDescription;  // PRJE_SET_DESC
     private Timestamp lastUpdate;   // LST_UPDT_TS    
     private Boolean active;         // ACTV_CD
 
-    // Uncomment in next feature step
-//    private transient List<PRJEType> types = new ArrayList<PRJEType>();
+    private transient List<PRJEType> types = new ArrayList<PRJEType>();
     
     /**
      * Constructs a PRJESet business object.
@@ -131,13 +133,12 @@ public class PRJESet
         this.lastUpdate = lastUpdate;
     }
     
-    // Uncomment in next feature step
-//    public List<PRJEType> getTypes() {
-//        return types;
-//    }
-//
-//    public void setTypes(List<PRJEType> types) {
-//        this.types = types;
-//    }
+    public List<PRJEType> getTypes() {
+        return types;
+    }
+
+    public void setTypes(List<PRJEType> types) {
+        this.types = types;
+    }
     
 }

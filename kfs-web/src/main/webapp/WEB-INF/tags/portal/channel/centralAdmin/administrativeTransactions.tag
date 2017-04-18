@@ -37,6 +37,10 @@
 	<strong>Prorate Journal Entry</strong>
     <ul class="chan">
         <li><portal:portalLink displayTitle="true" title="Journal Entry Sets"    url="${ConfigProperties.application.url}/kr/lookup.do?methodToCall=start&businessObjectClassName=edu.arizona.kfs.module.prje.businessobject.PRJESet&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></li>
+        <li><portal:portalLink displayTitle="true" title="Journal Entry Types"          url="${ConfigProperties.application.url}/kr/lookup.do?methodToCall=start&businessObjectClassName=edu.arizona.kfs.module.prje.businessobject.PRJEType&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></li>
+        <li><portal:portalLink displayTitle="true" title="Journal Entry Base Accounts"  url="${ConfigProperties.application.url}/kr/lookup.do?methodToCall=start&businessObjectClassName=edu.arizona.kfs.module.prje.businessobject.PRJEBaseAccount&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></li>
+        <li><portal:portalLink displayTitle="true" title="Journal Entry Base Objects"   url="${ConfigProperties.application.url}/kr/lookup.do?methodToCall=start&businessObjectClassName=edu.arizona.kfs.module.prje.businessobject.PRJEBaseObject&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></li>
+        <li><portal:portalLink displayTitle="true" title="Journal Entry Account Lines"  url="${ConfigProperties.application.url}/kr/lookup.do?methodToCall=start&businessObjectClassName=edu.arizona.kfs.module.prje.businessobject.PRJEAccountLine&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></li>
 	</ul>
 	<strong>1099 Process</strong>
 	<ul class="chan">

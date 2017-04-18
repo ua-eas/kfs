@@ -1,84 +1,343 @@
-<!--
- Copyright 2005-2007 The Kuali Foundation.
- 
- Licensed under the Educational Community License, Version 1.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
- 
- http://www.opensource.org/licenses/ecl1.php
- 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
--->
+<!-- Copyright 2005-2007 The Kuali Foundation. Licensed under the Educational 
+	Community License, Version 1.0 (the "License"); you may not use this file 
+	except in compliance with the License. You may obtain a copy of the License 
+	at http://www.opensource.org/licenses/ecl1.php Unless required by applicable 
+	law or agreed to in writing, software distributed under the License is distributed 
+	on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either 
+	express or implied. See the License for the specific language governing permissions 
+	and limitations under the License. -->
 <descriptor-repository version="1.0">
 
+	<class-descriptor class="edu.arizona.kfs.module.prje.businessobject.PRJEAccountLine"
+		table="PRJE_ACCT_LINE_T">
 
-    <class-descriptor
-       class="edu.arizona.kfs.module.prje.businessobject.PRJESet"
-       table="PRJE_SET_T">
-           
-        <field-descriptor 
-           name="setId" 
-           column="PRJE_SET_ID" 
-           jdbc-type="INTEGER" 
-           primarykey="true" />
-                          
-        <field-descriptor
-           name="fiscalYear"
-           column="UNIV_FISCAL_YEAR" 
-           jdbc-type="INTEGER" />
+		<field-descriptor name="rateAccountId" column="PRJE_ACCT_LINE_ID"
+			jdbc-type="INTEGER" primarykey="true" sequence-name="PRJE_ACCT_LINE_ID_SEQ"
+			autoincrement="true" />
+		<field-descriptor name="typeId" column="PRJE_TYPE_ID"
+			jdbc-type="INTEGER" />
+		<field-descriptor name="overrideProrateType" column="AMT_OR_PCT"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="overrideAmount" column="PRORATE_AMOUNT"
+			jdbc-type="DECIMAL"
+			conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion" />
+		<field-descriptor name="overridePercent" column="PRORATE_PCT"
+			jdbc-type="DECIMAL"
+			conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion" />
+		<field-descriptor name="effectiveDateFrom" column="EFFECTIVE_DT_FROM"
+			jdbc-type="TIMESTAMP" />
+		<field-descriptor name="effectiveDateTo" column="EFFECTIVE_DT_TO"
+			jdbc-type="TIMESTAMP" />
+		<field-descriptor name="chartCode" column="FIN_COA_CD"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="accountNumber" column="ACCOUNT_NBR"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="subAccountNumber" column="SUB_ACCOUNT_NBR"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="objectCode" column="OBJECT_CD"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="projectCode" column="PROJECT_CD"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="active" column="ACTV_CD"
+			jdbc-type="VARCHAR"
+			conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
 
-        <field-descriptor
-           name="setName"
-           column="PRJE_SET_NAME" 
-           jdbc-type="VARCHAR" />
-           
-        <field-descriptor
-           name="setDescription"
-           column="PRJE_SET_DESC" 
-           jdbc-type="VARCHAR" />
-           
-        <field-descriptor
-           name="active"
-           column="ACTV_CD"
-           jdbc-type="VARCHAR"
-           conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
-           
-        <!-- Common Fields -->
-        
-        <field-descriptor
-           name="objectId"
-           column="OBJ_ID"
-           jdbc-type="VARCHAR" />
-           
-        <field-descriptor
-           name="lastUpdate"
-           column="LST_UPDT_TS"
-           jdbc-type="TIMESTAMP"/>
-           
-        <field-descriptor
-           name="versionNumber"
-           locking="true"
-           column="VER_NBR"
-           jdbc-type="BIGINT" />
-           
-         <!-- Relationships -->
- 
-       <!--  uncomment in next feature step
-        <collection-descriptor 
-           name="types" 
-           element-class-ref="edu.arizona.kfs.module.prje.businessobject.PRJEType" 
-           collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList" 
-           auto-retrieve="true" 
-           auto-update="object" 
-           auto-delete="true" 
-           proxy="true">
-            <inverse-foreignkey field-ref="setId" />
-        </collection-descriptor>
- -->
-    </class-descriptor>
+		<!-- Common Fields -->
+
+		<field-descriptor name="objectId" column="OBJ_ID"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="lastUpdate" column="LST_UPDT_TS"
+			jdbc-type="TIMESTAMP" />
+		<field-descriptor name="versionNumber" locking="true"
+			column="VER_NBR" jdbc-type="BIGINT" />
+
+		<!-- Relationships -->
+
+		<reference-descriptor name="type"
+			class-ref="edu.arizona.kfs.module.prje.businessobject.PRJEType"
+			auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="typeId" />
+		</reference-descriptor>
+		<reference-descriptor name="accountLineChart"
+			class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true"
+			auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="chartCode" />
+		</reference-descriptor>
+		<reference-descriptor name="accountLineAccount"
+			class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true"
+			auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="chartCode" />
+			<foreignkey field-ref="accountNumber" />
+		</reference-descriptor>
+		<reference-descriptor name="accountLineObjectCode"
+			class-ref="org.kuali.kfs.coa.businessobject.ObjectCodeCurrent"
+			auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="chartCode" />
+			<foreignkey field-ref="objectCode" />
+		</reference-descriptor>
+		<reference-descriptor name="accountLineSubAccount"
+			class-ref="org.kuali.kfs.coa.businessobject.SubAccount"
+			auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="chartCode" />
+			<foreignkey field-ref="accountNumber" />
+			<foreignkey field-ref="subAccountNumber" />
+		</reference-descriptor>
+		<reference-descriptor name="project"
+			class-ref="org.kuali.kfs.coa.businessobject.ProjectCode"
+			auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="projectCode" />
+		</reference-descriptor>
+
+	</class-descriptor>
+
+	<class-descriptor class="edu.arizona.kfs.module.prje.businessobject.PRJEBaseObject"
+		table="PRJE_BASE_OBJECT_T">
+
+		<field-descriptor name="rateObjectCodeId" column="PRJE_BASE_OBJECT_ID"
+			jdbc-type="INTEGER" primarykey="true" sequence-name="PRJE_BASE_OBJECT_ID_SEQ"
+			autoincrement="true" />
+		<field-descriptor name="typeId" column="PRJE_TYPE_ID"
+			jdbc-type="INTEGER" />
+		<field-descriptor name="objectCodeRangeName" column="OBJ_CD_RG_NM"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="include" column="INCLUDE_EXCLUDE_FLAG"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="baseChartCode" column="FIN_COA_CD"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="baseObjectCodeLow" column="FIN_OBJECT_CD_LOW"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="baseObjectCodeHigh" column="FIN_OBJECT_CD_HIGH"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="subObjectCodeLow" column="SUB_OBJECT_CD_LOW"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="subObjectCodeHigh" column="SUB_OBJECT_CD_HIGH"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="active" column="ACTV_CD"
+			jdbc-type="VARCHAR"
+			conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+
+		<!-- Common Fields -->
+
+		<field-descriptor name="objectId" column="OBJ_ID"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="lastUpdate" column="LST_UPDT_TS"
+			jdbc-type="TIMESTAMP" />
+		<field-descriptor name="versionNumber" locking="true"
+			column="VER_NBR" jdbc-type="BIGINT" />
+
+		<!-- Relationships -->
+
+		<reference-descriptor name="type"
+			class-ref="edu.arizona.kfs.module.prje.businessobject.PRJEType"
+			auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="typeId" />
+		</reference-descriptor>
+		<reference-descriptor name="baseObjectChart"
+			class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true"
+			auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="baseChartCode" />
+		</reference-descriptor>
+
+		<!-- TODO: As the spec says these don't require validation, and there is 
+			no lookup button associated with any object code, I'm going to ignore trying 
+			to create relations for now, especially since you can't retrieve a subObjectCode 
+			without an accountNumber, and we don't have one of those in this context. -->
+		<!-- <reference-descriptor name="baseObjectObjectCodeLow" class-ref="org.kuali.kfs.coa.businessobject.ObjectCodeCurrent" 
+			auto-retrieve="true" auto-update="none" auto-delete="none"> <foreignkey field-ref="baseChartCode" 
+			/> <foreignkey field-ref="baseObjectCodeLow" /> </reference-descriptor> <reference-descriptor 
+			name="baseObjectObjectCodeHigh" class-ref="org.kuali.kfs.coa.businessobject.ObjectCodeCurrent" 
+			auto-retrieve="true" auto-update="none" auto-delete="none"> <foreignkey field-ref="baseChartCode" 
+			/> <foreignkey field-ref="baseObjectCodeHigh" /> </reference-descriptor> 
+			<reference-descriptor name="baseObjectSubObjectCodeLow" class-ref="org.kuali.kfs.coa.businessobject.SubObjectCodeCurrent" 
+			auto-retrieve="true" auto-update="none" auto-delete="none"> <foreignkey field-ref="baseChartCode" 
+			/> <foreignkey field-ref="???accountNumber" /> <foreignkey field-ref="baseObjectCodeLow" 
+			/> <foreignkey field-ref="subObjectCodeLow" /> </reference-descriptor> <reference-descriptor 
+			name="baseObjectSubObjectCodeHigh" class-ref="org.kuali.kfs.coa.businessobject.SubObjectCodeCurrent" 
+			auto-retrieve="true" auto-update="none" auto-delete="none"> <foreignkey field-ref="baseChartCode" 
+			/> <foreignkey field-ref="???accountNumber" /> <foreignkey field-ref="baseObjectCodeHigh" 
+			/> <foreignkey field-ref="subObjectCodeHigh" /> </reference-descriptor> -->
+	</class-descriptor>
+
+	<class-descriptor class="edu.arizona.kfs.module.prje.businessobject.PRJESet"
+		table="PRJE_SET_T">
+
+		<field-descriptor name="setId" column="PRJE_SET_ID"
+			jdbc-type="INTEGER" primarykey="true" />
+		<field-descriptor name="fiscalYear" column="UNIV_FISCAL_YEAR"
+			jdbc-type="INTEGER" />
+		<field-descriptor name="setName" column="PRJE_SET_NAME"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="setDescription" column="PRJE_SET_DESC"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="active" column="ACTV_CD"
+			jdbc-type="VARCHAR"
+			conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+
+		<!-- Common Fields -->
+
+		<field-descriptor name="objectId" column="OBJ_ID"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="lastUpdate" column="LST_UPDT_TS"
+			jdbc-type="TIMESTAMP" />
+		<field-descriptor name="versionNumber" locking="true"
+			column="VER_NBR" jdbc-type="BIGINT" />
+
+		<!-- Relationships -->
+
+		<collection-descriptor name="types"
+			element-class-ref="edu.arizona.kfs.module.prje.businessobject.PRJEType"
+			collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList"
+			auto-retrieve="true" auto-update="object" auto-delete="true" proxy="true">
+			<inverse-foreignkey field-ref="setId" />
+		</collection-descriptor>
+	</class-descriptor>
+
+	<class-descriptor class="edu.arizona.kfs.module.prje.businessobject.PRJEType"
+		table="PRJE_TYPE_T">
+
+		<field-descriptor name="typeId" column="PRJE_TYPE_ID"
+			jdbc-type="INTEGER" primarykey="true" />
+		<field-descriptor name="setId" column="PRJE_SET_ID"
+			jdbc-type="INTEGER" />
+		<field-descriptor name="entryName" column="PRORATE_JE_NM"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="prorateOptions" column="PRORATE_JE_OPTION"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="active" column="ACTV_CD"
+			jdbc-type="VARCHAR"
+			conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+
+		<!-- Common Fields -->
+
+		<field-descriptor name="objectId" column="OBJ_ID"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="lastUpdate" column="LST_UPDT_TS"
+			jdbc-type="TIMESTAMP" />
+		<field-descriptor name="versionNumber" locking="true"
+			column="VER_NBR" jdbc-type="BIGINT" />
+
+		<!-- Relationships -->
+
+		<reference-descriptor name="set"
+			class-ref="edu.arizona.kfs.module.prje.businessobject.PRJESet"
+			auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="setId" />
+		</reference-descriptor>
+		<collection-descriptor name="baseAccounts"
+			element-class-ref="edu.arizona.kfs.module.prje.businessobject.PRJEBaseAccount"
+			collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList"
+			auto-retrieve="true" auto-update="object" auto-delete="true" proxy="true">
+			<inverse-foreignkey field-ref="typeId" />
+		</collection-descriptor>
+		<collection-descriptor name="baseObjects"
+			element-class-ref="edu.arizona.kfs.module.prje.businessobject.PRJEBaseObject"
+			collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList"
+			auto-retrieve="true" auto-update="object" auto-delete="true" proxy="true">
+			<inverse-foreignkey field-ref="typeId" />
+		</collection-descriptor>
+		<collection-descriptor name="accountLines"
+			element-class-ref="edu.arizona.kfs.module.prje.businessobject.PRJEAccountLine"
+			collection-class="org.apache.ojb.broker.util.collections.ManageableArrayList"
+			auto-retrieve="true" auto-update="object" auto-delete="true" proxy="true">
+			<inverse-foreignkey field-ref="typeId" />
+		</collection-descriptor>
+	</class-descriptor>
+
+	<class-descriptor class="edu.arizona.kfs.module.prje.businessobject.PRJEBaseAccount"
+		table="PRJE_BASE_ACCOUNT_T">
+
+		<field-descriptor name="baseAccountId" column="PRJE_BASE_ACCOUNT_ID"
+			jdbc-type="INTEGER" primarykey="true" sequence-name="PRJE_BASE_ACCOUNT_ID_SEQ"
+			autoincrement="true" />
+		<field-descriptor name="typeId" column="PRJE_TYPE_ID"
+			jdbc-type="INTEGER" />
+		<field-descriptor name="baseChart" column="BASE_COA_CD"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="baseAccount" column="BASE_ACCOUNT_NBR"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="baseSubAccount" column="BASE_SUB_ACCOUNT_NBR"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="fromChart" column="FRM_COA_CD"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="fromAccount" column="FRM_ACCOUNT_NBR"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="fromSubAccount" column="FRM_SUB_ACCT"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="fromObjectCode" column="FRM_OBJECT_CD"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="frequency" column="MON_OR_YRLY"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="prorateType" column="AMT_OR_PCT"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="prorateAmount" column="PRORATE_AMOUNT"
+			jdbc-type="DECIMAL"
+			conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion" />
+		<field-descriptor name="proratePercent" column="PRORATE_PCT"
+			jdbc-type="DECIMAL"
+			conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbKualiDecimalFieldConversion" />
+		<field-descriptor name="active" column="ACTV_CD"
+			jdbc-type="VARCHAR"
+			conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+
+		<!-- Common Fields -->
+
+		<field-descriptor name="objectId" column="OBJ_ID"
+			jdbc-type="VARCHAR" />
+		<field-descriptor name="lastUpdate" column="LST_UPDT_TS"
+			jdbc-type="TIMESTAMP" />
+		<field-descriptor name="versionNumber" locking="true"
+			column="VER_NBR" jdbc-type="BIGINT" />
+
+		<!-- Relationships -->
+
+		<reference-descriptor name="type"
+			class-ref="edu.arizona.kfs.module.prje.businessobject.PRJEType"
+			auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="typeId" />
+		</reference-descriptor>
+		<reference-descriptor name="baseAccountFromChart"
+			class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true"
+			auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="fromChart" />
+		</reference-descriptor>
+		<reference-descriptor name="baseAccountBaseChart"
+			class-ref="org.kuali.kfs.coa.businessobject.Chart" auto-retrieve="true"
+			auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="baseChart" />
+		</reference-descriptor>
+		<reference-descriptor name="baseAccountFromAccount"
+			class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true"
+			auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="fromChart" />
+			<foreignkey field-ref="fromAccount" />
+		</reference-descriptor>
+		<reference-descriptor name="baseAccountBaseAccount"
+			class-ref="org.kuali.kfs.coa.businessobject.Account" auto-retrieve="true"
+			auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="baseChart" />
+			<foreignkey field-ref="baseAccount" />
+		</reference-descriptor>
+		<reference-descriptor name="baseAccountFromObjectCode"
+			class-ref="org.kuali.kfs.coa.businessobject.ObjectCodeCurrent"
+			auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="fromChart" />
+			<foreignkey field-ref="fromObjectCode" />
+		</reference-descriptor>
+		<reference-descriptor name="baseAccountFromSubAccount"
+			class-ref="org.kuali.kfs.coa.businessobject.SubAccount"
+			auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="fromChart" />
+			<foreignkey field-ref="fromAccount" />
+			<foreignkey field-ref="fromSubAccount" />
+		</reference-descriptor>
+		<reference-descriptor name="baseAccountBaseSubAccount"
+			class-ref="org.kuali.kfs.coa.businessobject.SubAccount"
+			auto-retrieve="true" auto-update="none" auto-delete="none" proxy="true">
+			<foreignkey field-ref="baseChart" />
+			<foreignkey field-ref="baseAccount" />
+			<foreignkey field-ref="baseSubAccount" />
+		</reference-descriptor>
+
+	</class-descriptor>
 
 </descriptor-repository>
