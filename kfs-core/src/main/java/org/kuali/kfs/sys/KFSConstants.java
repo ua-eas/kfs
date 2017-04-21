@@ -1531,4 +1531,6 @@ public class KFSConstants {
         public static final String LIABILITIES = "LI";
     }
 
+    public static final String PCARD_DEFAULT_ID_FIELD = "id";
+
 }

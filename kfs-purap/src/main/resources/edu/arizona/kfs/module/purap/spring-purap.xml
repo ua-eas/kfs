@@ -158,5 +158,13 @@
         <property name="workflowDocumentService" ref="workflowDocumentService" />     
     	<property name="kualiRuleService" ref="kualiRuleService" />        
 	</bean>
+
+    <bean id="purapAccountingService" parent="purapAccountingService-parentBean"
+	      class="edu.arizona.kfs.module.purap.service.impl.PurapAccountingServiceImpl" />
+
   	
+    <bean id="purapService" class="edu.arizona.kfs.module.purap.document.service.impl.PurapServiceImpl" parent="purapService-parentBean">
+        <property name="parameterEvaluatorService" ref="parameterEvaluatorService"/>
+    </bean>
+
 </beans>

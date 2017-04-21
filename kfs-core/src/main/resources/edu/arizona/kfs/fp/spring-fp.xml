@@ -175,6 +175,15 @@
         </property>
     </bean>
 
+    <bean id="procurementCardDefaultLookupableHelperService" scope="prototype" parent="procurementCardDefaultLookupableHelperService-parentBean" />
+    <bean id="procurementCardDefaultLookupableHelperService-parentBean" abstract="true"  class="edu.arizona.kfs.fp.businessobject.lookup.ProcurementCardDefaultLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService" />
+
+    <bean id="procurementCardDefaultLookupable"  parent="procurementCardDefaultLookupable-parentBean" scope="prototype"/>
+    <bean id="procurementCardDefaultLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+      <property name="lookupableHelperService">
+        <ref bean="procurementCardDefaultLookupableHelperService" />
+      </property>
+    </bean>
 
     <bean id="documentCreationJob" parent="unscheduledJobDescriptor">
       <property name="steps">
@@ -304,9 +313,6 @@
       <ref bean="dateTimeService"/>
     </property>
   </bean>
-
-
-
 
   <bean id="bankParametersAccessService" class="edu.arizona.kfs.fp.batch.service.impl.BankParametersAccessServiceImpl" scope="singleton">
     <property name="parameterService">
