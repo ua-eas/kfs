@@ -27,7 +27,7 @@ public class CsvBankTransactionsValidatedFileType extends BatchInputFileTypeBase
     protected DateTimeService dateTimeService;
 
 
-    public void processFiles( List<String> filesToProcess ) {
+    public void consolidateFiles( List<String> filesToProcess ) {
         LOG.debug("Starting consolidating Bank Transaction Validated Files size="+filesToProcess.size());
 
         // create and open the output file
