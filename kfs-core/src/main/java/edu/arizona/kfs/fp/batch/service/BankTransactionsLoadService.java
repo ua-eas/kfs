@@ -31,8 +31,6 @@ public interface BankTransactionsLoadService {
     /**
      * Validate the given BankTransactionsFileInfo that it's not a duplicate upload, the batch total should match the computed total
      *
-     * TODO:  Do we need to validate any other attributes here? Like posting date in the past/future/holidays?
-     *
      * @return list of errors, if any found.
      */
     public List<String> validateBankTransactionsFileInfo( BankTransactionsFileInfo fileInfo );
@@ -44,6 +42,19 @@ public interface BankTransactionsLoadService {
      * @return True if the file consolidation was successful, false otherwise.
      */
     public boolean consolidateBankTransactionFiles();
+
+
+    /**
+     * Reads each transactions in the consolidated bank transaction file and uses the TransactionPostingService
+     * to create the appropriate document for it:
+     * Check recon file, DI, AD and CCR
+     *
+     * Files are marked as processed at the end if there were no errors.
+     * If there are any errors, they are logged, batch processing is stopped and everything is rolled back and the file is not marked as uploaded.
+     *
+     * @return True if all transactions were posted with no errors, false otherwise.
+     */
+    public boolean postTransactionsFromBankFile();
 
 
 }

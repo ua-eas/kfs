@@ -27,9 +27,6 @@ public class BankTransaction {
     private String descriptiveTxt6;
     private String descriptiveTxt7;
 
-    private Bank bankObj;
-    private CreditCardVendor creditCardVendorObj;
-
 
     @Override
     public String toString() {
@@ -192,20 +189,9 @@ public class BankTransaction {
         this.descriptiveTxt7 = descriptiveTxt;
     }
 
-    public Bank getBankObj() {
-        return bankObj;
+    public String getDescription(){
+        return descriptiveTxt6 + descriptiveTxt7;
     }
 
-    public void setBankObj(Bank bankObj) {
-        this.bankObj = bankObj;
-    }
-
-    public CreditCardVendor getCreditCardVendorObj() {
-        return creditCardVendorObj;
-    }
-
-    public void setCreditCardVendorObj(CreditCardVendor creditCardVendorObj) {
-        this.creditCardVendorObj = creditCardVendorObj;
-    }
 
 }

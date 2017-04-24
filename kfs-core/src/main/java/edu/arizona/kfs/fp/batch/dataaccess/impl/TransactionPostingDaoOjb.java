@@ -7,6 +7,7 @@ import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.fp.businessobject.CreditCardVendor;
+import edu.arizona.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,23 +25,20 @@ public class TransactionPostingDaoOjb extends PlatformAwareDaoBaseOjb implements
      * java.lang.Integer, java.math.BigDecimal, java.sql.Timestamp)
      */
     public boolean isDuplicateBatch(String tfileName, Timestamp batchDate, String bankTransactionBatchName) {
-        LOG.debug("isDuplicateBatch() starting now");
         Criteria criteria = new Criteria();
-        criteria.addEqualTo("batchFileName", tfileName);
-        criteria.addEqualTo("batchDate", batchDate);
-        criteria.addEqualTo("batchName", bankTransactionBatchName);
-        Object returnedData = getPersistenceBrokerTemplate().getObjectByQuery(new QueryByCriteria(BatchFileUploads.class, criteria));
-        return returnedData != null;
+        criteria.addEqualTo(KFSPropertyConstants.BATCH_FILE_UPLOADS_BATCH_FILE_NAME, tfileName);
+        criteria.addEqualTo(KFSPropertyConstants.BATCH_FILE_UPLOADS_BATCH_DATE, batchDate);
+        criteria.addEqualTo(KFSPropertyConstants.BATCH_FILE_UPLOADS_BATCH_NAME, bankTransactionBatchName);
+        return getPersistenceBrokerTemplate().getCount(new QueryByCriteria(BatchFileUploads.class, criteria)) > 0;
     }
 
     /**
      * @see edu.arizona.kfs.fp.batch.dataaccess.TransactionPostingDao#getCreditCardVendorObject(java.lang.String)
      */
     public CreditCardVendor getCreditCardVendorObject(String vendorNumber) {
-        CreditCardVendor cv;
         Criteria criteria = new Criteria();
-        criteria.addEqualTo("financialDocumentCreditCardVendorNumber", vendorNumber);
-        criteria.addEqualTo("active", "Y");
+        criteria.addEqualTo(KFSPropertyConstants.FINANCIAL_DOCUMENT_CREDIT_CARD_VENDOR_NUMBER, vendorNumber);
+        criteria.addEqualTo(KFSPropertyConstants.ACTIVE, "Y");
         return (CreditCardVendor) getPersistenceBrokerTemplate().getObjectByQuery(QueryFactory.newQuery(CreditCardVendor.class, criteria));
     }
 
@@ -48,9 +46,8 @@ public class TransactionPostingDaoOjb extends PlatformAwareDaoBaseOjb implements
      * @see edu.arizona.kfs.fp.batch.dataaccess.TransactionPostingDao#getBankObjectByAccountNumber(java.lang.String)
      */
     public Bank getBankObjectByAccountNumber(String accountNumber) {
-        Bank bank;
         Criteria criteria = new Criteria();
-        criteria.addEqualTo("bankAccountNumber", accountNumber);
+        criteria.addEqualTo(KFSPropertyConstants.BANK_ACCOUNT_NUMBER, accountNumber);
         return (Bank) getPersistenceBrokerTemplate().getObjectByQuery(QueryFactory.newQuery(Bank.class, criteria));
     }
 
@@ -59,18 +56,16 @@ public class TransactionPostingDaoOjb extends PlatformAwareDaoBaseOjb implements
      */
     public boolean isExisting(String accountNumber) {
         Criteria criteria = new Criteria();
-        criteria.addEqualTo("bankAccountNumber", accountNumber);
-        Bank bank = (Bank) getPersistenceBrokerTemplate().getObjectByQuery(QueryFactory.newQuery(Bank.class, criteria));
-        if (bank != null) {
-            return true;
-        } else {
-            return false;
-        }
+        criteria.addEqualTo(KFSPropertyConstants.BANK_ACCOUNT_NUMBER, accountNumber);
+        return getPersistenceBrokerTemplate().getCount(QueryFactory.newQuery(Bank.class, criteria)) > 0;
     }
 
+    /**
+     * @see edu.arizona.kfs.fp.batch.dataaccess.TransactionPostingDao#getObjectTpeCodeByObjectCode(java.lang.String)
+     */
     public ObjectCode getObjectTpeCodeByObjectCode(String financialObjectTypeCode) {
         Criteria criteria = new Criteria();
-        criteria.addEqualTo("financialObjectCode", financialObjectTypeCode);
+        criteria.addEqualTo(KFSPropertyConstants.FINANCIAL_OBJECT_CODE, financialObjectTypeCode);
         ObjectCode objectCode = (ObjectCode) getPersistenceBrokerTemplate().getObjectByQuery(QueryFactory.newQuery(ObjectCode.class, criteria));
         return objectCode;
 
@@ -81,9 +76,8 @@ public class TransactionPostingDaoOjb extends PlatformAwareDaoBaseOjb implements
      */
     public Bank getBankObjectByBankCode(String bankCode) {
         Criteria criteria = new Criteria();
-        criteria.addEqualTo("bankCode", bankCode);
-        Bank bank = (Bank) getPersistenceBrokerTemplate().getObjectByQuery(QueryFactory.newQuery(Bank.class, criteria));
-        return bank;
+        criteria.addEqualTo(KFSPropertyConstants.BANK_CODE, bankCode);
+        return (Bank) getPersistenceBrokerTemplate().getObjectByQuery(QueryFactory.newQuery(Bank.class, criteria));
     }
 
 

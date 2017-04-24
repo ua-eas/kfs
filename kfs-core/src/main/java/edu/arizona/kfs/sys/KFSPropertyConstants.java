@@ -21,6 +21,8 @@ public class KFSPropertyConstants extends org.kuali.kfs.sys.KFSPropertyConstants
     public static final String DOC_ROUTE_STATUS = "docRouteStatus"; // This should really be a Rice property constant.
     public static final String FINALIZED_DATE = "finalizedDate"; // This should really be a Rice property constant.
     public static final String BATCH_FILE_UPLOADS_BATCH_FILE_NAME = "batchFileName";
+    public static final String BATCH_FILE_UPLOADS_BATCH_DATE = "batchDate";
+    public static final String BATCH_FILE_UPLOADS_BATCH_NAME = "batchName";
     public static final String BATCH_FILE_UPLOADS_FILE_PROCESS_TIMESTAMP = "fileProcessTimestamp";
     public static final String INVENTORY_UNIT_CODE = "inventoryUnitCode";
 
@@ -31,4 +33,5 @@ public class KFSPropertyConstants extends org.kuali.kfs.sys.KFSPropertyConstants
     public static final String PAID_DATE = "paidDate";
 
     public static final String IMMEDIATE_PAYMENT_INDICATOR = "immediatePaymentIndicator";
+    public static final String BENEFIT_EXPENSE_DOC_TYPE = "BT";
 }

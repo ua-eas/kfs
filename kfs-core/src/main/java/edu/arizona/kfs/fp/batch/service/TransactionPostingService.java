@@ -1,19 +1,39 @@
 package edu.arizona.kfs.fp.batch.service;
 
+import edu.arizona.kfs.fp.businessobject.BankTransaction;
+
+import java.sql.Timestamp;
+import java.util.List;
+
 /**
- * This service is used to load and process the consolidated Bank Transaction batch file (so-called tfile) for the Document Creation batch job.
+ * This service is used to post each individual transaction from the Bank Transaction Validated input file for the Document Creation batch job.
  *
  */
 public interface TransactionPostingService {
 
     /**
-     * Reads each transactions in the consolidated bank transaction file and create the appropriate document for it:
+     * Initializes all resources - files etc, before starting to post transactions in the documentCreateJob
+     *
+     * @return empty errorList if transaction was posted with no errors
+     */
+    public void initialize();
+
+    /**
+     * Posts the given bank transaction and create the appropriate document for it:
      * Check recon file, DI, AD and CCR
      *
-     * Files are marked as processed at the end if there were no errors.
-     * If there are any errors, batch processing is stopped and everything is rolled back.
+     * If there are any errors, they are returned in the errorList
      *
-     * @return True if all transactions were posted with no errors, false otherwise.
+     * @return empty errorList if transaction was posted with no errors
      */
-    public boolean postTransactionsFromBankFile();
+    public List<String> postTransaction(BankTransaction bankTransaction);
+
+
+    /**
+     * Checks in the database in the BatchFileUploads if there were any other files recorded for the date timestampBatchDate
+     * with the given name and batchJobName
+     *
+     * Returns TRUE if any files were already processed for the posting date of this file
+     */
+    public boolean isDuplicateBatch(String bankTransactionsFileName, Timestamp timestampBatchDate, String bankTransactionBatchName);
 }

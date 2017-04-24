@@ -1,19 +1,21 @@
 package edu.arizona.kfs.fp.batch.service.impl;
 
-import edu.arizona.kfs.fp.batch.dataaccess.TransactionPostingDao;
 import edu.arizona.kfs.fp.batch.dataaccess.impl.CsvBankTransactionsInputFileType;
 import edu.arizona.kfs.fp.batch.dataaccess.impl.CsvBankTransactionsValidatedFileType;
 import edu.arizona.kfs.fp.batch.service.BankParametersAccessService;
 import edu.arizona.kfs.fp.batch.service.BankTransactionsLoadService;
+import edu.arizona.kfs.fp.batch.service.TransactionPostingService;
 import edu.arizona.kfs.fp.businessobject.BankTransaction;
 import edu.arizona.kfs.fp.businessobject.BankTransactionsFileInfo;
 import edu.arizona.kfs.sys.KFSConstants;
 import edu.arizona.kfs.sys.businessobject.BatchFileUploads;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.sys.batch.service.BatchInputFileService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.util.GlobalVariables;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -32,7 +34,7 @@ public class BankTransactionsLoadServiceImpl implements BankTransactionsLoadServ
     BatchInputFileService batchInputFileService;
     BankParametersAccessService bankParametersAccessService;
     BusinessObjectService businessObjectService;
-    TransactionPostingDao transactionPostingDao;
+    TransactionPostingService transactionPostingService;
 
     /**
      * Validates and parses all tfiles received from the banks in the batch staging area.
@@ -61,15 +63,13 @@ public class BankTransactionsLoadServiceImpl implements BankTransactionsLoadServ
             try {
                 CsvBankTransactionsInputFileType inputFile = getBatchInputFileType();
                 inputFile.setFileToProcess(filePath);
-                inputFile.deleteDoneFile();
+                inputFile.deleteDoneFile(filePath);
                 boolean isFileValid = inputFile.validate( );
                 if (!isFileValid) {
                     LOG.error("Errors occurred for " + filePath + "File will not be processed. Please see error report:" + inputFile.getErrorFilePath());
                     result = false;
                 } else {
                     inputFile.createValidatedFiles();
-                    //record processed file to avoid duplicate file uploads
-                    recordFileUpload(inputFile.getBankFileInfo());
                 }
 
             } catch (RuntimeException e) {
@@ -120,6 +120,52 @@ public class BankTransactionsLoadServiceImpl implements BankTransactionsLoadServ
 
 
     /**
+     * @see edu.arizona.kfs.fp.batch.service.BankTransactionsLoadService.postTransactionsFromBankFile()
+     * @return
+     */
+    @Transactional
+    public boolean postTransactionsFromBankFile(){
+        LOG.info("Running postTransactionsFromBankFile in BankTransactionsLoadService");
+        CsvBankTransactionsValidatedFileType loadFile = getBankTransactionsValidatedFileType();
+        List<String> errorList = new ArrayList<>();
+        try {
+            //reset file names etc for the posting service to avoid collisions
+            getTransactionPostingService().initialize();
+
+            // open the validated bankTransactionsFile for processing
+            loadFile.openTransactionsFileForProcessing();
+            BankTransaction bankTransaction = null;
+            BankTransactionsFileInfo bankFileInfo = loadFile.getBankFileInfo();
+            while ((bankTransaction = loadFile.readNextBankTransaction(errorList)) != null && errorList.isEmpty()) {
+                //post the bank transaction...using TransactionPosting service.
+                errorList = getTransactionPostingService().postTransaction(bankTransaction);
+            }
+
+            if (!errorList.isEmpty()){
+                //if there are any errors, stop processing immediately and log errors
+                LOG.error("Error while posting bank transaction at line: "+loadFile.getCurrentLine()+" DocumentCreationJob will not continue.");
+                throw new RuntimeException("Error while posting bank transaction at line: "+loadFile.getCurrentLine()+" DocumentCreationJob will not continue.");
+            }
+
+            //record processed file to avoid duplicate file uploads
+            recordFileUpload(loadFile.getBankFileInfo());
+            // rename the transaction load file in load directory
+            loadFile.renameProcessedFile();
+
+        }catch (Exception e){
+            LOG.error("ERROR in method postTransactionsFromBankFile. DocumentCreationJob will not continue!",e);
+            throw e;
+        } finally {
+            loadFile.logErrorsToFile(errorList);
+            loadFile.closeOpenedResources();
+        }
+
+        LOG.info("Completed postTransactionsFromBankFile in BankTransactionsLoadService");
+        return true;
+    }
+
+
+    /**
      * Validate the given BankTransaction against all rules
      *
      * @return list of errors, if any found.
@@ -135,7 +181,6 @@ public class BankTransactionsLoadServiceImpl implements BankTransactionsLoadServ
     /**
      * Validate the given BankTransactionsFileInfo that it's not a duplicate upload, the batch total should match the computed total
      * <p>
-     * TODO:  Do we need to validate any other attributes here? Like posting date in the past/future/holidays?
      *
      * @return list of errors, if any found.
      */
@@ -175,7 +220,7 @@ public class BankTransactionsLoadServiceImpl implements BankTransactionsLoadServ
      */
     public boolean isDuplicateFileUpload(BankTransactionsFileInfo fileInfo) {
         Timestamp timestampBatchDate = new Timestamp(fileInfo.getPostingDate().getTime());
-        return (getTransactionPostingDao().isDuplicateBatch(KFSConstants.BankTransactionsFileConstants.TFILE_NAME, timestampBatchDate, KFSConstants.BankTransactionsFileConstants.BANK_TRANSACTIONS_LOAD_BATCH_JOB_NAME));
+        return (getTransactionPostingService().isDuplicateBatch(KFSConstants.BankTransactionConstants.TFILE_NAME, timestampBatchDate, KFSConstants.BankTransactionConstants.BANK_TRANSACTIONS_LOAD_BATCH_JOB_NAME));
     }
 
 
@@ -186,23 +231,15 @@ public class BankTransactionsLoadServiceImpl implements BankTransactionsLoadServ
         Date today = new Date();
         BatchFileUploads batchFileUploads = new BatchFileUploads();
         batchFileUploads.setFileProcessTimestamp(new Timestamp(today.getTime()));
-        batchFileUploads.setBatchFileName(KFSConstants.BankTransactionsFileConstants.TFILE_NAME);
+        batchFileUploads.setBatchFileName(KFSConstants.BankTransactionConstants.TFILE_NAME);
         batchFileUploads.setBatchDate(new Timestamp(fileInfo.getPostingDate().getTime()));
         batchFileUploads.setTransactionCount(new KualiInteger(fileInfo.getTransactionCount()));
         batchFileUploads.setBatchTotalAmount(fileInfo.getBatchTotal());
         batchFileUploads.setSubmiterUserId(GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        batchFileUploads.setBatchName(KFSConstants.BankTransactionsFileConstants.BANK_TRANSACTIONS_LOAD_BATCH_JOB_NAME);
+        batchFileUploads.setBatchName(KFSConstants.BankTransactionConstants.BANK_TRANSACTIONS_LOAD_BATCH_JOB_NAME);
         getBusinessObjectService().save(batchFileUploads);
     }
 
-    /**
-     * Sets the transactionPostingDao attribute value.
-     *
-     * @param transactionPostingDao The transactionPostingDao to set.
-     */
-    public void setTransactionPostingDao(TransactionPostingDao transactionPostingDao) {
-        this.transactionPostingDao = transactionPostingDao;
-    }
 
 
     public BatchInputFileService getBatchInputFileService() {
@@ -245,11 +282,12 @@ public class BankTransactionsLoadServiceImpl implements BankTransactionsLoadServ
         this.businessObjectService = businessObjectService;
     }
 
-    public TransactionPostingDao getTransactionPostingDao() {
-        return transactionPostingDao;
+
+    public TransactionPostingService getTransactionPostingService() {
+        return transactionPostingService;
     }
 
-    public void getTransactionPostingDao(TransactionPostingDao transactionPostingDao) {
-        this.transactionPostingDao = transactionPostingDao;
+    public void setTransactionPostingService(TransactionPostingService transactionPostingService) {
+        this.transactionPostingService = transactionPostingService;
     }
 }

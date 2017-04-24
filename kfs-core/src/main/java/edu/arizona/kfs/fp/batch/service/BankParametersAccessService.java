@@ -2,6 +2,7 @@ package edu.arizona.kfs.fp.batch.service;
 
 
 import edu.arizona.kfs.fp.businessobject.ChartBankObjectCode;
+import edu.arizona.kfs.sys.KFSConstants;
 
 
 import java.util.List;
@@ -69,11 +70,20 @@ public interface BankParametersAccessService {
     public List<Integer> getCheckReconBaiTypes();
 
     /**
+     * This method returns the default bank corresponding to the given BankTransactionDocumentType enum
+     *
+     * @param BankTransactionDocumentType docType enum
+     * @return String bank
+     */
+    public String getDefaultBankByDocType(KFSConstants.BankTransactionDocumentType docType );
+
+    /**
      * This method returns the default bank corresponding to the given doc type
      *
      * @param String docType
      * @return String bank
      */
+    @Deprecated
     public String getDefaultBankByDocType(String docType);
 
     /**
@@ -112,7 +122,7 @@ public interface BankParametersAccessService {
      *
      * @return ChartBankObjectCode
      */
-    public ChartBankObjectCode getChartBankObjectCodeForSpecialBai(int bai, String bankAccount);
+    public ChartBankObjectCode getChartBankObjectCodeForSpecialBai(Long bai, Long bankAccountNumber);
 
 
     /**
@@ -215,6 +225,11 @@ public interface BankParametersAccessService {
      * Returns the object code for the Default Advance Deposit
      */
     public String getObjectCodeForDefaultAD();
+
+    /**
+     * Returns the parameter value from CR_STATUS_CLRD_CODES - Check Reconciliation Cleared Status Code
+     */
+    public String getCheckReconClearedStatusCode();
 
     /**
      * ******************************************************

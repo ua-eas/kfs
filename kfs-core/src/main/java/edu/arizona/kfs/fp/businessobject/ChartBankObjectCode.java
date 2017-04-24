@@ -10,6 +10,13 @@ public class ChartBankObjectCode {
     private String accountNumber;
     private String objectCode;
 
+    @Override
+    public String toString() {
+        return  "ChartCode:" + chartCode + " - " +
+                "AccountNumber: " + accountNumber + " - " +
+                "ObjectCode:" + objectCode;
+    }
+
     public String getChartCode() {
         return chartCode;
     }
