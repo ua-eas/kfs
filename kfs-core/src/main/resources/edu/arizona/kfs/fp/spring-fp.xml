@@ -24,6 +24,7 @@
         <property name="jobNames">
             <list merge="true">
                 <value>procurementCardHolderJob</value>
+                <value>documentCreationJob</value>
             </list>
         </property>
     </bean>
@@ -69,24 +70,24 @@
             </list>
         </property>
     </bean>
-    
-    <bean id="procurementCardInputFileType" class="org.kuali.kfs.fp.batch.ProcurementCardInputFileType"> 
-	    <property name="directoryPath">
-	       <value>${staging.directory}/fp/procurementCard</value>
-	    </property>
-	    <property name="fileExtension">
-	       <value>xml</value>
-	    </property>
-	    <property name="digestorRulesFileName">
-	       <value>edu/arizona/kfs/fp/batch/pcdoLevel3DigesterRules.xml</value>
-	    </property>
-	    <property name="schemaLocation">
-	       <value>${externalizable.static.content.url}/xsd/fp/procurementCardLevel3.xsd</value>
-	    </property>
-	    <property name="dateTimeService">
-	       <ref bean="dateTimeService"/>
-	    </property>
-	</bean>
+
+  <bean id="procurementCardInputFileType" class="org.kuali.kfs.fp.batch.ProcurementCardInputFileType">
+    <property name="directoryPath">
+      <value>${staging.directory}/fp/procurementCard</value>
+    </property>
+    <property name="fileExtension">
+      <value>xml</value>
+    </property>
+    <property name="digestorRulesFileName">
+      <value>edu/arizona/kfs/fp/batch/pcdoLevel3DigesterRules.xml</value>
+    </property>
+    <property name="schemaLocation">
+      <value>${externalizable.static.content.url}/xsd/fp/procurementCardLevel3.xsd</value>
+    </property>
+    <property name="dateTimeService">
+      <ref bean="dateTimeService"/>
+    </property>
+  </bean>
 	
 	<bean id="procurementCardLoadTransactionsService" class="edu.arizona.kfs.fp.batch.service.impl.ProcurementCardLoadTransactionsServiceImpl">
 		<property name="businessObjectService">
@@ -183,5 +184,117 @@
         <ref bean="procurementCardDefaultLookupableHelperService" />
       </property>
     </bean>
+
+    <bean id="documentCreationJob" parent="unscheduledJobDescriptor">
+      <property name="steps">
+        <list>
+          <ref bean="transactionFilesValidationStep"/>
+          <ref bean="transactionFilesConsolidateStep"/>
+          <ref bean="documentCreationStep"/>
+        </list>
+      </property>
+    </bean>
+
+
+    <bean id="transactionFilesValidationStep" class="edu.arizona.kfs.fp.batch.TransactionFilesValidationStep" parent="step">
+      <property name="bankTransactionsLoadService">
+        <ref bean="bankTransactionsLoadService"/>
+      </property>
+      <property name="batchInputFileType" ref="csvBankTransactionsInputFileType"/>
+    </bean>
+
+    <bean id="transactionFilesConsolidateStep" class="edu.arizona.kfs.fp.batch.TransactionFilesConsolidateStep" parent="step">
+      <property name="bankTransactionsLoadService">
+        <ref bean="bankTransactionsLoadService"/>
+      </property>
+      <property name="batchInputFileType" ref="csvBankTransactionsInputFileType"/>
+    </bean>
+
+    <bean id="documentCreationStep" class="edu.arizona.kfs.fp.batch.DocumentCreationStep" parent="step">
+      <property name="transactionPostingService">
+        <ref bean="transactionPostingService"/>
+      </property>
+      <property name="batchInputFileType" ref="csvBankTransactionsInputFileType"/>
+    </bean>
+
+
+  <bean id="bankTransactionsLoadService" class="edu.arizona.kfs.fp.batch.service.impl.BankTransactionsLoadServiceImpl" scope="prototype">
+    <property name="bankParametersAccessService">
+      <ref bean="bankParametersAccessService"/>
+    </property>
+    <property name="batchInputFileService">
+      <ref bean="batchInputFileService"/>
+    </property>
+    <property name="businessObjectService">
+      <ref bean="businessObjectService"/>
+    </property>
+    <property name="batchInputFileType">
+        <ref bean="csvBankTransactionsInputFileType" />
+    </property>
+    <property name="bankTransactionsValidatedFileType">
+      <ref bean="csvBankTransactionsValidatedFileType" />
+    </property>
+    <property name="transactionPostingDao">
+      <ref bean="transactionPostingDao" />
+    </property>
+  </bean>
+
+
+  <bean id="transactionPostingService" class="edu.arizona.kfs.fp.batch.service.impl.TransactionPostingServiceImpl">
+  </bean>
+
+  <bean id="csvBankTransactionsInputFileType" class="edu.arizona.kfs.fp.batch.dataaccess.impl.CsvBankTransactionsInputFileType">
+
+    <property name="directoryPath">
+      <value>${staging.directory}/fp/bankTransactions</value>
+    </property>
+    <property name="fileExtension">
+      <value>data</value>
+    </property>
+    <property name="validatedPath">
+      <value>${staging.directory}/fp/bankTransactions/validated</value>
+    </property>
+    <property name="reportPrefix">
+      <value>Tfile_error</value>
+    </property>
+    <property name="reportExtension">
+      <value>report</value>
+    </property>
+    <property name="reportPath">
+      <value>${reports.directory}/fp</value>
+    </property>
+    <property name="bankParametersAccessService">
+      <ref bean="bankParametersAccessService"/>
+    </property>
+    <property name="dateTimeService">
+      <ref bean="dateTimeService"/>
+    </property>
+  </bean>
+
+  <bean id="csvBankTransactionsValidatedFileType" class="edu.arizona.kfs.fp.batch.dataaccess.impl.CsvBankTransactionsValidatedFileType">
+    <property name="directoryPath">
+      <value>${staging.directory}/fp/bankTransactions/validated</value>
+    </property>
+    <property name="fileExtension">
+      <value>data</value>
+    </property>
+    <property name="outputPath">
+      <value>${staging.directory}/fp/bankTransactions/load</value>
+    </property>
+    <property name="loadFileName">
+      <value>tfile_load</value>
+    </property>
+    <property name="dateTimeService">
+      <ref bean="dateTimeService"/>
+    </property>
+  </bean>
+
+  <bean id="bankParametersAccessService" class="edu.arizona.kfs.fp.batch.service.impl.BankParametersAccessServiceImpl" scope="singleton">
+    <property name="parameterService">
+      <ref bean="parameterService" />
+    </property>
+  </bean>
+
+  <bean id="transactionPostingDao" parent="platformAwareDao" class="edu.arizona.kfs.fp.batch.dataaccess.impl.TransactionPostingDaoOjb" />
 
 </beans>
