@@ -4,14 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import edu.arizona.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import edu.arizona.kfs.module.purap.document.PaymentRequestDocument;
-import edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+import org.kuali.rice.coreservice.framework.parameter.ParameterConstants.NAMESPACE;
+import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.util.ObjectUtils;
 
+import edu.arizona.kfs.module.cab.CabConstants;
+import edu.arizona.kfs.module.purap.document.PaymentRequestDocument;
+import edu.arizona.kfs.module.purap.document.VendorCreditMemoDocument;
+
+@NAMESPACE(namespace = KfsParameterConstants.PURCHASING_NAMESPACE)
 public class PurchasingAccountsPayableDocument extends org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument {
 	
     @Override
