@@ -8,6 +8,7 @@ import edu.arizona.kfs.fp.businessobject.BankTransaction;
 import edu.arizona.kfs.fp.businessobject.BankTransactionsFileInfo;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import edu.arizona.kfs.sys.KFSConstants;
@@ -190,13 +191,7 @@ public class CsvBankTransactionsInputFileType extends BatchInputFileTypeBase {
             LOG.error("Error validating Bank Transaction file " + getAbsoulutePath());
             throw new RuntimeException("Error validating Bank Transaction file " + getAbsoulutePath(), e);
         } finally { // always try to close the files
-            try {
-                br.close();
-
-                // bufferedErrorWriter.close();
-            } catch (Exception e) {
-                // ignore any exception at closing time
-            }
+            IOUtils.closeQuietly(br);
         }
 
         return result;

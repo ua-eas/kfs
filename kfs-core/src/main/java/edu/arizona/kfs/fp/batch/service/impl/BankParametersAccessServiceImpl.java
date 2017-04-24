@@ -407,7 +407,7 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
      */
     public Set<Integer> getAllowedBaiTypes() {
         if (allowedBaiTypes == null) {
-            allowedBaiTypes = new HashSet();
+            allowedBaiTypes = new HashSet<Integer>();
             allowedBaiTypes.addAll(getCheckReconBaiTypes());
             allowedBaiTypes.addAll(getExcludedBaiTypes());
             allowedBaiTypes.addAll(getBaiMapOfDocTypes().keySet());
@@ -481,17 +481,21 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
     protected Map<String, ChartBankObjectCode> getDescriptionSearchChartBankObjectCodeMap() {
         if (descriptionSearchChartBankObjectCodeMap == null) {
             descriptionSearchChartBankObjectCodeMap = new HashMap<String, ChartBankObjectCode>();
-            String acountObjByDescrParm = parameterService.getParameterValueAsString(DocumentCreationStep.class, KFSConstants.BankTransactionsParameters.ACCOUNT_AND_OBJECT_CODE_BY_DESCRIPTION);
-            String[] acountObjByDescrList = acountObjByDescrParm.split(KFSConstants.BankTransactionsParameters.BANK_PARAMETER_DELIM);
-            if (acountObjByDescrList == null || acountObjByDescrList.length == 0) {
+            String accountObjByDescrParm = parameterService.getParameterValueAsString(DocumentCreationStep.class, KFSConstants.BankTransactionsParameters.ACCOUNT_AND_OBJECT_CODE_BY_DESCRIPTION);
+            if ( StringUtils.isEmpty( accountObjByDescrParm )) {
                 LOG.error("Parameter [ACCOUNT_AND_OBJECT_CODE_BY_DESCRIPTION] has an empty value.  The process cannot be continued without this value.");
                 throw new RuntimeException("Parameter [ACCOUNT_AND_OBJECT_CODE_BY_DESCRIPTION] has an empty value.  The process cannot be continued without this value.");
             }
+            String[] accountObjByDescrList = accountObjByDescrParm.split(KFSConstants.BankTransactionsParameters.BANK_PARAMETER_DELIM);
+            if ( accountObjByDescrList.length == 0) {
+                LOG.error("Parameter [ACCOUNT_AND_OBJECT_CODE_BY_DESCRIPTION] could not be parsed.  The process cannot be continued without this value.");
+                throw new RuntimeException("Parameter [ACCOUNT_AND_OBJECT_CODE_BY_DESCRIPTION] could not be parsed.  The process cannot be continued without this value.");
+            }
 
             int index = 0;
-            for (String chartBankObjectCodeMapStr : acountObjByDescrList) {
+            for (String chartBankObjectCodeMapStr : accountObjByDescrList) {
                 String[] tokens = chartBankObjectCodeMapStr.split("=");
-                if (tokens == null || tokens.length != 2) {
+                if ( tokens.length != 2) {
                     LOG.error("Parameter [ACCOUNT_AND_OBJECT_CODE_BY_DESCRIPTION] value [" + index + "] has a misconfigured value.  Expecting a string delimeted by equals-sign, got none.");
                     throw new RuntimeException("Parameter [ACCOUNT_AND_OBJECT_CODE_BY_DESCRIPTION] value [" + index + "] has a misconfigured value.  Expecting a string delimeted by equals-sign, got none.");
                 }
@@ -499,7 +503,7 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
                 String value = tokens[1];
                 ChartBankObjectCode cbo = new ChartBankObjectCode();
                 String[] valueTokens = value.split(KFSConstants.BankTransactionsParameters.BANK_PARAMETER_DELIM);
-                if (valueTokens == null || valueTokens.length != 3) {
+                if ( valueTokens.length != 3) {
                     LOG.error("Parameter [ACCOUNT_AND_OBJECT_CODE_BY_DESCRIPTION] value [" + index + "] has a misconfigured value.  Expecting a 3-part string delimited by a colon [:], got none.");
                     throw new RuntimeException("Parameter [ACCOUNT_AND_OBJECT_CODE_BY_DESCRIPTION] value [" + index + "] has a misconfigured value.  Expecting a 3-part string delimited by a colon [:], got none.");
                 }
@@ -523,7 +527,7 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
         return objectCodeForDefaultAD;
     }
 
-    /******************* Bank of America specific parameters ************************/
+    /*--------------------------------- Bank of America specific parameters -----------------------------*/
 
     /**
      * @see edu.arizona.kfs.fp.batch.service.BankParametersAccessService#getBofaDelimiter()
@@ -634,7 +638,7 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
     }
 
 
-    /******************* VA specific parameters ************************/
+    /*------------------------------- VA specific parameters -----------------------------*/
 
     /**
      * @see edu.arizona.kfs.fp.batch.service.BankParametersAccessService#getVaDelimiter()
@@ -750,9 +754,8 @@ public class BankParametersAccessServiceImpl implements BankParametersAccessServ
         String parameter = parameterService.getParameterValueAsString(DocumentCreationStep.class, parameterKey);
         String[] listAsArray = parameter.split(delimiter);
         Set<String> resultSet = new HashSet<String>();
-        for (String result : listAsArray) {
-            resultSet.add(result);
-        }
+        Collections.addAll(resultSet, listAsArray);
+
         return resultSet;
     }
 

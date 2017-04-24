@@ -10,13 +10,11 @@ import edu.arizona.kfs.fp.businessobject.BankTransactionsFileInfo;
 import edu.arizona.kfs.sys.KFSConstants;
 import edu.arizona.kfs.sys.businessobject.BatchFileUploads;
 import org.apache.log4j.Logger;
-import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.sys.batch.service.BatchInputFileService;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.util.GlobalVariables;
 
-import java.io.*;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -97,7 +95,6 @@ public class BankTransactionsLoadServiceImpl implements BankTransactionsLoadServ
      */
     public boolean consolidateBankTransactionFiles() {
         LOG.info("Beginning consolidation of all available bank input transaction files for Document Creation Job.");
-        boolean result = true;
 
         // create a list of the files to process
         List<String> filesToProcess = getBatchInputFileService().listInputFileNamesWithDoneFile(getBankTransactionsValidatedFileType());
@@ -117,8 +114,8 @@ public class BankTransactionsLoadServiceImpl implements BankTransactionsLoadServ
             return false;
         }
 
-        LOG.info("End consolidateBankTransactionFiles() with result=" + result);
-        return result;
+        LOG.info("Finished consolidateBankTransactionFiles()");
+        return true;
     }
 
 

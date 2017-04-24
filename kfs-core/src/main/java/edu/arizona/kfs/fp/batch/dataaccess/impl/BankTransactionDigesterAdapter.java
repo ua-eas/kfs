@@ -19,7 +19,6 @@ import java.util.List;
  * Created by nataliac on 4/6/17.
  */
 public class BankTransactionDigesterAdapter {
-    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BankTransactionDigesterAdapter.class);
 
     private DateTimeService dateTimeService;
     private BankParametersAccessService bankParametersAccessService;

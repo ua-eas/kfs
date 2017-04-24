@@ -4,7 +4,7 @@ package edu.arizona.kfs.fp.businessobject;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.sql.Date;
-import java.sql.Timestamp;
+
 
 /**
  * Non persistable POJO that encapsulates the meta data about a Bank Transactions file,
