@@ -215,4 +215,11 @@
 
     <bean id="disbursementVoucherExtractionHelperService" parent="disbursementVoucherExtractionHelperService-parentBean" class="edu.arizona.kfs.fp.document.service.impl.DisbursementVoucherExtractionHelperServiceImpl" />
 
+    <bean id="entryGecDocNumUpdaterDao"  class="edu.arizona.kfs.fp.dataaccess.impl.EntryGecDocNumUpdaterDaoOjb" parent="platformAwareDao" />
+
+    <bean id="entryGecDocNumUpdaterService" parent="entryGecDocNumUpdaterService-parentBean"/>
+    <bean id="entryGecDocNumUpdaterService-parentBean" class="edu.arizona.kfs.fp.document.service.impl.EntryGecDocNumUpdaterServiceImpl" abstract="true">
+        <property name="entryGecDocNumUpdaterDao" ref="entryGecDocNumUpdaterDao" />
+    </bean>
+
 </beans>
