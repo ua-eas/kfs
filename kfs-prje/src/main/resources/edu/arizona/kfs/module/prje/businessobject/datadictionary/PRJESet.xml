@@ -17,7 +17,7 @@
               
     <property name="inquiryDefinition" ref="PRJESet-inquiryDefinition" />              
     <property name="lookupDefinition" ref="PRJESet-lookupDefinition" />
-    <property name="titleAttribute" value="PRJESet" />
+    <property name="titleAttribute" value="setId" />
     <property name="objectLabel" value="Prorate Journal Entry Set" />
     <property name="attributes" >
       <list>
