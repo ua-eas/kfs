@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.cab.document.exception;
+package org.kuali.kfs.module.cam.document.exception;
 
 import org.kuali.rice.core.api.exception.KualiException;
 
